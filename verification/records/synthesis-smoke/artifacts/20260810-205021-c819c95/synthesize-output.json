@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "engine": "yosys",
+  "engine_version": "0.67",
+  "hdl_toplevel": "harness_counter",
+  "status": "ok",
+  "instance_count": 34,
+  "area_um2": 1162.8288,
+  "sequential_area_um2": 632.2176,
+  "instance_counts_by_type": {
+    "gf180mcu_fd_sc_mcu9t5v0__and3_1": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__and4_1": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__aoi21_1": 6,
+    "gf180mcu_fd_sc_mcu9t5v0__clkinv_1": 4,
+    "gf180mcu_fd_sc_mcu9t5v0__dffq_1": 8,
+    "gf180mcu_fd_sc_mcu9t5v0__nand2_1": 3,
+    "gf180mcu_fd_sc_mcu9t5v0__nand3_1": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__nand4_1": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__nor2_1": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__nor3_1": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__oai21_1": 3,
+    "gf180mcu_fd_sc_mcu9t5v0__oai31_1": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__or2_1": 1
+  },
+  "timing": null,
+  "netlist_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-7/flow/.klt/synthesize/harness_counter_synth.v",
+  "script_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-7/flow/.klt/synthesize/synth_harness_counter.ys",
+  "provenance": {
+    "klt_version": "0.2.0",
+    "klayout_version": "0.30.10",
+    "pdk": {
+      "name": "gf180mcuD",
+      "source": "search root: ~/.volare",
+      "version": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b"
+    },
+    "deck": {
+      "name": "gf180mcu_fd_sc_mcu9t5v0__tt_025C_1v80",
+      "content_hash": "sha256:2482036479c89fbee3754524e3fcdb530aa40aff0fef9e9385e3bc7b7a67d4ef"
+    },
+    "input": {
+      "content_hash": "sha256:fb4559ab74baf24b26fb27463ac30f57efe00a89e9108e4e86e108a9398c0025"
+    }
+  }
+}
