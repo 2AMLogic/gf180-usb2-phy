@@ -14,7 +14,7 @@ Run via ``sim/check_records.py``, which ``package.json``'s ``lint`` script
 invokes as its third step (after the ``verification/`` evidence checks), so
 ``npm run lint`` -- and therefore ``check:ci`` / ``check:all``, which both
 chain it -- exercises this checker too. See
-``sim/harness/test_evidence_lint.py`` for this module's own self-test
+``sim/tests/test_evidence_lint.py`` for this module's own self-test
 (the fourth ``lint`` step), which mirrors
 ``verification/test_check_records.py``.
 

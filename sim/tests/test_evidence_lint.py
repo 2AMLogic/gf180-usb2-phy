@@ -18,6 +18,13 @@ that gets its own fixture with a real temp repo. A final smoke test drives
 the packaged CLI end-to-end (``sim/check_records.py`` as a subprocess)
 against a throwaway repo, mirroring ``verification/test_check_records.py``'s
 "exercise the shipped entry point" methodology.
+
+``EndToEndCliTests`` copies ``verification/check_records.py`` into its
+throwaway fixture repo alongside ``sim/``: per issue #16,
+``sim/harness/evidence_lint.py`` imports its record-id grammar, field-block
+parser, and git merge-base plumbing from ``verification/check_records.py``
+rather than carrying its own copies, so a standalone fixture repo needs both
+directories to run the packaged CLI at all.
 """
 
 from __future__ import annotations
@@ -29,11 +36,13 @@ import unittest
 from pathlib import Path
 
 SIM_DIR = Path(__file__).resolve().parents[1]
+REPO_ROOT = SIM_DIR.parent
 sys.path.insert(0, str(SIM_DIR))
 
 from harness import evidence_lint as lint  # noqa: E402
 
 CHECK_RECORDS_PY = SIM_DIR / "check_records.py"
+VERIFICATION_CHECK_RECORDS_PY = REPO_ROOT / "verification" / "check_records.py"
 HARNESS_DIR = SIM_DIR / "harness"
 
 
@@ -400,10 +409,14 @@ class EndToEndCliTests(unittest.TestCase):
 
     def _fixture_repo(self, root: Path, *, git_init: bool = True) -> None:
         (root / "sim").mkdir()
+        (root / "verification").mkdir()
         import shutil
 
         shutil.copyfile(CHECK_RECORDS_PY, root / "sim" / "check_records.py")
         shutil.copytree(HARNESS_DIR, root / "sim" / "harness")
+        shutil.copyfile(
+            VERIFICATION_CHECK_RECORDS_PY, root / "verification" / "check_records.py"
+        )
         full_fixture(root, "demo", "20260101-000000-abc1234")
         if git_init:
             _git(root, "init", "--quiet")

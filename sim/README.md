@@ -157,8 +157,8 @@ merge-base/diff plumbing `evidence_lint.py` uses are shared with
 only the checks specific to this convention (the corner-id grammar, the
 netlist-snapshot/corner-log existence checks, and the
 log-count-vs-predecessor check above) live in `sim/harness/evidence_lint.py`
-itself. Its own self-test is `sim/harness/test_evidence_lint.py`, run
-directly with `python3 sim/harness/test_evidence_lint.py`.
+itself. Its own self-test is `sim/tests/test_evidence_lint.py`, run
+directly with `python3 sim/tests/test_evidence_lint.py`.
 
 Run it directly:
 

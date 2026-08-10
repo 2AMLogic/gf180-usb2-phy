@@ -55,7 +55,7 @@ scope-discipline rule.
   issue #16) — that module imports these names directly rather than keeping
   its own copy. This file stays strictly stdlib-only (no local imports) so
   it keeps working when copied standalone, which both `test_check_records.py`
-  (below) and `sim/harness/test_evidence_lint.py` do.
+  (below) and `sim/tests/test_evidence_lint.py` do.
 - `test_check_records.py` — the linter's own self-test, likewise ported
   unmodified: one executable negative case per violation class named
   below, run against a throwaway fixture repo.
