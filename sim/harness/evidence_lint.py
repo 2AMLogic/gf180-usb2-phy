@@ -13,8 +13,10 @@ the ratified format.
 Run via ``sim/check_records.py``, which ``package.json``'s ``lint`` script
 invokes as its third step (after the ``verification/`` evidence checks), so
 ``npm run lint`` -- and therefore ``check:ci`` / ``check:all``, which both
-chain it -- exercises this checker too. Stdlib only, no venv, matching the
-harness rule.
+chain it -- exercises this checker too. See
+``sim/tests/test_evidence_lint.py`` for this module's own self-test
+(the fourth ``lint`` step), which mirrors
+``verification/test_check_records.py``.
 
 What is checked, per ``sim/<slug>/records/<record-id>.md``:
 
@@ -46,17 +48,39 @@ human/agent-written argument, not a form), and files under ``corners/<id>/``
 that are not ``*.log`` (the layout in ``sim/README.md`` names the logs; it
 does not forbid a future sidecar artefact, and a checker that guessed here
 would block legitimate evidence).
+
+--- Shared core ---------------------------------------------------------
+
+The record-id grammar, the ``- **Field**: value`` top-level block parser, and
+the git merge-base / diff-name-status plumbing are imported from
+``verification/check_records.py`` rather than re-implemented here (see issue
+#16 -- the two evidence-record linters used to carry independent copies of
+that logic and had begun to drift). Only the pieces genuinely specific to the
+``sim/`` convention -- the corner-id grammar, the netlist-snapshot/corner-log
+existence checks, and the log-count-vs-predecessor check -- live in this
+file.
 """
 
 from __future__ import annotations
 
 import argparse
-import datetime as _dt
 import os
 import re
-import subprocess
+import sys
 from dataclasses import dataclass, field
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from verification.check_records import (  # noqa: E402
+    RECORD_ID_RE,
+    _git,
+    git_diff_name_status,
+    parse_fields,
+    resolve_base_sha,
+)
+
+import datetime as _dt  # noqa: E402
 
 # Layout constants -- kept in step with sim/harness/report.py, which writes
 # into these directories, and with the layout diagram in sim/README.md.
@@ -81,14 +105,9 @@ REQUIRED_FIELDS: tuple[str, ...] = (
     "Supersedes",
 )
 
-#: ``<YYYYMMDD>-<HHMMSS>-<short-git-sha>``.
-RECORD_ID_RE = re.compile(r"^(?P<date>\d{8})-(?P<time>\d{6})-(?P<sha>[0-9a-f]{7,40})$")
-#: The same shape, found inside free text (used to read a Supersedes value).
+#: The same shape as ``RECORD_ID_RE``, found inside free text (used to read a
+#: Supersedes value, which is prose here rather than a clean JSON field).
 RECORD_ID_IN_TEXT_RE = re.compile(r"\d{8}-\d{6}-[0-9a-f]{7,40}")
-
-#: A top-level record field: ``- **Name**: value``. Nested bullets (two-space
-#: indented) are continuation of the field above, not new fields.
-FIELD_RE = re.compile(r"^- \*\*(?P<name>[^*]+?)\*\*:(?P<value>.*)$")
 
 #: Values that mean "this record supersedes nothing".
 _NO_SUPERSESSION_RE = re.compile(r"^\(?\s*(none|n/?a)\b", re.IGNORECASE)
@@ -130,21 +149,6 @@ class Problem:
 
 
 @dataclass
-class RecordField:
-    """One ``- **Name**: value`` field plus its indented continuation lines."""
-
-    name: str
-    line: int
-    inline: str
-    continuation: list[str] = field(default_factory=list)
-
-    @property
-    def value(self) -> str:
-        parts = [self.inline.strip()] + [line.strip() for line in self.continuation]
-        return "\n".join(part for part in parts if part)
-
-
-@dataclass
 class Experiment:
     """The evidence tree of one ``sim/<slug>/`` experiment directory."""
 
@@ -156,35 +160,6 @@ class Experiment:
 
 
 # --- parsing ----------------------------------------------------------------
-
-
-def parse_fields(text: str) -> tuple[dict, list[str]]:
-    """Split a record body into its top-level fields.
-
-    Returns ``(fields, duplicate_names)``. A field's value is its inline text
-    plus every indented line up to the next top-level line, so multi-line
-    fields (Corner matrix run, Result, Links) are read whole.
-    """
-    fields: dict = {}
-    duplicates: list[str] = []
-    current: RecordField | None = None
-    for number, line in enumerate(text.splitlines(), start=1):
-        match = FIELD_RE.match(line)
-        if match:
-            name = match.group("name").strip()
-            current = RecordField(name=name, line=number, inline=match.group("value"))
-            if name in fields:
-                duplicates.append(name)
-            else:
-                fields[name] = current
-            continue
-        if current is None or not line.strip():
-            continue
-        if line[:1].isspace():
-            current.continuation.append(line)
-        else:
-            current = None  # a heading, rule, or paragraph ends the field block
-    return fields, duplicates
 
 
 def validate_record_id(record_id: str) -> str | None:
@@ -516,20 +491,6 @@ def check_experiments(root: Path, experiments: dict) -> list:
 # --- append-only check ------------------------------------------------------
 
 
-def _git(root: Path, *args: str):
-    try:
-        return subprocess.run(
-            ("git", *args),
-            cwd=str(root),
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            check=False,
-        )
-    except OSError:
-        return None
-
-
 def default_base_ref() -> str:
     """The ref a PR is diffed against: the PR base branch, else origin/main."""
     base = os.environ.get("GITHUB_BASE_REF", "").strip()
@@ -548,43 +509,21 @@ def check_append_only(root: Path, base_ref: str) -> tuple[list, str | None]:
     not read as this branch modifying evidence, and an uncommitted edit to a
     committed record is exactly the mistake this check exists to catch.
     """
-    inside = _git(root, "rev-parse", "--is-inside-work-tree")
-    if inside is None:
-        return [], "git is not available"
-    if inside.returncode != 0:
-        return [], f"{root} is not a git checkout"
-    head = _git(root, "rev-parse", "--verify", "--quiet", "HEAD^{commit}")
-    if head is None or head.returncode != 0:
-        return [], "no commits to compare (unborn HEAD)"
-    resolved = _git(root, "rev-parse", "--verify", "--quiet", f"{base_ref}^{{commit}}")
-    if resolved is None or resolved.returncode != 0:
-        return [], (
-            f"{base_ref} does not resolve here (shallow clone, or no such remote "
-            "branch) -- run `git fetch origin main` for the full check"
-        )
-    merge_base = _git(root, "merge-base", base_ref, "HEAD")
-    if merge_base is None or merge_base.returncode != 0:
-        return [], f"no merge base between HEAD and {base_ref}"
-    base_sha = merge_base.stdout.strip()
+    base_sha, skip_reason = resolve_base_sha(root, base_ref)
+    if skip_reason is not None:
+        return [], skip_reason
 
     # --no-renames so a rename surfaces as delete+add and trips the D filter;
     # git's rename detection would otherwise hide it behind an R status.
-    diff = _git(
-        root,
-        "diff",
-        "--name-status",
-        "--no-renames",
-        "--diff-filter=MD",
-        base_sha,
-        "--",
-        "sim",
+    diff_text = git_diff_name_status(
+        root, base_sha, "sim", "--no-renames", "--diff-filter=MD"
     )
-    if diff is None or diff.returncode != 0:
+    if diff_text is None:
         return [], "git diff against the merge base failed"
 
     verb = {"M": "modified", "D": "deleted"}
     problems = []
-    for line in diff.stdout.splitlines():
+    for line in diff_text.splitlines():
         status, _, path = line.partition("\t")
         path = path.strip()
         if not path or not EVIDENCE_PATH_RE.match(path):

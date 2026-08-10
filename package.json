@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "worktree:return": "./.loom/scripts/worktree-return.sh",
-    "lint": "python3 verification/check_records.py && python3 verification/test_check_records.py && python3 sim/check_records.py",
+    "lint": "python3 verification/check_records.py && python3 verification/test_check_records.py && python3 sim/check_records.py && python3 sim/tests/test_evidence_lint.py",
     "test": "klt functional-verification verification/request-harness-counter.json --format json",
     "check:ci": "npm run lint && npm run test",
     "check:all": "npm run lint && npm run test && PDK=gf180mcuD klt synthesize flow/request-harness-counter-synth.json --format json"
