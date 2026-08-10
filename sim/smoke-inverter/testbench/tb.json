@@ -1,0 +1,40 @@
+{
+  "name": "smoke-inverter",
+  "description": "Harness acceptance test: a minimum-size CMOS inverter (nfet_03v3/pfet_03v3) in three static states. Not a PHY sub-block.",
+  "claim": "None -- harness self-verification, not a spec claim. Proves the PVT plumbing (parameter substitution, .lib corner sections, .temp) actually takes effect, so later records against ratified spec lines (spec/usb2-device-phy.md) can be trusted.",
+  "netlist": "smoke_inverter.spice",
+  "nominal_supply_v": 3.3,
+  "supply_tolerance": 0.1,
+  "temperatures_c": [-40, 27, 125],
+  "corners": ["mos"],
+  "analyses": ["op"],
+  "measure": {
+    "voh_ratio": "v(voh)/v(vdd)",
+    "vol_ratio": "v(vol)/v(vdd)",
+    "vm": "v(vm)",
+    "isup_ua": "-i(vsup)*1e6"
+  },
+  "checks": {
+    "voh_ratio": {
+      "min": 0.95,
+      "max": 1.0,
+      "description": "gate=0 output must sit near VDD at every corner"
+    },
+    "vol_ratio": {
+      "min": 0.0,
+      "max": 0.05,
+      "description": "gate=VDD output must sit near GND at every corner"
+    },
+    "vm": {
+      "min": 0.9,
+      "max": 2.4,
+      "min_spread_pct": 5.0,
+      "description": "self-biased switching threshold; the spread floor proves the MOS .lib sections and .temp change the NMOS/PMOS strength ratio between corners"
+    },
+    "isup_ua": {
+      "min": 0.001,
+      "max": 5000.0,
+      "description": "total supply current stays sane (sub-threshold leakage floor to a generous ceiling) at every corner"
+    }
+  }
+}
