@@ -93,3 +93,113 @@ still runs the harness's own unit tests (no PDK required) and reports `SKIP`
 for the simulation stage rather than failing outright — pass `--require-pdk`
 to make that a hard failure instead (useful in CI once ngspice/the PDK are
 provisioned there).
+
+## Digital toolchain
+
+Needed to run `verification/` and `flow/` — the cocotb + Icarus testbench
+structure and the `klt functional-verification` / `klt synthesize` request
+shape, ported from the sibling
+[`sky130-modexp`](https://github.com/2AMLogic/sky130-modexp) repository's
+`docs/environment.md` (the pattern named in `CLAUDE.md`'s "Harness
+bootstrap" section) and re-targeted from the sky130A PDK to gf180mcu.
+`verification/records/**/*.md` cite the versions below in each record's
+`klt provenance` field; if you re-pin anything here, mint fresh records
+rather than editing old ones (see `verification/README.md`'s append-only
+rule).
+
+### Provisioning: `scripts/setup-env.sh`
+
+```bash
+./scripts/setup-env.sh
+```
+
+This creates a local `.venv`, installs `klayout-tools` (`klt`) into it at
+the pinned revision below, fetches the pinned `gf180mcu` PDK version via
+`volare`, and reports which of `iverilog` / `yosys` / `openroad` are
+missing from `$PATH` — with an actionable install pointer for each, never a
+traceback. It is safe to re-run; it reuses an existing `.venv` and an
+already-fetched PDK version.
+
+Activate the venv for interactive use with:
+
+```bash
+source .venv/bin/activate
+```
+
+### Pinned versions
+
+| Component | Pinned to | Resolved via |
+|---|---|---|
+| `klayout-tools` (`klt`) | git revision [`af5791b557fc7c669c3981335a294256ccf37e6f`](https://github.com/2AMLogic/klayout-tools/commit/af5791b557fc7c669c3981335a294256ccf37e6f) (klt 0.2.0) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@af5791b557fc7c669c3981335a294256ccf37e6f"` (what `scripts/setup-env.sh` runs) |
+| `gf180mcu` PDK | `open_pdks` commit `c6d73a35f524070e85faff4a6a9eef49553ebc2b` (variants `gf180mcuA`/`B`/`C`/`D`; the digital harness uses `gf180mcuD`, whose standard-cell libraries are `gf180mcu_fd_sc_mcu7t5v0` / `gf180mcu_fd_sc_mcu9t5v0`) | `volare enable --pdk-root ~/.volare --pdk gf180mcu c6d73a35f524070e85faff4a6a9eef49553ebc2b` |
+| `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
+| Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
+
+`klt` in turn resolves `iverilog`/`yosys`/`openroad` and the PDK itself from
+the host — it does not vendor them. Those are:
+
+| Tool | Used for | Resolved version on the environment these records were produced on |
+|---|---|---|
+| Icarus Verilog (`iverilog`) | `klt functional-verification` | 12.0 (stable) – 13.0 (stable) verified across two environments (`iverilog -V`) |
+| Yosys (`yosys`) | `klt synthesize` | 0.67 – 0.68+post verified across two environments (`yosys -V`) |
+| OpenROAD (`openroad`) | `klt place-and-route` | **not installed** — see "OpenROAD" below; not exercised by this repo yet |
+
+Package-manager installs for the first two:
+
+```bash
+# macOS (Homebrew)
+brew install icarus-verilog yosys
+
+# Debian/Ubuntu
+apt-get install iverilog yosys
+```
+
+### OpenROAD (currently missing, not yet needed)
+
+`openroad` is not on `$PATH` on the environments this document was verified
+from, and there is no Homebrew formula or common-distro package for it as
+of this writing. This does not block anything in this repo yet — no issue
+has reached the place-and-route rung of the maturity ladder (see
+`flow/README.md` § "Place-and-route (not yet exercised here)"). Options to
+get `openroad` on `$PATH` when that rung is taken up, roughly in order of
+effort:
+
+1. **Precompiled binaries / Docker image** — see
+   [`The-OpenROAD-Project/OpenROAD` § Install](https://github.com/The-OpenROAD-Project/OpenROAD#install)
+   for current release artifacts, or pull the flow-scripts image
+   (`docker pull openroad/orfs`) and run OpenROAD inside the container.
+2. **Build from source via OpenROAD-flow-scripts** —
+   [`The-OpenROAD-Project/OpenROAD-flow-scripts`](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts),
+   `./build_openroad.sh --local` (a from-source build with its own toolchain
+   dependencies — see that repo's own docs for platform prerequisites).
+
+### `klt`'s gf180mcu PDK resolution
+
+`klt pdk find --pdk gf180mcuD` (or any of the fetched `gf180mcuA`/`B`/`C`
+variants) resolves the install root, per-tool asset directories, and
+standard-cell libraries via the same `find_pdk()` discovery `klt pdk`/
+`klt cells`/`klt synthesize` all share — no repo-specific PDK-fetch
+mechanism. `klt pdk cells --pdk gf180mcuD` reports the available digital
+standard-cell libraries directly:
+
+```
+gf180mcu_fd_sc_mcu7t5v0   (nominal supply 1.8V, corner ..._tt_025C_1v80)
+gf180mcu_fd_sc_mcu9t5v0   (nominal supply 1.8V, corner ..._tt_025C_1v80)
+```
+
+`flow/request-harness-counter-synth.json` uses
+`gf180mcu_fd_sc_mcu9t5v0` / `tt_025C_1v80` — see `flow/README.md`.
+
+### Why local, not CI, for the PDK-heavy legs
+
+Provisioning a real PDK in a hosted CI runner on every PR is a real,
+recurring cost. Following `sky130-modexp`'s split: the tool-light leg
+(`klt functional-verification`, Icarus/cocotb only, no PDK) is cheap enough
+to run anywhere; `klt synthesize` (and, later, `klt place-and-route`/
+`klt drc`) needs the fetched PDK and is run locally by a contributor with
+`scripts/setup-env.sh`'s environment provisioned, with the result committed
+as an append-only record under `verification/records/` (see
+`verification/README.md`). This repo does not yet have a CI workflow file;
+when one is added, it should preserve this split explicitly rather than
+silently dropping the PDK-heavy legs — see `sky130-modexp`'s
+`.github/workflows/ci.yml` for the pattern to port.

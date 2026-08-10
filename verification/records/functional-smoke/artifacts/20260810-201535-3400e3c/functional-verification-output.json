@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "harness_counter",
+  "testbench": "test_harness_counter",
+  "status": "pass",
+  "test_count": 3,
+  "passed_count": 3,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_reset_holds_zero",
+      "status": "passed",
+      "sim_time_ns": 45.0,
+      "real_time_s": 0.0010099411010742188
+    },
+    {
+      "name": "test_disabled_holds_value",
+      "status": "passed",
+      "sim_time_ns": 115.0,
+      "real_time_s": 0.0015039443969726562
+    },
+    {
+      "name": "test_counts_and_wraps",
+      "status": "passed",
+      "sim_time_ns": 5025.0,
+      "real_time_s": 0.05069708824157715
+    }
+  ],
+  "coverage": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-7/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1
+  }
+}

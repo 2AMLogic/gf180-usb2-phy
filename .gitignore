@@ -17,6 +17,15 @@ sim/pdk.local.json
 flow/build/
 # local klt install, created by the setup script
 .venv/
+
+# klt / cocotb / Icarus scratch (ad-hoc `klt functional-verification` /
+# `klt synthesize` runs) -- never committed; deliberate evidence lands
+# under verification/records/ instead.
+.klt/
+**/.klt/
+sim_build*/
+results.xml
+results_icarus.xml
 # >>> loom-managed (do not edit) >>>
 # Loom runtime state (don't commit these)
 .loom-in-use
