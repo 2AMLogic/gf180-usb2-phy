@@ -50,25 +50,14 @@ result. Where the agents hit friction with the open-source tooling — most ofte
 filed as a public issue against the tool itself, so the fix benefits everyone
 using gf180mcu, not just this repo.
 
-## Target specification (DRAFT — engineering to ratify, see issue #1)
+## Target specification
 
-| Parameter | Target | Stretch |
-|---|---|---|
-| Role | device (peripheral) only | — |
-| Signaling rate | full-speed, 12 Mbps | — (high-speed is out of scope, not a stretch) |
-| Digital interface | UTMI | UTMI+ subset |
-| Supply | 3.3 V | — |
-| D+ pull-up | 1.5 kΩ, integrated, enable-controlled | — |
-| Driver rise / fall | 4–20 ns into 50 pF, per USB 2.0 §7.3.2 | — |
-| Crossover voltage | 1.3–2.0 V | — |
-| Reference clock | 12 MHz external, ±0.25% | crystal-less, trimmed from SOF |
-| Receiver | differential + two single-ended, with idle/SE0 detect | — |
-| Signoff | DRC + LVS clean; eye and timing verified across PVT | — |
-
-Every row is a commitment the verification suite has to be able to check —
-which is why high-speed appears as an exclusion rather than an aspiration. The
-numbers cited from the USB 2.0 specification are targets to be confirmed
-against the specification text during ratification, not transcribed authority.
+**Ratified 2026-08-10** — see [`spec/usb2-device-phy.md`](spec/usb2-device-phy.md)
+for the full specification: the UTMI boundary (what is inside this block vs.
+the integrator's serial interface engine), the digital interface, D+ pull-up,
+driver characteristics, reference clock, receiver set, the fixed PVT corner
+list, and the decision log behind each row that changed from the earlier
+draft.
 
 ## Repo layout
 
