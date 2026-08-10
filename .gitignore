@@ -9,8 +9,9 @@ __pycache__/
 # (append-only record trail), so they escape the *.log rule.
 !sim/*/corners/**/*.log
 sim/build/
-# synthesis / P{{SCRATCH_RULES}}R scratch
-flow/build/# local klt install, created by the setup script
+# synthesis / place-and-route scratch
+flow/build/
+# local klt install, created by the setup script
 .venv/
 # >>> loom-managed (do not edit) >>>
 # Loom runtime state (don't commit these)
