@@ -44,6 +44,31 @@ cat .loom/logs/hook-errors.log
 
 If the log is absent or empty and hooks aren't blocking, confirm Claude Code is invoked with `--dangerously-skip-permissions` (not `bypassPermissions`).
 
+### `worktree.sh N` skips a stale post-squash-merge remote branch (#5657)
+
+`worktree.sh N` prefers reusing `refs/remotes/origin/feature/issue-N` over
+branching fresh from the base ref when no local copy exists (#4823, so an
+in-flight Doctor/Builder cycle's real PR history isn't silently discarded).
+But if that remote branch's current tip is already the head of an
+already-**merged** PR — e.g. the target repo has "auto-delete head branches"
+disabled, or any other path that leaves a merged branch's ref on `origin` —
+reusing it would build the new worktree on top of already-merged, now
+foreign-to-`main` history, producing a `CONFLICTING` PR with zero CI runs.
+This matters most with the partial-increment (#3667/#3599) slice convention,
+where the *same* branch name `feature/issue-N` is deliberately reused across
+an issue's slices, so a squash-merged prior slice's branch can still be
+sitting on `origin` when the next slice's worktree is created.
+
+`worktree.sh` now checks the remote branch's tip against the forge (reusing
+the same `_worktree_merged_pr_head_sha` helper already used by the worktree
+**removal** path, #4889) before reusing it: if the tip matches an
+already-merged PR's head, it creates a fresh branch from the base ref instead
+and prints which PR made the old branch stale. If the forge lookup is
+unavailable (network/auth failure), it fails open to the pre-existing reuse
+behavior — a forge outage never blocks worktree creation. The #4823 in-flight
+case (remote branch exists, not yet merged, possibly diverged from base) is
+unaffected and still reused exactly as before.
+
 ### Cleaning Up Stale Worktrees and Branches
 
 Use the `loom-clean` command to restore your repository to a clean state:
@@ -68,7 +93,7 @@ loom-clean --deep --dry-run  # Preview deep clean
 
 `loom-clean` is a thin shim for `loom-daemon clean` and needs a `loom-daemon`
 binary built at or after commit `dba33666` (PR #4301) — see [fail on a stale
-binary](#loom-clean--loom-cleanup--loom-recover-orphans-fail-on-a-stale-binary-4384)
+binary](#loom-clean--cleanupsh--loom-recover-orphans-fail-on-a-stale-binary-4384)
 if it errors out instead of running.
 
 **What loom-clean does**:
@@ -130,7 +155,7 @@ git worktree remove .loom/worktrees/issue-42 --force
 git worktree prune
 ```
 
-### `loom-clean` / `loom-cleanup` / `loom-recover-orphans` fail on a stale binary (#4384)
+### `loom-clean` / `cleanup.sh` / `loom-recover-orphans` fail on a stale binary (#4384)
 
 **Symptom**: one of the three commands below fails outright instead of doing
 anything — either with a `No module named loom_tools.clean` traceback (an
@@ -176,6 +201,20 @@ leave `from loom_tools.clean import main` shims earlier on `PATH` that will
 never work again. Confirm with `command -v loom-clean` and remove them (e.g.
 `pip uninstall loom-tools`, or delete the stale shim) so the daemon-backed one
 resolves.
+
+**Eleven other `~/.local/bin/loom-*` names have no daemon-backed replacement
+at all** (`loom-agent-monitor`, `loom-auto-merge`, `loom-baseline-health`,
+`loom-check-completions`, `loom-cleanup`, `loom-daemon-diagnostic`,
+`loom-forge`, `loom-health-monitor`, `loom-status`, `loom-stuck-detection`,
+`loom-worktree`) — their loom-tools console scripts were retired without a
+loom-daemon subcommand to shim to, so a dangling symlink under any of these
+names is permanently dead, not repairable (#5738; see
+`docs/migration/daemon-state-consumers.md` for the per-name disposition).
+Both `scripts/install/provision-daemon.sh` (every install/reprovision) and
+`scripts/uninstall-loom.sh` (Step 5b) now remove these automatically when
+they find one — scoped to a symlink whose target resolves through a
+`loom-tools` path segment and no longer exists, so a same-named script you
+authored yourself is never touched. No manual action needed on either path.
 
 ### Corrupted local git identity (`...github.comecho`, "cannot overwrite multiple values") (#4369)
 
@@ -253,9 +292,9 @@ gh label create "loom:operator-only" --color F97316 \
 longer description fails to sync (HTTP 422 "description is too long") and the label
 silently never gets created. Keep descriptions at or under 100 chars.
 
-#### `loom:blocked` vs `loom:operator-only`
+#### `loom:blocked` vs `loom:operator-only` vs `loom:needs-capability`
 
-These two status labels look similar but mean different things to the automation:
+These status labels look similar but mean different things to the automation:
 
 - **`loom:blocked`** — work is *automatable* but currently waiting on a dependency
   (another issue, an unmerged PR, missing context). The intent is "unblock it, then
@@ -266,10 +305,19 @@ These two status labels look similar but mean different things to the automation
   TODO on owner-tracked code, where the design direction is the owner's call).
   Sweep skips these in pre-flight rather than attempting them; a human must
   do the work off-automation before the issue can proceed.
+- **`loom:needs-capability`** (#5817) — a narrower claim than `loom:operator-only`:
+  blocked on a missing tool/agent capability, not an operator-by-right decision.
+  Sweep skips these identically to `loom:operator-only` in pre-flight today; the
+  filed capability-request issue should be linked (`Depends on #N` / `Requires
+  #N`). See `.loom/docs/label-state-machine.md` § "`loom:needs-capability` — a
+  narrower claim than `loom:operator-only`" for the full split rationale.
 
-Reaching for `loom:blocked` when you mean `loom:operator-only` conflates "waiting on
-a dependency" with "needs a human action," which muddies the daemon/sweep skip
-semantics. Use `loom:operator-only` for the human-must-act-off-automation case.
+Reaching for `loom:blocked` when you mean `loom:operator-only` (or
+`loom:needs-capability`) conflates "waiting on a dependency" with "needs a human
+action outside automation," which muddies the daemon/sweep skip semantics. Use
+`loom:operator-only` for the human-must-act-off-automation case, and
+`loom:needs-capability` specifically when the blocker is missing tooling rather
+than a human ruling.
 
 ### An operator edit to `.loom/config.json` disappeared (#4641)
 
@@ -309,6 +357,36 @@ cat .loom/config.json.bak
 `loom-daemon init` against a workspace that already has a `.loom/config.json`, so
 repeat provisioning passes cannot re-enter this path on a tuned host.
 
+### `install.sh` refuses to run: "Another Loom install is already running" (#4928)
+
+`install.sh`'s `--quick` / `--clean` paths take a per-target lock at
+`<target>/.loom/.install.lock` before any destructive phase, because two
+installers racing over one target interleave one run's uninstall (which stages
+Loom file deletions and strips the Loom sections out of `CLAUDE.md` /
+`.gitignore` **in place**) with the other's copy phase. The message names the
+owning PID, host, and phase:
+
+```bash
+cat <target>/.loom/.install.lock   # pid / host / started / phase
+```
+
+- **The PID is alive** — a real install is in flight (a `cargo build --release`
+  can run for minutes; it emits a progress line every 15s). Wait for it.
+- **The PID is gone** — the next installer reclaims the lock automatically; you
+  should never need to delete it. If you do (e.g. a lock written by another
+  host, which cannot be liveness-probed and is only reclaimed after
+  `LOOM_INSTALL_LOCK_MAX_AGE`, default 6h), `rm -f <target>/.loom/.install.lock`.
+
+If the lock's `phase` is `uninstalling` / `installing` / `restoring`, that run
+died **inside the destructive window** and the target may be partially
+uninstalled. The next installer prints the recovery commands; the short form is:
+
+```bash
+git -C <target> status --short
+git -C <target> restore --staged --worktree -- .loom .claude CLAUDE.md .gitignore
+git -C <target> stash list | grep loom-install   # changes the installer stashed, if any
+```
+
 ### Daemon won't start
 
 ```bash
@@ -323,6 +401,64 @@ tail -f ~/.loom/daemon.log
 which claude
 
 # Install if missing (see Claude Code documentation)
+```
+
+### `loom-daemon: command not found` over plain ssh (#5393)
+
+```
+$ ssh loom-worker-2 'loom-daemon workspace list'
+bash: line 1: loom-daemon: command not found
+```
+
+`loom-daemon` is installed at `~/.local/bin/loom-daemon`, which is added to PATH
+by your **login shell's rc file**. `ssh host <cmd>` runs a *non-login,
+non-interactive* shell that never sources that rc file, so `~/.local/bin` is not
+on PATH and the bare name does not resolve. (The same mechanism produces the
+false "missing dependency" from `install.sh` — see [`install.sh` reports a
+dependency that is installed](#installsh-reports-a-dependency-that-is-installed-5393)
+below.)
+
+Three supported ways to drive `loom-daemon` over ssh, in order of preference:
+
+1. **Source the login profile** so PATH is populated exactly as it is
+   interactively:
+
+   ```bash
+   ssh loom-worker-2 'bash -lc "loom-daemon workspace list"'
+   ```
+
+2. **Call the fixed install location** directly — the machine-level install path
+   is stable, so no PATH is needed:
+
+   ```bash
+   ssh loom-worker-2 '~/.local/bin/loom-daemon workspace list'
+   ```
+
+3. **Let Loom's own scripts resolve it** — every in-tree caller sources
+   `defaults/scripts/lib/locate-daemon-bin.sh` (`loom_locate_daemon_bin`), which
+   already probes `$LOOM_DAEMON_BIN` → PATH → `${LOOM_DAEMON_BIN_DIR:-$HOME/.local/bin}`
+   → repo-local build output (#4875). Point new fleet automation at that helper
+   rather than reimplementing per-caller path probing.
+
+### `install.sh` reports a dependency that is installed (#5393)
+
+```
+$ ssh loom-worker-1 'cd ~/GitHub/loom && ./install.sh --quick -y ~/GitHub/repo'
+✗ Error: Missing required dependencies: pnpm cargo -- cannot continue ...
+```
+
+Same root cause as the daemon case above: over a non-login ssh shell, PATH lacks
+the per-user install roots (`~/.cargo/bin`, `~/.local/bin`, `/opt/homebrew/bin`,
+…), so tools that are installed and runnable look absent. `install.sh` now
+probes those roots directly: a tool found there is used (its directory is added
+to PATH for the rest of the install) and reported with a `not on this shell's
+PATH` warning rather than as missing. Only tools that are absent from **every**
+probed root are treated as genuinely missing — a distinction that matters
+because the two need different fixes (install the tool vs. fix PATH). If you
+prefer to fix PATH once up front, run the whole install under a login shell:
+
+```bash
+ssh loom-worker-1 'bash -lc "cd ~/GitHub/loom && ./install.sh --quick -y ~/GitHub/repo"'
 ```
 
 ### Sweep output invisible when invoked with `2>&1`
@@ -389,8 +525,8 @@ loom-recover-orphans --json
 
 `loom-recover-orphans` is a thin shim for `loom-daemon recover-orphans` — if it
 fails with `No module named loom_tools.orphan_recovery` or a "stale build"
-error, see [`loom-clean` / `loom-cleanup` / `loom-recover-orphans` fail on a
-stale binary](#loom-clean--loom-cleanup--loom-recover-orphans-fail-on-a-stale-binary-4384).
+error, see [`loom-clean` / `cleanup.sh` / `loom-recover-orphans` fail on a
+stale binary](#loom-clean--cleanupsh--loom-recover-orphans-fail-on-a-stale-binary-4384).
 
 **Run it from inside the checkout** (or pass `--workspace <path>`): repo-root
 resolution requires an ancestor holding **both** `.git` and `.loom/`, so a
@@ -547,6 +683,58 @@ preceded by a fresh re-derivation of the offending paths, so new ones should
 not appear (and a quarantine with nothing left to rescue logs
 `"result":"no_op"` and creates no stash at all). Existing empty entries carry
 no work and can be dropped once you have confirmed the flag.
+
+### Retiring quarantine stashes safely (#5693)
+
+Step 3 above — "check liveness before dropping anything" — is the judgement
+that does not scale: a fleet audit found **148 stashes across three hosts in
+twelve days**, of which exactly **one** held unlanded engineering content, and
+finding it took an hour of hand triage. `loom-daemon stashes` mechanises that
+triage.
+
+```bash
+loom-daemon stashes list                     # classify, read-only, never drops
+loom-daemon stashes list --paths             # + the per-path proof for every file
+loom-daemon stashes retire                   # same thing — still a dry run
+loom-daemon stashes retire --execute         # the only invocation that drops
+loom-daemon stashes retire --issue 123 --execute   # scoped to one issue's stashes
+```
+
+A stash is retirable only when **both** independent conditions hold — never
+either alone:
+
+1. **Provenance**: the issue named by the `loom-quarantine:` label is CLOSED.
+2. **Content**: *every* path in the stash is provably recoverable without it —
+   its blob is identical to `HEAD`'s, or identical to a commit reachable from
+   `HEAD` (the "superseded local copy" case: the work landed and was then built
+   on further), or it is installer-managed/regenerable (the same
+   `is_ignorable_dirt` classes the main-health gate uses, #4332/#3950/#4239),
+   or it is a machine-generated artifact (`__pycache__/`, `.venv/`,
+   `node_modules/`, `*.egg-info/`, `*.pyc`, …).
+
+Everything else is kept: an open issue, a missing `issue=` token, a forge
+lookup that failed, a `git` failure, a stash that *deletes* a file, a brand-new
+untracked source file, and — critically — a stash that is 90 % superseded and
+10 % real. `git stash drop` is all-or-nothing, so one unproven path holds the
+whole entry back. A closed issue is **not** sufficient on its own; that is
+precisely the shape of the one stash in 148 that mattered.
+
+**Notes**
+
+- Nothing is dropped without `--execute`. There is no config flag, cadence, or
+  daemon timer that drops a stash — it is an explicit operator action only.
+- Every drop is journaled to `.loom/logs/stash-retirement.log` **before** it
+  happens, recording the stash's commit sha. A dropped stash commit survives in
+  the object database as an unreachable object until gc, so
+  `git stash apply <sha>` (or `git show <sha>^3:<path>` for a file that was
+  untracked) still recovers it.
+- The operation is idempotent: re-running it after a drop, or against a stash
+  another host already dropped, is a no-op, not an error. Selectors are
+  re-resolved from each entry's commit sha immediately before the drop, because
+  `refs/stash` is one stack shared by every worktree and indices shift under
+  you.
+- It only ever considers `loom-quarantine:`-labelled entries. An Auditor drift
+  shelf, a Judge park stash, or an ad-hoc `git stash` is never a candidate.
 
 ## Several unrelated things hang at once (macOS Gatekeeper / `syspolicyd`)
 

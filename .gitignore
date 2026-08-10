@@ -61,5 +61,6 @@ flow/build/# local klt install, created by the setup script
 .loom/*.sock
 .loom/*.tmp
 .loom/*.bak
+.loom/.install.lock
 .loom/logs/
 # <<< loom-managed <<<
