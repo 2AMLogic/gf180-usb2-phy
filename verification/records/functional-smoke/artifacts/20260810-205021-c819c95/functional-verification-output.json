@@ -13,27 +13,27 @@
       "name": "test_reset_holds_zero",
       "status": "passed",
       "sim_time_ns": 45.0,
-      "real_time_s": 0.0010099411010742188
+      "real_time_s": 0.0005962848663330078
     },
     {
       "name": "test_disabled_holds_value",
       "status": "passed",
       "sim_time_ns": 115.0,
-      "real_time_s": 0.0015039443969726562
+      "real_time_s": 0.0008828639984130859
     },
     {
       "name": "test_counts_and_wraps",
       "status": "passed",
       "sim_time_ns": 5025.0,
-      "real_time_s": 0.05069708824157715
+      "real_time_s": 0.029645919799804688
     }
   ],
   "coverage": null,
   "environment": {
     "engine": "icarus",
-    "engine_version": "13.0",
+    "engine_version": "12.0",
     "cocotb_version": "2.0.1",
-    "results_xml": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-7/verification/.klt/functional-verification/results_icarus.xml",
+    "results_xml": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-7/verification/.klt/functional-verification/results_icarus.xml",
     "random_seed": 1
   }
 }

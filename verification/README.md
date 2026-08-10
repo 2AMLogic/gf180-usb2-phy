@@ -113,7 +113,7 @@ verification/records/
   `place-and-route`, `drc-lvs`, `gate-level-sim`) follow the same pattern
   once those legs of the maturity ladder are taken up.
 - **`<record-id>`** — unique and traceable:
-  `<YYYYMMDD>-<HHMMSS>-<short-git-sha>` (e.g. `20260810-201535-3400e3c`),
+  `<YYYYMMDD>-<HHMMSS>-<short-git-sha>` (e.g. `20260810-205021-c819c95`),
   identical grammar to the analog canaries' convention. Re-runs mint a new
   `<record-id>`; nothing under `records/` or `artifacts/` is ever edited in
   place. `<short-git-sha>` is the design's git revision at the time the

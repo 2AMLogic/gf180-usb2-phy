@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "engine": "yosys",
-  "engine_version": "0.68+post",
+  "engine_version": "0.67",
   "hdl_toplevel": "harness_counter",
   "status": "ok",
   "instance_count": 34,
@@ -23,8 +23,8 @@
     "gf180mcu_fd_sc_mcu9t5v0__or2_1": 1
   },
   "timing": null,
-  "netlist_path": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-7/flow/.klt/synthesize/harness_counter_synth.v",
-  "script_path": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-7/flow/.klt/synthesize/synth_harness_counter.ys",
+  "netlist_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-7/flow/.klt/synthesize/harness_counter_synth.v",
+  "script_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-7/flow/.klt/synthesize/synth_harness_counter.ys",
   "provenance": {
     "klt_version": "0.2.0",
     "klayout_version": "0.30.10",
