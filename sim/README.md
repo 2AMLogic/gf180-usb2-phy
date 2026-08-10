@@ -151,6 +151,15 @@ This convention is checked, not merely documented. `sim/check_records.py`
   `netlist-snapshots/` or `corners/` modified, renamed, or deleted relative
   to the merge base with `origin/main`. Only additions are allowed.
 
+The record-id grammar, the `- **Field**: value` block parser, and the git
+merge-base/diff plumbing `evidence_lint.py` uses are shared with
+`verification/check_records.py` (see issue #16) rather than duplicated —
+only the checks specific to this convention (the corner-id grammar, the
+netlist-snapshot/corner-log existence checks, and the
+log-count-vs-predecessor check above) live in `sim/harness/evidence_lint.py`
+itself. Its own self-test is `sim/harness/test_evidence_lint.py`, run
+directly with `python3 sim/harness/test_evidence_lint.py`.
+
 Run it directly:
 
 ```bash

@@ -49,8 +49,13 @@ scope-discipline rule.
 - `request-harness-counter.json` — `klt functional-verification` request
   driving `test_harness_counter.py` against `harness_counter.v` via Icarus.
 - `check_records.py` — the evidence-record linter (see "Enforcement"),
-  ported unmodified from `sky130-modexp` — it is already generic (no
-  design-specific content).
+  originally ported unmodified from `sky130-modexp`. It also now houses the
+  record-id grammar, `- **Field**: value` block parser, and git
+  merge-base/diff plumbing shared with `sim/harness/evidence_lint.py` (see
+  issue #16) — that module imports these names directly rather than keeping
+  its own copy. This file stays strictly stdlib-only (no local imports) so
+  it keeps working when copied standalone, which both `test_check_records.py`
+  (below) and `sim/harness/test_evidence_lint.py` do.
 - `test_check_records.py` — the linter's own self-test, likewise ported
   unmodified: one executable negative case per violation class named
   below, run against a throwaway fixture repo.
