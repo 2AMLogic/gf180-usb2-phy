@@ -10,8 +10,11 @@ the ratified format.
     python3 sim/check_records.py                     # check the whole repo
     python3 sim/check_records.py --require-append-only
 
-Run as step 4 of ``.github/scripts/lint.sh`` (so both ``npm run lint`` and the
-CI ``lint`` job execute it). Stdlib only, no venv, matching the harness rule.
+Run via ``sim/check_records.py``, which ``package.json``'s ``lint`` script
+invokes as its third step (after the ``verification/`` evidence checks), so
+``npm run lint`` -- and therefore ``check:ci`` / ``check:all``, which both
+chain it -- exercises this checker too. Stdlib only, no venv, matching the
+harness rule.
 
 What is checked, per ``sim/<slug>/records/<record-id>.md``:
 
@@ -284,9 +287,10 @@ def collect_experiments(paths) -> dict:
 def list_evidence_paths(root: Path) -> tuple[list, str]:
     """Repo-relative evidence paths, plus a one-word description of the source.
 
-    Tracked files only (``git ls-files``, same exclusions as ``collect()`` in
-    ``.github/scripts/lint.sh``) so generated or ignored artefacts are never
-    linted. Falls back to a filesystem walk outside a git checkout.
+    Tracked files only (``git ls-files``, excluding ``.loom/`` and
+    ``.claude/`` worktree/agent scratch paths -- see the pathspecs below) so
+    generated or ignored artefacts are never linted. Falls back to a
+    filesystem walk outside a git checkout.
     """
     completed = _git(
         root,
