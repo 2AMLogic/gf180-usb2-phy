@@ -1,0 +1,38 @@
+* Frozen netlist snapshot for record 20260810-201623-4802290
+* source     : sim/smoke-inverter/testbench/smoke_inverter.spice
+* sha256     : 2dedde9c63093a033ae4e345c345c2ebf28c1b67c3492e6f392ed44faeb4033c
+* This is a verbatim copy taken at record time. Do not edit.
+* smoke-inverter -- harness acceptance testbench (NOT a PHY sub-block)
+*
+* Netlist FRAGMENT. The harness supplies the title, .include of the gf180mcu
+* models, the corner .lib sections, .temp, the .control block and .end.
+* Parameters provided by the harness: vdd_val, vdd_nom, temp_c.
+*
+* Three instances of one minimum-size CMOS inverter (nfet_03v3 / pfet_03v3),
+* each proving a different piece of the harness is wired up:
+*
+*   1. gate tied to 0     -> output pulled to VDD through the PMOS (VOH)
+*   2. gate tied to VDD   -> output pulled to GND through the NMOS (VOL)
+*   3. gate tied to drain (self-biased) -> inverter switching threshold (VM)
+*
+* This is deliberately throwaway smoke-test infrastructure: a single CMOS
+* inverter built from gf180mcu primitive devices, not a real PHY driver or
+* receiver (design/ has no schematics yet -- see spec/usb2-device-phy.md).
+* VM is the temperature/corner probe: it tracks the NMOS/PMOS strength ratio,
+* so a flat VM across the grid would mean .temp / .lib never took effect.
+
+vsup vdd 0 dc {vdd_val}
+
+* --- 1. VOH branch: gate grounded
+vg1 g1 0 dc 0
+XN1 voh g1  0   0   nfet_03v3 w=2u l=0.28u
+XP1 voh g1  vdd vdd pfet_03v3 w=4u l=0.28u
+
+* --- 2. VOL branch: gate at VDD
+vg2 g2 0 dc {vdd_val}
+XN2 vol g2  0   0   nfet_03v3 w=2u l=0.28u
+XP2 vol g2  vdd vdd pfet_03v3 w=4u l=0.28u
+
+* --- 3. VM branch: self-biased (gate tied to drain)
+XN3 vm vm 0   0   nfet_03v3 w=2u l=0.28u
+XP3 vm vm vdd vdd pfet_03v3 w=4u l=0.28u

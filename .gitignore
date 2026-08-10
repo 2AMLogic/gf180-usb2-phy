@@ -9,6 +9,10 @@ __pycache__/
 # (append-only record trail), so they escape the *.log rule.
 !sim/*/corners/**/*.log
 sim/build/
+# sim/ harness: generated ngspice decks are disposable scratch, never evidence
+sim/.work/
+# sim/ harness: machine-local PDK override (see sim/harness/pdk.py)
+sim/pdk.local.json
 # synthesis / place-and-route scratch
 flow/build/
 # local klt install, created by the setup script
