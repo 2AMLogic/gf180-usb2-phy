@@ -1,0 +1,76 @@
+# CI for gf180-usb2-phy.
+#
+# Scope is deliberate and documented, not accidental: this workflow runs the
+# **tool-light** leg only -- `npm run check:ci` (the evidence-record
+# linters under verification/ and sim/, plus `klt functional-verification`
+# against the harness-counter request). None of that needs the gf180mcu PDK,
+# only Icarus Verilog + cocotb + klt.
+#
+# `check:all`'s extra leg (`PDK=gf180mcuD klt synthesize`) is NOT run here:
+# it needs a fetched gf180mcu PDK, which is a real, recurring cost to
+# provision in a hosted runner on every push/PR. That leg stays a local,
+# contributor-run step against the pinned environment from
+# `scripts/setup-env.sh`, with its result committed as an append-only record
+# under `verification/records/` -- see `docs/environment-setup.md` §
+# "Why local, not CI, for the PDK-heavy legs" (which named this file, and
+# sky130-modexp's `.github/workflows/ci.yml`, as the pattern to port). Do
+# not silently drop this comment if you ever add the PDK-heavy leg to CI --
+# update `docs/environment-setup.md` in the same change.
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check-ci:
+    name: check:ci (evidence-record lint + functional-verification)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history: the append-only evidence-record checks (both
+          # verification/check_records.py and sim/check_records.py) diff
+          # against the merge-base with origin/main, which a shallow clone
+          # cannot resolve.
+          fetch-depth: 0
+
+      # cocotb 2.0.1 (pinned below, matching klt's own pin -- see
+      # docs/environment-setup.md) refuses to build on Python 3.14+.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Ensure origin/main is available for the append-only base ref
+        run: git fetch --no-tags --quiet origin +refs/heads/main:refs/remotes/origin/main
+
+      - name: Install Icarus Verilog
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends iverilog
+          iverilog -V | head -1
+
+      - name: Install klayout-tools (klt) + cocotb -- pinned, see docs/environment-setup.md
+        run: |
+          python3 -m pip install --disable-pip-version-check \
+            "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@af5791b557fc7c669c3981335a294256ccf37e6f" \
+            "cocotb==2.0.1"
+          klt --version
+
+      - name: npm run check:ci (lint + klt functional-verification)
+        run: npm run check:ci
+
+      - name: Evidence-record linters, strict append-only against origin/main
+        run: |
+          python3 verification/check_records.py --require-append-only --base-ref origin/main
+          python3 sim/check_records.py --require-append-only --base-ref origin/main
