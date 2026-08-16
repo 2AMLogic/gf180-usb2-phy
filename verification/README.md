@@ -181,11 +181,15 @@ verification/records/
 ```
 
 - **`<experiment-slug>`** — short, descriptive, kebab-case name for the
-  claim being verified. This repo currently has two:
-  - `functional-smoke` — the cocotb suite passes end-to-end via
-    `klt functional-verification` (Icarus, no PDK dependency).
+  claim being verified. This repo currently has three:
+  - `functional-smoke` — the harness-counter cocotb suite passes end-to-end
+    via `klt functional-verification` (Icarus, no PDK dependency). A
+    harness claim, not a PHY claim.
   - `synthesis-smoke` — the same design synthesizes cleanly via
     `klt synthesize` against gf180mcu.
+  - `bit-codec-functional` — the real one: `spec/usb2-device-phy.md` §11's
+    digital signoff line, for the bit-level half of §2 (NRZI
+    encode/decode, bit stuffing/destuffing).
   One directory per distinct claim, not per run. Future entries (e.g.
   `place-and-route`, `drc-lvs`, `gate-level-sim`) follow the same pattern
   once those legs of the maturity ladder are taken up.
@@ -305,8 +309,7 @@ gets fixed.
 
 ## Worked example
 
-The two records under `verification/records/`, both minted for this
-bootstrap issue, illustrate the format:
+The records under `verification/records/` illustrate the format:
 
 - `verification/records/functional-smoke/records/<record-id>.md` — all 3
   `test_harness_counter.py` cocotb tests pass via
@@ -317,7 +320,22 @@ bootstrap issue, illustrate the format:
   `klt synthesize` against `gf180mcu_fd_sc_mcu9t5v0` / `tt_025C_1v80`.
   `provenance.pdk` names the resolved gf180mcu variant and `deck` carries
   the liberty content hash klt reports.
+- `verification/records/bit-codec-functional/records/<record-id>.md` — the
+  first record substantiating a real spec claim rather than a harness one:
+  32 cocotb tests across five `klt functional-verification` invocations,
+  bit-exact against `usb_bit_model.py`, covering the bit-level half of spec
+  §2. Two things about it are worth copying:
+  - **One record, five runs.** The convention is one experiment directory
+    per distinct *claim*, not per invocation. The claim here is a single
+    spec line, so the five envelopes are five artifacts under one
+    `<record-id>`, and `provenance.inputs` lists the union of every source
+    the claim depends on.
+  - **The claim states what it does *not* cover.** Spec §2 also has
+    SYNC/EOP and `LineState[1:0]` clauses; that logic does not exist yet,
+    so the record says so explicitly rather than letting "verified against
+    §2" imply more than was measured.
 
-A future post-synthesis or post-P&R re-run of either claim, or a record for
-real PHY digital logic once it exists, would live under its own experiment
-directory with its own `<record-id>` following this same convention.
+A future post-synthesis or post-P&R re-run of any of these claims, or a
+record for the rest of the PHY digital logic once it exists, would live
+under its own experiment directory with its own `<record-id>` following
+this same convention.

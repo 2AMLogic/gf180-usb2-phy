@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_bit_destuffer",
+  "testbench": "test_usb_bit_destuffer",
+  "status": "pass",
+  "test_count": 8,
+  "passed_count": 8,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_all_zeros_pass_through",
+      "status": "passed",
+      "sim_time_ns": 2875.023,
+      "real_time_s": 0.007886171340942383
+    },
+    {
+      "name": "test_removes_the_stuffed_zero",
+      "status": "passed",
+      "sim_time_ns": 1041.6750000000002,
+      "real_time_s": 0.002249002456665039
+    },
+    {
+      "name": "test_seven_ones_raise_a_stuff_error",
+      "status": "passed",
+      "sim_time_ns": 791.6729999999998,
+      "real_time_s": 0.001294851303100586
+    },
+    {
+      "name": "test_stuff_error_is_a_single_clock_pulse",
+      "status": "passed",
+      "sim_time_ns": 1125.009,
+      "real_time_s": 0.002112865447998047
+    },
+    {
+      "name": "test_long_run_of_ones_errors_every_seventh_bit",
+      "status": "passed",
+      "sim_time_ns": 1958.3490000000002,
+      "real_time_s": 0.003750324249267578
+    },
+    {
+      "name": "test_random_stream_round_trips",
+      "status": "passed",
+      "sim_time_ns": 46208.702999999994,
+      "real_time_s": 0.07794690132141113
+    },
+    {
+      "name": "test_gap_preserves_the_run",
+      "status": "passed",
+      "sim_time_ns": 1208.3430000000008,
+      "real_time_s": 0.0034186840057373047
+    },
+    {
+      "name": "test_init_clears_the_run",
+      "status": "passed",
+      "sim_time_ns": 1291.6770000000033,
+      "real_time_s": 0.0026543140411376953
+    }
+  ],
+  "coverage": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-31/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1
+  }
+}
