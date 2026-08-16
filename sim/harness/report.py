@@ -357,7 +357,7 @@ def build_record(
     }
 
 
-def _fmt(value) -> str:
+def fmt(value) -> str:
     """Human-readable scalar for the Markdown record."""
     if value is None:
         return "n/a"
@@ -442,15 +442,15 @@ def _result_lines(record: dict) -> list[str]:
     failures_at: dict[str, list[str]] = {}
     for failure in record["checks"]["failures"]:
         failures_at.setdefault(failure["at"], []).append(
-            f"{failure['measurement']} {failure['kind']}={_fmt(failure['limit'])} "
-            f"(got {_fmt(failure['value'])})"
+            f"{failure['measurement']} {failure['kind']}={fmt(failure['limit'])} "
+            f"(got {fmt(failure['value'])})"
         )
 
     lines = ["- **Result**:", ""]
     lines.append("  | corner-id | " + " | ".join(measure_names) + " | pass/fail |")
     lines.append("  |---|" + "---|" * (len(measure_names) + 1))
     for point in record["points"]:
-        cells = [_fmt(point["measurements"].get(name)) for name in measure_names]
+        cells = [fmt(point["measurements"].get(name)) for name in measure_names]
         problems = failures_at.get(point["corner_id"], [])
         if point["status"] != "ok":
             verdict = f"ERROR — {point.get('message', point['status'])}"
@@ -473,7 +473,7 @@ def _result_lines(record: dict) -> list[str]:
     for name, stats in record["summary"].items():
         spec = record["checks"]["spec"].get(name, {})
         limits = ", ".join(
-            f"{key}={_fmt(spec[key])}"
+            f"{key}={fmt(spec[key])}"
             for key in ("min", "max", "max_spread_pct", "min_spread_pct")
             if key in spec
         ) or "—"
@@ -481,9 +481,9 @@ def _result_lines(record: dict) -> list[str]:
             lines.append(f"  | `{name}` | no data | | | | {limits} |")
             continue
         lines.append(
-            f"  | `{name}` | {_fmt(stats['min'])} (`{stats['min_at']}`) "
-            f"| {_fmt(stats['max'])} (`{stats['max_at']}`) "
-            f"| {_fmt(stats['mean'])} | {_fmt(stats['spread_pct'])} | {limits} |"
+            f"  | `{name}` | {fmt(stats['min'])} (`{stats['min_at']}`) "
+            f"| {fmt(stats['max'])} (`{stats['max_at']}`) "
+            f"| {fmt(stats['mean'])} | {fmt(stats['spread_pct'])} | {limits} |"
         )
 
     verdict = {"pass": "PASS", "fail": "FAIL", "error": "ERROR"}[record["status"]]

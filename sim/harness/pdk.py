@@ -114,6 +114,14 @@ class Pdk:
         }
 
 
+def repo_relative(path: Path) -> str:
+    """A path as repo-relative (absolute, resolved, if outside the repo)."""
+    try:
+        return str(path.resolve().relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path.resolve())
+
+
 def _is_valid_variant_dir(path: Path) -> bool:
     return (path / "libs.tech" / "ngspice" / "sm141064.ngspice").is_file()
 
