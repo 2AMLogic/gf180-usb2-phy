@@ -193,3 +193,142 @@ None of the above is a substitute for #26's PVT-corner simulation pass;
 it is the level of diligence reasonable to expect from schematic capture
 (catching an obviously-wrong component value before it ships), not a
 claim that the +/-5% target is met.
+
+## Differential + single-ended receivers (issue #29)
+
+Three receive-side analog blocks, per `spec/usb2-device-phy.md` Sec.4: a
+differential receiver and one single-ended receiver per line (D+, D-).
+**Schematic capture only** at this stage, same boundary as issue #30's
+cells above -- each targets its spec Sec.4 threshold(s) *by design*, but
+none has been through a PVT-corner simulation pass (#26, which depends on
+these schematics existing). Nothing below is a verified claim; each is
+flagged as design intent, per `sim/README.md`'s append-only
+evidence-record convention (a *verified* claim lives in `sim/`, not
+here). All three cells are flat leaves (no cell instantiates another),
+consistent with `design/netlist.py`'s module docstring.
+
+### Shared building block: a self-biased 5T OTA + 2-inverter buffer
+
+All three cells reduce to the same core: a differential-to-digital
+converter built from an NMOS 5-transistor OTA (operational
+transconductance amplifier) followed by a 2-stage CMOS inverter buffer
+that squares the OTA's small analog output swing to a rail-to-rail
+digital bit. No on-chip voltage/current reference is used anywhere in
+this section -- consistent with CLAUDE.md's scope discipline (no
+bandgap block in scope): bias current is generated locally in each cell
+by a resistor (`RBIAS`, `ppolyf_u_1k`, ~200kohm nominal) into a
+diode-connected NMOS (`MNBIAS`), mirrored 2x into the OTA's tail
+transistor (`MTAIL`).
+
+**5T-OTA polarity rule (load-bearing, and easy to get backwards --
+flagged here because an earlier draft of this schematic had it
+inverted until an ngspice spot-check caught it):** in a diff pair with
+diode-connected PMOS load on one branch and a mirrored PMOS load on the
+other, the single-ended output node (the mirrored branch) is
+**non-inverting with respect to the diode-connected branch's own gate**,
+and inverting with respect to the output branch's own gate. Each cell
+below places its "the output should track this signal" input on the
+diode-connected branch (`MN_INA`) for exactly this reason, so that the
+two buffer-stage inversions cancel and the final digital output tracks
+that input non-invertingly.
+
+### `differential_receiver.sch`
+
+Recovers D+/D- differential data (J/K states): the OTA compares `DP`
+(diode branch, `MN_INA`) against `DM` (mirror/output branch, `MN_INB`),
+so `RXD` tracks `DP` non-inverting: `RXD=1` when `DP` is the
+more-positive line (J), `RXD=0` when `DM` is (K). NRZI/bit decode of
+`RXD` is out of scope here (the out-of-scope serial interface engine per
+CLAUDE.md) -- this cell stops at the recovered raw bit.
+
+Target (spec Sec.4), by design intent: differential input sensitivity
+`|DP-DM| > 200mV`, over a `0.8-2.5V` common-mode range.
+
+**Sizing rationale (first-order, hand calc):** input pair `MN_INA`/
+`MN_INB` sized `W=20u/L=0.28u` (min-L for gm, wide for low Vov --
+headroom toward the 0.8V common-mode floor). Load `MP_LOADA`/
+`MP_LOADB` sized 2:1 P:N (`W=40u` vs the input pair's `W=20u`, gf180mcu
+3.3V mobility ratio -- same convention as `differential_driver.sch`'s
+output stage). Buffer inv1 (`MP_B1`/`MN_B1`, `W=8u`/`4u`) and inv2
+(`MP_B2`/`MN_B2`, `W=16u`/`8u`) follow the same 2:1 P:N ratio and
+roughly double per stage (fanout scaling) to square `AMPOUT`'s
+small-signal swing to rail-to-rail `RXD`.
+
+**Spot-check (informal, `ngspice -b`, tt corner, 27 degC, ideal 3.3V
+rail -- not a `sim/` evidence record):** DC operating-point sweep with
+DP/DM driven +/-150mV around a common-mode point (300mV differential,
+above the 200mV sensitivity target), swept across the full 0.8-2.5V
+common-mode range (0.8, 1.0, 1.4, 1.65, 2.0, 2.5V):
+- At every common-mode point, `AMPOUT` and `RXD` saturate to VDD (3.3V)
+  -- correct polarity (`DP>DM` -> `RXD` high) and full rail-to-rail
+  output across the entire spec'd common-mode range at this one
+  operating point (tt/27degC/ideal-VDD only; PVT sweep is #26's job).
+- Reverse polarity check (`DP=1.5V`, `DM=1.8V`, CM=1.65V, 300mV the
+  other way): `AMPOUT` = 0.83V, `RXD` ~ 0V -- correctly low.
+- Differential just above the spec minimum (`DP=1.775V`, `DM=1.525V`,
+  250mV differential, CM=1.65V): `RXD` still saturates fully high --
+  consistent with, but not a substitute for, a real offset/mismatch
+  sweep at exactly 200mV (#26's job).
+
+Open PVT items (not covered by the spot-check above; #26 owns
+verification): common-mode headroom margins at the tail current source
+(0.8V floor) and the PMOS load (2.5V ceiling) were not swept beyond the
+six single points above; input-referred offset from device mismatch is
+not modelled by a DC operating-point check at all.
+
+### `se_receiver_dp.sch` / `se_receiver_dm.sch`
+
+One single-ended receiver per line, identical topology, mirrored only in
+which line/output pin they use (`DP`/`RXDP` vs `DM`/`RXDM`). Each
+compares its line against a locally-generated reference `VREF` (mirror
+branch is the internal `VREF` node, diode branch is the line input, so
+the output tracks the *line*, not `VREF`, non-inverting -- same 5T-OTA
+polarity rule as above).
+
+Target (spec Sec.4), by design intent, per line: `VIH > 2.0V`,
+`VIL < 0.8V`.
+
+**Design choice: `VREF` at the VIH/VIL midpoint, not an absolute
+reference.** `VREF` is set by an on-chip resistor divider (`R1`/`R2`,
+both `ppolyf_u_1k`) off `VDD`: `R1=1900ohm` (`W=2u,L=3.8u`),
+`R2=1400ohm` (`W=2u,L=2.8u`), `R1+R2=3300ohm`, so
+`VREF = VDD*R2/(R1+R2) = 3.3V*1400/3300 = 1.4V` at nominal `VDD` --
+exactly `(VIH+VIL)/2 = (2.0+0.8)/2 = 1.4V` by construction, giving a
+zero-offset comparator 0.6V of margin on each side. This is a
+supply-referenced (ratiometric) threshold, not an absolute one: it
+tracks `VDD` along with the thresholds it is trying to straddle, which
+is appropriate for this cell's purpose (recognizing rail-referenced
+J/K/SE0 levels) but is a design choice worth flagging, not a claim that
+it is immune to `VDD` variation -- #26's job. OTA/bias/buffer sizing is
+identical to `differential_receiver.sch`'s (see above); not repeated
+per-cell to avoid drift between independently-editable copies (some
+duplication across the three cells in this section is expected, per
+`design/netlist.py`'s "flat leaf, no hierarchy yet" module docstring).
+
+**Spot-check (informal, `ngspice -b`, tt corner, 27 degC, ideal 3.3V
+rail -- not a `sim/` evidence record, `se_receiver_dp.sch` shown, `_dm`
+confirmed to match at the two boundary points):**
+- `VREF` measured 1.412V -- close to the 1.4V hand calc; the small gap
+  is the real `ppolyf_u_1k` compact model's non-ideal (contact/end
+  resistance) terms versus the sheet-rho-only estimate, the same class
+  of gap flagged for the pull-up's trim resistors above.
+- `DP=2.0V` (the VIH boundary): `RXDP` = 3.3V (high) -- correct.
+- `DP=0.8V` (the VIL boundary): `RXDP` ~ 0V (low) -- correct.
+- Coarse trip-point sweep (`DP` = 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0V):
+  low through 1.2V, high from 1.4V onward -- the actual switching point
+  falls between 1.2V and 1.4V, consistent with the ~1.412V `VREF`
+  measurement and comfortably inside both margins.
+- `se_receiver_dm.sch`: `DM=2.0V` -> `RXDM` high, `DM=0.8V` -> `RXDM`
+  low -- same boundary behavior confirmed on the D- copy.
+
+Open PVT item (not covered by the spot-check above; #26 owns
+verification): comparator input-referred offset from device mismatch
+eats directly into the 0.6V margin on each side and is not modelled by
+a DC operating-point check -- #26's PVT/mismatch sweep is what turns
+this margin argument into a verified claim.
+
+None of the above is a substitute for #26's PVT-corner simulation pass;
+it is the level of diligence reasonable to expect from schematic capture
+(catching an obviously-wrong polarity or component value before it
+ships -- the polarity bug above is a concrete example of exactly that),
+not a claim that the Sec.4 thresholds are met.
