@@ -102,6 +102,31 @@ async def test_removes_the_stuffed_zero(dut):
 
 
 @cocotb.test()
+async def test_trailing_stuffed_zero_at_packet_end_is_removed(dut):
+    """A conformant peer's end-of-packet stuff bit is removed, not emitted.
+
+    USB 2.0 #7.1.9 requires the transmitter to insert the 0 "even if it is
+    the last bit before the end-of-packet (EOP) signal", so a packet whose
+    last six data bits are 1s arrives with a trailing stuffed 0. The stuff
+    position is fixed by the run count, so no packet-boundary special case
+    is needed on this side -- the trailing bit is destuffed like any other,
+    and the mirror of `usb_bit_stuffer`'s flush comes back out clean.
+    """
+    await _start_clock(dut)
+    await _reset(dut)
+
+    original = [1] * 6
+    stuffed, flags = bit_stuff(original)
+    assert stuffed == [1] * 6 + [0], f"fixture is not the #7.1.9 case: {stuffed}"
+    assert flags == [False] * 6 + [True], f"unexpected fixture flags: {flags}"
+
+    data, errors = await _destuff(dut, stuffed)
+    assert data == original, f"the trailing stuff bit was not removed: {data}"
+    assert errors == [], "a conformant trailing stuff bit raised a stuff error"
+    assert (data, errors) == bit_destuff(stuffed), "DUT disagrees with the model"
+
+
+@cocotb.test()
 async def test_seven_ones_raise_a_stuff_error(dut):
     """Seven consecutive 1s is a bit-stuff error (edge case: injection)."""
     await _start_clock(dut)

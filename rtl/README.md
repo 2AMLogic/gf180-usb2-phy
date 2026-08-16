@@ -37,10 +37,27 @@ TX:  data -> usb_bit_stuffer   -> usb_nrzi_encoder -> line (J/K)
 RX:  data <- usb_bit_destuffer <- usb_nrzi_decoder <- line (J/K)
 ```
 
-Boundary detail worth knowing before wiring these up: the stuffed 0
-precedes the seventh bit, so a stream that simply *ends* on a run of
-exactly six 1s gets no trailing stuffed bit. The stuffer and destuffer
-implement the same boundary, so the pair stays lossless.
+Boundary detail you must handle before wiring these up: **USB 2.0 §7.1.9
+enforces bit stuffing without exception** — "a zero bit will be inserted
+even if it is the last bit before the end-of-packet (EOP) signal". A
+packet whose last six pre-NRZI bits are 1s (an ordinary CRC16 residue can
+end that way) must therefore put a stuffed 0 on the wire before EOP.
+
+`usb_bit_stuffer.v` is a *streaming* module with no concept of a packet
+boundary: its insert arm is gated on `in_valid`, so merely dropping
+`in_valid` after the sixth 1 emits nothing more. The framing/UTMI wrapper
+owns the boundary and must **flush** the stuffer before asserting EOP —
+assert `in_valid` for exactly one clock while `in_ready` is low, then
+deassert. That clock emits the stuffed 0 (`out_stuffed` high) and consumes
+no input bit, because no transfer happens while `in_ready` is low; when
+`in_ready` is high there is no pending stuff position and the flush must be
+skipped. This is the one sanctioned exception to the "hold `in_valid` until
+`in_ready`" rule the handshake otherwise follows.
+
+`usb_bit_destuffer.v` needs no matching special case: the stuff position is
+fixed by the run count, so the trailing 0 is removed like any other, and the
+pair is lossless *and* conformant across a packet end. Both directions are
+covered by directed tests, and end to end by the loopback harness.
 
 **Not here, on purpose.** SYNC generation/detection, EOP (SE0)
 generation/detection, `LineState[1:0]` decode, and the top-level

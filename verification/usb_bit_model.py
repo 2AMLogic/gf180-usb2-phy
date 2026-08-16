@@ -60,9 +60,25 @@ def nrzi_decode(line_bits, initial=IDLE_J):
 def bit_stuff(bits):
     """Insert a 0 after every six consecutive 1s.
 
+    `bits` is one packet's worth of data: this model has a packet boundary,
+    which `rtl/usb_bit_stuffer.v` (a streaming module) deliberately does
+    not.
+
     The insertion is positional, not data-dependent: the 0 goes in after
     the sixth 1 even when the next data bit is itself a 0, because the
     receiver removes a bit at exactly the same position.
+
+    The rule survives the end of the packet. USB 2.0 #7.1.9: bit stuffing
+    "is always enforced, without exception. If required by the bit stuffing
+    rules, a zero bit will be inserted even if it is the last bit before
+    the end-of-packet (EOP) signal." So a `bits` sequence ending on a run
+    of exactly six 1s gets a trailing stuffed 0 appended -- reachable in
+    ordinary traffic from a CRC16 residue ending in six 1s.
+
+    The RTL emits that same trailing bit only when its wrapper flushes it
+    (one clock of `in_valid` while `in_ready` is low); the testbenches
+    drive that flush at every packet end so the DUT and this model stay
+    comparable bit for bit. See `rtl/usb_bit_stuffer.v`'s header.
 
     Returns `(stuffed_bits, stuffed_flags)`, where `stuffed_flags[i]` is
     True exactly when `stuffed_bits[i]` is an inserted bit rather than data.
@@ -78,9 +94,11 @@ def bit_stuff(bits):
         out.append(bit)
         flags.append(False)
         ones = ones + 1 if bit == 1 else 0
-    # A run of exactly six 1s at the very end of the stream does not get a
-    # trailing stuffed bit until a seventh bit time actually arrives, so
-    # nothing is appended here.
+    if ones == STUFF_AFTER:
+        # The packet ends on six 1s: #7.1.9's "even if it is the last bit
+        # before the EOP" case.
+        out.append(0)
+        flags.append(True)
     return out, flags
 
 
@@ -92,6 +110,11 @@ def bit_destuff(bits):
     a 1 rather than the required 0 -- i.e. a seventh consecutive 1, which
     is a bit-stuff error. The offending bit is removed either way, so the
     receiver stays bit-aligned with the transmitter.
+
+    No packet-boundary special case is needed here: the stuff position is
+    fixed by the run count, so a conformant transmitter's trailing stuff
+    bit (see `bit_stuff`) is removed like any other. `bit_destuff` is the
+    exact inverse of `bit_stuff` for every input, packet ends included.
     """
     out = []
     errors = []

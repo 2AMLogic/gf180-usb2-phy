@@ -27,6 +27,39 @@
 // `in_ready` is combinational from internal state only (it does not depend
 // on `in_valid`), so there is no ready/valid combinational loop.
 //
+// End-of-packet flush -- required for USB conformance, not optional:
+//
+//   USB 2.0 #7.1.9 enforces bit stuffing "without exception": "If required
+//   by the bit stuffing rules, a zero bit will be inserted even if it is
+//   the last bit before the end-of-packet (EOP) signal." A packet whose
+//   last six pre-NRZI bits are 1s (an ordinary CRC16 residue can end that
+//   way) therefore MUST put a stuffed 0 on the wire before EOP.
+//
+//   This module is a *streaming* stuffer and deliberately has no concept of
+//   a packet boundary -- nothing here knows which bit is the last one. The
+//   insert arm below is gated on `in_valid`, so simply dropping `in_valid`
+//   after the sixth 1 emits nothing further. The framing/UTMI wrapper owns
+//   the boundary and MUST flush this module before asserting EOP:
+//
+//     assert `in_valid` for exactly one clock while `in_ready` is low,
+//     then deassert it.
+//
+//   `in_ready` low means the state machine is sitting on a pending stuff
+//   position, so that clock emits the stuffed 0 (`out_stuffed` high) and
+//   consumes no input bit -- no transfer occurs on a clock where `in_ready`
+//   is low. When `in_ready` is high there is no pending stuff position and
+//   the flush must be skipped, or the wrapper would hand over a bit the
+//   packet does not contain. This deliberate withdrawal of `in_valid` is
+//   the one sanctioned exception to the "hold `in_valid` until `in_ready`"
+//   rule stated above: the source is not withdrawing a bit, it is declaring
+//   there are no more.
+//
+//   Verified in `verification/test_usb_bit_stuffer.py`:
+//   `test_trailing_run_of_six_is_stuffed_on_flush` (flushed -- the trailing
+//   0 is emitted, still exactly six data bits consumed) and
+//   `test_trailing_run_of_six_is_not_stuffed_without_a_flush` (unflushed --
+//   correct mid-stream, a conformance bug at a packet end).
+//
 // Rate: one output bit per clock at the spec #3 interface clock of 12 MHz.
 
 `default_nettype none
@@ -65,12 +98,13 @@ module usb_bit_stuffer (
         // Insert the 0. `in_ready` is low this clock, so whatever the
         // source is presenting is held and consumed on the next one.
         //
-        // Note this arm is gated on `in_valid`: the stuffed bit precedes
-        // the seventh bit, so it is only emitted once a seventh bit
-        // actually shows up. A stream that simply ends on a run of six 1s
-        // gets no trailing stuffed bit -- the same boundary
-        // `usb_bit_model.bit_stuff` implements, and the same one
-        // `usb_bit_destuffer` expects on the way back in.
+        // Note this arm is gated on `in_valid`: mid-stream that is exactly
+        // right, since the stuffed 0 precedes the seventh bit and there is
+        // nothing to emit until a seventh bit time exists. At a packet end
+        // it is what makes the flush idiom in the header mandatory -- the
+        // wrapper asserts `in_valid` for one clock with `in_ready` low to
+        // reach this arm, which emits the USB 2.0 #7.1.9 trailing stuff bit
+        // without consuming a data bit.
         ones        <= 3'd0;
         out_valid   <= 1'b1;
         out_bit     <= 1'b0;

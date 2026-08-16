@@ -28,6 +28,19 @@
 // it never needs to stall its source -- there is no ready signal, unlike
 // `usb_bit_stuffer`.
 //
+// Packet boundary: no special case is needed on this side. USB 2.0 #7.1.9
+// requires a conformant transmitter to insert the stuffed 0 even as the
+// last bit before EOP, and a packet whose last six data bits are 1s
+// therefore ends with a stuff position. Because the position is fixed by
+// the run count alone, the arriving trailing 0 lands in `at_stuff` and is
+// removed like any other -- so this module already accepts a conformant
+// peer's end-of-packet stuff bit, including the one `usb_bit_stuffer`
+// emits when its wrapper flushes it (see that module's header). Verified
+// in `verification/test_usb_bit_destuffer.py`
+// (`test_trailing_stuffed_zero_at_packet_end_is_removed`) and end to end in
+// `verification/test_usb_bit_codec_loopback.py`
+// (`test_round_trip_packet_ending_on_six_ones`).
+//
 // Rate: one input bit per clock at the spec #3 interface clock of 12 MHz.
 
 `default_nettype none

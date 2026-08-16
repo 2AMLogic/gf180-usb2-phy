@@ -61,8 +61,19 @@ async def _step(dut, valid, bit=0, init=0):
     )
 
 
-async def _stuff(dut, bits, drain=4):
-    """Feed `bits` honoring `in_ready`; return `(out_bits, stuffed_flags)`."""
+async def _stuff(dut, bits, drain=4, flush=True):
+    """Feed `bits` honoring `in_ready`; return `(out_bits, stuffed_flags)`.
+
+    `bits` is treated as a whole packet, so by default the feed is followed
+    by the end-of-packet flush `rtl/usb_bit_stuffer.v`'s header specifies:
+    one clock of `in_valid` while `in_ready` is low, then deassert. That is
+    what makes USB 2.0 #7.1.9's trailing stuff bit appear, and what keeps
+    the DUT comparable bit for bit with `usb_bit_model.bit_stuff`, which has
+    a packet boundary where the streaming RTL does not.
+
+    Pass `flush=False` for a mid-stream segment (a stream that continues
+    after this call, e.g. across a gap or up to an `init`).
+    """
     out_bits = []
     flags = []
     index = 0
@@ -77,6 +88,16 @@ async def _stuff(dut, bits, drain=4):
             flags.append(bool(stuffed))
         if ready:
             index += 1
+    if flush and not int(dut.in_ready.value):
+        # A stuff position is pending: this clock emits it and consumes
+        # nothing, because no transfer happens while `in_ready` is low. The
+        # bit presented is a don't-care -- a 0 is used so that a wrongly
+        # consumed bit would show up as data (flag False) rather than hide
+        # inside the expected stuffed 0.
+        _ready, valid, bit, stuffed = await _step(dut, valid=1, bit=0)
+        if valid:
+            out_bits.append(bit)
+            flags.append(bool(stuffed))
     for _ in range(drain):
         _ready, valid, bit, stuffed = await _step(dut, valid=0)
         if valid:
@@ -130,19 +151,65 @@ async def test_six_ones_then_zero_still_stuffs(dut):
 
 
 @cocotb.test()
-async def test_trailing_run_of_six_is_not_stuffed(dut):
-    """A stream ending on exactly six 1s gets no trailing stuffed bit.
+async def test_trailing_run_of_six_is_not_stuffed_without_a_flush(dut):
+    """Six 1s alone stuff nothing *until* a seventh bit or a flush arrives.
 
-    The stuffed 0 precedes the seventh bit; with no seventh bit there is
-    nothing to precede. `usb_bit_destuffer` mirrors the same boundary, so
-    the pair stays lossless.
+    This is the mid-stream case and it is correct: the stuffed 0 precedes
+    the seventh bit, so with neither a seventh bit nor a packet end there is
+    nothing yet to emit -- the run is simply still pending (`in_ready` stays
+    low, holding the position). It is *not* the packet-end case: ending a
+    packet here without flushing would violate USB 2.0 #7.1.9, which is
+    exactly why the wrapper must flush -- see
+    `test_trailing_run_of_six_is_stuffed_on_flush`.
     """
     await _start_clock(dut)
     await _reset(dut)
 
-    out, flags = await _stuff(dut, [1] * 6)
-    assert out == [1] * 6, f"a trailing six-1 run was altered: {out}"
-    assert not any(flags), "a trailing six-1 run should not stuff"
+    out, flags = await _stuff(dut, [1] * 6, flush=False)
+    assert out == [1] * 6, f"a pending six-1 run was altered: {out}"
+    assert not any(flags), "an unflushed six-1 run should not stuff yet"
+    assert int(dut.in_ready.value) == 0, "the pending stuff position was not held"
+
+
+@cocotb.test()
+async def test_trailing_run_of_six_is_stuffed_on_flush(dut):
+    """A packet ending on six 1s stuffs a trailing 0 when flushed.
+
+    USB 2.0 #7.1.9: bit stuffing "is always enforced, without exception. If
+    required by the bit stuffing rules, a zero bit will be inserted even if
+    it is the last bit before the end-of-packet (EOP) signal." The stuffer
+    has no packet boundary of its own, so the framing wrapper reaches this
+    behavior by flushing it: one clock of `in_valid` while `in_ready` is
+    low, then deassert. The flush must not cost a data bit -- exactly six
+    are consumed here, and the seventh emitted bit is the inserted 0.
+    """
+    await _start_clock(dut)
+    await _reset(dut)
+
+    bits = [1] * 6
+    consumed = 0
+    for _ in range(len(bits)):
+        ready, valid, bit, stuffed = await _step(dut, valid=1, bit=1)
+        assert ready == 1, "in_ready fell before the run reached six"
+        assert valid and bit == 1 and not stuffed, "a data 1 was not passed through"
+        consumed += 1
+
+    # Packet ends here. `in_ready` is low, so the flush clock transfers
+    # nothing -- it only releases the pending stuffed 0.
+    assert int(dut.in_ready.value) == 0, "no stuff position was pending at packet end"
+    ready, valid, bit, stuffed = await _step(dut, valid=1, bit=0)
+    assert ready == 0, "the flush clock consumed a data bit"
+    assert valid and stuffed and bit == 0, f"flush emitted bit={bit} stuffed={stuffed}"
+
+    assert consumed == 6, f"the flush consumed extra data bits: {consumed}"
+    assert int(dut.in_ready.value) == 1, "in_ready did not recover after the flush"
+
+    # Same packet through the helper, checked against the golden model.
+    await _reset(dut)
+    out, flags = await _stuff(dut, bits)
+    assert out == [1] * 6 + [0], f"flushed packet is not conformant: {out}"
+    assert flags == [False] * 6 + [True], f"unexpected stuff flags: {flags}"
+    assert (out, flags) == bit_stuff(bits), "DUT disagrees with the model"
 
 
 @cocotb.test()
@@ -189,12 +256,13 @@ async def test_gap_preserves_the_run(dut):
     await _start_clock(dut)
     await _reset(dut)
 
-    out, flags = await _stuff(dut, [1] * 3, drain=0)
+    # Mid-stream segments: the packet is not over, so no flush.
+    out, flags = await _stuff(dut, [1] * 3, drain=0, flush=False)
     for _ in range(5):
         _ready, valid, _bit, _stuffed = await _step(dut, valid=0)
         assert valid == 0, "out_valid asserted during a gap"
 
-    more, more_flags = await _stuff(dut, [1] * 4)
+    more, more_flags = await _stuff(dut, [1] * 4, flush=False)
     out += more
     flags += more_flags
 
@@ -209,11 +277,14 @@ async def test_init_clears_the_run(dut):
     await _start_clock(dut)
     await _reset(dut)
 
-    await _stuff(dut, [1] * 6, drain=0)
+    # No flush: `init` is the other way a run of six ends, and the point
+    # here is that it discards the pending stuff position rather than
+    # emitting it.
+    await _stuff(dut, [1] * 6, drain=0, flush=False)
     _ready, valid, _bit, _stuffed = await _step(dut, valid=0, init=1)
     assert valid == 0, "out_valid asserted while init was high"
 
     # With the run cleared, six more 1s pass through unstuffed.
-    out, flags = await _stuff(dut, [1] * 6)
+    out, flags = await _stuff(dut, [1] * 6, flush=False)
     assert out == [1] * 6, f"init did not clear the run: {out}"
     assert not any(flags), "init did not clear the run"

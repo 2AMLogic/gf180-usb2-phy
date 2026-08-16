@@ -65,8 +65,13 @@ async def _step(dut, valid, bit=0, init=0):
     }
 
 
-async def _loopback(dut, bits):
-    """Send `bits` through the whole path; return what came back.
+async def _loopback(dut, bits, flush=True):
+    """Send `bits` through the whole path as one packet; return what came back.
+
+    The feed is followed by the end-of-packet flush `rtl/usb_bit_stuffer.v`
+    specifies -- one clock of `tx_valid` while `tx_ready` is low, then
+    deassert -- so a packet ending on six 1s puts USB 2.0 #7.1.9's trailing
+    stuffed 0 on the line. Pass `flush=False` for a mid-stream segment.
 
     Returns `(line_bits, stuffed_count, rx_bits, error_count)`.
     """
@@ -95,6 +100,12 @@ async def _loopback(dut, bits):
         observe(sample)
         if sample["ready"]:
             index += 1
+
+    if flush and not int(dut.tx_ready.value):
+        # A stuff position is pending at the packet end: this clock releases
+        # it and consumes nothing, because no transfer happens while
+        # `tx_ready` is low.
+        observe(await _step(dut, valid=1, bit=0))
 
     for _ in range(PIPELINE_DEPTH + 2):
         observe(await _step(dut, valid=0))
@@ -165,6 +176,30 @@ async def test_round_trip_all_zeros(dut):
     assert rx_bits == bits, "the round trip did not recover the transmitted bits"
     assert errors == 0, "a 0 run raised a stuff error"
     assert _longest_run(line) == 1, "a 0 run should transition every bit"
+
+
+@cocotb.test()
+async def test_round_trip_packet_ending_on_six_ones(dut):
+    """A packet ending on six 1s carries its #7.1.9 stuff bit and survives.
+
+    The end-to-end statement of the packet-boundary rule: the flushed TX
+    path puts one extra 0 on the line, and the RX path removes it at the
+    same position, so the payload comes back unchanged with no stuff error.
+    Reachable in ordinary traffic -- a CRC16 residue can end in six 1s.
+    """
+    await _start_clock(dut)
+    await _reset(dut)
+
+    bits = [0, 1, 0] + [1] * 6
+    line, stuffed, rx_bits, errors = await _loopback(dut, bits)
+
+    expected_stuffed, flags = bit_stuff(bits)
+    assert flags[-1] is True, "fixture does not end on a stuff position"
+    assert stuffed == 1, f"the trailing stuff bit was not emitted: {stuffed}"
+    assert len(line) == len(bits) + 1, f"unexpected line length: {len(line)}"
+    assert line == nrzi_encode(expected_stuffed), "line stream differs from the model"
+    assert rx_bits == bits, "the round trip did not recover the transmitted bits"
+    assert errors == 0, "a conformant trailing stuff bit raised a stuff error"
 
 
 @cocotb.test()
