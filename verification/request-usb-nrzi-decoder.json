@@ -1,0 +1,20 @@
+{
+  "schema": "klt.functional_verification.request/1",
+  "engine": "icarus",
+  "sources": [
+    "../rtl/usb_nrzi_decoder.v"
+  ],
+  "hdl_toplevel": "usb_nrzi_decoder",
+  "testbench": {
+    "module": "test_usb_nrzi_decoder",
+    "testcase": null
+  },
+  "options": {
+    "coverage": false,
+    "timescale": [
+      "1ns",
+      "1ps"
+    ],
+    "random_seed": 1
+  }
+}

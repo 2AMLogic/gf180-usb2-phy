@@ -1,0 +1,20 @@
+{
+  "schema": "klt.functional_verification.request/1",
+  "engine": "icarus",
+  "sources": [
+    "../rtl/usb_bit_destuffer.v"
+  ],
+  "hdl_toplevel": "usb_bit_destuffer",
+  "testbench": {
+    "module": "test_usb_bit_destuffer",
+    "testcase": null
+  },
+  "options": {
+    "coverage": false,
+    "timescale": [
+      "1ns",
+      "1ps"
+    ],
+    "random_seed": 1
+  }
+}

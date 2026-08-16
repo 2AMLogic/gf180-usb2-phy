@@ -28,19 +28,70 @@ need a concrete schema to be checkable rather than aspirational:
 
 ## Scope of this harness (read before adding a "real" testbench here)
 
-Everything under `verification/` right now verifies `rtl/harness_counter.v`
-— a throwaway smoke-test vehicle with **zero USB semantics**, not any part
-of the PHY. Its only job is to prove the cocotb + Icarus + `klt` digital
-harness (issue #7, the digital half of #2) elaborates, simulates, and
-reports a real result end-to-end. When real PHY digital logic (NRZI
-encode/decode, bit stuffing/destuffing, SYNC/EOP handling, per
-`spec/usb2-device-phy.md` §2) is implemented, its testbenches belong here
-too, following the same convention — but do not extend
-`test_harness_counter.py` itself to grow USB semantics; write a new
-testbench against the real module instead, per `CLAUDE.md`'s
-scope-discipline rule.
+`test_harness_counter.py` verifies `rtl/harness_counter.v` — a throwaway
+smoke-test vehicle with **zero USB semantics**, not any part of the PHY.
+Its only job is to prove the cocotb + Icarus + `klt` digital harness
+(issue #7, the digital half of #2) elaborates, simulates, and reports a
+real result end-to-end. Everything else here verifies real PHY digital
+logic: the bit-level codec of `spec/usb2-device-phy.md` §2 (NRZI
+encode/decode, bit stuffing/destuffing). SYNC/EOP handling and
+`LineState[1:0]` decode are still to come and their testbenches belong
+here too, following the same convention.
+
+Do not extend `test_harness_counter.py` itself to grow USB semantics, and
+do not extend a bit-level codec testbench to grow framing or
+serial-interface-engine semantics: write a new testbench against the real
+module instead, per `CLAUDE.md`'s scope-discipline rule.
 
 ## Contents
+
+### Bit-level codec (`spec/usb2-device-phy.md` §2)
+
+- `usb_bit_model.py` — the golden Python reference models (NRZI
+  encode/decode, bit stuff/destuff) the four codec testbenches below check
+  the RTL against, bit for bit. Written straight from the prose rules in
+  spec §2 and deliberately sharing no structure with the RTL (no clocks, no
+  valid strobes, no pipeline latency): a model shaped like the
+  implementation cannot catch the implementation's mistakes. Pure stdlib,
+  no cocotb import, so it is readable and importable outside a simulator.
+- `test_usb_nrzi_encoder.py` / `request-usb-nrzi-encoder.json` — cocotb
+  testbench for `rtl/usb_nrzi_encoder.v`: reset-to-J, all-1s (a static
+  line), all-0s (a transition every bit), a 512-bit randomized bit-exact
+  cross-check against the model plus an NRZI round trip, `data_valid` gaps,
+  and `init`.
+- `test_usb_nrzi_decoder.py` / `request-usb-nrzi-decoder.json` — cocotb
+  testbench for `rtl/usb_nrzi_decoder.v`: a line with no transitions at all
+  (the idle/hold case, which correctly decodes to 1s), a transition every
+  bit, a 512-bit randomized round trip, `line_valid` gaps (including
+  wiggling the line during the gap to prove the transition reference is not
+  disturbed), and `init`.
+- `test_usb_bit_stuffer.py` / `request-usb-bit-stuffer.json` — cocotb
+  testbench for `rtl/usb_bit_stuffer.v`: all-0s (never stuffs), all-1s
+  (maximal stuffing density, and never more than six 1s emitted in a row),
+  the positional insertion before a data 0, the "stream ends on exactly six
+  1s" boundary, a 512-bit 1-biased randomized cross-check, the `in_ready`
+  backpressure contract (one stall per inserted bit, never two clocks in a
+  row), run-count survival across a gap, and `init`.
+- `test_usb_bit_destuffer.py` / `request-usb-bit-destuffer.json` — cocotb
+  testbench for `rtl/usb_bit_destuffer.v`: all-0s, stuffed-bit removal,
+  **stuff-error injection** (seven consecutive 1s → a one-clock `stuff_err`
+  pulse, re-flagged at every subsequent stuff position in a long 1 run), a
+  512-bit 1-biased randomized round trip, run-count survival across a gap,
+  and `init`.
+- `tb_usb_bit_codec_loopback.v` — **testbench scaffolding, not PHY RTL**
+  (which is why it lives here and not in `rtl/`): a structural harness
+  wiring the whole TX path (stuffer → NRZI encoder) into the whole RX path
+  (NRZI decoder → destuffer), so one Icarus elaboration can carry an
+  RTL-to-RTL round-trip claim rather than an RTL-against-model one. It is
+  explicitly *not* the top-level digital wrapper — no SYNC, no EOP, no
+  line-state decode, no UTMI ports.
+- `test_usb_bit_codec_loopback.py` / `request-usb-bit-codec-loopback.json`
+  — cocotb testbench for that harness: a 512-bit 1-biased random stream,
+  all-1s (which also checks the line never holds the same state for more
+  than seven bit times — the entire point of bit stuffing), all-0s, and a
+  second stream after `init`.
+
+### Harness smoke test
 
 - `test_harness_counter.py` — cocotb testbench for `rtl/harness_counter.v`,
   covering reset, hold-when-disabled, and a 500-case randomized
@@ -48,6 +99,9 @@ scope-discipline rule.
   `klt functional-verification` (see `request-harness-counter.json`).
 - `request-harness-counter.json` — `klt functional-verification` request
   driving `test_harness_counter.py` against `harness_counter.v` via Icarus.
+
+### Evidence-record tooling
+
 - `check_records.py` — the evidence-record linter (see "Enforcement"),
   originally ported unmodified from `sky130-modexp`. It also now houses the
   record-id grammar, `- **Field**: value` block parser, and git
@@ -61,11 +115,29 @@ scope-discipline rule.
   below, run against a throwaway fixture repo.
 - `records/` — the append-only evidence records this convention produces.
 
-Run the klt-driven functional-verification suite with:
+Run every klt-driven functional-verification suite in this directory with:
+
+```bash
+npm run test
+```
+
+`package.json`'s `test` script chains one `klt functional-verification`
+invocation per request file, and each of them is runnable on its own:
 
 ```bash
 klt functional-verification verification/request-harness-counter.json --format json
+klt functional-verification verification/request-usb-nrzi-encoder.json --format json
+klt functional-verification verification/request-usb-nrzi-decoder.json --format json
+klt functional-verification verification/request-usb-bit-stuffer.json --format json
+klt functional-verification verification/request-usb-bit-destuffer.json --format json
+klt functional-verification verification/request-usb-bit-codec-loopback.json --format json
 ```
+
+A request needs one invocation each because `klt
+functional-verification`'s request schema names a single `hdl_toplevel` —
+there is no way to elaborate several independent top-levels in one run.
+Adding a new module means adding a request file *and* extending the `test`
+script, or CI will not exercise it.
 
 Run the record linter (and its self-test) with:
 

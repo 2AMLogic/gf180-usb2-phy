@@ -1,0 +1,24 @@
+{
+  "schema": "klt.functional_verification.request/1",
+  "engine": "icarus",
+  "sources": [
+    "../rtl/usb_bit_stuffer.v",
+    "../rtl/usb_nrzi_encoder.v",
+    "../rtl/usb_nrzi_decoder.v",
+    "../rtl/usb_bit_destuffer.v",
+    "tb_usb_bit_codec_loopback.v"
+  ],
+  "hdl_toplevel": "tb_usb_bit_codec_loopback",
+  "testbench": {
+    "module": "test_usb_bit_codec_loopback",
+    "testcase": null
+  },
+  "options": {
+    "coverage": false,
+    "timescale": [
+      "1ns",
+      "1ps"
+    ],
+    "random_seed": 1
+  }
+}

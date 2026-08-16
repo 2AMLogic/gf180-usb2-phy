@@ -1,0 +1,20 @@
+{
+  "schema": "klt.functional_verification.request/1",
+  "engine": "icarus",
+  "sources": [
+    "../rtl/usb_bit_stuffer.v"
+  ],
+  "hdl_toplevel": "usb_bit_stuffer",
+  "testbench": {
+    "module": "test_usb_bit_stuffer",
+    "testcase": null
+  },
+  "options": {
+    "coverage": false,
+    "timescale": [
+      "1ns",
+      "1ps"
+    ],
+    "random_seed": 1
+  }
+}
