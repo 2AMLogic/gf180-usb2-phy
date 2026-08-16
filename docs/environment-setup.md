@@ -199,7 +199,9 @@ to run anywhere; `klt synthesize` (and, later, `klt place-and-route`/
 `klt drc`) needs the fetched PDK and is run locally by a contributor with
 `scripts/setup-env.sh`'s environment provisioned, with the result committed
 as an append-only record under `verification/records/` (see
-`verification/README.md`). This repo does not yet have a CI workflow file;
-when one is added, it should preserve this split explicitly rather than
-silently dropping the PDK-heavy legs — see `sky130-modexp`'s
-`.github/workflows/ci.yml` for the pattern to port.
+`verification/README.md`). [`.github/workflows/ci.yml`](../.github/workflows/ci.yml)
+implements this split: it runs `npm run check:ci` (evidence-record lint +
+`klt functional-verification`) on every push/PR to `main`, and does not run
+`check:all`'s PDK-heavy `klt synthesize` leg — that stays local, per this
+section. If you ever move a PDK-heavy leg into CI, update this section in
+the same change rather than letting the two drift.
