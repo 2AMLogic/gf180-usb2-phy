@@ -49,6 +49,13 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
+# sim/harness is a package rooted at sim/, not at the repo root (see
+# sim/run_corners.py) -- put sim/ on sys.path the same way to reuse its
+# repo_relative() helper without disturbing this script's standalone
+# invocability (`python3 sim/tools/mk_dut.py ...`).
+sys.path.insert(0, str(REPO_ROOT / "sim"))
+from harness.pdk import repo_relative  # noqa: E402
+
 #: Directives a DUT fragment may not carry -- see ``harness.testbench``.
 DROP_DIRECTIVES = (".end", ".temp", ".lib", ".global", ".option", ".options")
 
@@ -133,7 +140,7 @@ def validate(fragment: str) -> list[str]:
 
 
 def header(source: Path, sha256: str, subckts: list[str]) -> str:
-    rel = _repo_relative(source)
+    rel = repo_relative(source)
     return "\n".join(
         [
             "* DUT netlist fragment -- GENERATED, do not edit by hand.",
@@ -151,13 +158,6 @@ def header(source: Path, sha256: str, subckts: list[str]) -> str:
             "",
         ]
     )
-
-
-def _repo_relative(path: Path) -> str:
-    try:
-        return str(path.resolve().relative_to(REPO_ROOT))
-    except ValueError:
-        return str(path)
 
 
 def subckt_names(fragment: str) -> list[str]:
