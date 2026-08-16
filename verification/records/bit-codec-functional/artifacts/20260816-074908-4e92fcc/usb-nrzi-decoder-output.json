@@ -13,37 +13,37 @@
       "name": "test_reset_is_quiet",
       "status": "passed",
       "sim_time_ns": 208.335,
-      "real_time_s": 0.0016970634460449219
+      "real_time_s": 0.0018069744110107422
     },
     {
       "name": "test_no_transitions_decode_to_ones",
       "status": "passed",
       "sim_time_ns": 2875.023,
-      "real_time_s": 0.009187698364257812
+      "real_time_s": 0.004721879959106445
     },
     {
       "name": "test_transition_every_bit_decodes_to_zeros",
       "status": "passed",
       "sim_time_ns": 2875.0229999999997,
-      "real_time_s": 0.007620096206665039
+      "real_time_s": 0.004610776901245117
     },
     {
       "name": "test_random_stream_round_trips",
       "status": "passed",
       "sim_time_ns": 42875.343,
-      "real_time_s": 0.22490978240966797
+      "real_time_s": 0.06079530715942383
     },
     {
       "name": "test_gap_is_ignored",
       "status": "passed",
       "sim_time_ns": 1291.676999999996,
-      "real_time_s": 0.00490117073059082
+      "real_time_s": 0.0018520355224609375
     },
     {
       "name": "test_init_rearms_the_j_reference",
       "status": "passed",
       "sim_time_ns": 458.33699999999953,
-      "real_time_s": 0.0004830360412597656
+      "real_time_s": 0.0007297992706298828
     }
   ],
   "coverage": null,

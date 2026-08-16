@@ -4,8 +4,8 @@
   "hdl_toplevel": "usb_bit_stuffer",
   "testbench": "test_usb_bit_stuffer",
   "status": "pass",
-  "test_count": 8,
-  "passed_count": 8,
+  "test_count": 9,
+  "passed_count": 9,
   "failed_count": 0,
   "skipped_count": 0,
   "tests": [
@@ -13,49 +13,55 @@
       "name": "test_all_zeros_are_never_stuffed",
       "status": "passed",
       "sim_time_ns": 3208.359,
-      "real_time_s": 0.005853891372680664
+      "real_time_s": 0.0032510757446289062
     },
     {
       "name": "test_all_ones_stuff_maximally",
       "status": "passed",
       "sim_time_ns": 5291.708999999999,
-      "real_time_s": 0.009904146194458008
+      "real_time_s": 0.0040760040283203125
     },
     {
       "name": "test_six_ones_then_zero_still_stuffs",
       "status": "passed",
       "sim_time_ns": 1208.3430000000008,
-      "real_time_s": 0.002293109893798828
+      "real_time_s": 0.0009732246398925781
     },
     {
-      "name": "test_trailing_run_of_six_is_not_stuffed",
+      "name": "test_trailing_run_of_six_is_not_stuffed_without_a_flush",
       "status": "passed",
       "sim_time_ns": 1041.6749999999993,
-      "real_time_s": 0.003076791763305664
+      "real_time_s": 0.0008387565612792969
+    },
+    {
+      "name": "test_trailing_run_of_six_is_stuffed_on_flush",
+      "status": "passed",
+      "sim_time_ns": 1958.3490000000002,
+      "real_time_s": 0.0015759468078613281
     },
     {
       "name": "test_random_stream_matches_model",
       "status": "passed",
       "sim_time_ns": 46375.371,
-      "real_time_s": 0.06767392158508301
+      "real_time_s": 0.04374289512634277
     },
     {
       "name": "test_in_ready_falls_only_for_the_stuffed_bit",
       "status": "passed",
       "sim_time_ns": 3541.6949999999997,
-      "real_time_s": 0.0029020309448242188
+      "real_time_s": 0.0052433013916015625
     },
     {
       "name": "test_gap_preserves_the_run",
       "status": "passed",
       "sim_time_ns": 1625.012999999999,
-      "real_time_s": 0.0013239383697509766
+      "real_time_s": 0.0024178028106689453
     },
     {
       "name": "test_init_clears_the_run",
       "status": "passed",
-      "sim_time_ns": 1625.012999999999,
-      "real_time_s": 0.0013098716735839844
+      "sim_time_ns": 1625.0130000000063,
+      "real_time_s": 0.0023508071899414062
     }
   ],
   "coverage": null,

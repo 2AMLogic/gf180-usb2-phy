@@ -322,7 +322,7 @@ The records under `verification/records/` illustrate the format:
   the liberty content hash klt reports.
 - `verification/records/bit-codec-functional/records/<record-id>.md` — the
   first record substantiating a real spec claim rather than a harness one:
-  32 cocotb tests across five `klt functional-verification` invocations,
+  35 cocotb tests across five `klt functional-verification` invocations,
   bit-exact against `usb_bit_model.py`, covering the bit-level half of spec
   §2. Two things about it are worth copying:
   - **One record, five runs.** The convention is one experiment directory
