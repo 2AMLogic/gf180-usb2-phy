@@ -242,21 +242,17 @@ def git_diff_name_status(
 # --- verification-specific: record-meta block, prose fields ----------------
 
 
-def _run_git(*args: str) -> str:
-    result = subprocess.run(
-        ["git", *args],
-        cwd=REPO_ROOT,
-        capture_output=True,
-        text=True,
-    )
-    if result.returncode != 0:
-        raise RuntimeError(result.stderr.strip() or f"git {' '.join(args)} failed")
-    return result.stdout
-
-
 def _tracked_record_files() -> list[Path]:
-    out = _run_git("ls-files", "--", "verification/records/**/records/*.md")
-    return sorted(REPO_ROOT / line for line in out.splitlines() if line.strip())
+    args = ("ls-files", "--", "verification/records/**/records/*.md")
+    result = _git(REPO_ROOT, *args)
+    # Unlike the append-only check, there is no useful way to continue without
+    # the tracked file list -- fail fast rather than lint an empty set.
+    if result is None or result.returncode != 0:
+        stderr = result.stderr.strip() if result is not None else ""
+        raise RuntimeError(stderr or f"git {' '.join(args)} failed")
+    return sorted(
+        REPO_ROOT / line for line in result.stdout.splitlines() if line.strip()
+    )
 
 
 def _extract_meta_block(text: str, path: Path) -> dict:
