@@ -53,6 +53,12 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   valid strobes, no pipeline latency): a model shaped like the
   implementation cannot catch the implementation's mistakes. Pure stdlib,
   no cocotb import, so it is readable and importable outside a simulator.
+- `cocotb_helpers.py` — the byte-identical `CLK_PERIOD_PS` (83334 ps, 12 MHz
+  per spec §3) and `start_clock(dut)` coroutine that every testbench in this
+  directory needs, extracted once here rather than redefined in each file
+  (issue #44); imported as
+  `from cocotb_helpers import start_clock as _start_clock`. `_reset(dut)` is
+  deliberately *not* consolidated alongside it -- see its own docstring.
 - `test_usb_nrzi_encoder.py` / `request-usb-nrzi-encoder.json` — cocotb
   testbench for `rtl/usb_nrzi_encoder.v`: reset-to-J, all-1s (a static
   line), all-0s (a transition every bit), a 512-bit randomized bit-exact

@@ -17,20 +17,10 @@ This file is *input* to `klt functional-verification` (see
 import random
 
 import cocotb
-from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge
 
+from cocotb_helpers import start_clock as _start_clock
 from usb_bit_model import IDLE_J, nrzi_decode, nrzi_encode
-
-# spec/usb2-device-phy.md #3 ratifies a 12 MHz interface clock -- the raw
-# full-speed bit rate, one bit per clock. 83334 ps is 12 MHz to within
-# 0.001%, chosen over 83333 ps only so the half period is a whole number of
-# picoseconds at this request's 1 ps precision.
-CLK_PERIOD_PS = 83334
-
-
-async def _start_clock(dut):
-    cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_PS, unit="ps").start())
 
 
 async def _reset(dut):

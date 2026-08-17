@@ -20,21 +20,13 @@ This file is *input* to `klt functional-verification` (see
 import random
 
 import cocotb
-from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge
 
+from cocotb_helpers import start_clock as _start_clock
 from usb_bit_model import bit_stuff, nrzi_encode
-
-# 12 MHz per spec/usb2-device-phy.md #3; see test_usb_nrzi_encoder.py for
-# why 83334 ps rather than 83333 ps.
-CLK_PERIOD_PS = 83334
 
 # Stuffer -> encoder -> decoder -> destuffer, one registered stage each.
 PIPELINE_DEPTH = 4
-
-
-async def _start_clock(dut):
-    cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_PS, unit="ps").start())
 
 
 async def _reset(dut):

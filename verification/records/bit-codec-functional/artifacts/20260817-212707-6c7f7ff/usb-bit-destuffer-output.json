@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_bit_destuffer",
+  "testbench": "test_usb_bit_destuffer",
+  "status": "pass",
+  "test_count": 9,
+  "passed_count": 9,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_all_zeros_pass_through",
+      "status": "passed",
+      "sim_time_ns": 2875.023,
+      "real_time_s": 0.012299060821533203
+    },
+    {
+      "name": "test_removes_the_stuffed_zero",
+      "status": "passed",
+      "sim_time_ns": 1041.6750000000002,
+      "real_time_s": 0.002309083938598633
+    },
+    {
+      "name": "test_trailing_stuffed_zero_at_packet_end_is_removed",
+      "status": "passed",
+      "sim_time_ns": 791.6729999999998,
+      "real_time_s": 0.0023369789123535156
+    },
+    {
+      "name": "test_seven_ones_raise_a_stuff_error",
+      "status": "passed",
+      "sim_time_ns": 791.6729999999998,
+      "real_time_s": 0.0025680065155029297
+    },
+    {
+      "name": "test_stuff_error_is_a_single_clock_pulse",
+      "status": "passed",
+      "sim_time_ns": 1125.009,
+      "real_time_s": 0.003492116928100586
+    },
+    {
+      "name": "test_long_run_of_ones_errors_every_seventh_bit",
+      "status": "passed",
+      "sim_time_ns": 1958.3489999999993,
+      "real_time_s": 0.006074190139770508
+    },
+    {
+      "name": "test_random_stream_round_trips",
+      "status": "passed",
+      "sim_time_ns": 46208.702999999994,
+      "real_time_s": 0.06999802589416504
+    },
+    {
+      "name": "test_gap_preserves_the_run",
+      "status": "passed",
+      "sim_time_ns": 1208.3430000000008,
+      "real_time_s": 0.0023047924041748047
+    },
+    {
+      "name": "test_init_clears_the_run",
+      "status": "passed",
+      "sim_time_ns": 1291.6770000000033,
+      "real_time_s": 0.002390146255493164
+    }
+  ],
+  "coverage": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-44/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1
+  }
+}
