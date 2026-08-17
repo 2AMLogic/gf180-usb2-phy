@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_sync_detector",
+  "testbench": "test_usb_sync_detector",
+  "status": "pass",
+  "test_count": 7,
+  "passed_count": 7,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_reset_holds_no_pulse",
+      "status": "passed",
+      "sim_time_ns": 208.335,
+      "real_time_s": 0.0026390552520751953
+    },
+    {
+      "name": "test_exact_sync_pattern_pulses_on_eighth_bit",
+      "status": "passed",
+      "sim_time_ns": 875.0070000000001,
+      "real_time_s": 0.0025107860565185547
+    },
+    {
+      "name": "test_all_ones_never_matches",
+      "status": "passed",
+      "sim_time_ns": 5541.711,
+      "real_time_s": 0.013053178787231445
+    },
+    {
+      "name": "test_corrupted_bit_never_matches",
+      "status": "passed",
+      "sim_time_ns": 875.0070000000005,
+      "real_time_s": 0.0014510154724121094
+    },
+    {
+      "name": "test_disabled_never_matches",
+      "status": "passed",
+      "sim_time_ns": 1541.679,
+      "real_time_s": 0.0035660266876220703
+    },
+    {
+      "name": "test_data_valid_gap_holds_match_state",
+      "status": "passed",
+      "sim_time_ns": 1291.6769999999997,
+      "real_time_s": 0.002605915069580078
+    },
+    {
+      "name": "test_mismatch_then_restart_matches_on_second_attempt",
+      "status": "passed",
+      "sim_time_ns": 1208.342999999999,
+      "real_time_s": 0.0031533241271972656
+    }
+  ],
+  "coverage": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-32/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1
+  }
+}

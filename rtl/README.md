@@ -59,18 +59,54 @@ fixed by the run count, so the trailing 0 is removed like any other, and the
 pair is lossless *and* conformant across a packet end. Both directions are
 covered by directed tests, and end to end by the loopback harness.
 
-**Not here, on purpose.** SYNC generation/detection, EOP (SE0)
-generation/detection, `LineState[1:0]` decode, and the top-level
-UTMI-facing wrapper that assembles these submodules are separate work and
-will arrive as their own files. Everything above the bit level — PID
-interpretation, CRC5/CRC16, endpoint/enumeration state — is the
-integrator's serial interface engine and is out of scope for this repo
-entirely (spec §1/§2, `CLAUDE.md`).
-
 Verification: each module has its own cocotb testbench under
 `verification/`, checked bit-exactly against an independent Python model,
 plus an RTL-to-RTL round-trip harness that drives the whole TX path into
 the whole RX path. See `verification/README.md`.
+
+## SYNC/EOP framing, line-state decode, and the top-level UTMI wrapper (issue #32)
+
+The four modules below complete spec §2's digital logic and assemble it,
+with the bit-level codec above, into the UTMI-facing block spec §3
+defines. Same conventions as the bit-level codec: fully synchronous,
+single-clock, 12 MHz, `rst_n` active-low synchronous reset, `1` = J / `0` =
+K wherever a bare J/K bit appears.
+
+| Module | Direction | Function |
+|---|---|---|
+| `usb_line_state_decode.v` | RX | `LineState[1:0]` from the two single-ended receiver outputs (`rxdp`/`rxdm`, matching `design/se_receiver_dp.sch`/`se_receiver_dm.sch`'s own pin names): `2'b01`=J, `2'b10`=K, `2'b00`=SE0, `2'b11`=SE1 (illegal, not produced in normal operation). |
+| `usb_sync_detector.v` | RX | Matches the fixed SYNC byte (`8'h80`, transmission order `0,0,0,0,0,0,0,1`) against the NRZI-**decoded** bit stream, not raw line state — see the module's own header for why. Two completion outputs one clock apart: combinational `sync_next` (concurrent with SYNC's own final bit) and registered `sync_valid` (one clock later, concurrent with the first post-SYNC bit). |
+| `usb_eop_detector.v` | RX | One SE0-duration counter feeding two outputs: `eop` (one-clock pulse at exactly 2 bit times of SE0 — spec §4's EOP threshold) and `bus_reset` (level, asserted from exactly 30 clocks of SE0 onward — 2.5 µs at the ratified 12.000 MHz interface clock, spec §4's reset threshold — cleared the clock SE0 ends). |
+| `usb_utmi_phy.v` | both | The top-level wrapper: presents the full UTMI port set (spec §3) plus wire-level `txdp`/`txdm`/`rxdp`/`rxdm` (matching `design/differential_driver.sch`'s `TXDP`/`TXDM` and the single-ended receivers' `RXDP`/`RXDM`), and instantiates every module above — `usb_bit_stuffer`, `usb_nrzi_encoder`, `usb_nrzi_decoder`, `usb_bit_destuffer` (issue #31) and the three RX modules in this section. SYNC and EOP *generation* (TX) live directly in this file's TX state machine, since both are inseparable from the byte-serialization sequencing the wrapper already owns — see its own header for the full derivation, including why the RX side free-runs `usb_nrzi_decoder` rather than re-issuing `init` mid-packet, and the `sync_next`/`sync_valid` split's role in that. |
+
+**Scope choices, stated explicitly** (see `usb_utmi_phy.v`'s header for
+the full reasoning): `OpMode`, `TermSelect`, `XcvrSelect`, `SuspendM` are
+present as ports (spec §3 requires them) but not consumed by any logic in
+this wrapper — this FS-only, device-only block has exactly one meaningful
+operating point, and the pull-up/receiver-mode effects those signals would
+otherwise drive are analog integration work tracked separately (see
+`design/README.md`'s own note that pull-up enable wiring is deferred to a
+PHY-level wrapper). `Reset` **is** consumed, folded into an internal
+synchronous reset alongside `rst_n`. Bus-reset detection
+(`usb_eop_detector`'s `bus_reset`) is used internally only, to abort an
+in-progress RX reception — it is not exposed as a port, since spec §3's
+UTMI table defines no such output; asserting the `Reset` *input* in
+response to a sustained SE0 on `LineState` is SIE-layer policy, out of
+scope per CLAUDE.md.
+
+**Not here, on purpose.** Everything above the bit/framing level — PID
+interpretation, CRC5/CRC16, endpoint/enumeration state — is the
+integrator's serial interface engine and is out of scope for this repo
+entirely (spec §1/§2, `CLAUDE.md`).
+
+Verification: each of the three RX modules has its own cocotb testbench
+under `verification/`, and `usb_utmi_phy.v` has a top-level integration
+testbench exercising the assembled wrapper end to end (TX byte(s) in →
+wire-level SYNC/NRZI/stuffed/EOP output, checked against
+`usb_bit_model.py`'s bit-level model; wire-level input → `DataIn`/`RxValid`/
+`RxActive` out, via self-loopback) — including bit-stuff-flush-before-EOP,
+back-to-back packets with a minimal inter-packet gap, and a malformed SYNC
+never activating `RxActive`. See `verification/README.md`.
 
 ## Harness smoke-test vehicle
 
@@ -82,7 +118,7 @@ the whole RX path. See `verification/README.md`.
   the PHY. It exists only to prove that `verification/` (cocotb + Icarus)
   and `flow/` (`klt synthesize` against gf180mcu) elaborate, simulate, and
   synthesize a real design end-to-end. Real PHY digital logic — NRZI
-  encode/decode and bit stuffing/destuffing (now above), SYNC/EOP handling
-  and line-state decode (still to come), per `spec/usb2-device-phy.md`
-  §2 — lives in its own files and does not belong in this one; see
-  `CLAUDE.md`'s scope-discipline rule.
+  encode/decode and bit stuffing/destuffing, SYNC/EOP handling, line-state
+  decode, and the top-level UTMI wrapper (all above), per
+  `spec/usb2-device-phy.md` §2/§3 — lives in its own files and does not
+  belong in this one; see `CLAUDE.md`'s scope-discipline rule.

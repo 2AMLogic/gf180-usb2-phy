@@ -34,9 +34,8 @@ Its only job is to prove the cocotb + Icarus + `klt` digital harness
 (issue #7, the digital half of #2) elaborates, simulates, and reports a
 real result end-to-end. Everything else here verifies real PHY digital
 logic: the bit-level codec of `spec/usb2-device-phy.md` §2 (NRZI
-encode/decode, bit stuffing/destuffing). SYNC/EOP handling and
-`LineState[1:0]` decode are still to come and their testbenches belong
-here too, following the same convention.
+encode/decode, bit stuffing/destuffing), SYNC/EOP framing and
+`LineState[1:0]` decode (§2/§4), and the top-level UTMI wrapper (§3).
 
 Do not extend `test_harness_counter.py` itself to grow USB semantics, and
 do not extend a bit-level codec testbench to grow framing or
@@ -91,6 +90,45 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   than seven bit times — the entire point of bit stuffing), all-0s, and a
   second stream after `init`.
 
+### SYNC/EOP framing, line-state decode, and the top-level UTMI wrapper (`spec/usb2-device-phy.md` §2/§3/§4)
+
+- `test_usb_line_state_decode.py` / `request-usb-line-state-decode.json` —
+  cocotb testbench for `rtl/usb_line_state_decode.v`: reset-to-J, all four
+  `LineState[1:0]` encodings (J/K/SE0/SE1) directly from `rxdp`/`rxdm`, and
+  a toggling sequence across all four.
+- `test_usb_sync_detector.py` / `request-usb-sync-detector.json` — cocotb
+  testbench for `rtl/usb_sync_detector.v`: the exact SYNC pattern pulsing
+  `sync_valid` on precisely the eighth clock, a run of 1s (idle-J's own
+  decoded shape) never matching, a corrupted bit inside an otherwise-correct
+  pattern never matching, `enable` gating (including that re-enabling starts
+  a fresh search rather than resuming a stale partial match), a
+  `data_valid` gap holding the partial-match state, and a broken first
+  attempt not preventing a clean second one.
+- `test_usb_eop_detector.py` / `request-usb-eop-detector.json` — cocotb
+  testbench for `rtl/usb_eop_detector.v`: SE0 held for 1 clock (not EOP),
+  held for **exactly** the 2-bit-time EOP boundary (`eop` pulses once, on
+  the boundary clock, and does not re-fire), held for one clock short of
+  the 2.5 µs reset threshold (`bus_reset` never fires), held for
+  **exactly** that threshold (`bus_reset` asserts on the boundary clock and
+  stays asserted as a level until SE0 ends), and both outputs derived from
+  a single long hold.
+- `test_usb_utmi_phy.py` / `request-usb-utmi-phy.json` — cocotb testbench
+  for `rtl/usb_utmi_phy.v`, the top-level integration testbench this
+  issue's test plan requires: the reset state of every UTMI/wire-level
+  port, the TX SYNC field's exact KJKJKJKK wire pattern, the TX EOP tail's
+  exact SE0,SE0,J wire pattern, a single-byte TX→wire→RX self-loopback
+  round trip, a multi-byte round trip that forces bit stuffing (cross-checked
+  against `usb_bit_model.py`'s `bit_stuff`/`nrzi_encode`), a packet whose
+  pre-stuff bit stream ends on exactly six 1s (USB 2.0 §7.1.9's mandatory
+  trailing-stuff-bit case, exercising the wrapper's flush-before-EOP path),
+  two packets sent back to back with the minimum possible inter-packet gap,
+  and a malformed/missing SYNC pattern that must never assert
+  `RxActive`/`RxValid` (bit-lock failure fails safe). The RX-side claim
+  uses self-loopback (the Python driver mirrors the DUT's own `txdp`/`txdm`
+  onto its own `rxdp`/`rxdm` each clock) rather than a second structural
+  harness file, since the module under test is already the real top-level
+  wrapper.
+
 ### Harness smoke test
 
 - `test_harness_counter.py` — cocotb testbench for `rtl/harness_counter.v`,
@@ -131,6 +169,10 @@ klt functional-verification verification/request-usb-nrzi-decoder.json --format 
 klt functional-verification verification/request-usb-bit-stuffer.json --format json
 klt functional-verification verification/request-usb-bit-destuffer.json --format json
 klt functional-verification verification/request-usb-bit-codec-loopback.json --format json
+klt functional-verification verification/request-usb-line-state-decode.json --format json
+klt functional-verification verification/request-usb-sync-detector.json --format json
+klt functional-verification verification/request-usb-eop-detector.json --format json
+klt functional-verification verification/request-usb-utmi-phy.json --format json
 ```
 
 A request needs one invocation each because `klt
@@ -181,15 +223,19 @@ verification/records/
 ```
 
 - **`<experiment-slug>`** — short, descriptive, kebab-case name for the
-  claim being verified. This repo currently has three:
+  claim being verified. This repo currently has four:
   - `functional-smoke` — the harness-counter cocotb suite passes end-to-end
     via `klt functional-verification` (Icarus, no PDK dependency). A
     harness claim, not a PHY claim.
   - `synthesis-smoke` — the same design synthesizes cleanly via
     `klt synthesize` against gf180mcu.
-  - `bit-codec-functional` — the real one: `spec/usb2-device-phy.md` §11's
-    digital signoff line, for the bit-level half of §2 (NRZI
-    encode/decode, bit stuffing/destuffing).
+  - `bit-codec-functional` — `spec/usb2-device-phy.md` §11's digital
+    signoff line, for the bit-level half of §2 (NRZI encode/decode, bit
+    stuffing/destuffing).
+  - `utmi-framing-functional` — the rest of §11's digital signoff line:
+    SYNC/EOP framing and `LineState[1:0]` decode (§2/§4), and the
+    top-level UTMI wrapper (§3) that assembles the bit-level codec with
+    this framing logic.
   One directory per distinct claim, not per run. Future entries (e.g.
   `place-and-route`, `drc-lvs`, `gate-level-sim`) follow the same pattern
   once those legs of the maturity ladder are taken up.
