@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_line_state_decode",
+  "testbench": "test_usb_line_state_decode",
+  "status": "pass",
+  "test_count": 6,
+  "passed_count": 6,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_reset_defaults_to_j",
+      "status": "passed",
+      "sim_time_ns": 208.335,
+      "real_time_s": 0.0012481212615966797
+    },
+    {
+      "name": "test_j_state",
+      "status": "passed",
+      "sim_time_ns": 291.669,
+      "real_time_s": 0.0011436939239501953
+    },
+    {
+      "name": "test_k_state",
+      "status": "passed",
+      "sim_time_ns": 291.669,
+      "real_time_s": 0.0010221004486083984
+    },
+    {
+      "name": "test_se0_state",
+      "status": "passed",
+      "sim_time_ns": 291.669,
+      "real_time_s": 0.0005137920379638672
+    },
+    {
+      "name": "test_se1_state",
+      "status": "passed",
+      "sim_time_ns": 291.6690000000001,
+      "real_time_s": 0.0007832050323486328
+    },
+    {
+      "name": "test_tracks_toggling_inputs",
+      "status": "passed",
+      "sim_time_ns": 708.3389999999999,
+      "real_time_s": 0.0016069412231445312
+    }
+  ],
+  "coverage": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-32/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1
+  }
+}
