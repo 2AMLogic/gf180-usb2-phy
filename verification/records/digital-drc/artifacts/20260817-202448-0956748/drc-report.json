@@ -1,0 +1,5457 @@
+{
+  "schema_version": 1,
+  "file": "flow/.klt/place-and-route/usb_utmi_phy.gds",
+  "deck": "gf180mcu",
+  "dbu_um": 0.001,
+  "status": "violations",
+  "violation_count": 153,
+  "rule_counts": {
+    "metal1.space.1": 141,
+    "metal1.width.1": 12
+  },
+  "violations": [
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 21146,
+        "bottom": 46180,
+        "right": 21710,
+        "top": 46230
+      },
+      "polygon": [
+        [
+          21146,
+          46180
+        ],
+        [
+          21370,
+          46230
+        ],
+        [
+          21710,
+          46230
+        ],
+        [
+          21660,
+          46180
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 21505,
+        "bottom": 46180,
+        "right": 21865,
+        "top": 46285
+      },
+      "polygon": [
+        [
+          21505,
+          46180
+        ],
+        [
+          21710,
+          46285
+        ],
+        [
+          21865,
+          46285
+        ],
+        [
+          21660,
+          46180
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 29815,
+        "bottom": 146610,
+        "right": 30665,
+        "top": 146770
+      },
+      "polygon": [
+        [
+          29815,
+          146610
+        ],
+        [
+          29980,
+          146770
+        ],
+        [
+          30500,
+          146770
+        ],
+        [
+          30665,
+          146610
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nand3_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nand3_2"
+      ],
+      "bbox": {
+        "left": 30515,
+        "bottom": 74431,
+        "right": 30540,
+        "top": 75150
+      },
+      "polygon": [
+        [
+          30515,
+          74431
+        ],
+        [
+          30515,
+          75150
+        ],
+        [
+          30540,
+          75150
+        ],
+        [
+          30540,
+          74660
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nand3_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nand3_2"
+      ],
+      "bbox": {
+        "left": 32995,
+        "bottom": 71932,
+        "right": 33220,
+        "top": 72548
+      },
+      "polygon": [
+        [
+          32995,
+          71932
+        ],
+        [
+          32995,
+          72548
+        ],
+        [
+          33220,
+          72500
+        ],
+        [
+          33220,
+          71980
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nand3_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nand3_2"
+      ],
+      "bbox": {
+        "left": 33550,
+        "bottom": 72500,
+        "right": 34015,
+        "top": 72630
+      },
+      "polygon": [
+        [
+          33550,
+          72500
+        ],
+        [
+          33740,
+          72630
+        ],
+        [
+          34015,
+          72630
+        ],
+        [
+          33980,
+          72500
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nand3_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nand3_2"
+      ],
+      "bbox": {
+        "left": 34136,
+        "bottom": 74300,
+        "right": 34595,
+        "top": 74320
+      },
+      "polygon": [
+        [
+          34136,
+          74300
+        ],
+        [
+          34365,
+          74320
+        ],
+        [
+          34595,
+          74320
+        ],
+        [
+          34420,
+          74300
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 34160,
+        "bottom": 146317,
+        "right": 34340,
+        "top": 146753
+      },
+      "polygon": [
+        [
+          34160,
+          146317
+        ],
+        [
+          34160,
+          146610
+        ],
+        [
+          34340,
+          146753
+        ],
+        [
+          34340,
+          146460
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 38900,
+        "bottom": 45810,
+        "right": 38910,
+        "top": 46530
+      },
+      "polygon": [
+        [
+          38900,
+          45810
+        ],
+        [
+          38900,
+          46300
+        ],
+        [
+          38910,
+          46530
+        ],
+        [
+          38910,
+          45810
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 42426,
+        "bottom": 54570,
+        "right": 42990,
+        "top": 54620
+      },
+      "polygon": [
+        [
+          42650,
+          54570
+        ],
+        [
+          42426,
+          54620
+        ],
+        [
+          42940,
+          54620
+        ],
+        [
+          42990,
+          54570
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 42785,
+        "bottom": 54515,
+        "right": 43145,
+        "top": 54620
+      },
+      "polygon": [
+        [
+          42990,
+          54515
+        ],
+        [
+          42785,
+          54620
+        ],
+        [
+          42940,
+          54620
+        ],
+        [
+          43145,
+          54515
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 43546,
+        "bottom": 187300,
+        "right": 44110,
+        "top": 187350
+      },
+      "polygon": [
+        [
+          43546,
+          187300
+        ],
+        [
+          43770,
+          187350
+        ],
+        [
+          44110,
+          187350
+        ],
+        [
+          44060,
+          187300
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 43905,
+        "bottom": 187300,
+        "right": 44265,
+        "top": 187405
+      },
+      "polygon": [
+        [
+          43905,
+          187300
+        ],
+        [
+          44110,
+          187405
+        ],
+        [
+          44265,
+          187405
+        ],
+        [
+          44060,
+          187300
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi21_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi21_4"
+      ],
+      "bbox": {
+        "left": 46430,
+        "bottom": 127965,
+        "right": 47650,
+        "top": 127980
+      },
+      "polygon": [
+        [
+          46430,
+          127965
+        ],
+        [
+          46660,
+          127980
+        ],
+        [
+          47420,
+          127980
+        ],
+        [
+          47650,
+          127965
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_1"
+      ],
+      "bbox": {
+        "left": 46660,
+        "bottom": 192810,
+        "right": 47610,
+        "top": 192940
+      },
+      "polygon": [
+        [
+          46730,
+          192810
+        ],
+        [
+          46660,
+          192940
+        ],
+        [
+          47420,
+          192940
+        ],
+        [
+          47610,
+          192810
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 46740,
+        "bottom": 25650,
+        "right": 46750,
+        "top": 26370
+      },
+      "polygon": [
+        [
+          46740,
+          25650
+        ],
+        [
+          46740,
+          26140
+        ],
+        [
+          46750,
+          26370
+        ],
+        [
+          46750,
+          25650
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__clkinv_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__clkinv_2"
+      ],
+      "bbox": {
+        "left": 47142,
+        "bottom": 146660,
+        "right": 47515,
+        "top": 146840
+      },
+      "polygon": [
+        [
+          47142,
+          146660
+        ],
+        [
+          47285,
+          146840
+        ],
+        [
+          47515,
+          146840
+        ],
+        [
+          47420,
+          146660
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nor3_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nor3_1"
+      ],
+      "bbox": {
+        "left": 47185,
+        "bottom": 227300,
+        "right": 47658,
+        "top": 227480
+      },
+      "polygon": [
+        [
+          47280,
+          227300
+        ],
+        [
+          47185,
+          227480
+        ],
+        [
+          47515,
+          227480
+        ],
+        [
+          47658,
+          227300
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nor2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nor2_1"
+      ],
+      "bbox": {
+        "left": 50540,
+        "bottom": 214300,
+        "right": 50985,
+        "top": 214465
+      },
+      "polygon": [
+        [
+          50700,
+          214300
+        ],
+        [
+          50540,
+          214465
+        ],
+        [
+          50825,
+          214465
+        ],
+        [
+          50985,
+          214300
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 53460,
+        "bottom": 45810,
+        "right": 53470,
+        "top": 46530
+      },
+      "polygon": [
+        [
+          53460,
+          45810
+        ],
+        [
+          53460,
+          46300
+        ],
+        [
+          53470,
+          46530
+        ],
+        [
+          53470,
+          45810
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__oai32_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__oai32_4"
+      ],
+      "bbox": {
+        "left": 56180,
+        "bottom": 114784,
+        "right": 56300,
+        "top": 115470
+      },
+      "polygon": [
+        [
+          56180,
+          114784
+        ],
+        [
+          56180,
+          115470
+        ],
+        [
+          56300,
+          115470
+        ],
+        [
+          56300,
+          114980
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 76026,
+        "bottom": 46180,
+        "right": 76590,
+        "top": 46230
+      },
+      "polygon": [
+        [
+          76026,
+          46180
+        ],
+        [
+          76250,
+          46230
+        ],
+        [
+          76590,
+          46230
+        ],
+        [
+          76540,
+          46180
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 76385,
+        "bottom": 46180,
+        "right": 76745,
+        "top": 46285
+      },
+      "polygon": [
+        [
+          76385,
+          46180
+        ],
+        [
+          76590,
+          46285
+        ],
+        [
+          76745,
+          46285
+        ],
+        [
+          76540,
+          46180
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi21_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi21_4"
+      ],
+      "bbox": {
+        "left": 78968,
+        "bottom": 147265,
+        "right": 79342,
+        "top": 147460
+      },
+      "polygon": [
+        [
+          79090,
+          147265
+        ],
+        [
+          78968,
+          147460
+        ],
+        [
+          79220,
+          147460
+        ],
+        [
+          79342,
+          147265
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nor3_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nor3_2"
+      ],
+      "bbox": {
+        "left": 80598,
+        "bottom": 236000,
+        "right": 81342,
+        "top": 236060
+      },
+      "polygon": [
+        [
+          80598,
+          236000
+        ],
+        [
+          80820,
+          236060
+        ],
+        [
+          81342,
+          236060
+        ],
+        [
+          81120,
+          236000
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 81460,
+        "bottom": 13950,
+        "right": 81470,
+        "top": 14670
+      },
+      "polygon": [
+        [
+          81470,
+          13950
+        ],
+        [
+          81460,
+          14180
+        ],
+        [
+          81460,
+          14670
+        ],
+        [
+          81470,
+          14670
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nor3_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nor3_1"
+      ],
+      "bbox": {
+        "left": 83025,
+        "bottom": 135400,
+        "right": 83498,
+        "top": 135580
+      },
+      "polygon": [
+        [
+          83025,
+          135400
+        ],
+        [
+          83120,
+          135580
+        ],
+        [
+          83498,
+          135580
+        ],
+        [
+          83355,
+          135400
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 87060,
+        "bottom": 54270,
+        "right": 87070,
+        "top": 54990
+      },
+      "polygon": [
+        [
+          87070,
+          54270
+        ],
+        [
+          87060,
+          54500
+        ],
+        [
+          87060,
+          54990
+        ],
+        [
+          87070,
+          54990
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi21_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi21_1"
+      ],
+      "bbox": {
+        "left": 88006,
+        "bottom": 65990,
+        "right": 88954,
+        "top": 66200
+      },
+      "polygon": [
+        [
+          88100,
+          65990
+        ],
+        [
+          88006,
+          66200
+        ],
+        [
+          88954,
+          66200
+        ],
+        [
+          88860,
+          65990
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi21_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi21_1"
+      ],
+      "bbox": {
+        "left": 93606,
+        "bottom": 267590,
+        "right": 94554,
+        "top": 267800
+      },
+      "polygon": [
+        [
+          93700,
+          267590
+        ],
+        [
+          93606,
+          267800
+        ],
+        [
+          94554,
+          267800
+        ],
+        [
+          94460,
+          267590
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nand4_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nand4_4"
+      ],
+      "bbox": {
+        "left": 96011,
+        "bottom": 166850,
+        "right": 96589,
+        "top": 167000
+      },
+      "polygon": [
+        [
+          96011,
+          166850
+        ],
+        [
+          96185,
+          167000
+        ],
+        [
+          96415,
+          167000
+        ],
+        [
+          96589,
+          166850
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__buf_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__buf_4"
+      ],
+      "bbox": {
+        "left": 99782,
+        "bottom": 195880,
+        "right": 100155,
+        "top": 196060
+      },
+      "polygon": [
+        [
+          99925,
+          195880
+        ],
+        [
+          99782,
+          196060
+        ],
+        [
+          100060,
+          196060
+        ],
+        [
+          100155,
+          195880
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 102906,
+        "bottom": 46180,
+        "right": 103470,
+        "top": 46230
+      },
+      "polygon": [
+        [
+          102906,
+          46180
+        ],
+        [
+          103130,
+          46230
+        ],
+        [
+          103470,
+          46230
+        ],
+        [
+          103420,
+          46180
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 103265,
+        "bottom": 46180,
+        "right": 103625,
+        "top": 46285
+      },
+      "polygon": [
+        [
+          103265,
+          46180
+        ],
+        [
+          103470,
+          46285
+        ],
+        [
+          103625,
+          46285
+        ],
+        [
+          103420,
+          46180
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nor3_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nor3_1"
+      ],
+      "bbox": {
+        "left": 108897,
+        "bottom": 287780,
+        "right": 109258,
+        "top": 287960
+      },
+      "polygon": [
+        [
+          109040,
+          287780
+        ],
+        [
+          108897,
+          287960
+        ],
+        [
+          109115,
+          287960
+        ],
+        [
+          109258,
+          287780
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and3_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and3_4"
+      ],
+      "bbox": {
+        "left": 113670,
+        "bottom": 268500,
+        "right": 114185,
+        "top": 268630
+      },
+      "polygon": [
+        [
+          113860,
+          268500
+        ],
+        [
+          113670,
+          268630
+        ],
+        [
+          114185,
+          268630
+        ],
+        [
+          114185,
+          268500
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 113940,
+        "bottom": 34110,
+        "right": 113950,
+        "top": 34830
+      },
+      "polygon": [
+        [
+          113950,
+          34110
+        ],
+        [
+          113940,
+          34340
+        ],
+        [
+          113940,
+          34830
+        ],
+        [
+          113950,
+          34830
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and3_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and3_4"
+      ],
+      "bbox": {
+        "left": 114415,
+        "bottom": 268500,
+        "right": 114810,
+        "top": 268630
+      },
+      "polygon": [
+        [
+          114415,
+          268500
+        ],
+        [
+          114415,
+          268630
+        ],
+        [
+          114810,
+          268630
+        ],
+        [
+          114620,
+          268500
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 116180,
+        "bottom": 45810,
+        "right": 116190,
+        "top": 46530
+      },
+      "polygon": [
+        [
+          116180,
+          45810
+        ],
+        [
+          116180,
+          46300
+        ],
+        [
+          116190,
+          46530
+        ],
+        [
+          116190,
+          45810
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 120826,
+        "bottom": 247780,
+        "right": 121390,
+        "top": 247830
+      },
+      "polygon": [
+        [
+          120826,
+          247780
+        ],
+        [
+          121050,
+          247830
+        ],
+        [
+          121390,
+          247830
+        ],
+        [
+          121340,
+          247780
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 121185,
+        "bottom": 247780,
+        "right": 121545,
+        "top": 247885
+      },
+      "polygon": [
+        [
+          121185,
+          247780
+        ],
+        [
+          121390,
+          247885
+        ],
+        [
+          121545,
+          247885
+        ],
+        [
+          121340,
+          247780
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 121946,
+        "bottom": 195690,
+        "right": 122510,
+        "top": 195740
+      },
+      "polygon": [
+        [
+          122170,
+          195690
+        ],
+        [
+          121946,
+          195740
+        ],
+        [
+          122460,
+          195740
+        ],
+        [
+          122510,
+          195690
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 122305,
+        "bottom": 195635,
+        "right": 122665,
+        "top": 195740
+      },
+      "polygon": [
+        [
+          122510,
+          195635
+        ],
+        [
+          122305,
+          195740
+        ],
+        [
+          122460,
+          195740
+        ],
+        [
+          122665,
+          195635
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__oai211_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__oai211_1"
+      ],
+      "bbox": {
+        "left": 122535,
+        "bottom": 166770,
+        "right": 122540,
+        "top": 167050
+      },
+      "polygon": [
+        [
+          122535,
+          166770
+        ],
+        [
+          122535,
+          167050
+        ],
+        [
+          122540,
+          166820
+        ],
+        [
+          122540,
+          166770
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 126426,
+        "bottom": 155370,
+        "right": 126990,
+        "top": 155420
+      },
+      "polygon": [
+        [
+          126650,
+          155370
+        ],
+        [
+          126426,
+          155420
+        ],
+        [
+          126940,
+          155420
+        ],
+        [
+          126990,
+          155370
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 126426,
+        "bottom": 175530,
+        "right": 126990,
+        "top": 175580
+      },
+      "polygon": [
+        [
+          126650,
+          175530
+        ],
+        [
+          126426,
+          175580
+        ],
+        [
+          126940,
+          175580
+        ],
+        [
+          126990,
+          175530
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 126785,
+        "bottom": 155315,
+        "right": 127145,
+        "top": 155420
+      },
+      "polygon": [
+        [
+          126990,
+          155315
+        ],
+        [
+          126785,
+          155420
+        ],
+        [
+          126940,
+          155420
+        ],
+        [
+          127145,
+          155315
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 126785,
+        "bottom": 175475,
+        "right": 127145,
+        "top": 175580
+      },
+      "polygon": [
+        [
+          126990,
+          175475
+        ],
+        [
+          126785,
+          175580
+        ],
+        [
+          126940,
+          175580
+        ],
+        [
+          127145,
+          175475
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi21_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi21_2"
+      ],
+      "bbox": {
+        "left": 126860,
+        "bottom": 133540,
+        "right": 127162,
+        "top": 133600
+      },
+      "polygon": [
+        [
+          126860,
+          133540
+        ],
+        [
+          126860,
+          133600
+        ],
+        [
+          127162,
+          133600
+        ],
+        [
+          126940,
+          133540
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 130906,
+        "bottom": 86500,
+        "right": 131470,
+        "top": 86550
+      },
+      "polygon": [
+        [
+          130906,
+          86500
+        ],
+        [
+          131130,
+          86550
+        ],
+        [
+          131470,
+          86550
+        ],
+        [
+          131420,
+          86500
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 130906,
+        "bottom": 106660,
+        "right": 131470,
+        "top": 106710
+      },
+      "polygon": [
+        [
+          130906,
+          106660
+        ],
+        [
+          131130,
+          106710
+        ],
+        [
+          131470,
+          106710
+        ],
+        [
+          131420,
+          106660
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 131265,
+        "bottom": 86500,
+        "right": 131625,
+        "top": 86605
+      },
+      "polygon": [
+        [
+          131265,
+          86500
+        ],
+        [
+          131470,
+          86605
+        ],
+        [
+          131625,
+          86605
+        ],
+        [
+          131420,
+          86500
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 131265,
+        "bottom": 106660,
+        "right": 131625,
+        "top": 106765
+      },
+      "polygon": [
+        [
+          131265,
+          106660
+        ],
+        [
+          131470,
+          106765
+        ],
+        [
+          131625,
+          106765
+        ],
+        [
+          131420,
+          106660
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 134266,
+        "bottom": 54570,
+        "right": 134830,
+        "top": 54620
+      },
+      "polygon": [
+        [
+          134490,
+          54570
+        ],
+        [
+          134266,
+          54620
+        ],
+        [
+          134780,
+          54620
+        ],
+        [
+          134830,
+          54570
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 134625,
+        "bottom": 54515,
+        "right": 134985,
+        "top": 54620
+      },
+      "polygon": [
+        [
+          134830,
+          54515
+        ],
+        [
+          134625,
+          54620
+        ],
+        [
+          134780,
+          54620
+        ],
+        [
+          134985,
+          54515
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nor4_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nor4_4"
+      ],
+      "bbox": {
+        "left": 136220,
+        "bottom": 269375,
+        "right": 137060,
+        "top": 269540
+      },
+      "polygon": [
+        [
+          136220,
+          269375
+        ],
+        [
+          136380,
+          269540
+        ],
+        [
+          136900,
+          269540
+        ],
+        [
+          137060,
+          269375
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 139866,
+        "bottom": 94890,
+        "right": 140430,
+        "top": 94940
+      },
+      "polygon": [
+        [
+          140090,
+          94890
+        ],
+        [
+          139866,
+          94940
+        ],
+        [
+          140380,
+          94940
+        ],
+        [
+          140430,
+          94890
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 140225,
+        "bottom": 94835,
+        "right": 140585,
+        "top": 94940
+      },
+      "polygon": [
+        [
+          140430,
+          94835
+        ],
+        [
+          140225,
+          94940
+        ],
+        [
+          140380,
+          94940
+        ],
+        [
+          140585,
+          94835
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi21_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi21_1"
+      ],
+      "bbox": {
+        "left": 140646,
+        "bottom": 247430,
+        "right": 141594,
+        "top": 247640
+      },
+      "polygon": [
+        [
+          140740,
+          247430
+        ],
+        [
+          140646,
+          247640
+        ],
+        [
+          141594,
+          247640
+        ],
+        [
+          141500,
+          247430
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 143060,
+        "bottom": 45810,
+        "right": 143070,
+        "top": 46530
+      },
+      "polygon": [
+        [
+          143060,
+          45810
+        ],
+        [
+          143060,
+          46300
+        ],
+        [
+          143070,
+          46530
+        ],
+        [
+          143070,
+          45810
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_1"
+      ],
+      "bbox": {
+        "left": 144100,
+        "bottom": 290900,
+        "right": 145050,
+        "top": 291030
+      },
+      "polygon": [
+        [
+          144100,
+          290900
+        ],
+        [
+          144170,
+          291030
+        ],
+        [
+          145050,
+          291030
+        ],
+        [
+          144860,
+          290900
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nor4_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nor4_4"
+      ],
+      "bbox": {
+        "left": 146400,
+        "bottom": 268038,
+        "right": 146460,
+        "top": 268840
+      },
+      "polygon": [
+        [
+          146460,
+          268038
+        ],
+        [
+          146400,
+          268260
+        ],
+        [
+          146400,
+          268840
+        ],
+        [
+          146460,
+          268620
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "VIA_Via2_VH",
+      "source_path": [
+        "VIA_Via2_VH"
+      ],
+      "bbox": {
+        "left": 146400,
+        "bottom": 268620,
+        "right": 147047,
+        "top": 268840
+      },
+      "polygon": [
+        [
+          146460,
+          268620
+        ],
+        [
+          146400,
+          268840
+        ],
+        [
+          147047,
+          268840
+        ],
+        [
+          146980,
+          268620
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 146420,
+        "bottom": 74430,
+        "right": 146430,
+        "top": 75150
+      },
+      "polygon": [
+        [
+          146430,
+          74430
+        ],
+        [
+          146420,
+          74660
+        ],
+        [
+          146420,
+          75150
+        ],
+        [
+          146430,
+          75150
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nor4_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nor4_4"
+      ],
+      "bbox": {
+        "left": 150740,
+        "bottom": 269450,
+        "right": 150820,
+        "top": 270161
+      },
+      "polygon": [
+        [
+          150740,
+          269450
+        ],
+        [
+          150740,
+          269945
+        ],
+        [
+          150820,
+          270161
+        ],
+        [
+          150820,
+          269660
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__buf_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__buf_4"
+      ],
+      "bbox": {
+        "left": 151302,
+        "bottom": 227300,
+        "right": 151675,
+        "top": 227480
+      },
+      "polygon": [
+        [
+          151302,
+          227300
+        ],
+        [
+          151445,
+          227480
+        ],
+        [
+          151675,
+          227480
+        ],
+        [
+          151580,
+          227300
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 153140,
+        "bottom": 94590,
+        "right": 153150,
+        "top": 95310
+      },
+      "polygon": [
+        [
+          153150,
+          94590
+        ],
+        [
+          153140,
+          94820
+        ],
+        [
+          153140,
+          95310
+        ],
+        [
+          153150,
+          95310
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nor2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nor2_1"
+      ],
+      "bbox": {
+        "left": 169260,
+        "bottom": 153820,
+        "right": 169705,
+        "top": 153985
+      },
+      "polygon": [
+        [
+          169420,
+          153820
+        ],
+        [
+          169260,
+          153985
+        ],
+        [
+          169545,
+          153985
+        ],
+        [
+          169705,
+          153820
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi21_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi21_1"
+      ],
+      "bbox": {
+        "left": 169766,
+        "bottom": 296680,
+        "right": 170714,
+        "top": 296890
+      },
+      "polygon": [
+        [
+          169766,
+          296680
+        ],
+        [
+          169860,
+          296890
+        ],
+        [
+          170620,
+          296890
+        ],
+        [
+          170714,
+          296680
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 175706,
+        "bottom": 247780,
+        "right": 176270,
+        "top": 247830
+      },
+      "polygon": [
+        [
+          175706,
+          247780
+        ],
+        [
+          175930,
+          247830
+        ],
+        [
+          176270,
+          247830
+        ],
+        [
+          176220,
+          247780
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 176065,
+        "bottom": 247780,
+        "right": 176425,
+        "top": 247885
+      },
+      "polygon": [
+        [
+          176065,
+          247780
+        ],
+        [
+          176270,
+          247885
+        ],
+        [
+          176425,
+          247885
+        ],
+        [
+          176220,
+          247780
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nor2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nor2_1"
+      ],
+      "bbox": {
+        "left": 177100,
+        "bottom": 148415,
+        "right": 177545,
+        "top": 148580
+      },
+      "polygon": [
+        [
+          177100,
+          148415
+        ],
+        [
+          177260,
+          148580
+        ],
+        [
+          177545,
+          148580
+        ],
+        [
+          177385,
+          148415
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 177780,
+        "bottom": 34110,
+        "right": 177790,
+        "top": 34830
+      },
+      "polygon": [
+        [
+          177790,
+          34110
+        ],
+        [
+          177780,
+          34340
+        ],
+        [
+          177780,
+          34830
+        ],
+        [
+          177790,
+          34830
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 177780,
+        "bottom": 54270,
+        "right": 177790,
+        "top": 54990
+      },
+      "polygon": [
+        [
+          177790,
+          54270
+        ],
+        [
+          177780,
+          54500
+        ],
+        [
+          177780,
+          54990
+        ],
+        [
+          177790,
+          54990
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 177780,
+        "bottom": 74430,
+        "right": 177790,
+        "top": 75150
+      },
+      "polygon": [
+        [
+          177790,
+          74430
+        ],
+        [
+          177780,
+          74660
+        ],
+        [
+          177780,
+          75150
+        ],
+        [
+          177790,
+          75150
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_1"
+      ],
+      "bbox": {
+        "left": 180020,
+        "bottom": 94590,
+        "right": 180030,
+        "top": 95310
+      },
+      "polygon": [
+        [
+          180030,
+          94590
+        ],
+        [
+          180020,
+          94820
+        ],
+        [
+          180020,
+          95310
+        ],
+        [
+          180030,
+          95310
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 180186,
+        "bottom": 227620,
+        "right": 180750,
+        "top": 227670
+      },
+      "polygon": [
+        [
+          180186,
+          227620
+        ],
+        [
+          180410,
+          227670
+        ],
+        [
+          180750,
+          227670
+        ],
+        [
+          180700,
+          227620
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 180545,
+        "bottom": 227620,
+        "right": 180905,
+        "top": 227725
+      },
+      "polygon": [
+        [
+          180545,
+          227620
+        ],
+        [
+          180750,
+          227725
+        ],
+        [
+          180905,
+          227725
+        ],
+        [
+          180700,
+          227620
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__oai211_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__oai211_1"
+      ],
+      "bbox": {
+        "left": 197575,
+        "bottom": 195830,
+        "right": 197580,
+        "top": 196110
+      },
+      "polygon": [
+        [
+          197575,
+          195830
+        ],
+        [
+          197575,
+          196110
+        ],
+        [
+          197580,
+          196110
+        ],
+        [
+          197580,
+          196060
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 207200,
+        "bottom": 165727,
+        "right": 207380,
+        "top": 166163
+      },
+      "polygon": [
+        [
+          207380,
+          165727
+        ],
+        [
+          207200,
+          165870
+        ],
+        [
+          207200,
+          166163
+        ],
+        [
+          207380,
+          166020
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi21_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi21_1"
+      ],
+      "bbox": {
+        "left": 214566,
+        "bottom": 34600,
+        "right": 215514,
+        "top": 34810
+      },
+      "polygon": [
+        [
+          214566,
+          34600
+        ],
+        [
+          214660,
+          34810
+        ],
+        [
+          215420,
+          34810
+        ],
+        [
+          215514,
+          34600
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 214906,
+        "bottom": 236010,
+        "right": 215470,
+        "top": 236060
+      },
+      "polygon": [
+        [
+          215130,
+          236010
+        ],
+        [
+          214906,
+          236060
+        ],
+        [
+          215420,
+          236060
+        ],
+        [
+          215470,
+          236010
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 215265,
+        "bottom": 235955,
+        "right": 215625,
+        "top": 236060
+      },
+      "polygon": [
+        [
+          215470,
+          235955
+        ],
+        [
+          215265,
+          236060
+        ],
+        [
+          215420,
+          236060
+        ],
+        [
+          215625,
+          235955
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 217146,
+        "bottom": 215850,
+        "right": 217710,
+        "top": 215900
+      },
+      "polygon": [
+        [
+          217370,
+          215850
+        ],
+        [
+          217146,
+          215900
+        ],
+        [
+          217660,
+          215900
+        ],
+        [
+          217710,
+          215850
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and2_1"
+      ],
+      "bbox": {
+        "left": 217505,
+        "bottom": 215795,
+        "right": 217865,
+        "top": 215900
+      },
+      "polygon": [
+        [
+          217710,
+          215795
+        ],
+        [
+          217505,
+          215900
+        ],
+        [
+          217660,
+          215900
+        ],
+        [
+          217865,
+          215795
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi21_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi21_1"
+      ],
+      "bbox": {
+        "left": 217926,
+        "bottom": 74920,
+        "right": 218874,
+        "top": 75130
+      },
+      "polygon": [
+        [
+          217926,
+          74920
+        ],
+        [
+          218020,
+          75130
+        ],
+        [
+          218780,
+          75130
+        ],
+        [
+          218874,
+          74920
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi21_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi21_1"
+      ],
+      "bbox": {
+        "left": 223526,
+        "bottom": 135400,
+        "right": 224474,
+        "top": 135610
+      },
+      "polygon": [
+        [
+          223526,
+          135400
+        ],
+        [
+          223620,
+          135610
+        ],
+        [
+          224380,
+          135610
+        ],
+        [
+          224474,
+          135400
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__buf_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__buf_4"
+      ],
+      "bbox": {
+        "left": 224102,
+        "bottom": 115240,
+        "right": 224475,
+        "top": 115420
+      },
+      "polygon": [
+        [
+          224245,
+          115240
+        ],
+        [
+          224102,
+          115420
+        ],
+        [
+          224380,
+          115420
+        ],
+        [
+          224475,
+          115240
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux2_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux2_2"
+      ],
+      "bbox": {
+        "left": 236020,
+        "bottom": 166770,
+        "right": 236245,
+        "top": 167308
+      },
+      "polygon": [
+        [
+          236020,
+          166770
+        ],
+        [
+          236020,
+          167260
+        ],
+        [
+          236245,
+          167308
+        ],
+        [
+          236245,
+          166770
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi21_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi21_1"
+      ],
+      "bbox": {
+        "left": 243686,
+        "bottom": 106310,
+        "right": 244634,
+        "top": 106520
+      },
+      "polygon": [
+        [
+          243780,
+          106310
+        ],
+        [
+          243686,
+          106520
+        ],
+        [
+          244634,
+          106520
+        ],
+        [
+          244540,
+          106310
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__or3_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__or3_4"
+      ],
+      "bbox": {
+        "left": 255033,
+        "bottom": 255170,
+        "right": 255687,
+        "top": 255390
+      },
+      "polygon": [
+        [
+          255033,
+          255170
+        ],
+        [
+          255100,
+          255390
+        ],
+        [
+          255620,
+          255390
+        ],
+        [
+          255687,
+          255170
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nor3_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nor3_1"
+      ],
+      "bbox": {
+        "left": 255617,
+        "bottom": 207140,
+        "right": 255978,
+        "top": 207320
+      },
+      "polygon": [
+        [
+          255760,
+          207140
+        ],
+        [
+          255617,
+          207320
+        ],
+        [
+          255835,
+          207320
+        ],
+        [
+          255978,
+          207140
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nand3_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nand3_2"
+      ],
+      "bbox": {
+        "left": 258136,
+        "bottom": 195260,
+        "right": 258595,
+        "top": 195280
+      },
+      "polygon": [
+        [
+          258136,
+          195260
+        ],
+        [
+          258365,
+          195280
+        ],
+        [
+          258595,
+          195280
+        ],
+        [
+          258420,
+          195260
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nor2_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nor2_1"
+      ],
+      "bbox": {
+        "left": 258860,
+        "bottom": 214300,
+        "right": 259305,
+        "top": 214465
+      },
+      "polygon": [
+        [
+          259020,
+          214300
+        ],
+        [
+          258860,
+          214465
+        ],
+        [
+          259145,
+          214465
+        ],
+        [
+          259305,
+          214300
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 266015,
+        "bottom": 86130,
+        "right": 267105,
+        "top": 86290
+      },
+      "polygon": [
+        [
+          266015,
+          86130
+        ],
+        [
+          266180,
+          86290
+        ],
+        [
+          266940,
+          86290
+        ],
+        [
+          267105,
+          86130
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 267135,
+        "bottom": 126450,
+        "right": 268225,
+        "top": 126610
+      },
+      "polygon": [
+        [
+          267135,
+          126450
+        ],
+        [
+          267300,
+          126610
+        ],
+        [
+          268060,
+          126610
+        ],
+        [
+          268225,
+          126450
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 270495,
+        "bottom": 45810,
+        "right": 271585,
+        "top": 45970
+      },
+      "polygon": [
+        [
+          270495,
+          45810
+        ],
+        [
+          270660,
+          45970
+        ],
+        [
+          271420,
+          45970
+        ],
+        [
+          271585,
+          45810
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 276080,
+        "bottom": 45517,
+        "right": 276260,
+        "top": 45953
+      },
+      "polygon": [
+        [
+          276080,
+          45517
+        ],
+        [
+          276080,
+          45810
+        ],
+        [
+          276260,
+          45953
+        ],
+        [
+          276260,
+          45660
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 276095,
+        "bottom": 74990,
+        "right": 277185,
+        "top": 75150
+      },
+      "polygon": [
+        [
+          276260,
+          74990
+        ],
+        [
+          276095,
+          75150
+        ],
+        [
+          277185,
+          75150
+        ],
+        [
+          277020,
+          74990
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 281680,
+        "bottom": 75007,
+        "right": 281860,
+        "top": 75443
+      },
+      "polygon": [
+        [
+          281860,
+          75007
+        ],
+        [
+          281680,
+          75150
+        ],
+        [
+          281680,
+          75443
+        ],
+        [
+          281860,
+          75300
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 290655,
+        "bottom": 34670,
+        "right": 291745,
+        "top": 34830
+      },
+      "polygon": [
+        [
+          290820,
+          34670
+        ],
+        [
+          290655,
+          34830
+        ],
+        [
+          291745,
+          34830
+        ],
+        [
+          291580,
+          34670
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 296240,
+        "bottom": 34687,
+        "right": 296420,
+        "top": 35123
+      },
+      "polygon": [
+        [
+          296420,
+          34687
+        ],
+        [
+          296240,
+          34830
+        ],
+        [
+          296240,
+          35123
+        ],
+        [
+          296420,
+          34980
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 297360,
+        "bottom": 25357,
+        "right": 297540,
+        "top": 25793
+      },
+      "polygon": [
+        [
+          297360,
+          25357
+        ],
+        [
+          297360,
+          25650
+        ],
+        [
+          297540,
+          25793
+        ],
+        [
+          297540,
+          25500
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 297360,
+        "bottom": 45517,
+        "right": 297540,
+        "top": 45953
+      },
+      "polygon": [
+        [
+          297360,
+          45517
+        ],
+        [
+          297360,
+          45810
+        ],
+        [
+          297540,
+          45953
+        ],
+        [
+          297540,
+          45660
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 301975,
+        "bottom": 106290,
+        "right": 302825,
+        "top": 106450
+      },
+      "polygon": [
+        [
+          301975,
+          106290
+        ],
+        [
+          302140,
+          106450
+        ],
+        [
+          302660,
+          106450
+        ],
+        [
+          302825,
+          106290
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 306320,
+        "bottom": 105997,
+        "right": 306500,
+        "top": 106433
+      },
+      "polygon": [
+        [
+          306320,
+          105997
+        ],
+        [
+          306320,
+          106290
+        ],
+        [
+          306500,
+          106433
+        ],
+        [
+          306500,
+          106140
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 306455,
+        "bottom": 54830,
+        "right": 307305,
+        "top": 54990
+      },
+      "polygon": [
+        [
+          306620,
+          54830
+        ],
+        [
+          306455,
+          54990
+        ],
+        [
+          307305,
+          54990
+        ],
+        [
+          307140,
+          54830
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 307575,
+        "bottom": 95150,
+        "right": 308425,
+        "top": 95310
+      },
+      "polygon": [
+        [
+          307740,
+          95150
+        ],
+        [
+          307575,
+          95310
+        ],
+        [
+          308425,
+          95310
+        ],
+        [
+          308260,
+          95150
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 310800,
+        "bottom": 54847,
+        "right": 310980,
+        "top": 55283
+      },
+      "polygon": [
+        [
+          310980,
+          54847
+        ],
+        [
+          310800,
+          54990
+        ],
+        [
+          310800,
+          55283
+        ],
+        [
+          310980,
+          55140
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 311920,
+        "bottom": 95167,
+        "right": 312100,
+        "top": 95603
+      },
+      "polygon": [
+        [
+          312100,
+          95167
+        ],
+        [
+          311920,
+          95310
+        ],
+        [
+          311920,
+          95603
+        ],
+        [
+          312100,
+          95460
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 316535,
+        "bottom": 14510,
+        "right": 317385,
+        "top": 14670
+      },
+      "polygon": [
+        [
+          316700,
+          14510
+        ],
+        [
+          316535,
+          14670
+        ],
+        [
+          317385,
+          14670
+        ],
+        [
+          317220,
+          14510
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi221_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi221_1"
+      ],
+      "bbox": {
+        "left": 317625,
+        "bottom": 255270,
+        "right": 318520,
+        "top": 255340
+      },
+      "polygon": [
+        [
+          317625,
+          255270
+        ],
+        [
+          317700,
+          255340
+        ],
+        [
+          318460,
+          255340
+        ],
+        [
+          318520,
+          255270
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nand2_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nand2_4"
+      ],
+      "bbox": {
+        "left": 317990,
+        "bottom": 275620,
+        "right": 318574,
+        "top": 275820
+      },
+      "polygon": [
+        [
+          317990,
+          275620
+        ],
+        [
+          317990,
+          275820
+        ],
+        [
+          318460,
+          275820
+        ],
+        [
+          318574,
+          275620
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nand2_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nand2_4"
+      ],
+      "bbox": {
+        "left": 318460,
+        "bottom": 275820,
+        "right": 318645,
+        "top": 276477
+      },
+      "polygon": [
+        [
+          318460,
+          275820
+        ],
+        [
+          318460,
+          276340
+        ],
+        [
+          318645,
+          276477
+        ],
+        [
+          318645,
+          275850
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 319200,
+        "bottom": 185887,
+        "right": 319380,
+        "top": 186323
+      },
+      "polygon": [
+        [
+          319380,
+          185887
+        ],
+        [
+          319200,
+          186030
+        ],
+        [
+          319200,
+          186323
+        ],
+        [
+          319380,
+          186180
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 320880,
+        "bottom": 14527,
+        "right": 321060,
+        "top": 14963
+      },
+      "polygon": [
+        [
+          321060,
+          14527
+        ],
+        [
+          320880,
+          14670
+        ],
+        [
+          320880,
+          14963
+        ],
+        [
+          321060,
+          14820
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__or2_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__or2_2"
+      ],
+      "bbox": {
+        "left": 323830,
+        "bottom": 227410,
+        "right": 324374,
+        "top": 227480
+      },
+      "polygon": [
+        [
+          323910,
+          227410
+        ],
+        [
+          323830,
+          227480
+        ],
+        [
+          324155,
+          227480
+        ],
+        [
+          324374,
+          227410
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi21_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi21_1"
+      ],
+      "bbox": {
+        "left": 328806,
+        "bottom": 216040,
+        "right": 329754,
+        "top": 216250
+      },
+      "polygon": [
+        [
+          328806,
+          216040
+        ],
+        [
+          328900,
+          216250
+        ],
+        [
+          329660,
+          216250
+        ],
+        [
+          329754,
+          216040
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux4_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux4_1"
+      ],
+      "bbox": {
+        "left": 332604,
+        "bottom": 107570,
+        "right": 333206,
+        "top": 107705
+      },
+      "polygon": [
+        [
+          332604,
+          107570
+        ],
+        [
+          332790,
+          107705
+        ],
+        [
+          333206,
+          107705
+        ],
+        [
+          333020,
+          107570
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux4_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux4_1"
+      ],
+      "bbox": {
+        "left": 335095,
+        "bottom": 106496,
+        "right": 335180,
+        "top": 106994
+      },
+      "polygon": [
+        [
+          335180,
+          106496
+        ],
+        [
+          335095,
+          106710
+        ],
+        [
+          335095,
+          106994
+        ],
+        [
+          335180,
+          106780
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux4_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux4_1"
+      ],
+      "bbox": {
+        "left": 335700,
+        "bottom": 106508,
+        "right": 335885,
+        "top": 106917
+      },
+      "polygon": [
+        [
+          335700,
+          106508
+        ],
+        [
+          335700,
+          106780
+        ],
+        [
+          335885,
+          106917
+        ],
+        [
+          335885,
+          106645
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux4_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux4_1"
+      ],
+      "bbox": {
+        "left": 338986,
+        "bottom": 106940,
+        "right": 339734,
+        "top": 107140
+      },
+      "polygon": [
+        [
+          338986,
+          106940
+        ],
+        [
+          339100,
+          107140
+        ],
+        [
+          339620,
+          107140
+        ],
+        [
+          339734,
+          106940
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and4_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and4_4"
+      ],
+      "bbox": {
+        "left": 340992,
+        "bottom": 148100,
+        "right": 342208,
+        "top": 148130
+      },
+      "polygon": [
+        [
+          341220,
+          148100
+        ],
+        [
+          340992,
+          148130
+        ],
+        [
+          342208,
+          148130
+        ],
+        [
+          341980,
+          148100
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__or2_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__or2_2"
+      ],
+      "bbox": {
+        "left": 341750,
+        "bottom": 195880,
+        "right": 342294,
+        "top": 195950
+      },
+      "polygon": [
+        [
+          341750,
+          195880
+        ],
+        [
+          341830,
+          195950
+        ],
+        [
+          342294,
+          195950
+        ],
+        [
+          342075,
+          195880
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux4_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux4_1"
+      ],
+      "bbox": {
+        "left": 343305,
+        "bottom": 106710,
+        "right": 343460,
+        "top": 107510
+      },
+      "polygon": [
+        [
+          343305,
+          106710
+        ],
+        [
+          343305,
+          107510
+        ],
+        [
+          343460,
+          107340
+        ],
+        [
+          343460,
+          106820
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and4_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and4_4"
+      ],
+      "bbox": {
+        "left": 343350,
+        "bottom": 147660,
+        "right": 343600,
+        "top": 147670
+      },
+      "polygon": [
+        [
+          343580,
+          147660
+        ],
+        [
+          343350,
+          147670
+        ],
+        [
+          343600,
+          147670
+        ],
+        [
+          343600,
+          147660
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and4_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and4_4"
+      ],
+      "bbox": {
+        "left": 343830,
+        "bottom": 147660,
+        "right": 344302,
+        "top": 147770
+      },
+      "polygon": [
+        [
+          343830,
+          147660
+        ],
+        [
+          343830,
+          147770
+        ],
+        [
+          344302,
+          147770
+        ],
+        [
+          344100,
+          147660
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux4_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux4_1"
+      ],
+      "bbox": {
+        "left": 344055,
+        "bottom": 54286,
+        "right": 344140,
+        "top": 54784
+      },
+      "polygon": [
+        [
+          344055,
+          54286
+        ],
+        [
+          344055,
+          54570
+        ],
+        [
+          344140,
+          54784
+        ],
+        [
+          344140,
+          54500
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux4_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux4_1"
+      ],
+      "bbox": {
+        "left": 344660,
+        "bottom": 54363,
+        "right": 344845,
+        "top": 54772
+      },
+      "polygon": [
+        [
+          344845,
+          54363
+        ],
+        [
+          344660,
+          54500
+        ],
+        [
+          344660,
+          54772
+        ],
+        [
+          344845,
+          54635
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nor3_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nor3_2"
+      ],
+      "bbox": {
+        "left": 344918,
+        "bottom": 236000,
+        "right": 345662,
+        "top": 236060
+      },
+      "polygon": [
+        [
+          344918,
+          236000
+        ],
+        [
+          345140,
+          236060
+        ],
+        [
+          345662,
+          236060
+        ],
+        [
+          345440,
+          236000
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 346640,
+        "bottom": 247117,
+        "right": 346820,
+        "top": 247553
+      },
+      "polygon": [
+        [
+          346640,
+          247117
+        ],
+        [
+          346640,
+          247410
+        ],
+        [
+          346820,
+          247553
+        ],
+        [
+          346820,
+          247260
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and4_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and4_4"
+      ],
+      "bbox": {
+        "left": 347780,
+        "bottom": 147420,
+        "right": 348882,
+        "top": 147560
+      },
+      "polygon": [
+        [
+          347940,
+          147420
+        ],
+        [
+          347780,
+          147560
+        ],
+        [
+          348882,
+          147560
+        ],
+        [
+          348700,
+          147420
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__and4_4",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__and4_4"
+      ],
+      "bbox": {
+        "left": 348700,
+        "bottom": 146757,
+        "right": 348880,
+        "top": 147420
+      },
+      "polygon": [
+        [
+          348880,
+          146757
+        ],
+        [
+          348700,
+          146900
+        ],
+        [
+          348700,
+          147420
+        ],
+        [
+          348880,
+          147325
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 348895,
+        "bottom": 14510,
+        "right": 349985,
+        "top": 14670
+      },
+      "polygon": [
+        [
+          349060,
+          14510
+        ],
+        [
+          348895,
+          14670
+        ],
+        [
+          349985,
+          14670
+        ],
+        [
+          349820,
+          14510
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 350135,
+        "bottom": 74990,
+        "right": 350985,
+        "top": 75150
+      },
+      "polygon": [
+        [
+          350300,
+          74990
+        ],
+        [
+          350135,
+          75150
+        ],
+        [
+          350985,
+          75150
+        ],
+        [
+          350820,
+          74990
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 351135,
+        "bottom": 166770,
+        "right": 352225,
+        "top": 166930
+      },
+      "polygon": [
+        [
+          351135,
+          166770
+        ],
+        [
+          351300,
+          166930
+        ],
+        [
+          352060,
+          166930
+        ],
+        [
+          352225,
+          166770
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux4_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux4_1"
+      ],
+      "bbox": {
+        "left": 352265,
+        "bottom": 54020,
+        "right": 352420,
+        "top": 54710
+      },
+      "polygon": [
+        [
+          352265,
+          54020
+        ],
+        [
+          352265,
+          54570
+        ],
+        [
+          352420,
+          54710
+        ],
+        [
+          352420,
+          54190
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 354480,
+        "bottom": 14527,
+        "right": 354660,
+        "top": 14963
+      },
+      "polygon": [
+        [
+          354660,
+          14527
+        ],
+        [
+          354480,
+          14670
+        ],
+        [
+          354480,
+          14963
+        ],
+        [
+          354660,
+          14820
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 354480,
+        "bottom": 34687,
+        "right": 354660,
+        "top": 35123
+      },
+      "polygon": [
+        [
+          354660,
+          34687
+        ],
+        [
+          354480,
+          34830
+        ],
+        [
+          354480,
+          35123
+        ],
+        [
+          354660,
+          34980
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 354480,
+        "bottom": 75007,
+        "right": 354660,
+        "top": 75443
+      },
+      "polygon": [
+        [
+          354660,
+          75007
+        ],
+        [
+          354480,
+          75150
+        ],
+        [
+          354480,
+          75443
+        ],
+        [
+          354660,
+          75300
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.space.1",
+      "description": "minimum metal1 spacing",
+      "check": "space",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi211_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi211_2"
+      ],
+      "bbox": {
+        "left": 356720,
+        "bottom": 166477,
+        "right": 356900,
+        "top": 166913
+      },
+      "polygon": [
+        [
+          356720,
+          166477
+        ],
+        [
+          356720,
+          166770
+        ],
+        [
+          356900,
+          166913
+        ],
+        [
+          356900,
+          166620
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__dffq_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__dffq_1"
+      ],
+      "bbox": {
+        "left": 19681,
+        "bottom": 13620,
+        "right": 20004,
+        "top": 13765
+      },
+      "polygon": [
+        [
+          19681,
+          13620
+        ],
+        [
+          19860,
+          13765
+        ],
+        [
+          20004,
+          13765
+        ],
+        [
+          19825,
+          13620
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__dffq_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__dffq_1"
+      ],
+      "bbox": {
+        "left": 19825,
+        "bottom": 13538,
+        "right": 19860,
+        "top": 13847
+      },
+      "polygon": [
+        [
+          19825,
+          13538
+        ],
+        [
+          19825,
+          13620
+        ],
+        [
+          19860,
+          13847
+        ],
+        [
+          19860,
+          13765
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nand3_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nand3_2"
+      ],
+      "bbox": {
+        "left": 33803,
+        "bottom": 73540,
+        "right": 34112,
+        "top": 73630
+      },
+      "polygon": [
+        [
+          34015,
+          73540
+        ],
+        [
+          33803,
+          73630
+        ],
+        [
+          33900,
+          73630
+        ],
+        [
+          34112,
+          73540
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nand3_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nand3_2"
+      ],
+      "bbox": {
+        "left": 33900,
+        "bottom": 73431,
+        "right": 34015,
+        "top": 73739
+      },
+      "polygon": [
+        [
+          34015,
+          73431
+        ],
+        [
+          33900,
+          73630
+        ],
+        [
+          33900,
+          73739
+        ],
+        [
+          34015,
+          73540
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nand3_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nand3_2"
+      ],
+      "bbox": {
+        "left": 257803,
+        "bottom": 194500,
+        "right": 258112,
+        "top": 194590
+      },
+      "polygon": [
+        [
+          258015,
+          194500
+        ],
+        [
+          257803,
+          194590
+        ],
+        [
+          257900,
+          194590
+        ],
+        [
+          258112,
+          194500
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__nand3_2",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__nand3_2"
+      ],
+      "bbox": {
+        "left": 257900,
+        "bottom": 194391,
+        "right": 258015,
+        "top": 194699
+      },
+      "polygon": [
+        [
+          258015,
+          194391
+        ],
+        [
+          257900,
+          194590
+        ],
+        [
+          257900,
+          194699
+        ],
+        [
+          258015,
+          194500
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__aoi221_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__aoi221_1"
+      ],
+      "bbox": {
+        "left": 316001,
+        "bottom": 255550,
+        "right": 316244,
+        "top": 255620
+      },
+      "polygon": [
+        [
+          316220,
+          255550
+        ],
+        [
+          316001,
+          255620
+        ],
+        [
+          316025,
+          255620
+        ],
+        [
+          316244,
+          255550
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "VIA_Via1_HV",
+      "source_path": [
+        "VIA_Via1_HV"
+      ],
+      "bbox": {
+        "left": 316025,
+        "bottom": 255498,
+        "right": 316220,
+        "top": 255672
+      },
+      "polygon": [
+        [
+          316220,
+          255498
+        ],
+        [
+          316025,
+          255620
+        ],
+        [
+          316025,
+          255672
+        ],
+        [
+          316220,
+          255550
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux4_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux4_1"
+      ],
+      "bbox": {
+        "left": 328416,
+        "bottom": 106710,
+        "right": 328679,
+        "top": 106780
+      },
+      "polygon": [
+        [
+          328416,
+          106710
+        ],
+        [
+          328635,
+          106780
+        ],
+        [
+          328679,
+          106780
+        ],
+        [
+          328460,
+          106710
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux4_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux4_1"
+      ],
+      "bbox": {
+        "left": 328460,
+        "bottom": 106631,
+        "right": 328635,
+        "top": 106859
+      },
+      "polygon": [
+        [
+          328460,
+          106631
+        ],
+        [
+          328460,
+          106710
+        ],
+        [
+          328635,
+          106859
+        ],
+        [
+          328635,
+          106780
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux4_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux4_1"
+      ],
+      "bbox": {
+        "left": 337376,
+        "bottom": 54500,
+        "right": 337639,
+        "top": 54570
+      },
+      "polygon": [
+        [
+          337595,
+          54500
+        ],
+        [
+          337376,
+          54570
+        ],
+        [
+          337420,
+          54570
+        ],
+        [
+          337639,
+          54500
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "usb_utmi_phy",
+      "source_cell": "gf180mcu_fd_sc_mcu9t5v0__mux4_1",
+      "source_path": [
+        "gf180mcu_fd_sc_mcu9t5v0__mux4_1"
+      ],
+      "bbox": {
+        "left": 337420,
+        "bottom": 54421,
+        "right": 337595,
+        "top": 54649
+      },
+      "polygon": [
+        [
+          337595,
+          54421
+        ],
+        [
+          337420,
+          54570
+        ],
+        [
+          337420,
+          54649
+        ],
+        [
+          337595,
+          54500
+        ]
+      ]
+    }
+  ],
+  "coverage": {
+    "deck_layers": [
+      "21/0",
+      "22/0",
+      "30/0",
+      "33/0",
+      "34/0",
+      "35/0",
+      "36/0",
+      "37/0",
+      "38/0",
+      "40/0",
+      "41/0",
+      "42/0",
+      "46/0",
+      "53/0",
+      "75/0",
+      "81/0",
+      "127/5"
+    ],
+    "layers_checked": [
+      "21/0",
+      "22/0",
+      "30/0",
+      "33/0",
+      "34/0",
+      "35/0",
+      "36/0",
+      "38/0",
+      "40/0",
+      "42/0",
+      "46/0"
+    ],
+    "layers_in_stream_without_rules": [
+      "0/0",
+      "21/10",
+      "31/0",
+      "32/0",
+      "34/10",
+      "36/10",
+      "55/0",
+      "63/63",
+      "112/1",
+      "204/0",
+      "204/10"
+    ],
+    "rules_skipped": [
+      "bjt.separation.comp.1",
+      "metal4.enclosing.via4.1",
+      "metal5.enclosing.via4.1",
+      "metal5.space.1",
+      "metal5.width.1",
+      "metaltop.space.1",
+      "metaltop.width.1",
+      "mim.enclosing.fusetop.1",
+      "mim.enclosing.via4.1",
+      "mim.space.1",
+      "pad.enclosing.metal5.1",
+      "via4.space.1",
+      "via4.width.1"
+    ],
+    "voltage_domain_warnings": [
+      {
+        "marker": "55/0",
+        "description": "Dualgate (55/0) marks gf180mcu's 5V/6V thick-oxide voltage domain. This curated deck's DRC rules apply the 3.3V/_LV thresholds to geometry regardless of Dualgate's presence (e.g. DF.1a min COMP width 0.22 vs. the real 5V/6V DF.1a_MV 0.30, DF.3a min COMP space 0.28 vs. 0.36, DF.6 COMP extend beyond gate 0.24 vs. 0.40, PL.5a/PL.5b field poly to COMP 0.10 vs. 0.30 -- all in um), and MOS extraction always binds the 3.3V models (nfet_03v3/pfet_03v3) even to a transistor drawn entirely inside Dualgate."
+      }
+    ],
+    "deck_scope": [
+      "10.4.2 MIM Option B",
+      "10.7 DRC_BJT Mark Layer",
+      "7.12 Contact",
+      "7.13 Metaln",
+      "7.14 Vian",
+      "7.15 MetalTop",
+      "7.4 Nwell",
+      "7.5 Comp",
+      "7.7 Poly2",
+      "9.1 Bond Pad"
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.2.0",
+    "klayout_version": "0.30.10",
+    "pdk": null,
+    "deck": {
+      "name": "gf180mcu",
+      "content_hash": "sha256:e2726af899d1837fe8c9a99688483f145b23c92ded07323f54d627d06bdb2bbf"
+    },
+    "input": {
+      "content_hash": "sha256:9dfcece796c047ab90d033030a87519475bb353f126481d428d040b812bc0dc5"
+    }
+  }
+}

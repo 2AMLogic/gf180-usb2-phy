@@ -142,7 +142,7 @@ the host — it does not vendor them. Those are:
 |---|---|---|
 | Icarus Verilog (`iverilog`) | `klt functional-verification` | 12.0 (stable) – 13.0 (stable) verified across two environments (`iverilog -V`) |
 | Yosys (`yosys`) | `klt synthesize` | 0.67 – 0.68+post verified across two environments (`yosys -V`) |
-| OpenROAD (`openroad`) | `klt place-and-route` | **not installed** — see "OpenROAD" below; not exercised by this repo yet |
+| OpenROAD (`openroad`) | `klt place-and-route` | not installed natively on the environments these records were produced on; provisioned via the pinned Docker image instead — see "OpenROAD" below. Exercised by issue #25 (`26Q3-1260-g06a5a02279`, image `openroad/orfs:26Q3-296-gda37dce1c`) |
 
 Package-manager installs for the first two:
 
@@ -154,20 +154,43 @@ brew install icarus-verilog yosys
 apt-get install iverilog yosys
 ```
 
-### OpenROAD (currently missing, not yet needed)
+### OpenROAD
 
-`openroad` is not on `$PATH` on the environments this document was verified
-from, and there is no Homebrew formula or common-distro package for it as
-of this writing. This does not block anything in this repo yet — no issue
-has reached the place-and-route rung of the maturity ladder (see
-`flow/README.md` § "Place-and-route (not yet exercised here)"). Options to
-get `openroad` on `$PATH` when that rung is taken up, roughly in order of
+`openroad` has no Homebrew formula or common-distro package as of this
+writing, so it is provisioned via the pinned `openroad/orfs` Docker image
+rather than a native install — the same route `sky130-modexp` (this
+repo's digital-harness sibling, per `CLAUDE.md`'s "Harness bootstrap")
+already uses. `scripts/openroad-docker.sh` (ported from that repo,
+re-targeted for gf180mcu — no sky130-specific content, since the image
+and invocation shape are PDK-agnostic; `klt place-and-route` resolves the
+gf180mcu LEF/liberty deck itself) wraps the pinned
+`openroad/orfs:26Q3-296-gda37dce1c` image's `openroad` binary as if it
+were native on `$PATH`:
+
+```bash
+# one-off invocation
+./scripts/openroad-docker.sh -version
+
+# or symlink it onto $PATH so `klt place-and-route` resolves it directly
+ln -sf "$(pwd)/scripts/openroad-docker.sh" .venv/bin/openroad
+```
+
+Requires `docker` with a reachable daemon. Bind-mounts the repo working
+directory and the resolved PDK root (`$PDK_ROOT`, else `~/.ciel`, else
+`~/.volare`) at identical absolute host paths inside the container — see
+the script's own header comment for why (`klt place-and-route` bakes
+absolute host paths into every generated OpenROAD Tcl script). Exercised
+end-to-end by issue #25 (`openroad -version` inside the image reports
+`26Q3-1260-g06a5a02279`) — see
+`verification/records/place-and-route/` for the resulting routed digital
+GDS and `flow/README.md` for the request-file flow.
+
+If a native `openroad` binary is preferred instead, roughly in order of
 effort:
 
-1. **Precompiled binaries / Docker image** — see
+1. **Precompiled binaries** — see
    [`The-OpenROAD-Project/OpenROAD` § Install](https://github.com/The-OpenROAD-Project/OpenROAD#install)
-   for current release artifacts, or pull the flow-scripts image
-   (`docker pull openroad/orfs`) and run OpenROAD inside the container.
+   for current release artifacts.
 2. **Build from source via OpenROAD-flow-scripts** —
    [`The-OpenROAD-Project/OpenROAD-flow-scripts`](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts),
    `./build_openroad.sh --local` (a from-source build with its own toolchain
