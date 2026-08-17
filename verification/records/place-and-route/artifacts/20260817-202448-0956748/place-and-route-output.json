@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "engine": "openroad",
+  "engine_version": "26Q3-1260-g06a5a02279",
+  "hdl_toplevel": "usb_utmi_phy",
+  "status": "ok",
+  "stage_reached": "route",
+  "seed": 1,
+  "die_area_um2": 37937.3,
+  "core_area_um2": 33733.3,
+  "utilization_pct": 42.6707,
+  "wirelength_um": 12608,
+  "worst_slack_ns": 68.6887,
+  "total_negative_slack_ns": 0,
+  "fmax_mhz": 68.2861,
+  "setup_violation_count": 0,
+  "hold_violation_count": 0,
+  "antenna_violation_count": 0,
+  "route_drc_violation_count": 0,
+  "estimated_power_mw": 0.1436,
+  "clock_skew_ns": 0.1088,
+  "worst_setup_slack_ns": 47.0107,
+  "worst_hold_slack_ns": 0.37866,
+  "stages": [
+    {
+      "name": "floorplan",
+      "die_area_um2": 37937.3,
+      "core_area_um2": 33733.3,
+      "utilization_pct": 41.3655,
+      "worst_slack_ns": 70.6339,
+      "total_negative_slack_ns": 0
+    },
+    {
+      "name": "place",
+      "die_area_um2": 37937.3,
+      "core_area_um2": 33733.3,
+      "utilization_pct": 40.8467,
+      "worst_slack_ns": 69.2031,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 9720.46,
+      "fmax_mhz": 70.7721,
+      "estimated_power_mw": 0.0894,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0
+    },
+    {
+      "name": "cts",
+      "die_area_um2": 37937.3,
+      "core_area_um2": 33733.3,
+      "utilization_pct": 42.6707,
+      "worst_slack_ns": 69.0737,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 10485.5,
+      "fmax_mhz": 70.1295,
+      "estimated_power_mw": 0.1396,
+      "clock_skew_ns": 0.03136,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0
+    },
+    {
+      "name": "route",
+      "die_area_um2": 37937.3,
+      "core_area_um2": 33733.3,
+      "utilization_pct": 42.6707,
+      "worst_slack_ns": 68.6887,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 12608,
+      "fmax_mhz": 68.2861,
+      "estimated_power_mw": 0.1436,
+      "clock_skew_ns": 0.1088,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "antenna_violation_count": 0,
+      "route_drc_violation_count": 0,
+      "worst_setup_slack_ns": 47.0107,
+      "worst_hold_slack_ns": 0.37866
+    }
+  ],
+  "macros": [],
+  "def_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/flow/.klt/place-and-route/usb_utmi_phy.def",
+  "gds_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/flow/.klt/place-and-route/usb_utmi_phy.gds",
+  "layer_map": {
+    "path": "/home/ubuntu/.ciel/gf180mcuD/libs.tech/klayout/tech/gf180mcu.map",
+    "resolution": "family"
+  },
+  "verilog_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/flow/.klt/place-and-route/usb_utmi_phy.v",
+  "spef_sta": null,
+  "provenance": {
+    "klt_version": "0.2.0",
+    "klayout_version": "0.30.10",
+    "pdk": {
+      "name": "gf180mcuD",
+      "source": "search root: ~/.ciel",
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+    },
+    "deck": {
+      "name": "gf180mcu_fd_sc_mcu9t5v0__tt_025C_1v80",
+      "content_hash": "sha256:c0b6946a2d48a4604c687a29d3c8b1e05b3da5a42866b21592eaacfeae6e9ca7"
+    },
+    "input": {
+      "content_hash": "sha256:d69239a10484c4ee3a4640ce6b5a39062989c69d699fbeda7311a5223d17961f"
+    }
+  }
+}

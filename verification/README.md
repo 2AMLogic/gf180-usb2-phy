@@ -223,7 +223,7 @@ verification/records/
 ```
 
 - **`<experiment-slug>`** — short, descriptive, kebab-case name for the
-  claim being verified. This repo currently has four:
+  claim being verified. This repo currently has six:
   - `functional-smoke` — the harness-counter cocotb suite passes end-to-end
     via `klt functional-verification` (Icarus, no PDK dependency). A
     harness claim, not a PHY claim.
@@ -236,9 +236,17 @@ verification/records/
     SYNC/EOP framing and `LineState[1:0]` decode (§2/§4), and the
     top-level UTMI wrapper (§3) that assembles the bit-level codec with
     this framing logic.
+  - `place-and-route` (issue #25) — `rtl/usb_utmi_phy.v` and its submodules
+    synthesize and place-and-route to a routed GDS against gf180mcu, via
+    `klt synthesize` + `klt place-and-route`. A layout-production claim, not
+    a DRC/LVS-clean signoff claim.
+  - `digital-drc` (issue #25) — a real (not fabricated) `klt drc` run
+    against that routed GDS, honestly recording a non-clean result with a
+    root-cause diagnosis (`klt place-and-route`'s v1 scope has no
+    filler-cell/power-rail-stitching stage).
   One directory per distinct claim, not per run. Future entries (e.g.
-  `place-and-route`, `drc-lvs`, `gate-level-sim`) follow the same pattern
-  once those legs of the maturity ladder are taken up.
+  `drc-lvs`/`digital-lvs`, `gate-level-sim`, `analog-layout`) follow the
+  same pattern once those legs of the maturity ladder are taken up.
 - **`<record-id>`** — unique and traceable:
   `<YYYYMMDD>-<HHMMSS>-<short-git-sha>` (e.g. `20260810-205021-c819c95`),
   identical grammar to the analog canaries' convention. Re-runs mint a new

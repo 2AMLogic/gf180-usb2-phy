@@ -1,0 +1,21 @@
+{
+  "schema": "klt.place_and_route.request/1",
+  "engine": "openroad",
+  "netlist": ".klt/synthesize/usb_utmi_phy_synth.v",
+  "hdl_toplevel": "usb_utmi_phy",
+  "pdk": {
+    "cell_library": "gf180mcu_fd_sc_mcu9t5v0",
+    "corner": "tt_025C_1v80"
+  },
+  "floorplan": {
+    "method": "utilization",
+    "utilization_pct": 40,
+    "aspect_ratio": 1.0,
+    "core_margin_um": 4.0,
+    "site": "GF018hv5v_green_sc9"
+  },
+  "io": { "layer_h": "Metal3", "layer_v": "Metal2" },
+  "constraints": { "clock_port": "clk", "clock_period_ns": 83.333 },
+  "seed": 1,
+  "target_stage": "route"
+}

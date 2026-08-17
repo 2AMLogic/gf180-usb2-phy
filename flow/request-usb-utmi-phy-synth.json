@@ -1,0 +1,22 @@
+{
+  "schema": "klt.synthesize.request/1",
+  "engine": "yosys",
+  "sources": [
+    "../rtl/usb_nrzi_encoder.v",
+    "../rtl/usb_nrzi_decoder.v",
+    "../rtl/usb_bit_stuffer.v",
+    "../rtl/usb_bit_destuffer.v",
+    "../rtl/usb_sync_detector.v",
+    "../rtl/usb_eop_detector.v",
+    "../rtl/usb_line_state_decode.v",
+    "../rtl/usb_utmi_phy.v"
+  ],
+  "hdl_toplevel": "usb_utmi_phy",
+  "pdk": {
+    "cell_library": "gf180mcu_fd_sc_mcu9t5v0",
+    "corner": "tt_025C_1v80"
+  },
+  "constraints": {
+    "clock_period_ns": null
+  }
+}

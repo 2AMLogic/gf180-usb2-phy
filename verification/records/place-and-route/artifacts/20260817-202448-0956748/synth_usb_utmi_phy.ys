@@ -1,0 +1,16 @@
+read_verilog /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/rtl/usb_nrzi_encoder.v
+read_verilog /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/rtl/usb_nrzi_decoder.v
+read_verilog /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/rtl/usb_bit_stuffer.v
+read_verilog /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/rtl/usb_bit_destuffer.v
+read_verilog /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/rtl/usb_sync_detector.v
+read_verilog /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/rtl/usb_eop_detector.v
+read_verilog /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/rtl/usb_line_state_decode.v
+read_verilog /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/rtl/usb_utmi_phy.v
+hierarchy -check -top usb_utmi_phy
+synth -top usb_utmi_phy
+dfflibmap -liberty /home/ubuntu/.ciel/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu9t5v0/lib/gf180mcu_fd_sc_mcu9t5v0__tt_025C_1v80.lib
+tee -q -o /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/flow/.klt/synthesize/usb_utmi_phy_abc.log abc -liberty /home/ubuntu/.ciel/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu9t5v0/lib/gf180mcu_fd_sc_mcu9t5v0__tt_025C_1v80.lib -constr /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/flow/.klt/synthesize/usb_utmi_phy_abc.constr
+clean
+hilomap -hicell gf180mcu_fd_sc_mcu9t5v0__tieh Z -locell gf180mcu_fd_sc_mcu9t5v0__tiel ZN
+tee -q -o /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/flow/.klt/synthesize/usb_utmi_phy_stats.json stat -liberty /home/ubuntu/.ciel/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu9t5v0/lib/gf180mcu_fd_sc_mcu9t5v0__tt_025C_1v80.lib -json -top usb_utmi_phy
+write_verilog -noattr /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-25/flow/.klt/synthesize/usb_utmi_phy_synth.v
