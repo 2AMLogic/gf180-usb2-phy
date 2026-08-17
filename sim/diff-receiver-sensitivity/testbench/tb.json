@@ -10,9 +10,9 @@
   "corners": ["mos"],
   "analyses": ["dc vsw -0.5 0.5 0.001"],
   "derive": [
-    "meas dc vth_cm080 WHEN v(rxd1)=$&vmid",
-    "meas dc vth_cm165 WHEN v(rxd2)=$&vmid",
-    "meas dc vth_cm250 WHEN v(rxd3)=$&vmid",
+    "let vth_cm080 = minimum(v(sw) + 1.0*(v(rxd1) < vmid))",
+    "let vth_cm165 = minimum(v(sw) + 1.0*(v(rxd2) < vmid))",
+    "let vth_cm250 = minimum(v(sw) + 1.0*(v(rxd3) < vmid))",
     "meas dc rxd1_hi FIND v(rxd1) AT=0.2",
     "meas dc rxd1_lo FIND v(rxd1) AT=-0.2",
     "meas dc rxd2_hi FIND v(rxd2) AT=0.2",

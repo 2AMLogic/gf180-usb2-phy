@@ -26,6 +26,21 @@
 * a number that misses the limit. The wider sweep makes an out-of-spec corner
 * record as a FAIL with a value attached instead of as an error.
 *
+* ±0.5 V is also the widest differential that is physically representable here:
+* at the 2.5 V common-mode point and the 2.97 V low-supply corner, a larger
+* differential would drive one of the two inputs above its own rail, so a wider
+* sweep would be measuring a condition the part can never see.
+*
+* Threshold extraction deliberately does NOT use `meas dc ... WHEN`: on a
+* corner whose input-referred threshold falls outside the sweep, `meas` reports
+* "out of interval" and produces no value at all, which records as a broken
+* simulation rather than as the out-of-spec result it actually is. The
+* saturating vector form in tb.json's `derive` instead reports the sweep
+* endpoint, i.e. "at least this bad", so every corner yields a number and the
+* spec check decides pass/fail. (The first `sim/` record for this experiment,
+* 20260817-203612-a408cb6, was taken with the `meas` form and errored at 18 of
+* the 45 corners for exactly this reason; it is superseded, not deleted.)
+*
 * .csparam publishes the per-corner logic midpoint into the control block so
 * the threshold search follows the supply the harness set for this PVT point.
 
