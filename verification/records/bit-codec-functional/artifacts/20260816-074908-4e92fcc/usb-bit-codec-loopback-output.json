@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "tb_usb_bit_codec_loopback",
+  "testbench": "test_usb_bit_codec_loopback",
+  "status": "pass",
+  "test_count": 5,
+  "passed_count": 5,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_round_trip_random_stream",
+      "status": "passed",
+      "sim_time_ns": 46625.373,
+      "real_time_s": 0.07769608497619629
+    },
+    {
+      "name": "test_round_trip_all_ones",
+      "status": "passed",
+      "sim_time_ns": 6875.054999999993,
+      "real_time_s": 0.010844945907592773
+    },
+    {
+      "name": "test_round_trip_all_zeros",
+      "status": "passed",
+      "sim_time_ns": 6041.7149999999965,
+      "real_time_s": 0.010396957397460938
+    },
+    {
+      "name": "test_round_trip_packet_ending_on_six_ones",
+      "status": "passed",
+      "sim_time_ns": 1541.6789999999964,
+      "real_time_s": 0.003183126449584961
+    },
+    {
+      "name": "test_round_trip_after_init",
+      "status": "passed",
+      "sim_time_ns": 2958.3569999999963,
+      "real_time_s": 0.005651235580444336
+    }
+  ],
+  "coverage": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-31/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1
+  }
+}

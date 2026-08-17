@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_nrzi_encoder",
+  "testbench": "test_usb_nrzi_encoder",
+  "status": "pass",
+  "test_count": 6,
+  "passed_count": 6,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_reset_idles_j",
+      "status": "passed",
+      "sim_time_ns": 208.335,
+      "real_time_s": 0.002686023712158203
+    },
+    {
+      "name": "test_all_ones_hold_the_line",
+      "status": "passed",
+      "sim_time_ns": 2875.023,
+      "real_time_s": 0.0050771236419677734
+    },
+    {
+      "name": "test_all_zeros_transition_every_bit",
+      "status": "passed",
+      "sim_time_ns": 2875.0229999999997,
+      "real_time_s": 0.004397869110107422
+    },
+    {
+      "name": "test_random_stream_matches_model",
+      "status": "passed",
+      "sim_time_ns": 42875.343,
+      "real_time_s": 0.06160092353820801
+    },
+    {
+      "name": "test_gap_holds_the_line",
+      "status": "passed",
+      "sim_time_ns": 958.3410000000003,
+      "real_time_s": 0.0014801025390625
+    },
+    {
+      "name": "test_init_returns_to_j",
+      "status": "passed",
+      "sim_time_ns": 458.33699999999953,
+      "real_time_s": 0.0007359981536865234
+    }
+  ],
+  "coverage": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-31/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1
+  }
+}
