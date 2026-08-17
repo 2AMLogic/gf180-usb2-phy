@@ -1,0 +1,53 @@
+* diff-receiver-sensitivity -- differential receiver input sensitivity vs. §4
+*
+* Netlist FRAGMENT. The harness supplies the title, the .include of the
+* gf180mcu models, the corner .lib sections, .temp, the .control block and
+* .end. Parameters provided by the harness: vdd_val, vdd_nom, temp_c.
+*
+* DUT: design/netlist/differential_receiver.spice (named by tb.json's "dut"),
+* the schematic-level export of design/differential_receiver.sch.
+*
+* What this substantiates (spec/usb2-device-phy.md):
+*   §4   differential input sensitivity |(D+) − (D−)| > 200 mV, over a
+*        common-mode input range of 0.8-2.5 V
+*   §8.2 "Receiver thresholds ... DC/parametric analysis across the 45 corners"
+*
+* Method: three copies of the receiver, one per common-mode point named by §4
+* (0.8 V, the 1.65 V midpoint, 2.5 V). A single swept source `vsw` is fanned
+* out to all three as a *differential* excitation through ideal VCVSs --
+* D+ = VCM + vsw/2, D− = VCM − vsw/2 -- so one DC sweep produces the input
+* transfer curve of all three at once and every measurement below is a vector
+* over the differential-input axis.
+*
+* The sweep runs to ±0.5 V rather than stopping at the ±0.2 V the spec row
+* names. That is deliberate: if the receiver's input-referred threshold at some
+* corner lands *outside* ±200 mV, a sweep clipped at ±200 mV would simply fail
+* to find a crossing and report a broken measurement, when the honest result is
+* a number that misses the limit. The wider sweep makes an out-of-spec corner
+* record as a FAIL with a value attached instead of as an error.
+*
+* .csparam publishes the per-corner logic midpoint into the control block so
+* the threshold search follows the supply the harness set for this PVT point.
+
+.csparam vmid={0.5*vdd_val}
+
+vsup VDD 0 dc {vdd_val}
+vsw  sw  0 dc 0
+
+* --- common-mode 0.8 V (low end of the §4 range)
+vcm1 CM1 0 dc 0.8
+edp1 DP1 CM1 sw 0  0.5
+edm1 DM1 CM1 sw 0 -0.5
+Xrx1 VDD 0 DP1 DM1 RXD1 differential_receiver
+
+* --- common-mode 1.65 V (midpoint of the §4 range)
+vcm2 CM2 0 dc 1.65
+edp2 DP2 CM2 sw 0  0.5
+edm2 DM2 CM2 sw 0 -0.5
+Xrx2 VDD 0 DP2 DM2 RXD2 differential_receiver
+
+* --- common-mode 2.5 V (high end of the §4 range)
+vcm3 CM3 0 dc 2.5
+edp3 DP3 CM3 sw 0  0.5
+edm3 DM3 CM3 sw 0 -0.5
+Xrx3 VDD 0 DP3 DM3 RXD3 differential_receiver

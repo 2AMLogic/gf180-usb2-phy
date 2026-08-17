@@ -53,6 +53,28 @@ TESTBENCH_DIRNAME = "testbench"
 
 FORBIDDEN_DIRECTIVES = (".control", ".endc", ".end", ".lib", ".temp", ".include")
 
+#: Control-block statements a manifest's ``derive`` list may never contain.
+#: ``derive`` exists so a testbench can run ngspice ``meas`` (and the helper
+#: ``let``s a ``meas`` threshold needs) *before* the measurement vectors are
+#: evaluated -- an edge-timing quantity like a 10-90 % rise time cannot be
+#: written as a single scalar ``let`` expression. It is not an escape hatch
+#: for owning the deck: anything that ends the control block, leaves the
+#: simulator, or writes to the filesystem is refused so a testbench cannot
+#: quietly stop being a reproducible corner sweep.
+FORBIDDEN_DERIVE_COMMANDS = (
+    "quit",
+    "exit",
+    "shell",
+    "source",
+    "write",
+    "wrdata",
+    "edit",
+    "save",
+    "load",
+    "rusage",
+    "system",
+)
+
 #: A DUT fragment is allowed to pull in sub-netlists of its own (an extracted
 #: netlist routinely does), but it must not own the deck: a stray ``.end``
 #: would truncate every generated deck at the DUT, and ``.lib`` / ``.temp``
@@ -78,6 +100,7 @@ class Testbench:
     temperatures_c: tuple[float, ...] = DEFAULT_TEMPERATURES_C
     corners: tuple[str, ...] = (DEFAULT_CORNER_SET,)
     analyses: tuple[str, ...] = ("op",)
+    derive: tuple[str, ...] = ()
     measure: dict[str, str] = field(default_factory=dict)
     params: dict[str, str | float] = field(default_factory=dict)
     checks: dict[str, dict] = field(default_factory=dict)
@@ -233,6 +256,7 @@ def load(directory: str | Path, dut: str | Path | None = None) -> Testbench:
         ),
         corners=tuple(manifest.get("corners", (DEFAULT_CORNER_SET,))),
         analyses=tuple(manifest.get("analyses", ("op",))),
+        derive=tuple(str(s) for s in manifest.get("derive", ())),
         measure=measure,
         params={k: v for k, v in manifest.get("params", {}).items()},
         checks=dict(manifest.get("checks", {})),
@@ -240,7 +264,36 @@ def load(directory: str | Path, dut: str | Path | None = None) -> Testbench:
     )
     validate_netlist(tb)
     validate_dut(tb)
+    validate_derive(tb, manifest_path)
     return tb
+
+
+def validate_derive(tb: Testbench, manifest_path: Path) -> None:
+    """Keep ``derive`` to in-control-block measurement statements.
+
+    A ``derive`` entry is spliced verbatim into the generated ``.control``
+    block, so a stray ``.endc`` / ``quit`` / ``write`` would either truncate
+    the deck or leave a side effect outside the evidence tree. Reject those
+    up front instead of debugging a deck that silently measured nothing.
+    """
+    problems: list[str] = []
+    for statement in tb.derive:
+        text = statement.strip()
+        if not text:
+            problems.append("  (empty statement)")
+            continue
+        if text.startswith("."):
+            problems.append(f"  {statement}  (dot-directives belong in the netlist)")
+            continue
+        if text.split()[0].lower() in FORBIDDEN_DERIVE_COMMANDS:
+            problems.append(f"  {statement}  ({text.split()[0]!r} is not allowed)")
+    if problems:
+        raise ValueError(
+            f"{manifest_path}: 'derive' holds ngspice control-block statements "
+            "(typically 'meas' / helper 'let') evaluated after the analyses and "
+            "before the measurement vectors; these are not allowed:\n"
+            + "\n".join(problems)
+        )
 
 
 def _offending_directives(path: Path, forbidden: tuple[str, ...]) -> list[str]:

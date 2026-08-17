@@ -1,0 +1,42 @@
+{
+  "name": "dplus-pullup-tolerance",
+  "description": "Effective D+ pull-up impedance across all 32 trim codes, checked against the ratified 1.5 kΩ ±5 % row (spec/usb2-device-phy.md §5, §8.2).",
+  "claim": "spec/usb2-device-phy.md#5-d-pull-up -- nominal 1.5 kΩ, tolerance ±5 % (1.425-1.575 kΩ) across the full PVT envelope, with the trim ladder §5 requires; and spec/usb2-device-phy.md#82-what-gets-measured-and-against-which-section row 'D+ pull-up tolerance'.",
+  "netlist": "pullup_tb.spice",
+  "dut": "design/netlist/dplus_pullup.spice",
+  "nominal_supply_v": 3.3,
+  "supply_tolerance": 0.1,
+  "temperatures_c": [-40, 27, 125],
+  "corners": ["mos"],
+  "analyses": ["dc vsw 0.5 31.5 1"],
+  "derive": [
+    "let rvec = (v(vpu) - v(dp))*15e3/v(dp)",
+    "let errvec = abs(rvec - 1500)/15",
+    "let codevec = v(sw) - 0.5",
+    "print rvec"
+  ],
+  "measure": {
+    "r_code0_ohm": "rvec[0]",
+    "r_code31_ohm": "rvec[31]",
+    "r_best_ohm": "minimum(rvec + 1e9*(errvec > minimum(errvec)))",
+    "best_code": "minimum(codevec + 1e6*(errvec > minimum(errvec)))",
+    "best_err_pct": "minimum(errvec)",
+    "trim_step_pct": "(maximum(rvec) - minimum(rvec))/minimum(rvec)*100/31"
+  },
+  "checks": {
+    "best_err_pct": {
+      "min": 0.0,
+      "max": 5.0,
+      "description": "spec §5: with the trim ladder set at test, some trim code must land inside 1.425-1.575 kΩ (±5 % of 1.5 kΩ) at every PVT corner. This is the spec row's pass/fail."
+    },
+    "r_best_ohm": {
+      "min": 1425.0,
+      "max": 1575.0,
+      "description": "spec §5: the best-code effective pull-up impedance, stated in ohms rather than as an error, so the record shows the value and not only the deviation"
+    },
+    "r_code0_ohm": {
+      "min_spread_pct": 10.0,
+      "description": "harness integrity, not a spec row: the untrimmed (all-segments-in) resistance is dominated by unsilicided poly and must visibly move across the process/temperature grid. A flat value would mean the corner .lib sections or .temp never took effect, and every other number in this record would be untrustworthy."
+    }
+  }
+}

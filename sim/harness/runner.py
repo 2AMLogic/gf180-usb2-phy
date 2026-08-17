@@ -92,6 +92,11 @@ def compose_deck(tb: Testbench, pdk: Pdk, point: PvtPoint) -> str:
         "set noaskquit",
     ]
     lines += [f"  {analysis}" for analysis in tb.analyses]
+    # `derive` statements run between the analyses and the measurement
+    # vectors: an ngspice `meas` (edge timing, threshold crossing) cannot be
+    # written as a single scalar `let` expression, so a testbench that needs
+    # one declares it here and then reads its result vector in `measure`.
+    lines += [f"  {statement}" for statement in tb.derive]
     for name, expr in tb.measure.items():
         lines.append(f"  let m_{name} = {expr}")
     for name in tb.measure:

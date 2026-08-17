@@ -126,6 +126,23 @@ class TestbenchTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             testbench.load(self._write("v1 out 0 dc 3.3\n", {"measure": {}}))
 
+    def test_derive_accepts_control_block_measurement_statements(self):
+        tb = testbench.load(
+            self._write(
+                "v1 out 0 dc {vdd_val}\n",
+                {"derive": ["meas tran t_r TRIG v(out) VAL=0.3 RISE=1 TARG v(out) VAL=2.7 RISE=1"]},
+            )
+        )
+        self.assertEqual(len(tb.derive), 1)
+        self.assertTrue(tb.derive[0].startswith("meas tran"))
+
+    def test_derive_rejects_statements_that_would_own_the_deck(self):
+        for bad in (".endc", "quit", "write out.raw v(out)", "shell rm -rf /", ""):
+            with self.subTest(statement=bad):
+                with self.assertRaises(ValueError) as ctx:
+                    testbench.load(self._write("v1 out 0 dc 3.3\n", {"derive": [bad]}))
+                self.assertIn("derive", str(ctx.exception))
+
     def test_the_repo_smoke_testbench_is_valid(self):
         tb = testbench.load(SIM_DIR / "smoke-inverter")
         self.assertEqual(tb.nominal_supply_v, 3.3)
@@ -180,6 +197,20 @@ class DeckTests(unittest.TestCase):
         self.assertIn("let m_iq = -i(v1)", self.deck)
         self.assertIn("print m_vout", self.deck)
         self.assertTrue(self.deck.rstrip().endswith(".end"))
+
+    def test_derive_statements_run_after_the_analyses_and_before_the_measures(self):
+        root = Path(self.tb.directory)
+        manifest = json.loads((root / "tb.json").read_text())
+        manifest["analyses"] = ["tran 1n 100n"]
+        manifest["derive"] = ["meas tran t_r TRIG v(out) VAL=0.3 RISE=1 TARG v(out) VAL=2.7 RISE=1"]
+        manifest["measure"] = {"trise_ns": "t_r*1e9"}
+        (root / "tb.json").write_text(json.dumps(manifest))
+        deck = runner.compose_deck(testbench.load(root), self.pdk, self.point)
+        analysis_at = deck.index("tran 1n 100n")
+        derive_at = deck.index("meas tran t_r")
+        measure_at = deck.index("let m_trise_ns")
+        self.assertLess(analysis_at, derive_at)
+        self.assertLess(derive_at, measure_at)
 
 
 class ParseTests(unittest.TestCase):

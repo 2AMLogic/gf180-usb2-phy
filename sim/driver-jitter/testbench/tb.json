@@ -1,0 +1,57 @@
+{
+  "name": "driver-jitter",
+  "description": "Driver-output edge-to-edge timing across an 18-bit full-speed pattern with varied run lengths. Engineering data only -- spec/usb2-device-phy.md §8.2 forbids a pass/fail against an unconfirmed jitter number.",
+  "claim": "spec/usb2-device-phy.md#82-what-gets-measured-and-against-which-section row 'Driver-output timing jitter' -- recorded as ENGINEERING DATA WITH NO SPEC LIMIT ATTACHED, which is what that row's own note mandates: the repo has no confirmed numeric USB 2.0 source-jitter limits from the physical specification text, and §8.2 explicitly says sim/ 'may record measured jitter as engineering data without a spec citation attached' until that pull happens. No jitter measurement below carries a min/max limit; the single check present is a harness-integrity spread floor, not a spec claim.",
+  "netlist": "driver_jitter_tb.spice",
+  "dut": "design/netlist/differential_driver.spice",
+  "nominal_supply_v": 3.3,
+  "supply_tolerance": 0.1,
+  "temperatures_c": [-40, 27, 125],
+  "corners": ["mos"],
+  "analyses": ["tran 50p 1.75u"],
+  "options": ["reltol=1e-5"],
+  "derive": [
+    "meas tran tx1 WHEN v(dp)=v(dm) CROSS=1",
+    "meas tran tx2 WHEN v(dp)=v(dm) CROSS=2",
+    "meas tran tx3 WHEN v(dp)=v(dm) CROSS=3",
+    "meas tran tx4 WHEN v(dp)=v(dm) CROSS=4",
+    "meas tran tx5 WHEN v(dp)=v(dm) CROSS=5",
+    "meas tran tx6 WHEN v(dp)=v(dm) CROSS=6",
+    "meas tran tx7 WHEN v(dp)=v(dm) CROSS=7",
+    "meas tran tx8 WHEN v(dp)=v(dm) CROSS=8",
+    "meas tran tx9 WHEN v(dp)=v(dm) CROSS=LAST",
+    "let dev = vector(8)",
+    "let dev[0] = tx1 - tx1 - 0*tbit",
+    "let dev[1] = tx2 - tx1 - 1*tbit",
+    "let dev[2] = tx3 - tx1 - 3*tbit",
+    "let dev[3] = tx4 - tx1 - 4*tbit",
+    "let dev[4] = tx5 - tx1 - 7*tbit",
+    "let dev[5] = tx6 - tx1 - 8*tbit",
+    "let dev[6] = tx7 - tx1 - 14*tbit",
+    "let dev[7] = tx8 - tx1 - 15*tbit",
+    "let cons = vector(7)",
+    "let cons[0] = tx2 - tx1 - 1*tbit",
+    "let cons[1] = tx3 - tx2 - 2*tbit",
+    "let cons[2] = tx4 - tx3 - 1*tbit",
+    "let cons[3] = tx5 - tx4 - 3*tbit",
+    "let cons[4] = tx6 - tx5 - 1*tbit",
+    "let cons[5] = tx7 - tx6 - 6*tbit",
+    "let cons[6] = tx8 - tx7 - 1*tbit",
+    "print dev",
+    "print cons"
+  ],
+  "measure": {
+    "tprop_ns": "(tx1 - 283.3333e-9)*1e9",
+    "jit_grid_pp_ps": "(maximum(dev) - minimum(dev))*1e12",
+    "jit_grid_max_ps": "maximum(abs(dev))*1e12",
+    "jit_cons_pp_ps": "(maximum(cons) - minimum(cons))*1e12",
+    "jit_cons_max_ps": "maximum(abs(cons))*1e12",
+    "xings_extra_ps": "(tx9 - tx8)*1e12"
+  },
+  "checks": {
+    "tprop_ns": {
+      "min_spread_pct": 5.0,
+      "description": "harness integrity, NOT a spec row: the driver's propagation delay to the first differential crossing is strongly PVT-sensitive, so a flat value across the grid would mean the corner .lib sections or .temp never took effect. spec/usb2-device-phy.md §8.2 forbids attaching a numeric pass/fail to any jitter quantity in this record until the USB 2.0 source-jitter limits are pulled from the physical text, so no jitter measurement here carries min/max limits."
+    }
+  }
+}

@@ -195,6 +195,39 @@ Each `measure` entry becomes `let m_<name> = <expr>` followed by `print` inside
 the control block, so the expression must reduce to a **scalar**: fine for
 `op`; for `tran`/`ac` reduce with `maximum()`, `mean()`, `v(out)[0]`, etc.
 
+`derive` (optional) is an ordered list of ngspice **control-block statements**
+spliced in after the analyses and before the measurement vectors. It exists for
+the quantities a single scalar `let` cannot express — a 10–90 % rise time, a
+threshold crossing, the voltage at which two nodes cross — which ngspice's
+`meas` command computes natively and leaves behind as a named vector that
+`measure` can then read:
+
+```json
+{
+  "analyses": ["tran 20p 300n"],
+  "derive": [
+    "meas tran t_rise TRIG v(dp) VAL=$&v10 RISE=1 TARG v(dp) VAL=$&v90 RISE=1"
+  ],
+  "measure": {"trise_ns": "t_rise*1e9"}
+}
+```
+
+`$&<name>` substitutes the value of a control-block vector, which is how a
+`meas` threshold reaches a *per-corner* number: the netlist fragment publishes
+one with `.csparam v10={0.1*vdd_val}` (allowed — only `.control`, `.endc`,
+`.end`, `.lib`, `.temp` and `.include` are forbidden in a fragment), so the
+10 % / 90 % levels follow the supply the harness set for this PVT point instead
+of being frozen at a nominal value.
+
+`derive` is *not* an escape hatch for owning the deck: statements that would
+end the control block, leave the simulator, or write to the filesystem
+(`.endc`, `quit`, `shell`, `write`, …) are rejected at manifest-load time.
+
+If a `meas` finds nothing (no crossing, no edge), its vector never appears, the
+`measure` expression that reads it fails, and the point is recorded as a failed
+corner rather than silently omitted — which is the intended behaviour: a
+missing edge *is* a result.
+
 `checks` are evaluated after the sweep:
 
 | Key | Applies to | Meaning |

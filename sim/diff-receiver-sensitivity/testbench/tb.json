@@ -1,0 +1,65 @@
+{
+  "name": "diff-receiver-sensitivity",
+  "description": "Differential receiver input-referred threshold and output levels at ±200 mV, at the three common-mode points §4 names (0.8 / 1.65 / 2.5 V).",
+  "claim": "spec/usb2-device-phy.md#4-receiver-set -- differential input sensitivity |(D+) − (D−)| > 200 mV over a common-mode input range of 0.8-2.5 V; and spec/usb2-device-phy.md#82-what-gets-measured-and-against-which-section row 'Receiver thresholds' (differential receiver half).",
+  "netlist": "diff_rx_tb.spice",
+  "dut": "design/netlist/differential_receiver.spice",
+  "nominal_supply_v": 3.3,
+  "supply_tolerance": 0.1,
+  "temperatures_c": [-40, 27, 125],
+  "corners": ["mos"],
+  "analyses": ["dc vsw -0.5 0.5 0.001"],
+  "derive": [
+    "meas dc vth_cm080 WHEN v(rxd1)=$&vmid",
+    "meas dc vth_cm165 WHEN v(rxd2)=$&vmid",
+    "meas dc vth_cm250 WHEN v(rxd3)=$&vmid",
+    "meas dc rxd1_hi FIND v(rxd1) AT=0.2",
+    "meas dc rxd1_lo FIND v(rxd1) AT=-0.2",
+    "meas dc rxd2_hi FIND v(rxd2) AT=0.2",
+    "meas dc rxd2_lo FIND v(rxd2) AT=-0.2",
+    "meas dc rxd3_hi FIND v(rxd3) AT=0.2",
+    "meas dc rxd3_lo FIND v(rxd3) AT=-0.2"
+  ],
+  "measure": {
+    "vth_cm080_mv": "vth_cm080*1e3",
+    "vth_cm165_mv": "vth_cm165*1e3",
+    "vth_cm250_mv": "vth_cm250*1e3",
+    "hi_cm080": "rxd1_hi/maximum(v(vdd))",
+    "lo_cm080": "rxd1_lo/maximum(v(vdd))",
+    "hi_cm165": "rxd2_hi/maximum(v(vdd))",
+    "lo_cm165": "rxd2_lo/maximum(v(vdd))",
+    "hi_cm250": "rxd3_hi/maximum(v(vdd))",
+    "lo_cm250": "rxd3_lo/maximum(v(vdd))"
+  },
+  "checks": {
+    "vth_cm080_mv": {
+      "min": -200.0,
+      "max": 200.0,
+      "description": "spec §4: a 200 mV differential input must be resolved at the 0.8 V low end of the common-mode range, i.e. the input-referred switching threshold must sit inside ±200 mV"
+    },
+    "vth_cm165_mv": {
+      "min": -200.0,
+      "max": 200.0,
+      "description": "spec §4: same, at the 1.65 V midpoint of the common-mode range"
+    },
+    "vth_cm250_mv": {
+      "min": -200.0,
+      "max": 200.0,
+      "description": "spec §4: same, at the 2.5 V high end of the common-mode range"
+    },
+    "hi_cm080": {
+      "min": 0.9,
+      "max": 1.05,
+      "description": "spec §4: at D+ − D− = +200 mV the receiver output must be a valid logic high (≥ 0.9 × VDD), not merely past its threshold"
+    },
+    "lo_cm080": {
+      "min": -0.05,
+      "max": 0.1,
+      "description": "spec §4: at D+ − D− = −200 mV the receiver output must be a valid logic low (≤ 0.1 × VDD)"
+    },
+    "hi_cm165": {"min": 0.9, "max": 1.05, "description": "as hi_cm080, at the 1.65 V common-mode point"},
+    "lo_cm165": {"min": -0.05, "max": 0.1, "description": "as lo_cm080, at the 1.65 V common-mode point"},
+    "hi_cm250": {"min": 0.9, "max": 1.05, "description": "as hi_cm080, at the 2.5 V common-mode point"},
+    "lo_cm250": {"min": -0.05, "max": 0.1, "description": "as lo_cm080, at the 2.5 V common-mode point"}
+  }
+}
