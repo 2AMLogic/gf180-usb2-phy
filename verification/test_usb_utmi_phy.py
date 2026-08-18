@@ -39,13 +39,6 @@ def _byte_to_bits(byte):
     return [(byte >> i) & 1 for i in range(8)]
 
 
-def _bits_to_byte(bits):
-    value = 0
-    for i, bit in enumerate(bits):
-        value |= (bit & 1) << i
-    return value
-
-
 def _line_to_dpdm(line_bit):
     """1 = J (dp=1,dm=0), 0 = K (dp=0,dm=1) -- usb_utmi_phy.v's own mapping."""
     return (1, 0) if line_bit else (0, 1)

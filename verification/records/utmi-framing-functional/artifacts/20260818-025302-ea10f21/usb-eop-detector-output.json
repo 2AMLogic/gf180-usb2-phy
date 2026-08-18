@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_eop_detector",
+  "testbench": "test_usb_eop_detector",
+  "status": "pass",
+  "test_count": 6,
+  "passed_count": 6,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_reset_defaults",
+      "status": "passed",
+      "sim_time_ns": 208.335,
+      "real_time_s": 0.0005092620849609375
+    },
+    {
+      "name": "test_one_bit_time_of_se0_is_not_eop",
+      "status": "passed",
+      "sim_time_ns": 375.00300000000004,
+      "real_time_s": 0.00041174888610839844
+    },
+    {
+      "name": "test_exactly_two_bit_times_of_se0_is_eop",
+      "status": "passed",
+      "sim_time_ns": 458.3369999999999,
+      "real_time_s": 0.0004525184631347656
+    },
+    {
+      "name": "test_twenty_nine_clocks_of_se0_never_asserts_bus_reset",
+      "status": "passed",
+      "sim_time_ns": 2708.3549999999996,
+      "real_time_s": 0.002064228057861328
+    },
+    {
+      "name": "test_exactly_thirty_clocks_of_se0_asserts_bus_reset",
+      "status": "passed",
+      "sim_time_ns": 3208.359,
+      "real_time_s": 0.002399444580078125
+    },
+    {
+      "name": "test_eop_and_bus_reset_both_derive_from_one_hold",
+      "status": "passed",
+      "sim_time_ns": 2708.3549999999996,
+      "real_time_s": 0.0020818710327148438
+    }
+  ],
+  "coverage": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "12.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-46/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1
+  }
+}
