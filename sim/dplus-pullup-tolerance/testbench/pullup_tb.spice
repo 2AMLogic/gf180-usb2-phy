@@ -1,0 +1,60 @@
+* dplus-pullup-tolerance -- effective D+ pull-up impedance vs. the ±5 % spec row
+*
+* Netlist FRAGMENT. The harness supplies the title, the .include of the
+* gf180mcu models, the corner .lib sections, .temp, the .control block and
+* .end. Parameters provided by the harness: vdd_val, vdd_nom, temp_c.
+*
+* DUT: design/netlist/dplus_pullup.spice (named by tb.json's "dut"), the
+* schematic-level export of design/dplus_pullup.sch.
+*
+* What this substantiates (spec/usb2-device-phy.md):
+*   §5   nominal resistance 1.5 kΩ, tolerance ±5 % (1.425-1.575 kΩ) across
+*        the full PVT envelope
+*   §8.2 "D+ pull-up tolerance ... DC/parametric analysis across the 45 corners"
+*
+* §5 is explicit that a bare untrimmed gf180mcu poly resistor cannot hold ±5 %
+* across process, and that meeting the row therefore requires "a trimmed/
+* calibrated resistor (e.g., a binary-weighted trim ladder set at test)". The
+* DUT implements exactly that: a 5-bit binary-weighted ladder (TRIM0..TRIM4)
+* shunting segments of the base resistor. The claim this testbench evaluates is
+* therefore the one §5 actually makes: *with the trim ladder*, is there a trim
+* code at every PVT corner that lands inside 1.425-1.575 kΩ?
+*
+* How the 32 trim codes are swept in one analysis: `vsw` is swept 0.5 -> 31.5
+* in unit steps and five behavioural sources decode it into the TRIM bits, so
+* each DC sweep point is one trim code and every measurement below is a
+* 32-element vector over the code axis. The half-step offset keeps floor()
+* away from a floating-point boundary. TRIMk high shorts segment k out, so
+* code 0 is the maximum resistance and code 31 the minimum.
+*
+* Bias condition: the pull-up drives D+ through the host's 15 kΩ full-speed
+* downstream-port pull-down (USB 2.0 §7.1.5), which is the operating point the
+* 1.5 kΩ value exists to set up. The measured quantity is the *effective* D+
+* pull-up impedance -- ladder segments plus the enable and shunt switch
+* on-resistances -- because that is what a host sees, and what §5's tolerance
+* has to hold on.
+*
+* VPU_REG: §5 calls for an internally regulated 3.0-3.6 V pull-up rail, but no
+* regulator has been designed yet (design/ has no regulator schematic), so this
+* testbench ties VPU_REG to the harness-swept supply. That is the conservative
+* choice -- it exposes the pull-up to the full ±10 % supply excursion a
+* regulator would remove -- and it is stated here rather than silently assumed.
+
+vsup VDD 0 dc {vdd_val}
+vpu  VPU 0 dc {vdd_val}
+ven  PU_EN 0 dc {vdd_val}
+
+* trim-code sweep axis: v(sw) = code + 0.5
+vsw sw 0 dc 0.5
+
+* binary decode of the code into the five trim bits (0 / VDD logic levels)
+bt0 TRIM0 0 v = {vdd_val}*(floor(v(sw))     - 2*floor(v(sw)/2))
+bt1 TRIM1 0 v = {vdd_val}*(floor(v(sw)/2)   - 2*floor(v(sw)/4))
+bt2 TRIM2 0 v = {vdd_val}*(floor(v(sw)/4)   - 2*floor(v(sw)/8))
+bt3 TRIM3 0 v = {vdd_val}*(floor(v(sw)/8)   - 2*floor(v(sw)/16))
+bt4 TRIM4 0 v = {vdd_val}*(floor(v(sw)/16)  - 2*floor(v(sw)/32))
+
+Xpu DP VPU 0 PU_EN TRIM0 TRIM1 TRIM2 TRIM3 TRIM4 dplus_pullup
+
+* host full-speed downstream-port pull-down
+rload DP 0 15k

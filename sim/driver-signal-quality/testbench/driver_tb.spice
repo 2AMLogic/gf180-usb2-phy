@@ -1,0 +1,49 @@
+* driver-signal-quality -- differential driver into the ratified 50 pF test load
+*
+* Netlist FRAGMENT. The harness supplies the title, the .include of the
+* gf180mcu models, the corner .lib sections, .temp, the .control block and
+* .end. Parameters provided by the harness: vdd_val, vdd_nom, temp_c.
+*
+* DUT: design/netlist/differential_driver.spice (named by tb.json's "dut"),
+* the schematic-level export of design/differential_driver.sch.
+*
+* What this substantiates (spec/usb2-device-phy.md):
+*   §6  rise time 10-90 %          4-20 ns into 50 pF
+*   §6  fall time 90-10 %          4-20 ns into 50 pF
+*   §6  rise/fall matching         within 10 % of each other
+*   §6  output crossover voltage   1.3-2.0 V
+*   §8.2 full-speed signal quality  the three rows above checked as a set,
+*        plus a monotonic, single-zero-crossing transition (see below)
+*
+* Load: 50 pF from each of D+/D- to ground, which is exactly the test-load
+* condition §6 ratifies ("Test load: 50 pF, into which rise/fall times above
+* are measured"). No resistive termination is added: the ratified row names a
+* capacitance and nothing else, and adding an unratified resistor would change
+* the numbers this record claims against.
+*
+* Stimulus: one J->K->J style differential transition pair. TXDP/TXDM are
+* driven as a complementary CMOS pair (that is what the UTMI-side logic
+* presents to this block), rising at 100 ns and falling at 200 ns, so the
+* window holds exactly one full rising edge and one full falling edge with
+* time to settle either side. The 100 ns half-period is slightly longer than
+* the 83.33 ns full-speed bit time on purpose: settling, not bit-rate
+* fidelity, is what a rise/fall measurement needs. Data-dependent edge timing
+* at the real 12 Mbps bit rate is a separate experiment (driver-jitter).
+*
+* .csparam publishes the per-corner 10 %/90 % levels into the control block so
+* the meas thresholds follow the supply the harness set for this PVT point
+* rather than a frozen nominal. (.csparam is not one of the directives a
+* fragment is forbidden to own -- see sim/harness/README.md.)
+
+.csparam v10={0.1*vdd_val}
+.csparam v90={0.9*vdd_val}
+
+vsup VDD 0 dc {vdd_val}
+
+vtxdp TXDP 0 pulse(0 {vdd_val} 100n 0.5n 0.5n 100n 200n)
+vtxdm TXDM 0 pulse({vdd_val} 0 100n 0.5n 0.5n 100n 200n)
+
+Xdrv VDD 0 TXDP TXDM DP DM differential_driver
+
+cdp DP 0 50p
+cdm DM 0 50p

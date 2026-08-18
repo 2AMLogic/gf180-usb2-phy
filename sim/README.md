@@ -177,15 +177,25 @@ gets fixed.
 
 ## What exists today
 
-`sim/smoke-inverter/` is throwaway harness acceptance infrastructure — a
-single minimum-size CMOS inverter built from gf180mcu primitives, proving the
-corner runner's PVT plumbing (parameter substitution, `.lib` corner
-sections, `.temp`) actually takes effect. It is **not** a PHY sub-block:
-`design/` has no schematics yet, so there is no driver or receiver testbench
-to write. See [`sim/harness/README.md`](harness/README.md) §"sim/smoke-inverter/"
-for what it exercises and how to run it.
+Six spec-row experiments, each running the full 45-corner matrix of
+`spec/usb2-device-phy.md` §8.1 against the schematic-level netlists under
+`design/netlist/`:
 
-Once `design/` has real schematics, each PHY sub-block claim from
-`spec/usb2-device-phy.md` (driver rise/fall time, D+ pull-up tolerance,
-receiver thresholds, ...) gets its own `sim/<experiment-slug>/` directory
-following the layout above.
+| Experiment | Substantiates |
+|---|---|
+| `driver-signal-quality/` | §6 rise/fall time, rise/fall matching, crossover voltage; §8.2 full-speed signal quality |
+| `driver-jitter/` | §8.2 driver-output timing jitter — recorded as engineering data with **no** spec limit, per that row's own note |
+| `dplus-pullup-tolerance/` | §5 D+ pull-up 1.5 kΩ ±5 %, over all 32 trim codes |
+| `diff-receiver-sensitivity/` | §4 differential input sensitivity over the 0.8–2.5 V common-mode range |
+| `se-receiver-dp-thresholds/`, `se-receiver-dm-thresholds/` | §4 single-ended VIH/VIL switching levels |
+
+**[`sim/spec-coverage.md`](spec-coverage.md) is the index**: which §8.2 row is
+answered by which record, with the current verdict for each and what each
+failure means. Read that before the individual records.
+
+`sim/smoke-inverter/` remains throwaway harness acceptance infrastructure — a
+single minimum-size CMOS inverter built from gf180mcu primitives, proving the
+corner runner's PVT plumbing (parameter substitution, `.lib` corner sections,
+`.temp`) actually takes effect. It is **not** a PHY sub-block and claims
+nothing about the design; see [`sim/harness/README.md`](harness/README.md)
+§"sim/smoke-inverter/" for what it exercises.

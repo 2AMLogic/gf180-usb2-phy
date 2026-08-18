@@ -1,0 +1,39 @@
+{
+  "name": "se-receiver-dp-thresholds",
+  "description": "Single-ended D+ receiver: switching threshold and output levels at the ratified VIL/VIH input voltages (spec/usb2-device-phy.md §4, §8.2).",
+  "claim": "spec/usb2-device-phy.md#4-receiver-set -- single-ended receiver on D+, VIH > 2.0 V and VIL < 0.8 V; and spec/usb2-device-phy.md#82-what-gets-measured-and-against-which-section row 'Receiver thresholds' (D+ single-ended half).",
+  "netlist": "se_rx_dp_tb.spice",
+  "dut": "design/netlist/se_receiver_dp.spice",
+  "nominal_supply_v": 3.3,
+  "supply_tolerance": 0.1,
+  "temperatures_c": [-40, 27, 125],
+  "corners": ["mos"],
+  "analyses": ["dc vin 0 2.9 0.001"],
+  "derive": [
+    "meas dc vth WHEN v(rxdp)=$&vmid",
+    "meas dc rxd_at_vil FIND v(rxdp) AT=0.8",
+    "meas dc rxd_at_vih FIND v(rxdp) AT=2.0"
+  ],
+  "measure": {
+    "vth_v": "vth",
+    "out_at_vil": "rxd_at_vil/maximum(v(vdd))",
+    "out_at_vih": "rxd_at_vih/maximum(v(vdd))"
+  },
+  "checks": {
+    "vth_v": {
+      "min": 0.8,
+      "max": 2.0,
+      "description": "spec §4: the D+ single-ended switching threshold must sit strictly inside the VIL/VIH window, otherwise either a 0.8 V input is not guaranteed low or a 2.0 V input is not guaranteed high"
+    },
+    "out_at_vil": {
+      "min": -0.05,
+      "max": 0.1,
+      "description": "spec §4: with the input at VIL = 0.8 V the output must be a valid logic low (≤ 0.1 × VDD)"
+    },
+    "out_at_vih": {
+      "min": 0.9,
+      "max": 1.05,
+      "description": "spec §4: with the input at VIH = 2.0 V the output must be a valid logic high (≥ 0.9 × VDD)"
+    }
+  }
+}
