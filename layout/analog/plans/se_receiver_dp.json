@@ -1,0 +1,251 @@
+{
+  "schema": "klt.layout_plan.request/1",
+  "netlist": {
+    "path": "../../../design/netlist/se_receiver_dp.spice",
+    "top": "se_receiver_dp",
+    "form": "subckt-call",
+    "deck": "gf180mcu"
+  },
+  "pdk": {
+    "variant": "gf180mcuD"
+  },
+  "device_groups": [
+    {
+      "id": "r_1",
+      "devices": [
+        {
+          "name": "1",
+          "device_class": "PPOLYF_U_1K"
+        }
+      ],
+      "generator": "res_array",
+      "params": {
+        "num": 1,
+        "dummy": 0
+      }
+    },
+    {
+      "id": "r_2",
+      "devices": [
+        {
+          "name": "2",
+          "device_class": "PPOLYF_U_1K"
+        }
+      ],
+      "generator": "res_array",
+      "params": {
+        "num": 1,
+        "dummy": 0
+      }
+    },
+    {
+      "id": "r_bias",
+      "devices": [
+        {
+          "name": "BIAS",
+          "device_class": "PPOLYF_U_1K"
+        }
+      ],
+      "generator": "res_array",
+      "params": {
+        "num": 1,
+        "dummy": 0
+      }
+    },
+    {
+      "id": "mn_nbias",
+      "devices": [
+        {
+          "name": "NBIAS",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mn_n_b1",
+      "devices": [
+        {
+          "name": "N_B1",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mn_n_b2",
+      "devices": [
+        {
+          "name": "N_B2",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mn_n_ina",
+      "devices": [
+        {
+          "name": "N_INA",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mn_n_inb",
+      "devices": [
+        {
+          "name": "N_INB",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mp_p_b1",
+      "devices": [
+        {
+          "name": "P_B1",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mp_p_b2",
+      "devices": [
+        {
+          "name": "P_B2",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mp_p_loada",
+      "devices": [
+        {
+          "name": "P_LOADA",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mp_p_loadb",
+      "devices": [
+        {
+          "name": "P_LOADB",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mn_tail",
+      "devices": [
+        {
+          "name": "TAIL",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    }
+  ],
+  "rows": [
+    {
+      "order": [
+        "r_1",
+        "r_2",
+        "r_bias",
+        "mn_nbias",
+        "mn_n_b1",
+        "mn_n_b2",
+        "mn_n_ina",
+        "mn_n_inb",
+        "mp_p_b1",
+        "mp_p_b2",
+        "mp_p_loada",
+        "mp_p_loadb",
+        "mn_tail"
+      ],
+      "spacing_um": 2.0,
+      "align": "bottom"
+    }
+  ],
+  "options": {
+    "cell_name": "se_receiver_dp",
+    "output": "se_receiver_dp.gds"
+  }
+}

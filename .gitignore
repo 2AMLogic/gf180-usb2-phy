@@ -15,6 +15,9 @@ sim/.work/
 sim/pdk.local.json
 # synthesis / place-and-route scratch
 flow/build/
+# analog layout-plan scratch (scripts/gen_analog_layout.py) -- the committed
+# evidence lives under verification/records/analog-layout/ instead
+layout/analog/out/
 # local klt install, created by the setup script
 .venv/
 

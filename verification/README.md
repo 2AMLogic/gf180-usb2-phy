@@ -250,9 +250,17 @@ verification/records/
     against that routed GDS, honestly recording a non-clean result with a
     root-cause diagnosis (`klt place-and-route`'s v1 scope has no
     filler-cell/power-rail-stitching stage).
+  - `analog-layout` (issue #25) — what klt's netlist-driven layout-plan
+    path (`klt.layout_plan.request/1` +
+    `klayout_tools.layout_plan_execute`) actually produces for the five
+    analog blocks: two cannot be ingested, three place DRC-clean and route
+    **zero** nets. A negative result, measured rather than assumed, with
+    klt's own per-net failure reasons frozen as artifacts — see
+    `layout/README.md` § "Analog" for the diagnosis and the friction issues
+    filed upstream.
   One directory per distinct claim, not per run. Future entries (e.g.
-  `drc-lvs`/`digital-lvs`, `gate-level-sim`, `analog-layout`) follow the
-  same pattern once those legs of the maturity ladder are taken up.
+  `drc-lvs`/`digital-lvs`, `gate-level-sim`) follow the same pattern once
+  those legs of the maturity ladder are taken up.
 - **`<record-id>`** — unique and traceable:
   `<YYYYMMDD>-<HHMMSS>-<short-git-sha>` (e.g. `20260810-205021-c819c95`),
   identical grammar to the analog canaries' convention. Re-runs mint a new

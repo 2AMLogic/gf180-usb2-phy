@@ -130,10 +130,19 @@ source .venv/bin/activate
 
 | Component | Pinned to | Resolved via |
 |---|---|---|
-| `klayout-tools` (`klt`) | git revision [`af5791b557fc7c669c3981335a294256ccf37e6f`](https://github.com/2AMLogic/klayout-tools/commit/af5791b557fc7c669c3981335a294256ccf37e6f) (klt 0.2.0) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@af5791b557fc7c669c3981335a294256ccf37e6f"` (what `scripts/setup-env.sh` runs) |
+| `klayout-tools` (`klt`) | git revision [`b3e284fff4243cdc5ab59a684d9c0582444b485d`](https://github.com/2AMLogic/klayout-tools/commit/b3e284fff4243cdc5ab59a684d9c0582444b485d) (klt 0.2.0) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@b3e284fff4243cdc5ab59a684d9c0582444b485d"` (what `scripts/setup-env.sh` runs) |
 | `gf180mcu` PDK | `open_pdks` commit `c6d73a35f524070e85faff4a6a9eef49553ebc2b` (variants `gf180mcuA`/`B`/`C`/`D`; the digital harness uses `gf180mcuD`, whose standard-cell libraries are `gf180mcu_fd_sc_mcu7t5v0` / `gf180mcu_fd_sc_mcu9t5v0`) | `volare enable --pdk-root ~/.volare --pdk gf180mcu c6d73a35f524070e85faff4a6a9eef49553ebc2b` |
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
+
+The `klt` revision is pinned by commit, not by version: klayout-tools has
+not cut a PyPI release past `0.2.0`, so a version pin cannot express which
+capabilities are present. The current pin was moved forward from
+`af5791b5` by issue #25 specifically to pick up the netlist-driven
+layout-plan compiler/executor (klayout-tools PR #1158 "Phase C",
+`klayout_tools.layout_plan_execute`, plus its follow-up fix #1161) that
+`scripts/gen_analog_layout.py` calls — see `layout/README.md`. `npm run
+check:ci` was re-run against the new pin before it was committed.
 
 `klt` in turn resolves `iverilog`/`yosys`/`openroad` and the PDK itself from
 the host — it does not vendor them. Those are:
@@ -218,8 +227,10 @@ gf180mcu_fd_sc_mcu9t5v0   (nominal supply 1.8V, corner ..._tt_025C_1v80)
 Provisioning a real PDK in a hosted CI runner on every PR is a real,
 recurring cost. Following `sky130-modexp`'s split: the tool-light leg
 (`klt functional-verification`, Icarus/cocotb only, no PDK) is cheap enough
-to run anywhere; `klt synthesize` (and, later, `klt place-and-route`/
-`klt drc`) needs the fetched PDK and is run locally by a contributor with
+to run anywhere; `klt synthesize`, `klt place-and-route`, `klt drc`, and
+the analog layout-plan runner (`scripts/gen_analog_layout.py`, which calls
+`klayout_tools.layout_plan_execute` and then `klt drc`) all need the
+fetched PDK and are run locally by a contributor with
 `scripts/setup-env.sh`'s environment provisioned, with the result committed
 as an append-only record under `verification/records/` (see
 `verification/README.md`). [`.github/workflows/ci.yml`](../.github/workflows/ci.yml)
