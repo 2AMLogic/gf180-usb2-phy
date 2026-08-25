@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "engine": "openroad",
+  "engine_version": "26Q3-1260-g06a5a02279",
+  "hdl_toplevel": "usb_utmi_phy",
+  "status": "ok",
+  "def_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-51/layout/digital/usb_utmi_phy.def",
+  "spef_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-51/flow/.klt/extract/usb_utmi_phy_route_defnames.spef",
+  "worst_slack_ns": 50.2482,
+  "total_negative_slack_ns": 0,
+  "fmax_mhz": 30.2254,
+  "setup_violation_count": 0,
+  "hold_violation_count": 0,
+  "clock_skew_ns": 0.08737,
+  "estimated_power_mw": 0.1129,
+  "provenance": {
+    "klt_version": "0.3.0",
+    "klayout_version": "0.30.11",
+    "pdk": {
+      "name": "gf180mcuD",
+      "source": "PDK_ROOT environment variable",
+      "version": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b"
+    },
+    "deck": {
+      "name": "gf180mcu_fd_sc_mcu9t5v0__ss_125C_1v62",
+      "content_hash": "sha256:c7763daf5d8c2440207b13942e90533dbbc2b2978ed74afdc32ac460f045a630",
+      "released": false
+    },
+    "input": {
+      "content_hash": "sha256:e0ebd85ef631bdc7acc45a232e618c2b7cb760a1cae682ad9e3527f3652134eb"
+    }
+  },
+  "spef_annotation": {
+    "nets_annotated": 186,
+    "nets_total": 1056,
+    "design_nets_annotated": 186,
+    "design_nets_total": 366,
+    "annotation_complete": false,
+    "annotation_warning": "only 186 of 366 nets in the linked design are named by this SPEF -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+  }
+}
