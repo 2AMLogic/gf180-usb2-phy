@@ -87,8 +87,9 @@ scratch output lands under `flow/.klt/` (gitignored); the committed,
 evidence-backed copies of the routed GDS/DEF/as-built netlist live under
 `layout/digital/`, and the measurement is recorded under
 `verification/records/place-and-route/` (synthesis + P&R) and
-`verification/records/digital-drc/` (the DRC leg — **not clean**, see
-that record for the honestly-reported violation count and root cause).
+`verification/records/digital-drc/` (the DRC leg — **clean**, 0 violations
+against the curated `gf180mcu` deck; see that record for the scope of what
+a clean result there does and does not claim).
 
 ### Power delivery (`request.power`)
 
