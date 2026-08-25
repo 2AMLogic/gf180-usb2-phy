@@ -86,3 +86,7 @@ results_icarus.xml
 
 # Repo Skills machine-local install metadata (absolute source path + timestamp)
 .claude/skills/repo/.install-local.json
+
+# digital LVS scratch (scripts/digital_lvs.py) -- the committed evidence
+# lives under verification/records/digital-lvs/ instead
+layout/digital/lvs/

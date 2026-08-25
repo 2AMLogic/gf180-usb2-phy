@@ -42,8 +42,17 @@ set -euo pipefail
 
 DOCKER_BIN="${OPENROAD_DOCKER_CMD:-docker}"
 
-if ! command -v "${DOCKER_BIN}" >/dev/null 2>&1; then
-  echo "FATAL: '${DOCKER_BIN}' not found on \$PATH." >&2
+# `OPENROAD_DOCKER_CMD` is documented (below, and in
+# docs/environment-setup.md) as accepting a *wrapper* -- e.g. `sudo -n
+# docker` on a host where the invoking user is not in the `docker` group.
+# A multi-word wrapper is not an executable name, so `command -v` must be
+# given only its first word, and the daemon-reachability probe and the
+# final `docker run` must expand the whole string as argv (word-split on
+# purpose -- hence the deliberate lack of quotes at those two call sites).
+DOCKER_PROG="${DOCKER_BIN%% *}"
+
+if ! command -v "${DOCKER_PROG}" >/dev/null 2>&1; then
+  echo "FATAL: '${DOCKER_PROG}' not found on \$PATH." >&2
   echo "  openroad is provisioned on this host only via the pinned" >&2
   echo "  ${OPENROAD_DOCKER_IMAGE} Docker image -- install Docker and" >&2
   echo "  re-run. See docs/environment-setup.md's 'OpenROAD' section." >&2
@@ -52,7 +61,8 @@ if ! command -v "${DOCKER_BIN}" >/dev/null 2>&1; then
   exit 1
 fi
 
-if ! "${DOCKER_BIN}" info >/dev/null 2>&1; then
+# shellcheck disable=SC2086  # deliberate word-split: see DOCKER_PROG above
+if ! ${DOCKER_BIN} info >/dev/null 2>&1; then
   echo "FATAL: docker daemon is not reachable." >&2
   exit 1
 fi
@@ -103,7 +113,8 @@ fi
 # unset in the calling shell is a harmless no-op, not an error.
 ENV_ARGS=(-e PLATFORM_DIR -e PDK_ROOT)
 
-exec "${DOCKER_BIN}" run --rm --platform linux/amd64 \
+# shellcheck disable=SC2086  # deliberate word-split: see DOCKER_PROG above
+exec ${DOCKER_BIN} run --rm --platform linux/amd64 \
   "${VOLUME_ARGS[@]}" \
   -w "${MOUNT_DIR}" \
   "${ENV_ARGS[@]}" \

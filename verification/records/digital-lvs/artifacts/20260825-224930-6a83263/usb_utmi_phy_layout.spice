@@ -1,0 +1,1668 @@
+* extracted by klt extract --deck gf180mcu
+
+* cell usb_utmi_phy
+* pin DataIn[0]
+* pin DataIn[1]
+* pin DataIn[2]
+* pin DataIn[3]
+* pin DataIn[4]
+* pin DataIn[5]
+* pin DataIn[6]
+* pin DataIn[7]
+* pin DataOut[0]
+* pin DataOut[1]
+* pin DataOut[2]
+* pin DataOut[3]
+* pin DataOut[4]
+* pin DataOut[5]
+* pin DataOut[6]
+* pin DataOut[7]
+* pin Reset
+* pin RxError
+* pin RxValid
+* pin TxReady
+* pin TxValid
+* pin VDD
+* pin VSS
+* pin clk
+* pin line_state[0]
+* pin line_state[1]
+* pin rst_n
+* pin rx_receiving
+* pin rxdm
+* pin rxdp
+* pin txdm
+* pin txdp
+* pin OpMode[0]
+* pin OpMode[1]
+* pin SuspendM
+* pin TermSelect
+* pin XcvrSelect
+.SUBCKT usb_utmi_phy DataIn[0] DataIn[1] DataIn[2] DataIn[3] DataIn[4]
++ DataIn[5] DataIn[6] DataIn[7] DataOut[0] DataOut[1] DataOut[2] DataOut[3]
++ DataOut[4] DataOut[5] DataOut[6] DataOut[7] Reset RxError RxValid TxReady
++ TxValid VDD VSS clk line_state[0] line_state[1] rst_n rx_receiving rxdm rxdp
++ txdm txdp OpMode[0] OpMode[1] SuspendM TermSelect XcvrSelect
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_0 \_111_ \_116_ VDD VSS \_024_
++ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_1 \_111_ \_126_ VDD VSS \_037_
++ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_2 u_sync_detector/match[0] dec_data_valid VDD
++ VSS u_sync_detector/_13_ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_3 \_111_ \_127_ VDD VSS \_038_
++ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_4 \_111_ \_128_ VDD VSS \_039_
++ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_5 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_5 rx_receiving dec_data_valid VDD VSS
++ destuff_in_valid gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_6 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_6 u_eop_detector/_12_ u_eop_detector/_26_ VDD
++ VSS u_eop_detector/_07_ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_7 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_7 dec_line_valid u_decoder/_07_ VDD VSS
++ u_decoder/_02_ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_8 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_8 \_111_ \_130_ VDD VSS \_042_
++ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_9 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_9 u_decoder/_04_ int_rst_n VDD VSS
++ u_decoder/_07_ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_10 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_10 \_111_ \_129_ VDD VSS \_040_
++ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_11 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_11 destuff_stuff_err \_111_ VDD VSS \_041_
++ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_12 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_12 \_111_ \_131_ VDD VSS \_043_
++ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_13 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_13 tx_state[4] int_rst_n VDD VSS \_006_
++ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_14 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_14 tx_state[8] int_rst_n VDD VSS \_000_
++ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_15 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_15 tx_state[6] int_rst_n VDD VSS \_002_
++ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_1_16 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_1_16 tx_state[2] int_rst_n VDD VSS \_004_
++ gf180mcu_fd_sc_mcu9t5v0__and2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_2_0 u_sync_detector/match[2]
++ u_sync_detector/_10_ VDD VSS u_sync_detector/_11_
++ gf180mcu_fd_sc_mcu9t5v0__and2_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_2_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_2_1 int_rst_n sync_next VDD VSS
++ u_sync_detector/_04_ gf180mcu_fd_sc_mcu9t5v0__and2_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_4_0 u_destuffer/ones[2] u_destuffer/ones[1] VDD
++ VSS u_destuffer/_20_ gf180mcu_fd_sc_mcu9t5v0__and2_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and2_4_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and2_4_1 int_rst_n rxdm VDD VSS u_line_state/_1_
++ gf180mcu_fd_sc_mcu9t5v0__and2_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and3_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and3_1_0 rx_bitcnt[0] destuff_out_valid rx_bitcnt[1]
++ VDD VSS \_110_ gf180mcu_fd_sc_mcu9t5v0__and3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and3_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and3_1_1 u_eop_detector/se0_count[3]
++ u_eop_detector/se0_count[2] u_eop_detector/_15_ VDD VSS u_eop_detector/_24_
++ gf180mcu_fd_sc_mcu9t5v0__and3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and3_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and3_1_2 tx_state[0] TxValid int_rst_n VDD VSS \_003_
++ gf180mcu_fd_sc_mcu9t5v0__and3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and3_1_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and3_1_3 int_rst_n \_055_ \_057_ VDD VSS \_005_
++ gf180mcu_fd_sc_mcu9t5v0__and3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and3_1_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and3_1_4 int_rst_n \_077_ \_108_ VDD VSS \_020_
++ gf180mcu_fd_sc_mcu9t5v0__and3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and3_1_5 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and3_1_5 int_rst_n \_104_ \_109_ VDD VSS \_021_
++ gf180mcu_fd_sc_mcu9t5v0__and3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and3_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and3_2_0 u_sync_detector/match[0] dec_data_valid
++ u_sync_detector/match[1] VDD VSS u_sync_detector/_10_
++ gf180mcu_fd_sc_mcu9t5v0__and3_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and3_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and3_4_0 u_eop_detector/se0_count[3]
++ u_eop_detector/se0_count[4] u_eop_detector/se0_count[2] VDD VSS
++ u_eop_detector/_10_ gf180mcu_fd_sc_mcu9t5v0__and3_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__and4_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__and4_4_0 tx_bitidx[0] tx_bitidx[2] tx_bitidx[1]
++ stuff_in_ready VDD VSS \_055_ gf180mcu_fd_sc_mcu9t5v0__and4_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_1_0 u_sync_detector/_06_ u_sync_detector/_13_
++ u_sync_detector/_15_ u_sync_detector/_09_ VDD VSS u_sync_detector/_03_
++ gf180mcu_fd_sc_mcu9t5v0__aoi211_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_1_1 u_eop_detector/_14_ u_eop_detector/_18_
++ u_eop_detector/_15_ u_eop_detector/_09_ VDD VSS u_eop_detector/_02_
++ gf180mcu_fd_sc_mcu9t5v0__aoi211_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_1_2 stuffer_in_valid u_stuffer/ones[0]
++ u_stuffer/_14_ u_stuffer/_15_ VDD VSS u_stuffer/_02_
++ gf180mcu_fd_sc_mcu9t5v0__aoi211_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_1_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_1_3 tx_bitidx[0] \_073_ \_075_ \_056_ VDD VSS
++ stuffer_in_bit gf180mcu_fd_sc_mcu9t5v0__aoi211_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_0 u_destuffer/_15_ u_destuffer/_16_
++ u_destuffer/_11_ u_destuffer/_09_ VDD VSS u_destuffer/_03_
++ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_1 next_byte[1] tx_state[3] \_057_ \_077_ VDD
++ VSS \_080_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_2 next_byte[5] tx_state[3] \_057_ \_077_ VDD
++ VSS \_137_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_3 next_byte[0] tx_state[3] \_057_ \_077_ VDD
++ VSS \_083_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_4 next_byte[3] tx_state[3] \_057_ \_077_ VDD
++ VSS \_142_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_5 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_5 next_byte[4] tx_state[3] \_057_ \_077_ VDD
++ VSS \_141_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_6 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_6 next_byte[2] tx_state[3] \_057_ \_077_ VDD
++ VSS \_144_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_7 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_7 next_byte[6] tx_state[3] \_057_ \_077_ VDD
++ VSS \_136_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_8 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_8 \_070_ \_078_ \_080_ \_054_ VDD VSS \_010_
++ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_9 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_9 \_143_ \_078_ \_144_ \_054_ VDD VSS \_052_
++ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_10 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_10 \_071_ \_078_ \_137_ \_054_ VDD VSS
++ \_048_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_11 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_11 \_135_ \_078_ \_136_ \_054_ VDD VSS
++ \_047_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_12 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_12 \_072_ \_104_ \_106_ \_054_ VDD VSS
++ \_019_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_13 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_13 \_140_ \_078_ \_141_ \_054_ VDD VSS
++ \_050_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_14 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_14 \_082_ \_078_ \_083_ \_054_ VDD VSS
++ \_011_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_15 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_15 \_068_ \_078_ \_142_ \_054_ VDD VSS
++ \_051_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_16 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_16 stuffer_in_valid u_stuffer/_07_
++ u_stuffer/_09_ u_stuffer/_11_ VDD VSS u_stuffer/_00_
++ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi211_2_17 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi211_2_17 \_069_ \_078_ \_117_ \_054_ VDD VSS
++ \_026_ gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_0 rx_bitcnt[2] \_110_ \_113_ VDD VSS \_022_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_1 rx_bitcnt[0] destuff_out_valid \_134_ VDD
++ VSS \_046_ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_2 rx_bitcnt[0] destuff_out_valid rx_bitcnt[1]
++ VDD VSS \_133_ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_3 u_eop_detector/_22_ u_eop_detector/_23_
++ u_eop_detector/_09_ VDD VSS u_eop_detector/_04_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_4 u_eop_detector/se0_count[2]
++ u_eop_detector/_15_ u_eop_detector/se0_count[3] VDD VSS u_eop_detector/_25_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_5 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_5 u_eop_detector/_10_ u_eop_detector/_12_
++ bus_reset VDD VSS u_eop_detector/_13_ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_6 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_6 u_eop_detector/se0_count[1]
++ u_eop_detector/_10_ u_eop_detector/_18_ VDD VSS u_eop_detector/_19_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_7 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_7 u_eop_detector/_17_ u_eop_detector/_20_
++ u_eop_detector/se0_count[0] VDD VSS u_eop_detector/_21_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_8 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_8 \_096_ \_097_ \_054_ VDD VSS \_016_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_9 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_9 \_100_ \_101_ \_054_ VDD VSS \_018_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_10 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_10 \_090_ \_091_ \_054_ VDD VSS \_013_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_11 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_11 \_098_ \_099_ \_054_ VDD VSS \_017_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_12 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_12 tx_state[3] \_055_ tx_state[0] VDD VSS
++ \_067_ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_13 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_13 \_123_ \_124_ \_054_ VDD VSS \_034_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_14 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_14 \_094_ \_095_ \_054_ VDD VSS \_015_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_15 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_15 \_086_ \_089_ \_054_ VDD VSS \_012_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_16 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_16 \_092_ \_093_ \_054_ VDD VSS \_014_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_17 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_17 \_088_ \_125_ \_054_ VDD VSS \_036_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_18 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_18 \_060_ \_063_ \_054_ VDD VSS \_008_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_19 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_19 tx_state[3] \_105_ \_103_ VDD VSS \_106_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_1_20 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_1_20 stuffer_in_valid stuffer_in_bit
++ u_stuffer/ones[0] VDD VSS u_stuffer/_15_ gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_2_0 dec_line_valid u_decoder/_03_
++ u_decoder/_05_ VDD VSS u_decoder/_00_ gf180mcu_fd_sc_mcu9t5v0__aoi21_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_2_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_2_1 tx_state[3] \_061_ \_084_ VDD VSS \_085_
++ gf180mcu_fd_sc_mcu9t5v0__aoi21_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_4_0 u_destuffer/_19_ u_destuffer/_20_
++ u_destuffer/_10_ VDD VSS u_destuffer/_21_ gf180mcu_fd_sc_mcu9t5v0__aoi21_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi21_4_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi21_4_1 dec_data_bit u_destuffer/_06_
++ u_destuffer/_10_ VDD VSS u_destuffer/_11_ gf180mcu_fd_sc_mcu9t5v0__aoi21_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__aoi221_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__aoi221_1_0 stuffer_in_valid u_stuffer/_07_
++ u_stuffer/_12_ u_stuffer/_13_ u_stuffer/_11_ VDD VSS u_stuffer/_01_
++ gf180mcu_fd_sc_mcu9t5v0__aoi221_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__buf_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__buf_4_0 clknet_0_clk VDD VSS clknet_3_0__leaf_clk
++ gf180mcu_fd_sc_mcu9t5v0__buf_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__buf_4_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__buf_4_1 clknet_0_clk VDD VSS clknet_3_2__leaf_clk
++ gf180mcu_fd_sc_mcu9t5v0__buf_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__buf_4_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__buf_4_2 clknet_0_clk VDD VSS clknet_3_1__leaf_clk
++ gf180mcu_fd_sc_mcu9t5v0__buf_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__buf_4_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__buf_4_3 clknet_0_clk VDD VSS clknet_3_3__leaf_clk
++ gf180mcu_fd_sc_mcu9t5v0__buf_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__buf_4_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__buf_4_4 clk VDD VSS clknet_0_clk
++ gf180mcu_fd_sc_mcu9t5v0__buf_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__buf_4_5 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__buf_4_5 clknet_0_clk VDD VSS clknet_3_4__leaf_clk
++ gf180mcu_fd_sc_mcu9t5v0__buf_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__buf_4_6 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__buf_4_6 clknet_0_clk VDD VSS clknet_3_6__leaf_clk
++ gf180mcu_fd_sc_mcu9t5v0__buf_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__buf_4_7 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__buf_4_7 clknet_0_clk VDD VSS clknet_3_5__leaf_clk
++ gf180mcu_fd_sc_mcu9t5v0__buf_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__buf_4_8 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__buf_4_8 clknet_0_clk VDD VSS clknet_3_7__leaf_clk
++ gf180mcu_fd_sc_mcu9t5v0__buf_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_0 u_destuffer/ones[2] VDD VSS
++ u_destuffer/_15_ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_1 destuff_out_bit VDD VSS u_destuffer/_18_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_2 u_sync_detector/match[3] VDD VSS
++ u_sync_detector/_08_ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_3 u_eop_detector/se0_count[4] VDD VSS
++ u_eop_detector/_22_ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_4 \_009_ VDD VSS u_sync_detector/_05_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_5 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_5 \_054_ VDD VSS int_rst_n
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_6 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_6 \_145_ VDD VSS u_decoder/_04_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_7 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_7 \_114_ VDD VSS \_035_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_8 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_8 u_decoder/prev_line VDD VSS u_decoder/_06_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_9 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_9 u_eop_detector/se0_count[0] VDD VSS
++ u_eop_detector/_11_ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_10 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_10 line_state[0] VDD VSS \_066_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_11 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_11 u_eop_detector/se0_count[5] VDD VSS
++ u_eop_detector/_17_ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_12 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_12 txdp VDD VSS \_119_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_13 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_13 \_067_ VDD VSS TxReady
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_14 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_14 tx_state[0] VDD VSS \_064_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_15 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_15 tx_state[5] VDD VSS \_060_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_16 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_16 tx_state[7] VDD VSS \_058_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_17 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_17 cur_byte[1] VDD VSS \_070_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_18 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_18 cur_byte[2] VDD VSS \_143_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_19 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_19 cur_byte[5] VDD VSS \_071_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_20 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_20 cur_byte[6] VDD VSS \_135_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_21 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_21 tx_bitidx[2] VDD VSS \_107_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_22 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_22 u_stuffer/ones[2] VDD VSS u_stuffer/_13_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_23 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_23 tx_bitidx[0] VDD VSS \_102_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_24 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_24 stuffer_in_valid VDD VSS u_stuffer/_17_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_25 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_25 tx_bitidx[1] VDD VSS \_072_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_26 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_26 cur_byte[4] VDD VSS \_140_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_27 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_27 cur_byte[0] VDD VSS \_082_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_28 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_28 cur_byte[3] VDD VSS \_068_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_1_29 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_1_29 cur_byte[7] VDD VSS \_069_
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_2_0 u_destuffer/ones[0] VDD VSS
++ u_destuffer/_19_ gf180mcu_fd_sc_mcu9t5v0__clkinv_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_3_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_3_0 clknet_3_3__leaf_clk VDD VSS \$883
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_3
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_8_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_8_0 clknet_3_4__leaf_clk VDD VSS \$277
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_8
+* cell instance gf180mcu_fd_sc_mcu9t5v0__clkinv_8_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__clkinv_8_1 clknet_3_6__leaf_clk VDD VSS \$1043
++ gf180mcu_fd_sc_mcu9t5v0__clkinv_8
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_0 clknet_3_0__leaf_clk \_030_ DataIn[7] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_1 clknet_3_0__leaf_clk \_024_ rx_shift[7] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_2 clknet_3_0__leaf_clk \_022_ rx_bitcnt[2] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_3 clknet_3_0__leaf_clk u_destuffer/_05_
++ destuff_out_bit VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_4 clknet_3_0__leaf_clk u_destuffer/_03_
++ u_destuffer/ones[2] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_5 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_5 clknet_3_2__leaf_clk u_destuffer/_02_
++ u_destuffer/ones[1] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_6 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_6 clknet_3_2__leaf_clk u_sync_detector/_03_
++ u_sync_detector/match[0] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_7 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_7 clknet_3_2__leaf_clk u_sync_detector/_02_
++ u_sync_detector/match[1] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_8 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_8 clknet_3_0__leaf_clk \_023_ DataIn[6] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_9 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_9 clknet_3_2__leaf_clk u_sync_detector/_01_
++ u_sync_detector/match[2] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_10 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_10 clknet_3_0__leaf_clk \_037_ rx_shift[6] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_11 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_11 clknet_3_0__leaf_clk \_046_ rx_bitcnt[0]
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_12 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_12 clknet_3_2__leaf_clk u_destuffer/_01_
++ u_destuffer/ones[0] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_13 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_13 clknet_3_0__leaf_clk \_025_ DataIn[5] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_14 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_14 clknet_3_2__leaf_clk u_eop_detector/_01_
++ u_eop_detector/se0_count[2] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_15 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_15 clknet_3_0__leaf_clk \_038_ rx_shift[5] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_16 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_16 clknet_3_2__leaf_clk u_sync_detector/_00_
++ u_sync_detector/match[3] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_17 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_17 clknet_3_0__leaf_clk \_045_ rx_bitcnt[1]
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_18 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_18 clknet_3_2__leaf_clk u_eop_detector/_04_
++ u_eop_detector/se0_count[4] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_19 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_19 clknet_3_0__leaf_clk u_destuffer/_04_
++ destuff_out_valid VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_20 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_20 clknet_3_0__leaf_clk \_027_ DataIn[4] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_21 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_21 clknet_3_0__leaf_clk u_destuffer/_00_
++ destuff_stuff_err VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_22 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_22 clknet_3_2__leaf_clk u_eop_detector/_05_
++ u_eop_detector/se0_count[3] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_23 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_23 clknet_3_0__leaf_clk \_039_ rx_shift[4] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_24 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_24 clknet_3_2__leaf_clk u_decoder/_00_
++ dec_data_bit VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_25 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_25 clknet_3_2__leaf_clk u_decoder/_02_
++ dec_data_valid VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_26 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_26 clknet_3_3__leaf_clk u_eop_detector/_07_
++ eop_pulse VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_27 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_27 clknet_3_3__leaf_clk u_sync_detector/_04_
++ \$984 VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_28 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_28 clknet_3_1__leaf_clk \_042_ rx_shift[2] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_29 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_29 clknet_3_1__leaf_clk \_040_ rx_shift[3] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_30 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_30 clknet_3_3__leaf_clk u_eop_detector/_00_
++ bus_reset VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_31 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_31 clknet_3_1__leaf_clk \_035_ RxValid VDD VSS
++ gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_32 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_32 clknet_3_3__leaf_clk u_eop_detector/_02_
++ u_eop_detector/se0_count[1] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_33 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_33 clknet_3_1__leaf_clk \_043_ rx_shift[1] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_34 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_34 clknet_3_3__leaf_clk \_049_ rx_receiving
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_35 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_35 clknet_3_3__leaf_clk u_decoder/_01_
++ u_decoder/prev_line VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_36 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_36 clknet_3_3__leaf_clk \_032_ txdp VDD VSS
++ gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_37 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_37 clknet_3_1__leaf_clk \_031_ DataIn[1] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_38 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_38 clknet_3_1__leaf_clk \_028_ DataIn[3] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_39 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_39 clknet_3_3__leaf_clk \_006_ tx_state[8] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_40 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_40 clknet_3_1__leaf_clk \_029_ DataIn[2] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_41 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_41 clknet_3_1__leaf_clk u_line_state/_0_
++ line_state[0] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_42 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_42 clknet_3_1__leaf_clk \_033_ DataIn[0] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_43 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_43 clknet_3_3__leaf_clk \_044_ txdm VDD VSS
++ gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_44 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_44 clknet_3_3__leaf_clk \_000_ tx_state[1] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_45 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_45 clknet_3_3__leaf_clk u_eop_detector/_03_
++ u_eop_detector/se0_count[0] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_46 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_46 clknet_3_1__leaf_clk \_041_ RxError VDD VSS
++ gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_47 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_47 clknet_3_3__leaf_clk u_eop_detector/_06_
++ u_eop_detector/se0_count[5] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_48 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_48 clknet_3_4__leaf_clk u_line_state/_1_
++ line_state[1] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_49 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_49 clknet_3_6__leaf_clk \_007_ tx_state[0] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_50 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_50 clknet_3_4__leaf_clk \_016_ next_byte[2]
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_51 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_51 clknet_3_6__leaf_clk \_004_ tx_state[6] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_52 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_52 clknet_3_4__leaf_clk \_018_ next_byte[0]
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_53 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_53 clknet_3_6__leaf_clk \_002_ tx_state[4] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_54 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_54 clknet_3_4__leaf_clk \_017_ next_byte[1]
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_55 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_55 clknet_3_4__leaf_clk \_013_ next_byte[5]
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_56 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_56 clknet_3_6__leaf_clk u_encoder/_01_
++ enc_line_valid VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_57 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_57 clknet_3_6__leaf_clk \_003_ tx_state[5] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_58 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_58 clknet_3_4__leaf_clk \_034_ next_byte[7]
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_59 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_59 clknet_3_6__leaf_clk u_encoder/_00_
++ enc_line_bit VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_60 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_60 clknet_3_5__leaf_clk \_015_ next_byte[3]
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_61 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_61 clknet_3_4__leaf_clk \_012_ next_byte[6]
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_62 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_62 clknet_3_4__leaf_clk \_014_ next_byte[4]
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_63 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_63 clknet_3_5__leaf_clk \_036_ next_valid VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_64 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_64 clknet_3_6__leaf_clk u_stuffer/_05_
++ stuff_out_valid VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_65 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_65 clknet_3_7__leaf_clk \_008_ tx_state[3] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_66 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_66 clknet_3_7__leaf_clk \_001_ tx_state[2] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_67 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_67 clknet_3_7__leaf_clk \_005_ tx_state[7] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_68 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_68 clknet_3_7__leaf_clk u_stuffer/_03_
++ stuff_out_bit VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_69 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_69 clknet_3_5__leaf_clk \_010_ cur_byte[1] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_70 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_70 clknet_3_5__leaf_clk \_020_ tx_bitidx[2]
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_71 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_71 clknet_3_5__leaf_clk \_048_ cur_byte[5] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_72 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_72 clknet_3_5__leaf_clk \_052_ cur_byte[2] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_73 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_73 clknet_3_7__leaf_clk u_stuffer/_01_
++ u_stuffer/ones[2] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_74 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_74 clknet_3_5__leaf_clk \_047_ cur_byte[6] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_75 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_75 clknet_3_7__leaf_clk u_stuffer/_02_
++ u_stuffer/ones[0] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_76 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_76 clknet_3_7__leaf_clk \_021_ tx_bitidx[0]
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_77 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_77 clknet_3_5__leaf_clk \_050_ cur_byte[4] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_78 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_78 clknet_3_5__leaf_clk \_011_ cur_byte[0] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_79 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_79 clknet_3_5__leaf_clk \_051_ cur_byte[3] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_80 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_80 clknet_3_5__leaf_clk \_026_ cur_byte[7] VDD
++ VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_81 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_81 clknet_3_7__leaf_clk \_019_ tx_bitidx[1]
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_82 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_82 clknet_3_7__leaf_clk u_stuffer/_04_ \$990
++ VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__dffq_1_83 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__dffq_1_83 clknet_3_7__leaf_clk u_stuffer/_00_
++ u_stuffer/ones[1] VDD VSS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_1_0 rx_receiving VDD VSS \_009_
++ gf180mcu_fd_sc_mcu9t5v0__inv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_1_1 u_eop_detector/se0_count[1] VDD VSS
++ u_eop_detector/_14_ gf180mcu_fd_sc_mcu9t5v0__inv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_1_2 rst_n VDD VSS \_053_
++ gf180mcu_fd_sc_mcu9t5v0__inv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_1_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_1_3 int_rst_n VDD VSS u_encoder/_03_
++ gf180mcu_fd_sc_mcu9t5v0__inv_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_2_0 rxdp VDD VSS u_line_state/_2_
++ gf180mcu_fd_sc_mcu9t5v0__inv_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_2_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_2_1 stuff_out_valid VDD VSS u_encoder/_05_
++ gf180mcu_fd_sc_mcu9t5v0__inv_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_2_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_2_2 tx_state[5] VDD VSS u_stuffer/_10_
++ gf180mcu_fd_sc_mcu9t5v0__inv_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_3_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_3_0 sync_next VDD VSS u_destuffer/_07_
++ gf180mcu_fd_sc_mcu9t5v0__inv_3
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_3_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_3_1 clknet_3_2__leaf_clk VDD VSS \$916
++ gf180mcu_fd_sc_mcu9t5v0__inv_3
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_3_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_3_2 tx_state[3] VDD VSS \_056_
++ gf180mcu_fd_sc_mcu9t5v0__inv_3
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_3_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_3_3 clknet_3_5__leaf_clk VDD VSS \$409
++ gf180mcu_fd_sc_mcu9t5v0__inv_3
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_4_0 destuff_in_valid VDD VSS u_destuffer/_10_
++ gf180mcu_fd_sc_mcu9t5v0__inv_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_4_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_4_1 clknet_3_1__leaf_clk VDD VSS \$564
++ gf180mcu_fd_sc_mcu9t5v0__inv_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__inv_4_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__inv_4_2 clknet_3_7__leaf_clk VDD VSS \$890
++ gf180mcu_fd_sc_mcu9t5v0__inv_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_0 destuff_out_bit DataIn[7] \_114_ VDD VSS
++ \_030_ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_1 rx_shift[7] destuff_out_bit
++ destuff_out_valid VDD VSS \_116_ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_2 rx_shift[7] DataIn[6] \_114_ VDD VSS \_023_
++ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_3 rx_shift[6] rx_shift[7] destuff_out_valid
++ VDD VSS \_126_ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_4 rx_shift[6] DataIn[5] \_114_ VDD VSS \_025_
++ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_5 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_5 rx_shift[5] rx_shift[6] destuff_out_valid
++ VDD VSS \_127_ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_6 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_6 rx_shift[5] DataIn[4] \_114_ VDD VSS \_027_
++ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_7 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_7 rx_shift[4] rx_shift[5] destuff_out_valid
++ VDD VSS \_128_ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_8 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_8 rx_shift[3] rx_shift[4] destuff_out_valid
++ VDD VSS \_129_ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_9 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_9 rx_shift[2] rx_shift[3] destuff_out_valid
++ VDD VSS \_130_ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_10 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_10 rx_shift[1] rx_shift[2] destuff_out_valid
++ VDD VSS \_131_ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_11 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_11 rx_shift[4] DataIn[3] \_114_ VDD VSS \_028_
++ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_12 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_12 rx_shift[2] DataIn[1] \_114_ VDD VSS \_031_
++ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_13 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_13 rx_shift[3] DataIn[2] \_114_ VDD VSS \_029_
++ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_1_14 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_1_14 rx_shift[1] DataIn[0] \_114_ VDD VSS \_033_
++ gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux2_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux2_2_0 tx_state[3] TxValid tx_state[0] VDD VSS
++ \_076_ gf180mcu_fd_sc_mcu9t5v0__mux2_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux4_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux4_1_0 \_068_ \_069_ \_070_ \_071_ tx_bitidx[2]
++ \_072_ VDD VSS \_073_ gf180mcu_fd_sc_mcu9t5v0__mux4_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__mux4_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__mux4_1_1 cur_byte[0] cur_byte[4] cur_byte[2]
++ cur_byte[6] tx_bitidx[2] tx_bitidx[1] VDD VSS \_074_
++ gf180mcu_fd_sc_mcu9t5v0__mux4_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_0 dec_line_bit dec_line_valid VDD VSS
++ u_decoder/_08_ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_1 u_eop_detector/se0_count[1]
++ u_eop_detector/_10_ VDD VSS u_eop_detector/_20_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_2 u_eop_detector/_17_
++ u_eop_detector/se0_count[0] VDD VSS u_eop_detector/_18_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_3 int_rst_n u_eop_detector/_08_ VDD VSS
++ u_eop_detector/_09_ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_4 u_line_state/_2_ int_rst_n VDD VSS
++ u_line_state/_0_ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_5 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_5 \_118_ \_121_ VDD VSS \_122_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_6 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_6 \_065_ \_122_ VDD VSS \_032_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_7 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_7 DataOut[0] \_085_ VDD VSS \_100_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_8 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_8 DataOut[2] \_085_ VDD VSS \_096_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_9 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_9 DataOut[6] \_085_ VDD VSS \_086_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_10 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_10 DataOut[5] \_085_ VDD VSS \_090_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_11 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_11 DataOut[1] \_085_ VDD VSS \_098_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_12 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_12 DataOut[3] \_085_ VDD VSS \_094_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_13 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_13 DataOut[4] \_085_ VDD VSS \_092_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_14 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_14 DataOut[7] \_085_ VDD VSS \_123_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_15 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_15 next_byte[2] \_088_ VDD VSS \_097_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_16 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_16 next_byte[0] \_088_ VDD VSS \_101_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_17 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_17 next_byte[5] \_088_ VDD VSS \_091_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_18 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_18 next_byte[1] \_088_ VDD VSS \_099_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_19 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_19 enc_line_valid enc_line_bit VDD VSS \_120_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_20 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_20 next_byte[7] \_088_ VDD VSS \_124_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_21 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_21 next_byte[3] \_088_ VDD VSS \_095_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_22 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_22 next_byte[6] \_088_ VDD VSS \_089_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_23 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_23 next_byte[4] \_088_ VDD VSS \_093_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_24 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_24 next_valid \_077_ VDD VSS \_125_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_25 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_25 stuff_out_bit u_stuffer/_17_ VDD VSS
++ u_stuffer/_18_ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_26 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_26 stuffer_in_valid stuffer_in_bit VDD VSS
++ u_stuffer/_16_ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_27 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_27 tx_bitidx[0] tx_bitidx[1] VDD VSS \_105_
++ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_1_28 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_1_28 stuffer_in_bit u_stuffer/_06_ VDD VSS
++ u_stuffer/_07_ gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_2_0 u_destuffer/_07_ int_rst_n VDD VSS
++ u_destuffer/_09_ gf180mcu_fd_sc_mcu9t5v0__nand2_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_2_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_2_1 u_stuffer/_10_ int_rst_n VDD VSS
++ u_stuffer/_11_ gf180mcu_fd_sc_mcu9t5v0__nand2_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_4_0 u_destuffer/ones[2] u_destuffer/ones[1] VDD
++ VSS u_destuffer/_06_ gf180mcu_fd_sc_mcu9t5v0__nand2_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_4_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_4_1 destuff_in_valid u_destuffer/ones[0] VDD
++ VSS u_destuffer/_13_ gf180mcu_fd_sc_mcu9t5v0__nand2_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_4_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_4_2 dec_data_valid dec_data_bit VDD VSS
++ u_sync_detector/_07_ gf180mcu_fd_sc_mcu9t5v0__nand2_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_4_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_4_3 u_stuffer/ones[2] u_stuffer/ones[1] VDD VSS
++ u_stuffer/_06_ gf180mcu_fd_sc_mcu9t5v0__nand2_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand2_4_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand2_4_4 stuffer_in_valid u_stuffer/ones[0] VDD VSS
++ u_stuffer/_08_ gf180mcu_fd_sc_mcu9t5v0__nand2_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand3_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand3_1_0 destuff_in_valid u_destuffer/ones[1]
++ u_destuffer/ones[0] VDD VSS u_destuffer/_16_ gf180mcu_fd_sc_mcu9t5v0__nand3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand3_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand3_1_1 u_eop_detector/se0_count[3]
++ u_eop_detector/se0_count[2] u_eop_detector/_15_ VDD VSS u_eop_detector/_23_
++ gf180mcu_fd_sc_mcu9t5v0__nand3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand3_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand3_1_2 stuffer_in_valid u_stuffer/ones[0]
++ u_stuffer/ones[1] VDD VSS u_stuffer/_12_ gf180mcu_fd_sc_mcu9t5v0__nand3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand3_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand3_2_0 rx_bitcnt[2] \_110_ \_111_ VDD VSS \_114_
++ gf180mcu_fd_sc_mcu9t5v0__nand3_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand3_2_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand3_2_1 u_encoder/_06_ u_encoder/_02_
++ u_encoder/_04_ VDD VSS u_encoder/_00_ gf180mcu_fd_sc_mcu9t5v0__nand3_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand3_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand3_4_0 u_sync_detector/match[0]
++ u_sync_detector/match[1] u_sync_detector/match[2] VDD VSS
++ u_sync_detector/_06_ gf180mcu_fd_sc_mcu9t5v0__nand3_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand3_4_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand3_4_1 \_009_ int_rst_n u_sync_detector/_07_ VDD
++ VSS u_sync_detector/_09_ gf180mcu_fd_sc_mcu9t5v0__nand3_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand4_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand4_1_0 tx_bitidx[0] tx_bitidx[2] tx_bitidx[1]
++ stuff_in_ready VDD VSS \_061_ gf180mcu_fd_sc_mcu9t5v0__nand4_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nand4_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nand4_4_0 dec_data_bit destuff_in_valid
++ u_destuffer/_07_ int_rst_n VDD VSS u_destuffer/_08_
++ gf180mcu_fd_sc_mcu9t5v0__nand4_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_0 u_sync_detector/match[1]
++ u_sync_detector/_13_ VDD VSS u_sync_detector/_14_
++ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_1 u_sync_detector/match[0] dec_data_valid VDD
++ VSS u_sync_detector/_15_ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_2 u_sync_detector/match[2]
++ u_sync_detector/_10_ VDD VSS u_sync_detector/_12_
++ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_3 sync_next \_138_ VDD VSS \_139_
++ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_4 \_054_ \_139_ VDD VSS \_049_
++ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_5 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_5 u_eop_detector/_09_ u_eop_detector/_13_ VDD
++ VSS u_eop_detector/_00_ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_6 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_6 \_066_ line_state[1] VDD VSS dec_line_bit
++ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_7 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_7 line_state[0] line_state[1] VDD VSS
++ u_eop_detector/_08_ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_8 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_8 u_eop_detector/_17_ u_eop_detector/_09_ VDD
++ VSS u_eop_detector/_06_ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_9 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_9 tx_state[4] tx_state[8] VDD VSS \_118_
++ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_10 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_10 tx_state[1] \_054_ VDD VSS \_065_
++ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_11 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_11 tx_state[5] u_encoder/_03_ VDD VSS
++ u_encoder/_04_ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_12 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_12 \_058_ \_054_ VDD VSS \_001_
++ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_13 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_13 u_stuffer/_17_ u_stuffer/_11_ VDD VSS
++ u_stuffer/_05_ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_1_14 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_1_14 tx_bitidx[0] \_074_ VDD VSS \_075_
++ gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_2_0 u_destuffer/ones[0] u_destuffer/_06_ VDD VSS
++ u_destuffer/_17_ gf180mcu_fd_sc_mcu9t5v0__nor2_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_2_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_2_1 u_eop_detector/_09_ u_eop_detector/_16_ VDD
++ VSS u_eop_detector/_01_ gf180mcu_fd_sc_mcu9t5v0__nor2_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor2_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor2_4_0 next_valid \_056_ VDD VSS \_057_
++ gf180mcu_fd_sc_mcu9t5v0__nor2_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_1_0 u_sync_detector/_09_ u_sync_detector/_10_
++ u_sync_detector/_14_ VDD VSS u_sync_detector/_02_
++ gf180mcu_fd_sc_mcu9t5v0__nor3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_1_1 u_destuffer/_10_ u_destuffer/_17_
++ u_destuffer/_09_ VDD VSS u_destuffer/_04_ gf180mcu_fd_sc_mcu9t5v0__nor3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_1_2 u_destuffer/ones[0] u_destuffer/_06_
++ u_destuffer/_08_ VDD VSS u_destuffer/_00_ gf180mcu_fd_sc_mcu9t5v0__nor3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_1_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_1_3 u_eop_detector/_09_ u_eop_detector/_24_
++ u_eop_detector/_25_ VDD VSS u_eop_detector/_05_
++ gf180mcu_fd_sc_mcu9t5v0__nor3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_1_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_1_4 \_009_ eop_pulse bus_reset VDD VSS \_138_
++ gf180mcu_fd_sc_mcu9t5v0__nor3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_1_5 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_1_5 u_eop_detector/se0_count[5]
++ u_eop_detector/_11_ u_eop_detector/se0_count[1] VDD VSS u_eop_detector/_12_
++ gf180mcu_fd_sc_mcu9t5v0__nor3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_1_6 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_1_6 u_eop_detector/_09_ u_eop_detector/_19_
++ u_eop_detector/_21_ VDD VSS u_eop_detector/_03_
++ gf180mcu_fd_sc_mcu9t5v0__nor3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_1_7 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_1_7 tx_state[1] \_054_ \_132_ VDD VSS \_044_
++ gf180mcu_fd_sc_mcu9t5v0__nor3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_1_8 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_1_8 u_encoder/_05_ tx_state[5] u_encoder/_03_
++ VDD VSS u_encoder/_01_ gf180mcu_fd_sc_mcu9t5v0__nor3_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_2_0 u_destuffer/_09_ u_destuffer/_11_
++ u_destuffer/_14_ VDD VSS u_destuffer/_02_ gf180mcu_fd_sc_mcu9t5v0__nor3_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_2_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_2_1 u_sync_detector/_09_ u_sync_detector/_11_
++ u_sync_detector/_12_ VDD VSS u_sync_detector/_01_
++ gf180mcu_fd_sc_mcu9t5v0__nor3_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_2_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_2_2 u_destuffer/_09_ u_destuffer/_11_
++ u_destuffer/_12_ VDD VSS u_destuffer/_01_ gf180mcu_fd_sc_mcu9t5v0__nor3_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_2_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_2_3 u_sync_detector/_08_ u_sync_detector/_09_
++ u_sync_detector/_11_ VDD VSS u_sync_detector/_00_
++ gf180mcu_fd_sc_mcu9t5v0__nor3_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_2_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_2_4 \_009_ \_053_ Reset VDD VSS \_111_
++ gf180mcu_fd_sc_mcu9t5v0__nor3_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor3_2_5 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor3_2_5 u_stuffer/_17_ stuff_in_ready u_stuffer/_11_
++ VDD VSS u_stuffer/_04_ gf180mcu_fd_sc_mcu9t5v0__nor3_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor4_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor4_1_0 \_009_ \_054_ \_110_ \_133_ VDD VSS \_045_
++ gf180mcu_fd_sc_mcu9t5v0__nor4_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor4_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor4_1_1 u_eop_detector/se0_count[3]
++ u_eop_detector/se0_count[4] u_eop_detector/se0_count[2] u_eop_detector/_09_
++ VDD VSS u_eop_detector/_26_ gf180mcu_fd_sc_mcu9t5v0__nor4_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor4_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor4_2_0 next_byte[7] \_056_ \_057_ \_077_ VDD VSS
++ \_117_ gf180mcu_fd_sc_mcu9t5v0__nor4_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor4_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor4_4_0 u_sync_detector/match[3]
++ u_sync_detector/_05_ u_sync_detector/_06_ u_sync_detector/_07_ VDD VSS
++ sync_next gf180mcu_fd_sc_mcu9t5v0__nor4_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__nor4_4_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__nor4_4_1 u_eop_detector/se0_count[5]
++ u_eop_detector/_11_ u_eop_detector/_14_ u_eop_detector/_10_ VDD VSS
++ u_eop_detector/_15_ gf180mcu_fd_sc_mcu9t5v0__nor4_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai211_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai211_1_0 dec_line_valid dec_data_bit u_decoder/_04_
++ int_rst_n VDD VSS u_decoder/_05_ gf180mcu_fd_sc_mcu9t5v0__oai211_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai211_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai211_1_1 u_decoder/_06_ dec_line_valid
++ u_decoder/_07_ u_decoder/_08_ VDD VSS u_decoder/_01_
++ gf180mcu_fd_sc_mcu9t5v0__oai211_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai211_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai211_1_2 txdm enc_line_valid \_118_ \_120_ VDD VSS
++ \_132_ gf180mcu_fd_sc_mcu9t5v0__oai211_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai211_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai211_2_0 \_056_ \_055_ \_087_ TxValid VDD VSS
++ \_088_ gf180mcu_fd_sc_mcu9t5v0__oai211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai211_2_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai211_2_1 u_stuffer/ones[0] u_stuffer/_06_ int_rst_n
++ u_stuffer/_10_ VDD VSS u_stuffer/_14_ gf180mcu_fd_sc_mcu9t5v0__oai211_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai21_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai21_1_0 rx_bitcnt[2] \_110_ \_111_ VDD VSS \_113_
++ gf180mcu_fd_sc_mcu9t5v0__oai21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai21_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai21_1_1 rx_bitcnt[0] destuff_out_valid \_111_ VDD
++ VSS \_134_ gf180mcu_fd_sc_mcu9t5v0__oai21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai21_1_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai21_1_2 enc_line_valid \_119_ \_120_ VDD VSS \_121_
++ gf180mcu_fd_sc_mcu9t5v0__oai21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai21_1_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai21_1_3 \_064_ TxValid \_065_ VDD VSS \_007_
++ gf180mcu_fd_sc_mcu9t5v0__oai21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai21_1_4 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai21_1_4 tx_state[3] tx_state[0] TxValid VDD VSS
++ \_084_ gf180mcu_fd_sc_mcu9t5v0__oai21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai21_1_5 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai21_1_5 u_encoder/_05_ stuff_out_bit enc_line_bit
++ VDD VSS u_encoder/_06_ gf180mcu_fd_sc_mcu9t5v0__oai21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai21_1_6 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai21_1_6 next_valid \_061_ tx_state[3] VDD VSS
++ \_063_ gf180mcu_fd_sc_mcu9t5v0__oai21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai21_1_7 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai21_1_7 \_056_ stuff_in_ready \_076_ VDD VSS \_103_
++ gf180mcu_fd_sc_mcu9t5v0__oai21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai21_1_8 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai21_1_8 \_105_ \_103_ \_107_ VDD VSS \_108_
++ gf180mcu_fd_sc_mcu9t5v0__oai21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai21_1_9 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai21_1_9 stuff_in_ready \_058_ \_056_ VDD VSS
++ stuffer_in_valid gf180mcu_fd_sc_mcu9t5v0__oai21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai21_1_10 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai21_1_10 \_056_ \_103_ \_102_ VDD VSS \_109_
++ gf180mcu_fd_sc_mcu9t5v0__oai21_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai21_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai21_4_0 \_056_ \_055_ \_076_ VDD VSS \_077_
++ gf180mcu_fd_sc_mcu9t5v0__oai21_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai22_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai22_1_0 u_stuffer/_14_ u_stuffer/_16_
++ u_stuffer/_18_ u_stuffer/_11_ VDD VSS u_stuffer/_03_
++ gf180mcu_fd_sc_mcu9t5v0__oai22_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__oai32_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__oai32_4_0 u_destuffer/_18_ u_destuffer/_09_
++ u_destuffer/_21_ u_destuffer/_08_ u_destuffer/_17_ VDD VSS u_destuffer/_05_
++ gf180mcu_fd_sc_mcu9t5v0__oai32_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__or2_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__or2_1_0 tx_state[3] tx_state[0] VDD VSS \_087_
++ gf180mcu_fd_sc_mcu9t5v0__or2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__or2_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__or2_2_0 \_053_ Reset VDD VSS \_054_
++ gf180mcu_fd_sc_mcu9t5v0__or2_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__or2_2_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__or2_2_1 \_057_ \_077_ VDD VSS \_078_
++ gf180mcu_fd_sc_mcu9t5v0__or2_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__or2_2_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__or2_2_2 u_stuffer/ones[0] u_stuffer/_06_ VDD VSS
++ stuff_in_ready gf180mcu_fd_sc_mcu9t5v0__or2_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__or2_2_3 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__or2_2_3 \_102_ \_103_ VDD VSS \_104_
++ gf180mcu_fd_sc_mcu9t5v0__or2_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__or3_4_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__or3_4_0 enc_line_bit u_encoder/_05_ stuff_out_bit VDD
++ VSS u_encoder/_02_ gf180mcu_fd_sc_mcu9t5v0__or3_4
+* cell instance gf180mcu_fd_sc_mcu9t5v0__tiel_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__tiel_0 VDD VSS \_145_ gf180mcu_fd_sc_mcu9t5v0__tiel
+* cell instance gf180mcu_fd_sc_mcu9t5v0__xnor2_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__xnor2_1_0 destuff_in_valid u_destuffer/ones[0] VDD
++ VSS u_destuffer/_12_ gf180mcu_fd_sc_mcu9t5v0__xnor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__xnor2_1_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__xnor2_1_1 u_eop_detector/se0_count[2]
++ u_eop_detector/_15_ VDD VSS u_eop_detector/_16_
++ gf180mcu_fd_sc_mcu9t5v0__xnor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__xor2_1_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__xor2_1_0 line_state[0] line_state[1] VDD VSS
++ dec_line_valid gf180mcu_fd_sc_mcu9t5v0__xor2_1
+* cell instance gf180mcu_fd_sc_mcu9t5v0__xor2_2_0 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__xor2_2_0 u_destuffer/ones[1] u_destuffer/_13_ VDD VSS
++ u_destuffer/_14_ gf180mcu_fd_sc_mcu9t5v0__xor2_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__xor2_2_1 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__xor2_2_1 u_decoder/prev_line dec_line_bit VDD VSS
++ u_decoder/_03_ gf180mcu_fd_sc_mcu9t5v0__xor2_2
+* cell instance gf180mcu_fd_sc_mcu9t5v0__xor2_2_2 r0 *1 0,0
+Xgf180mcu_fd_sc_mcu9t5v0__xor2_2_2 u_stuffer/ones[1] u_stuffer/_08_ VDD VSS
++ u_stuffer/_09_ gf180mcu_fd_sc_mcu9t5v0__xor2_2
+.ENDS usb_utmi_phy
+
+* cell gf180mcu_fd_sc_mcu9t5v0__xor2_2
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__xor2_2 A1 A2 VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__xor2_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__xor2_1
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__xor2_1 A1 A2 VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__xor2_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__xnor2_1
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__xnor2_1 A1 A2 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__xnor2_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__tiel
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__tiel VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__tiel
+
+* cell gf180mcu_fd_sc_mcu9t5v0__or3_4
+* pin A1
+* pin A2
+* pin A3
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__or3_4 A1 A2 A3 VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__or3_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__or2_2
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__or2_2 A1 A2 VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__or2_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__or2_1
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__or2_1 A1 A2 VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__or2_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__oai32_4
+* pin A1
+* pin A2
+* pin A3
+* pin B1
+* pin B2
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__oai32_4 A1 A2 A3 B1 B2 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__oai32_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__oai22_1
+* pin A1
+* pin A2
+* pin B1
+* pin B2
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__oai22_1 A1 A2 B1 B2 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__oai22_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__oai21_4
+* pin A1
+* pin A2
+* pin B
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__oai21_4 A1 A2 B VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__oai21_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__oai21_1
+* pin A1
+* pin A2
+* pin B
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__oai21_1 A1 A2 B VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__oai21_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__oai211_2
+* pin A1
+* pin A2
+* pin B
+* pin C
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__oai211_2 A1 A2 B C VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__oai211_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__oai211_1
+* pin A1
+* pin A2
+* pin B
+* pin C
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__oai211_1 A1 A2 B C VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__oai211_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nor4_4
+* pin A1
+* pin A2
+* pin A3
+* pin A4
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nor4_4 A1 A2 A3 A4 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nor4_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nor4_2
+* pin A1
+* pin A2
+* pin A3
+* pin A4
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nor4_2 A1 A2 A3 A4 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nor4_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nor4_1
+* pin A1
+* pin A2
+* pin A3
+* pin A4
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nor4_1 A1 A2 A3 A4 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nor4_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nor3_2
+* pin A1
+* pin A2
+* pin A3
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nor3_2 A1 A2 A3 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nor3_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nor3_1
+* pin A1
+* pin A2
+* pin A3
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nor3_1 A1 A2 A3 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nor3_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nor2_4
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nor2_4 A1 A2 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nor2_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nor2_2
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nor2_2 A1 A2 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nor2_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nor2_1
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nor2_1 A1 A2 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nor2_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nand4_4
+* pin A1
+* pin A2
+* pin A3
+* pin A4
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nand4_4 A1 A2 A3 A4 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nand4_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nand4_1
+* pin A1
+* pin A2
+* pin A3
+* pin A4
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nand4_1 A1 A2 A3 A4 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nand4_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nand3_4
+* pin A1
+* pin A2
+* pin A3
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nand3_4 A1 A2 A3 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nand3_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nand3_2
+* pin A1
+* pin A2
+* pin A3
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nand3_2 A1 A2 A3 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nand3_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nand3_1
+* pin A1
+* pin A2
+* pin A3
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nand3_1 A1 A2 A3 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nand3_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nand2_4
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nand2_4 A1 A2 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nand2_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nand2_2
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nand2_2 A1 A2 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nand2_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__nand2_1
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__nand2_1 A1 A2 VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__nand2_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__mux4_1
+* pin I0
+* pin I1
+* pin I2
+* pin I3
+* pin S0
+* pin S1
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__mux4_1 I0 I1 I2 I3 S0 S1 VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__mux4_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__mux2_2
+* pin I0
+* pin I1
+* pin S
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__mux2_2 I0 I1 S VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__mux2_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__mux2_1
+* pin I0
+* pin I1
+* pin S
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__mux2_1 I0 I1 S VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__mux2_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__inv_4
+* pin I
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__inv_4 I VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__inv_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__inv_3
+* pin I
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__inv_3 I VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__inv_3
+
+* cell gf180mcu_fd_sc_mcu9t5v0__inv_2
+* pin I
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__inv_2 I VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__inv_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__inv_1
+* pin I
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__inv_1 I VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__inv_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__dffq_1
+* pin CLK
+* pin D
+* pin Q
+* pin VDD
+* pin VSS
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__dffq_1 CLK D Q VDD VSS
+.ENDS gf180mcu_fd_sc_mcu9t5v0__dffq_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__clkinv_8
+* pin I
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__clkinv_8 I VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__clkinv_8
+
+* cell gf180mcu_fd_sc_mcu9t5v0__clkinv_3
+* pin I
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__clkinv_3 I VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__clkinv_3
+
+* cell gf180mcu_fd_sc_mcu9t5v0__clkinv_2
+* pin I
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__clkinv_2 I VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__clkinv_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+* pin I
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__clkinv_1 I VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__clkinv_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__buf_4
+* pin I
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__buf_4 I VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__buf_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__aoi221_1
+* pin A1
+* pin A2
+* pin B1
+* pin B2
+* pin C
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__aoi221_1 A1 A2 B1 B2 C VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__aoi221_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__aoi21_4
+* pin A1
+* pin A2
+* pin B
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__aoi21_4 A1 A2 B VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__aoi21_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__aoi21_2
+* pin A1
+* pin A2
+* pin B
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__aoi21_2 A1 A2 B VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__aoi21_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+* pin A1
+* pin A2
+* pin B
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__aoi21_1 A1 A2 B VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__aoi21_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+* pin A1
+* pin A2
+* pin B
+* pin C
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__aoi211_2 A1 A2 B C VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__aoi211_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__aoi211_1
+* pin A1
+* pin A2
+* pin B
+* pin C
+* pin VDD
+* pin VSS
+* pin ZN
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__aoi211_1 A1 A2 B C VDD VSS ZN
+.ENDS gf180mcu_fd_sc_mcu9t5v0__aoi211_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__and4_4
+* pin A1
+* pin A2
+* pin A3
+* pin A4
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__and4_4 A1 A2 A3 A4 VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__and4_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__and3_4
+* pin A1
+* pin A2
+* pin A3
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__and3_4 A1 A2 A3 VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__and3_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__and3_2
+* pin A1
+* pin A2
+* pin A3
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__and3_2 A1 A2 A3 VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__and3_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__and3_1
+* pin A1
+* pin A2
+* pin A3
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__and3_1 A1 A2 A3 VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__and3_1
+
+* cell gf180mcu_fd_sc_mcu9t5v0__and2_4
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__and2_4 A1 A2 VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__and2_4
+
+* cell gf180mcu_fd_sc_mcu9t5v0__and2_2
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__and2_2 A1 A2 VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__and2_2
+
+* cell gf180mcu_fd_sc_mcu9t5v0__and2_1
+* pin A1
+* pin A2
+* pin VDD
+* pin VSS
+* pin Z
+.SUBCKT gf180mcu_fd_sc_mcu9t5v0__and2_1 A1 A2 VDD VSS Z
+.ENDS gf180mcu_fd_sc_mcu9t5v0__and2_1

@@ -184,7 +184,15 @@ were native on `$PATH`:
 ln -sf "$(pwd)/scripts/openroad-docker.sh" .venv/bin/openroad
 ```
 
-Requires `docker` with a reachable daemon. Bind-mounts the repo working
+Requires `docker` with a reachable daemon. If the invoking user is not in
+the host's `docker` group, set `OPENROAD_DOCKER_CMD` to a wrapper — the
+script splits it into argv, so a multi-word value works:
+
+```bash
+OPENROAD_DOCKER_CMD='sudo -n docker' ./scripts/openroad-docker.sh -version
+```
+
+Bind-mounts the repo working
 directory and the resolved PDK root (`$PDK_ROOT`, else `~/.ciel`, else
 `~/.volare`) at identical absolute host paths inside the container — see
 the script's own header comment for why (`klt place-and-route` bakes

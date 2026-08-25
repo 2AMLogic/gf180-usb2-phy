@@ -229,7 +229,7 @@ verification/records/
 ```
 
 - **`<experiment-slug>`** — short, descriptive, kebab-case name for the
-  claim being verified. This repo currently has six:
+  claim being verified. This repo currently has eight:
   - `functional-smoke` — the harness-counter cocotb suite passes end-to-end
     via `klt functional-verification` (Icarus, no PDK dependency). A
     harness claim, not a PHY claim.
@@ -246,10 +246,20 @@ verification/records/
     synthesize and place-and-route to a routed GDS against gf180mcu, via
     `klt synthesize` + `klt place-and-route`. A layout-production claim, not
     a DRC/LVS-clean signoff claim.
-  - `digital-drc` (issue #25) — a real (not fabricated) `klt drc` run
-    against that routed GDS, honestly recording a non-clean result with a
-    root-cause diagnosis (`klt place-and-route`'s v1 scope has no
-    filler-cell/power-rail-stitching stage).
+  - `digital-drc` (issue #25, closed by issue #51) — `klt drc` against that
+    routed GDS. Its first record honestly reported a **non-clean** result
+    (153 `Metal1` violations) with a root-cause diagnosis;
+    the current record reports **clean, 0 violations** against the
+    power-delivery-bearing re-run of the layout. The superseded record is
+    kept, per the append-only rule, because it is still the correct account
+    of what a PDN-less place-and-route produces.
+  - `digital-lvs` (issue #51) — gate-level LVS of the routed GDS against
+    `klt place-and-route`'s own as-built (post-CTS) netlist, via
+    `scripts/digital_lvs.py` (`klt extract --abstract-cells` + `klt lvs`).
+    `status: "match"`, 0 mismatches, **with a negative control**: the same
+    harness re-run against a deliberately broken reference must report a
+    mismatch, and does. A record that only ever reports "match" is not
+    evidence, so the control is part of the claim rather than a nicety.
   - `analog-layout` (issue #25) — what klt's netlist-driven layout-plan
     path (`klt.layout_plan.request/1` +
     `klayout_tools.layout_plan_execute`) actually produces for the five
@@ -259,8 +269,8 @@ verification/records/
     `layout/README.md` § "Analog" for the diagnosis and the friction issues
     filed upstream.
   One directory per distinct claim, not per run. Future entries (e.g.
-  `drc-lvs`/`digital-lvs`, `gate-level-sim`) follow the same pattern once
-  those legs of the maturity ladder are taken up.
+  `analog-drc`/`analog-lvs`, `post-layout-pvt`, `gate-level-sim`) follow the
+  same pattern once those legs of the maturity ladder are taken up.
 - **`<record-id>`** — unique and traceable:
   `<YYYYMMDD>-<HHMMSS>-<short-git-sha>` (e.g. `20260810-205021-c819c95`),
   identical grammar to the analog canaries' convention. Re-runs mint a new

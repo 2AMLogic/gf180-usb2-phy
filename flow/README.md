@@ -90,6 +90,30 @@ evidence-backed copies of the routed GDS/DEF/as-built netlist live under
 `verification/records/digital-drc/` (the DRC leg — **not clean**, see
 that record for the honestly-reported violation count and root cause).
 
+### Power delivery (`request.power`)
+
+`request-usb-utmi-phy-par.json` carries a `power` block, and it is what makes
+the resulting layout DRC-clean. It names the `VDD`/`VSS` rails and a
+three-strap standard-cell PDN, which drives `tapcell` +
+`add_global_connection`/`global_connect` + `pdngen` at the end of the
+floorplan stage and `filler_placement` + `global_connect` at the end of the
+route stage. Without it, `klt place-and-route` writes a DEF with no
+`SPECIALNETS` section at all, every cell's `VDD`/`VSS` pin belonging to no
+net and every inter-cell row gap left unbridged — which is exactly the 153
+`Metal1` violations the superseded DRC record reports.
+
+The strap geometry is **not invented here**. It is transcribed from
+OpenROAD-flow-scripts' own gf180 platform PDN config,
+`flow/platforms/gf180/openROAD/pdn/pdn_grid_strategy_9t_6M.cfg`, read out of
+the pinned `openroad/orfs` image: `Metal1` 0.900 µm followpins at 5.040 µm
+pitch; `Metal4` 4.480 µm wide / 0.56 µm spacing at 44.8 µm pitch, 22.4 µm
+offset; `Metal5` 4.480 µm at 89.6 µm pitch, 44.8 µm offset; and the
+`Metal1`→`Metal4` via stack tuned `-max_columns 5 -ongrid {Metal2 Metal3
+Metal4} -split_cuts {Metal3 0.128}`. The `Metal4`→`Metal5` pair takes klt's
+default bare `add_pdn_connect`, matching that config's own second line.
+Tapcell / endcap / filler masters are not in the request at all — klt
+resolves them per cell library from its own ORFS-sourced tables.
+
 `request-usb-utmi-phy-par.json`'s `floorplan.site` is
 `GF018hv5v_green_sc9` (`gf180mcu_fd_sc_mcu9t5v0`'s own LEF `SITE` name,
 read directly from the resolved PDK's tech LEF — this is not the
@@ -102,18 +126,31 @@ full-speed-only target this repo is scoped to per `CLAUDE.md`).
 
 ### What this flow does *not* produce
 
-Per `klt place-and-route`'s own documented v1 scope, the routed GDS/DEF
-this flow produces has **no tapcell insertion, no power-grid (PDN)
-generation, no metal fill, no filler-cell insertion**, and no
-`DONT_USE_CELLS` exclusion — core-only floorplanning, no IO ring. This is
-exactly why the committed DRC record for this layout
-(`verification/records/digital-drc/`) is not clean: real (non-abutted, at
-40% utilization) gaps between adjacent same-row standard-cell instances
-leave each cell's own `Metal1` power-rail edge exposed with no filler cell
-bridging it, a genuine (not fabricated, not a `klt drc` engine false
-positive — see that record and
-[klayout-tools#1028](https://github.com/2AMLogic/klayout-tools/issues/1028))
-DRC violation. LVS is not attempted by this issue either — see the
-place-and-route record's "Coverage gaps" for why; both DRC-clean and
-LVS-clean signoff are separate T1 checklist items (#25's own "Related"
-section) this layout unblocks rather than completes.
+Tapcells, the PDN and filler cells **are** produced, via the `power` block
+above. What is still absent from the routed GDS/DEF: **no metal (density)
+fill**, no `DONT_USE_CELLS` exclusion, and no IO ring — this is a core-only
+block-level implementation, and pad assignment is a test-chip integration
+question. The curated `gf180mcu` DRC deck this repo runs has no density
+rules, so a clean DRC here is not a density-clean claim; that is stated in
+the DRC record rather than implied.
+
+Also not produced here: any **post-layout, extracted-parasitic**
+simulation. The multi-corner timing this flow reports is liberty plus
+OpenROAD's own estimated RC, not a SPICE re-run against an extracted
+netlist.
+
+### Downstream signoff legs
+
+DRC and LVS are separate commands run against the committed artifacts, not
+part of this flow:
+
+```bash
+PDK=gf180mcuD klt drc layout/digital/usb_utmi_phy.gds \
+    --deck gf180mcu --top usb_utmi_phy --format json     # -> "clean", 0 violations
+PDK=gf180mcuD python3 scripts/digital_lvs.py              # -> "match", 0 mismatches
+PDK=gf180mcuD python3 scripts/digital_lvs.py --negative-control
+```
+
+`layout/README.md` § "Digital" summarises both verdicts and their scope;
+`verification/records/digital-drc/` and `verification/records/digital-lvs/`
+hold the evidence.

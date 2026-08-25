@@ -857,16 +857,16 @@ module usb_utmi_phy (Reset,
     .CLK(clknet_3_4__leaf_clk),
     .Q(next_byte[2]));
  gf180mcu_fd_sc_mcu9t5v0__dffq_1 _301_ (.D(_015_),
-    .CLK(clknet_3_4__leaf_clk),
+    .CLK(clknet_3_5__leaf_clk),
     .Q(next_byte[3]));
  gf180mcu_fd_sc_mcu9t5v0__dffq_1 _302_ (.D(_014_),
-    .CLK(clknet_3_5__leaf_clk),
+    .CLK(clknet_3_4__leaf_clk),
     .Q(next_byte[4]));
  gf180mcu_fd_sc_mcu9t5v0__dffq_1 _303_ (.D(_013_),
     .CLK(clknet_3_4__leaf_clk),
     .Q(next_byte[5]));
  gf180mcu_fd_sc_mcu9t5v0__dffq_1 _304_ (.D(_012_),
-    .CLK(clknet_3_5__leaf_clk),
+    .CLK(clknet_3_4__leaf_clk),
     .Q(next_byte[6]));
  gf180mcu_fd_sc_mcu9t5v0__dffq_1 _305_ (.D(_034_),
     .CLK(clknet_3_4__leaf_clk),
@@ -929,7 +929,7 @@ module usb_utmi_phy (Reset,
     .CLK(clknet_3_1__leaf_clk),
     .Q(RxValid));
  gf180mcu_fd_sc_mcu9t5v0__dffq_1 _325_ (.D(_041_),
-    .CLK(clknet_3_4__leaf_clk),
+    .CLK(clknet_3_1__leaf_clk),
     .Q(RxError));
  gf180mcu_fd_sc_mcu9t5v0__dffq_1 _326_ (.D(_049_),
     .CLK(clknet_3_3__leaf_clk),
@@ -971,7 +971,7 @@ module usb_utmi_phy (Reset,
     .CLK(clknet_3_3__leaf_clk),
     .Q(txdp));
  gf180mcu_fd_sc_mcu9t5v0__dffq_1 _339_ (.D(_036_),
-    .CLK(clknet_3_7__leaf_clk),
+    .CLK(clknet_3_5__leaf_clk),
     .Q(next_valid));
  gf180mcu_fd_sc_mcu9t5v0__dffq_1 _340_ (.D(_044_),
     .CLK(clknet_3_3__leaf_clk),
@@ -983,7 +983,7 @@ module usb_utmi_phy (Reset,
     .CLK(clknet_3_3__leaf_clk),
     .Q(tx_state[1]));
  gf180mcu_fd_sc_mcu9t5v0__dffq_1 _343_ (.D(_001_),
-    .CLK(clknet_3_6__leaf_clk),
+    .CLK(clknet_3_7__leaf_clk),
     .Q(tx_state[2]));
  gf180mcu_fd_sc_mcu9t5v0__dffq_1 _344_ (.D(_008_),
     .CLK(clknet_3_7__leaf_clk),
@@ -1022,11 +1022,11 @@ module usb_utmi_phy (Reset,
     .Z(clknet_3_6__leaf_clk));
  gf180mcu_fd_sc_mcu9t5v0__buf_4 clkbuf_3_7__f_clk (.I(clknet_0_clk),
     .Z(clknet_3_7__leaf_clk));
- gf180mcu_fd_sc_mcu9t5v0__clkinv_8 clkload0 (.I(clknet_3_1__leaf_clk));
- gf180mcu_fd_sc_mcu9t5v0__inv_4 clkload1 (.I(clknet_3_2__leaf_clk));
- gf180mcu_fd_sc_mcu9t5v0__inv_3 clkload2 (.I(clknet_3_3__leaf_clk));
+ gf180mcu_fd_sc_mcu9t5v0__inv_4 clkload0 (.I(clknet_3_1__leaf_clk));
+ gf180mcu_fd_sc_mcu9t5v0__inv_3 clkload1 (.I(clknet_3_2__leaf_clk));
+ gf180mcu_fd_sc_mcu9t5v0__clkinv_3 clkload2 (.I(clknet_3_3__leaf_clk));
  gf180mcu_fd_sc_mcu9t5v0__clkinv_8 clkload3 (.I(clknet_3_4__leaf_clk));
- gf180mcu_fd_sc_mcu9t5v0__inv_4 clkload4 (.I(clknet_3_5__leaf_clk));
+ gf180mcu_fd_sc_mcu9t5v0__inv_3 clkload4 (.I(clknet_3_5__leaf_clk));
  gf180mcu_fd_sc_mcu9t5v0__clkinv_8 clkload5 (.I(clknet_3_6__leaf_clk));
  gf180mcu_fd_sc_mcu9t5v0__inv_4 clkload6 (.I(clknet_3_7__leaf_clk));
  gf180mcu_fd_sc_mcu9t5v0__xor2_2 \u_decoder/_09_  (.A1(\u_decoder/prev_line ),
@@ -1063,7 +1063,7 @@ module usb_utmi_phy (Reset,
     .CLK(clknet_3_3__leaf_clk),
     .Q(\u_decoder/prev_line ));
  gf180mcu_fd_sc_mcu9t5v0__dffq_1 \u_decoder/_19_  (.D(\u_decoder/_00_ ),
-    .CLK(clknet_3_0__leaf_clk),
+    .CLK(clknet_3_2__leaf_clk),
     .Q(dec_data_bit));
  gf180mcu_fd_sc_mcu9t5v0__dffq_1 \u_decoder/_20_  (.D(\u_decoder/_02_ ),
     .CLK(clknet_3_2__leaf_clk),
