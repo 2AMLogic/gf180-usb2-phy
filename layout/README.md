@@ -31,7 +31,11 @@ post-CTS netlist) is a `status: "match"` with 0 mismatches, and a negative
 control on a deliberately-broken reference is correctly rejected. Driven by
 `scripts/digital_lvs.py`, which documents the three real asymmetries between
 the two sides (physical-only filler cells, unconnected CTS load pins, and
-`assign`-aliased output ports) and how each is handled.
+`assign`-aliased output ports) and how each is handled. That script exists
+because nothing upstream joins `klt place-and-route`'s outputs to a `klt lvs`
+verdict — filed generically as
+[klayout-tools#1419](https://github.com/2AMLogic/klayout-tools/issues/1419);
+if it closes, most of the script should become deletable.
 
 **What that does and does not say.** The curated `gf180mcu` deck is klt's own
 rule set, not the foundry sign-off deck; no metal/density fill is inserted, so

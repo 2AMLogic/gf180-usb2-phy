@@ -39,6 +39,13 @@ What this does NOT check: transistor-level equivalence of the standard cells
 themselves (they are black boxes here — the foundry's own characterized GDS is
 taken as correct), and anything analog. See `layout/README.md`.
 
+Why this script exists at all. Every capability it uses is a documented `klt`
+flag; what is missing upstream is anything that joins them, so the four
+flow-level mismatches above (reference format, escaped identifiers, aliased
+ports, physical-only cells) land on the caller. Filed generically as
+klayout-tools#1419 per `CLAUDE.md`'s friction protocol — if that closes, most
+of this file should be deletable.
+
 Usage
 -----
     PDK=gf180mcuD python3 scripts/digital_lvs.py
