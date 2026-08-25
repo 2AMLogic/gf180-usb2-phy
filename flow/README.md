@@ -155,3 +155,40 @@ PDK=gf180mcuD python3 scripts/digital_lvs.py --negative-control
 `layout/README.md` § "Digital" summarises both verdicts and their scope;
 `verification/records/digital-drc/` and `verification/records/digital-lvs/`
 hold the evidence.
+
+### Post-layout (SPEF-annotated) STA — the digital half of #51/#53
+
+`request-usb-utmi-phy-sta.json` drives `klt sta` — a standalone OpenSTA
+session against the already-routed `layout/digital/usb_utmi_phy.def`,
+independent of `klt place-and-route`'s own in-flow (liberty/estimated-RC)
+timing. Two steps: extract a parasitic-annotated SPEF whose net names
+correlate with the DEF, then feed it through `klt sta`, sweeping only
+`pdk.corner` (the `def`/`spef` pair stays fixed across the sweep):
+
+```bash
+# 1. Extract parasitics with DEF-correlated net names (issue #951/#961's
+#    fix, --def-net-names / --def-net-connections) -- without these two
+#    flags the SPEF's net names are KLayout's own synthesized labels and
+#    correlate with almost nothing in the linked design.
+PDK_ROOT=~/.volare PDK=gf180mcuD klt extract layout/digital/usb_utmi_phy.gds \
+    --deck gf180mcu --top usb_utmi_phy --pdk gf180mcuD --parasitics \
+    --def-net-names --def-net-connections layout/digital/usb_utmi_phy.def \
+    --spef flow/.klt/extract/usb_utmi_phy_route.spef \
+    -o flow/.klt/extract/usb_utmi_phy_route.spice
+
+# 2. OPENROAD_DOCKER_CMD may be needed the same way step 3 of "Digital
+#    synthesis + place-and-route" above documents. Run klt sta from the
+#    repo root (its subprocess's cwd is what openroad-docker.sh bind-mounts
+#    -- the def/spef paths must resolve inside that mount).
+PDK_ROOT=~/.volare PDK=gf180mcuD klt sta flow/request-usb-utmi-phy-sta.json --format json
+```
+
+**Even with both correlation flags, annotation is incomplete** —
+`verification/records/post-layout-pvt/records/20260825-233200-1c84648.md`
+measures 186/366 design nets annotated, and root-causes the gap to every
+net whose name contains a SPEF-escaped `[`/`]`/`/` character failing to
+correlate in `klt sta`'s own check, despite being present and well-formed
+in the SPEF file — filed as
+[klayout-tools#1422](https://github.com/2AMLogic/klayout-tools/issues/1422).
+That record is therefore **not** a complete real-parasitics measurement;
+read its "Result" section before citing the numbers it reports.

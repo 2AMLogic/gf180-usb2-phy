@@ -18,10 +18,17 @@ these records, because none of them is a subset.
 - **Netlist provenance**: schematic — the DUT of every experiment is the
   generated export under `design/netlist/`, not a post-layout extraction.
   There is no **analog** layout, so no extracted re-run exists to compare
-  any electrical row against. (The digital half does have a committed,
-  DRC-clean, LVS-matched layout — but no row in this table is a digital
-  timing row, and the digital layout's own timing is liberty + estimated RC
-  inside OpenROAD, not an extracted-parasitic SPICE re-run either.)
+  any electrical row against; this is blocked on #52. (The digital half
+  does have a committed, DRC-clean, LVS-matched layout, and — as of #51's
+  `post-layout-pvt` experiment — a first, partial SPEF-annotated post-layout
+  STA re-run: `verification/records/post-layout-pvt/records/20260825-233200-1c84648.md`.
+  No row in *this* table is a digital timing row, so that record does not
+  change any verdict below; it is cited here only so "post-layout
+  re-verification" for the digital half is discoverable from this index.
+  That record's own parasitic annotation is incomplete (186/366 design
+  nets, root-caused to a `klt sta` net-name-correlation gap filed as
+  klayout-tools#1422) — it is not a substitute for a full extracted-netlist
+  re-run, only the first honest attempt at one.)
 
 ## The table
 

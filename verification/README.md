@@ -268,9 +268,19 @@ verification/records/
     klt's own per-net failure reasons frozen as artifacts — see
     `layout/README.md` § "Analog" for the diagnosis and the friction issues
     filed upstream.
+  - `post-layout-pvt` (issue #51) — the digital half of post-layout
+    (extracted-parasitic) timing re-verification: a `klt extract
+    --parasitics --def-net-names --def-net-connections` SPEF fed through
+    standalone `klt sta` against the committed routed DEF, at three
+    corners. Not a complete real-parasitics measurement — only 186 of 366
+    design nets carry real extracted parasitics, root-caused to a `klt
+    sta` net-name-correlation defect (klayout-tools#1422) rather than to
+    the extraction itself, and stated as such rather than presented as a
+    clean pass. The analog half is blocked on #52 (no analog layout is
+    committed yet).
   One directory per distinct claim, not per run. Future entries (e.g.
-  `analog-drc`/`analog-lvs`, `post-layout-pvt`, `gate-level-sim`) follow the
-  same pattern once those legs of the maturity ladder are taken up.
+  `analog-drc`/`analog-lvs`, `gate-level-sim`) follow the same pattern once
+  those legs of the maturity ladder are taken up.
 - **`<record-id>`** — unique and traceable:
   `<YYYYMMDD>-<HHMMSS>-<short-git-sha>` (e.g. `20260810-205021-c819c95`),
   identical grammar to the analog canaries' convention. Re-runs mint a new
