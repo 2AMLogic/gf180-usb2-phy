@@ -1,0 +1,318 @@
+{
+  "schema_version": 1,
+  "engine": "openroad",
+  "engine_version": "26Q3-1260-g06a5a02279",
+  "hdl_toplevel": "usb_utmi_phy",
+  "status": "ok",
+  "stage_reached": "route",
+  "seed": 1,
+  "interconnect_corner": "nom",
+  "die_area_um2": 37937.3,
+  "core_area_um2": 33733.3,
+  "utilization_pct": 44.093,
+  "wirelength_um": 12738,
+  "worst_slack_ns": 68.741,
+  "total_negative_slack_ns": 0,
+  "fmax_mhz": 68.5308,
+  "setup_violation_count": 0,
+  "hold_violation_count": 0,
+  "antenna_violation_count": 0,
+  "route_drc_violation_count": 0,
+  "estimated_power_mw": 0.1414,
+  "clock_skew_ns": 0.13763,
+  "worst_setup_slack_ns": 47.286,
+  "worst_hold_slack_ns": 0.38312,
+  "corners": [
+    {
+      "name": "ff_125C_1v98",
+      "setup_slack_ns": 74.3306,
+      "hold_slack_ns": 1.41622
+    },
+    {
+      "name": "ff_125C_3v60",
+      "setup_slack_ns": 78.6306,
+      "hold_slack_ns": 0.74022
+    },
+    {
+      "name": "ff_125C_5v50",
+      "setup_slack_ns": 79.8254,
+      "hold_slack_ns": 0.538
+    },
+    {
+      "name": "ff_n40C_1v98",
+      "setup_slack_ns": 76.687,
+      "hold_slack_ns": 1.03952
+    },
+    {
+      "name": "ff_n40C_3v60",
+      "setup_slack_ns": 79.9611,
+      "hold_slack_ns": 0.51552
+    },
+    {
+      "name": "ff_n40C_5v50",
+      "setup_slack_ns": 80.7117,
+      "hold_slack_ns": 0.38312
+    },
+    {
+      "name": "ss_125C_1v62",
+      "setup_slack_ns": 47.286,
+      "hold_slack_ns": 5.35199
+    },
+    {
+      "name": "ss_125C_3v00",
+      "setup_slack_ns": 72.4769,
+      "hold_slack_ns": 1.7458
+    },
+    {
+      "name": "ss_125C_4v50",
+      "setup_slack_ns": 76.3489,
+      "hold_slack_ns": 1.1097
+    },
+    {
+      "name": "ss_n40C_1v62",
+      "setup_slack_ns": 48.3225,
+      "hold_slack_ns": 4.99961
+    },
+    {
+      "name": "ss_n40C_3v00",
+      "setup_slack_ns": 75.7002,
+      "hold_slack_ns": 1.20667
+    },
+    {
+      "name": "ss_n40C_4v50",
+      "setup_slack_ns": 78.3746,
+      "hold_slack_ns": 0.77057
+    },
+    {
+      "name": "tt_025C_1v80",
+      "setup_slack_ns": 68.7478,
+      "hold_slack_ns": 2.20826
+    },
+    {
+      "name": "tt_025C_3v30",
+      "setup_slack_ns": 77.7339,
+      "hold_slack_ns": 0.88593
+    },
+    {
+      "name": "tt_025C_5v00",
+      "setup_slack_ns": 79.3583,
+      "hold_slack_ns": 0.61293
+    }
+  ],
+  "stages": [
+    {
+      "name": "floorplan",
+      "die_area_um2": 37937.3,
+      "core_area_um2": 33733.3,
+      "utilization_pct": 42.8882,
+      "worst_slack_ns": 70.6339,
+      "total_negative_slack_ns": 0
+    },
+    {
+      "name": "place",
+      "die_area_um2": 37937.3,
+      "core_area_um2": 33733.3,
+      "utilization_pct": 42.3695,
+      "worst_slack_ns": 69.179,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 9775.74,
+      "fmax_mhz": 70.6514,
+      "estimated_power_mw": 0.0894,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0
+    },
+    {
+      "name": "cts",
+      "die_area_um2": 37937.3,
+      "core_area_um2": 33733.3,
+      "utilization_pct": 44.093,
+      "worst_slack_ns": 69.1892,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 10508.5,
+      "fmax_mhz": 70.7024,
+      "estimated_power_mw": 0.1378,
+      "clock_skew_ns": 0.05685,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0
+    },
+    {
+      "name": "route",
+      "die_area_um2": 37937.3,
+      "core_area_um2": 33733.3,
+      "utilization_pct": 44.093,
+      "worst_slack_ns": 68.741,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 12738,
+      "fmax_mhz": 68.5308,
+      "estimated_power_mw": 0.1414,
+      "clock_skew_ns": 0.13763,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "antenna_violation_count": 0,
+      "route_drc_violation_count": 0,
+      "worst_setup_slack_ns": 47.286,
+      "worst_hold_slack_ns": 0.38312,
+      "corners": [
+        {
+          "name": "ff_125C_1v98",
+          "setup_slack_ns": 74.3306,
+          "hold_slack_ns": 1.41622
+        },
+        {
+          "name": "ff_125C_3v60",
+          "setup_slack_ns": 78.6306,
+          "hold_slack_ns": 0.74022
+        },
+        {
+          "name": "ff_125C_5v50",
+          "setup_slack_ns": 79.8254,
+          "hold_slack_ns": 0.538
+        },
+        {
+          "name": "ff_n40C_1v98",
+          "setup_slack_ns": 76.687,
+          "hold_slack_ns": 1.03952
+        },
+        {
+          "name": "ff_n40C_3v60",
+          "setup_slack_ns": 79.9611,
+          "hold_slack_ns": 0.51552
+        },
+        {
+          "name": "ff_n40C_5v50",
+          "setup_slack_ns": 80.7117,
+          "hold_slack_ns": 0.38312
+        },
+        {
+          "name": "ss_125C_1v62",
+          "setup_slack_ns": 47.286,
+          "hold_slack_ns": 5.35199
+        },
+        {
+          "name": "ss_125C_3v00",
+          "setup_slack_ns": 72.4769,
+          "hold_slack_ns": 1.7458
+        },
+        {
+          "name": "ss_125C_4v50",
+          "setup_slack_ns": 76.3489,
+          "hold_slack_ns": 1.1097
+        },
+        {
+          "name": "ss_n40C_1v62",
+          "setup_slack_ns": 48.3225,
+          "hold_slack_ns": 4.99961
+        },
+        {
+          "name": "ss_n40C_3v00",
+          "setup_slack_ns": 75.7002,
+          "hold_slack_ns": 1.20667
+        },
+        {
+          "name": "ss_n40C_4v50",
+          "setup_slack_ns": 78.3746,
+          "hold_slack_ns": 0.77057
+        },
+        {
+          "name": "tt_025C_1v80",
+          "setup_slack_ns": 68.7478,
+          "hold_slack_ns": 2.20826
+        },
+        {
+          "name": "tt_025C_3v30",
+          "setup_slack_ns": 77.7339,
+          "hold_slack_ns": 0.88593
+        },
+        {
+          "name": "tt_025C_5v00",
+          "setup_slack_ns": 79.3583,
+          "hold_slack_ns": 0.61293
+        }
+      ]
+    }
+  ],
+  "macros": [],
+  "def_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-51/flow/.klt/place-and-route/usb_utmi_phy.def",
+  "gds_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-51/flow/.klt/place-and-route/usb_utmi_phy.gds",
+  "layer_map": {
+    "path": "/home/ubuntu/.volare/gf180mcuD/libs.tech/klayout/tech/gf180mcu.map",
+    "resolution": "family"
+  },
+  "verilog_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-51/flow/.klt/place-and-route/usb_utmi_phy.v",
+  "spef_sta": null,
+  "power": {
+    "pdn": true,
+    "global_connect": true,
+    "power_net": "VDD",
+    "ground_net": "VSS",
+    "tapcell_master": "gf180mcu_fd_sc_mcu9t5v0__filltie",
+    "endcap_master": "gf180mcu_fd_sc_mcu9t5v0__endcap",
+    "filler_masters": [
+      "gf180mcu_fd_sc_mcu9t5v0__fill_64",
+      "gf180mcu_fd_sc_mcu9t5v0__fill_32",
+      "gf180mcu_fd_sc_mcu9t5v0__fill_16",
+      "gf180mcu_fd_sc_mcu9t5v0__fill_8",
+      "gf180mcu_fd_sc_mcu9t5v0__fill_4",
+      "gf180mcu_fd_sc_mcu9t5v0__fill_2",
+      "gf180mcu_fd_sc_mcu9t5v0__fill_1"
+    ],
+    "straps": [
+      {
+        "layer": "Metal1",
+        "spacing_um": null
+      },
+      {
+        "layer": "Metal4",
+        "spacing_um": 0.56
+      },
+      {
+        "layer": "Metal5",
+        "spacing_um": null
+      }
+    ],
+    "connects": [
+      {
+        "layers": [
+          "Metal1",
+          "Metal4"
+        ],
+        "max_columns": 5,
+        "ongrid": [
+          "Metal2",
+          "Metal3",
+          "Metal4"
+        ],
+        "split_cuts": {
+          "layer": "Metal3",
+          "width_um": 0.128
+        }
+      },
+      {
+        "layers": [
+          "Metal4",
+          "Metal5"
+        ],
+        "max_columns": null,
+        "ongrid": null,
+        "split_cuts": null
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.3.0",
+    "klayout_version": "0.30.11",
+    "pdk": {
+      "name": "gf180mcuD",
+      "source": "PDK_ROOT environment variable",
+      "version": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b"
+    },
+    "deck": {
+      "name": "gf180mcu_fd_sc_mcu9t5v0__tt_025C_1v80",
+      "content_hash": "sha256:2482036479c89fbee3754524e3fcdb530aa40aff0fef9e9385e3bc7b7a67d4ef",
+      "released": false
+    },
+    "input": {
+      "content_hash": "sha256:d69239a10484c4ee3a4640ce6b5a39062989c69d699fbeda7311a5223d17961f"
+    }
+  }
+}

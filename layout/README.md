@@ -4,7 +4,7 @@ GDS/OASIS and DRC/LVS evidence for this PHY. Two halves, tracked separately
 because they landed at very different maturity (issue #25, T1 checklist item
 2).
 
-## Digital — `layout/digital/` (delivered)
+## Digital — `layout/digital/` (delivered, DRC-clean, LVS-matched)
 
 `usb_utmi_phy.gds` / `usb_utmi_phy.def` / `usb_utmi_phy_routed.v` — the real
 PHY digital logic (`rtl/usb_utmi_phy.v` and every submodule it instantiates:
@@ -15,22 +15,45 @@ place-and-routed (`klt place-and-route`, OpenROAD) against the gf180mcu
 `gf180mcu_fd_sc_mcu9t5v0` standard-cell library. Reproducible from a
 committed, real request-file flow — see `flow/README.md`'s "Digital
 synthesis + place-and-route" section for the exact commands, and
-`verification/records/place-and-route/` for the measurement (342 standard
-cells, 0 setup/hold/antenna violations at the 12 MHz spec clock rate, ~68 MHz
-`fmax`).
+`verification/records/place-and-route/` for the measurement: 342 mapped
+standard cells becoming 1206 placed instances after tapcell/PDN/filler
+insertion, 0 setup/hold/antenna/router-DRC violations at the 12 MHz spec
+clock rate, ~68.5 MHz `fmax`, and every one of the cell library's 15 liberty
+corners (1v8, 3v3 and 5v0 families) positive on both setup and hold.
 
-**Not DRC-clean, not LVS-checked.** `verification/records/digital-drc/`
-records a real (non-fabricated) DRC run against this exact GDS: 153
-violations, all `Metal1` space/width violations at standard-cell row gaps,
-root-caused to `klt place-and-route`'s v1 scope having no filler-cell /
-power-rail-stitching stage (that command's own docs name this as deliberate
-"Out of scope," not a bug — see that record for the full verification
-chain, including cross-checking against
-[klayout-tools#1028](https://github.com/2AMLogic/klayout-tools/issues/1028)).
-LVS is not attempted at all by this issue. Both DRC-clean and LVS-clean
-digital signoff are separate T1 checklist items (issue #25's own "Related"
-section names items 3 and 4) this layout unblocks, not something issue #25
-itself completes.
+**DRC-clean** — `verification/records/digital-drc/records/20260825-224815-6a83263.md`:
+`klt drc --deck gf180mcu` reports `status: "clean"`, `violation_count: 0`
+against this exact GDS.
+
+**LVS-matched** — `verification/records/digital-lvs/records/20260825-224930-6a83263.md`:
+gate-level LVS of this GDS against `usb_utmi_phy_routed.v` (the as-built,
+post-CTS netlist) is a `status: "match"` with 0 mismatches, and a negative
+control on a deliberately-broken reference is correctly rejected. Driven by
+`scripts/digital_lvs.py`, which documents the three real asymmetries between
+the two sides (physical-only filler cells, unconnected CTS load pins, and
+`assign`-aliased output ports) and how each is handled. That script exists
+because nothing upstream joins `klt place-and-route`'s outputs to a `klt lvs`
+verdict — filed generically as
+[klayout-tools#1419](https://github.com/2AMLogic/klayout-tools/issues/1419);
+if it closes, most of the script should become deletable.
+
+**What that does and does not say.** The curated `gf180mcu` deck is klt's own
+rule set, not the foundry sign-off deck; no metal/density fill is inserted, so
+this is not a density-clean claim. LVS holds the standard cells as black boxes
+— it verifies the *assembly*, not the foundry's library. There is no IO ring
+or pad frame (core-only), and no post-layout extracted-parasitic simulation.
+
+**History.** Until 2026-08-25 this layout was **not** DRC-clean: 153 `Metal1`
+space/width violations at standard-cell row gaps, root-caused to
+`klt place-and-route`'s v1 scope having no filler-cell / power-rail-stitching
+stage, and cross-checked against
+[klayout-tools#1028](https://github.com/2AMLogic/klayout-tools/issues/1028).
+That record
+(`verification/records/digital-drc/records/20260817-202448-0956748.md`) is
+superseded, not deleted — it remains the correct account of what a PDN-less
+place-and-route produces. The fix was upstream: `klt` 0.3.0 added the optional
+`request.power` block (tapcell + `pdngen` + `filler_placement`), which
+`flow/request-usb-utmi-phy-par.json` now uses.
 
 ## Analog — attempted against klt's layout-plan path, **not delivered**
 
@@ -169,6 +192,15 @@ source .venv/bin/activate
 ln -sf "$(pwd)/scripts/openroad-docker.sh" .venv/bin/openroad   # if no native openroad
 PDK=gf180mcuD klt synthesize flow/request-usb-utmi-phy-synth.json --format json
 PDK=gf180mcuD klt place-and-route flow/request-usb-utmi-phy-par.json --format json
+cp flow/.klt/place-and-route/usb_utmi_phy.gds layout/digital/usb_utmi_phy.gds
+cp flow/.klt/place-and-route/usb_utmi_phy.def layout/digital/usb_utmi_phy.def
+cp flow/.klt/place-and-route/usb_utmi_phy.v   layout/digital/usb_utmi_phy_routed.v
+
+# --- digital signoff: DRC, then gate-level LVS (+ its negative control)
+PDK=gf180mcuD klt drc layout/digital/usb_utmi_phy.gds \
+    --deck gf180mcu --top usb_utmi_phy --format json
+PDK=gf180mcuD python3 scripts/digital_lvs.py
+PDK=gf180mcuD python3 scripts/digital_lvs.py --negative-control
 
 # --- analog: execute the committed layout plans, then DRC each result
 PDK_ROOT=$HOME/.volare python3 scripts/gen_analog_layout.py            # text report
@@ -189,7 +221,14 @@ errors are re-measured live rather than quoted from prose. If either ever
 ingests, the script says so explicitly (`status:
 ingest-unexpectedly-succeeded`) and tells you to author its plan.
 
+`scripts/digital_lvs.py` writes its extracted/reference netlists and reports
+to `layout/digital/lvs/` (gitignored scratch — the frozen copies live under
+`verification/records/digital-lvs/`). It exits 0 only on `status: "match"`;
+with `--negative-control` it exits 0 only when the compare correctly *fails*
+on a deliberately broken reference.
+
 See `flow/README.md` for the digital flow's full detail and
 `verification/README.md` for the evidence-record convention that
 `verification/records/place-and-route/`, `verification/records/digital-drc/`,
-and `verification/records/analog-layout/` all follow.
+`verification/records/digital-lvs/`, and
+`verification/records/analog-layout/` all follow.

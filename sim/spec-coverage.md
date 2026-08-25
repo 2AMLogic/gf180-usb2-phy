@@ -17,7 +17,11 @@ these records, because none of them is a subset.
 - **Simulator**: ngspice-47
 - **Netlist provenance**: schematic — the DUT of every experiment is the
   generated export under `design/netlist/`, not a post-layout extraction.
-  There is no layout yet, so no extracted re-run exists to compare against.
+  There is no **analog** layout, so no extracted re-run exists to compare
+  any electrical row against. (The digital half does have a committed,
+  DRC-clean, LVS-matched layout — but no row in this table is a digital
+  timing row, and the digital layout's own timing is liberty + estimated RC
+  inside OpenROAD, not an extracted-parasitic SPICE re-run either.)
 
 ## The table
 
@@ -37,7 +41,7 @@ experiment directory, and read its newest record.
 | Receiver thresholds — differential | §4 (\|D+ − D−\| > 200 mV over 0.8–2.5 V common mode) | `sim/diff-receiver-sensitivity/` | `20260817-203852-5a963e7` | **FAIL** — 30/45 corners fail at the 2.5 V common-mode point; 45/45 pass at 0.8 V and 1.65 V |
 | Receiver thresholds — single-ended D+ | §4 (VIH > 2.0 V, VIL < 0.8 V) | `sim/se-receiver-dp-thresholds/` | `20260817-203631-a408cb6` | **PASS** 45/45 |
 | Receiver thresholds — single-ended D− | §4 (VIH > 2.0 V, VIL < 0.8 V) | `sim/se-receiver-dm-thresholds/` | `20260817-203654-a408cb6` | **PASS** 45/45 |
-| DRC / LVS | §8.2 marks this "N/A — layout hygiene, not an electrical spec row" | — | — | **Not applicable yet**: `layout/` holds no layout, so there is nothing to run `klt drc` / `klt lvs` against. §11 still requires it before signoff. |
+| DRC / LVS | §8.2 marks this "N/A — layout hygiene, not an electrical spec row" | `layout/digital/` | `verification/records/digital-drc/records/20260825-224815-6a83263.md`; `verification/records/digital-lvs/records/20260825-224930-6a83263.md` | **PASS for the digital half, not attempted for the analog half.** `klt drc` on `layout/digital/usb_utmi_phy.gds` is `clean` / 0 violations; gate-level `klt lvs` against the as-built netlist is `match` / 0 mismatches, with a passing negative control. The five analog blocks have **no committed GDS** (`layout/README.md` § "Analog"), so nothing analog can be checked yet. §11 requires both halves before signoff. |
 
 **No spec limit was relaxed to produce this table.** Four §6/§4 rows fail at
 some corners; those are recorded as failures with the offending corner-ids and

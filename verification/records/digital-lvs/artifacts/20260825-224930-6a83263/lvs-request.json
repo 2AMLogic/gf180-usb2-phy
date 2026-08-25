@@ -1,0 +1,12 @@
+{
+  "schema": "klt.lvs.request/1",
+  "layout": {
+    "netlist": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-51/layout/digital/lvs/usb_utmi_phy_layout.spice",
+    "top": "usb_utmi_phy"
+  },
+  "reference": {
+    "netlist": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-51/layout/digital/lvs/usb_utmi_phy_reference.spice",
+    "top": "usb_utmi_phy"
+  },
+  "engine": "klayout"
+}
