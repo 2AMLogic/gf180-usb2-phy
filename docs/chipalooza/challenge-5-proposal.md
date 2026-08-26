@@ -328,7 +328,9 @@ and is the authority if this table and it ever disagree.
 | K | Digital UTMI logic functional correctness | — | — | — | spec §11: bit-exact against NRZI / bit-stuffing / SYNC / EOP / line-state behaviour, by cocotb testbench | n/a | `verification/records/bit-codec-functional/` (record `20260817-212707-6c7f7ff`), `verification/records/utmi-framing-functional/` (record `20260818-025302-ea10f21`) | **Met.** Bit-exact against an independently-written Python golden model, plus TX→wire→RX loopback including the trailing-stuff-bit case, back-to-back packets at minimum gap, and a malformed-SYNC case that must never assert `RxActive`/`RxValid`. | Rail-independent (a functional claim, not an electrical one) |
 | L | DRC | — | 0 violations | — | spec §11: clean before signoff | n/a | `verification/records/digital-drc/records/20260825-224815-6a83263.md` | **Met for the digital half** — `klt drc --deck gf180mcu` reports `status: "clean"`, `violation_count: 0` against `layout/digital/usb_utmi_phy.gds`. **Unmet for the analog half: no analog GDS exists** (§5). | Rail-independent |
 | M | LVS | — | match, 0 mismatches | — | spec §11: clean before signoff | n/a | `verification/records/digital-lvs/records/20260825-224930-6a83263.md` | **Met for the digital half** — gate-level LVS of the routed GDS against the as-built netlist is a match, with a passing negative control. **Unmet for the analog half: no analog GDS exists.** | Rail-independent |
-| N | Post-layout (extracted-parasitic) PVT simulation | — | — | — | spec §11 (implied by "verified by simulation" once a layout exists) | n/a | `verification/records/post-layout-pvt/records/20260825-233200-1c84648.md` (digital half only) | **Unmet.** Every electrical row above is still measured against the **schematic** netlist under `design/netlist/`, not an extracted one — there is no analog layout to extract (blocked on #52). Row I now has a first post-layout attempt: a SPEF-annotated `klt sta` re-run at three corners against the committed digital layout, moving worst setup slack by +0.22 to +2.96 ns versus the liberty/estimated-RC numbers Row I cites. That attempt's own parasitic annotation is incomplete (186 of 366 design nets), root-caused to a `klt sta` net-name-correlation defect (klayout-tools#1422) rather than to the extraction itself — so it does not change Row I's verdict and does not make this row **Met**. | Same |
+| N | Post-layout (extracted-parasitic) PVT simulation | — | — | — | spec §11 (implied by "verified by simulation" once a layout exists) | n/a | `verification/records/post-layout-pvt/records/20260825-233200-1c84648.md` (digital half only) | **Unmet.** Every electrical row above is still measured against the **schematic** netlist under `design/netlist/`, not an extracted one — there is no analog layout to extract (re-measured, still blocked, under
+issue #52; tracked onward at klayout-tools#1424 and gf180-usb2-phy#56).
+Row I now has a first post-layout attempt: a SPEF-annotated `klt sta` re-run at three corners against the committed digital layout, moving worst setup slack by +0.22 to +2.96 ns versus the liberty/estimated-RC numbers Row I cites. That attempt's own parasitic annotation is incomplete (186 of 366 design nets), root-caused to a `klt sta` net-name-correlation defect (klayout-tools#1422) rather than to the extraction itself — so it does not change Row I's verdict and does not make this row **Met**. | Same |
 
 ### Summary of verdicts
 
@@ -360,12 +362,19 @@ L) and LVS-matched (Row M).
 `se_receiver_dm` or `se_receiver_dp`. This is a measured result, not an
 untried assumption: the attempt is committed, re-runnable
 (`scripts/gen_analog_layout.py`) and its raw output frozen under
-`verification/records/analog-layout/`. Three of the five blocks place
-DRC-clean but route **0 of their nets**, and two cannot be ingested by the
-layout-plan compiler at all. `layout/README.md` § "Analog" gives the
-per-block outcome and the four distinct root causes, each reported by the
-tool itself rather than inferred. A block of placed devices with none of
-its nets wired is not a layout and is not committed as one.
+`verification/records/analog-layout/`. Issue #52 re-measured it against a
+newer `klt` pin advanced to consume three friction fixes this repo had
+filed (all closed upstream): the routing capability those fixes add
+(block orientation, a two-layer bus role) exists but is opt-in and unused
+by the committed plans, so the same three blocks still place but route
+**0 of their nets** — and are now DRC-**violating** rather than clean, a
+regression in the tool's own partial-route geometry filed as
+klayout-tools#1424. The other two blocks still cannot be ingested by the
+layout-plan compiler at all, one of which (`dplus_pullup`) now has its
+path forward tracked as an explicit maintainer decision at
+gf180-usb2-phy#56. `layout/README.md` § "Analog" gives the full per-block
+outcome. A block of placed devices with none of its nets wired is not a
+layout and is not committed as one.
 
 **What that means for this proposal.** A Chipalooza submission is expected
 to reach DRC/LVS-clean GDS with post-layout PVT simulation. This block is
