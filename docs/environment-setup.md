@@ -130,19 +130,33 @@ source .venv/bin/activate
 
 | Component | Pinned to | Resolved via |
 |---|---|---|
-| `klayout-tools` (`klt`) | git revision [`b3e284fff4243cdc5ab59a684d9c0582444b485d`](https://github.com/2AMLogic/klayout-tools/commit/b3e284fff4243cdc5ab59a684d9c0582444b485d) (klt 0.2.0) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@b3e284fff4243cdc5ab59a684d9c0582444b485d"` (what `scripts/setup-env.sh` runs) |
+| `klayout-tools` (`klt`) | git revision [`07b1f04f29f21b3f8551d3937183b206a57a5e3a`](https://github.com/2AMLogic/klayout-tools/commit/07b1f04f29f21b3f8551d3937183b206a57a5e3a) (reports as `klt 0.3.0+g07b1f04f29f2`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@07b1f04f29f21b3f8551d3937183b206a57a5e3a"` (what `scripts/setup-env.sh` runs) |
 | `gf180mcu` PDK | `open_pdks` commit `c6d73a35f524070e85faff4a6a9eef49553ebc2b` (variants `gf180mcuA`/`B`/`C`/`D`; the digital harness uses `gf180mcuD`, whose standard-cell libraries are `gf180mcu_fd_sc_mcu7t5v0` / `gf180mcu_fd_sc_mcu9t5v0`) | `volare enable --pdk-root ~/.volare --pdk gf180mcu c6d73a35f524070e85faff4a6a9eef49553ebc2b` |
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
 
 The `klt` revision is pinned by commit, not by version: klayout-tools has
 not cut a PyPI release past `0.2.0`, so a version pin cannot express which
-capabilities are present. The current pin was moved forward from
-`af5791b5` by issue #25 specifically to pick up the netlist-driven
-layout-plan compiler/executor (klayout-tools PR #1158 "Phase C",
-`klayout_tools.layout_plan_execute`, plus its follow-up fix #1161) that
-`scripts/gen_analog_layout.py` calls — see `layout/README.md`. `npm run
-check:ci` was re-run against the new pin before it was committed.
+capabilities are present. The pin has moved forward twice so far:
+
+1. `af5791b5` → `b3e284fff4243cdc5ab59a684d9c0582444b485d` by issue #25,
+   specifically to pick up the netlist-driven layout-plan compiler/executor
+   (klayout-tools PR #1158 "Phase C", `klayout_tools.layout_plan_execute`,
+   plus its follow-up fix #1161) that `scripts/gen_analog_layout.py` calls
+   — see `layout/README.md`.
+2. `b3e284f` → `07b1f04f29f21b3f8551d3937183b206a57a5e3a` by issue #52.
+   `b3e284f` was authored 2026-08-18T08:48:51Z; the friction issues that
+   same exercise filed (klayout-tools#1163/#1164/#1165) all closed
+   `COMPLETED` between 12:19Z and 14:33Z **that same day**, so the pin this
+   repo carried predated every fix by hours despite never having been
+   re-pinned since. `07b1f04f` is klayout-tools' `main` tip as of this
+   move (2026-08-26T00:25:45Z) — confirmed (`gh api
+   repos/2AMLogic/klayout-tools/compare/<fix-commit>...main`) to have every
+   relevant fix commit as a strict ancestor. See
+   `verification/records/analog-layout/records/20260826-003645-4644a26.md`
+   for what re-measuring against it did and did not change.
+
+`npm run check:ci` was re-run against each new pin before it was committed.
 
 `klt` in turn resolves `iverilog`/`yosys`/`openroad` and the PDK itself from
 the host — it does not vendor them. Those are:

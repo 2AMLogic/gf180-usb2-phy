@@ -18,7 +18,10 @@ these records, because none of them is a subset.
 - **Netlist provenance**: schematic — the DUT of every experiment is the
   generated export under `design/netlist/`, not a post-layout extraction.
   There is no **analog** layout, so no extracted re-run exists to compare
-  any electrical row against; this is blocked on #52. (The digital half
+  any electrical row against; issue #52 re-measured this against a newer
+  `klt` pin and it remains undelivered, now tracked at
+  klayout-tools#1424 (a DRC regression the re-measurement surfaced) and
+  gf180-usb2-phy#56 (a pending `dplus_pullup` design decision). (The digital half
   does have a committed, DRC-clean, LVS-matched layout, and — as of #51's
   `post-layout-pvt` experiment — a first, partial SPEF-annotated post-layout
   STA re-run: `verification/records/post-layout-pvt/records/20260825-233200-1c84648.md`.
@@ -48,7 +51,7 @@ experiment directory, and read its newest record.
 | Receiver thresholds — differential | §4 (\|D+ − D−\| > 200 mV over 0.8–2.5 V common mode) | `sim/diff-receiver-sensitivity/` | `20260817-203852-5a963e7` | **FAIL** — 30/45 corners fail at the 2.5 V common-mode point; 45/45 pass at 0.8 V and 1.65 V |
 | Receiver thresholds — single-ended D+ | §4 (VIH > 2.0 V, VIL < 0.8 V) | `sim/se-receiver-dp-thresholds/` | `20260817-203631-a408cb6` | **PASS** 45/45 |
 | Receiver thresholds — single-ended D− | §4 (VIH > 2.0 V, VIL < 0.8 V) | `sim/se-receiver-dm-thresholds/` | `20260817-203654-a408cb6` | **PASS** 45/45 |
-| DRC / LVS | §8.2 marks this "N/A — layout hygiene, not an electrical spec row" | `layout/digital/` | `verification/records/digital-drc/records/20260825-224815-6a83263.md`; `verification/records/digital-lvs/records/20260825-224930-6a83263.md` | **PASS for the digital half, not attempted for the analog half.** `klt drc` on `layout/digital/usb_utmi_phy.gds` is `clean` / 0 violations; gate-level `klt lvs` against the as-built netlist is `match` / 0 mismatches, with a passing negative control. The five analog blocks have **no committed GDS** (`layout/README.md` § "Analog"), so nothing analog can be checked yet. §11 requires both halves before signoff. |
+| DRC / LVS | §8.2 marks this "N/A — layout hygiene, not an electrical spec row" | `layout/digital/`; `layout/analog/` | `verification/records/digital-drc/records/20260825-224815-6a83263.md`; `verification/records/digital-lvs/records/20260825-224930-6a83263.md`; `verification/records/analog-layout/records/20260826-003645-4644a26.md` | **PASS for the digital half. Analog half re-measured under issue #52, still not delivered.** `klt drc` on `layout/digital/usb_utmi_phy.gds` is `clean` / 0 violations; gate-level `klt lvs` against the as-built netlist is `match` / 0 mismatches, with a passing negative control. For analog: the `klt` pin was advanced to consume three friction fixes this repo filed (klayout-tools#1163/#1164/#1165, all closed), but the three placeable blocks (`differential_receiver`, `se_receiver_dm`, `se_receiver_dp`) still route 0/N of their nets — the new fields the plans would need to exploit them (block orientation, a two-layer bus role) are opt-in and unused by the committed plans — and are now DRC-**violating** rather than clean, a regression root-caused to a new klt behavior and filed as klayout-tools#1424. `differential_driver` and `dplus_pullup` still cannot be ingested at all (unchanged error text); the latter's path forward needs a maintainer decision, tracked at gf180-usb2-phy#56. No analog GDS is committed (`layout/README.md` § "Analog"). §11 requires both halves before signoff. |
 
 **No spec limit was relaxed to produce this table.** Four §6/§4 rows fail at
 some corners; those are recorded as failures with the offending corner-ids and
