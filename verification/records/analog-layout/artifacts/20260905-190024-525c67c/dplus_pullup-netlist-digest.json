@@ -1,0 +1,2749 @@
+{
+  "circuit": "DPLUS_PULLUP",
+  "devices": [
+    {
+      "name": "0",
+      "device_class": "PPOLYF_U",
+      "terminals": {
+        "A": "NODE2",
+        "B": "NODE1",
+        "W": "VSS"
+      },
+      "params": {
+        "R": 0.0,
+        "L": 0.343,
+        "W": 4.0,
+        "A": 0.0,
+        "P": 0.0
+      }
+    },
+    {
+      "name": "1",
+      "device_class": "PPOLYF_U",
+      "terminals": {
+        "A": "NODE3",
+        "B": "NODE2",
+        "W": "VSS"
+      },
+      "params": {
+        "R": 0.0,
+        "L": 0.686,
+        "W": 4.0,
+        "A": 0.0,
+        "P": 0.0
+      }
+    },
+    {
+      "name": "2",
+      "device_class": "PPOLYF_U",
+      "terminals": {
+        "A": "NODE4",
+        "B": "NODE3",
+        "W": "VSS"
+      },
+      "params": {
+        "R": 0.0,
+        "L": 1.371,
+        "W": 4.0,
+        "A": 0.0,
+        "P": 0.0
+      }
+    },
+    {
+      "name": "3",
+      "device_class": "PPOLYF_U",
+      "terminals": {
+        "A": "NODE5",
+        "B": "NODE4",
+        "W": "VSS"
+      },
+      "params": {
+        "R": 0.0,
+        "L": 2.743,
+        "W": 4.0,
+        "A": 0.0,
+        "P": 0.0
+      }
+    },
+    {
+      "name": "4",
+      "device_class": "PPOLYF_U",
+      "terminals": {
+        "A": "DP",
+        "B": "NODE5",
+        "W": "VSS"
+      },
+      "params": {
+        "R": 0.0,
+        "L": 5.486,
+        "W": 4.0,
+        "A": 0.0,
+        "P": 0.0
+      }
+    },
+    {
+      "name": "BASE",
+      "device_class": "PPOLYF_U",
+      "terminals": {
+        "A": "NODE1",
+        "B": "NODE0",
+        "W": "VSS"
+      },
+      "params": {
+        "R": 0.0,
+        "L": 11.43,
+        "W": 4.0,
+        "A": 0.0,
+        "P": 0.0
+      }
+    },
+    {
+      "name": "EN_F0",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "PU_ENB",
+        "D": "NODE0",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "EN_F1",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "PU_ENB",
+        "D": "NODE0",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "EN_F2",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "PU_ENB",
+        "D": "NODE0",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "EN_F3",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "PU_ENB",
+        "D": "NODE0",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "EN_F4",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "PU_ENB",
+        "D": "NODE0",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "EN_F5",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "PU_ENB",
+        "D": "NODE0",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "EN_F6",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "PU_ENB",
+        "D": "NODE0",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "EN_F7",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "PU_ENB",
+        "D": "NODE0",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "EN_F8",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "PU_ENB",
+        "D": "NODE0",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "EN_F9",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "PU_ENB",
+        "D": "NODE0",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "N_EN",
+      "device_class": "NFET",
+      "terminals": {
+        "S": "VSS",
+        "G": "PU_EN",
+        "D": "PU_ENB",
+        "B": "VSS"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 1.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "N_T0",
+      "device_class": "NFET",
+      "terminals": {
+        "S": "VSS",
+        "G": "TRIM0",
+        "D": "TRIM0B",
+        "B": "VSS"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 1.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "N_T1",
+      "device_class": "NFET",
+      "terminals": {
+        "S": "VSS",
+        "G": "TRIM1",
+        "D": "TRIM1B",
+        "B": "VSS"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 1.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "N_T2",
+      "device_class": "NFET",
+      "terminals": {
+        "S": "VSS",
+        "G": "TRIM2",
+        "D": "TRIM2B",
+        "B": "VSS"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 1.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "N_T3",
+      "device_class": "NFET",
+      "terminals": {
+        "S": "VSS",
+        "G": "TRIM3",
+        "D": "TRIM3B",
+        "B": "VSS"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 1.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "N_T4",
+      "device_class": "NFET",
+      "terminals": {
+        "S": "VSS",
+        "G": "TRIM4",
+        "D": "TRIM4B",
+        "B": "VSS"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 1.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "P_EN",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "PU_EN",
+        "D": "PU_ENB",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 2.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "P_T0",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "TRIM0",
+        "D": "TRIM0B",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 2.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "P_T1",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "TRIM1",
+        "D": "TRIM1B",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 2.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "P_T2",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "TRIM2",
+        "D": "TRIM2B",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 2.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "P_T3",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "TRIM3",
+        "D": "TRIM3B",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 2.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "P_T4",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "VPU_REG",
+        "G": "TRIM4",
+        "D": "TRIM4B",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 2.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW0_F0",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE1",
+        "G": "TRIM0B",
+        "D": "NODE2",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW0_F1",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE1",
+        "G": "TRIM0B",
+        "D": "NODE2",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW0_F2",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE1",
+        "G": "TRIM0B",
+        "D": "NODE2",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW0_F3",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE1",
+        "G": "TRIM0B",
+        "D": "NODE2",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW0_F4",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE1",
+        "G": "TRIM0B",
+        "D": "NODE2",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW0_F5",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE1",
+        "G": "TRIM0B",
+        "D": "NODE2",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW0_F6",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE1",
+        "G": "TRIM0B",
+        "D": "NODE2",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW0_F7",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE1",
+        "G": "TRIM0B",
+        "D": "NODE2",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW0_F8",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE1",
+        "G": "TRIM0B",
+        "D": "NODE2",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW0_F9",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE1",
+        "G": "TRIM0B",
+        "D": "NODE2",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW1_F0",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE2",
+        "G": "TRIM1B",
+        "D": "NODE3",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW1_F1",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE2",
+        "G": "TRIM1B",
+        "D": "NODE3",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW1_F2",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE2",
+        "G": "TRIM1B",
+        "D": "NODE3",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW1_F3",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE2",
+        "G": "TRIM1B",
+        "D": "NODE3",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW1_F4",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE2",
+        "G": "TRIM1B",
+        "D": "NODE3",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW1_F5",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE2",
+        "G": "TRIM1B",
+        "D": "NODE3",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW1_F6",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE2",
+        "G": "TRIM1B",
+        "D": "NODE3",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW1_F7",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE2",
+        "G": "TRIM1B",
+        "D": "NODE3",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW1_F8",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE2",
+        "G": "TRIM1B",
+        "D": "NODE3",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW1_F9",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE2",
+        "G": "TRIM1B",
+        "D": "NODE3",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW2_F0",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE3",
+        "G": "TRIM2B",
+        "D": "NODE4",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW2_F1",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE3",
+        "G": "TRIM2B",
+        "D": "NODE4",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW2_F2",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE3",
+        "G": "TRIM2B",
+        "D": "NODE4",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW2_F3",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE3",
+        "G": "TRIM2B",
+        "D": "NODE4",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW2_F4",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE3",
+        "G": "TRIM2B",
+        "D": "NODE4",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW2_F5",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE3",
+        "G": "TRIM2B",
+        "D": "NODE4",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW2_F6",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE3",
+        "G": "TRIM2B",
+        "D": "NODE4",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW2_F7",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE3",
+        "G": "TRIM2B",
+        "D": "NODE4",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW2_F8",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE3",
+        "G": "TRIM2B",
+        "D": "NODE4",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW2_F9",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE3",
+        "G": "TRIM2B",
+        "D": "NODE4",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW3_F0",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE4",
+        "G": "TRIM3B",
+        "D": "NODE5",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW3_F1",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE4",
+        "G": "TRIM3B",
+        "D": "NODE5",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW3_F2",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE4",
+        "G": "TRIM3B",
+        "D": "NODE5",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW3_F3",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE4",
+        "G": "TRIM3B",
+        "D": "NODE5",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW3_F4",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE4",
+        "G": "TRIM3B",
+        "D": "NODE5",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW3_F5",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE4",
+        "G": "TRIM3B",
+        "D": "NODE5",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW3_F6",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE4",
+        "G": "TRIM3B",
+        "D": "NODE5",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW3_F7",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE4",
+        "G": "TRIM3B",
+        "D": "NODE5",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW3_F8",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE4",
+        "G": "TRIM3B",
+        "D": "NODE5",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW3_F9",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE4",
+        "G": "TRIM3B",
+        "D": "NODE5",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW4_F0",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE5",
+        "G": "TRIM4B",
+        "D": "DP",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW4_F1",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE5",
+        "G": "TRIM4B",
+        "D": "DP",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW4_F2",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE5",
+        "G": "TRIM4B",
+        "D": "DP",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW4_F3",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE5",
+        "G": "TRIM4B",
+        "D": "DP",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW4_F4",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE5",
+        "G": "TRIM4B",
+        "D": "DP",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW4_F5",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE5",
+        "G": "TRIM4B",
+        "D": "DP",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW4_F6",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE5",
+        "G": "TRIM4B",
+        "D": "DP",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW4_F7",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE5",
+        "G": "TRIM4B",
+        "D": "DP",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW4_F8",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE5",
+        "G": "TRIM4B",
+        "D": "DP",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    },
+    {
+      "name": "SW4_F9",
+      "device_class": "PFET",
+      "terminals": {
+        "S": "NODE5",
+        "G": "TRIM4B",
+        "D": "DP",
+        "B": "VPU_REG"
+      },
+      "params": {
+        "L": 0.28,
+        "W": 100.0,
+        "AS": 0.0,
+        "AD": 0.0,
+        "PS": 0.0,
+        "PD": 0.0
+      }
+    }
+  ],
+  "nets": [
+    {
+      "name": "DP",
+      "is_pin": true,
+      "terminals": [
+        {
+          "device": "4",
+          "terminal": "A"
+        },
+        {
+          "device": "SW4_F0",
+          "terminal": "D"
+        },
+        {
+          "device": "SW4_F1",
+          "terminal": "D"
+        },
+        {
+          "device": "SW4_F2",
+          "terminal": "D"
+        },
+        {
+          "device": "SW4_F3",
+          "terminal": "D"
+        },
+        {
+          "device": "SW4_F4",
+          "terminal": "D"
+        },
+        {
+          "device": "SW4_F5",
+          "terminal": "D"
+        },
+        {
+          "device": "SW4_F6",
+          "terminal": "D"
+        },
+        {
+          "device": "SW4_F7",
+          "terminal": "D"
+        },
+        {
+          "device": "SW4_F8",
+          "terminal": "D"
+        },
+        {
+          "device": "SW4_F9",
+          "terminal": "D"
+        }
+      ]
+    },
+    {
+      "name": "NODE0",
+      "is_pin": false,
+      "terminals": [
+        {
+          "device": "BASE",
+          "terminal": "B"
+        },
+        {
+          "device": "EN_F0",
+          "terminal": "D"
+        },
+        {
+          "device": "EN_F1",
+          "terminal": "D"
+        },
+        {
+          "device": "EN_F2",
+          "terminal": "D"
+        },
+        {
+          "device": "EN_F3",
+          "terminal": "D"
+        },
+        {
+          "device": "EN_F4",
+          "terminal": "D"
+        },
+        {
+          "device": "EN_F5",
+          "terminal": "D"
+        },
+        {
+          "device": "EN_F6",
+          "terminal": "D"
+        },
+        {
+          "device": "EN_F7",
+          "terminal": "D"
+        },
+        {
+          "device": "EN_F8",
+          "terminal": "D"
+        },
+        {
+          "device": "EN_F9",
+          "terminal": "D"
+        }
+      ]
+    },
+    {
+      "name": "NODE1",
+      "is_pin": false,
+      "terminals": [
+        {
+          "device": "0",
+          "terminal": "B"
+        },
+        {
+          "device": "BASE",
+          "terminal": "A"
+        },
+        {
+          "device": "SW0_F0",
+          "terminal": "S"
+        },
+        {
+          "device": "SW0_F1",
+          "terminal": "S"
+        },
+        {
+          "device": "SW0_F2",
+          "terminal": "S"
+        },
+        {
+          "device": "SW0_F3",
+          "terminal": "S"
+        },
+        {
+          "device": "SW0_F4",
+          "terminal": "S"
+        },
+        {
+          "device": "SW0_F5",
+          "terminal": "S"
+        },
+        {
+          "device": "SW0_F6",
+          "terminal": "S"
+        },
+        {
+          "device": "SW0_F7",
+          "terminal": "S"
+        },
+        {
+          "device": "SW0_F8",
+          "terminal": "S"
+        },
+        {
+          "device": "SW0_F9",
+          "terminal": "S"
+        }
+      ]
+    },
+    {
+      "name": "NODE2",
+      "is_pin": false,
+      "terminals": [
+        {
+          "device": "0",
+          "terminal": "A"
+        },
+        {
+          "device": "1",
+          "terminal": "B"
+        },
+        {
+          "device": "SW0_F0",
+          "terminal": "D"
+        },
+        {
+          "device": "SW0_F1",
+          "terminal": "D"
+        },
+        {
+          "device": "SW0_F2",
+          "terminal": "D"
+        },
+        {
+          "device": "SW0_F3",
+          "terminal": "D"
+        },
+        {
+          "device": "SW0_F4",
+          "terminal": "D"
+        },
+        {
+          "device": "SW0_F5",
+          "terminal": "D"
+        },
+        {
+          "device": "SW0_F6",
+          "terminal": "D"
+        },
+        {
+          "device": "SW0_F7",
+          "terminal": "D"
+        },
+        {
+          "device": "SW0_F8",
+          "terminal": "D"
+        },
+        {
+          "device": "SW0_F9",
+          "terminal": "D"
+        },
+        {
+          "device": "SW1_F0",
+          "terminal": "S"
+        },
+        {
+          "device": "SW1_F1",
+          "terminal": "S"
+        },
+        {
+          "device": "SW1_F2",
+          "terminal": "S"
+        },
+        {
+          "device": "SW1_F3",
+          "terminal": "S"
+        },
+        {
+          "device": "SW1_F4",
+          "terminal": "S"
+        },
+        {
+          "device": "SW1_F5",
+          "terminal": "S"
+        },
+        {
+          "device": "SW1_F6",
+          "terminal": "S"
+        },
+        {
+          "device": "SW1_F7",
+          "terminal": "S"
+        },
+        {
+          "device": "SW1_F8",
+          "terminal": "S"
+        },
+        {
+          "device": "SW1_F9",
+          "terminal": "S"
+        }
+      ]
+    },
+    {
+      "name": "NODE3",
+      "is_pin": false,
+      "terminals": [
+        {
+          "device": "1",
+          "terminal": "A"
+        },
+        {
+          "device": "2",
+          "terminal": "B"
+        },
+        {
+          "device": "SW1_F0",
+          "terminal": "D"
+        },
+        {
+          "device": "SW1_F1",
+          "terminal": "D"
+        },
+        {
+          "device": "SW1_F2",
+          "terminal": "D"
+        },
+        {
+          "device": "SW1_F3",
+          "terminal": "D"
+        },
+        {
+          "device": "SW1_F4",
+          "terminal": "D"
+        },
+        {
+          "device": "SW1_F5",
+          "terminal": "D"
+        },
+        {
+          "device": "SW1_F6",
+          "terminal": "D"
+        },
+        {
+          "device": "SW1_F7",
+          "terminal": "D"
+        },
+        {
+          "device": "SW1_F8",
+          "terminal": "D"
+        },
+        {
+          "device": "SW1_F9",
+          "terminal": "D"
+        },
+        {
+          "device": "SW2_F0",
+          "terminal": "S"
+        },
+        {
+          "device": "SW2_F1",
+          "terminal": "S"
+        },
+        {
+          "device": "SW2_F2",
+          "terminal": "S"
+        },
+        {
+          "device": "SW2_F3",
+          "terminal": "S"
+        },
+        {
+          "device": "SW2_F4",
+          "terminal": "S"
+        },
+        {
+          "device": "SW2_F5",
+          "terminal": "S"
+        },
+        {
+          "device": "SW2_F6",
+          "terminal": "S"
+        },
+        {
+          "device": "SW2_F7",
+          "terminal": "S"
+        },
+        {
+          "device": "SW2_F8",
+          "terminal": "S"
+        },
+        {
+          "device": "SW2_F9",
+          "terminal": "S"
+        }
+      ]
+    },
+    {
+      "name": "NODE4",
+      "is_pin": false,
+      "terminals": [
+        {
+          "device": "2",
+          "terminal": "A"
+        },
+        {
+          "device": "3",
+          "terminal": "B"
+        },
+        {
+          "device": "SW2_F0",
+          "terminal": "D"
+        },
+        {
+          "device": "SW2_F1",
+          "terminal": "D"
+        },
+        {
+          "device": "SW2_F2",
+          "terminal": "D"
+        },
+        {
+          "device": "SW2_F3",
+          "terminal": "D"
+        },
+        {
+          "device": "SW2_F4",
+          "terminal": "D"
+        },
+        {
+          "device": "SW2_F5",
+          "terminal": "D"
+        },
+        {
+          "device": "SW2_F6",
+          "terminal": "D"
+        },
+        {
+          "device": "SW2_F7",
+          "terminal": "D"
+        },
+        {
+          "device": "SW2_F8",
+          "terminal": "D"
+        },
+        {
+          "device": "SW2_F9",
+          "terminal": "D"
+        },
+        {
+          "device": "SW3_F0",
+          "terminal": "S"
+        },
+        {
+          "device": "SW3_F1",
+          "terminal": "S"
+        },
+        {
+          "device": "SW3_F2",
+          "terminal": "S"
+        },
+        {
+          "device": "SW3_F3",
+          "terminal": "S"
+        },
+        {
+          "device": "SW3_F4",
+          "terminal": "S"
+        },
+        {
+          "device": "SW3_F5",
+          "terminal": "S"
+        },
+        {
+          "device": "SW3_F6",
+          "terminal": "S"
+        },
+        {
+          "device": "SW3_F7",
+          "terminal": "S"
+        },
+        {
+          "device": "SW3_F8",
+          "terminal": "S"
+        },
+        {
+          "device": "SW3_F9",
+          "terminal": "S"
+        }
+      ]
+    },
+    {
+      "name": "NODE5",
+      "is_pin": false,
+      "terminals": [
+        {
+          "device": "3",
+          "terminal": "A"
+        },
+        {
+          "device": "4",
+          "terminal": "B"
+        },
+        {
+          "device": "SW3_F0",
+          "terminal": "D"
+        },
+        {
+          "device": "SW3_F1",
+          "terminal": "D"
+        },
+        {
+          "device": "SW3_F2",
+          "terminal": "D"
+        },
+        {
+          "device": "SW3_F3",
+          "terminal": "D"
+        },
+        {
+          "device": "SW3_F4",
+          "terminal": "D"
+        },
+        {
+          "device": "SW3_F5",
+          "terminal": "D"
+        },
+        {
+          "device": "SW3_F6",
+          "terminal": "D"
+        },
+        {
+          "device": "SW3_F7",
+          "terminal": "D"
+        },
+        {
+          "device": "SW3_F8",
+          "terminal": "D"
+        },
+        {
+          "device": "SW3_F9",
+          "terminal": "D"
+        },
+        {
+          "device": "SW4_F0",
+          "terminal": "S"
+        },
+        {
+          "device": "SW4_F1",
+          "terminal": "S"
+        },
+        {
+          "device": "SW4_F2",
+          "terminal": "S"
+        },
+        {
+          "device": "SW4_F3",
+          "terminal": "S"
+        },
+        {
+          "device": "SW4_F4",
+          "terminal": "S"
+        },
+        {
+          "device": "SW4_F5",
+          "terminal": "S"
+        },
+        {
+          "device": "SW4_F6",
+          "terminal": "S"
+        },
+        {
+          "device": "SW4_F7",
+          "terminal": "S"
+        },
+        {
+          "device": "SW4_F8",
+          "terminal": "S"
+        },
+        {
+          "device": "SW4_F9",
+          "terminal": "S"
+        }
+      ]
+    },
+    {
+      "name": "PU_EN",
+      "is_pin": true,
+      "terminals": [
+        {
+          "device": "N_EN",
+          "terminal": "G"
+        },
+        {
+          "device": "P_EN",
+          "terminal": "G"
+        }
+      ]
+    },
+    {
+      "name": "PU_ENB",
+      "is_pin": false,
+      "terminals": [
+        {
+          "device": "EN_F0",
+          "terminal": "G"
+        },
+        {
+          "device": "EN_F1",
+          "terminal": "G"
+        },
+        {
+          "device": "EN_F2",
+          "terminal": "G"
+        },
+        {
+          "device": "EN_F3",
+          "terminal": "G"
+        },
+        {
+          "device": "EN_F4",
+          "terminal": "G"
+        },
+        {
+          "device": "EN_F5",
+          "terminal": "G"
+        },
+        {
+          "device": "EN_F6",
+          "terminal": "G"
+        },
+        {
+          "device": "EN_F7",
+          "terminal": "G"
+        },
+        {
+          "device": "EN_F8",
+          "terminal": "G"
+        },
+        {
+          "device": "EN_F9",
+          "terminal": "G"
+        },
+        {
+          "device": "N_EN",
+          "terminal": "D"
+        },
+        {
+          "device": "P_EN",
+          "terminal": "D"
+        }
+      ]
+    },
+    {
+      "name": "TRIM0",
+      "is_pin": true,
+      "terminals": [
+        {
+          "device": "N_T0",
+          "terminal": "G"
+        },
+        {
+          "device": "P_T0",
+          "terminal": "G"
+        }
+      ]
+    },
+    {
+      "name": "TRIM0B",
+      "is_pin": false,
+      "terminals": [
+        {
+          "device": "N_T0",
+          "terminal": "D"
+        },
+        {
+          "device": "P_T0",
+          "terminal": "D"
+        },
+        {
+          "device": "SW0_F0",
+          "terminal": "G"
+        },
+        {
+          "device": "SW0_F1",
+          "terminal": "G"
+        },
+        {
+          "device": "SW0_F2",
+          "terminal": "G"
+        },
+        {
+          "device": "SW0_F3",
+          "terminal": "G"
+        },
+        {
+          "device": "SW0_F4",
+          "terminal": "G"
+        },
+        {
+          "device": "SW0_F5",
+          "terminal": "G"
+        },
+        {
+          "device": "SW0_F6",
+          "terminal": "G"
+        },
+        {
+          "device": "SW0_F7",
+          "terminal": "G"
+        },
+        {
+          "device": "SW0_F8",
+          "terminal": "G"
+        },
+        {
+          "device": "SW0_F9",
+          "terminal": "G"
+        }
+      ]
+    },
+    {
+      "name": "TRIM1",
+      "is_pin": true,
+      "terminals": [
+        {
+          "device": "N_T1",
+          "terminal": "G"
+        },
+        {
+          "device": "P_T1",
+          "terminal": "G"
+        }
+      ]
+    },
+    {
+      "name": "TRIM1B",
+      "is_pin": false,
+      "terminals": [
+        {
+          "device": "N_T1",
+          "terminal": "D"
+        },
+        {
+          "device": "P_T1",
+          "terminal": "D"
+        },
+        {
+          "device": "SW1_F0",
+          "terminal": "G"
+        },
+        {
+          "device": "SW1_F1",
+          "terminal": "G"
+        },
+        {
+          "device": "SW1_F2",
+          "terminal": "G"
+        },
+        {
+          "device": "SW1_F3",
+          "terminal": "G"
+        },
+        {
+          "device": "SW1_F4",
+          "terminal": "G"
+        },
+        {
+          "device": "SW1_F5",
+          "terminal": "G"
+        },
+        {
+          "device": "SW1_F6",
+          "terminal": "G"
+        },
+        {
+          "device": "SW1_F7",
+          "terminal": "G"
+        },
+        {
+          "device": "SW1_F8",
+          "terminal": "G"
+        },
+        {
+          "device": "SW1_F9",
+          "terminal": "G"
+        }
+      ]
+    },
+    {
+      "name": "TRIM2",
+      "is_pin": true,
+      "terminals": [
+        {
+          "device": "N_T2",
+          "terminal": "G"
+        },
+        {
+          "device": "P_T2",
+          "terminal": "G"
+        }
+      ]
+    },
+    {
+      "name": "TRIM2B",
+      "is_pin": false,
+      "terminals": [
+        {
+          "device": "N_T2",
+          "terminal": "D"
+        },
+        {
+          "device": "P_T2",
+          "terminal": "D"
+        },
+        {
+          "device": "SW2_F0",
+          "terminal": "G"
+        },
+        {
+          "device": "SW2_F1",
+          "terminal": "G"
+        },
+        {
+          "device": "SW2_F2",
+          "terminal": "G"
+        },
+        {
+          "device": "SW2_F3",
+          "terminal": "G"
+        },
+        {
+          "device": "SW2_F4",
+          "terminal": "G"
+        },
+        {
+          "device": "SW2_F5",
+          "terminal": "G"
+        },
+        {
+          "device": "SW2_F6",
+          "terminal": "G"
+        },
+        {
+          "device": "SW2_F7",
+          "terminal": "G"
+        },
+        {
+          "device": "SW2_F8",
+          "terminal": "G"
+        },
+        {
+          "device": "SW2_F9",
+          "terminal": "G"
+        }
+      ]
+    },
+    {
+      "name": "TRIM3",
+      "is_pin": true,
+      "terminals": [
+        {
+          "device": "N_T3",
+          "terminal": "G"
+        },
+        {
+          "device": "P_T3",
+          "terminal": "G"
+        }
+      ]
+    },
+    {
+      "name": "TRIM3B",
+      "is_pin": false,
+      "terminals": [
+        {
+          "device": "N_T3",
+          "terminal": "D"
+        },
+        {
+          "device": "P_T3",
+          "terminal": "D"
+        },
+        {
+          "device": "SW3_F0",
+          "terminal": "G"
+        },
+        {
+          "device": "SW3_F1",
+          "terminal": "G"
+        },
+        {
+          "device": "SW3_F2",
+          "terminal": "G"
+        },
+        {
+          "device": "SW3_F3",
+          "terminal": "G"
+        },
+        {
+          "device": "SW3_F4",
+          "terminal": "G"
+        },
+        {
+          "device": "SW3_F5",
+          "terminal": "G"
+        },
+        {
+          "device": "SW3_F6",
+          "terminal": "G"
+        },
+        {
+          "device": "SW3_F7",
+          "terminal": "G"
+        },
+        {
+          "device": "SW3_F8",
+          "terminal": "G"
+        },
+        {
+          "device": "SW3_F9",
+          "terminal": "G"
+        }
+      ]
+    },
+    {
+      "name": "TRIM4",
+      "is_pin": true,
+      "terminals": [
+        {
+          "device": "N_T4",
+          "terminal": "G"
+        },
+        {
+          "device": "P_T4",
+          "terminal": "G"
+        }
+      ]
+    },
+    {
+      "name": "TRIM4B",
+      "is_pin": false,
+      "terminals": [
+        {
+          "device": "N_T4",
+          "terminal": "D"
+        },
+        {
+          "device": "P_T4",
+          "terminal": "D"
+        },
+        {
+          "device": "SW4_F0",
+          "terminal": "G"
+        },
+        {
+          "device": "SW4_F1",
+          "terminal": "G"
+        },
+        {
+          "device": "SW4_F2",
+          "terminal": "G"
+        },
+        {
+          "device": "SW4_F3",
+          "terminal": "G"
+        },
+        {
+          "device": "SW4_F4",
+          "terminal": "G"
+        },
+        {
+          "device": "SW4_F5",
+          "terminal": "G"
+        },
+        {
+          "device": "SW4_F6",
+          "terminal": "G"
+        },
+        {
+          "device": "SW4_F7",
+          "terminal": "G"
+        },
+        {
+          "device": "SW4_F8",
+          "terminal": "G"
+        },
+        {
+          "device": "SW4_F9",
+          "terminal": "G"
+        }
+      ]
+    },
+    {
+      "name": "VPU_REG",
+      "is_pin": true,
+      "terminals": [
+        {
+          "device": "EN_F0",
+          "terminal": "B"
+        },
+        {
+          "device": "EN_F0",
+          "terminal": "S"
+        },
+        {
+          "device": "EN_F1",
+          "terminal": "B"
+        },
+        {
+          "device": "EN_F1",
+          "terminal": "S"
+        },
+        {
+          "device": "EN_F2",
+          "terminal": "B"
+        },
+        {
+          "device": "EN_F2",
+          "terminal": "S"
+        },
+        {
+          "device": "EN_F3",
+          "terminal": "B"
+        },
+        {
+          "device": "EN_F3",
+          "terminal": "S"
+        },
+        {
+          "device": "EN_F4",
+          "terminal": "B"
+        },
+        {
+          "device": "EN_F4",
+          "terminal": "S"
+        },
+        {
+          "device": "EN_F5",
+          "terminal": "B"
+        },
+        {
+          "device": "EN_F5",
+          "terminal": "S"
+        },
+        {
+          "device": "EN_F6",
+          "terminal": "B"
+        },
+        {
+          "device": "EN_F6",
+          "terminal": "S"
+        },
+        {
+          "device": "EN_F7",
+          "terminal": "B"
+        },
+        {
+          "device": "EN_F7",
+          "terminal": "S"
+        },
+        {
+          "device": "EN_F8",
+          "terminal": "B"
+        },
+        {
+          "device": "EN_F8",
+          "terminal": "S"
+        },
+        {
+          "device": "EN_F9",
+          "terminal": "B"
+        },
+        {
+          "device": "EN_F9",
+          "terminal": "S"
+        },
+        {
+          "device": "P_EN",
+          "terminal": "B"
+        },
+        {
+          "device": "P_EN",
+          "terminal": "S"
+        },
+        {
+          "device": "P_T0",
+          "terminal": "B"
+        },
+        {
+          "device": "P_T0",
+          "terminal": "S"
+        },
+        {
+          "device": "P_T1",
+          "terminal": "B"
+        },
+        {
+          "device": "P_T1",
+          "terminal": "S"
+        },
+        {
+          "device": "P_T2",
+          "terminal": "B"
+        },
+        {
+          "device": "P_T2",
+          "terminal": "S"
+        },
+        {
+          "device": "P_T3",
+          "terminal": "B"
+        },
+        {
+          "device": "P_T3",
+          "terminal": "S"
+        },
+        {
+          "device": "P_T4",
+          "terminal": "B"
+        },
+        {
+          "device": "P_T4",
+          "terminal": "S"
+        },
+        {
+          "device": "SW0_F0",
+          "terminal": "B"
+        },
+        {
+          "device": "SW0_F1",
+          "terminal": "B"
+        },
+        {
+          "device": "SW0_F2",
+          "terminal": "B"
+        },
+        {
+          "device": "SW0_F3",
+          "terminal": "B"
+        },
+        {
+          "device": "SW0_F4",
+          "terminal": "B"
+        },
+        {
+          "device": "SW0_F5",
+          "terminal": "B"
+        },
+        {
+          "device": "SW0_F6",
+          "terminal": "B"
+        },
+        {
+          "device": "SW0_F7",
+          "terminal": "B"
+        },
+        {
+          "device": "SW0_F8",
+          "terminal": "B"
+        },
+        {
+          "device": "SW0_F9",
+          "terminal": "B"
+        },
+        {
+          "device": "SW1_F0",
+          "terminal": "B"
+        },
+        {
+          "device": "SW1_F1",
+          "terminal": "B"
+        },
+        {
+          "device": "SW1_F2",
+          "terminal": "B"
+        },
+        {
+          "device": "SW1_F3",
+          "terminal": "B"
+        },
+        {
+          "device": "SW1_F4",
+          "terminal": "B"
+        },
+        {
+          "device": "SW1_F5",
+          "terminal": "B"
+        },
+        {
+          "device": "SW1_F6",
+          "terminal": "B"
+        },
+        {
+          "device": "SW1_F7",
+          "terminal": "B"
+        },
+        {
+          "device": "SW1_F8",
+          "terminal": "B"
+        },
+        {
+          "device": "SW1_F9",
+          "terminal": "B"
+        },
+        {
+          "device": "SW2_F0",
+          "terminal": "B"
+        },
+        {
+          "device": "SW2_F1",
+          "terminal": "B"
+        },
+        {
+          "device": "SW2_F2",
+          "terminal": "B"
+        },
+        {
+          "device": "SW2_F3",
+          "terminal": "B"
+        },
+        {
+          "device": "SW2_F4",
+          "terminal": "B"
+        },
+        {
+          "device": "SW2_F5",
+          "terminal": "B"
+        },
+        {
+          "device": "SW2_F6",
+          "terminal": "B"
+        },
+        {
+          "device": "SW2_F7",
+          "terminal": "B"
+        },
+        {
+          "device": "SW2_F8",
+          "terminal": "B"
+        },
+        {
+          "device": "SW2_F9",
+          "terminal": "B"
+        },
+        {
+          "device": "SW3_F0",
+          "terminal": "B"
+        },
+        {
+          "device": "SW3_F1",
+          "terminal": "B"
+        },
+        {
+          "device": "SW3_F2",
+          "terminal": "B"
+        },
+        {
+          "device": "SW3_F3",
+          "terminal": "B"
+        },
+        {
+          "device": "SW3_F4",
+          "terminal": "B"
+        },
+        {
+          "device": "SW3_F5",
+          "terminal": "B"
+        },
+        {
+          "device": "SW3_F6",
+          "terminal": "B"
+        },
+        {
+          "device": "SW3_F7",
+          "terminal": "B"
+        },
+        {
+          "device": "SW3_F8",
+          "terminal": "B"
+        },
+        {
+          "device": "SW3_F9",
+          "terminal": "B"
+        },
+        {
+          "device": "SW4_F0",
+          "terminal": "B"
+        },
+        {
+          "device": "SW4_F1",
+          "terminal": "B"
+        },
+        {
+          "device": "SW4_F2",
+          "terminal": "B"
+        },
+        {
+          "device": "SW4_F3",
+          "terminal": "B"
+        },
+        {
+          "device": "SW4_F4",
+          "terminal": "B"
+        },
+        {
+          "device": "SW4_F5",
+          "terminal": "B"
+        },
+        {
+          "device": "SW4_F6",
+          "terminal": "B"
+        },
+        {
+          "device": "SW4_F7",
+          "terminal": "B"
+        },
+        {
+          "device": "SW4_F8",
+          "terminal": "B"
+        },
+        {
+          "device": "SW4_F9",
+          "terminal": "B"
+        }
+      ]
+    },
+    {
+      "name": "VSS",
+      "is_pin": true,
+      "terminals": [
+        {
+          "device": "0",
+          "terminal": "W"
+        },
+        {
+          "device": "1",
+          "terminal": "W"
+        },
+        {
+          "device": "2",
+          "terminal": "W"
+        },
+        {
+          "device": "3",
+          "terminal": "W"
+        },
+        {
+          "device": "4",
+          "terminal": "W"
+        },
+        {
+          "device": "BASE",
+          "terminal": "W"
+        },
+        {
+          "device": "N_EN",
+          "terminal": "B"
+        },
+        {
+          "device": "N_EN",
+          "terminal": "S"
+        },
+        {
+          "device": "N_T0",
+          "terminal": "B"
+        },
+        {
+          "device": "N_T0",
+          "terminal": "S"
+        },
+        {
+          "device": "N_T1",
+          "terminal": "B"
+        },
+        {
+          "device": "N_T1",
+          "terminal": "S"
+        },
+        {
+          "device": "N_T2",
+          "terminal": "B"
+        },
+        {
+          "device": "N_T2",
+          "terminal": "S"
+        },
+        {
+          "device": "N_T3",
+          "terminal": "B"
+        },
+        {
+          "device": "N_T3",
+          "terminal": "S"
+        },
+        {
+          "device": "N_T4",
+          "terminal": "B"
+        },
+        {
+          "device": "N_T4",
+          "terminal": "S"
+        }
+      ]
+    }
+  ]
+}

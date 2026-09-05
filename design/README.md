@@ -165,11 +165,20 @@ not a `sim/` evidence record):**
 - **Bypass-switch sizing was corrected during authoring, not shipped
   blind.** A first-cut `W=20u/nf=1` PMOS bypass switch measured
   `Ron ~223ohm` -- comparable to a full LSB step (30ohm) and enough to
-  wreck trim resolution. Re-sized to `W=1000u` in `nf=10` fingers of 100u
+  wreck trim resolution. Re-sized to a total `W=1000u` in ten 100u fingers
   (near this PDK's observed ~100-150u-per-finger / `nf<=64` modelling
   limits), which measured `Ron ~4.4ohm` -- ~15% of one LSB, a much better
   (though still not PVT-verified) margin. All six pass switches (`MEN` +
   five `MSW*`) in the committed schematic use the corrected sizing.
+  **How those ten fingers are drawn changed on 2026-09-05** (issue #56,
+  `spec/decisions/0001-dplus-pullup-switch-device-flattening.md`): each
+  switch was one `nf=10` instance and is now ten one-finger `W=100u`
+  instances in parallel -- one device per drawn gate -- because `klt`'s
+  subckt-call -> plain-element ingestion, the path `klt layout-plan` and
+  `klt lvs` share, refuses to represent a multi-finger device
+  (klayout-tools#1487). Total drawn gate width and every terminal net are
+  unchanged, and the electrical equivalence is measured rather than assumed
+  in `sim/dplus-pullup-tolerance/records/20260905-185112-6bfe679.md`.
 - With that fix, injecting 100uA out of `DP` (`VPU_REG=3.3V`, enabled)
   measured effective resistance of ~2141ohm at trim code 0 (all
   segments in-circuit) and ~1070ohm at trim code 31 (all segments

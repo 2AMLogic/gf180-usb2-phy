@@ -1,0 +1,2144 @@
+{
+  "schema_version": 1,
+  "cell_name": "dplus_pullup_probe",
+  "gds_path": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-56/layout/analog/out/issue56-probe/dplus_pullup_probe.gds",
+  "pdk": {
+    "name": "gf180mcuD",
+    "variant": "gf180mcuD",
+    "version": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b"
+  },
+  "bbox_um": {
+    "x0": 0.0,
+    "y0": 0.0,
+    "x1": 93.22000000000001,
+    "y1": 101.12
+  },
+  "device_groups": [
+    {
+      "id": "r_ladder",
+      "generator": "res_array",
+      "devices": [
+        {
+          "name": "BASE",
+          "device_class": "PPOLYF_U"
+        },
+        {
+          "name": "0",
+          "device_class": "PPOLYF_U"
+        },
+        {
+          "name": "1",
+          "device_class": "PPOLYF_U"
+        },
+        {
+          "name": "2",
+          "device_class": "PPOLYF_U"
+        },
+        {
+          "name": "3",
+          "device_class": "PPOLYF_U"
+        },
+        {
+          "name": "4",
+          "device_class": "PPOLYF_U"
+        }
+      ],
+      "resolved_params": {
+        "length_um": 11.43,
+        "width_um": 4.0,
+        "num": 6,
+        "dummy": 0
+      },
+      "offset_um": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bbox_um": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 76.12,
+        "y1": 4.0
+      }
+    },
+    {
+      "id": "mp_en",
+      "generator": "mos_array",
+      "devices": [
+        {
+          "name": "EN_F0",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F1",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F2",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F3",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F4",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F5",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F6",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F7",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F8",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F9",
+          "device_class": "PFET"
+        }
+      ],
+      "resolved_params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "rows": 1,
+        "cols": 10,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      },
+      "offset_um": {
+        "x": 78.27000000000001,
+        "y": 0.15
+      },
+      "bbox_um": {
+        "x0": 78.12,
+        "y0": 0.0,
+        "x1": 93.22000000000001,
+        "y1": 101.12
+      }
+    }
+  ],
+  "nets": [
+    {
+      "net": "NODE0",
+      "pins": [
+        {
+          "block": "r_ladder",
+          "port": "R0_B"
+        },
+        {
+          "block": "mp_en",
+          "port": "U0_D"
+        },
+        {
+          "block": "mp_en",
+          "port": "U1_D"
+        },
+        {
+          "block": "mp_en",
+          "port": "U2_D"
+        },
+        {
+          "block": "mp_en",
+          "port": "U3_D"
+        },
+        {
+          "block": "mp_en",
+          "port": "U4_D"
+        },
+        {
+          "block": "mp_en",
+          "port": "U5_D"
+        },
+        {
+          "block": "mp_en",
+          "port": "U6_D"
+        },
+        {
+          "block": "mp_en",
+          "port": "U7_D"
+        },
+        {
+          "block": "mp_en",
+          "port": "U8_D"
+        },
+        {
+          "block": "mp_en",
+          "port": "U9_D"
+        }
+      ],
+      "routed": false,
+      "route_length_um": 591.55,
+      "status": "partial",
+      "legs": [
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U2_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U3_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U4_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U3_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U5_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U4_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U5_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U1_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U6_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U7_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U4_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U5_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U3_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U3_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U2_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U4_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U5_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U5_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U4_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U3_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U3_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 6.08um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 6.08um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 6.08um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 6.08um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U5_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 6.08um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U3_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U4_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 6.08um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 7.6um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U3_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 7.6um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U4_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U5_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 7.6um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 7.6um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 7.6um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U4_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 9.12um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U5_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 9.12um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 9.12um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U3_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 9.12um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U6_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 10.64um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U4_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 10.64um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U5_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 10.64um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U6_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 12.16um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U7_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 12.16um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U8_D"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 13.68um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R0_B"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_D"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 115.27,
+          "reason": null
+        },
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R0_B"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_D"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 116.79000000000002,
+          "reason": null
+        },
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R0_B"
+            },
+            {
+              "block": "mp_en",
+              "port": "U4_D"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 118.31,
+          "reason": null
+        },
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R0_B"
+            },
+            {
+              "block": "mp_en",
+              "port": "U2_D"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 119.83,
+          "reason": null
+        },
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R0_B"
+            },
+            {
+              "block": "mp_en",
+              "port": "U0_D"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 121.35000000000002,
+          "reason": null
+        },
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R0_B"
+            },
+            {
+              "block": "mp_en",
+              "port": "U1_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "backbone's 0.17um-wide drawn path crosses 8.745um through its own pin's block 'mp_en' -- more than that pin's own 6.525um edge margin (including 0.085um for the route's own half-width), so the route plows through, or clips the edge of, the block's interior (e.g. a same-facing port pair reaching a pin on the block's far side, crossing another pin on the way, or a connecting jog running close enough alongside the block's own edge that the drawn wire's width still overlaps it) rather than approaching the pin cleanly"
+        },
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R0_B"
+            },
+            {
+              "block": "mp_en",
+              "port": "U3_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "backbone's 0.17um-wide drawn path crosses 10.26um through its own pin's block 'mp_en' -- more than that pin's own 5.005um edge margin (including 0.085um for the route's own half-width), so the route plows through, or clips the edge of, the block's interior (e.g. a same-facing port pair reaching a pin on the block's far side, crossing another pin on the way, or a connecting jog running close enough alongside the block's own edge that the drawn wire's width still overlaps it) rather than approaching the pin cleanly"
+        },
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R0_B"
+            },
+            {
+              "block": "mp_en",
+              "port": "U5_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "backbone's 0.17um-wide drawn path crosses 11.78um through its own pin's block 'mp_en' -- more than that pin's own 3.485um edge margin (including 0.085um for the route's own half-width), so the route plows through, or clips the edge of, the block's interior (e.g. a same-facing port pair reaching a pin on the block's far side, crossing another pin on the way, or a connecting jog running close enough alongside the block's own edge that the drawn wire's width still overlaps it) rather than approaching the pin cleanly"
+        },
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R0_B"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "backbone's 0.17um-wide drawn path crosses 13.3um through its own pin's block 'mp_en' -- more than that pin's own 1.965um edge margin (including 0.085um for the route's own half-width), so the route plows through, or clips the edge of, the block's interior (e.g. a same-facing port pair reaching a pin on the block's far side, crossing another pin on the way, or a connecting jog running close enough alongside the block's own edge that the drawn wire's width still overlaps it) rather than approaching the pin cleanly"
+        },
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R0_B"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_D"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "backbone's 0.17um-wide drawn path crosses 14.82um through its own pin's block 'mp_en' -- more than that pin's own 0.445um edge margin (including 0.085um for the route's own half-width), so the route plows through, or clips the edge of, the block's interior (e.g. a same-facing port pair reaching a pin on the block's far side, crossing another pin on the way, or a connecting jog running close enough alongside the block's own edge that the drawn wire's width still overlaps it) rather than approaching the pin cleanly"
+        }
+      ]
+    },
+    {
+      "net": "NODE1",
+      "pins": [
+        {
+          "block": "r_ladder",
+          "port": "R0_A"
+        },
+        {
+          "block": "r_ladder",
+          "port": "R1_B"
+        }
+      ],
+      "routed": false,
+      "route_length_um": null,
+      "status": "unrouted",
+      "legs": [
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R0_A"
+            },
+            {
+              "block": "r_ladder",
+              "port": "R1_B"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.17um through block 'r_ladder''s own port 'R0_B' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        }
+      ]
+    },
+    {
+      "net": "NODE2",
+      "pins": [
+        {
+          "block": "r_ladder",
+          "port": "R1_A"
+        },
+        {
+          "block": "r_ladder",
+          "port": "R2_B"
+        }
+      ],
+      "routed": false,
+      "route_length_um": null,
+      "status": "unrouted",
+      "legs": [
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R1_A"
+            },
+            {
+              "block": "r_ladder",
+              "port": "R2_B"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.165um through block 'r_ladder''s own port 'R0_B' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        }
+      ]
+    },
+    {
+      "net": "NODE3",
+      "pins": [
+        {
+          "block": "r_ladder",
+          "port": "R2_A"
+        },
+        {
+          "block": "r_ladder",
+          "port": "R3_B"
+        }
+      ],
+      "routed": false,
+      "route_length_um": null,
+      "status": "unrouted",
+      "legs": [
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R2_A"
+            },
+            {
+              "block": "r_ladder",
+              "port": "R3_B"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.165um through block 'r_ladder''s own port 'R1_B' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        }
+      ]
+    },
+    {
+      "net": "NODE4",
+      "pins": [
+        {
+          "block": "r_ladder",
+          "port": "R3_A"
+        },
+        {
+          "block": "r_ladder",
+          "port": "R4_B"
+        }
+      ],
+      "routed": false,
+      "route_length_um": null,
+      "status": "unrouted",
+      "legs": [
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R3_A"
+            },
+            {
+              "block": "r_ladder",
+              "port": "R4_B"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.165um through block 'r_ladder''s own port 'R2_B' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        }
+      ]
+    },
+    {
+      "net": "NODE5",
+      "pins": [
+        {
+          "block": "r_ladder",
+          "port": "R4_A"
+        },
+        {
+          "block": "r_ladder",
+          "port": "R5_B"
+        }
+      ],
+      "routed": false,
+      "route_length_um": null,
+      "status": "unrouted",
+      "legs": [
+        {
+          "pins": [
+            {
+              "block": "r_ladder",
+              "port": "R4_A"
+            },
+            {
+              "block": "r_ladder",
+              "port": "R5_B"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.165um through block 'r_ladder''s own port 'R3_B' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        }
+      ]
+    },
+    {
+      "net": "PU_ENB",
+      "pins": [
+        {
+          "block": "mp_en",
+          "port": "U0_G"
+        },
+        {
+          "block": "mp_en",
+          "port": "U1_G"
+        },
+        {
+          "block": "mp_en",
+          "port": "U2_G"
+        },
+        {
+          "block": "mp_en",
+          "port": "U3_G"
+        },
+        {
+          "block": "mp_en",
+          "port": "U4_G"
+        },
+        {
+          "block": "mp_en",
+          "port": "U5_G"
+        },
+        {
+          "block": "mp_en",
+          "port": "U6_G"
+        },
+        {
+          "block": "mp_en",
+          "port": "U7_G"
+        },
+        {
+          "block": "mp_en",
+          "port": "U8_G"
+        },
+        {
+          "block": "mp_en",
+          "port": "U9_G"
+        }
+      ],
+      "routed": true,
+      "route_length_um": 16.740000000000023,
+      "status": "routed",
+      "legs": [
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_G"
+            },
+            {
+              "block": "mp_en",
+              "port": "U1_G"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 1.8599999999999994,
+          "reason": null
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_G"
+            },
+            {
+              "block": "mp_en",
+              "port": "U2_G"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 1.8599999999999994,
+          "reason": null
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U3_G"
+            },
+            {
+              "block": "mp_en",
+              "port": "U5_G"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 1.8599999999999994,
+          "reason": null
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U4_G"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_G"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 1.8599999999999994,
+          "reason": null
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U5_G"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_G"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 1.8599999999999994,
+          "reason": null
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U6_G"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_G"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 1.8599999999999994,
+          "reason": null
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U7_G"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_G"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 1.8599999999999994,
+          "reason": null
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_G"
+            },
+            {
+              "block": "mp_en",
+              "port": "U3_G"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 1.8600000000000136,
+          "reason": null
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_G"
+            },
+            {
+              "block": "mp_en",
+              "port": "U4_G"
+            }
+          ],
+          "routed": true,
+          "route_length_um": 1.8600000000000136,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "net": "VPU_REG",
+      "pins": [
+        {
+          "block": "mp_en",
+          "port": "U0_S"
+        },
+        {
+          "block": "mp_en",
+          "port": "U1_S"
+        },
+        {
+          "block": "mp_en",
+          "port": "U2_S"
+        },
+        {
+          "block": "mp_en",
+          "port": "U3_S"
+        },
+        {
+          "block": "mp_en",
+          "port": "U4_S"
+        },
+        {
+          "block": "mp_en",
+          "port": "U5_S"
+        },
+        {
+          "block": "mp_en",
+          "port": "U6_S"
+        },
+        {
+          "block": "mp_en",
+          "port": "U7_S"
+        },
+        {
+          "block": "mp_en",
+          "port": "U8_S"
+        },
+        {
+          "block": "mp_en",
+          "port": "U9_S"
+        }
+      ],
+      "routed": false,
+      "route_length_um": null,
+      "status": "unrouted",
+      "legs": [
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U1_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_D' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U3_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U4_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U3_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U5_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U4_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U7_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U2_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_D' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U5_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U6_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U3_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_D' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U5_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U4_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_D' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U2_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U3_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U4_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U5_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 3.04um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U5_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_D' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_D' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U4_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U3_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U3_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 4.56um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 6.08um through block 'mp_en''s own port 'U0_D' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 6.08um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 6.08um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U5_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 6.08um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U3_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U4_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 6.08um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 6.08um through block 'mp_en''s own port 'U0_D' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U0_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 7.6um through block 'mp_en''s own port 'U0_D' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U3_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 7.6um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U4_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U5_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 7.6um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U1_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 7.6um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 7.6um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U5_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U6_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 9.12um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U2_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 9.12um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U3_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 9.12um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U4_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 9.12um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U4_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 10.64um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U5_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 10.64um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U6_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U7_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 10.64um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U6_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 12.16um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U7_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U8_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 12.16um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        },
+        {
+          "pins": [
+            {
+              "block": "mp_en",
+              "port": "U8_S"
+            },
+            {
+              "block": "mp_en",
+              "port": "U9_S"
+            }
+          ],
+          "routed": false,
+          "route_length_um": null,
+          "reason": "self-net backbone crosses 13.68um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+        }
+      ]
+    }
+  ],
+  "pins": [],
+  "unrouted_nets": [
+    "NODE0",
+    "NODE1",
+    "NODE2",
+    "NODE3",
+    "NODE4",
+    "NODE5",
+    "VPU_REG"
+  ],
+  "unmapped_netlist_nets": [
+    "PU_EN",
+    "TRIM0",
+    "TRIM0B",
+    "TRIM1",
+    "TRIM1B",
+    "TRIM2",
+    "TRIM2B",
+    "TRIM3",
+    "TRIM3B",
+    "TRIM4",
+    "TRIM4B",
+    "VSS"
+  ],
+  "drc_hints": {
+    "min_spacing_um": null,
+    "matched_groups": [
+      {
+        "matched_group_id": "res_array:6",
+        "blocks": [
+          "r_ladder"
+        ],
+        "placement_symmetric": null
+      },
+      {
+        "matched_group_id": "mos_array:1x10:common_centroid",
+        "blocks": [
+          "mp_en"
+        ],
+        "placement_symmetric": null
+      }
+    ],
+    "notes": [
+      "net 'NODE0' could not be routed: 5 of 11 pins could not be connected into one net ('mp_en.U1_D', 'mp_en.U3_D', 'mp_en.U5_D', 'mp_en.U7_D', 'mp_en.U9_D') -- every candidate leg reaching them was rejected (per-leg detail in nets[].legs[]); nearest rejection ('mp_en.U1_D' -> 'mp_en.U3_D'): self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_S' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally",
+      "net 'NODE1' could not be routed: self-net backbone crosses 4.17um through block 'r_ladder''s own port 'R0_B' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally",
+      "net 'NODE2' could not be routed: self-net backbone crosses 1.165um through block 'r_ladder''s own port 'R0_B' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally",
+      "net 'NODE3' could not be routed: self-net backbone crosses 1.165um through block 'r_ladder''s own port 'R1_B' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally",
+      "net 'NODE4' could not be routed: self-net backbone crosses 1.165um through block 'r_ladder''s own port 'R2_B' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally",
+      "net 'NODE5' could not be routed: self-net backbone crosses 1.165um through block 'r_ladder''s own port 'R3_B' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally",
+      "net 'VPU_REG' could not be routed: 9 of 10 pins could not be connected into one net ('mp_en.U1_S', 'mp_en.U2_S', 'mp_en.U3_S', 'mp_en.U4_S', 'mp_en.U5_S', 'mp_en.U6_S', 'mp_en.U7_S', 'mp_en.U8_S', 'mp_en.U9_S') -- every candidate leg reaching them was rejected (per-leg detail in nets[].legs[]); nearest rejection ('mp_en.U0_S' -> 'mp_en.U1_S'): self-net backbone crosses 1.52um through block 'mp_en''s own port 'U0_D' on the same drawing layer -- bussing this net across the block would draw a silent short to that pad; route to a layer_role with a metal2/via stack instead (or configure routing.cross_block_layer_role, issue #1168), or wire this net externally"
+    ]
+  },
+  "warnings": [
+    "device_groups (id 'r_ladder'): devices disagree on netlist-derived 'length_um' (device '0' reports 0.343, an earlier device in this group already resolved 11.43) -- using 11.43",
+    "device_groups (id 'r_ladder'): devices disagree on netlist-derived 'length_um' (device '1' reports 0.686, an earlier device in this group already resolved 11.43) -- using 11.43",
+    "device_groups (id 'r_ladder'): devices disagree on netlist-derived 'length_um' (device '2' reports 1.371, an earlier device in this group already resolved 11.43) -- using 11.43",
+    "device_groups (id 'r_ladder'): devices disagree on netlist-derived 'length_um' (device '3' reports 2.743, an earlier device in this group already resolved 11.43) -- using 11.43",
+    "device_groups (id 'r_ladder'): devices disagree on netlist-derived 'length_um' (device '4' reports 5.486, an earlier device in this group already resolved 11.43) -- using 11.43"
+  ]
+}

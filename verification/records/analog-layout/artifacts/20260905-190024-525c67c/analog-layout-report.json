@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "klt_version": "0.3.0",
+  "plan_dir": "layout/analog/plans",
+  "out_dir": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-56/layout/analog/out",
+  "blocks": [
+    {
+      "block": "differential_driver",
+      "plan": null,
+      "expected_reason": "series-termination resistors are rm1 (metal-1) devices, which the curated gf180mcu deck does not know, and no klt gen generator draws a metal resistor",
+      "status": "ingest-failed",
+      "message": "could not convert subckt-call reference netlist '/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-56/design/netlist/differential_driver.spice' to plain-element form: subcircuit 'rm1' is not a known device for the requested deck (known: cap_mim_2f0_m4m5_noshield, nfet_03v3, nfet_06v0, pfet_03v3, pfet_06v0, ppolyf_u, ppolyf_u_1k, ppolyf_u_2k, ppolyf_u_3k); if it is a real device, pass reference.device_map to map it explicitly"
+    },
+    {
+      "block": "differential_receiver",
+      "plan": "layout/analog/plans/differential_receiver.json",
+      "status": "executed",
+      "klt_exit_code": 3,
+      "gds_path": "layout/analog/out/differential_receiver.gds",
+      "device_group_count": 11,
+      "net_count": 8,
+      "routed_net_count": 0,
+      "unrouted_nets": [
+        "AMPOUT",
+        "BUF1",
+        "IBIASN",
+        "LOADDIODE",
+        "RXD",
+        "TAIL",
+        "VDD",
+        "VSS"
+      ],
+      "unmapped_netlist_nets": [],
+      "bbox_um": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 433.67999999999984,
+        "y1": 41.12
+      },
+      "warning_count": 0,
+      "drc": {
+        "status": "violations",
+        "violation_count": 19,
+        "by_rule": {
+          "metal1.width.1": 19
+        }
+      }
+    },
+    {
+      "block": "dplus_pullup",
+      "plan": null,
+      "expected_reason": "the pull-up switch devices carry nf=10 (multi-finger), which klt's subckt-call -> plain-element conversion refuses to represent",
+      "status": "ingest-unexpectedly-succeeded",
+      "message": "klt now ingests this netlist -- the blocker this entry records is gone; author a plan under layout/analog/plans/ and drop this block from BLOCKED_BLOCKS"
+    },
+    {
+      "block": "se_receiver_dm",
+      "plan": "layout/analog/plans/se_receiver_dm.json",
+      "status": "executed",
+      "klt_exit_code": 3,
+      "gds_path": "layout/analog/out/se_receiver_dm.gds",
+      "device_group_count": 13,
+      "net_count": 9,
+      "routed_net_count": 0,
+      "unrouted_nets": [
+        "AMPOUT",
+        "BUF1",
+        "IBIASN",
+        "LOADDIODE",
+        "RXDM",
+        "TAIL",
+        "VDD",
+        "VREF",
+        "VSS"
+      ],
+      "unmapped_netlist_nets": [],
+      "bbox_um": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 445.9599999999998,
+        "y1": 41.12
+      },
+      "warning_count": 0,
+      "drc": {
+        "status": "violations",
+        "violation_count": 22,
+        "by_rule": {
+          "metal1.width.1": 22
+        }
+      }
+    },
+    {
+      "block": "se_receiver_dp",
+      "plan": "layout/analog/plans/se_receiver_dp.json",
+      "status": "executed",
+      "klt_exit_code": 3,
+      "gds_path": "layout/analog/out/se_receiver_dp.gds",
+      "device_group_count": 13,
+      "net_count": 9,
+      "routed_net_count": 0,
+      "unrouted_nets": [
+        "AMPOUT",
+        "BUF1",
+        "IBIASN",
+        "LOADDIODE",
+        "RXDP",
+        "TAIL",
+        "VDD",
+        "VREF",
+        "VSS"
+      ],
+      "unmapped_netlist_nets": [],
+      "bbox_um": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 445.9599999999998,
+        "y1": 41.12
+      },
+      "warning_count": 0,
+      "drc": {
+        "status": "violations",
+        "violation_count": 22,
+        "by_rule": {
+          "metal1.width.1": 22
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "executed": 3,
+    "fully_routed": 0,
+    "drc_clean": 0,
+    "verdict": "analog layout NOT delivered -- see layout/README.md"
+  }
+}
