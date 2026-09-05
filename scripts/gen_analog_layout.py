@@ -9,12 +9,13 @@ produced, and prints one honest per-block verdict.
 **This is a measurement harness, not a "produce the shipping layout"
 button.** Its current, recorded outcome is *not* a usable analog layout --
 see ``layout/README.md`` and
-``verification/records/analog-layout/`` for the full finding. Two of the
-five analog blocks cannot even be ingested by klt's netlist reader, and the
-three that can place their devices but route **none** of their nets. The
-script exists so that finding is reproducible with one command, and so the
-day klayout-tools closes those gaps the same command re-measures instead of
-someone re-deriving the setup from prose.
+``verification/records/analog-layout/`` for the full finding. One of the
+five analog blocks (``differential_driver``) cannot even be ingested by
+klt's netlist reader; the four that can place their devices, but none of
+them routes all of its nets. The script exists so that finding is
+reproducible with one command, and so the day klayout-tools closes those
+gaps the same command re-measures instead of someone re-deriving the setup
+from prose.
 
 Exit codes (about *the run*, never about the quality of the layout -- read
 the report for that):
@@ -55,11 +56,12 @@ BLOCKED_BLOCKS = {
         "curated gf180mcu deck does not know, and no klt gen generator draws "
         "a metal resistor"
     ),
-    "dplus_pullup": (
-        "the pull-up switch devices carry nf=10 (multi-finger), which klt's "
-        "subckt-call -> plain-element conversion refuses to represent"
-    ),
 }
+# `dplus_pullup` used to live here, blocked on `nf=10` multi-finger devices
+# klt's subckt-call -> plain-element conversion refused to represent. The
+# issue #56 flatten (spec/decisions/0001-...) cleared that, and issue #62
+# authored `layout/analog/plans/dplus_pullup.json`, so the block is now
+# executed from its committed plan like every other planned block.
 
 
 def _fail(message: str) -> None:
