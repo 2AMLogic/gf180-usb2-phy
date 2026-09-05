@@ -1,0 +1,115 @@
+{
+  "schema": "klt.layout_plan.request/1",
+  "netlist": {
+    "path": "../../../../design/netlist/dplus_pullup.spice",
+    "top": "dplus_pullup",
+    "form": "subckt-call",
+    "deck": "gf180mcu"
+  },
+  "pdk": {
+    "variant": "gf180mcuD"
+  },
+  "device_groups": [
+    {
+      "id": "r_ladder",
+      "devices": [
+        {
+          "name": "BASE",
+          "device_class": "PPOLYF_U"
+        },
+        {
+          "name": "0",
+          "device_class": "PPOLYF_U"
+        },
+        {
+          "name": "1",
+          "device_class": "PPOLYF_U"
+        },
+        {
+          "name": "2",
+          "device_class": "PPOLYF_U"
+        },
+        {
+          "name": "3",
+          "device_class": "PPOLYF_U"
+        },
+        {
+          "name": "4",
+          "device_class": "PPOLYF_U"
+        }
+      ],
+      "generator": "res_array",
+      "params": {
+        "num": 6,
+        "dummy": 0
+      }
+    },
+    {
+      "id": "mp_en",
+      "devices": [
+        {
+          "name": "EN_F0",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F1",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F2",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F3",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F4",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F5",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F6",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F7",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F8",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F9",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 10,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    }
+  ],
+  "rows": [
+    {
+      "order": [
+        "r_ladder",
+        "mp_en"
+      ],
+      "spacing_um": 2.0,
+      "align": "bottom"
+    }
+  ],
+  "options": {
+    "cell_name": "dplus_pullup_probe",
+    "output": "dplus_pullup_probe.gds"
+  }
+}

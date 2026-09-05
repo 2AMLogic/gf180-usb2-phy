@@ -246,22 +246,6 @@ m=1
 model=nfet_03v3
 spiceprefix=X
 }
-N -980 -330 -980 -370 {}
-C {devices/lab_pin.sym} -980 -370 0 0 {name=l49 lab=VPU_REG}
-N -1020 -300 -1080 -300 {}
-C {devices/lab_pin.sym} -1080 -300 0 0 {name=l50 lab=PU_ENB}
-N -980 -270 -980 -230 {}
-C {devices/lab_pin.sym} -980 -230 0 0 {name=l51 lab=NODE0}
-N -980 -300 -920 -300 {}
-C {devices/lab_pin.sym} -920 -300 0 0 {name=l52 lab=VPU_REG}
-C {symbols/pfet_03v3.sym} -1000 -300 0 0 {name=MEN
-L=0.28u
-W=1000u
-nf=10
-m=1
-model=pfet_03v3
-spiceprefix=X
-}
 N -400 -330 -400 -370 {}
 C {devices/lab_pin.sym} -400 -370 0 0 {name=l53 lab=NODE0}
 N -400 -270 -400 -230 {}
@@ -288,22 +272,6 @@ model=ppolyf_u
 spiceprefix=X
 m=1
 }
-N 220 -170 220 -210 {}
-C {devices/lab_pin.sym} 220 -210 0 0 {name=l59 lab=NODE1}
-N 180 -140 120 -140 {}
-C {devices/lab_pin.sym} 120 -140 0 0 {name=l60 lab=TRIM0B}
-N 220 -110 220 -70 {}
-C {devices/lab_pin.sym} 220 -70 0 0 {name=l61 lab=NODE2}
-N 220 -140 280 -140 {}
-C {devices/lab_pin.sym} 280 -140 0 0 {name=l62 lab=VPU_REG}
-C {symbols/pfet_03v3.sym} 200 -140 0 0 {name=MSW0
-L=0.28u
-W=1000u
-nf=10
-m=1
-model=pfet_03v3
-spiceprefix=X
-}
 N 700 -330 700 -370 {}
 C {devices/lab_pin.sym} 700 -370 0 0 {name=l63 lab=NODE2}
 N 700 -270 700 -230 {}
@@ -316,22 +284,6 @@ L=0.686u
 model=ppolyf_u
 spiceprefix=X
 m=1
-}
-N 720 -170 720 -210 {}
-C {devices/lab_pin.sym} 720 -210 0 0 {name=l66 lab=NODE2}
-N 680 -140 620 -140 {}
-C {devices/lab_pin.sym} 620 -140 0 0 {name=l67 lab=TRIM1B}
-N 720 -110 720 -70 {}
-C {devices/lab_pin.sym} 720 -70 0 0 {name=l68 lab=NODE3}
-N 720 -140 780 -140 {}
-C {devices/lab_pin.sym} 780 -140 0 0 {name=l69 lab=VPU_REG}
-C {symbols/pfet_03v3.sym} 700 -140 0 0 {name=MSW1
-L=0.28u
-W=1000u
-nf=10
-m=1
-model=pfet_03v3
-spiceprefix=X
 }
 N 1200 -330 1200 -370 {}
 C {devices/lab_pin.sym} 1200 -370 0 0 {name=l70 lab=NODE3}
@@ -346,22 +298,6 @@ model=ppolyf_u
 spiceprefix=X
 m=1
 }
-N 1220 -170 1220 -210 {}
-C {devices/lab_pin.sym} 1220 -210 0 0 {name=l73 lab=NODE3}
-N 1180 -140 1120 -140 {}
-C {devices/lab_pin.sym} 1120 -140 0 0 {name=l74 lab=TRIM2B}
-N 1220 -110 1220 -70 {}
-C {devices/lab_pin.sym} 1220 -70 0 0 {name=l75 lab=NODE4}
-N 1220 -140 1280 -140 {}
-C {devices/lab_pin.sym} 1280 -140 0 0 {name=l76 lab=VPU_REG}
-C {symbols/pfet_03v3.sym} 1200 -140 0 0 {name=MSW2
-L=0.28u
-W=1000u
-nf=10
-m=1
-model=pfet_03v3
-spiceprefix=X
-}
 N 1700 -330 1700 -370 {}
 C {devices/lab_pin.sym} 1700 -370 0 0 {name=l77 lab=NODE4}
 N 1700 -270 1700 -230 {}
@@ -375,22 +311,6 @@ model=ppolyf_u
 spiceprefix=X
 m=1
 }
-N 1720 -170 1720 -210 {}
-C {devices/lab_pin.sym} 1720 -210 0 0 {name=l80 lab=NODE4}
-N 1680 -140 1620 -140 {}
-C {devices/lab_pin.sym} 1620 -140 0 0 {name=l81 lab=TRIM3B}
-N 1720 -110 1720 -70 {}
-C {devices/lab_pin.sym} 1720 -70 0 0 {name=l82 lab=NODE5}
-N 1720 -140 1780 -140 {}
-C {devices/lab_pin.sym} 1780 -140 0 0 {name=l83 lab=VPU_REG}
-C {symbols/pfet_03v3.sym} 1700 -140 0 0 {name=MSW3
-L=0.28u
-W=1000u
-nf=10
-m=1
-model=pfet_03v3
-spiceprefix=X
-}
 N 2200 -330 2200 -370 {}
 C {devices/lab_pin.sym} 2200 -370 0 0 {name=l84 lab=NODE5}
 N 2200 -270 2200 -230 {}
@@ -403,22 +323,6 @@ L=5.486u
 model=ppolyf_u
 spiceprefix=X
 m=1
-}
-N 2220 -170 2220 -210 {}
-C {devices/lab_pin.sym} 2220 -210 0 0 {name=l87 lab=NODE5}
-N 2180 -140 2120 -140 {}
-C {devices/lab_pin.sym} 2120 -140 0 0 {name=l88 lab=TRIM4B}
-N 2220 -110 2220 -70 {}
-C {devices/lab_pin.sym} 2220 -70 0 0 {name=l89 lab=DP}
-N 2220 -140 2280 -140 {}
-C {devices/lab_pin.sym} 2280 -140 0 0 {name=l90 lab=VPU_REG}
-C {symbols/pfet_03v3.sym} 2200 -140 0 0 {name=MSW4
-L=0.28u
-W=1000u
-nf=10
-m=1
-model=pfet_03v3
-spiceprefix=X
 }
 N 2400 -200 2440 -200 {lab=DP}
 C {devices/iopin.sym} 2400 -200 0 0 {name=p_dp lab=DP}
@@ -438,3 +342,974 @@ N -1400 160 -1440 160 {lab=TRIM3}
 C {devices/ipin.sym} -1400 160 0 1 {name=p_trim3 lab=TRIM3}
 N -1400 220 -1440 220 {lab=TRIM4}
 C {devices/ipin.sym} -1400 220 0 1 {name=p_trim4 lab=TRIM4}
+T {FLATTENED SWITCH ARRAY (issue #56, operator ruling 2026-09-05).
+Each of the six W=1000u pull-up switch devices below was previously drawn
+as a single nf=10 instance. It is now drawn as 10 separate one-finger
+devices of W=100u in parallel -- one device per drawn gate -- because klt's
+subckt-call -> plain-element netlist conversion (the ingestion path used by
+klt layout-plan and klt lvs) refuses to represent a multi-finger device and
+its own error text prescribes exactly this transformation. Total drawn gate
+width per switch is unchanged (10 x 100u = 1000u). Upstream tool gap:
+klayout-tools#1487; if native nf expansion lands, a future decision record
+may restore the idiomatic nf=10 form. Equivalence is measured, not assumed --
+see sim/dplus-pullup-tolerance/records/ and spec/usb2-device-phy.md Sec.12.} -1400 380 0 0 0.28 0.28 {}
+N -1380 470 -1380 430 {}
+C {devices/lab_pin.sym} -1380 430 0 0 {name=l100 lab=VPU_REG}
+N -1420 500 -1460 500 {}
+C {devices/lab_pin.sym} -1460 500 0 0 {name=l101 lab=PU_ENB}
+N -1380 530 -1380 570 {}
+C {devices/lab_pin.sym} -1380 570 0 0 {name=l102 lab=NODE0}
+N -1380 500 -1340 500 {}
+C {devices/lab_pin.sym} -1340 500 0 0 {name=l103 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -1400 500 0 0 {name=MEN_F0
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -1120 470 -1120 430 {}
+C {devices/lab_pin.sym} -1120 430 0 0 {name=l104 lab=VPU_REG}
+N -1160 500 -1200 500 {}
+C {devices/lab_pin.sym} -1200 500 0 0 {name=l105 lab=PU_ENB}
+N -1120 530 -1120 570 {}
+C {devices/lab_pin.sym} -1120 570 0 0 {name=l106 lab=NODE0}
+N -1120 500 -1080 500 {}
+C {devices/lab_pin.sym} -1080 500 0 0 {name=l107 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -1140 500 0 0 {name=MEN_F1
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -860 470 -860 430 {}
+C {devices/lab_pin.sym} -860 430 0 0 {name=l108 lab=VPU_REG}
+N -900 500 -940 500 {}
+C {devices/lab_pin.sym} -940 500 0 0 {name=l109 lab=PU_ENB}
+N -860 530 -860 570 {}
+C {devices/lab_pin.sym} -860 570 0 0 {name=l110 lab=NODE0}
+N -860 500 -820 500 {}
+C {devices/lab_pin.sym} -820 500 0 0 {name=l111 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -880 500 0 0 {name=MEN_F2
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -600 470 -600 430 {}
+C {devices/lab_pin.sym} -600 430 0 0 {name=l112 lab=VPU_REG}
+N -640 500 -680 500 {}
+C {devices/lab_pin.sym} -680 500 0 0 {name=l113 lab=PU_ENB}
+N -600 530 -600 570 {}
+C {devices/lab_pin.sym} -600 570 0 0 {name=l114 lab=NODE0}
+N -600 500 -560 500 {}
+C {devices/lab_pin.sym} -560 500 0 0 {name=l115 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -620 500 0 0 {name=MEN_F3
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -340 470 -340 430 {}
+C {devices/lab_pin.sym} -340 430 0 0 {name=l116 lab=VPU_REG}
+N -380 500 -420 500 {}
+C {devices/lab_pin.sym} -420 500 0 0 {name=l117 lab=PU_ENB}
+N -340 530 -340 570 {}
+C {devices/lab_pin.sym} -340 570 0 0 {name=l118 lab=NODE0}
+N -340 500 -300 500 {}
+C {devices/lab_pin.sym} -300 500 0 0 {name=l119 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -360 500 0 0 {name=MEN_F4
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -80 470 -80 430 {}
+C {devices/lab_pin.sym} -80 430 0 0 {name=l120 lab=VPU_REG}
+N -120 500 -160 500 {}
+C {devices/lab_pin.sym} -160 500 0 0 {name=l121 lab=PU_ENB}
+N -80 530 -80 570 {}
+C {devices/lab_pin.sym} -80 570 0 0 {name=l122 lab=NODE0}
+N -80 500 -40 500 {}
+C {devices/lab_pin.sym} -40 500 0 0 {name=l123 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -100 500 0 0 {name=MEN_F5
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 180 470 180 430 {}
+C {devices/lab_pin.sym} 180 430 0 0 {name=l124 lab=VPU_REG}
+N 140 500 100 500 {}
+C {devices/lab_pin.sym} 100 500 0 0 {name=l125 lab=PU_ENB}
+N 180 530 180 570 {}
+C {devices/lab_pin.sym} 180 570 0 0 {name=l126 lab=NODE0}
+N 180 500 220 500 {}
+C {devices/lab_pin.sym} 220 500 0 0 {name=l127 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 160 500 0 0 {name=MEN_F6
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 440 470 440 430 {}
+C {devices/lab_pin.sym} 440 430 0 0 {name=l128 lab=VPU_REG}
+N 400 500 360 500 {}
+C {devices/lab_pin.sym} 360 500 0 0 {name=l129 lab=PU_ENB}
+N 440 530 440 570 {}
+C {devices/lab_pin.sym} 440 570 0 0 {name=l130 lab=NODE0}
+N 440 500 480 500 {}
+C {devices/lab_pin.sym} 480 500 0 0 {name=l131 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 420 500 0 0 {name=MEN_F7
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 700 470 700 430 {}
+C {devices/lab_pin.sym} 700 430 0 0 {name=l132 lab=VPU_REG}
+N 660 500 620 500 {}
+C {devices/lab_pin.sym} 620 500 0 0 {name=l133 lab=PU_ENB}
+N 700 530 700 570 {}
+C {devices/lab_pin.sym} 700 570 0 0 {name=l134 lab=NODE0}
+N 700 500 740 500 {}
+C {devices/lab_pin.sym} 740 500 0 0 {name=l135 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 680 500 0 0 {name=MEN_F8
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 960 470 960 430 {}
+C {devices/lab_pin.sym} 960 430 0 0 {name=l136 lab=VPU_REG}
+N 920 500 880 500 {}
+C {devices/lab_pin.sym} 880 500 0 0 {name=l137 lab=PU_ENB}
+N 960 530 960 570 {}
+C {devices/lab_pin.sym} 960 570 0 0 {name=l138 lab=NODE0}
+N 960 500 1000 500 {}
+C {devices/lab_pin.sym} 1000 500 0 0 {name=l139 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 940 500 0 0 {name=MEN_F9
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -1380 770 -1380 730 {}
+C {devices/lab_pin.sym} -1380 730 0 0 {name=l140 lab=NODE1}
+N -1420 800 -1460 800 {}
+C {devices/lab_pin.sym} -1460 800 0 0 {name=l141 lab=TRIM0B}
+N -1380 830 -1380 870 {}
+C {devices/lab_pin.sym} -1380 870 0 0 {name=l142 lab=NODE2}
+N -1380 800 -1340 800 {}
+C {devices/lab_pin.sym} -1340 800 0 0 {name=l143 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -1400 800 0 0 {name=MSW0_F0
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -1120 770 -1120 730 {}
+C {devices/lab_pin.sym} -1120 730 0 0 {name=l144 lab=NODE1}
+N -1160 800 -1200 800 {}
+C {devices/lab_pin.sym} -1200 800 0 0 {name=l145 lab=TRIM0B}
+N -1120 830 -1120 870 {}
+C {devices/lab_pin.sym} -1120 870 0 0 {name=l146 lab=NODE2}
+N -1120 800 -1080 800 {}
+C {devices/lab_pin.sym} -1080 800 0 0 {name=l147 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -1140 800 0 0 {name=MSW0_F1
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -860 770 -860 730 {}
+C {devices/lab_pin.sym} -860 730 0 0 {name=l148 lab=NODE1}
+N -900 800 -940 800 {}
+C {devices/lab_pin.sym} -940 800 0 0 {name=l149 lab=TRIM0B}
+N -860 830 -860 870 {}
+C {devices/lab_pin.sym} -860 870 0 0 {name=l150 lab=NODE2}
+N -860 800 -820 800 {}
+C {devices/lab_pin.sym} -820 800 0 0 {name=l151 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -880 800 0 0 {name=MSW0_F2
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -600 770 -600 730 {}
+C {devices/lab_pin.sym} -600 730 0 0 {name=l152 lab=NODE1}
+N -640 800 -680 800 {}
+C {devices/lab_pin.sym} -680 800 0 0 {name=l153 lab=TRIM0B}
+N -600 830 -600 870 {}
+C {devices/lab_pin.sym} -600 870 0 0 {name=l154 lab=NODE2}
+N -600 800 -560 800 {}
+C {devices/lab_pin.sym} -560 800 0 0 {name=l155 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -620 800 0 0 {name=MSW0_F3
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -340 770 -340 730 {}
+C {devices/lab_pin.sym} -340 730 0 0 {name=l156 lab=NODE1}
+N -380 800 -420 800 {}
+C {devices/lab_pin.sym} -420 800 0 0 {name=l157 lab=TRIM0B}
+N -340 830 -340 870 {}
+C {devices/lab_pin.sym} -340 870 0 0 {name=l158 lab=NODE2}
+N -340 800 -300 800 {}
+C {devices/lab_pin.sym} -300 800 0 0 {name=l159 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -360 800 0 0 {name=MSW0_F4
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -80 770 -80 730 {}
+C {devices/lab_pin.sym} -80 730 0 0 {name=l160 lab=NODE1}
+N -120 800 -160 800 {}
+C {devices/lab_pin.sym} -160 800 0 0 {name=l161 lab=TRIM0B}
+N -80 830 -80 870 {}
+C {devices/lab_pin.sym} -80 870 0 0 {name=l162 lab=NODE2}
+N -80 800 -40 800 {}
+C {devices/lab_pin.sym} -40 800 0 0 {name=l163 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -100 800 0 0 {name=MSW0_F5
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 180 770 180 730 {}
+C {devices/lab_pin.sym} 180 730 0 0 {name=l164 lab=NODE1}
+N 140 800 100 800 {}
+C {devices/lab_pin.sym} 100 800 0 0 {name=l165 lab=TRIM0B}
+N 180 830 180 870 {}
+C {devices/lab_pin.sym} 180 870 0 0 {name=l166 lab=NODE2}
+N 180 800 220 800 {}
+C {devices/lab_pin.sym} 220 800 0 0 {name=l167 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 160 800 0 0 {name=MSW0_F6
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 440 770 440 730 {}
+C {devices/lab_pin.sym} 440 730 0 0 {name=l168 lab=NODE1}
+N 400 800 360 800 {}
+C {devices/lab_pin.sym} 360 800 0 0 {name=l169 lab=TRIM0B}
+N 440 830 440 870 {}
+C {devices/lab_pin.sym} 440 870 0 0 {name=l170 lab=NODE2}
+N 440 800 480 800 {}
+C {devices/lab_pin.sym} 480 800 0 0 {name=l171 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 420 800 0 0 {name=MSW0_F7
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 700 770 700 730 {}
+C {devices/lab_pin.sym} 700 730 0 0 {name=l172 lab=NODE1}
+N 660 800 620 800 {}
+C {devices/lab_pin.sym} 620 800 0 0 {name=l173 lab=TRIM0B}
+N 700 830 700 870 {}
+C {devices/lab_pin.sym} 700 870 0 0 {name=l174 lab=NODE2}
+N 700 800 740 800 {}
+C {devices/lab_pin.sym} 740 800 0 0 {name=l175 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 680 800 0 0 {name=MSW0_F8
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 960 770 960 730 {}
+C {devices/lab_pin.sym} 960 730 0 0 {name=l176 lab=NODE1}
+N 920 800 880 800 {}
+C {devices/lab_pin.sym} 880 800 0 0 {name=l177 lab=TRIM0B}
+N 960 830 960 870 {}
+C {devices/lab_pin.sym} 960 870 0 0 {name=l178 lab=NODE2}
+N 960 800 1000 800 {}
+C {devices/lab_pin.sym} 1000 800 0 0 {name=l179 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 940 800 0 0 {name=MSW0_F9
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -1380 1070 -1380 1030 {}
+C {devices/lab_pin.sym} -1380 1030 0 0 {name=l180 lab=NODE2}
+N -1420 1100 -1460 1100 {}
+C {devices/lab_pin.sym} -1460 1100 0 0 {name=l181 lab=TRIM1B}
+N -1380 1130 -1380 1170 {}
+C {devices/lab_pin.sym} -1380 1170 0 0 {name=l182 lab=NODE3}
+N -1380 1100 -1340 1100 {}
+C {devices/lab_pin.sym} -1340 1100 0 0 {name=l183 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -1400 1100 0 0 {name=MSW1_F0
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -1120 1070 -1120 1030 {}
+C {devices/lab_pin.sym} -1120 1030 0 0 {name=l184 lab=NODE2}
+N -1160 1100 -1200 1100 {}
+C {devices/lab_pin.sym} -1200 1100 0 0 {name=l185 lab=TRIM1B}
+N -1120 1130 -1120 1170 {}
+C {devices/lab_pin.sym} -1120 1170 0 0 {name=l186 lab=NODE3}
+N -1120 1100 -1080 1100 {}
+C {devices/lab_pin.sym} -1080 1100 0 0 {name=l187 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -1140 1100 0 0 {name=MSW1_F1
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -860 1070 -860 1030 {}
+C {devices/lab_pin.sym} -860 1030 0 0 {name=l188 lab=NODE2}
+N -900 1100 -940 1100 {}
+C {devices/lab_pin.sym} -940 1100 0 0 {name=l189 lab=TRIM1B}
+N -860 1130 -860 1170 {}
+C {devices/lab_pin.sym} -860 1170 0 0 {name=l190 lab=NODE3}
+N -860 1100 -820 1100 {}
+C {devices/lab_pin.sym} -820 1100 0 0 {name=l191 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -880 1100 0 0 {name=MSW1_F2
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -600 1070 -600 1030 {}
+C {devices/lab_pin.sym} -600 1030 0 0 {name=l192 lab=NODE2}
+N -640 1100 -680 1100 {}
+C {devices/lab_pin.sym} -680 1100 0 0 {name=l193 lab=TRIM1B}
+N -600 1130 -600 1170 {}
+C {devices/lab_pin.sym} -600 1170 0 0 {name=l194 lab=NODE3}
+N -600 1100 -560 1100 {}
+C {devices/lab_pin.sym} -560 1100 0 0 {name=l195 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -620 1100 0 0 {name=MSW1_F3
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -340 1070 -340 1030 {}
+C {devices/lab_pin.sym} -340 1030 0 0 {name=l196 lab=NODE2}
+N -380 1100 -420 1100 {}
+C {devices/lab_pin.sym} -420 1100 0 0 {name=l197 lab=TRIM1B}
+N -340 1130 -340 1170 {}
+C {devices/lab_pin.sym} -340 1170 0 0 {name=l198 lab=NODE3}
+N -340 1100 -300 1100 {}
+C {devices/lab_pin.sym} -300 1100 0 0 {name=l199 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -360 1100 0 0 {name=MSW1_F4
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -80 1070 -80 1030 {}
+C {devices/lab_pin.sym} -80 1030 0 0 {name=l200 lab=NODE2}
+N -120 1100 -160 1100 {}
+C {devices/lab_pin.sym} -160 1100 0 0 {name=l201 lab=TRIM1B}
+N -80 1130 -80 1170 {}
+C {devices/lab_pin.sym} -80 1170 0 0 {name=l202 lab=NODE3}
+N -80 1100 -40 1100 {}
+C {devices/lab_pin.sym} -40 1100 0 0 {name=l203 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -100 1100 0 0 {name=MSW1_F5
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 180 1070 180 1030 {}
+C {devices/lab_pin.sym} 180 1030 0 0 {name=l204 lab=NODE2}
+N 140 1100 100 1100 {}
+C {devices/lab_pin.sym} 100 1100 0 0 {name=l205 lab=TRIM1B}
+N 180 1130 180 1170 {}
+C {devices/lab_pin.sym} 180 1170 0 0 {name=l206 lab=NODE3}
+N 180 1100 220 1100 {}
+C {devices/lab_pin.sym} 220 1100 0 0 {name=l207 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 160 1100 0 0 {name=MSW1_F6
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 440 1070 440 1030 {}
+C {devices/lab_pin.sym} 440 1030 0 0 {name=l208 lab=NODE2}
+N 400 1100 360 1100 {}
+C {devices/lab_pin.sym} 360 1100 0 0 {name=l209 lab=TRIM1B}
+N 440 1130 440 1170 {}
+C {devices/lab_pin.sym} 440 1170 0 0 {name=l210 lab=NODE3}
+N 440 1100 480 1100 {}
+C {devices/lab_pin.sym} 480 1100 0 0 {name=l211 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 420 1100 0 0 {name=MSW1_F7
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 700 1070 700 1030 {}
+C {devices/lab_pin.sym} 700 1030 0 0 {name=l212 lab=NODE2}
+N 660 1100 620 1100 {}
+C {devices/lab_pin.sym} 620 1100 0 0 {name=l213 lab=TRIM1B}
+N 700 1130 700 1170 {}
+C {devices/lab_pin.sym} 700 1170 0 0 {name=l214 lab=NODE3}
+N 700 1100 740 1100 {}
+C {devices/lab_pin.sym} 740 1100 0 0 {name=l215 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 680 1100 0 0 {name=MSW1_F8
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 960 1070 960 1030 {}
+C {devices/lab_pin.sym} 960 1030 0 0 {name=l216 lab=NODE2}
+N 920 1100 880 1100 {}
+C {devices/lab_pin.sym} 880 1100 0 0 {name=l217 lab=TRIM1B}
+N 960 1130 960 1170 {}
+C {devices/lab_pin.sym} 960 1170 0 0 {name=l218 lab=NODE3}
+N 960 1100 1000 1100 {}
+C {devices/lab_pin.sym} 1000 1100 0 0 {name=l219 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 940 1100 0 0 {name=MSW1_F9
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -1380 1370 -1380 1330 {}
+C {devices/lab_pin.sym} -1380 1330 0 0 {name=l220 lab=NODE3}
+N -1420 1400 -1460 1400 {}
+C {devices/lab_pin.sym} -1460 1400 0 0 {name=l221 lab=TRIM2B}
+N -1380 1430 -1380 1470 {}
+C {devices/lab_pin.sym} -1380 1470 0 0 {name=l222 lab=NODE4}
+N -1380 1400 -1340 1400 {}
+C {devices/lab_pin.sym} -1340 1400 0 0 {name=l223 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -1400 1400 0 0 {name=MSW2_F0
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -1120 1370 -1120 1330 {}
+C {devices/lab_pin.sym} -1120 1330 0 0 {name=l224 lab=NODE3}
+N -1160 1400 -1200 1400 {}
+C {devices/lab_pin.sym} -1200 1400 0 0 {name=l225 lab=TRIM2B}
+N -1120 1430 -1120 1470 {}
+C {devices/lab_pin.sym} -1120 1470 0 0 {name=l226 lab=NODE4}
+N -1120 1400 -1080 1400 {}
+C {devices/lab_pin.sym} -1080 1400 0 0 {name=l227 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -1140 1400 0 0 {name=MSW2_F1
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -860 1370 -860 1330 {}
+C {devices/lab_pin.sym} -860 1330 0 0 {name=l228 lab=NODE3}
+N -900 1400 -940 1400 {}
+C {devices/lab_pin.sym} -940 1400 0 0 {name=l229 lab=TRIM2B}
+N -860 1430 -860 1470 {}
+C {devices/lab_pin.sym} -860 1470 0 0 {name=l230 lab=NODE4}
+N -860 1400 -820 1400 {}
+C {devices/lab_pin.sym} -820 1400 0 0 {name=l231 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -880 1400 0 0 {name=MSW2_F2
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -600 1370 -600 1330 {}
+C {devices/lab_pin.sym} -600 1330 0 0 {name=l232 lab=NODE3}
+N -640 1400 -680 1400 {}
+C {devices/lab_pin.sym} -680 1400 0 0 {name=l233 lab=TRIM2B}
+N -600 1430 -600 1470 {}
+C {devices/lab_pin.sym} -600 1470 0 0 {name=l234 lab=NODE4}
+N -600 1400 -560 1400 {}
+C {devices/lab_pin.sym} -560 1400 0 0 {name=l235 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -620 1400 0 0 {name=MSW2_F3
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -340 1370 -340 1330 {}
+C {devices/lab_pin.sym} -340 1330 0 0 {name=l236 lab=NODE3}
+N -380 1400 -420 1400 {}
+C {devices/lab_pin.sym} -420 1400 0 0 {name=l237 lab=TRIM2B}
+N -340 1430 -340 1470 {}
+C {devices/lab_pin.sym} -340 1470 0 0 {name=l238 lab=NODE4}
+N -340 1400 -300 1400 {}
+C {devices/lab_pin.sym} -300 1400 0 0 {name=l239 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -360 1400 0 0 {name=MSW2_F4
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -80 1370 -80 1330 {}
+C {devices/lab_pin.sym} -80 1330 0 0 {name=l240 lab=NODE3}
+N -120 1400 -160 1400 {}
+C {devices/lab_pin.sym} -160 1400 0 0 {name=l241 lab=TRIM2B}
+N -80 1430 -80 1470 {}
+C {devices/lab_pin.sym} -80 1470 0 0 {name=l242 lab=NODE4}
+N -80 1400 -40 1400 {}
+C {devices/lab_pin.sym} -40 1400 0 0 {name=l243 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -100 1400 0 0 {name=MSW2_F5
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 180 1370 180 1330 {}
+C {devices/lab_pin.sym} 180 1330 0 0 {name=l244 lab=NODE3}
+N 140 1400 100 1400 {}
+C {devices/lab_pin.sym} 100 1400 0 0 {name=l245 lab=TRIM2B}
+N 180 1430 180 1470 {}
+C {devices/lab_pin.sym} 180 1470 0 0 {name=l246 lab=NODE4}
+N 180 1400 220 1400 {}
+C {devices/lab_pin.sym} 220 1400 0 0 {name=l247 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 160 1400 0 0 {name=MSW2_F6
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 440 1370 440 1330 {}
+C {devices/lab_pin.sym} 440 1330 0 0 {name=l248 lab=NODE3}
+N 400 1400 360 1400 {}
+C {devices/lab_pin.sym} 360 1400 0 0 {name=l249 lab=TRIM2B}
+N 440 1430 440 1470 {}
+C {devices/lab_pin.sym} 440 1470 0 0 {name=l250 lab=NODE4}
+N 440 1400 480 1400 {}
+C {devices/lab_pin.sym} 480 1400 0 0 {name=l251 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 420 1400 0 0 {name=MSW2_F7
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 700 1370 700 1330 {}
+C {devices/lab_pin.sym} 700 1330 0 0 {name=l252 lab=NODE3}
+N 660 1400 620 1400 {}
+C {devices/lab_pin.sym} 620 1400 0 0 {name=l253 lab=TRIM2B}
+N 700 1430 700 1470 {}
+C {devices/lab_pin.sym} 700 1470 0 0 {name=l254 lab=NODE4}
+N 700 1400 740 1400 {}
+C {devices/lab_pin.sym} 740 1400 0 0 {name=l255 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 680 1400 0 0 {name=MSW2_F8
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 960 1370 960 1330 {}
+C {devices/lab_pin.sym} 960 1330 0 0 {name=l256 lab=NODE3}
+N 920 1400 880 1400 {}
+C {devices/lab_pin.sym} 880 1400 0 0 {name=l257 lab=TRIM2B}
+N 960 1430 960 1470 {}
+C {devices/lab_pin.sym} 960 1470 0 0 {name=l258 lab=NODE4}
+N 960 1400 1000 1400 {}
+C {devices/lab_pin.sym} 1000 1400 0 0 {name=l259 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 940 1400 0 0 {name=MSW2_F9
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -1380 1670 -1380 1630 {}
+C {devices/lab_pin.sym} -1380 1630 0 0 {name=l260 lab=NODE4}
+N -1420 1700 -1460 1700 {}
+C {devices/lab_pin.sym} -1460 1700 0 0 {name=l261 lab=TRIM3B}
+N -1380 1730 -1380 1770 {}
+C {devices/lab_pin.sym} -1380 1770 0 0 {name=l262 lab=NODE5}
+N -1380 1700 -1340 1700 {}
+C {devices/lab_pin.sym} -1340 1700 0 0 {name=l263 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -1400 1700 0 0 {name=MSW3_F0
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -1120 1670 -1120 1630 {}
+C {devices/lab_pin.sym} -1120 1630 0 0 {name=l264 lab=NODE4}
+N -1160 1700 -1200 1700 {}
+C {devices/lab_pin.sym} -1200 1700 0 0 {name=l265 lab=TRIM3B}
+N -1120 1730 -1120 1770 {}
+C {devices/lab_pin.sym} -1120 1770 0 0 {name=l266 lab=NODE5}
+N -1120 1700 -1080 1700 {}
+C {devices/lab_pin.sym} -1080 1700 0 0 {name=l267 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -1140 1700 0 0 {name=MSW3_F1
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -860 1670 -860 1630 {}
+C {devices/lab_pin.sym} -860 1630 0 0 {name=l268 lab=NODE4}
+N -900 1700 -940 1700 {}
+C {devices/lab_pin.sym} -940 1700 0 0 {name=l269 lab=TRIM3B}
+N -860 1730 -860 1770 {}
+C {devices/lab_pin.sym} -860 1770 0 0 {name=l270 lab=NODE5}
+N -860 1700 -820 1700 {}
+C {devices/lab_pin.sym} -820 1700 0 0 {name=l271 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -880 1700 0 0 {name=MSW3_F2
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -600 1670 -600 1630 {}
+C {devices/lab_pin.sym} -600 1630 0 0 {name=l272 lab=NODE4}
+N -640 1700 -680 1700 {}
+C {devices/lab_pin.sym} -680 1700 0 0 {name=l273 lab=TRIM3B}
+N -600 1730 -600 1770 {}
+C {devices/lab_pin.sym} -600 1770 0 0 {name=l274 lab=NODE5}
+N -600 1700 -560 1700 {}
+C {devices/lab_pin.sym} -560 1700 0 0 {name=l275 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -620 1700 0 0 {name=MSW3_F3
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -340 1670 -340 1630 {}
+C {devices/lab_pin.sym} -340 1630 0 0 {name=l276 lab=NODE4}
+N -380 1700 -420 1700 {}
+C {devices/lab_pin.sym} -420 1700 0 0 {name=l277 lab=TRIM3B}
+N -340 1730 -340 1770 {}
+C {devices/lab_pin.sym} -340 1770 0 0 {name=l278 lab=NODE5}
+N -340 1700 -300 1700 {}
+C {devices/lab_pin.sym} -300 1700 0 0 {name=l279 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -360 1700 0 0 {name=MSW3_F4
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -80 1670 -80 1630 {}
+C {devices/lab_pin.sym} -80 1630 0 0 {name=l280 lab=NODE4}
+N -120 1700 -160 1700 {}
+C {devices/lab_pin.sym} -160 1700 0 0 {name=l281 lab=TRIM3B}
+N -80 1730 -80 1770 {}
+C {devices/lab_pin.sym} -80 1770 0 0 {name=l282 lab=NODE5}
+N -80 1700 -40 1700 {}
+C {devices/lab_pin.sym} -40 1700 0 0 {name=l283 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -100 1700 0 0 {name=MSW3_F5
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 180 1670 180 1630 {}
+C {devices/lab_pin.sym} 180 1630 0 0 {name=l284 lab=NODE4}
+N 140 1700 100 1700 {}
+C {devices/lab_pin.sym} 100 1700 0 0 {name=l285 lab=TRIM3B}
+N 180 1730 180 1770 {}
+C {devices/lab_pin.sym} 180 1770 0 0 {name=l286 lab=NODE5}
+N 180 1700 220 1700 {}
+C {devices/lab_pin.sym} 220 1700 0 0 {name=l287 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 160 1700 0 0 {name=MSW3_F6
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 440 1670 440 1630 {}
+C {devices/lab_pin.sym} 440 1630 0 0 {name=l288 lab=NODE4}
+N 400 1700 360 1700 {}
+C {devices/lab_pin.sym} 360 1700 0 0 {name=l289 lab=TRIM3B}
+N 440 1730 440 1770 {}
+C {devices/lab_pin.sym} 440 1770 0 0 {name=l290 lab=NODE5}
+N 440 1700 480 1700 {}
+C {devices/lab_pin.sym} 480 1700 0 0 {name=l291 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 420 1700 0 0 {name=MSW3_F7
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 700 1670 700 1630 {}
+C {devices/lab_pin.sym} 700 1630 0 0 {name=l292 lab=NODE4}
+N 660 1700 620 1700 {}
+C {devices/lab_pin.sym} 620 1700 0 0 {name=l293 lab=TRIM3B}
+N 700 1730 700 1770 {}
+C {devices/lab_pin.sym} 700 1770 0 0 {name=l294 lab=NODE5}
+N 700 1700 740 1700 {}
+C {devices/lab_pin.sym} 740 1700 0 0 {name=l295 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 680 1700 0 0 {name=MSW3_F8
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 960 1670 960 1630 {}
+C {devices/lab_pin.sym} 960 1630 0 0 {name=l296 lab=NODE4}
+N 920 1700 880 1700 {}
+C {devices/lab_pin.sym} 880 1700 0 0 {name=l297 lab=TRIM3B}
+N 960 1730 960 1770 {}
+C {devices/lab_pin.sym} 960 1770 0 0 {name=l298 lab=NODE5}
+N 960 1700 1000 1700 {}
+C {devices/lab_pin.sym} 1000 1700 0 0 {name=l299 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 940 1700 0 0 {name=MSW3_F9
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -1380 1970 -1380 1930 {}
+C {devices/lab_pin.sym} -1380 1930 0 0 {name=l300 lab=NODE5}
+N -1420 2000 -1460 2000 {}
+C {devices/lab_pin.sym} -1460 2000 0 0 {name=l301 lab=TRIM4B}
+N -1380 2030 -1380 2070 {}
+C {devices/lab_pin.sym} -1380 2070 0 0 {name=l302 lab=DP}
+N -1380 2000 -1340 2000 {}
+C {devices/lab_pin.sym} -1340 2000 0 0 {name=l303 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -1400 2000 0 0 {name=MSW4_F0
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -1120 1970 -1120 1930 {}
+C {devices/lab_pin.sym} -1120 1930 0 0 {name=l304 lab=NODE5}
+N -1160 2000 -1200 2000 {}
+C {devices/lab_pin.sym} -1200 2000 0 0 {name=l305 lab=TRIM4B}
+N -1120 2030 -1120 2070 {}
+C {devices/lab_pin.sym} -1120 2070 0 0 {name=l306 lab=DP}
+N -1120 2000 -1080 2000 {}
+C {devices/lab_pin.sym} -1080 2000 0 0 {name=l307 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -1140 2000 0 0 {name=MSW4_F1
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -860 1970 -860 1930 {}
+C {devices/lab_pin.sym} -860 1930 0 0 {name=l308 lab=NODE5}
+N -900 2000 -940 2000 {}
+C {devices/lab_pin.sym} -940 2000 0 0 {name=l309 lab=TRIM4B}
+N -860 2030 -860 2070 {}
+C {devices/lab_pin.sym} -860 2070 0 0 {name=l310 lab=DP}
+N -860 2000 -820 2000 {}
+C {devices/lab_pin.sym} -820 2000 0 0 {name=l311 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -880 2000 0 0 {name=MSW4_F2
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -600 1970 -600 1930 {}
+C {devices/lab_pin.sym} -600 1930 0 0 {name=l312 lab=NODE5}
+N -640 2000 -680 2000 {}
+C {devices/lab_pin.sym} -680 2000 0 0 {name=l313 lab=TRIM4B}
+N -600 2030 -600 2070 {}
+C {devices/lab_pin.sym} -600 2070 0 0 {name=l314 lab=DP}
+N -600 2000 -560 2000 {}
+C {devices/lab_pin.sym} -560 2000 0 0 {name=l315 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -620 2000 0 0 {name=MSW4_F3
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -340 1970 -340 1930 {}
+C {devices/lab_pin.sym} -340 1930 0 0 {name=l316 lab=NODE5}
+N -380 2000 -420 2000 {}
+C {devices/lab_pin.sym} -420 2000 0 0 {name=l317 lab=TRIM4B}
+N -340 2030 -340 2070 {}
+C {devices/lab_pin.sym} -340 2070 0 0 {name=l318 lab=DP}
+N -340 2000 -300 2000 {}
+C {devices/lab_pin.sym} -300 2000 0 0 {name=l319 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -360 2000 0 0 {name=MSW4_F4
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -80 1970 -80 1930 {}
+C {devices/lab_pin.sym} -80 1930 0 0 {name=l320 lab=NODE5}
+N -120 2000 -160 2000 {}
+C {devices/lab_pin.sym} -160 2000 0 0 {name=l321 lab=TRIM4B}
+N -80 2030 -80 2070 {}
+C {devices/lab_pin.sym} -80 2070 0 0 {name=l322 lab=DP}
+N -80 2000 -40 2000 {}
+C {devices/lab_pin.sym} -40 2000 0 0 {name=l323 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} -100 2000 0 0 {name=MSW4_F5
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 180 1970 180 1930 {}
+C {devices/lab_pin.sym} 180 1930 0 0 {name=l324 lab=NODE5}
+N 140 2000 100 2000 {}
+C {devices/lab_pin.sym} 100 2000 0 0 {name=l325 lab=TRIM4B}
+N 180 2030 180 2070 {}
+C {devices/lab_pin.sym} 180 2070 0 0 {name=l326 lab=DP}
+N 180 2000 220 2000 {}
+C {devices/lab_pin.sym} 220 2000 0 0 {name=l327 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 160 2000 0 0 {name=MSW4_F6
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 440 1970 440 1930 {}
+C {devices/lab_pin.sym} 440 1930 0 0 {name=l328 lab=NODE5}
+N 400 2000 360 2000 {}
+C {devices/lab_pin.sym} 360 2000 0 0 {name=l329 lab=TRIM4B}
+N 440 2030 440 2070 {}
+C {devices/lab_pin.sym} 440 2070 0 0 {name=l330 lab=DP}
+N 440 2000 480 2000 {}
+C {devices/lab_pin.sym} 480 2000 0 0 {name=l331 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 420 2000 0 0 {name=MSW4_F7
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 700 1970 700 1930 {}
+C {devices/lab_pin.sym} 700 1930 0 0 {name=l332 lab=NODE5}
+N 660 2000 620 2000 {}
+C {devices/lab_pin.sym} 620 2000 0 0 {name=l333 lab=TRIM4B}
+N 700 2030 700 2070 {}
+C {devices/lab_pin.sym} 700 2070 0 0 {name=l334 lab=DP}
+N 700 2000 740 2000 {}
+C {devices/lab_pin.sym} 740 2000 0 0 {name=l335 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 680 2000 0 0 {name=MSW4_F8
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 960 1970 960 1930 {}
+C {devices/lab_pin.sym} 960 1930 0 0 {name=l336 lab=NODE5}
+N 920 2000 880 2000 {}
+C {devices/lab_pin.sym} 880 2000 0 0 {name=l337 lab=TRIM4B}
+N 960 2030 960 2070 {}
+C {devices/lab_pin.sym} 960 2070 0 0 {name=l338 lab=DP}
+N 960 2000 1000 2000 {}
+C {devices/lab_pin.sym} 1000 2000 0 0 {name=l339 lab=VPU_REG}
+C {symbols/pfet_03v3.sym} 940 2000 0 0 {name=MSW4_F9
+L=0.28u
+W=100u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}

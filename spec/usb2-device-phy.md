@@ -374,6 +374,20 @@ Every README draft row, resolved:
 | Receiver | Confirmed unchanged, thresholds now stated explicitly | §4 |
 | Signoff | Confirmed, PVT corner list now fixed (was unstated in draft) | §8, §11 |
 
+### 12.1 Post-ratification decision records
+
+The table above closes out the README draft rows this document ratified.
+Decisions taken **after** ratification — where design or implementation work
+hit a trade-off that a Builder may not settle unilaterally — are recorded as
+numbered files under [`spec/decisions/`](decisions/) rather than being folded
+into the table above, so the ratification record stays exactly what it was.
+None of them change a ratified value; any that ever needed to would be an
+amendment to the relevant section, not a decision record.
+
+| Record | Decision | Affects |
+|---|---|---|
+| [DR-0001](decisions/0001-dplus-pullup-switch-device-flattening.md) | **FLATTEN** `dplus_pullup`'s six `nf=10` pull-up switch devices to one device per drawn gate, so `klt`'s subckt-call → plain-element ingestion (`klt layout-plan` / `klt lvs`) can represent the block. Design-source representation only; §5's 1.5 kΩ ±5 % values are untouched, and the change is backed by a re-run of the full 45-corner §5 evidence proving electrical equivalence. Operator ruling on issue #56, 2026-09-05. Upstream tool gap: klayout-tools#1487. | §5 evidence trail (`sim/dplus-pullup-tolerance/`), `design/dplus_pullup.sch` |
+
 ## 13. References
 
 - USB Implementers Forum, *Universal Serial Bus Specification, Revision
