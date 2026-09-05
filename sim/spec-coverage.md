@@ -15,23 +15,35 @@ these records, because none of them is a subset.
 
 - **PDK**: `gf180mcuD` @ open_pdks `c6d73a35f524070e85faff4a6a9eef49553ebc2b`
 - **Simulator**: ngspice-47
-- **Netlist provenance**: schematic — the DUT of every experiment is the
-  generated export under `design/netlist/`, not a post-layout extraction.
-  There is no **analog** layout, so no extracted re-run exists to compare
-  any electrical row against; issue #52 re-measured this against a newer
-  `klt` pin and it remains undelivered, now tracked at
-  klayout-tools#1424 (a DRC regression the re-measurement surfaced) and
-  gf180-usb2-phy#56 (a pending `dplus_pullup` design decision). (The digital half
-  does have a committed, DRC-clean, LVS-matched layout, and — as of #51's
-  `post-layout-pvt` experiment — a first, partial SPEF-annotated post-layout
-  STA re-run: `verification/records/post-layout-pvt/records/20260825-233200-1c84648.md`.
-  No row in *this* table is a digital timing row, so that record does not
-  change any verdict below; it is cited here only so "post-layout
-  re-verification" for the digital half is discoverable from this index.
-  That record's own parasitic annotation is incomplete (186/366 design
-  nets, root-caused to a `klt sta` net-name-correlation gap filed as
-  klayout-tools#1422) — it is not a substitute for a full extracted-netlist
-  re-run, only the first honest attempt at one.)
+- **Netlist provenance**: schematic — the DUT of every experiment in the
+  table below is the generated export under `design/netlist/`, not a
+  post-layout extraction. There is no **analog** layout, so no extracted
+  re-run exists to compare any electrical row against; issue #52 closed
+  (PR #57, 2026-08-26) without ever committing a GDS/OASIS for any of the
+  five analog blocks — three route 0/N nets, two cannot be ingested at
+  all (`layout/README.md` § "Analog"); the remaining friction is tracked
+  at klayout-tools#1424 (a DRC regression) and gf180-usb2-phy#56 (a
+  pending `dplus_pullup` design decision). Issue #53's analog acceptance
+  criterion therefore stays unattempted: **there is still nothing under
+  `layout/analog/` to extract**, so no analog `sim/`-row re-run against an
+  extracted netlist can exist yet, regardless of #52's own closed/open
+  status. (The digital half does have a committed, DRC-clean,
+  LVS-matched layout and, as of issue #53's `post-layout-pvt` experiment,
+  a SPEF-annotated post-layout STA re-run with 364/366 design nets
+  carrying real extracted parasitics — 100% of nets that physically carry
+  routed metal, the other 2 being unrouted single-pin nets with nothing
+  to extract:
+  `verification/records/post-layout-pvt/records/20260905-182000-80d4593.md`.
+  That record supersedes an earlier, partial attempt
+  (`20260825-233200-1c84648.md`, 186/366 nets annotated, root-caused to a
+  `klt sta` net-name-correlation defect filed as klayout-tools#1422) once
+  this repo's `klt` pin advanced to
+  klayout-tools#1423, the fix for that defect — re-running the identical
+  recipe against the fixed tool closed the coverage gap and left every
+  reported timing/power/skew number unchanged. No row in *this* table is
+  a digital timing row, so neither post-layout-pvt record changes any
+  verdict below; both are cited here only so "post-layout re-verification"
+  for the digital half is discoverable from this index.)
 
 ## The table
 

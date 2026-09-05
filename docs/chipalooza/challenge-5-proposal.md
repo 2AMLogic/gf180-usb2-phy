@@ -328,9 +328,8 @@ and is the authority if this table and it ever disagree.
 | K | Digital UTMI logic functional correctness | — | — | — | spec §11: bit-exact against NRZI / bit-stuffing / SYNC / EOP / line-state behaviour, by cocotb testbench | n/a | `verification/records/bit-codec-functional/` (record `20260817-212707-6c7f7ff`), `verification/records/utmi-framing-functional/` (record `20260818-025302-ea10f21`) | **Met.** Bit-exact against an independently-written Python golden model, plus TX→wire→RX loopback including the trailing-stuff-bit case, back-to-back packets at minimum gap, and a malformed-SYNC case that must never assert `RxActive`/`RxValid`. | Rail-independent (a functional claim, not an electrical one) |
 | L | DRC | — | 0 violations | — | spec §11: clean before signoff | n/a | `verification/records/digital-drc/records/20260825-224815-6a83263.md` | **Met for the digital half** — `klt drc --deck gf180mcu` reports `status: "clean"`, `violation_count: 0` against `layout/digital/usb_utmi_phy.gds`. **Unmet for the analog half: no analog GDS exists** (§5). | Rail-independent |
 | M | LVS | — | match, 0 mismatches | — | spec §11: clean before signoff | n/a | `verification/records/digital-lvs/records/20260825-224930-6a83263.md` | **Met for the digital half** — gate-level LVS of the routed GDS against the as-built netlist is a match, with a passing negative control. **Unmet for the analog half: no analog GDS exists.** | Rail-independent |
-| N | Post-layout (extracted-parasitic) PVT simulation | — | — | — | spec §11 (implied by "verified by simulation" once a layout exists) | n/a | `verification/records/post-layout-pvt/records/20260825-233200-1c84648.md` (digital half only) | **Unmet.** Every electrical row above is still measured against the **schematic** netlist under `design/netlist/`, not an extracted one — there is no analog layout to extract (re-measured, still blocked, under
-issue #52; tracked onward at klayout-tools#1424 and gf180-usb2-phy#56).
-Row I now has a first post-layout attempt: a SPEF-annotated `klt sta` re-run at three corners against the committed digital layout, moving worst setup slack by +0.22 to +2.96 ns versus the liberty/estimated-RC numbers Row I cites. That attempt's own parasitic annotation is incomplete (186 of 366 design nets), root-caused to a `klt sta` net-name-correlation defect (klayout-tools#1422) rather than to the extraction itself — so it does not change Row I's verdict and does not make this row **Met**. | Same |
+| N | Post-layout (extracted-parasitic) PVT simulation | — | — | — | spec §11 (implied by "verified by simulation" once a layout exists) | n/a | `verification/records/post-layout-pvt/records/20260905-182000-80d4593.md` (digital half only; supersedes `20260825-233200-1c84648.md`) | **Unmet.** Every electrical row above is still measured against the **schematic** netlist under `design/netlist/`, not an extracted one — issue #52 closed (PR #57, 2026-08-26) without ever committing a GDS/OASIS for any of the five analog blocks, so there is still nothing under `layout/analog/` to extract; tracked onward at klayout-tools#1424 and gf180-usb2-phy#56.
+Row I now has a post-layout re-verification: a SPEF-annotated `klt sta` re-run at three corners against the committed digital layout, moving worst setup slack by +0.22 to +2.96 ns versus the liberty/estimated-RC numbers Row I cites. Its first attempt reached only 186 of 366 design nets, root-caused to a `klt sta` net-name-correlation defect (klayout-tools#1422); that defect is now fixed upstream (klayout-tools#1423), and re-running the identical recipe against this repo's now-current `klt` pin closes the gap to 364 of 366 (100% of nets that physically carry routed metal) with every reported timing/power/skew number unchanged. That is real progress on the digital half, but this row's verdict is about *every* electrical row in this table having an extracted-netlist re-run, and none of Rows A–H, J is a digital-timing row — so this still does not make this row **Met**. | Same |
 
 ### Summary of verdicts
 
@@ -464,12 +463,15 @@ Listed honestly, in the order it gates:
    intent.
 2. **Post-layout (extracted-parasitic) PVT re-verification** of every Row
    A–H measurement (blocked on item 1). The digital section's timing (Row
-   N) has a first attempt —
-   `verification/records/post-layout-pvt/records/20260825-233200-1c84648.md`
-   — but its parasitic annotation is incomplete (a `klt sta` correlation
-   defect, klayout-tools#1422, not a design gap), so completing it is a
-   remaining item, not a closed one: either wait on the upstream fix, or
-   root-cause a workaround.
+   N) has been re-verified against extracted parasitics —
+   `verification/records/post-layout-pvt/records/20260905-182000-80d4593.md`
+   — reaching 364 of 366 design nets (100% of nets that physically carry
+   routed metal); an earlier attempt's incomplete annotation (a `klt sta`
+   correlation defect, klayout-tools#1422) is now fixed upstream
+   (klayout-tools#1423) and superseded. The remaining item here is
+   entirely the analog half, blocked on item 1: there is nothing under
+   `layout/analog/` to extract, so Rows A–H's own extracted-netlist
+   re-run cannot start.
 3. **Row C — driver rise/fall matching.** A device-sizing pass on the output
    stage; 36 of 45 corners currently fail.
 4. **Row E — differential receiver at high common mode.** A topology change
