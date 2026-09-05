@@ -108,7 +108,25 @@ is not committed as one, and no analog GDS is committed under `layout/` —
 per `CLAUDE.md`'s rule against making a claim the evidence does not
 support. Re-run `scripts/gen_analog_layout.py` (below) to reproduce the
 artifacts under `layout/analog/out/` (gitignored) for inspection; the same
-artifacts are frozen in the two evidence records.
+artifacts are frozen in the three evidence records.
+
+**A third run (2026-09-05, issue #61): re-measured after klayout-tools#1424
+closed, found unchanged.** klayout-tools#1424 (the DRC regression named
+below) was closed `NOT_PLANNED` on 2026-08-26 — the maintainer refuted the
+issue's claimed mechanism ("polygon-miter code" in `gen_compose.py`) via
+direct source inspection, and invited a re-run with a concrete repro if the
+violations still reproduce. They do: this repo's `klt` pin has not moved
+since the 2026-08-26 run (nothing upstream needed consuming), so the re-run
+is byte-for-byte identical in every input and every output — same 19/22/22
+`metal1.width.1` violations, on byte-identical polygons, same 0/8, 0/9, 0/9
+routed-net counts, `cmp`-identical GDS files. The closure corrected the
+*claimed mechanism*, not the observed symptom: the tapered/mitered
+quadrilaterals the closed issue described are still produced, against the
+exact commit the maintainer's source inspection covered (verified directly,
+not assumed — see the record). See
+`verification/records/analog-layout/records/20260905-200628-80cb14c.md`
+for the full comparison and the independent re-verification that the
+inspected and pinned commits are code-identical for the relevant files.
 
 **Why the routed-net count didn't move even though three friction issues
 closed.** All three fixes are real and confirmed present in the newer
@@ -131,22 +149,34 @@ generator. This record states the capability exists and is unused, rather
 than either claiming it closes the gap or re-deriving a whole routing
 design under time pressure.
 
-**A new regression, found only because the same inputs were run twice.**
-The three now-DRC-violating blocks are not evidence of worse placement —
-they are evidence of a real behavior change in `klt` itself. Per
-`gen-compose.md`'s own docs, a partially-routable net's *accepted* legs are
-now kept in the output (klayout-tools#1169). What the raw Phase C response
-for each block shows going further: legs whose own `reason` reports a
-**rejected** candidate route still leave geometry behind, and that
-geometry is a mitered dead end — a quadrilateral whose two long edges sit
-exactly at the requested backbone width, cut off at the unterminated end by
-a diagonal edge that tapers to a single point. A shape that tapers to zero
-width cannot satisfy any positive minimum-width rule, so every one of the
-19/22/22 new violations is exactly that shape, on the rule that checks
-metal width, and none of them come from device generation or placement.
-The pre-fix `klt` was DRC-clean specifically because a rejected leg drew
+**A regression, found only because the same inputs were run twice — filed,
+then closed as refuted, then re-confirmed to still reproduce.** The three
+now-DRC-violating blocks are not evidence of worse placement — they are
+evidence of a real behavior change in `klt` itself. Per `gen-compose.md`'s
+own docs, a partially-routable net's *accepted* legs are now kept in the
+output (klayout-tools#1169). What the raw Phase C response for each block
+shows going further: legs whose own `reason` reports a **rejected**
+candidate route still leave geometry behind, and that geometry is a
+mitered dead end — a quadrilateral whose two long edges sit exactly at the
+requested backbone width, cut off at the unterminated end by a diagonal
+edge that tapers to a single point. A shape that tapers to zero width
+cannot satisfy any positive minimum-width rule, so every one of the
+19/22/22 violations is exactly that shape, on the rule that checks metal
+width, and none of them come from device generation or placement. The
+pre-fix `klt` was DRC-clean specifically because a rejected leg drew
 nothing at all. Filed generically as
-[klayout-tools#1424](https://github.com/2AMLogic/klayout-tools/issues/1424).
+[klayout-tools#1424](https://github.com/2AMLogic/klayout-tools/issues/1424)
+— **closed `NOT_PLANNED` on 2026-08-26**, the maintainer refuting the
+issue's claimed mechanism (no `kdb.Polygon`/miter construction exists in
+`gen_compose.py`; every rejected leg's `points_um` is `None` before the GDS
+writer ever runs) via direct source inspection. A follow-up re-measurement
+(issue #61, 2026-09-05) found the violations still reproduce, byte-for-byte
+identical, against the exact commit that source inspection covered — see
+"What actually happened" above and
+`verification/records/analog-layout/records/20260905-200628-80cb14c.md`.
+The refutation settled the claimed *mechanism*; it did not make the
+observed violations go away, and root-causing the discrepancy further is
+left as an open follow-up rather than attempted here.
 
 ### Why nothing routed — root causes, not guesses (as diagnosed 2026-08-18)
 
@@ -205,8 +235,9 @@ below are now `CLOSED`/`COMPLETED` upstream** (closed 2026-08-18, the same
 day they were filed) — `layout/analog/plans/` and this repo's `klt` pin
 were advanced to `07b1f04f` specifically to consume the fixes (see
 "What actually happened" above for why the routed-net count didn't move
-regardless, and the new klayout-tools#1424 for a regression the same
-re-measurement surfaced):
+regardless, and klayout-tools#1424 for a regression the same
+re-measurement surfaced, closed `NOT_PLANNED` as of 2026-08-26 and
+re-confirmed as of 2026-09-05, per the entry below, to still reproduce):
 
 - [klayout-tools#1163](https://github.com/2AMLogic/klayout-tools/issues/1163)
   (closed) — `layout_plan`'s `netlist` block silently dropped `device_map`.
@@ -225,10 +256,22 @@ re-measurement surfaced):
   `mos_array`, not `diff_pair`, for exactly the reason this issue names
   below.
 - [klayout-tools#1424](https://github.com/2AMLogic/klayout-tools/issues/1424)
-  (new, filed by issue #52) — a rejected (`routed: false`) leg's candidate
-  route geometry is still drawn into the output GDS, mitered to a dead end
-  rather than squared off, which then violates the deck's own min-width
-  rule — the DRC regression in the table above.
+  (filed by issue #52; **closed `NOT_PLANNED` 2026-08-26, refuted** — see
+  below) — a rejected (`routed: false`) leg's candidate route geometry is
+  still drawn into the output GDS, mitered to a dead end rather than
+  squared off, which then violates the deck's own min-width rule — the DRC
+  regression in the table above. The maintainer's closure found no
+  polygon-miter construction in `gen_compose.py` via direct source
+  inspection, refuting the issue's claimed mechanism. **Not resolved,
+  though**: issue #61's 2026-09-05 re-measurement re-ran the identical
+  inputs against the exact commit that source inspection covered (verified
+  code-identical for the relevant files, not assumed) and found the
+  19/22/22 `metal1.width.1` violations reproduce byte-for-byte unchanged.
+  The closure corrected the claimed mechanism, not the observed symptom —
+  see `verification/records/analog-layout/records/20260905-200628-80cb14c.md`
+  for the full comparison. Root-causing the discrepancy further (or
+  refiling with the concrete repro the closing comment invited) is an open
+  follow-up, not attempted by either issue.
 
 The `dplus_pullup` blocker (`nf=10`) is unrelated to any of the above and
 completely unmoved: identical error text on both the 2026-08-18 and
@@ -248,9 +291,12 @@ The routing capability itself has, in large part, landed
 plans that actually spend `orientation` and the `metal2` bus role on real
 per-block layout decisions — genuine analog layout design work, not a
 mechanical re-run, and the reason this record does not attempt it in the
-same pass that discovered the capability exists; (b) klayout-tools#1424
-(the mitered-dead-end DRC regression) closing, so a partially-successful
-routing attempt doesn't manufacture spurious violations; and (c) the
+same pass that discovered the capability exists; (b) the mitered-dead-end
+DRC regression (klayout-tools#1424, closed `NOT_PLANNED`/refuted
+2026-08-26 but re-confirmed as of 2026-09-05 to still reproduce against
+the exact inspected commit — see "Friction filed" above) actually going
+away, so a partially-successful routing attempt doesn't manufacture
+spurious violations; and (c) the
 `differential_driver`/`dplus_pullup` ingestion blockers resolving via
 either further klt device-class support (metal resistors, non-MOS
 `device_map` entries) or the `dplus_pullup` decision above. None of this
