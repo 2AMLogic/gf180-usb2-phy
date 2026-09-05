@@ -183,12 +183,20 @@ PDK_ROOT=~/.volare PDK=gf180mcuD klt extract layout/digital/usb_utmi_phy.gds \
 PDK_ROOT=~/.volare PDK=gf180mcuD klt sta flow/request-usb-utmi-phy-sta.json --format json
 ```
 
-**Even with both correlation flags, annotation is incomplete** —
+**The first attempt at this had incomplete annotation** —
 `verification/records/post-layout-pvt/records/20260825-233200-1c84648.md`
-measures 186/366 design nets annotated, and root-causes the gap to every
-net whose name contains a SPEF-escaped `[`/`]`/`/` character failing to
+measured only 186/366 design nets annotated, root-caused to every net
+whose name contains a SPEF-escaped `[`/`]`/`/` character failing to
 correlate in `klt sta`'s own check, despite being present and well-formed
 in the SPEF file — filed as
 [klayout-tools#1422](https://github.com/2AMLogic/klayout-tools/issues/1422).
-That record is therefore **not** a complete real-parasitics measurement;
-read its "Result" section before citing the numbers it reports.
+**That defect is now fixed upstream** (klayout-tools#1423, merged into the
+`klt` revision this repo pins today — see `docs/environment-setup.md`), and
+re-running the identical commands above against the current pin closes
+almost the entire gap: 364/366 design nets annotated (the remaining 2 are
+unrouted single-pin nets with no wire to extract, not a correlation miss)
+— see
+`verification/records/post-layout-pvt/records/20260905-182000-80d4593.md`,
+which supersedes the record above. Every reported timing/power/skew number
+is unchanged between the two runs. Read the newer record's "Result" section
+before citing numbers from either.
