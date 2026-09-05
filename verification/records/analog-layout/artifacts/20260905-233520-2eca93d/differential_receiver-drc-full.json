@@ -1,0 +1,734 @@
+{
+  "schema_version": 1,
+  "file": "layout/analog/out/differential_receiver.gds",
+  "deck": "gf180mcu",
+  "dbu_um": 0.001,
+  "status": "violations",
+  "violation_count": 19,
+  "rule_counts": {
+    "metal1.width.1": 19
+  },
+  "violations": [
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 400840,
+        "bottom": 915,
+        "right": 401250,
+        "top": 1085
+      },
+      "polygon": [
+        [
+          400840,
+          915
+        ],
+        [
+          400840,
+          1085
+        ],
+        [
+          401250,
+          1085
+        ],
+        [
+          401095,
+          915
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 401095,
+        "bottom": -410,
+        "right": 401265,
+        "top": 1070
+      },
+      "polygon": [
+        [
+          401095,
+          -410
+        ],
+        [
+          401095,
+          915
+        ],
+        [
+          401265,
+          1070
+        ],
+        [
+          401265,
+          -255
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 401110,
+        "bottom": -425,
+        "right": 418390,
+        "top": -255
+      },
+      "polygon": [
+        [
+          401110,
+          -425
+        ],
+        [
+          401265,
+          -255
+        ],
+        [
+          418235,
+          -255
+        ],
+        [
+          418390,
+          -425
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 403425,
+        "bottom": 4820,
+        "right": 403595,
+        "top": 41530
+      },
+      "polygon": [
+        [
+          403425,
+          4820
+        ],
+        [
+          403425,
+          41530
+        ],
+        [
+          403595,
+          41375
+        ],
+        [
+          403595,
+          4820
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 403440,
+        "bottom": 41375,
+        "right": 433080,
+        "top": 41545
+      },
+      "polygon": [
+        [
+          403595,
+          41375
+        ],
+        [
+          403440,
+          41545
+        ],
+        [
+          433080,
+          41545
+        ],
+        [
+          432925,
+          41375
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 406655,
+        "bottom": 4820,
+        "right": 406825,
+        "top": 21230
+      },
+      "polygon": [
+        [
+          406655,
+          4820
+        ],
+        [
+          406655,
+          21230
+        ],
+        [
+          406825,
+          21075
+        ],
+        [
+          406825,
+          4820
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 406670,
+        "bottom": 21075,
+        "right": 419440,
+        "top": 21245
+      },
+      "polygon": [
+        [
+          406825,
+          21075
+        ],
+        [
+          406670,
+          21245
+        ],
+        [
+          419440,
+          21245
+        ],
+        [
+          419285,
+          21075
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 416660,
+        "bottom": 9915,
+        "right": 419285,
+        "top": 10085
+      },
+      "polygon": [
+        [
+          416660,
+          9915
+        ],
+        [
+          416660,
+          10085
+        ],
+        [
+          419285,
+          10085
+        ],
+        [
+          419285,
+          9915
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 418235,
+        "bottom": -255,
+        "right": 418405,
+        "top": 4220
+      },
+      "polygon": [
+        [
+          418235,
+          -255
+        ],
+        [
+          418235,
+          4220
+        ],
+        [
+          418405,
+          4065
+        ],
+        [
+          418405,
+          -255
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 418250,
+        "bottom": -425,
+        "right": 421810,
+        "top": -255
+      },
+      "polygon": [
+        [
+          418250,
+          -425
+        ],
+        [
+          418405,
+          -255
+        ],
+        [
+          421655,
+          -255
+        ],
+        [
+          421810,
+          -425
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 418250,
+        "bottom": 4065,
+        "right": 418810,
+        "top": 4235
+      },
+      "polygon": [
+        [
+          418405,
+          4065
+        ],
+        [
+          418250,
+          4235
+        ],
+        [
+          418810,
+          4235
+        ],
+        [
+          418810,
+          4065
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 419285,
+        "bottom": 8970,
+        "right": 419455,
+        "top": 10070
+      },
+      "polygon": [
+        [
+          419285,
+          8970
+        ],
+        [
+          419285,
+          9915
+        ],
+        [
+          419455,
+          10070
+        ],
+        [
+          419455,
+          8970
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 419285,
+        "bottom": 9930,
+        "right": 419455,
+        "top": 21230
+      },
+      "polygon": [
+        [
+          419455,
+          9930
+        ],
+        [
+          419285,
+          10085
+        ],
+        [
+          419285,
+          21075
+        ],
+        [
+          419455,
+          21230
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 421655,
+        "bottom": -255,
+        "right": 421825,
+        "top": 8220
+      },
+      "polygon": [
+        [
+          421655,
+          -255
+        ],
+        [
+          421655,
+          8220
+        ],
+        [
+          421825,
+          8065
+        ],
+        [
+          421825,
+          -255
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 421670,
+        "bottom": -425,
+        "right": 428650,
+        "top": -255
+      },
+      "polygon": [
+        [
+          421670,
+          -425
+        ],
+        [
+          421825,
+          -255
+        ],
+        [
+          428495,
+          -255
+        ],
+        [
+          428650,
+          -425
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 421670,
+        "bottom": 8065,
+        "right": 422230,
+        "top": 8235
+      },
+      "polygon": [
+        [
+          421825,
+          8065
+        ],
+        [
+          421670,
+          8235
+        ],
+        [
+          422230,
+          8235
+        ],
+        [
+          422230,
+          8065
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 428495,
+        "bottom": -410,
+        "right": 428665,
+        "top": 20220
+      },
+      "polygon": [
+        [
+          428665,
+          -410
+        ],
+        [
+          428495,
+          -255
+        ],
+        [
+          428495,
+          20220
+        ],
+        [
+          428665,
+          20065
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 428510,
+        "bottom": 20065,
+        "right": 429070,
+        "top": 20235
+      },
+      "polygon": [
+        [
+          428665,
+          20065
+        ],
+        [
+          428510,
+          20235
+        ],
+        [
+          429070,
+          20235
+        ],
+        [
+          429070,
+          20065
+        ]
+      ]
+    },
+    {
+      "rule": "metal1.width.1",
+      "description": "minimum metal1 width",
+      "check": "width",
+      "layer": "Metal1",
+      "cell": "differential_receiver",
+      "source_cell": null,
+      "source_path": null,
+      "bbox": {
+        "left": 432925,
+        "bottom": 8820,
+        "right": 433095,
+        "top": 41530
+      },
+      "polygon": [
+        [
+          432925,
+          8820
+        ],
+        [
+          432925,
+          41375
+        ],
+        [
+          433095,
+          41530
+        ],
+        [
+          433095,
+          8820
+        ]
+      ]
+    }
+  ],
+  "coverage": {
+    "deck_layers": [
+      "21/0",
+      "22/0",
+      "30/0",
+      "33/0",
+      "34/0",
+      "35/0",
+      "36/0",
+      "37/0",
+      "38/0",
+      "40/0",
+      "41/0",
+      "42/0",
+      "46/0",
+      "53/0",
+      "55/0",
+      "75/0",
+      "81/0",
+      "127/5"
+    ],
+    "layers_checked": [
+      "21/0",
+      "22/0",
+      "30/0",
+      "33/0",
+      "34/0"
+    ],
+    "layers_in_stream_without_rules": [
+      "31/0",
+      "34/10",
+      "49/0",
+      "110/5"
+    ],
+    "rules_skipped": [
+      "bjt.separation.comp.1",
+      "comp.space.mv.1",
+      "comp.width.mv.1",
+      "metal1.enclosing.via1.1",
+      "metal2.enclosing.via1.1",
+      "metal2.enclosing.via2.1",
+      "metal2.space.1",
+      "metal2.width.1",
+      "metal3.enclosing.via2.1",
+      "metal3.enclosing.via3.1",
+      "metal3.space.1",
+      "metal3.width.1",
+      "metal4.enclosing.via3.1",
+      "metal4.enclosing.via4.1",
+      "metal5.enclosing.via4.1",
+      "metal5.space.1",
+      "metal5.width.1",
+      "metaltop.space.1",
+      "metaltop.width.1",
+      "mim.enclosing.fusetop.1",
+      "mim.enclosing.via4.1",
+      "mim.space.1",
+      "pad.enclosing.metal5.1",
+      "via1.space.1",
+      "via1.width.1",
+      "via2.space.1",
+      "via2.width.1",
+      "via3.space.1",
+      "via3.width.1",
+      "via4.space.1",
+      "via4.width.1"
+    ],
+    "voltage_domain_warnings": [],
+    "deck_scope": [
+      "10.4.2 MIM Option B",
+      "10.7 DRC_BJT Mark Layer",
+      "7.12 Contact",
+      "7.13 Metaln",
+      "7.14 Vian",
+      "7.15 MetalTop",
+      "7.4 Nwell",
+      "7.5 Comp",
+      "7.7 Poly2",
+      "9.1 Bond Pad"
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.3.0",
+    "klayout_version": "0.30.12",
+    "pdk": null,
+    "deck": {
+      "name": "gf180mcu",
+      "content_hash": "sha256:79e71a1e7d84be3cfc82e4c70afbdf7b743ac1f361fb8e981f57831014d2e8b0",
+      "released": true
+    },
+    "input": {
+      "content_hash": "sha256:7fb51a0c8dd63e66b30137764282a575e8449dbc4f8e04c96d0151afa0616b1d"
+    }
+  }
+}

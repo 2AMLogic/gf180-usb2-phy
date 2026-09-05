@@ -77,17 +77,25 @@ pin was moved forward to `b3e284f` specifically to consume it, and then again
 to `07b1f04f` (issue #52) to consume the fixes named under "Friction filed"
 below (see `docs/environment-setup.md`).
 
-`layout/analog/plans/*.json` are the resulting committed plans — one per
-block, one `device_groups[]` entry per netlist device (`mos_array` with
-`rows`/`cols` 1 and `dummy` 0 for each MOS, `res_array` with `num` 1 and
-`dummy` 0 for each poly resistor), every group in a single `rows[]` row.
-`scripts/gen_analog_layout.py` executes them and runs `klt drc` on each
-result. Nothing here is hand-drawn: `klt draw` remains the wrong tool for a
-layout claim (its own docs: "no PDK awareness and no rule checking").
+`layout/analog/plans/*.json` are the resulting committed plans — four of the
+five blocks now have one. The three receiver plans use one `device_groups[]`
+entry per netlist device (`mos_array` with `rows`/`cols` 1 and `dummy` 0 for
+each MOS, `res_array` with `num` 1 and `dummy` 0 for each poly resistor),
+every group in a single `rows[]` row. `dplus_pullup.json` (issue #62) is the
+first plan that groups rather than enumerates: 78 devices in 24 groups — the
+six differently-sized `ppolyf_u` ladder segments as six distinct `res_array`
+groups (one shared group would force a single `length_um` onto all six), each
+switch bank's ten flattened fingers as one 10-wide `mos_array`, and the six
+control inverters as per-device groups clustered in n/p pairs. It is also the
+first plan to declare `routing` explicitly rather than take klt's default —
+see "Route width" below. `scripts/gen_analog_layout.py` executes them and runs
+`klt drc` on each result. Nothing here is hand-drawn: `klt draw` remains the
+wrong tool for a layout claim (its own docs: "no PDK awareness and no rule
+checking").
 
 ### What actually happened
 
-Three runs exist. The first two ran against two `klt` pins over
+Four runs exist. The first two ran against two `klt` pins over
 byte-identical inputs (design netlists, plans, and the driver script never
 changed between them — see `verification/records/analog-layout/` for the
 content hashes that prove it); the pin moved specifically because the three
@@ -97,39 +105,64 @@ predated every one of the fixes (issue #52's investigation). The third
 holds the `klt` pin fixed and changes exactly one design input —
 `design/netlist/dplus_pullup.spice`, per the issue #56 flatten ruling
 (`spec/decisions/0001-dplus-pullup-switch-device-flattening.md`) — so that
-its effect is isolated.
+its effect is isolated. The fourth changes no design source at all: it adds
+the committed `dplus_pullup` layout plan (issue #62) and drops that block
+from the driver's `BLOCKED_BLOCKS`.
 
-| Block | 2026-08-18, `klt` 0.2.0 @ `b3e284f` | 2026-08-26, `klt` 0.3.0 @ `07b1f04` | 2026-09-05, `klt` 0.3.0 @ `07b1f04`, flattened `dplus_pullup` |
-|---|---|---|---|
-| `differential_receiver` | 11 groups placed, **DRC-clean**, **0/8 nets routed** | 11 groups placed, **0/8 nets routed (unchanged)**, DRC **19 violations** (`metal1.width.1`) | unchanged — byte-identical GDS |
-| `se_receiver_dm` | 13 groups placed, **DRC-clean**, **0/9 nets routed** | 13 groups placed, **0/9 nets routed (unchanged)**, DRC **22 violations** | unchanged — byte-identical GDS |
-| `se_receiver_dp` | 13 groups placed, **DRC-clean**, **0/9 nets routed** | 13 groups placed, **0/9 nets routed (unchanged)**, DRC **22 violations** | unchanged — byte-identical GDS |
-| `differential_driver` | **cannot be ingested** — series-termination resistors are `rm1` (metal-1) devices, unknown to klt's curated `gf180mcu` deck | **cannot be ingested — identical error text, verbatim** | **still cannot be ingested** — unrelated blocker, unchanged |
-| `dplus_pullup` | **cannot be ingested** — pull-up switches carry `nf=10`, which klt's subckt-call → plain-element conversion refuses to represent | **cannot be ingested — identical error text, verbatim** | **ingests, and places** — 78 devices / 21 nets; blocker cleared by the flatten. Still **no committed plan**, so still no layout |
+| Block | 2026-08-18, `klt` 0.2.0 @ `b3e284f` | 2026-08-26, `klt` 0.3.0 @ `07b1f04` | 2026-09-05, flattened `dplus_pullup` | 2026-09-05, + committed `dplus_pullup` plan |
+|---|---|---|---|---|
+| `differential_receiver` | 11 groups placed, **DRC-clean**, **0/8 nets routed** | 11 groups placed, **0/8 nets routed (unchanged)**, DRC **19 violations** (`metal1.width.1`) | unchanged — byte-identical GDS | unchanged — byte-identical GDS |
+| `se_receiver_dm` | 13 groups placed, **DRC-clean**, **0/9 nets routed** | 13 groups placed, **0/9 nets routed (unchanged)**, DRC **22 violations** | unchanged — byte-identical GDS | unchanged — byte-identical GDS |
+| `se_receiver_dp` | 13 groups placed, **DRC-clean**, **0/9 nets routed** | 13 groups placed, **0/9 nets routed (unchanged)**, DRC **22 violations** | unchanged — byte-identical GDS | unchanged — byte-identical GDS |
+| `differential_driver` | **cannot be ingested** — series-termination resistors are `rm1` (metal-1) devices, unknown to klt's curated `gf180mcu` deck | **cannot be ingested — identical error text, verbatim** | **still cannot be ingested** — unrelated blocker, unchanged | **still cannot be ingested** — unchanged |
+| `dplus_pullup` | **cannot be ingested** — pull-up switches carry `nf=10`, which klt's subckt-call → plain-element conversion refuses to represent | **cannot be ingested — identical error text, verbatim** | **ingests, and places** — 78 devices / 21 nets; blocker cleared by the flatten. Still **no committed plan**, so still no layout | **plan committed and executed** — 24 groups placed, **6/21 nets routed**, **DRC-clean (0 violations)**. Still not a layout: 15 nets unrouted |
 
-**The `dplus_pullup` ingestion blocker is resolved; that block still has no
-layout.** Issue #56's operator ruling (2026-09-05, FLATTEN — recorded as
+**The `dplus_pullup` ingestion blocker is resolved; that block now has a
+committed plan; it still does not have a layout.** Issue #56's operator
+ruling (2026-09-05, FLATTEN — recorded as
 `spec/decisions/0001-dplus-pullup-switch-device-flattening.md`) redrew each
 of the six `nf=10` pull-up switch devices as ten one-finger devices in
 parallel, one device per drawn gate, which is verbatim what klt's own error
-text prescribed. `klt` now returns a complete digest for the block, and a
-throwaway two-group probe plan drives `execute_layout_plan_document` to a
-real placement (the ten flattened `MEN` fingers as a `mos_array`, the
-six-resistor ladder as a `res_array`) with 1 of 8 nets routed. Two things
-that ruling did **not** do, stated so the table above is not over-read: it
-did not author a layout plan for the block (that is per-block design work,
-tracked separately), and it did not make the change free — the flatten's
+text prescribed; that ruling did not make the change free — the flatten's
 electrical equivalence is *measured*, in
 `sim/dplus-pullup-tolerance/records/20260905-185112-6bfe679.md` (45/45 PVT
 corners PASS, identical trim code at every corner, ≤ 0.01 Ω from the
 superseded `nf=10` result), not assumed.
 
-A block of placed devices with none of its nets wired is not a layout. It
-is not committed as one, and no analog GDS is committed under `layout/` —
-per `CLAUDE.md`'s rule against making a claim the evidence does not
-support. Re-run `scripts/gen_analog_layout.py` (below) to reproduce the
-artifacts under `layout/analog/out/` (gitignored) for inspection; the same
-artifacts are frozen in the three evidence records.
+Issue #62 then authored `layout/analog/plans/dplus_pullup.json` — the real
+plan, replacing the throwaway two-group probe #56's record used to prove the
+ingestion path. Executing it places all 78 devices in 24 groups
+(201.94 × 101.12 µm), routes **6 of 21 nets**, and produces a **DRC-clean**
+GDS. Both of those are firsts for a committed analog plan in this repo, and
+neither makes it a layout: the six routed nets are the inverter gate-input
+nets, while every ladder node, both supplies, and all six switch gate-drive
+nets are unrouted. The grouping decisions and the measured sweeps behind
+them (grouping, `spacing_um`, `orientation`, `routing.layer_role`) are in
+`verification/records/analog-layout/records/20260905-233520-2eca93d.md`.
+
+**Route width: klt's default is illegal on this PDK, and that — not miter
+geometry — is what the `metal1.width.1` counts above have been measuring.**
+klt's documented default routing width is 0.17 µm; the `gf180mcu` deck's own
+`metal1.width.1` minimum is 0.23 µm (DRM 7.13 "Mn.1"), so every segment a
+default-width route draws is below minimum. The `dplus_pullup` plan is the
+first here to set `routing` explicitly (`metal`, 0.23 µm) and is DRC-clean;
+forcing that same plan back to 0.17 µm yields 172 `metal1.width.1`
+violations with an otherwise byte-for-byte identical placement and the same
+6/21 routing. Probing the three older plans the same way clears **all** of
+their violations (19 → 0, 22 → 0, 22 → 0) with unchanged 0/N routing. Those
+three plans still carry no `routing` block and so still take the illegal
+default; correcting them is tracked as issue #65, not folded into #62. The
+generic tool-side gap — klt never validates `routing.width_um` (nor its
+hard-coded 0.22 µm via-drop square) against the resolved deck's own rules —
+is filed upstream as
+[klayout-tools#1501](https://github.com/2AMLogic/klayout-tools/issues/1501).
+
+A block of placed devices with none of its nets wired is not a layout, and
+neither is one with 6 of 21 wired. None is committed as one, and no analog
+GDS is committed under `layout/` — per `CLAUDE.md`'s rule against making a
+claim the evidence does not support. Re-run `scripts/gen_analog_layout.py`
+(below) to reproduce the artifacts under `layout/analog/out/` (gitignored)
+for inspection; the same artifacts are frozen in the four evidence records.
 
 **A third run (2026-09-05, issue #61): re-measured after klayout-tools#1424
 closed, found unchanged.** klayout-tools#1424 (the DRC regression named
@@ -141,13 +174,15 @@ since the 2026-08-26 run (nothing upstream needed consuming), so the re-run
 is byte-for-byte identical in every input and every output — same 19/22/22
 `metal1.width.1` violations, on byte-identical polygons, same 0/8, 0/9, 0/9
 routed-net counts, `cmp`-identical GDS files. The closure corrected the
-*claimed mechanism*, not the observed symptom: the tapered/mitered
-quadrilaterals the closed issue described are still produced, against the
-exact commit the maintainer's source inspection covered (verified directly,
-not assumed — see the record). See
+*claimed mechanism*, not the observed symptom. See
 `verification/records/analog-layout/records/20260905-200628-80cb14c.md`
 for the full comparison and the independent re-verification that the
 inspected and pinned commits are code-identical for the relevant files.
+**That record's own explanation of the symptom is now superseded** — the
+violating shapes are not the tapered quadrilaterals it (and #1424) described
+but ordinary sub-minimum-width route segments; see "Route width" above and
+record `20260905-233520-2eca93d`. The record stands unedited as the correct
+account of *what reproduced*; only the mechanism it inferred is wrong.
 
 **Why the routed-net count didn't move even though three friction issues
 closed.** All three fixes are real and confirmed present in the newer
@@ -158,46 +193,66 @@ per-`device_groups[]` `orientation` field (`"mirror_x"`/`"mirror_y"`/
 #1164's five decomposed children), and a real two-layer
 `routing.layer_role: "metal2"` bus role with via-drop now exists for
 cross-block supply/bias nets (closing root-cause class 3 from the original
-diagnosis below). **All three are opt-in fields that the committed plans
-under `layout/analog/plans/` predate and do not use** — landing upstream
-does not retroactively change what an already-written plan asks for. Using
-them for real (mirroring the load/output-stage devices so the CMOS-inverter
-drain net stops fighting a same-facing port pair; putting `VDD`/`VSS`/bias
-on a `metal2` bus) is genuine per-block analog layout design work, not a
-mechanical re-run — and, per this file's "not in scope" framing, is
-explicitly the line this repo does not cross into a bespoke block-specific
-generator. This record states the capability exists and is unused, rather
-than either claiming it closes the gap or re-deriving a whole routing
-design under time pressure.
+diagnosis below). **All three are opt-in fields that the three receiver
+plans predate and do not use** — landing upstream does not retroactively
+change what an already-written plan asks for.
+
+**Update (2026-09-05, issue #62): two of those three were finally spent, on
+`dplus_pullup`, and measured.** `orientation` was tried in all three
+non-default values: `mirror_x` is neutral (6/21 routed, DRC clean),
+`mirror_y` and `rotate_180` move the gate ports to the far edge and drop the
+count to 0/21 — so the committed plan leaves it at `"none"` by measurement,
+not by omission. `routing.layer_role: "metal2"` does remove the whole
+same-drawing-layer rejection class, but does not raise the routed-net count
+(the router still refuses to cross a block's bbox even on a layer that
+cannot short to it) and adds 284 sub-minimum vias, so the committed plan
+stays on metal1. The one capability that would plausibly carry the remaining
+nets — `routing.cross_block_layer_role` — is unreachable from a plan
+document at all (klayout-tools#1502). Using these fields for real is genuine
+per-block analog layout design work, not a mechanical re-run, and remains
+short of the line this repo does not cross into a bespoke block-specific
+generator.
 
 **A regression, found only because the same inputs were run twice — filed,
-then closed as refuted, then re-confirmed to still reproduce.** The three
-now-DRC-violating blocks are not evidence of worse placement — they are
-evidence of a real behavior change in `klt` itself. Per `gen-compose.md`'s
-own docs, a partially-routable net's *accepted* legs are now kept in the
-output (klayout-tools#1169). What the raw Phase C response for each block
-shows going further: legs whose own `reason` reports a **rejected**
-candidate route still leave geometry behind, and that geometry is a
-mitered dead end — a quadrilateral whose two long edges sit exactly at the
-requested backbone width, cut off at the unterminated end by a diagonal
-edge that tapers to a single point. A shape that tapers to zero width
-cannot satisfy any positive minimum-width rule, so every one of the
-19/22/22 violations is exactly that shape, on the rule that checks metal
-width, and none of them come from device generation or placement. The
-pre-fix `klt` was DRC-clean specifically because a rejected leg drew
-nothing at all. Filed generically as
-[klayout-tools#1424](https://github.com/2AMLogic/klayout-tools/issues/1424)
-— **closed `NOT_PLANNED` on 2026-08-26**, the maintainer refuting the
-issue's claimed mechanism (no `kdb.Polygon`/miter construction exists in
-`gen_compose.py`; every rejected leg's `points_um` is `None` before the GDS
-writer ever runs) via direct source inspection. A follow-up re-measurement
-(issue #61, 2026-09-05) found the violations still reproduce, byte-for-byte
-identical, against the exact commit that source inspection covered — see
-"What actually happened" above and
-`verification/records/analog-layout/records/20260905-200628-80cb14c.md`.
-The refutation settled the claimed *mechanism*; it did not make the
-observed violations go away, and root-causing the discrepancy further is
-left as an open follow-up rather than attempted here.
+closed as refuted, re-confirmed to still reproduce, and finally root-caused
+to this repo's own plans (2026-09-05, issue #62).** The story, in order,
+because each step is recorded and none of them is deleted:
+
+1. The three blocks went from DRC-clean to 19/22/22 `metal1.width.1`
+   violations across a `klt` pin bump over byte-identical inputs. Per
+   `gen-compose.md`, a partially-routable net's *accepted* legs are now kept
+   in the output (klayout-tools#1169), where the pre-fix `klt` drew nothing
+   for a rejected leg — so the new violations are drawn route geometry, and
+   none of them come from device generation or placement. That much was, and
+   remains, correct.
+2. The mechanism this repo inferred for them — that a **rejected** leg
+   leaves behind a mitered dead end tapering to zero width — was wrong. It
+   was filed generically as
+   [klayout-tools#1424](https://github.com/2AMLogic/klayout-tools/issues/1424)
+   and **closed `NOT_PLANNED` on 2026-08-26**: the maintainer's direct source
+   inspection found no `kdb.Polygon`/miter construction in `gen_compose.py`
+   and every rejected leg's `points_um` `None` before the GDS writer runs.
+   That refutation was right.
+3. Issue #61's 2026-09-05 re-measurement then found the violations still
+   reproduce byte-for-byte against the exact inspected commit — correctly
+   recording that the refutation had settled the claimed mechanism without
+   making the symptom go away
+   (`verification/records/analog-layout/records/20260905-200628-80cb14c.md`).
+4. Issue #62 root-caused it: the violating shapes are ordinary route
+   segments drawn at klt's default `routing.width_um` of **0.17 µm**, below
+   the `gf180mcu` deck's own **0.23 µm** `metal1.width.1` minimum. Setting a
+   legal width on the identical plan documents clears every violation on all
+   three blocks (19 → 0, 22 → 0, 22 → 0) with unchanged 0/N routed-net
+   counts — see "Route width" above and record
+   `20260905-233520-2eca93d`. The refuted miter theory and the real
+   parameter bug were about different things, which is why both the
+   maintainer's inspection and this repo's re-measurement were each right on
+   their own terms.
+
+The remaining tool-side gap is that klt validates neither the requested
+route width nor its hard-coded via-drop size against the resolved deck it
+will later be judged by — filed generically as
+[klayout-tools#1501](https://github.com/2AMLogic/klayout-tools/issues/1501).
 
 ### Why nothing routed — root causes, not guesses (as diagnosed 2026-08-18)
 
@@ -277,22 +332,35 @@ re-confirmed as of 2026-09-05, per the entry below, to still reproduce):
   `mos_array`, not `diff_pair`, for exactly the reason this issue names
   below.
 - [klayout-tools#1424](https://github.com/2AMLogic/klayout-tools/issues/1424)
-  (filed by issue #52; **closed `NOT_PLANNED` 2026-08-26, refuted** — see
-  below) — a rejected (`routed: false`) leg's candidate route geometry is
-  still drawn into the output GDS, mitered to a dead end rather than
-  squared off, which then violates the deck's own min-width rule — the DRC
-  regression in the table above. The maintainer's closure found no
-  polygon-miter construction in `gen_compose.py` via direct source
-  inspection, refuting the issue's claimed mechanism. **Not resolved,
-  though**: issue #61's 2026-09-05 re-measurement re-ran the identical
-  inputs against the exact commit that source inspection covered (verified
-  code-identical for the relevant files, not assumed) and found the
-  19/22/22 `metal1.width.1` violations reproduce byte-for-byte unchanged.
-  The closure corrected the claimed mechanism, not the observed symptom —
-  see `verification/records/analog-layout/records/20260905-200628-80cb14c.md`
-  for the full comparison. Root-causing the discrepancy further (or
-  refiling with the concrete repro the closing comment invited) is an open
-  follow-up, not attempted by either issue.
+  (filed by issue #52; **closed `NOT_PLANNED` 2026-08-26 — correctly
+  refuted, and its claimed mechanism is now known to be wrong**) — it
+  attributed the 19/22/22 `metal1.width.1` violations to a rejected
+  (`routed: false`) leg leaving mitered dead-end geometry in the output GDS.
+  The maintainer's direct source inspection found no such construction, and
+  issue #62's 2026-09-05 root-cause confirms the refutation: the violations
+  come from this repo's own plans requesting a 0.17 µm route width against a
+  deck whose metal1 minimum is 0.23 µm. **Nothing about #1424 needs
+  reopening**; the two real tool gaps behind the episode are filed fresh as
+  #1501/#1502 below, and the plan-side correction is this repo's issue #65.
+- [klayout-tools#1501](https://github.com/2AMLogic/klayout-tools/issues/1501)
+  (filed by issue #62, open) — neither `routing.width_um` nor the via-drop
+  square is validated against the resolved PDK deck's own minimum-width
+  rules, so `klt` silently draws geometry that `klt drc --deck <the same
+  deck>` then rejects. Two instances measured: the documented default
+  routing width (0.17 µm) is below `gf180mcu`'s `metal1.width.1` (0.23 µm),
+  and the hard-coded 0.22 µm via-drop square is below its `via1.width.1`
+  (0.26 µm), which makes `routing.layer_role: "metal2"` unable to produce a
+  DRC-clean result on this family at all.
+- [klayout-tools#1502](https://github.com/2AMLogic/klayout-tools/issues/1502)
+  (filed by issue #62, open) — `layout_plan_execute` rebuilds
+  `request.routing` from a two-field allow-list
+  (`layer_role`/`width_um`), silently dropping every other field
+  `gen_compose.compose()` accepts. `cross_block_layer_role` — the field the
+  router's own rejection messages tell a plan author to configure when a
+  net's backbone would short against a block's own ports — is therefore
+  unreachable from a layout plan: adding it changes nothing, with no error
+  and no warning. That is the single capability most of `dplus_pullup`'s 15
+  unrouted nets are waiting on.
 
 The `dplus_pullup` blocker (`nf=10`) was unrelated to any of the above and
 was unmoved across the 2026-08-18 and 2026-08-26 runs: a deliberate,
@@ -315,20 +383,23 @@ future decision record may restore the idiomatic `nf=10` form.
 ### What would have to be true to deliver analog layout
 
 The routing capability itself has, in large part, landed
-(klayout-tools#1163/#1164/#1165 above). What remains is: (a) authoring
-plans that actually spend `orientation` and the `metal2` bus role on real
-per-block layout decisions — genuine analog layout design work, not a
-mechanical re-run, and the reason this record does not attempt it in the
-same pass that discovered the capability exists — `dplus_pullup` now needs
-such a plan too, since as of 2026-09-05 it ingests but has none; (b) the
-mitered-dead-end DRC regression (klayout-tools#1424, closed `NOT_PLANNED`/
-refuted 2026-08-26 but re-confirmed as of 2026-09-05 to still reproduce
-against the exact inspected commit — see "Friction filed" above) actually
-going away, so a partially-successful routing attempt doesn't manufacture
-spurious violations; and (c) `differential_driver`'s remaining ingestion
-blocker resolving via further klt device-class support (metal resistors,
-non-MOS `device_map` entries) — `dplus_pullup`'s half of this item is
-discharged by the 2026-09-05 flatten above. None of this
+(klayout-tools#1163/#1164/#1165 above). What remains is: (a) plans that
+spend the available capabilities on real per-block layout decisions —
+genuine analog layout design work, not a mechanical re-run. `dplus_pullup`
+(issue #62) is the first of these and shows both what that buys and where it
+stops: measured grouping and spacing choices take it to 6/21 nets routed and
+DRC-clean, and then it hits a wall that no plan can climb, because the
+`metal2` bus role that would carry the remaining nets is unreachable from a
+plan document (klayout-tools#1502) and, where it *is* reachable via
+`layer_role`, draws sub-minimum vias (klayout-tools#1501). The three older
+plans still need the same treatment (issue #65); (b) klt validating drawn
+geometry against the deck it will be judged by — the same #1501 — so a
+routing attempt cannot manufacture spurious violations, as the 0.17 µm
+default did for three blocks across four runs; and (c)
+`differential_driver`'s remaining ingestion blocker resolving via further
+klt device-class support (metal resistors, non-MOS `device_map` entries) —
+`dplus_pullup`'s half of this item is discharged by the 2026-09-05 flatten
+above. None of this
 is a bespoke block-specific layout generator in the shape of
 [`gf180-bandgap`](https://github.com/2AMLogic/gf180-bandgap)'s
 `generate.py`/`plan.py` — that remains explicitly out of scope; this record
@@ -372,10 +443,11 @@ layout: `0` means every plan executed and every blocked block was probed,
 the report for the verdict — as of this writing it ends `analog layout NOT
 delivered`.
 
-It also probes the two blocks that have no committed plan, so their ingestion
-errors are re-measured live rather than quoted from prose. If either ever
-ingests, the script says so explicitly (`status:
-ingest-unexpectedly-succeeded`) and tells you to author its plan.
+It also probes the one remaining block that has no committed plan
+(`differential_driver`), so its ingestion error is re-measured live rather
+than quoted from prose. If it ever ingests, the script says so explicitly
+(`status: ingest-unexpectedly-succeeded`) and tells you to author its plan —
+which is exactly how `dplus_pullup` left that list.
 
 `scripts/digital_lvs.py` writes its extracted/reference netlists and reports
 to `layout/digital/lvs/` (gitignored scratch — the frozen copies live under
