@@ -368,10 +368,13 @@ filed (all closed upstream): the routing capability those fixes add
 by the committed plans, so the same three blocks still place but route
 **0 of their nets** — and are now DRC-**violating** rather than clean, a
 regression in the tool's own partial-route geometry filed as
-klayout-tools#1424. The other two blocks still cannot be ingested by the
-layout-plan compiler at all, one of which (`dplus_pullup`) now has its
-path forward tracked as an explicit maintainer decision at
-gf180-usb2-phy#56. `layout/README.md` § "Analog" gives the full per-block
+klayout-tools#1424. Of the other two blocks, `differential_driver` still
+cannot be ingested by the layout-plan compiler at all; `dplus_pullup`'s
+ingestion blocker was cleared on 2026-09-05 by the maintainer decision
+taken at gf180-usb2-phy#56 (flatten its multi-finger switch devices — see
+`spec/decisions/0001-dplus-pullup-switch-device-flattening.md`), and it now
+ingests and places, but has no committed layout plan and so still produces
+no layout. `layout/README.md` § "Analog" gives the full per-block
 outcome. A block of placed devices with none of its nets wired is not a
 layout and is not committed as one.
 

@@ -20,22 +20,27 @@ these records, because none of them is a subset.
   post-layout extraction. There is no **analog** layout, so no extracted
   re-run exists to compare any electrical row against; issue #52 closed
   (PR #57, 2026-08-26) without ever committing a GDS/OASIS for any of the
-  five analog blocks — three route 0/N nets, two cannot be ingested at
-  all (`layout/README.md` § "Analog"); the remaining friction is tracked
-  at klayout-tools#1424 (a DRC regression, closed `NOT_PLANNED`/refuted
-  2026-08-26 but re-confirmed by issue #61 on 2026-09-05 to still
-  reproduce byte-for-byte against the exact commit the refutation's source
-  inspection covered) and gf180-usb2-phy#56 (a
-  pending `dplus_pullup` design decision). Issue #53's analog acceptance
-  criterion therefore stays unattempted: **there is still nothing under
-  `layout/analog/` to extract**, so no analog `sim/`-row re-run against an
-  extracted netlist can exist yet, regardless of #52's own closed/open
-  status. (The digital half does have a committed, DRC-clean,
-  LVS-matched layout and, as of issue #53's `post-layout-pvt` experiment,
-  a SPEF-annotated post-layout STA re-run with 364/366 design nets
-  carrying real extracted parasitics — 100% of nets that physically carry
-  routed metal, the other 2 being unrouted single-pin nets with nothing
-  to extract:
+  five analog blocks — three route 0/N nets, `differential_driver` cannot
+  be ingested at all (`layout/README.md` § "Analog"); the remaining
+  friction is tracked at klayout-tools#1424 (a DRC regression, closed
+  `NOT_PLANNED`/refuted 2026-08-26 but re-confirmed by issue #61 on
+  2026-09-05 to still reproduce byte-for-byte against the exact commit the
+  refutation's source inspection covered). gf180-usb2-phy#56's
+  `dplus_pullup` design decision is **resolved** (operator ruling
+  2026-09-05, FLATTEN — `spec/decisions/0001-dplus-pullup-switch-device-flattening.md`):
+  that block's switch devices are now drawn one device per gate, `klt`
+  ingests and places it, and the §5 row below was re-run against the
+  flattened netlist. It still has no committed layout plan, so there is
+  still no analog extraction to compare against. Issue #53's analog
+  acceptance criterion therefore stays unattempted: **there is still
+  nothing under `layout/analog/` to extract**, so no analog `sim/`-row
+  re-run against an extracted netlist can exist yet, regardless of #52's
+  own closed/open status. (The digital half does have a committed,
+  DRC-clean, LVS-matched layout and, as of issue #53's `post-layout-pvt`
+  experiment, a SPEF-annotated post-layout STA re-run with 364/366 design
+  nets carrying real extracted parasitics — 100% of nets that physically
+  carry routed metal, the other 2 being unrouted single-pin nets with
+  nothing to extract:
   `verification/records/post-layout-pvt/records/20260905-182000-80d4593.md`.
   That record supersedes an earlier, partial attempt
   (`20260825-233200-1c84648.md`, 186/366 nets annotated, root-caused to a
@@ -62,11 +67,11 @@ experiment directory, and read its newest record.
 | Rise/fall matching | §6 (within 10 % of each other) | `sim/driver-signal-quality/` | `20260817-203552-a408cb6` | **FAIL** — 36/45 corners outside ±10 % |
 | Full-speed signal quality | §6 rows as a set + monotonic single-zero-crossing transition | `sim/driver-signal-quality/` | `20260817-203552-a408cb6` | **FAIL** on the §6 numeric rows above; the monotonicity/single-crossing half **passes** at 45/45 |
 | Driver-output timing jitter | §8.2's own note: no confirmed numeric limit ⇒ engineering data, no spec citation | `sim/driver-jitter/` | `20260817-203915-5a963e7` | **No pass/fail claimed** (see below) — data recorded at 45/45 |
-| D+ pull-up tolerance | §5 (1.5 kΩ ±5 %) | `sim/dplus-pullup-tolerance/` | `20260817-203609-a408cb6` | **PASS** 45/45 |
+| D+ pull-up tolerance | §5 (1.5 kΩ ±5 %) | `sim/dplus-pullup-tolerance/` | `20260905-185112-6bfe679` (supersedes `20260817-203609-a408cb6`) | **PASS** 45/45 — re-run against the flattened `dplus_pullup` netlist (issue #56 / DR-0001); same verdict, same trim code at every corner, ≤ 0.01 Ω from the superseded result |
 | Receiver thresholds — differential | §4 (\|D+ − D−\| > 200 mV over 0.8–2.5 V common mode) | `sim/diff-receiver-sensitivity/` | `20260817-203852-5a963e7` | **FAIL** — 30/45 corners fail at the 2.5 V common-mode point; 45/45 pass at 0.8 V and 1.65 V |
 | Receiver thresholds — single-ended D+ | §4 (VIH > 2.0 V, VIL < 0.8 V) | `sim/se-receiver-dp-thresholds/` | `20260817-203631-a408cb6` | **PASS** 45/45 |
 | Receiver thresholds — single-ended D− | §4 (VIH > 2.0 V, VIL < 0.8 V) | `sim/se-receiver-dm-thresholds/` | `20260817-203654-a408cb6` | **PASS** 45/45 |
-| DRC / LVS | §8.2 marks this "N/A — layout hygiene, not an electrical spec row" | `layout/digital/`; `layout/analog/` | `verification/records/digital-drc/records/20260825-224815-6a83263.md`; `verification/records/digital-lvs/records/20260825-224930-6a83263.md`; `verification/records/analog-layout/records/20260905-200628-80cb14c.md` | **PASS for the digital half. Analog half re-measured under issues #52 and #61, still not delivered.** `klt drc` on `layout/digital/usb_utmi_phy.gds` is `clean` / 0 violations; gate-level `klt lvs` against the as-built netlist is `match` / 0 mismatches, with a passing negative control. For analog: the `klt` pin was advanced to consume three friction fixes this repo filed (klayout-tools#1163/#1164/#1165, all closed), but the three placeable blocks (`differential_receiver`, `se_receiver_dm`, `se_receiver_dp`) still route 0/N of their nets — the new fields the plans would need to exploit them (block orientation, a two-layer bus role) are opt-in and unused by the committed plans — and are DRC-**violating** rather than clean, a regression filed as klayout-tools#1424. That issue closed `NOT_PLANNED`/refuted 2026-08-26 (the maintainer found no polygon-miter construction via source inspection), but issue #61's 2026-09-05 re-measurement found the violations reproduce byte-for-byte unchanged against the exact commit that inspection covered — the closure corrected the claimed mechanism, not the observed symptom. `differential_driver` and `dplus_pullup` still cannot be ingested at all (unchanged error text); the latter's path forward needs a maintainer decision, tracked at gf180-usb2-phy#56. No analog GDS is committed (`layout/README.md` § "Analog"). §11 requires both halves before signoff. |
+| DRC / LVS | §8.2 marks this "N/A — layout hygiene, not an electrical spec row" | `layout/digital/`; `layout/analog/` | `verification/records/digital-drc/records/20260825-224815-6a83263.md`; `verification/records/digital-lvs/records/20260825-224930-6a83263.md`; `verification/records/analog-layout/records/20260905-200628-80cb14c.md`; `verification/records/analog-layout/records/20260905-190024-525c67c.md` | **PASS for the digital half. Analog half re-measured under issues #52, #56, and #61; still not delivered.** `klt drc` on `layout/digital/usb_utmi_phy.gds` is `clean` / 0 violations; gate-level `klt lvs` against the as-built netlist is `match` / 0 mismatches, with a passing negative control. For analog: the `klt` pin was advanced to consume three friction fixes this repo filed (klayout-tools#1163/#1164/#1165, all closed), but the three placeable blocks (`differential_receiver`, `se_receiver_dm`, `se_receiver_dp`) still route 0/N of their nets — the new fields the plans would need to exploit them (block orientation, a two-layer bus role) are opt-in and unused by the committed plans — and are DRC-**violating** rather than clean, a regression filed as klayout-tools#1424. That issue closed `NOT_PLANNED`/refuted 2026-08-26 (the maintainer found no polygon-miter construction via source inspection), but issue #61's 2026-09-05 re-measurement found the violations reproduce byte-for-byte unchanged against the exact commit that inspection covered — the closure corrected the claimed mechanism, not the observed symptom. `dplus_pullup`'s ingestion blocker is **cleared** as of issue #56 / DR-0001 (its switch devices are drawn one device per gate, and klt now ingests and places the block), but it has no committed layout plan yet, so it still produces no layout. `differential_driver` still cannot be ingested at all (unchanged `rm1` error text). No analog GDS is committed (`layout/README.md` § "Analog"). §11 requires both halves before signoff. |
 
 **No spec limit was relaxed to produce this table.** Four §6/§4 rows fail at
 some corners; those are recorded as failures with the offending corner-ids and

@@ -87,21 +87,42 @@ layout claim (its own docs: "no PDK awareness and no rule checking").
 
 ### What actually happened
 
-Two runs exist, against two `klt` pins, over byte-identical inputs
-(design netlists, plans, and the driver script never changed between them
-— see `verification/records/analog-layout/` for the content hashes that
-prove it). The pin moved specifically because the three friction issues
-the first run filed (klayout-tools#1163, #1164, #1165) all closed upstream
-within hours of that run, and the pin this repo carried predated every one
-of the fixes (issue #52's investigation).
+Three runs exist. The first two ran against two `klt` pins over
+byte-identical inputs (design netlists, plans, and the driver script never
+changed between them — see `verification/records/analog-layout/` for the
+content hashes that prove it); the pin moved specifically because the three
+friction issues the first run filed (klayout-tools#1163, #1164, #1165) all
+closed upstream within hours of that run, and the pin this repo carried
+predated every one of the fixes (issue #52's investigation). The third
+holds the `klt` pin fixed and changes exactly one design input —
+`design/netlist/dplus_pullup.spice`, per the issue #56 flatten ruling
+(`spec/decisions/0001-dplus-pullup-switch-device-flattening.md`) — so that
+its effect is isolated.
 
-| Block | 2026-08-18, `klt` 0.2.0 @ `b3e284f` | 2026-08-26, `klt` 0.3.0 @ `07b1f04` |
-|---|---|---|
-| `differential_receiver` | 11 groups placed, **DRC-clean**, **0/8 nets routed** | 11 groups placed, **0/8 nets routed (unchanged)**, DRC **19 violations** (`metal1.width.1`) |
-| `se_receiver_dm` | 13 groups placed, **DRC-clean**, **0/9 nets routed** | 13 groups placed, **0/9 nets routed (unchanged)**, DRC **22 violations** |
-| `se_receiver_dp` | 13 groups placed, **DRC-clean**, **0/9 nets routed** | 13 groups placed, **0/9 nets routed (unchanged)**, DRC **22 violations** |
-| `differential_driver` | **cannot be ingested** — series-termination resistors are `rm1` (metal-1) devices, unknown to klt's curated `gf180mcu` deck | **cannot be ingested — identical error text, verbatim** |
-| `dplus_pullup` | **cannot be ingested** — pull-up switches carry `nf=10`, which klt's subckt-call → plain-element conversion refuses to represent | **cannot be ingested — identical error text, verbatim** |
+| Block | 2026-08-18, `klt` 0.2.0 @ `b3e284f` | 2026-08-26, `klt` 0.3.0 @ `07b1f04` | 2026-09-05, `klt` 0.3.0 @ `07b1f04`, flattened `dplus_pullup` |
+|---|---|---|---|
+| `differential_receiver` | 11 groups placed, **DRC-clean**, **0/8 nets routed** | 11 groups placed, **0/8 nets routed (unchanged)**, DRC **19 violations** (`metal1.width.1`) | unchanged — byte-identical GDS |
+| `se_receiver_dm` | 13 groups placed, **DRC-clean**, **0/9 nets routed** | 13 groups placed, **0/9 nets routed (unchanged)**, DRC **22 violations** | unchanged — byte-identical GDS |
+| `se_receiver_dp` | 13 groups placed, **DRC-clean**, **0/9 nets routed** | 13 groups placed, **0/9 nets routed (unchanged)**, DRC **22 violations** | unchanged — byte-identical GDS |
+| `differential_driver` | **cannot be ingested** — series-termination resistors are `rm1` (metal-1) devices, unknown to klt's curated `gf180mcu` deck | **cannot be ingested — identical error text, verbatim** | **still cannot be ingested** — unrelated blocker, unchanged |
+| `dplus_pullup` | **cannot be ingested** — pull-up switches carry `nf=10`, which klt's subckt-call → plain-element conversion refuses to represent | **cannot be ingested — identical error text, verbatim** | **ingests, and places** — 78 devices / 21 nets; blocker cleared by the flatten. Still **no committed plan**, so still no layout |
+
+**The `dplus_pullup` ingestion blocker is resolved; that block still has no
+layout.** Issue #56's operator ruling (2026-09-05, FLATTEN — recorded as
+`spec/decisions/0001-dplus-pullup-switch-device-flattening.md`) redrew each
+of the six `nf=10` pull-up switch devices as ten one-finger devices in
+parallel, one device per drawn gate, which is verbatim what klt's own error
+text prescribed. `klt` now returns a complete digest for the block, and a
+throwaway two-group probe plan drives `execute_layout_plan_document` to a
+real placement (the ten flattened `MEN` fingers as a `mos_array`, the
+six-resistor ladder as a `res_array`) with 1 of 8 nets routed. Two things
+that ruling did **not** do, stated so the table above is not over-read: it
+did not author a layout plan for the block (that is per-block design work,
+tracked separately), and it did not make the change free — the flatten's
+electrical equivalence is *measured*, in
+`sim/dplus-pullup-tolerance/records/20260905-185112-6bfe679.md` (45/45 PVT
+corners PASS, identical trim code at every corner, ≤ 0.01 Ω from the
+superseded `nf=10` result), not assumed.
 
 A block of placed devices with none of its nets wired is not a layout. It
 is not committed as one, and no analog GDS is committed under `layout/` —
@@ -273,16 +294,23 @@ re-confirmed as of 2026-09-05, per the entry below, to still reproduce):
   refiling with the concrete repro the closing comment invited) is an open
   follow-up, not attempted by either issue.
 
-The `dplus_pullup` blocker (`nf=10`) is unrelated to any of the above and
-completely unmoved: identical error text on both the 2026-08-18 and
-2026-08-26 runs. It is a deliberate, documented refusal in klt's subckt-call
-conversion, whose own error text prescribes the fix — "flatten it in the
-schematic netlist (one device per drawn gate)". Flattening a 10-finger
-device in `design/dplus_pullup.sch` would change a design source to suit a
-tool, and the simulation evidence under `sim/` was taken against the
-current netlist, so it is not done here. Tracked for a maintainer/architect
-decision at [gf180-usb2-phy#56](https://github.com/2AMLogic/gf180-usb2-phy/issues/56)
-(`loom:operator-decision`) rather than left as unattributed prose.
+The `dplus_pullup` blocker (`nf=10`) was unrelated to any of the above and
+was unmoved across the 2026-08-18 and 2026-08-26 runs: a deliberate,
+documented refusal in klt's subckt-call conversion, whose own error text
+prescribed the fix — "flatten it in the schematic netlist (one device per
+drawn gate)". Doing that changes a design source to suit a tool, and the
+`sim/` evidence for spec §5 had been taken against the un-flattened
+netlist, so it was escalated rather than done unilaterally
+([gf180-usb2-phy#56](https://github.com/2AMLogic/gf180-usb2-phy/issues/56)).
+
+**Resolved 2026-09-05.** The operator ruled FLATTEN, conditional on proving
+rather than assuming the equivalence — see
+`spec/decisions/0001-dplus-pullup-switch-device-flattening.md` for the
+ruling, the alternatives that were live, and the conditions attached. The
+upstream tool gap is filed generically, per this repo's friction protocol,
+as [klayout-tools#1487](https://github.com/2AMLogic/klayout-tools/issues/1487)
+(native `nf` expansion, or an explicit conversion mode); if that lands, a
+future decision record may restore the idiomatic `nf=10` form.
 
 ### What would have to be true to deliver analog layout
 
@@ -291,15 +319,16 @@ The routing capability itself has, in large part, landed
 plans that actually spend `orientation` and the `metal2` bus role on real
 per-block layout decisions — genuine analog layout design work, not a
 mechanical re-run, and the reason this record does not attempt it in the
-same pass that discovered the capability exists; (b) the mitered-dead-end
-DRC regression (klayout-tools#1424, closed `NOT_PLANNED`/refuted
-2026-08-26 but re-confirmed as of 2026-09-05 to still reproduce against
-the exact inspected commit — see "Friction filed" above) actually going
-away, so a partially-successful routing attempt doesn't manufacture
-spurious violations; and (c) the
-`differential_driver`/`dplus_pullup` ingestion blockers resolving via
-either further klt device-class support (metal resistors, non-MOS
-`device_map` entries) or the `dplus_pullup` decision above. None of this
+same pass that discovered the capability exists — `dplus_pullup` now needs
+such a plan too, since as of 2026-09-05 it ingests but has none; (b) the
+mitered-dead-end DRC regression (klayout-tools#1424, closed `NOT_PLANNED`/
+refuted 2026-08-26 but re-confirmed as of 2026-09-05 to still reproduce
+against the exact inspected commit — see "Friction filed" above) actually
+going away, so a partially-successful routing attempt doesn't manufacture
+spurious violations; and (c) `differential_driver`'s remaining ingestion
+blocker resolving via further klt device-class support (metal resistors,
+non-MOS `device_map` entries) — `dplus_pullup`'s half of this item is
+discharged by the 2026-09-05 flatten above. None of this
 is a bespoke block-specific layout generator in the shape of
 [`gf180-bandgap`](https://github.com/2AMLogic/gf180-bandgap)'s
 `generate.py`/`plan.py` — that remains explicitly out of scope; this record
