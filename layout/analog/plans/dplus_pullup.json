@@ -1,0 +1,660 @@
+{
+  "schema": "klt.layout_plan.request/1",
+  "netlist": {
+    "path": "../../../design/netlist/dplus_pullup.spice",
+    "top": "dplus_pullup",
+    "form": "subckt-call",
+    "deck": "gf180mcu"
+  },
+  "pdk": {
+    "variant": "gf180mcuD"
+  },
+  "device_groups": [
+    {
+      "id": "mn_drv_en",
+      "devices": [
+        {
+          "name": "N_EN",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mp_drv_en",
+      "devices": [
+        {
+          "name": "P_EN",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mn_drv_t0",
+      "devices": [
+        {
+          "name": "N_T0",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mp_drv_t0",
+      "devices": [
+        {
+          "name": "P_T0",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mn_drv_t1",
+      "devices": [
+        {
+          "name": "N_T1",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mp_drv_t1",
+      "devices": [
+        {
+          "name": "P_T1",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mn_drv_t2",
+      "devices": [
+        {
+          "name": "N_T2",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mp_drv_t2",
+      "devices": [
+        {
+          "name": "P_T2",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mn_drv_t3",
+      "devices": [
+        {
+          "name": "N_T3",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mp_drv_t3",
+      "devices": [
+        {
+          "name": "P_T3",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mn_drv_t4",
+      "devices": [
+        {
+          "name": "N_T4",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mp_drv_t4",
+      "devices": [
+        {
+          "name": "P_T4",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mp_sw_en",
+      "devices": [
+        {
+          "name": "EN_F0",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F1",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F2",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F3",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F4",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F5",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F6",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F7",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F8",
+          "device_class": "PFET"
+        },
+        {
+          "name": "EN_F9",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 10,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "r_base",
+      "devices": [
+        {
+          "name": "BASE",
+          "device_class": "PPOLYF_U"
+        }
+      ],
+      "generator": "res_array",
+      "params": {
+        "num": 1,
+        "dummy": 0
+      }
+    },
+    {
+      "id": "r_seg0",
+      "devices": [
+        {
+          "name": "0",
+          "device_class": "PPOLYF_U"
+        }
+      ],
+      "generator": "res_array",
+      "params": {
+        "num": 1,
+        "dummy": 0
+      }
+    },
+    {
+      "id": "mp_sw0",
+      "devices": [
+        {
+          "name": "SW0_F0",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW0_F1",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW0_F2",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW0_F3",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW0_F4",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW0_F5",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW0_F6",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW0_F7",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW0_F8",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW0_F9",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 10,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "r_seg1",
+      "devices": [
+        {
+          "name": "1",
+          "device_class": "PPOLYF_U"
+        }
+      ],
+      "generator": "res_array",
+      "params": {
+        "num": 1,
+        "dummy": 0
+      }
+    },
+    {
+      "id": "mp_sw1",
+      "devices": [
+        {
+          "name": "SW1_F0",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW1_F1",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW1_F2",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW1_F3",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW1_F4",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW1_F5",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW1_F6",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW1_F7",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW1_F8",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW1_F9",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 10,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "r_seg2",
+      "devices": [
+        {
+          "name": "2",
+          "device_class": "PPOLYF_U"
+        }
+      ],
+      "generator": "res_array",
+      "params": {
+        "num": 1,
+        "dummy": 0
+      }
+    },
+    {
+      "id": "mp_sw2",
+      "devices": [
+        {
+          "name": "SW2_F0",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW2_F1",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW2_F2",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW2_F3",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW2_F4",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW2_F5",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW2_F6",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW2_F7",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW2_F8",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW2_F9",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 10,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "r_seg3",
+      "devices": [
+        {
+          "name": "3",
+          "device_class": "PPOLYF_U"
+        }
+      ],
+      "generator": "res_array",
+      "params": {
+        "num": 1,
+        "dummy": 0
+      }
+    },
+    {
+      "id": "mp_sw3",
+      "devices": [
+        {
+          "name": "SW3_F0",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW3_F1",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW3_F2",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW3_F3",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW3_F4",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW3_F5",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW3_F6",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW3_F7",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW3_F8",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW3_F9",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 10,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "r_seg4",
+      "devices": [
+        {
+          "name": "4",
+          "device_class": "PPOLYF_U"
+        }
+      ],
+      "generator": "res_array",
+      "params": {
+        "num": 1,
+        "dummy": 0
+      }
+    },
+    {
+      "id": "mp_sw4",
+      "devices": [
+        {
+          "name": "SW4_F0",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW4_F1",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW4_F2",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW4_F3",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW4_F4",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW4_F5",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW4_F6",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW4_F7",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW4_F8",
+          "device_class": "PFET"
+        },
+        {
+          "name": "SW4_F9",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 10,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    }
+  ],
+  "rows": [
+    {
+      "order": [
+        "mn_drv_en",
+        "mp_drv_en",
+        "mn_drv_t0",
+        "mp_drv_t0",
+        "mn_drv_t1",
+        "mp_drv_t1",
+        "mn_drv_t2",
+        "mp_drv_t2",
+        "mn_drv_t3",
+        "mp_drv_t3",
+        "mn_drv_t4",
+        "mp_drv_t4",
+        "mp_sw_en",
+        "r_base",
+        "r_seg0",
+        "mp_sw0",
+        "r_seg1",
+        "mp_sw1",
+        "r_seg2",
+        "mp_sw2",
+        "r_seg3",
+        "mp_sw3",
+        "r_seg4",
+        "mp_sw4"
+      ],
+      "spacing_um": 3.0,
+      "align": "bottom"
+    }
+  ],
+  "routing": {
+    "layer_role": "metal",
+    "width_um": 0.23
+  },
+  "options": {
+    "cell_name": "dplus_pullup",
+    "output": "dplus_pullup.gds"
+  }
+}
