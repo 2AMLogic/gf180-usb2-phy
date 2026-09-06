@@ -214,6 +214,10 @@
       "align": "bottom"
     }
   ],
+  "routing": {
+    "layer_role": "metal",
+    "width_um": 0.23
+  },
   "options": {
     "cell_name": "differential_receiver",
     "output": "differential_receiver.gds"
