@@ -1,0 +1,2267 @@
+{
+  "note": "Focused dplus_pullup sweep at klt 0.4.0+g8bd3f0b09a87 (issue #68). Each variant re-executes the committed dplus_pullup plan with one field changed; klt drc --deck gf180mcu run on each result.",
+  "variants": [
+    {
+      "variant": "layer=metal cross=metal3 w=0.28",
+      "routed_nets": 6,
+      "total_nets": 21,
+      "routed_legs": 168,
+      "total_legs": 769,
+      "bbox_um": {
+        "x0": -0.25,
+        "y0": 0.0,
+        "x1": 218.609,
+        "y1": 101.82000000000001
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE0",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3B",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 0,
+        "rule_counts": {},
+        "violations": [],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0",
+          "38/0",
+          "42/0"
+        ]
+      }
+    },
+    {
+      "variant": "layer=metal2 cross=metal3 w=0.28",
+      "routed_nets": 6,
+      "total_nets": 21,
+      "routed_legs": 123,
+      "total_legs": 1138,
+      "bbox_um": {
+        "x0": -0.25,
+        "y0": 0.0,
+        "x1": 218.609,
+        "y1": 101.82000000000001
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE0",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3B",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 0,
+        "rule_counts": {},
+        "violations": [],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    },
+    {
+      "variant": "layer=metal2 cross=metal3 w=0.30",
+      "routed_nets": 6,
+      "total_nets": 21,
+      "routed_legs": 123,
+      "total_legs": 1138,
+      "bbox_um": {
+        "x0": -0.25,
+        "y0": 0.0,
+        "x1": 218.609,
+        "y1": 101.82000000000001
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE0",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3B",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 0,
+        "rule_counts": {},
+        "violations": [],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    },
+    {
+      "variant": "metal_metal2 width=0.28",
+      "routed_nets": 6,
+      "total_nets": 21,
+      "routed_legs": 168,
+      "total_legs": 769,
+      "bbox_um": {
+        "x0": -0.25,
+        "y0": 0.0,
+        "x1": 218.609,
+        "y1": 101.82000000000001
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE0",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3B",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 0,
+        "rule_counts": {},
+        "violations": [],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    },
+    {
+      "variant": "metal_metal2 width=0.3",
+      "routed_nets": 6,
+      "total_nets": 21,
+      "routed_legs": 168,
+      "total_legs": 769,
+      "bbox_um": {
+        "x0": -0.25,
+        "y0": 0.0,
+        "x1": 218.609,
+        "y1": 101.82000000000001
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE0",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3B",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 0,
+        "rule_counts": {},
+        "violations": [],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    },
+    {
+      "variant": "metal_metal2 width=0.36",
+      "routed_nets": 6,
+      "total_nets": 21,
+      "routed_legs": 168,
+      "total_legs": 769,
+      "bbox_um": {
+        "x0": -0.25,
+        "y0": 0.0,
+        "x1": 218.609,
+        "y1": 101.82000000000001
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE0",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3B",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 0,
+        "rule_counts": {},
+        "violations": [],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    },
+    {
+      "variant": "orientation=mirror_x",
+      "routed_nets": 5,
+      "total_nets": 21,
+      "routed_legs": 138,
+      "total_legs": 1036,
+      "bbox_um": {
+        "x0": -1.53,
+        "y0": 0.0,
+        "x1": 202.209,
+        "y1": 101.82000000000001
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3",
+        "TRIM3B",
+        "TRIM4",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 22,
+        "rule_counts": {
+          "comp.enclosing.contact.1": 5,
+          "comp.space.1": 1,
+          "metal1.space.1": 12,
+          "poly2.enclosing.contact.1": 2,
+          "poly2.space.1": 2
+        },
+        "violations": [
+          {
+            "rule": "comp.enclosing.contact.1",
+            "description": "minimum COMP overlap of contact",
+            "check": "enclosing",
+            "layer": "Comp",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$10",
+            "source_path": [
+              "mn_drv_t4__mn_drv_t4_0",
+              "mos_array$10"
+            ],
+            "bbox": {
+              "left": 94540,
+              "bottom": 4061,
+              "right": 94560,
+              "top": 4779
+            },
+            "polygon": [
+              [
+                94560,
+                4061
+              ],
+              [
+                94540,
+                4640
+              ],
+              [
+                94540,
+                4200
+              ],
+              [
+                94560,
+                4779
+              ]
+            ]
+          },
+          {
+            "rule": "comp.enclosing.contact.1",
+            "description": "minimum COMP overlap of contact",
+            "check": "enclosing",
+            "layer": "Comp",
+            "cell": "dplus_pullup",
+            "source_cell": "res_array$1",
+            "source_path": [
+              "r_seg0__r_seg0_0",
+              "res_array$1"
+            ],
+            "bbox": {
+              "left": 183920,
+              "bottom": 3780,
+              "right": 184146,
+              "top": 4220
+            },
+            "polygon": [
+              [
+                183920,
+                3780
+              ],
+              [
+                183920,
+                4220
+              ],
+              [
+                184146,
+                4220
+              ],
+              [
+                184146,
+                3780
+              ]
+            ]
+          },
+          {
+            "rule": "comp.enclosing.contact.1",
+            "description": "minimum COMP overlap of contact",
+            "check": "enclosing",
+            "layer": "Comp",
+            "cell": "dplus_pullup",
+            "source_cell": "res_array$2",
+            "source_path": [
+              "r_seg1__r_seg1_0",
+              "res_array$2"
+            ],
+            "bbox": {
+              "left": 232198,
+              "bottom": 3780,
+              "right": 232526,
+              "top": 4220
+            },
+            "polygon": [
+              [
+                232198,
+                3780
+              ],
+              [
+                232198,
+                4220
+              ],
+              [
+                232526,
+                4220
+              ],
+              [
+                232526,
+                3780
+              ]
+            ]
+          },
+          {
+            "rule": "comp.enclosing.contact.1",
+            "description": "minimum COMP overlap of contact",
+            "check": "enclosing",
+            "layer": "Comp",
+            "cell": "dplus_pullup",
+            "source_cell": "res_array$4",
+            "source_path": [
+              "r_seg3__r_seg3_0",
+              "res_array$4"
+            ],
+            "bbox": {
+              "left": 325274,
+              "bottom": 3644,
+              "right": 325306,
+              "top": 4356
+            },
+            "polygon": [
+              [
+                325306,
+                3644
+              ],
+              [
+                325274,
+                4220
+              ],
+              [
+                325274,
+                3780
+              ],
+              [
+                325306,
+                4356
+              ]
+            ]
+          },
+          {
+            "rule": "comp.enclosing.contact.1",
+            "description": "minimum COMP overlap of contact",
+            "check": "enclosing",
+            "layer": "Comp",
+            "cell": "dplus_pullup",
+            "source_cell": "res_array$5",
+            "source_path": [
+              "r_seg4__r_seg4_0",
+              "res_array$5"
+            ],
+            "bbox": {
+              "left": 384126,
+              "bottom": 3780,
+              "right": 384558,
+              "top": 4220
+            },
+            "polygon": [
+              [
+                384126,
+                3780
+              ],
+              [
+                384126,
+                4220
+              ],
+              [
+                384558,
+                4220
+              ],
+              [
+                384558,
+                3780
+              ]
+            ]
+          },
+          {
+            "rule": "comp.space.1",
+            "description": "minimum COMP (diffusion/active) spacing outside Dualgate (3.3V)",
+            "check": "space",
+            "layer": "Comp",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$11",
+            "source_path": [
+              "mp_drv_t4__mp_drv_t4_0",
+              "mos_array$11"
+            ],
+            "bbox": {
+              "left": 105160,
+              "bottom": 500,
+              "right": 105440,
+              "top": 4985
+            },
+            "polygon": [
+              [
+                105160,
+                500
+              ],
+              [
+                105160,
+                4500
+              ],
+              [
+                105440,
+                4985
+              ],
+              [
+                105440,
+                500
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$9",
+            "source_path": [
+              "mp_drv_t3__mp_drv_t3_0",
+              "mos_array$9"
+            ],
+            "bbox": {
+              "left": 85180,
+              "bottom": 5551,
+              "right": 85280,
+              "top": 7289
+            },
+            "polygon": [
+              [
+                85280,
+                5551
+              ],
+              [
+                85180,
+                6000
+              ],
+              [
+                85180,
+                6840
+              ],
+              [
+                85280,
+                7289
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$10",
+            "source_path": [
+              "mn_drv_t4__mn_drv_t4_0",
+              "mos_array$10"
+            ],
+            "bbox": {
+              "left": 92840,
+              "bottom": 500,
+              "right": 93040,
+              "top": 2914
+            },
+            "polygon": [
+              [
+                92840,
+                500
+              ],
+              [
+                92840,
+                2914
+              ],
+              [
+                93040,
+                2500
+              ],
+              [
+                93040,
+                500
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$10",
+            "source_path": [
+              "mn_drv_t4__mn_drv_t4_0",
+              "mos_array$10"
+            ],
+            "bbox": {
+              "left": 94560,
+              "bottom": 500,
+              "right": 94760,
+              "top": 2914
+            },
+            "polygon": [
+              [
+                94560,
+                500
+              ],
+              [
+                94560,
+                2914
+              ],
+              [
+                94760,
+                2500
+              ],
+              [
+                94760,
+                500
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$11",
+            "source_path": [
+              "mp_drv_t4__mp_drv_t4_0",
+              "mos_array$11"
+            ],
+            "bbox": {
+              "left": 103440,
+              "bottom": 500,
+              "right": 103800,
+              "top": 4786
+            },
+            "polygon": [
+              [
+                103440,
+                500
+              ],
+              [
+                103440,
+                4500
+              ],
+              [
+                103800,
+                4786
+              ],
+              [
+                103800,
+                500
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$11",
+            "source_path": [
+              "mp_drv_t4__mp_drv_t4_0",
+              "mos_array$11"
+            ],
+            "bbox": {
+              "left": 105160,
+              "bottom": 500,
+              "right": 105440,
+              "top": 4865
+            },
+            "polygon": [
+              [
+                105160,
+                500
+              ],
+              [
+                105160,
+                4500
+              ],
+              [
+                105440,
+                4865
+              ],
+              [
+                105440,
+                500
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$13",
+            "source_path": [
+              "mp_sw0__mp_sw0_0",
+              "mos_array$13"
+            ],
+            "bbox": {
+              "left": 183346,
+              "bottom": 232,
+              "right": 183720,
+              "top": 8268
+            },
+            "polygon": [
+              [
+                183720,
+                232
+              ],
+              [
+                183346,
+                500
+              ],
+              [
+                183346,
+                8268
+              ],
+              [
+                183720,
+                8000
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$14",
+            "source_path": [
+              "mp_sw1__mp_sw1_0",
+              "mos_array$14"
+            ],
+            "bbox": {
+              "left": 232726,
+              "bottom": 129,
+              "right": 232998,
+              "top": 8371
+            },
+            "polygon": [
+              [
+                232726,
+                129
+              ],
+              [
+                232726,
+                8000
+              ],
+              [
+                232998,
+                8371
+              ],
+              [
+                232998,
+                500
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$15",
+            "source_path": [
+              "mp_sw2__mp_sw2_0",
+              "mos_array$15"
+            ],
+            "bbox": {
+              "left": 277996,
+              "bottom": 98,
+              "right": 278220,
+              "top": 8402
+            },
+            "polygon": [
+              [
+                277996,
+                98
+              ],
+              [
+                277996,
+                8000
+              ],
+              [
+                278220,
+                8402
+              ],
+              [
+                278220,
+                500
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$15",
+            "source_path": [
+              "mp_sw2__mp_sw2_0",
+              "mos_array$15"
+            ],
+            "bbox": {
+              "left": 280700,
+              "bottom": 42,
+              "right": 280738,
+              "top": 8458
+            },
+            "polygon": [
+              [
+                280738,
+                42
+              ],
+              [
+                280700,
+                500
+              ],
+              [
+                280700,
+                8458
+              ],
+              [
+                280738,
+                8000
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$15",
+            "source_path": [
+              "mp_sw2__mp_sw2_0",
+              "mos_array$15"
+            ],
+            "bbox": {
+              "left": 281578,
+              "bottom": 40,
+              "right": 281580,
+              "top": 8460
+            },
+            "polygon": [
+              [
+                281578,
+                40
+              ],
+              [
+                281578,
+                8000
+              ],
+              [
+                281580,
+                8460
+              ],
+              [
+                281580,
+                500
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$17",
+            "source_path": [
+              "mp_sw4__mp_sw4_0",
+              "mos_array$17"
+            ],
+            "bbox": {
+              "left": 371958,
+              "bottom": 67,
+              "right": 372114,
+              "top": 8433
+            },
+            "polygon": [
+              [
+                372114,
+                67
+              ],
+              [
+                371958,
+                500
+              ],
+              [
+                371958,
+                8433
+              ],
+              [
+                372114,
+                8000
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$17",
+            "source_path": [
+              "mp_sw4__mp_sw4_0",
+              "mos_array$17"
+            ],
+            "bbox": {
+              "left": 383758,
+              "bottom": 72,
+              "right": 383926,
+              "top": 8428
+            },
+            "polygon": [
+              [
+                383926,
+                72
+              ],
+              [
+                383758,
+                500
+              ],
+              [
+                383758,
+                8428
+              ],
+              [
+                383926,
+                8000
+              ]
+            ]
+          },
+          {
+            "rule": "poly2.enclosing.contact.1",
+            "description": "minimum poly2 overlap of contact",
+            "check": "enclosing",
+            "layer": "Poly2",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$10",
+            "source_path": [
+              "mn_drv_t4__mn_drv_t4_0",
+              "mos_array$10"
+            ],
+            "bbox": {
+              "left": 93560,
+              "bottom": 1280,
+              "right": 93680,
+              "top": 1720
+            },
+            "polygon": [
+              [
+                93560,
+                1280
+              ],
+              [
+                93560,
+                1720
+              ],
+              [
+                93680,
+                1720
+              ],
+              [
+                93680,
+                1280
+              ]
+            ]
+          },
+          {
+            "rule": "poly2.enclosing.contact.1",
+            "description": "minimum poly2 overlap of contact",
+            "check": "enclosing",
+            "layer": "Poly2",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$11",
+            "source_path": [
+              "mp_drv_t4__mp_drv_t4_0",
+              "mos_array$11"
+            ],
+            "bbox": {
+              "left": 102800,
+              "bottom": 2280,
+              "right": 103080,
+              "top": 2720
+            },
+            "polygon": [
+              [
+                102800,
+                2280
+              ],
+              [
+                102800,
+                2720
+              ],
+              [
+                103080,
+                2720
+              ],
+              [
+                103080,
+                2280
+              ]
+            ]
+          },
+          {
+            "rule": "poly2.space.1",
+            "description": "minimum poly2 spacing (3.3V)",
+            "check": "space",
+            "layer": "Poly2",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$12",
+            "source_path": [
+              "mp_sw_en__mp_sw_en_0",
+              "mos_array$12"
+            ],
+            "bbox": {
+              "left": 93560,
+              "bottom": 2861,
+              "right": 93900,
+              "top": 5179
+            },
+            "polygon": [
+              [
+                93560,
+                2861
+              ],
+              [
+                93560,
+                5179
+              ],
+              [
+                93900,
+                4840
+              ],
+              [
+                93900,
+                3200
+              ]
+            ]
+          },
+          {
+            "rule": "poly2.space.1",
+            "description": "minimum poly2 spacing (3.3V)",
+            "check": "space",
+            "layer": "Poly2",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$16",
+            "source_path": [
+              "mp_sw3__mp_sw3_0",
+              "mos_array$16"
+            ],
+            "bbox": {
+              "left": 324306,
+              "bottom": 0,
+              "right": 324634,
+              "top": 8350
+            },
+            "polygon": [
+              [
+                324306,
+                0
+              ],
+              [
+                324306,
+                8350
+              ],
+              [
+                324634,
+                8000
+              ],
+              [
+                324634,
+                0
+              ]
+            ]
+          }
+        ],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    },
+    {
+      "variant": "orientation=mirror_y",
+      "routed_nets": 6,
+      "total_nets": 21,
+      "routed_legs": 168,
+      "total_legs": 769,
+      "bbox_um": {
+        "x0": -0.25,
+        "y0": -101.32000000000001,
+        "x1": 218.609,
+        "y1": 0.5
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE0",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3B",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 0,
+        "rule_counts": {},
+        "violations": [],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    },
+    {
+      "variant": "orientation=rotate_180",
+      "routed_nets": 5,
+      "total_nets": 21,
+      "routed_legs": 138,
+      "total_legs": 1036,
+      "bbox_um": {
+        "x0": -1.53,
+        "y0": -101.32000000000001,
+        "x1": 202.209,
+        "y1": 0.5
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3",
+        "TRIM3B",
+        "TRIM4",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 22,
+        "rule_counts": {
+          "comp.enclosing.contact.1": 5,
+          "comp.space.1": 1,
+          "metal1.space.1": 12,
+          "poly2.enclosing.contact.1": 2,
+          "poly2.space.1": 2
+        },
+        "violations": [
+          {
+            "rule": "comp.enclosing.contact.1",
+            "description": "minimum COMP overlap of contact",
+            "check": "enclosing",
+            "layer": "Comp",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$10",
+            "source_path": [
+              "mn_drv_t4__mn_drv_t4_0",
+              "mos_array$10"
+            ],
+            "bbox": {
+              "left": 94540,
+              "bottom": -3779,
+              "right": 94560,
+              "top": -3061
+            },
+            "polygon": [
+              [
+                94560,
+                -3779
+              ],
+              [
+                94540,
+                -3200
+              ],
+              [
+                94540,
+                -3640
+              ],
+              [
+                94560,
+                -3061
+              ]
+            ]
+          },
+          {
+            "rule": "comp.enclosing.contact.1",
+            "description": "minimum COMP overlap of contact",
+            "check": "enclosing",
+            "layer": "Comp",
+            "cell": "dplus_pullup",
+            "source_cell": "res_array$1",
+            "source_path": [
+              "r_seg0__r_seg0_0",
+              "res_array$1"
+            ],
+            "bbox": {
+              "left": 183920,
+              "bottom": -4220,
+              "right": 184146,
+              "top": -3780
+            },
+            "polygon": [
+              [
+                183920,
+                -4220
+              ],
+              [
+                183920,
+                -3780
+              ],
+              [
+                184146,
+                -3780
+              ],
+              [
+                184146,
+                -4220
+              ]
+            ]
+          },
+          {
+            "rule": "comp.enclosing.contact.1",
+            "description": "minimum COMP overlap of contact",
+            "check": "enclosing",
+            "layer": "Comp",
+            "cell": "dplus_pullup",
+            "source_cell": "res_array$2",
+            "source_path": [
+              "r_seg1__r_seg1_0",
+              "res_array$2"
+            ],
+            "bbox": {
+              "left": 232198,
+              "bottom": -4220,
+              "right": 232526,
+              "top": -3780
+            },
+            "polygon": [
+              [
+                232198,
+                -4220
+              ],
+              [
+                232198,
+                -3780
+              ],
+              [
+                232526,
+                -3780
+              ],
+              [
+                232526,
+                -4220
+              ]
+            ]
+          },
+          {
+            "rule": "comp.enclosing.contact.1",
+            "description": "minimum COMP overlap of contact",
+            "check": "enclosing",
+            "layer": "Comp",
+            "cell": "dplus_pullup",
+            "source_cell": "res_array$4",
+            "source_path": [
+              "r_seg3__r_seg3_0",
+              "res_array$4"
+            ],
+            "bbox": {
+              "left": 325274,
+              "bottom": -4356,
+              "right": 325306,
+              "top": -3644
+            },
+            "polygon": [
+              [
+                325306,
+                -4356
+              ],
+              [
+                325274,
+                -3780
+              ],
+              [
+                325274,
+                -4220
+              ],
+              [
+                325306,
+                -3644
+              ]
+            ]
+          },
+          {
+            "rule": "comp.enclosing.contact.1",
+            "description": "minimum COMP overlap of contact",
+            "check": "enclosing",
+            "layer": "Comp",
+            "cell": "dplus_pullup",
+            "source_cell": "res_array$5",
+            "source_path": [
+              "r_seg4__r_seg4_0",
+              "res_array$5"
+            ],
+            "bbox": {
+              "left": 384126,
+              "bottom": -4220,
+              "right": 384558,
+              "top": -3780
+            },
+            "polygon": [
+              [
+                384126,
+                -4220
+              ],
+              [
+                384126,
+                -3780
+              ],
+              [
+                384558,
+                -3780
+              ],
+              [
+                384558,
+                -4220
+              ]
+            ]
+          },
+          {
+            "rule": "comp.space.1",
+            "description": "minimum COMP (diffusion/active) spacing outside Dualgate (3.3V)",
+            "check": "space",
+            "layer": "Comp",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$11",
+            "source_path": [
+              "mp_drv_t4__mp_drv_t4_0",
+              "mos_array$11"
+            ],
+            "bbox": {
+              "left": 105160,
+              "bottom": -3985,
+              "right": 105440,
+              "top": 500
+            },
+            "polygon": [
+              [
+                105440,
+                -3985
+              ],
+              [
+                105160,
+                -3500
+              ],
+              [
+                105160,
+                500
+              ],
+              [
+                105440,
+                500
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$9",
+            "source_path": [
+              "mp_drv_t3__mp_drv_t3_0",
+              "mos_array$9"
+            ],
+            "bbox": {
+              "left": 85180,
+              "bottom": -6289,
+              "right": 85280,
+              "top": -4551
+            },
+            "polygon": [
+              [
+                85280,
+                -6289
+              ],
+              [
+                85180,
+                -5840
+              ],
+              [
+                85180,
+                -5000
+              ],
+              [
+                85280,
+                -4551
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$10",
+            "source_path": [
+              "mn_drv_t4__mn_drv_t4_0",
+              "mos_array$10"
+            ],
+            "bbox": {
+              "left": 92840,
+              "bottom": -1914,
+              "right": 93040,
+              "top": 500
+            },
+            "polygon": [
+              [
+                92840,
+                -1914
+              ],
+              [
+                92840,
+                500
+              ],
+              [
+                93040,
+                500
+              ],
+              [
+                93040,
+                -1500
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$10",
+            "source_path": [
+              "mn_drv_t4__mn_drv_t4_0",
+              "mos_array$10"
+            ],
+            "bbox": {
+              "left": 94560,
+              "bottom": -1914,
+              "right": 94760,
+              "top": 500
+            },
+            "polygon": [
+              [
+                94560,
+                -1914
+              ],
+              [
+                94560,
+                500
+              ],
+              [
+                94760,
+                500
+              ],
+              [
+                94760,
+                -1500
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$11",
+            "source_path": [
+              "mp_drv_t4__mp_drv_t4_0",
+              "mos_array$11"
+            ],
+            "bbox": {
+              "left": 103440,
+              "bottom": -3786,
+              "right": 103800,
+              "top": 500
+            },
+            "polygon": [
+              [
+                103800,
+                -3786
+              ],
+              [
+                103440,
+                -3500
+              ],
+              [
+                103440,
+                500
+              ],
+              [
+                103800,
+                500
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$11",
+            "source_path": [
+              "mp_drv_t4__mp_drv_t4_0",
+              "mos_array$11"
+            ],
+            "bbox": {
+              "left": 105160,
+              "bottom": -3865,
+              "right": 105440,
+              "top": 500
+            },
+            "polygon": [
+              [
+                105440,
+                -3865
+              ],
+              [
+                105160,
+                -3500
+              ],
+              [
+                105160,
+                500
+              ],
+              [
+                105440,
+                500
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$13",
+            "source_path": [
+              "mp_sw0__mp_sw0_0",
+              "mos_array$13"
+            ],
+            "bbox": {
+              "left": 183346,
+              "bottom": -8268,
+              "right": 183720,
+              "top": 268
+            },
+            "polygon": [
+              [
+                183346,
+                -8268
+              ],
+              [
+                183346,
+                268
+              ],
+              [
+                183720,
+                0
+              ],
+              [
+                183720,
+                -8000
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$14",
+            "source_path": [
+              "mp_sw1__mp_sw1_0",
+              "mos_array$14"
+            ],
+            "bbox": {
+              "left": 232726,
+              "bottom": -8371,
+              "right": 232998,
+              "top": 371
+            },
+            "polygon": [
+              [
+                232998,
+                -8371
+              ],
+              [
+                232726,
+                -8000
+              ],
+              [
+                232726,
+                0
+              ],
+              [
+                232998,
+                371
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$15",
+            "source_path": [
+              "mp_sw2__mp_sw2_0",
+              "mos_array$15"
+            ],
+            "bbox": {
+              "left": 277996,
+              "bottom": -8402,
+              "right": 278220,
+              "top": 402
+            },
+            "polygon": [
+              [
+                278220,
+                -8402
+              ],
+              [
+                277996,
+                -8000
+              ],
+              [
+                277996,
+                0
+              ],
+              [
+                278220,
+                402
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$15",
+            "source_path": [
+              "mp_sw2__mp_sw2_0",
+              "mos_array$15"
+            ],
+            "bbox": {
+              "left": 280700,
+              "bottom": -8458,
+              "right": 280738,
+              "top": 458
+            },
+            "polygon": [
+              [
+                280700,
+                -8458
+              ],
+              [
+                280700,
+                458
+              ],
+              [
+                280738,
+                0
+              ],
+              [
+                280738,
+                -8000
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$15",
+            "source_path": [
+              "mp_sw2__mp_sw2_0",
+              "mos_array$15"
+            ],
+            "bbox": {
+              "left": 281578,
+              "bottom": -8460,
+              "right": 281580,
+              "top": 460
+            },
+            "polygon": [
+              [
+                281580,
+                -8460
+              ],
+              [
+                281578,
+                -8000
+              ],
+              [
+                281578,
+                0
+              ],
+              [
+                281580,
+                460
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$17",
+            "source_path": [
+              "mp_sw4__mp_sw4_0",
+              "mos_array$17"
+            ],
+            "bbox": {
+              "left": 371958,
+              "bottom": -8433,
+              "right": 372114,
+              "top": 433
+            },
+            "polygon": [
+              [
+                371958,
+                -8433
+              ],
+              [
+                371958,
+                433
+              ],
+              [
+                372114,
+                0
+              ],
+              [
+                372114,
+                -8000
+              ]
+            ]
+          },
+          {
+            "rule": "metal1.space.1",
+            "description": "minimum metal1 spacing",
+            "check": "space",
+            "layer": "Metal1",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$17",
+            "source_path": [
+              "mp_sw4__mp_sw4_0",
+              "mos_array$17"
+            ],
+            "bbox": {
+              "left": 383758,
+              "bottom": -8428,
+              "right": 383926,
+              "top": 428
+            },
+            "polygon": [
+              [
+                383758,
+                -8428
+              ],
+              [
+                383758,
+                428
+              ],
+              [
+                383926,
+                0
+              ],
+              [
+                383926,
+                -8000
+              ]
+            ]
+          },
+          {
+            "rule": "poly2.enclosing.contact.1",
+            "description": "minimum poly2 overlap of contact",
+            "check": "enclosing",
+            "layer": "Poly2",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$10",
+            "source_path": [
+              "mn_drv_t4__mn_drv_t4_0",
+              "mos_array$10"
+            ],
+            "bbox": {
+              "left": 93560,
+              "bottom": -720,
+              "right": 93680,
+              "top": -280
+            },
+            "polygon": [
+              [
+                93560,
+                -720
+              ],
+              [
+                93560,
+                -280
+              ],
+              [
+                93680,
+                -280
+              ],
+              [
+                93680,
+                -720
+              ]
+            ]
+          },
+          {
+            "rule": "poly2.enclosing.contact.1",
+            "description": "minimum poly2 overlap of contact",
+            "check": "enclosing",
+            "layer": "Poly2",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$11",
+            "source_path": [
+              "mp_drv_t4__mp_drv_t4_0",
+              "mos_array$11"
+            ],
+            "bbox": {
+              "left": 102800,
+              "bottom": -1720,
+              "right": 103080,
+              "top": -1280
+            },
+            "polygon": [
+              [
+                102800,
+                -1720
+              ],
+              [
+                102800,
+                -1280
+              ],
+              [
+                103080,
+                -1280
+              ],
+              [
+                103080,
+                -1720
+              ]
+            ]
+          },
+          {
+            "rule": "poly2.space.1",
+            "description": "minimum poly2 spacing (3.3V)",
+            "check": "space",
+            "layer": "Poly2",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$12",
+            "source_path": [
+              "mp_sw_en__mp_sw_en_0",
+              "mos_array$12"
+            ],
+            "bbox": {
+              "left": 93560,
+              "bottom": -4179,
+              "right": 93900,
+              "top": -1861
+            },
+            "polygon": [
+              [
+                93560,
+                -4179
+              ],
+              [
+                93560,
+                -1861
+              ],
+              [
+                93900,
+                -2200
+              ],
+              [
+                93900,
+                -3840
+              ]
+            ]
+          },
+          {
+            "rule": "poly2.space.1",
+            "description": "minimum poly2 spacing (3.3V)",
+            "check": "space",
+            "layer": "Poly2",
+            "cell": "dplus_pullup",
+            "source_cell": "mos_array$16",
+            "source_path": [
+              "mp_sw3__mp_sw3_0",
+              "mos_array$16"
+            ],
+            "bbox": {
+              "left": 324306,
+              "bottom": -8350,
+              "right": 324634,
+              "top": 350
+            },
+            "polygon": [
+              [
+                324306,
+                -8350
+              ],
+              [
+                324306,
+                350
+              ],
+              [
+                324634,
+                0
+              ],
+              [
+                324634,
+                -8000
+              ]
+            ]
+          }
+        ],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    },
+    {
+      "variant": "spacing=2.0",
+      "routed_nets": 6,
+      "total_nets": 21,
+      "routed_legs": 168,
+      "total_legs": 769,
+      "bbox_um": {
+        "x0": -0.25,
+        "y0": 0.0,
+        "x1": 195.60899999999998,
+        "y1": 101.82000000000001
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE0",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3B",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 0,
+        "rule_counts": {},
+        "violations": [],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    },
+    {
+      "variant": "spacing=2.5",
+      "routed_nets": 6,
+      "total_nets": 21,
+      "routed_legs": 168,
+      "total_legs": 769,
+      "bbox_um": {
+        "x0": -0.25,
+        "y0": 0.0,
+        "x1": 207.109,
+        "y1": 101.82000000000001
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE0",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3B",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 0,
+        "rule_counts": {},
+        "violations": [],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    },
+    {
+      "variant": "spacing=3.0",
+      "routed_nets": 6,
+      "total_nets": 21,
+      "routed_legs": 168,
+      "total_legs": 769,
+      "bbox_um": {
+        "x0": -0.25,
+        "y0": 0.0,
+        "x1": 218.609,
+        "y1": 101.82000000000001
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE0",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3B",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 0,
+        "rule_counts": {},
+        "violations": [],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    },
+    {
+      "variant": "spacing=3.5",
+      "routed_nets": 6,
+      "total_nets": 21,
+      "routed_legs": 168,
+      "total_legs": 769,
+      "bbox_um": {
+        "x0": -0.25,
+        "y0": 0.0,
+        "x1": 230.10900000000004,
+        "y1": 101.82000000000001
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE0",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3B",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 0,
+        "rule_counts": {},
+        "violations": [],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    },
+    {
+      "variant": "spacing=4.0",
+      "routed_nets": 6,
+      "total_nets": 21,
+      "routed_legs": 168,
+      "total_legs": 769,
+      "bbox_um": {
+        "x0": -0.25,
+        "y0": 0.0,
+        "x1": 241.60900000000007,
+        "y1": 101.82000000000001
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE0",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3B",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 0,
+        "rule_counts": {},
+        "violations": [],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    },
+    {
+      "variant": "spacing=5.0",
+      "routed_nets": 6,
+      "total_nets": 21,
+      "routed_legs": 168,
+      "total_legs": 769,
+      "bbox_um": {
+        "x0": -0.25,
+        "y0": 0.0,
+        "x1": 264.60900000000004,
+        "y1": 101.82000000000001
+      },
+      "unrouted_nets": [
+        "DP",
+        "NODE0",
+        "NODE1",
+        "NODE2",
+        "NODE3",
+        "NODE4",
+        "NODE5",
+        "PU_ENB",
+        "TRIM0B",
+        "TRIM1B",
+        "TRIM2B",
+        "TRIM3B",
+        "TRIM4B",
+        "VPU_REG",
+        "VSS"
+      ],
+      "drc": {
+        "violation_count": 0,
+        "rule_counts": {},
+        "violations": [],
+        "layers_checked": [
+          "21/0",
+          "22/0",
+          "30/0",
+          "33/0",
+          "34/0",
+          "35/0",
+          "36/0"
+        ]
+      }
+    }
+  ]
+}

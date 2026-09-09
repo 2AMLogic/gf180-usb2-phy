@@ -651,7 +651,8 @@
   ],
   "routing": {
     "layer_role": "metal",
-    "width_um": 0.23
+    "width_um": 0.28,
+    "cross_block_layer_role": "metal2"
   },
   "options": {
     "cell_name": "dplus_pullup",
