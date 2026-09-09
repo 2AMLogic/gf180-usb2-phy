@@ -130,14 +130,14 @@ source .venv/bin/activate
 
 | Component | Pinned to | Resolved via |
 |---|---|---|
-| `klayout-tools` (`klt`) | git revision [`07b1f04f29f21b3f8551d3937183b206a57a5e3a`](https://github.com/2AMLogic/klayout-tools/commit/07b1f04f29f21b3f8551d3937183b206a57a5e3a) (reports as `klt 0.3.0+g07b1f04f29f2`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@07b1f04f29f21b3f8551d3937183b206a57a5e3a"` (what `scripts/setup-env.sh` runs) |
+| `klayout-tools` (`klt`) | git revision [`8bd3f0b09a87641b093d655a7282b8f730db19e8`](https://github.com/2AMLogic/klayout-tools/commit/8bd3f0b09a87641b093d655a7282b8f730db19e8) (reports as `klt 0.4.0+g8bd3f0b09a87`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@8bd3f0b09a87641b093d655a7282b8f730db19e8"` (what `scripts/setup-env.sh` runs) |
 | `gf180mcu` PDK | `open_pdks` commit `c6d73a35f524070e85faff4a6a9eef49553ebc2b` (variants `gf180mcuA`/`B`/`C`/`D`; the digital harness uses `gf180mcuD`, whose standard-cell libraries are `gf180mcu_fd_sc_mcu7t5v0` / `gf180mcu_fd_sc_mcu9t5v0`) | `volare enable --pdk-root ~/.volare --pdk gf180mcu c6d73a35f524070e85faff4a6a9eef49553ebc2b` |
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
 
 The `klt` revision is pinned by commit, not by version: klayout-tools has
 not cut a PyPI release past `0.2.0`, so a version pin cannot express which
-capabilities are present. The pin has moved forward twice so far:
+capabilities are present. The pin has moved forward three times so far:
 
 1. `af5791b5` → `b3e284fff4243cdc5ab59a684d9c0582444b485d` by issue #25,
    specifically to pick up the netlist-driven layout-plan compiler/executor
@@ -155,6 +155,28 @@ capabilities are present. The pin has moved forward twice so far:
    relevant fix commit as a strict ancestor. See
    `verification/records/analog-layout/records/20260826-003645-4644a26.md`
    for what re-measuring against it did and did not change.
+3. `07b1f04f` → `8bd3f0b09a87641b093d655a7282b8f730db19e8` by issue #68,
+   specifically to pick up two fixes this repo's committed analog plans were
+   waiting on, both closed `COMPLETED` 2026-09-06 — klayout-tools#1502
+   (merge [`815d8abadf4182bd1b2543c1dee2f7d04a5ee904`](https://github.com/2AMLogic/klayout-tools/commit/815d8abadf4182bd1b2543c1dee2f7d04a5ee904),
+   PR #1509: `layout_plan_execute._resolve_routing_spec()` forwards
+   `routing.cross_block_layer_role` instead of silently dropping it, and
+   hard-fails on unknown `routing` keys) and klayout-tools#1501 (merge
+   [`8d094b70628aae2d4cdba7544989c415c1f877a4`](https://github.com/2AMLogic/klayout-tools/commit/8d094b70628aae2d4cdba7544989c415c1f877a4),
+   PR #1507: routing width and the via-drop square are floored at the
+   resolved deck's own DRC minimums). Both are **strict ancestors** of the
+   new pin — verified with the doc's own rule, `gh api
+   repos/2AMLogic/klayout-tools/compare/<fix-commit>...8bd3f0b09a87641b093d655a7282b8f730db19e8`
+   returning `status: "ahead"` with `behind_by: 0` for each (`ahead_by` 83
+   and 84 respectively); the old pin `07b1f04f` is likewise `behind_by: 0`,
+   `ahead_by: 189`. `8bd3f0b0` was klayout-tools' `main` tip at the time of
+   this move (2026-09-09T20:48:26Z). The `klt` self-reported version crosses
+   a minor boundary with this move (`0.3.0+g07b1f04f29f2` →
+   `0.4.0+g8bd3f0b09a87`). See
+   `verification/records/analog-layout/records/20260909-213500-29c5780.md`
+   for what the pin bump alone changed with byte-identical plans, and
+   `…/20260909-215500-29c5780.md` for what spending
+   `routing.cross_block_layer_role` on `dplus_pullup` then bought.
 
 `npm run check:ci` was re-run against each new pin before it was committed.
 

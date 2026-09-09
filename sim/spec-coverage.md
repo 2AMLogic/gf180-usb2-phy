@@ -20,22 +20,29 @@ these records, because none of them is a subset.
   post-layout extraction. There is no **analog** layout, so no extracted
   re-run exists to compare any electrical row against; issue #52 closed
   (PR #57, 2026-08-26) without ever committing a GDS/OASIS for any of the
-  five analog blocks — three route 0/N nets, `differential_driver` cannot
-  be ingested at all (`layout/README.md` § "Analog"); the remaining
-  friction is tracked at klayout-tools#1424 (a DRC regression, closed
-  `NOT_PLANNED`/refuted 2026-08-26 but re-confirmed by issue #61 on
+  five analog blocks, and **that is still true as of 2026-09-09** — the
+  remaining friction is tracked at klayout-tools#1424 (a DRC regression,
+  closed `NOT_PLANNED`/refuted 2026-08-26 but re-confirmed by issue #61 on
   2026-09-05 to still reproduce byte-for-byte against the exact commit the
   refutation's source inspection covered). gf180-usb2-phy#56's
   `dplus_pullup` design decision is **resolved** (operator ruling
   2026-09-05, FLATTEN — `spec/decisions/0001-dplus-pullup-switch-device-flattening.md`):
   that block's switch devices are now drawn one device per gate, `klt`
   ingests and places it, and the §5 row below was re-run against the
-  flattened netlist. It still has no committed layout plan, so there is
-  still no analog extraction to compare against. Issue #53's analog
-  acceptance criterion therefore stays unattempted: **there is still
-  nothing under `layout/analog/` to extract**, so no analog `sim/`-row
-  re-run against an extracted netlist can exist yet, regardless of #52's
-  own closed/open status. (The digital half does have a committed,
+  flattened netlist. It now has a committed layout *plan* — and, since issue
+  #68 (2026-09-09), one that spends `routing.cross_block_layer_role` at
+  `klt` pin `8bd3f0b0` — but a plan is not a layout: `dplus_pullup` routes
+  **6 of 21 nets** and the three receiver plans **1 of 8/9/9**, with both
+  supplies and every ladder node unrouted, so there is still no analog
+  extraction to compare against. Issue #53's analog acceptance criterion
+  therefore stays unattempted: **there is still nothing under
+  `layout/analog/` to extract** (only `layout/analog/plans/*.json`), so no
+  analog `sim/`-row re-run against an extracted netlist can exist yet,
+  regardless of #52's own closed/open status. The two upstream gaps that
+  now hold the routed-net count down are klayout-tools#1531 and #1467, both
+  open; the full per-net evidence is
+  `verification/records/analog-layout/records/20260909-215500-29c5780.md`.
+  (The digital half does have a committed,
   DRC-clean, LVS-matched layout and, as of issue #53's `post-layout-pvt`
   experiment, a SPEF-annotated post-layout STA re-run with 364/366 design
   nets carrying real extracted parasitics — 100% of nets that physically
