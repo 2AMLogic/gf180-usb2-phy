@@ -9,13 +9,15 @@ produced, and prints one honest per-block verdict.
 **This is a measurement harness, not a "produce the shipping layout"
 button.** Its current, recorded outcome is *not* a usable analog layout --
 see ``layout/README.md`` and
-``verification/records/analog-layout/`` for the full finding. One of the
-five analog blocks (``differential_driver``) cannot even be ingested by
-klt's netlist reader; the four that can place their devices, but none of
-them routes all of its nets. The script exists so that finding is
-reproducible with one command, and so the day klayout-tools closes those
-gaps the same command re-measures instead of someone re-deriving the setup
-from prose.
+``verification/records/analog-layout/`` for the full finding. Four of the
+five analog blocks place their devices from a committed plan but route none
+of their nets fully; the fifth (``differential_driver``) has no committed
+plan at all -- its netlist ingests cleanly (klayout-tools#1662), but two of
+its devices (``rm1`` metal-1 resistors) have no ``klt gen`` generator
+capable of drawing them correctly on this PDK family (see
+``BLOCKED_BLOCKS``). The script exists so each finding is reproducible with
+one command, and so the day klayout-tools closes a gap the same command
+re-measures instead of someone re-deriving the setup from prose.
 
 Exit codes (about *the run*, never about the quality of the layout -- read
 the report for that):
@@ -46,15 +48,39 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PLAN_DIR = os.path.join(REPO_ROOT, "layout", "analog", "plans")
 DEFAULT_OUT_DIR = os.path.join(REPO_ROOT, "layout", "analog", "out")
 
-# Blocks with no committed plan, because klt's own netlist ingestion rejects
-# their SPICE before a plan could be validated at all. Probed live on every
-# run (rather than described in prose only) so the report states the current
-# error text, not a stale quotation of it.
+# Blocks with no committed plan. Each entry's netlist is re-ingested live on
+# every run (rather than described in prose only), so the report never
+# quotes a stale ingestion-error text -- but ingestion succeeding does not
+# by itself mean a plan can be written: see each reason string for the
+# specific, current obstacle.
+#
+# `differential_driver` moved here from a pure "cannot be ingested" entry
+# (issue #70): klayout-tools#1662 (merged 2026-09-11) added `rm1`/`rm2`/`rm3`
+# gf180mcu metal-resistor device classes to the curated deck's extraction
+# side, so `build_netlist_digest` now resolves this block's netlist cleanly
+# -- confirmed directly, not assumed (see the record linked below). That
+# does *not* unblock a plan: `klt gen`'s `res_array` generator has no
+# drawn-geometry path for a gf180mcu metal resistor at all (its
+# `metal_level` mechanism is populated for a different PDK family only), and
+# -- more seriously -- a device_groups[] entry that names an `rm1` device
+# with `res_array` left at its default flavor does not fail; it silently
+# draws a *poly* resistor instead, with no warning, because nothing checks
+# a group's declared `device_class` against what its generator/flavor
+# combination actually draws. Filed generically upstream as
+# klayout-tools#1731. Kept in `BLOCKED_BLOCKS` (not removed) so this block
+# stays counted in every run's total/verdict instead of silently
+# disappearing from the report the way an unqualified removal would -- see
+# `verification/records/analog-layout/records/20260912-191922-5953e89.md`
+# for the full reproduction, a throwaway probe's initial (unrouted)
+# placement/DRC reading, and why a real plan is not committed here.
 BLOCKED_BLOCKS = {
     "differential_driver": (
-        "series-termination resistors are rm1 (metal-1) devices, which the "
-        "curated gf180mcu deck does not know, and no klt gen generator draws "
-        "a metal resistor"
+        "netlist ingests cleanly (klayout-tools#1662), but its two rm1 "
+        "series-termination resistors have no gf180mcu-capable klt gen "
+        "generator: res_array's metal_level mechanism does not cover this "
+        "PDK family, and leaving flavor/metal_level at their defaults "
+        "silently draws the wrong device (a poly resistor) instead of "
+        "failing -- filed generically as klayout-tools#1731"
     ),
 }
 # `dplus_pullup` used to live here, blocked on `nf=10` multi-finger devices
@@ -165,6 +191,17 @@ def _execute_plan(plan_path: str, out_dir: str, keep_work: bool) -> dict:
 
 
 def _probe_blocked(block: str, reason: str) -> dict:
+    """Live-reconfirm netlist ingestion for a block with no committed plan.
+
+    This only ever re-checks *ingestion* (``build_netlist_digest``) -- the
+    one thing a bare netlist re-run can cheaply reconfirm every time. It
+    intentionally does not re-verify whether ``reason`` itself (which may
+    describe a downstream blocker, e.g. no ``klt gen`` generator for one of
+    the block's devices, discovered *after* ingestion started succeeding --
+    see ``differential_driver``) still holds; that requires attempting a
+    real plan, which is what the linked verification record's evidence, not
+    this per-run probe, is for.
+    """
     from klayout_tools.netlist_digest import build_netlist_digest
 
     netlist = os.path.join(REPO_ROOT, "design", "netlist", f"{block}.spice")
@@ -177,9 +214,8 @@ def _probe_blocked(block: str, reason: str) -> dict:
     entry.update(
         status="ingest-unexpectedly-succeeded",
         message=(
-            "klt now ingests this netlist -- the blocker this entry records is "
-            "gone; author a plan under layout/analog/plans/ and drop this block "
-            "from BLOCKED_BLOCKS"
+            "klt now ingests this netlist, but a plan is still not committed "
+            f"-- {reason}"
         ),
     )
     return entry

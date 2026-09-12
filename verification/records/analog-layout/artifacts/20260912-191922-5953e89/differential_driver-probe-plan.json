@@ -1,0 +1,101 @@
+{
+  "schema": "klt.layout_plan.request/1",
+  "netlist": {
+    "path": "design/netlist/differential_driver.spice",
+    "top": "differential_driver",
+    "form": "subckt-call",
+    "deck": "gf180mcu"
+  },
+  "pdk": {
+    "variant": "gf180mcuD"
+  },
+  "device_groups": [
+    {
+      "id": "mn_n1dm",
+      "devices": [{"name": "N1DM", "device_class": "NFET"}],
+      "generator": "mos_array",
+      "params": {"rows": 1, "cols": 1, "dummy": 0, "gate_contact": true, "flavor": "nfet"}
+    },
+    {
+      "id": "mn_n1dp",
+      "devices": [{"name": "N1DP", "device_class": "NFET"}],
+      "generator": "mos_array",
+      "params": {"rows": 1, "cols": 1, "dummy": 0, "gate_contact": true, "flavor": "nfet"}
+    },
+    {
+      "id": "mn_n2dm",
+      "devices": [{"name": "N2DM", "device_class": "NFET"}],
+      "generator": "mos_array",
+      "params": {"rows": 1, "cols": 1, "dummy": 0, "gate_contact": true, "flavor": "nfet"}
+    },
+    {
+      "id": "mn_n2dp",
+      "devices": [{"name": "N2DP", "device_class": "NFET"}],
+      "generator": "mos_array",
+      "params": {"rows": 1, "cols": 1, "dummy": 0, "gate_contact": true, "flavor": "nfet"}
+    },
+    {
+      "id": "mp_p1dm",
+      "devices": [{"name": "P1DM", "device_class": "PFET"}],
+      "generator": "mos_array",
+      "params": {"rows": 1, "cols": 1, "dummy": 0, "gate_contact": true, "flavor": "pfet"}
+    },
+    {
+      "id": "mp_p1dp",
+      "devices": [{"name": "P1DP", "device_class": "PFET"}],
+      "generator": "mos_array",
+      "params": {"rows": 1, "cols": 1, "dummy": 0, "gate_contact": true, "flavor": "pfet"}
+    },
+    {
+      "id": "mp_p2dm",
+      "devices": [{"name": "P2DM", "device_class": "PFET"}],
+      "generator": "mos_array",
+      "params": {"rows": 1, "cols": 1, "dummy": 0, "gate_contact": true, "flavor": "pfet"}
+    },
+    {
+      "id": "mp_p2dp",
+      "devices": [{"name": "P2DP", "device_class": "PFET"}],
+      "generator": "mos_array",
+      "params": {"rows": 1, "cols": 1, "dummy": 0, "gate_contact": true, "flavor": "pfet"}
+    },
+    {
+      "id": "r_slewdm",
+      "devices": [{"name": "SLEWDM", "device_class": "PPOLYF_U"}],
+      "generator": "res_array",
+      "params": {"num": 1, "dummy": 0}
+    },
+    {
+      "id": "r_slewdp",
+      "devices": [{"name": "SLEWDP", "device_class": "PPOLYF_U"}],
+      "generator": "res_array",
+      "params": {"num": 1, "dummy": 0}
+    },
+    {
+      "id": "r_serdm",
+      "devices": [{"name": "SERDM", "device_class": "RM1"}],
+      "generator": "res_array",
+      "params": {"num": 1, "dummy": 0}
+    },
+    {
+      "id": "r_serdp",
+      "devices": [{"name": "SERDP", "device_class": "RM1"}],
+      "generator": "res_array",
+      "params": {"num": 1, "dummy": 0}
+    }
+  ],
+  "rows": [
+    {
+      "order": ["mn_n1dm", "mn_n1dp", "mn_n2dm", "mn_n2dp", "mp_p1dm", "mp_p1dp", "mp_p2dm", "mp_p2dp", "r_slewdm", "r_slewdp", "r_serdm", "r_serdp"],
+      "spacing_um": 2.0,
+      "align": "bottom"
+    }
+  ],
+  "routing": {
+    "layer_role": "metal",
+    "width_um": 0.23
+  },
+  "options": {
+    "cell_name": "differential_driver_probe",
+    "output": "differential_driver_probe.gds"
+  }
+}
