@@ -130,14 +130,14 @@ source .venv/bin/activate
 
 | Component | Pinned to | Resolved via |
 |---|---|---|
-| `klayout-tools` (`klt`) | git revision [`8bd3f0b09a87641b093d655a7282b8f730db19e8`](https://github.com/2AMLogic/klayout-tools/commit/8bd3f0b09a87641b093d655a7282b8f730db19e8) (reports as `klt 0.4.0+g8bd3f0b09a87`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@8bd3f0b09a87641b093d655a7282b8f730db19e8"` (what `scripts/setup-env.sh` runs) |
+| `klayout-tools` (`klt`) | git revision [`bf90e1d5e3a624ea2e098efdfe76596081508751`](https://github.com/2AMLogic/klayout-tools/commit/bf90e1d5e3a624ea2e098efdfe76596081508751) (reports as `klt 0.4.0+gbf90e1d5e3a6`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@bf90e1d5e3a624ea2e098efdfe76596081508751"` (what `scripts/setup-env.sh` runs) |
 | `gf180mcu` PDK | `open_pdks` commit `c6d73a35f524070e85faff4a6a9eef49553ebc2b` (variants `gf180mcuA`/`B`/`C`/`D`; the digital harness uses `gf180mcuD`, whose standard-cell libraries are `gf180mcu_fd_sc_mcu7t5v0` / `gf180mcu_fd_sc_mcu9t5v0`) | `volare enable --pdk-root ~/.volare --pdk gf180mcu c6d73a35f524070e85faff4a6a9eef49553ebc2b` |
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
 
 The `klt` revision is pinned by commit, not by version: klayout-tools has
 not cut a PyPI release past `0.2.0`, so a version pin cannot express which
-capabilities are present. The pin has moved forward three times so far:
+capabilities are present. The pin has moved forward four times so far:
 
 1. `af5791b5` → `b3e284fff4243cdc5ab59a684d9c0582444b485d` by issue #25,
    specifically to pick up the netlist-driven layout-plan compiler/executor
@@ -177,6 +177,36 @@ capabilities are present. The pin has moved forward three times so far:
    for what the pin bump alone changed with byte-identical plans, and
    `…/20260909-215500-29c5780.md` for what spending
    `routing.cross_block_layer_role` on `dplus_pullup` then bought.
+4. `8bd3f0b0` → `bf90e1d5e3a624ea2e098efdfe76596081508751` by issue #70,
+   specifically to pick up klayout-tools#1640's fix (merge
+   [`df36f4fce8c63e367c132a3335369a877acc4ebb`](https://github.com/2AMLogic/klayout-tools/commit/df36f4fce8c63e367c132a3335369a877acc4ebb),
+   PR #1662: `rm1`/`rm2`/`rm3` — plus `tm6k`/`tm9k`/`tm11k`/`tm30k` —
+   gf180mcu metal-resistor device classes now recognised by
+   `netlist_digest`), the ingestion blocker behind `differential_driver`
+   being the only one of the five analog blocks klt could not ingest at
+   all. The fix commit is a **strict ancestor** of the new pin —
+   `gh api repos/2AMLogic/klayout-tools/compare/df36f4fce8c63e367c132a3335369a877acc4ebb...bf90e1d5e3a624ea2e098efdfe76596081508751`
+   returns `status: "ahead"`, `behind_by: 0`, `ahead_by: 39`. `bf90e1d5e3a6`
+   is not klayout-tools' bare `main` tip at the time of this move (`main`
+   was one commit ahead, `160073f3…`, with several CI legs still `queued`);
+   it is the newest commit whose own CI had fully completed with every
+   check-run `conclusion: "success"` at check time. `8bd3f0b0` (the old pin)
+   is `behind_by: 0` / `ahead_by: 1` relative to the new one — a
+   one-commit, strictly-forward move. The `klt` self-reported version does
+   not cross a minor boundary this time (`0.4.0+g8bd3f0b09a87` →
+   `0.4.0+gbf90e1d5e3a6`). **What the move bought, and what it didn't**:
+   `differential_driver`'s netlist now ingests cleanly (confirmed live), but
+   a committed plan still isn't possible — `klt gen`'s `res_array` generator
+   has no drawn-geometry support for a gf180mcu metal resistor at all, and
+   silently draws the wrong device (a poly resistor) instead of failing
+   when a plan leaves `flavor`/`metal_level` at their defaults for an `rm1`
+   device, a distinct, narrower gap filed generically as
+   [klayout-tools#1731](https://github.com/2AMLogic/klayout-tools/issues/1731).
+   See
+   `verification/records/analog-layout/records/20260912-191922-5953e89.md`
+   for the full reproduction, the byte-identical re-confirmation for the
+   four already-committed plans, and a throwaway probe's initial (unrouted)
+   placement/DRC reading for `differential_driver`.
 
 `npm run check:ci` was re-run against each new pin before it was committed.
 

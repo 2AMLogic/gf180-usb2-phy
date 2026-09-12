@@ -36,7 +36,7 @@ cd "${REPO_ROOT}" || exit 1
 
 # --- pinned versions -- keep in sync with docs/environment-setup.md -------
 KLT_REPO="https://github.com/2AMLogic/klayout-tools"
-KLT_REV="8bd3f0b09a87641b093d655a7282b8f730db19e8"
+KLT_REV="bf90e1d5e3a624ea2e098efdfe76596081508751"
 VOLARE_PDK_FAMILY="gf180mcu"
 VOLARE_GF180MCU_VERSION="c6d73a35f524070e85faff4a6a9eef49553ebc2b"
 # ----------------------------------------------------------------------------

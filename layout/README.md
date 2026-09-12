@@ -96,7 +96,7 @@ checking").
 
 ### What actually happened
 
-Seven runs exist. The first two ran against two `klt` pins over
+Eight runs exist. The first two ran against two `klt` pins over
 byte-identical inputs (design netlists, plans, and the driver script never
 changed between them — see `verification/records/analog-layout/` for the
 content hashes that prove it); the pin moved specifically because the three
@@ -117,15 +117,20 @@ sixth (issue #68) changes exactly one repo input — `scripts/setup-env.sh`'s
 with all four plan documents byte-identical, so the pin bump's own effect is
 isolated before any plan edit can be credited with it. The seventh (also
 issue #68) holds that pin and changes exactly one plan document:
-`dplus_pullup.json` gains `routing.cross_block_layer_role`.
+`dplus_pullup.json` gains `routing.cross_block_layer_role`. The eighth
+(issue #70) changes exactly one repo input again — `scripts/setup-env.sh`'s
+`KLT_REV`, moved to `bf90e1d5e3a6` to consume klayout-tools#1640
+(`rm1`/`rm2`/`rm3` metal-resistor device-class recognition) — with all four
+plan documents byte-identical, isolating the pin bump's effect exactly like
+the sixth run did.
 
-| Block | 2026-08-18, `klt` 0.2.0 @ `b3e284f` | 2026-08-26, `klt` 0.3.0 @ `07b1f04` | 2026-09-05, flattened `dplus_pullup` | 2026-09-05, + committed `dplus_pullup` plan | 2026-09-05, + legal `routing.width_um` (issue #65) | 2026-09-09, `klt` 0.4.0 @ `8bd3f0b0`, plans byte-identical (issue #68) | 2026-09-09, + `cross_block_layer_role` on `dplus_pullup` (issue #68) |
-|---|---|---|---|---|---|---|---|
-| `differential_receiver` | 11 groups placed, **DRC-clean**, **0/8 nets routed** | 11 groups placed, **0/8 nets routed (unchanged)**, DRC **19 violations** (`metal1.width.1`) | unchanged — byte-identical GDS | unchanged — byte-identical GDS | **DRC-clean (0 violations)**, **0/8 nets routed (unchanged)** — `routing.width_um` corrected from klt's illegal 0.17 µm default to the deck's own 0.23 µm minimum | **1/8 nets routed** (`VDD`), DRC-clean — the pin bump alone; geometry re-floored at deck minimums, plan untouched | unchanged — plan untouched by this run |
-| `se_receiver_dm` | 13 groups placed, **DRC-clean**, **0/9 nets routed** | 13 groups placed, **0/9 nets routed (unchanged)**, DRC **22 violations** | unchanged — byte-identical GDS | unchanged — byte-identical GDS | **DRC-clean (0 violations)**, **0/9 nets routed (unchanged)** — same fix | **1/9 nets routed** (`VDD`), DRC-clean — same mechanism | unchanged — plan untouched by this run |
-| `se_receiver_dp` | 13 groups placed, **DRC-clean**, **0/9 nets routed** | 13 groups placed, **0/9 nets routed (unchanged)**, DRC **22 violations** | unchanged — byte-identical GDS | unchanged — byte-identical GDS | **DRC-clean (0 violations)**, **0/9 nets routed (unchanged)** — same fix | **1/9 nets routed** (`VDD`), DRC-clean — same mechanism | unchanged — plan untouched by this run |
-| `differential_driver` | **cannot be ingested** — series-termination resistors are `rm1` (metal-1) devices, unknown to klt's curated `gf180mcu` deck | **cannot be ingested — identical error text, verbatim** | **still cannot be ingested** — unrelated blocker, unchanged | **still cannot be ingested** — unchanged | **still cannot be ingested** — unchanged, out of this fix's scope | **still cannot be ingested — identical error text, verbatim**; reconfirmed at the new pin and filed upstream as klayout-tools#1621 | unchanged |
-| `dplus_pullup` | **cannot be ingested** — pull-up switches carry `nf=10`, which klt's subckt-call → plain-element conversion refuses to represent | **cannot be ingested — identical error text, verbatim** | **ingests, and places** — 78 devices / 21 nets; blocker cleared by the flatten. Still **no committed plan**, so still no layout | **plan committed and executed** — 24 groups placed, **6/21 nets routed**, **DRC-clean (0 violations)**. Still not a layout: 15 nets unrouted | unchanged — byte-identical GDS (its plan already carried the legal `routing.width_um: 0.23`) | **6/21 nets routed (unchanged)**, DRC-clean; 114/1301 legs routed | **6/21 nets routed (still unchanged)**, DRC-clean **with `via1`/`metal2` rules now actually checked**; **168/769 legs routed**, the 540 same-layer-short leg rejections **gone**, 2 nets `unrouted` → `partial` |
+| Block | 2026-08-18, `klt` 0.2.0 @ `b3e284f` | 2026-08-26, `klt` 0.3.0 @ `07b1f04` | 2026-09-05, flattened `dplus_pullup` | 2026-09-05, + committed `dplus_pullup` plan | 2026-09-05, + legal `routing.width_um` (issue #65) | 2026-09-09, `klt` 0.4.0 @ `8bd3f0b0`, plans byte-identical (issue #68) | 2026-09-09, + `cross_block_layer_role` on `dplus_pullup` (issue #68) | 2026-09-12, `klt` 0.4.0 @ `bf90e1d5e3a6`, plans byte-identical (issue #70) |
+|---|---|---|---|---|---|---|---|---|
+| `differential_receiver` | 11 groups placed, **DRC-clean**, **0/8 nets routed** | 11 groups placed, **0/8 nets routed (unchanged)**, DRC **19 violations** (`metal1.width.1`) | unchanged — byte-identical GDS | unchanged — byte-identical GDS | **DRC-clean (0 violations)**, **0/8 nets routed (unchanged)** — `routing.width_um` corrected from klt's illegal 0.17 µm default to the deck's own 0.23 µm minimum | **1/8 nets routed** (`VDD`), DRC-clean — the pin bump alone; geometry re-floored at deck minimums, plan untouched | unchanged — plan untouched by this run | unchanged — `cmp`-identical GDS; plan untouched |
+| `se_receiver_dm` | 13 groups placed, **DRC-clean**, **0/9 nets routed** | 13 groups placed, **0/9 nets routed (unchanged)**, DRC **22 violations** | unchanged — byte-identical GDS | unchanged — byte-identical GDS | **DRC-clean (0 violations)**, **0/9 nets routed (unchanged)** — same fix | **1/9 nets routed** (`VDD`), DRC-clean — same mechanism | unchanged — plan untouched by this run | unchanged — `cmp`-identical GDS; plan untouched |
+| `se_receiver_dp` | 13 groups placed, **DRC-clean**, **0/9 nets routed** | 13 groups placed, **0/9 nets routed (unchanged)**, DRC **22 violations** | unchanged — byte-identical GDS | unchanged — byte-identical GDS | **DRC-clean (0 violations)**, **0/9 nets routed (unchanged)** — same fix | **1/9 nets routed** (`VDD`), DRC-clean — same mechanism | unchanged — plan untouched by this run | unchanged — `cmp`-identical GDS; plan untouched |
+| `differential_driver` | **cannot be ingested** — series-termination resistors are `rm1` (metal-1) devices, unknown to klt's curated `gf180mcu` deck | **cannot be ingested — identical error text, verbatim** | **still cannot be ingested** — unrelated blocker, unchanged | **still cannot be ingested** — unchanged | **still cannot be ingested** — unchanged, out of this fix's scope | **still cannot be ingested — identical error text, verbatim**; reconfirmed at the new pin and filed upstream as klayout-tools#1621 | unchanged | **now ingests** (klayout-tools#1640/PR #1662 fixed) — 12-device digest resolves cleanly for the first time. Still **no committed plan**: a throwaway probe places 12 groups / **0/10 nets routed** / DRC-clean, but `klt gen`'s `res_array` has no gf180mcu metal-resistor generator support and *silently draws the wrong device* (a poly resistor) for the two `rm1` groups when left at default `flavor` — filed generically as klayout-tools#1731 |
+| `dplus_pullup` | **cannot be ingested** — pull-up switches carry `nf=10`, which klt's subckt-call → plain-element conversion refuses to represent | **cannot be ingested — identical error text, verbatim** | **ingests, and places** — 78 devices / 21 nets; blocker cleared by the flatten. Still **no committed plan**, so still no layout | **plan committed and executed** — 24 groups placed, **6/21 nets routed**, **DRC-clean (0 violations)**. Still not a layout: 15 nets unrouted | unchanged — byte-identical GDS (its plan already carried the legal `routing.width_um: 0.23`) | **6/21 nets routed (unchanged)**, DRC-clean; 114/1301 legs routed | **6/21 nets routed (still unchanged)**, DRC-clean **with `via1`/`metal2` rules now actually checked**; **168/769 legs routed**, the 540 same-layer-short leg rejections **gone**, 2 nets `unrouted` → `partial` | unchanged — `cmp`-identical GDS; plan untouched |
 
 **The `dplus_pullup` ingestion blocker is resolved; that block now has a
 committed plan; it still does not have a layout.** Issue #56's operator
@@ -478,13 +483,33 @@ re-confirmed as of 2026-09-05, per the entry below, to still reproduce):
   that never use the second plane. There is no way to express "minimum width
   on the primary plane, the cross plane's own minimum on the escape legs".
 - [klayout-tools#1621](https://github.com/2AMLogic/klayout-tools/issues/1621)
-  (filed by issue #68, open) — no metal-resistor device class exists in the
-  curated decks, and no `klt gen` generator draws one, so a netlist using its
-  PDK's metal resistor cannot be ingested at all. This is
-  `differential_driver`'s standing blocker, reconfirmed verbatim at the new
-  pin. `reference.device_map` (which the error text suggests) does not help:
-  it maps a name onto an *existing* class, and no existing class describes a
-  metal resistor.
+  (filed by issue #68; **closed via klayout-tools#1640/PR #1662, merge
+  `df36f4f`, consumed by issue #70's pin move to `bf90e1d5e3a6`**) — no
+  metal-resistor device class existed in the curated decks, so a netlist
+  using one could not be ingested at all. **Fixed and consumed**:
+  `netlist_digest` now recognises gf180mcu's `rm1`/`rm2`/`rm3` (plus
+  `tm6k`/`tm9k`/`tm11k`/`tm30k`), and `differential_driver`'s netlist — the
+  only one of the five analog blocks this blocked — ingests cleanly for the
+  first time, confirmed live, not assumed (record
+  `20260912-191922-5953e89`).
+- [klayout-tools#1731](https://github.com/2AMLogic/klayout-tools/issues/1731)
+  (filed by issue #70, open) — landing #1621's fix moved the blocker one
+  stage downstream rather than clearing it: `klt gen`'s `res_array`
+  generator still has no drawn-geometry path for a gf180mcu metal resistor
+  at all (its `metal_level` mechanism is populated for a different PDK
+  family only), and — the sharper half of this gap — a `device_groups[]`
+  entry whose declared `device_class` names a metal-resistor class but
+  whose `generator`/`flavor` resolve to the default poly-body path does not
+  fail; it **silently draws the wrong device** (a poly resistor) with no
+  error and no `warnings[]` entry, because nothing cross-checks a group's
+  declared device class against what its generator actually draws.
+  Confirmed directly against `klt gen`'s own source
+  (`_PDK_RES_FLAVOR_LAYERS`/`_PDK_METAL_RES_LEVELS` in `gen.py`) and by a
+  throwaway probe plan, not assumed — see the same record. This is why
+  `differential_driver` still has no committed plan under
+  `layout/analog/plans/`: an honest plan cannot yet draw its two
+  series-termination resistors as the `rm1` devices the netlist and LVS
+  both expect.
 
 The `dplus_pullup` blocker (`nf=10`) was unrelated to any of the above and
 was unmoved across the 2026-08-18 and 2026-08-26 runs: a deliberate,
@@ -533,10 +558,28 @@ routing DRC-dirty is gone. Nothing in this repo depends on it any more.
 document~~ — CLOSED.** klayout-tools#1502 landed the same day and is
 likewise consumed. It works; it is not what the nets were waiting on.
 
-(c) **`differential_driver`'s ingestion blocker resolving via klt
-device-class support for metal resistors** — still open, now filed
-generically as klayout-tools#1621. `dplus_pullup`'s half of this item was
-discharged by the 2026-09-05 flatten above.
+(c) **~~`differential_driver`'s ingestion blocker resolving via klt
+device-class support for metal resistors~~ — CLOSED, and partially
+superseded by a narrower successor.** klayout-tools#1621/#1640 closed via
+PR #1662 (merge `df36f4f`), consumed by issue #70's pin move to
+`bf90e1d5e3a6`: `differential_driver`'s netlist now ingests cleanly, the
+only one of the five blocks this ever blocked. What it did *not* buy is a
+committed plan — `klt gen`'s `res_array` generator has no drawn-geometry
+support for a gf180mcu metal resistor at all, and silently draws the wrong
+device instead of failing when a plan's declared `device_class` doesn't
+match its generator/flavor's actual output. That successor gap is filed
+generically as klayout-tools#1731 and is the new item (c′) below.
+`dplus_pullup`'s half of the original item was discharged by the
+2026-09-05 flatten above.
+
+(c′) **New: `klt gen` drawing a metal-resistor device for the family whose
+extraction side just gained one, and validating that a plan's declared
+`device_class` matches what its generator actually draws** — open, filed as
+klayout-tools#1731. Until this lands (or a `spec/` decision rules a
+different path for `differential_driver`'s two `rm1` series-termination
+resistors), no honest plan can be committed for that block: the only
+generator that can place an `rm1`-classed device today (`res_array`, left
+at its default flavor) draws a poly resistor instead, silently.
 
 (d) **New, and now the actual critical path: routing that can reach into a
 generated array and can allocate space between nets.** Every one of
@@ -597,10 +640,15 @@ the report for the verdict — as of this writing it ends `analog layout NOT
 delivered`.
 
 It also probes the one remaining block that has no committed plan
-(`differential_driver`), so its ingestion error is re-measured live rather
-than quoted from prose. If it ever ingests, the script says so explicitly
-(`status: ingest-unexpectedly-succeeded`) and tells you to author its plan —
-which is exactly how `dplus_pullup` left that list.
+(`differential_driver`), so its ingestion status is re-measured live rather
+than quoted from prose — as of issue #70, ingestion succeeds
+(`status: ingest-unexpectedly-succeeded`), but the script's own message
+names the real reason a plan still isn't committed (see `BLOCKED_BLOCKS` in
+`scripts/gen_analog_layout.py`): `klt gen` has no gf180mcu metal-resistor
+generator support, so authoring one is not yet possible without either
+drawing the wrong device or an upstream/`spec/` decision — unlike
+`dplus_pullup`, which left this list once its own blocker (an unrelated
+device-representation limit) actually cleared.
 
 `scripts/digital_lvs.py` writes its extracted/reference netlists and reports
 to `layout/digital/lvs/` (gitignored scratch — the frozen copies live under
