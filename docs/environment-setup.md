@@ -188,11 +188,21 @@ capabilities are present. The pin has moved forward four times so far:
    `gh api repos/2AMLogic/klayout-tools/compare/df36f4fce8c63e367c132a3335369a877acc4ebb...bf90e1d5e3a624ea2e098efdfe76596081508751`
    returns `status: "ahead"`, `behind_by: 0`, `ahead_by: 39`. `bf90e1d5e3a6`
    is not klayout-tools' bare `main` tip at the time of this move (`main`
-   was one commit ahead, `160073f3…`, with several CI legs still `queued`);
-   it is the newest commit whose own CI had fully completed with every
-   check-run `conclusion: "success"` at check time. `8bd3f0b0` (the old pin)
-   is `behind_by: 0` / `ahead_by: 1` relative to the new one — a
-   one-commit, strictly-forward move. The `klt` self-reported version does
+   was one commit ahead, `160073f34f74e1796b903586a2f278a0438a6462`, whose
+   sole parent *is* `bf90e1d5e3a6`, with several CI legs still `queued` —
+   `gh api
+   repos/2AMLogic/klayout-tools/compare/bf90e1d5e3a624ea2e098efdfe76596081508751...160073f34f74e1796b903586a2f278a0438a6462`
+   returns `status: "ahead"`, `behind_by: 0`, `ahead_by: 1`); it is the
+   newest commit whose own CI had fully completed with every check-run
+   `conclusion: "success"` at check time. The pin move itself is much larger
+   than that one-commit gap to `main`: `gh api
+   repos/2AMLogic/klayout-tools/compare/8bd3f0b09a87641b093d655a7282b8f730db19e8...bf90e1d5e3a624ea2e098efdfe76596081508751`
+   returns `status: "ahead"`, `behind_by: 0`, `ahead_by: 70` — 70 commits
+   spanning 2026-09-09T20:48:26Z → 2026-09-12T18:19:29Z (just under three
+   days), with the fix commit `df36f4f` 31 commits past the old pin and 39
+   short of the new one (31 + 39 = 70). `behind_by: 0` means the old pin
+   is a strict ancestor, so the move is still purely forward — a
+   fast-forward, but not a one-commit one. The `klt` self-reported version does
    not cross a minor boundary this time (`0.4.0+g8bd3f0b09a87` →
    `0.4.0+gbf90e1d5e3a6`). **What the move bought, and what it didn't**:
    `differential_driver`'s netlist now ingests cleanly (confirmed live), but
