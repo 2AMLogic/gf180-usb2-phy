@@ -247,7 +247,11 @@ capabilities are present. The pin has moved forward four times so far:
    `Metal2` geometry with an explicit `params.metal_level: 1`, confirmed by
    direct GDS layer inspection and a zero-length `warnings[]` array, not
    assumed. The four already-committed plans are unaffected at the
-   drawn-geometry level (`cmp`-identical GDS). **The new mismatch-warning
+   drawn-geometry level — verified by per-layer Boolean XOR against the
+   superseded record's frozen artifacts (zero area difference on every layer
+   of all four blocks), **not** by byte comparison: the GDS files are
+   geometrically identical but not byte-identical, differing only in the
+   order the same elements are emitted. **The new mismatch-warning
    check itself found something this move did not set out to look for**:
    three of those four plans (`differential_receiver`, `se_receiver_dm`,
    `se_receiver_dp`) have their own declared-class-vs-drawn-device mismatch
@@ -258,10 +262,11 @@ capabilities are present. The pin has moved forward four times so far:
    plan documents disagreeing with the netlist they were written against,
    not a further `klt` gap. See
    `verification/records/analog-layout/records/20260913-192744-b653c71.md`
-   for the full reproduction, the byte-identical re-confirmation for the
-   four already-committed plans' drawn geometry, the layer-level
+   for the full reproduction, the geometric re-confirmation (per-layer XOR)
+   for the four already-committed plans' drawn geometry, the layer-level
    confirmation that `differential_driver`'s `RM1` groups now draw correctly,
-   and the newly-surfaced `PPOLYF_U_1K` mismatch finding.
+   the newly-surfaced `PPOLYF_U_1K` mismatch finding, and the characterization
+   of the GDS byte-level ordering difference.
 
 `npm run check:ci` was re-run against each new pin before it was committed.
 
