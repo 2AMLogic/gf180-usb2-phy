@@ -130,7 +130,7 @@ source .venv/bin/activate
 
 | Component | Pinned to | Resolved via |
 |---|---|---|
-| `klayout-tools` (`klt`) | git revision [`bf90e1d5e3a624ea2e098efdfe76596081508751`](https://github.com/2AMLogic/klayout-tools/commit/bf90e1d5e3a624ea2e098efdfe76596081508751) (reports as `klt 0.4.0+gbf90e1d5e3a6`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@bf90e1d5e3a624ea2e098efdfe76596081508751"` (what `scripts/setup-env.sh` runs) |
+| `klayout-tools` (`klt`) | git revision [`61e743088f4722854d18b0cc48bd98c3dee58cf6`](https://github.com/2AMLogic/klayout-tools/commit/61e743088f4722854d18b0cc48bd98c3dee58cf6) (reports as `klt 0.4.0+g61e743088f47`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@61e743088f4722854d18b0cc48bd98c3dee58cf6"` (what `scripts/setup-env.sh` runs) |
 | `gf180mcu` PDK | `open_pdks` commit `c6d73a35f524070e85faff4a6a9eef49553ebc2b` (variants `gf180mcuA`/`B`/`C`/`D`; the digital harness uses `gf180mcuD`, whose standard-cell libraries are `gf180mcu_fd_sc_mcu7t5v0` / `gf180mcu_fd_sc_mcu9t5v0`) | `volare enable --pdk-root ~/.volare --pdk gf180mcu c6d73a35f524070e85faff4a6a9eef49553ebc2b` |
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
@@ -217,6 +217,51 @@ capabilities are present. The pin has moved forward four times so far:
    for the full reproduction, the byte-identical re-confirmation for the
    four already-committed plans, and a throwaway probe's initial (unrouted)
    placement/DRC reading for `differential_driver`.
+5. `bf90e1d5e3a6` → `61e743088f4722854d18b0cc48bd98c3dee58cf6` by issue #72,
+   specifically to pick up klayout-tools#1731's fix (merge
+   [`1641fa5f9617e57931debbfc2bc58fab62799348`](https://github.com/2AMLogic/klayout-tools/commit/1641fa5f9617e57931debbfc2bc58fab62799348),
+   PR #1774: `res_array`'s `metal_level` mechanism gains real drawn-geometry
+   support for gf180mcu's `rm1`/`rm2`/`rm3` metal-resistor device classes,
+   and a new `device_groups[]`-declared-class-vs-resolved-generator-output
+   mismatch check appends a `warnings[]` entry instead of silently
+   substituting the wrong device), the last blocker standing between
+   `differential_driver` and a committed layout plan. The fix commit is a
+   **strict ancestor** of the new pin — `gh api
+   repos/2AMLogic/klayout-tools/compare/1641fa5f9617e57931debbfc2bc58fab62799348...61e743088f4722854d18b0cc48bd98c3dee58cf6`
+   returns `status: "ahead"`, `behind_by: 0`, `ahead_by: 1`; the old pin
+   (`bf90e1d5e3a6`) is 32 commits **behind** the fix (`compare/1641fa5f...
+   bf90e1d5e3a6` → `status: "behind"`, `behind_by: 32`), confirming it did
+   not contain it. **The new pin is klayout-tools' bare `main` tip**
+   (`61e743088f4722854d18b0cc48bd98c3dee58cf6`, 2026-09-13T18:59:37Z) — a
+   deliberate deviation from the "confirm CI, don't just take `main`" habit
+   the fourth move set, made because checking both candidates' CI directly
+   (not assumed from either commit's filing-time snapshot) showed `main`
+   tip was the *more* complete one: the fix commit itself has two
+   `cancelled` check-runs alongside eleven `success` ones, while `main`
+   tip's fourteen check-runs are all `conclusion: "success"`. The `klt`
+   self-reported version does not cross a minor boundary
+   (`0.4.0+gbf90e1d5e3a6` → `0.4.0+g61e743088f47`). **What the move bought,
+   and what it didn't**: `differential_driver` now has a committed,
+   correctly-drawn plan (`layout/analog/plans/differential_driver.json`) —
+   its two `RM1` series-termination resistors draw real `Metal1`/`Via1`/
+   `Metal2` geometry with an explicit `params.metal_level: 1`, confirmed by
+   direct GDS layer inspection and a zero-length `warnings[]` array, not
+   assumed. The four already-committed plans are unaffected at the
+   drawn-geometry level (`cmp`-identical GDS). **The new mismatch-warning
+   check itself found something this move did not set out to look for**:
+   three of those four plans (`differential_receiver`, `se_receiver_dm`,
+   `se_receiver_dp`) have their own declared-class-vs-drawn-device mismatch
+   — a `PPOLYF_U_1K`-declared bias/reference resistor drawn as the
+   default-flavor `ppolyf_u` body instead, present since before this pin
+   moved and only now visible. That is a real finding this record does not
+   fix (see the record and the follow-up issue it links) — this repo's own
+   plan documents disagreeing with the netlist they were written against,
+   not a further `klt` gap. See
+   `verification/records/analog-layout/records/20260913-192744-b653c71.md`
+   for the full reproduction, the byte-identical re-confirmation for the
+   four already-committed plans' drawn geometry, the layer-level
+   confirmation that `differential_driver`'s `RM1` groups now draw correctly,
+   and the newly-surfaced `PPOLYF_U_1K` mismatch finding.
 
 `npm run check:ci` was re-run against each new pin before it was committed.
 
