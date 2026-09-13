@@ -9,15 +9,15 @@ produced, and prints one honest per-block verdict.
 **This is a measurement harness, not a "produce the shipping layout"
 button.** Its current, recorded outcome is *not* a usable analog layout --
 see ``layout/README.md`` and
-``verification/records/analog-layout/`` for the full finding. Four of the
-five analog blocks place their devices from a committed plan but route none
-of their nets fully; the fifth (``differential_driver``) has no committed
-plan at all -- its netlist ingests cleanly (klayout-tools#1662), but two of
-its devices (``rm1`` metal-1 resistors) have no ``klt gen`` generator
-capable of drawing them correctly on this PDK family (see
-``BLOCKED_BLOCKS``). The script exists so each finding is reproducible with
-one command, and so the day klayout-tools closes a gap the same command
-re-measures instead of someone re-deriving the setup from prose.
+``verification/records/analog-layout/`` for the full finding. All five
+analog blocks now have a committed plan and place their devices, but none
+of them route every net fully (issue #72 closed the last gap --
+klayout-tools#1731's ``res_array`` fix let ``differential_driver``'s two
+``rm1`` metal-1 series-termination resistors be drawn as the correct device
+for the first time; see ``BLOCKED_BLOCKS``'s docstring history below for
+what used to block it). The script exists so each finding is reproducible
+with one command, and so the day klayout-tools closes a gap the same
+command re-measures instead of someone re-deriving the setup from prose.
 
 Exit codes (about *the run*, never about the quality of the layout -- read
 the report for that):
@@ -54,40 +54,35 @@ DEFAULT_OUT_DIR = os.path.join(REPO_ROOT, "layout", "analog", "out")
 # by itself mean a plan can be written: see each reason string for the
 # specific, current obstacle.
 #
-# `differential_driver` moved here from a pure "cannot be ingested" entry
-# (issue #70): klayout-tools#1662 (merged 2026-09-11) added `rm1`/`rm2`/`rm3`
-# gf180mcu metal-resistor device classes to the curated deck's extraction
-# side, so `build_netlist_digest` now resolves this block's netlist cleanly
-# -- confirmed directly, not assumed (see the record linked below). That
-# does *not* unblock a plan: `klt gen`'s `res_array` generator has no
-# drawn-geometry path for a gf180mcu metal resistor at all (its
-# `metal_level` mechanism is populated for a different PDK family only), and
-# -- more seriously -- a device_groups[] entry that names an `rm1` device
-# with `res_array` left at its default flavor does not fail; it silently
-# draws a *poly* resistor instead, with no warning, because nothing checks
-# a group's declared `device_class` against what its generator/flavor
-# combination actually draws. Filed generically upstream as
-# klayout-tools#1731. Kept in `BLOCKED_BLOCKS` (not removed) so this block
-# stays counted in every run's total/verdict instead of silently
-# disappearing from the report the way an unqualified removal would -- see
-# `verification/records/analog-layout/records/20260912-191922-5953e89.md`
-# for the full reproduction, a throwaway probe's initial (unrouted)
-# placement/DRC reading, and why a real plan is not committed here.
-BLOCKED_BLOCKS = {
-    "differential_driver": (
-        "netlist ingests cleanly (klayout-tools#1662), but its two rm1 "
-        "series-termination resistors have no gf180mcu-capable klt gen "
-        "generator: res_array's metal_level mechanism does not cover this "
-        "PDK family, and leaving flavor/metal_level at their defaults "
-        "silently draws the wrong device (a poly resistor) instead of "
-        "failing -- filed generically as klayout-tools#1731"
-    ),
-}
-# `dplus_pullup` used to live here, blocked on `nf=10` multi-finger devices
-# klt's subckt-call -> plain-element conversion refused to represent. The
-# issue #56 flatten (spec/decisions/0001-...) cleared that, and issue #62
-# authored `layout/analog/plans/dplus_pullup.json`, so the block is now
-# executed from its committed plan like every other planned block.
+# Empty as of issue #72: `differential_driver` -- the last of the five
+# analog blocks with no committed plan -- is cleared. It previously lived
+# here (issue #70) because, although klayout-tools#1662 (merged
+# 2026-09-11) had already made its netlist ingest cleanly by adding
+# `rm1`/`rm2`/`rm3` gf180mcu metal-resistor device classes on the
+# extraction side, `klt gen`'s `res_array` generator had no drawn-geometry
+# path for a gf180mcu metal resistor at all, and a `device_groups[]` entry
+# naming an `rm1` device with `res_array` left at its default flavor
+# silently drew the wrong device (a poly resistor) instead of failing --
+# filed generically as klayout-tools#1731. That fix landed upstream (PR
+# #1774) and this repo's `klt` pin moved past it (issue #72): `res_array`
+# now draws a real metal-1 body for `metal_level: 1`, and
+# `layout_plan_execute.py` warns (rather than silently substituting) on any
+# remaining declared-class/generator mismatch. `layout/analog/plans/
+# differential_driver.json` declares its two series-termination resistors
+# with an explicit `metal_level: 1`, confirmed (by direct probe, not
+# assumed) to draw `RM1` geometry (layers 34/35/36, matching
+# `_PDK_METAL_RES_LEVELS["gf180mcu"][1]`) with zero `warnings[]` entries.
+# See `verification/records/analog-layout/records/` for the full
+# reproduction (search for the record superseding
+# `20260912-191922-5953e89`).
+#
+# `dplus_pullup` used to live here too, blocked on `nf=10` multi-finger
+# devices klt's subckt-call -> plain-element conversion refused to
+# represent. The issue #56 flatten (spec/decisions/0001-...) cleared that,
+# and issue #62 authored `layout/analog/plans/dplus_pullup.json`, so the
+# block is now executed from its committed plan like every other planned
+# block.
+BLOCKED_BLOCKS: dict[str, str] = {}
 
 
 def _fail(message: str) -> None:
