@@ -21,7 +21,8 @@
       "generator": "res_array",
       "params": {
         "num": 1,
-        "dummy": 0
+        "dummy": 0,
+        "flavor": "1k"
       }
     },
     {
