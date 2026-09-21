@@ -16,12 +16,15 @@
     },
     "11.digital": [
       {
-        "file": "verification/records/digital-erc/artifacts/20260921-125459-223bae5/erc-supply-report.json",
+        "file": "verification/records/digital-erc/artifacts/20260921-213041-4b9148f/erc-supply-report.json",
         "content_hash": "sha256:341ccb21884ef3808e3483b540f7c68f0caec29f6f8eadb1e63bbf85f1df7476"
       },
       {
         "file": "verification/records/digital-lvs/artifacts/20260921-145814-5bee855/lvs-report.json",
         "content_hash": "sha256:89f86b12ecec60b92e6d0b28084e40e57d8cf5814994140424034a33ac51002c"
+      },
+      {
+        "file": "verification/records/place-and-route/artifacts/20260825-224709-6a83263/place-and-route-output.json"
       }
     ]
   }

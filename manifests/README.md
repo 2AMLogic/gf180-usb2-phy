@@ -96,30 +96,30 @@ citing set the item's own text requires:
   carries a hand-transcribed SPICE reference, and that form's power half
   reads `"unchecked"` by construction — see record
   `20260921-145814-5bee855.md`).
-- **Item 11.digital, power delivery (structural) — cited, honestly
-  `unmet`** — the first T1 item no single artifact proves, so its
-  manifest entry is a **list**: the digital partition's `klt erc` supply
-  report
-  (`verification/records/digital-erc/artifacts/20260921-125459-223bae5/erc-supply-report.json`,
-  issue [#77] / PR #80 — `erc_status` clean, zero `erc.unconnected_net` /
-  `erc.supply_short` naming `VDD`/`VSS`) pinned to the routed GDS it
-  graded, **plus** item 4's own gate-level LVS envelope, pinned as for
-  item 4 (so including its `power_connectivity` verdict since issue #79's
-  re-mint). The grader renders the row `unmet` with reason
-  **`supply_spec_incomplete`** — the *correct* current state, not a gap
-  in the citation: the committed spec
-  (`layout/digital/erc-supply-spec.json`) deliberately declares **no
-  `ties[]`**, because klayout-tools#2169's tie-graph collapse
-  false-`supply_short` makes one unusable on a routed standard-cell
-  design (reproduced four ways in `gf180-drone-fc`'s FRICTION F-034;
-  [#77]'s record states it explicitly: `erc.missing_tie` *not computed*,
-  an absence of evidence, not evidence of absence, with the well-tie
-  stand-ins — `power.tapcell_master`, the standard cells' 64+64 PG pin
-  labels, and the LVS compare's VDD/VSS pairing — named as what stands
-  in). The row flips to `met` the day a usable `ties[]` model (or an
-  equivalent graded path) lands upstream and the spec's `ties[]` +
-  re-run are minted — mechanically, by re-rendering this report, never
-  by re-reading a checklist.
+- **Item 11.digital, power delivery (structural) — cited, `met`** — the
+  first T1 item no single artifact proves, so its manifest entry is a
+  **list**: the digital partition's `klt erc` supply report
+  (`verification/records/digital-erc/artifacts/20260921-213041-4b9148f/erc-supply-report.json`,
+  issue [#83] — `erc_status` clean, zero `erc.unconnected_net` /
+  `erc.supply_short` / `erc.missing_tie`, with **both `ties[]` entries
+  reported in `erc_coverage.checked`** — the spec now declares its
+  well/substrate ties as `Comp ∩ Nplus` in Nwell → VDD and
+  `Comp ∩ Pplus` in LVPWELL → VSS, which the klayout-tools#2169 fix
+  inside the pinned klt makes gradeable), **plus** item 4's own
+  gate-level LVS envelope, pinned as for item 4 (so including its
+  `power_connectivity` verdict since issue #79's re-mint), **plus** the
+  committed `klt place-and-route` envelope
+  (`verification/records/place-and-route/artifacts/20260825-224709-6a83263/place-and-route-output.json`,
+  unpinned-hash entry — that envelope records no input content hash to
+  pin) whose `power.pdn: true` with
+  `power.tapcell_master: gf180mcu_fd_sc_mcu9t5v0__filltie` the item's
+  own text requires of an RTL-flow block. History: this row rendered
+  `unmet`/`supply_spec_incomplete` from its first freeze (issue [#78])
+  until [#83], because the spec deliberately declared no `ties[]` while
+  klayout-tools#2169's tie-graph collapse made one unusable — the row
+  flipped to `met` mechanically, by re-declaring the ties, re-running
+  `klt erc`, and re-rendering this report, never by re-reading a
+  checklist.
 - **Item 8, characterization report** — the one item the grader binds to
   a purpose-built **generic envelope**
   (`manifests/item8-characterization.json`), wrapping
@@ -168,8 +168,8 @@ repo's rule that an envelope must actually support the item to be cited:
   the analog `layout/README.md` narrative.
 - **Item 11.analog** (power delivery, structural, analog partition) — no
   analog layout exists, so no `klt erc` supply run has anything to grade:
-  `unmet`/`no_evidence`. The digital partition's cite-and-document state
-  is the bullet above; the frozen report carries both rows, which is what
+  `unmet`/`no_evidence`. The digital partition's `met` state is the
+  bullet above; the frozen report carries both rows, which is what
   this manifest guarantees: the row exists the day the checklist does.
 
 ## Regeneration and freshness
@@ -221,4 +221,5 @@ script, P&R request — to the working tree on every run).
 [#78]: https://github.com/2AMLogic/gf180-usb2-phy/issues/78
 [#3]: https://github.com/2AMLogic/gf180-usb2-phy/issues/3
 [#77]: https://github.com/2AMLogic/gf180-usb2-phy/issues/77
+[#83]: https://github.com/2AMLogic/gf180-usb2-phy/issues/83
 [#53]: https://github.com/2AMLogic/gf180-usb2-phy/issues/53
