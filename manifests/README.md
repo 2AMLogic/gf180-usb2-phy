@@ -120,7 +120,7 @@ citing set the item's own text requires:
   a purpose-built **generic envelope**
   (`manifests/item8-characterization.json`), wrapping
   `docs/characterization-report.md` and pinned to that file's content
-  hash (`sha256:8e8fc4…`). The envelope's `status: "pass"` asserts the
+  hash (`sha256:4748c583…`). The envelope's `status: "pass"` asserts the
   *report's* existence, currency, and complete per-row coverage — it is
   **not** an assertion that every spec row passes; the wrapped report
   records 4 of 9 electrical rows as FAIL at some corners and says so, and
