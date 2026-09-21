@@ -187,3 +187,23 @@ This report is itself append-only in spirit: a later re-run that changes
 any cited record's hash means this report is stale and must be superseded
 by a new version of this file (or a dated addendum), never silently edited
 to hide the drift.
+
+## Addendum (2026-09-21): this report is now machine-graded as T1 item 8
+
+Issue #78's T1 signoff manifest era closes the loop the "Why this is
+hand-assembled" section above describes: `klt signoff --manifest` gained
+a **generic evidence envelope** for exactly this shape of non-`klt`-native
+artifact (klayout-tools#1152), and this report now has one —
+[`manifests/item8-characterization.json`](../manifests/item8-characterization.json)
+— cited, content-hash-pinned, and graded as T1 item 8 ("Characterization
+report") by
+[`manifests/gf180-usb2-phy.json`](../manifests/gf180-usb2-phy.json),
+with the rendered verdict of record frozen beside it. The envelope asserts
+this artifact's existence, currency and complete per-row coverage — **not**
+a claim that every row passes; the four FAIL rows above fail as recorded.
+The v0.2.0-era statements above stand as history: at that revision neither
+of `klt signoff`'s two modes could ingest this report at all, and the
+file-link through `klt signoff --manifest` did not exist. The staleness
+table above remains the operational freshness check for this *document*;
+the manifest's envelope is regenerated in the same change whenever this
+file is (see `manifests/README.md`).
