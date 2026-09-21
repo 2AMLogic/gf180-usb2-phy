@@ -1,0 +1,28 @@
+{
+  "block": "gf180-usb2-phy",
+  "kind": "mixed-signal",
+  "evidence": {
+    "3": {
+      "file": "verification/records/digital-drc/artifacts/20260825-224815-6a83263/drc-report.json",
+      "content_hash": "sha256:341ccb21884ef3808e3483b540f7c68f0caec29f6f8eadb1e63bbf85f1df7476"
+    },
+    "4": {
+      "file": "verification/records/digital-lvs/artifacts/20260921-132813-1376d98/lvs-report.json",
+      "content_hash": "sha256:c6819988aee1a2ec59cf6fb8e9e03baf9135d589203c7d1c9ebad0040351c2af"
+    },
+    "8": {
+      "file": "manifests/item8-characterization.json",
+      "content_hash": "sha256:4748c583ffdec7bf55f500c6cc51511bcc3b4342b4e455e00a7721835713a8b9"
+    },
+    "11.digital": [
+      {
+        "file": "verification/records/digital-erc/artifacts/20260921-125459-223bae5/erc-supply-report.json",
+        "content_hash": "sha256:341ccb21884ef3808e3483b540f7c68f0caec29f6f8eadb1e63bbf85f1df7476"
+      },
+      {
+        "file": "verification/records/digital-lvs/artifacts/20260921-132813-1376d98/lvs-report.json",
+        "content_hash": "sha256:c6819988aee1a2ec59cf6fb8e9e03baf9135d589203c7d1c9ebad0040351c2af"
+      }
+    ]
+  }
+}

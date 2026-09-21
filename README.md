@@ -26,6 +26,13 @@ has been measured on silicon.
 Read `sim/spec-coverage.md` for the per-spec-row pass/fail index; it is the
 authority, and it records failures rather than hiding them.
 
+This block's gap to the T1 (design-evidence) tier is **graded, not
+hand-read**: the `klt signoff` block manifest at
+[`manifests/gf180-usb2-phy.json`](manifests/gf180-usb2-phy.json) and its
+frozen rendered report ([`manifests/t1-signoff-report.json`](manifests/t1-signoff-report.json))
+are the verdict of record, re-graded on every CI run — see
+[`manifests/README.md`](manifests/README.md).
+
 **Deliberately narrow, in three directions.** This block is scoped smaller than
 "a USB 2.0 PHY" and the scope is the point, not a limitation to be fixed later:
 

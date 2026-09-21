@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "summary": "T1 item 8 (characterization report): docs/characterization-report.md exists, is current (every cited spec-row evidence record content-pinned in its staleness table), and aggregates every ratified spec row across the 45-corner PVT matrix with the evidence record each verdict rests on, recording FAIL rows as FAIL rather than hiding them. 'status: pass' here asserts the artifact's existence, currency and completeness -- it is the characterization item's own verdict, not a claim that every spec row passes (4 of 9 electrical rows fail at some corners; the report says exactly which and why).",
+  "source": "docs/characterization-report.md",
+  "provenance": {
+    "input": {
+      "content_hash": "sha256:4748c583ffdec7bf55f500c6cc51511bcc3b4342b4e455e00a7721835713a8b9",
+      "role": "document"
+    }
+  }
+}

@@ -130,7 +130,7 @@ source .venv/bin/activate
 
 | Component | Pinned to | Resolved via |
 |---|---|---|
-| `klayout-tools` (`klt`) | git revision [`61e743088f4722854d18b0cc48bd98c3dee58cf6`](https://github.com/2AMLogic/klayout-tools/commit/61e743088f4722854d18b0cc48bd98c3dee58cf6) (reports as `klt 0.4.0+g61e743088f47`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@61e743088f4722854d18b0cc48bd98c3dee58cf6"` (what `scripts/setup-env.sh` runs) |
+| `klayout-tools` (`klt`) | git revision [`e8ca621a6961879cec1af60cc932c3b3d58ddcaa`](https://github.com/2AMLogic/klayout-tools/commit/e8ca621a6961879cec1af60cc932c3b3d58ddcaa) (reports as `klt 0.5.0+ge8ca621a6961`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@e8ca621a6961879cec1af60cc932c3b3d58ddcaa"` (what `scripts/setup-env.sh` runs) |
 | `gf180mcu` PDK | `open_pdks` commit `c6d73a35f524070e85faff4a6a9eef49553ebc2b` (variants `gf180mcuA`/`B`/`C`/`D`; the digital harness uses `gf180mcuD`, whose standard-cell libraries are `gf180mcu_fd_sc_mcu7t5v0` / `gf180mcu_fd_sc_mcu9t5v0`) | `volare enable --pdk-root ~/.volare --pdk gf180mcu c6d73a35f524070e85faff4a6a9eef49553ebc2b` |
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
@@ -267,6 +267,51 @@ capabilities are present. The pin has moved forward four times so far:
    confirmation that `differential_driver`'s `RM1` groups now draw correctly,
    the newly-surfaced `PPOLYF_U_1K` mismatch finding, and the characterization
    of the GDS byte-level ordering difference.
+
+6. `61e743088f4722854d18b0cc48bd98c3dee58cf6` →
+   `e8ca621a6961879cec1af60cc932c3b3d58ddcaa` by issue #78, driven by the
+   T1 signoff block manifest rather than by one upstream fix: grading T1
+   state with `klt signoff --manifest` requires (a) the **eleventh checklist
+   item** "Power delivery (structural)" (klayout-tools#2025/#2057, merged
+   2026-09-19 — every earlier `klt` renders a ten-item report, and by this
+   repo's own recorded re-survey reads that item's absence made prior
+   gap-to-T1 tables stale the day it landed), and (b) `klt lvs`'s
+   `provenance.input.content_hash` recording (klayout-tools#1969) so an
+   "LVS clean" citation can be freshness-pinned at all. The item-11 merge
+   `428951e036935d37161732adb55915049c598cc4` is a strict ancestor of the
+   new pin — `gh api repos/2AMLogic/klayout-tools/compare/428951e036935d37161732adb55915049c598cc4...e8ca621a6961879cec1af60cc932c3b3d58ddcaa`
+   returns `status: "ahead"`, `behind_by: 0`, `ahead_by: 58` — and the old
+   pin is likewise purely behind it (`behind_by: 0`, `ahead_by: 263`).
+   `e8ca621a` is klayout-tools' `main` tip (2026-09-21T12:10:33Z) at the
+   time of this move, with its own CI complete: all 18 check-runs
+   `conclusion: "success"` at the time of this move. **The same move also
+   repairs a drifted second pin**: `.github/workflows/ci.yml` still
+   installed the *first* pin `b3e284f` (it was never moved by re-pin
+   moves 2-5, and at `b3e284f` the CI could not have rendered item 11 or
+   re-run the manifest at all); it now installs the same revision as
+   `scripts/setup-env.sh`, restoring the "keep in sync with
+   docs/environment-setup.md" invariant both files declare. The `klt`
+   self-reported version crosses a minor boundary (`0.4.0+g61e743088f47` →
+   `0.5.0+ge8ca621a6961`). **What the move bought, and what it didn't**:
+   the digital LVS verdict reproduces (`status: "match"`, negative control
+   still correctly rejected) at the new pin — and the re-run's envelope
+   now records `provenance.input.content_hash`, which the superseded Aug-25
+   envelope could not; re-minted as
+   `verification/records/digital-lvs/records/20260921-132813-1376d98.md`.
+   The five committed analog plans re-execute with no status change
+   (DRC-clean everywhere, `0 warnings[]` everywhere, routed tally
+   unchanged per block), but `dplus_pullup`'s drawn Metal-1 routing
+   genuinely changed shape — 63,504,000 dbu² less on layer `34/0` vs the
+   superseded run, produced by the upstream routing-semantics commits
+   (#1931/#1936/#1945/#2098/#2144) between the pins — minted as
+   `verification/records/analog-layout/records/20260921-130120-223bae5.md`
+   rather than assumed identical. The four other blocks' GDS are
+   `cmp`-identical to the superseded record's. **Engine note**: this venv
+   explicitly holds `klayout==0.30.10` — the `klayout_version_expected`
+   this pin reports as tested — so fresh envelopes carry
+   `klayout_version_mismatch: false` (a venv left to resolve the newest
+   `klayout` shows the flag `true`; the first extraction attempt here did,
+   and was discarded, not committed).
 
 `npm run check:ci` was re-run against each new pin before it was committed.
 
