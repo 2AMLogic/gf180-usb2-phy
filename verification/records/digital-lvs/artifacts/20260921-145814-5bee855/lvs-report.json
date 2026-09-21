@@ -1,0 +1,4340 @@
+{
+  "schema_version": 1,
+  "engine": "klayout",
+  "layout": "./usb_utmi_phy_layout.spice",
+  "reference": "./usb_utmi_phy_reference.v",
+  "top": "USB_UTMI_PHY",
+  "reference_top": "USB_UTMI_PHY",
+  "parameter_tolerance": null,
+  "options": {
+    "combine_devices": false,
+    "combine_devices_per_circuit": null,
+    "flatten_layout": false,
+    "flatten_reference": false,
+    "netgen_setup": null,
+    "parameter_tolerance": null,
+    "compare_parameters": null,
+    "power_connectivity": {
+      "expected_nets": {
+        "VDD": "VDD",
+        "VSS": "VSS"
+      }
+    },
+    "supply_nets": [
+      "GND",
+      "VCC",
+      "VDD",
+      "VGND",
+      "VPWR",
+      "VSS"
+    ]
+  },
+  "hints_applied": null,
+  "status": "match",
+  "power_connectivity": {
+    "status": "match",
+    "reason": null,
+    "power_pins": [
+      "VDD",
+      "VSS"
+    ],
+    "power_pins_derivation": {
+      "rule": "declared-by-every-instantiated-master",
+      "masters": [
+        "GF180MCU_FD_SC_MCU9T5V0__AND2_1",
+        "GF180MCU_FD_SC_MCU9T5V0__AND2_2",
+        "GF180MCU_FD_SC_MCU9T5V0__AND2_4",
+        "GF180MCU_FD_SC_MCU9T5V0__AND3_1",
+        "GF180MCU_FD_SC_MCU9T5V0__AND3_2",
+        "GF180MCU_FD_SC_MCU9T5V0__AND3_4",
+        "GF180MCU_FD_SC_MCU9T5V0__AND4_4",
+        "GF180MCU_FD_SC_MCU9T5V0__AOI211_1",
+        "GF180MCU_FD_SC_MCU9T5V0__AOI211_2",
+        "GF180MCU_FD_SC_MCU9T5V0__AOI21_1",
+        "GF180MCU_FD_SC_MCU9T5V0__AOI21_2",
+        "GF180MCU_FD_SC_MCU9T5V0__AOI21_4",
+        "GF180MCU_FD_SC_MCU9T5V0__AOI221_1",
+        "GF180MCU_FD_SC_MCU9T5V0__BUF_4",
+        "GF180MCU_FD_SC_MCU9T5V0__CLKINV_1",
+        "GF180MCU_FD_SC_MCU9T5V0__CLKINV_2",
+        "GF180MCU_FD_SC_MCU9T5V0__CLKINV_3",
+        "GF180MCU_FD_SC_MCU9T5V0__CLKINV_8",
+        "GF180MCU_FD_SC_MCU9T5V0__DFFQ_1",
+        "GF180MCU_FD_SC_MCU9T5V0__INV_1",
+        "GF180MCU_FD_SC_MCU9T5V0__INV_2",
+        "GF180MCU_FD_SC_MCU9T5V0__INV_3",
+        "GF180MCU_FD_SC_MCU9T5V0__INV_4",
+        "GF180MCU_FD_SC_MCU9T5V0__MUX2_1",
+        "GF180MCU_FD_SC_MCU9T5V0__MUX2_2",
+        "GF180MCU_FD_SC_MCU9T5V0__MUX4_1",
+        "GF180MCU_FD_SC_MCU9T5V0__NAND2_1",
+        "GF180MCU_FD_SC_MCU9T5V0__NAND2_2",
+        "GF180MCU_FD_SC_MCU9T5V0__NAND2_4",
+        "GF180MCU_FD_SC_MCU9T5V0__NAND3_1",
+        "GF180MCU_FD_SC_MCU9T5V0__NAND3_2",
+        "GF180MCU_FD_SC_MCU9T5V0__NAND3_4",
+        "GF180MCU_FD_SC_MCU9T5V0__NAND4_1",
+        "GF180MCU_FD_SC_MCU9T5V0__NAND4_4",
+        "GF180MCU_FD_SC_MCU9T5V0__NOR2_1",
+        "GF180MCU_FD_SC_MCU9T5V0__NOR2_2",
+        "GF180MCU_FD_SC_MCU9T5V0__NOR2_4",
+        "GF180MCU_FD_SC_MCU9T5V0__NOR3_1",
+        "GF180MCU_FD_SC_MCU9T5V0__NOR3_2",
+        "GF180MCU_FD_SC_MCU9T5V0__NOR4_1",
+        "GF180MCU_FD_SC_MCU9T5V0__NOR4_2",
+        "GF180MCU_FD_SC_MCU9T5V0__NOR4_4",
+        "GF180MCU_FD_SC_MCU9T5V0__OAI211_1",
+        "GF180MCU_FD_SC_MCU9T5V0__OAI211_2",
+        "GF180MCU_FD_SC_MCU9T5V0__OAI21_1",
+        "GF180MCU_FD_SC_MCU9T5V0__OAI21_4",
+        "GF180MCU_FD_SC_MCU9T5V0__OAI22_1",
+        "GF180MCU_FD_SC_MCU9T5V0__OAI32_4",
+        "GF180MCU_FD_SC_MCU9T5V0__OR2_1",
+        "GF180MCU_FD_SC_MCU9T5V0__OR2_2",
+        "GF180MCU_FD_SC_MCU9T5V0__OR3_4",
+        "GF180MCU_FD_SC_MCU9T5V0__TIEL",
+        "GF180MCU_FD_SC_MCU9T5V0__XNOR2_1",
+        "GF180MCU_FD_SC_MCU9T5V0__XOR2_1",
+        "GF180MCU_FD_SC_MCU9T5V0__XOR2_2"
+      ],
+      "master_count": 55,
+      "corroborated": true,
+      "reason": null
+    },
+    "instance_count": 1206,
+    "expected_nets": {
+      "VDD": "VDD",
+      "VSS": "VSS"
+    },
+    "unchecked_expected_pins": [],
+    "findings": [],
+    "finding_count": 0
+  },
+  "body_verification": {
+    "status": "unchecked",
+    "reason": "no request.layout.deck was given (the pre-extracted request.layout.netlist form), so nothing establishes this layout's substrate/well-tap convention and no synthesized body net can be told apart from a real one -- this run verified nothing about the device bodies either way",
+    "device_classes": [],
+    "device_count": 0,
+    "findings": [],
+    "finding_count": 0
+  },
+  "mismatch_count": 4,
+  "error_count": 0,
+  "category_counts": {
+    "topology.power_only_pruned": 1,
+    "topology.reference_port_alias_joined": 3
+  },
+  "category_error_counts": {},
+  "counts": {
+    "nets": {
+      "layout": 373,
+      "reference": 368,
+      "matched": 682
+    },
+    "devices": {
+      "layout": 0,
+      "reference": 0,
+      "matched": 0
+    },
+    "pins": {
+      "layout": 37,
+      "reference": 35,
+      "matched": 349
+    }
+  },
+  "device_classes": null,
+  "environment": {
+    "engine": "klayout",
+    "engine_version": "0.30.10",
+    "layout_sha256": "89f86b12ecec60b92e6d0b28084e40e57d8cf5814994140424034a33ac51002c",
+    "reference_sha256": "c1e0e8ed6e887ed1e45d1371a69e23f23fd3d5344dc73e9c2e963b3d15e6fc87",
+    "extracted_netlist": null
+  },
+  "provenance": {
+    "klt_version": "0.5.0+ge8ca621a6961",
+    "klayout_version": "0.30.10",
+    "pdk": {
+      "name": "gf180mcuD",
+      "source": "PDK_ROOT environment variable",
+      "version": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b"
+    },
+    "deck": null,
+    "input": {
+      "content_hash": "sha256:89f86b12ecec60b92e6d0b28084e40e57d8cf5814994140424034a33ac51002c",
+      "role": "netlist"
+    },
+    "klayout_version_mismatch": false
+  },
+  "mismatches": [
+    {
+      "category": "topology.power_only_pruned",
+      "severity": "warning",
+      "description": "removed layout-side circuit(s) whose every declared pin is a power/ground pin of the reference library (a pin the library declares but the gate-level-Verilog reference never carries), and every instance of them, before comparing -- 9 circuit(s): GF180MCU_FD_SC_MCU9T5V0__ENDCAP, GF180MCU_FD_SC_MCU9T5V0__FILLTIE, GF180MCU_FD_SC_MCU9T5V0__FILL_1, GF180MCU_FD_SC_MCU9T5V0__FILL_16, GF180MCU_FD_SC_MCU9T5V0__FILL_2, GF180MCU_FD_SC_MCU9T5V0__FILL_32, GF180MCU_FD_SC_MCU9T5V0__FILL_4, GF180MCU_FD_SC_MCU9T5V0__FILL_64, GF180MCU_FD_SC_MCU9T5V0__FILL_8 (see docs/cli/lvs.md, \"topology.power_only_pruned\")",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology.reference_port_alias_joined",
+      "severity": "warning",
+      "description": "reference circuit 'usb_utmi_phy' declared port(s) LineState[0] via a plain 'assign <port> = ...;' alias (request.reference.form: \"gate-level-verilog\") -- joined onto the same net as 'line_state[0]' before comparing, matching a layout with a single physical net for these names, instead of reporting them as unmatched (see docs/cli/lvs.md, \"topology.reference_port_alias_joined\")",
+      "side": "reference",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": {
+        "canonical_net": "line_state[0]",
+        "aliased_ports": [
+          "LineState[0]"
+        ]
+      },
+      "circuit": {
+        "layout": null,
+        "reference": "usb_utmi_phy"
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology.reference_port_alias_joined",
+      "severity": "warning",
+      "description": "reference circuit 'usb_utmi_phy' declared port(s) LineState[1] via a plain 'assign <port> = ...;' alias (request.reference.form: \"gate-level-verilog\") -- joined onto the same net as 'line_state[1]' before comparing, matching a layout with a single physical net for these names, instead of reporting them as unmatched (see docs/cli/lvs.md, \"topology.reference_port_alias_joined\")",
+      "side": "reference",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": {
+        "canonical_net": "line_state[1]",
+        "aliased_ports": [
+          "LineState[1]"
+        ]
+      },
+      "circuit": {
+        "layout": null,
+        "reference": "usb_utmi_phy"
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology.reference_port_alias_joined",
+      "severity": "warning",
+      "description": "reference circuit 'usb_utmi_phy' declared port(s) RxActive via a plain 'assign <port> = ...;' alias (request.reference.form: \"gate-level-verilog\") -- joined onto the same net as 'rx_receiving' before comparing, matching a layout with a single physical net for these names, instead of reporting them as unmatched (see docs/cli/lvs.md, \"topology.reference_port_alias_joined\")",
+      "side": "reference",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": {
+        "canonical_net": "rx_receiving",
+        "aliased_ports": [
+          "RxActive"
+        ]
+      },
+      "circuit": {
+        "layout": null,
+        "reference": "usb_utmi_phy"
+      },
+      "instance": null,
+      "subcircuit": null
+    }
+  ],
+  "net_correspondence": [
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VDD",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "ZN",
+      "reference": null,
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": null,
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A1",
+      "reference": "A1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A2",
+      "reference": "A2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A3",
+      "reference": "A3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A4",
+      "reference": "A4",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A4",
+      "reference": "A4",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A4",
+      "reference": "A4",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A4",
+      "reference": "A4",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A4",
+      "reference": "A4",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "A4",
+      "reference": "A4",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B",
+      "reference": "B",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B1",
+      "reference": "B1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B1",
+      "reference": "B1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B1",
+      "reference": "B1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B2",
+      "reference": "B2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B2",
+      "reference": "B2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "B2",
+      "reference": "B2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "BUS_RESET",
+      "reference": "BUS_RESET",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "C",
+      "reference": "C",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "C",
+      "reference": "C",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "C",
+      "reference": "C",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "C",
+      "reference": "C",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "C",
+      "reference": "C",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "CLK",
+      "reference": "CLK",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "CLK",
+      "reference": "CLK",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "CLKNET_0_CLK",
+      "reference": "CLKNET_0_CLK",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CLKNET_3_0__LEAF_CLK",
+      "reference": "CLKNET_3_0__LEAF_CLK",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CLKNET_3_1__LEAF_CLK",
+      "reference": "CLKNET_3_1__LEAF_CLK",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CLKNET_3_2__LEAF_CLK",
+      "reference": "CLKNET_3_2__LEAF_CLK",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CLKNET_3_3__LEAF_CLK",
+      "reference": "CLKNET_3_3__LEAF_CLK",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CLKNET_3_4__LEAF_CLK",
+      "reference": "CLKNET_3_4__LEAF_CLK",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CLKNET_3_5__LEAF_CLK",
+      "reference": "CLKNET_3_5__LEAF_CLK",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CLKNET_3_6__LEAF_CLK",
+      "reference": "CLKNET_3_6__LEAF_CLK",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CLKNET_3_7__LEAF_CLK",
+      "reference": "CLKNET_3_7__LEAF_CLK",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CUR_BYTE[0]",
+      "reference": "CUR_BYTE[0]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CUR_BYTE[1]",
+      "reference": "CUR_BYTE[1]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CUR_BYTE[2]",
+      "reference": "CUR_BYTE[2]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CUR_BYTE[3]",
+      "reference": "CUR_BYTE[3]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CUR_BYTE[4]",
+      "reference": "CUR_BYTE[4]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CUR_BYTE[5]",
+      "reference": "CUR_BYTE[5]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CUR_BYTE[6]",
+      "reference": "CUR_BYTE[6]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "CUR_BYTE[7]",
+      "reference": "CUR_BYTE[7]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "D",
+      "reference": "D",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAIN[0]",
+      "reference": "DATAIN[0]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAIN[1]",
+      "reference": "DATAIN[1]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAIN[2]",
+      "reference": "DATAIN[2]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAIN[3]",
+      "reference": "DATAIN[3]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAIN[4]",
+      "reference": "DATAIN[4]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAIN[5]",
+      "reference": "DATAIN[5]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAIN[6]",
+      "reference": "DATAIN[6]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAIN[7]",
+      "reference": "DATAIN[7]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAOUT[0]",
+      "reference": "DATAOUT[0]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAOUT[1]",
+      "reference": "DATAOUT[1]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAOUT[2]",
+      "reference": "DATAOUT[2]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAOUT[3]",
+      "reference": "DATAOUT[3]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAOUT[4]",
+      "reference": "DATAOUT[4]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAOUT[5]",
+      "reference": "DATAOUT[5]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAOUT[6]",
+      "reference": "DATAOUT[6]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DATAOUT[7]",
+      "reference": "DATAOUT[7]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "DEC_DATA_BIT",
+      "reference": "DEC_DATA_BIT",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "DEC_DATA_VALID",
+      "reference": "DEC_DATA_VALID",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "DEC_LINE_BIT",
+      "reference": "DEC_LINE_BIT",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "DEC_LINE_VALID",
+      "reference": "DEC_LINE_VALID",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "DESTUFF_IN_VALID",
+      "reference": "DESTUFF_IN_VALID",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "DESTUFF_OUT_BIT",
+      "reference": "DESTUFF_OUT_BIT",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "DESTUFF_OUT_VALID",
+      "reference": "DESTUFF_OUT_VALID",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "DESTUFF_STUFF_ERR",
+      "reference": "DESTUFF_STUFF_ERR",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "ENC_LINE_BIT",
+      "reference": "ENC_LINE_BIT",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "ENC_LINE_VALID",
+      "reference": "ENC_LINE_VALID",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "EOP_PULSE",
+      "reference": "EOP_PULSE",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "I",
+      "reference": "I",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I",
+      "reference": "I",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I",
+      "reference": "I",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I",
+      "reference": "I",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I",
+      "reference": "I",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I",
+      "reference": "I",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I",
+      "reference": "I",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I",
+      "reference": "I",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I",
+      "reference": "I",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I0",
+      "reference": "I0",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I0",
+      "reference": "I0",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I0",
+      "reference": "I0",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I1",
+      "reference": "I1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I1",
+      "reference": "I1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I1",
+      "reference": "I1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I2",
+      "reference": "I2",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I3",
+      "reference": "I3",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "INT_RST_N",
+      "reference": "INT_RST_N",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "LINE_STATE[0]",
+      "reference": "LINE_STATE[0]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "LINE_STATE[1]",
+      "reference": "LINE_STATE[1]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "NEXT_BYTE[0]",
+      "reference": "NEXT_BYTE[0]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "NEXT_BYTE[1]",
+      "reference": "NEXT_BYTE[1]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "NEXT_BYTE[2]",
+      "reference": "NEXT_BYTE[2]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "NEXT_BYTE[3]",
+      "reference": "NEXT_BYTE[3]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "NEXT_BYTE[4]",
+      "reference": "NEXT_BYTE[4]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "NEXT_BYTE[5]",
+      "reference": "NEXT_BYTE[5]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "NEXT_BYTE[6]",
+      "reference": "NEXT_BYTE[6]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "NEXT_BYTE[7]",
+      "reference": "NEXT_BYTE[7]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "NEXT_VALID",
+      "reference": "NEXT_VALID",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "OPMODE[0]",
+      "reference": "OPMODE[0]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "OPMODE[1]",
+      "reference": "OPMODE[1]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Q",
+      "reference": "Q",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "RESET",
+      "reference": "RESET",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "RST_N",
+      "reference": "RST_N",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "RXDM",
+      "reference": "RXDM",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "RXDP",
+      "reference": "RXDP",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "RXERROR",
+      "reference": "RXERROR",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "RXVALID",
+      "reference": "RXVALID",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "RX_BITCNT[0]",
+      "reference": "RX_BITCNT[0]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "RX_BITCNT[1]",
+      "reference": "RX_BITCNT[1]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "RX_BITCNT[2]",
+      "reference": "RX_BITCNT[2]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "RX_RECEIVING",
+      "reference": "RX_RECEIVING",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "RX_SHIFT[1]",
+      "reference": "RX_SHIFT[1]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "RX_SHIFT[2]",
+      "reference": "RX_SHIFT[2]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "RX_SHIFT[3]",
+      "reference": "RX_SHIFT[3]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "RX_SHIFT[4]",
+      "reference": "RX_SHIFT[4]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "RX_SHIFT[5]",
+      "reference": "RX_SHIFT[5]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "RX_SHIFT[6]",
+      "reference": "RX_SHIFT[6]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "RX_SHIFT[7]",
+      "reference": "RX_SHIFT[7]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "S",
+      "reference": "S",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "S",
+      "reference": "S",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "S0",
+      "reference": "S0",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "S1",
+      "reference": "S1",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "STUFFER_IN_BIT",
+      "reference": "STUFFER_IN_BIT",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "STUFFER_IN_VALID",
+      "reference": "STUFFER_IN_VALID",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "STUFF_IN_READY",
+      "reference": "STUFF_IN_READY",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "STUFF_OUT_BIT",
+      "reference": "STUFF_OUT_BIT",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "STUFF_OUT_VALID",
+      "reference": "STUFF_OUT_VALID",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "SUSPENDM",
+      "reference": "SUSPENDM",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "SYNC_NEXT",
+      "reference": "SYNC_NEXT",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "TERMSELECT",
+      "reference": "TERMSELECT",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "TXDM",
+      "reference": "TXDM",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "TXDP",
+      "reference": "TXDP",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "TXREADY",
+      "reference": "TXREADY",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "TXVALID",
+      "reference": "TXVALID",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "TX_BITIDX[0]",
+      "reference": "TX_BITIDX[0]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "TX_BITIDX[1]",
+      "reference": "TX_BITIDX[1]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "TX_BITIDX[2]",
+      "reference": "TX_BITIDX[2]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "TX_STATE[0]",
+      "reference": "TX_STATE[0]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "TX_STATE[1]",
+      "reference": "TX_STATE[1]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "TX_STATE[2]",
+      "reference": "TX_STATE[2]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "TX_STATE[3]",
+      "reference": "TX_STATE[3]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "TX_STATE[4]",
+      "reference": "TX_STATE[4]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "TX_STATE[5]",
+      "reference": "TX_STATE[5]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "TX_STATE[6]",
+      "reference": "TX_STATE[6]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "TX_STATE[7]",
+      "reference": "TX_STATE[7]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "TX_STATE[8]",
+      "reference": "TX_STATE[8]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DECODER/PREV_LINE",
+      "reference": "U_DECODER/PREV_LINE",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DECODER/_00_",
+      "reference": "U_DECODER/_00_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DECODER/_01_",
+      "reference": "U_DECODER/_01_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DECODER/_02_",
+      "reference": "U_DECODER/_02_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DECODER/_03_",
+      "reference": "U_DECODER/_03_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DECODER/_04_",
+      "reference": "U_DECODER/_04_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DECODER/_05_",
+      "reference": "U_DECODER/_05_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DECODER/_06_",
+      "reference": "U_DECODER/_06_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DECODER/_07_",
+      "reference": "U_DECODER/_07_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DECODER/_08_",
+      "reference": "U_DECODER/_08_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/ONES[0]",
+      "reference": "U_DESTUFFER/ONES[0]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/ONES[1]",
+      "reference": "U_DESTUFFER/ONES[1]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/ONES[2]",
+      "reference": "U_DESTUFFER/ONES[2]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_00_",
+      "reference": "U_DESTUFFER/_00_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_01_",
+      "reference": "U_DESTUFFER/_01_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_02_",
+      "reference": "U_DESTUFFER/_02_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_03_",
+      "reference": "U_DESTUFFER/_03_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_04_",
+      "reference": "U_DESTUFFER/_04_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_05_",
+      "reference": "U_DESTUFFER/_05_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_06_",
+      "reference": "U_DESTUFFER/_06_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_07_",
+      "reference": "U_DESTUFFER/_07_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_08_",
+      "reference": "U_DESTUFFER/_08_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_09_",
+      "reference": "U_DESTUFFER/_09_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_10_",
+      "reference": "U_DESTUFFER/_10_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_11_",
+      "reference": "U_DESTUFFER/_11_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_12_",
+      "reference": "U_DESTUFFER/_12_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_13_",
+      "reference": "U_DESTUFFER/_13_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_14_",
+      "reference": "U_DESTUFFER/_14_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_15_",
+      "reference": "U_DESTUFFER/_15_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_16_",
+      "reference": "U_DESTUFFER/_16_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_17_",
+      "reference": "U_DESTUFFER/_17_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_18_",
+      "reference": "U_DESTUFFER/_18_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_19_",
+      "reference": "U_DESTUFFER/_19_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_20_",
+      "reference": "U_DESTUFFER/_20_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_DESTUFFER/_21_",
+      "reference": "U_DESTUFFER/_21_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_ENCODER/_00_",
+      "reference": "U_ENCODER/_00_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_ENCODER/_01_",
+      "reference": "U_ENCODER/_01_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_ENCODER/_02_",
+      "reference": "U_ENCODER/_02_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_ENCODER/_03_",
+      "reference": "U_ENCODER/_03_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_ENCODER/_04_",
+      "reference": "U_ENCODER/_04_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_ENCODER/_05_",
+      "reference": "U_ENCODER/_05_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_ENCODER/_06_",
+      "reference": "U_ENCODER/_06_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/SE0_COUNT[0]",
+      "reference": "U_EOP_DETECTOR/SE0_COUNT[0]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/SE0_COUNT[1]",
+      "reference": "U_EOP_DETECTOR/SE0_COUNT[1]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/SE0_COUNT[2]",
+      "reference": "U_EOP_DETECTOR/SE0_COUNT[2]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/SE0_COUNT[3]",
+      "reference": "U_EOP_DETECTOR/SE0_COUNT[3]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/SE0_COUNT[4]",
+      "reference": "U_EOP_DETECTOR/SE0_COUNT[4]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/SE0_COUNT[5]",
+      "reference": "U_EOP_DETECTOR/SE0_COUNT[5]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_00_",
+      "reference": "U_EOP_DETECTOR/_00_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_01_",
+      "reference": "U_EOP_DETECTOR/_01_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_02_",
+      "reference": "U_EOP_DETECTOR/_02_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_03_",
+      "reference": "U_EOP_DETECTOR/_03_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_04_",
+      "reference": "U_EOP_DETECTOR/_04_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_05_",
+      "reference": "U_EOP_DETECTOR/_05_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_06_",
+      "reference": "U_EOP_DETECTOR/_06_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_07_",
+      "reference": "U_EOP_DETECTOR/_07_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_08_",
+      "reference": "U_EOP_DETECTOR/_08_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_09_",
+      "reference": "U_EOP_DETECTOR/_09_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_10_",
+      "reference": "U_EOP_DETECTOR/_10_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_11_",
+      "reference": "U_EOP_DETECTOR/_11_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_12_",
+      "reference": "U_EOP_DETECTOR/_12_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_13_",
+      "reference": "U_EOP_DETECTOR/_13_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_14_",
+      "reference": "U_EOP_DETECTOR/_14_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_15_",
+      "reference": "U_EOP_DETECTOR/_15_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_16_",
+      "reference": "U_EOP_DETECTOR/_16_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_17_",
+      "reference": "U_EOP_DETECTOR/_17_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_18_",
+      "reference": "U_EOP_DETECTOR/_18_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_19_",
+      "reference": "U_EOP_DETECTOR/_19_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_20_",
+      "reference": "U_EOP_DETECTOR/_20_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_21_",
+      "reference": "U_EOP_DETECTOR/_21_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_22_",
+      "reference": "U_EOP_DETECTOR/_22_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_23_",
+      "reference": "U_EOP_DETECTOR/_23_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_24_",
+      "reference": "U_EOP_DETECTOR/_24_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_25_",
+      "reference": "U_EOP_DETECTOR/_25_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_EOP_DETECTOR/_26_",
+      "reference": "U_EOP_DETECTOR/_26_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_LINE_STATE/_0_",
+      "reference": "U_LINE_STATE/_0_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_LINE_STATE/_1_",
+      "reference": "U_LINE_STATE/_1_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_LINE_STATE/_2_",
+      "reference": "U_LINE_STATE/_2_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/ONES[0]",
+      "reference": "U_STUFFER/ONES[0]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/ONES[1]",
+      "reference": "U_STUFFER/ONES[1]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/ONES[2]",
+      "reference": "U_STUFFER/ONES[2]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$897",
+      "reference": "U_STUFFER/OUT_STUFFED",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_00_",
+      "reference": "U_STUFFER/_00_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_01_",
+      "reference": "U_STUFFER/_01_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_02_",
+      "reference": "U_STUFFER/_02_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_03_",
+      "reference": "U_STUFFER/_03_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_04_",
+      "reference": "U_STUFFER/_04_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_05_",
+      "reference": "U_STUFFER/_05_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_06_",
+      "reference": "U_STUFFER/_06_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_07_",
+      "reference": "U_STUFFER/_07_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_08_",
+      "reference": "U_STUFFER/_08_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_09_",
+      "reference": "U_STUFFER/_09_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_10_",
+      "reference": "U_STUFFER/_10_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_11_",
+      "reference": "U_STUFFER/_11_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_12_",
+      "reference": "U_STUFFER/_12_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_13_",
+      "reference": "U_STUFFER/_13_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_14_",
+      "reference": "U_STUFFER/_14_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_15_",
+      "reference": "U_STUFFER/_15_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_16_",
+      "reference": "U_STUFFER/_16_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_17_",
+      "reference": "U_STUFFER/_17_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_STUFFER/_18_",
+      "reference": "U_STUFFER/_18_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/MATCH[0]",
+      "reference": "U_SYNC_DETECTOR/MATCH[0]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/MATCH[1]",
+      "reference": "U_SYNC_DETECTOR/MATCH[1]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/MATCH[2]",
+      "reference": "U_SYNC_DETECTOR/MATCH[2]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/MATCH[3]",
+      "reference": "U_SYNC_DETECTOR/MATCH[3]",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$890",
+      "reference": "U_SYNC_DETECTOR/SYNC_VALID",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_00_",
+      "reference": "U_SYNC_DETECTOR/_00_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_01_",
+      "reference": "U_SYNC_DETECTOR/_01_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_02_",
+      "reference": "U_SYNC_DETECTOR/_02_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_03_",
+      "reference": "U_SYNC_DETECTOR/_03_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_04_",
+      "reference": "U_SYNC_DETECTOR/_04_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_05_",
+      "reference": "U_SYNC_DETECTOR/_05_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_06_",
+      "reference": "U_SYNC_DETECTOR/_06_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_07_",
+      "reference": "U_SYNC_DETECTOR/_07_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_08_",
+      "reference": "U_SYNC_DETECTOR/_08_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_09_",
+      "reference": "U_SYNC_DETECTOR/_09_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_10_",
+      "reference": "U_SYNC_DETECTOR/_10_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_11_",
+      "reference": "U_SYNC_DETECTOR/_11_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_12_",
+      "reference": "U_SYNC_DETECTOR/_12_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_13_",
+      "reference": "U_SYNC_DETECTOR/_13_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_14_",
+      "reference": "U_SYNC_DETECTOR/_14_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "U_SYNC_DETECTOR/_15_",
+      "reference": "U_SYNC_DETECTOR/_15_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "XCVRSELECT",
+      "reference": "XCVRSELECT",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "Z",
+      "reference": "Z",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "ZN",
+      "reference": "ZN",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "_000_",
+      "reference": "_000_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_001_",
+      "reference": "_001_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_002_",
+      "reference": "_002_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_003_",
+      "reference": "_003_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_004_",
+      "reference": "_004_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_005_",
+      "reference": "_005_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_006_",
+      "reference": "_006_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_007_",
+      "reference": "_007_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_008_",
+      "reference": "_008_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_009_",
+      "reference": "_009_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_010_",
+      "reference": "_010_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_011_",
+      "reference": "_011_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_012_",
+      "reference": "_012_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_013_",
+      "reference": "_013_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_014_",
+      "reference": "_014_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_015_",
+      "reference": "_015_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_016_",
+      "reference": "_016_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_017_",
+      "reference": "_017_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_018_",
+      "reference": "_018_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_019_",
+      "reference": "_019_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_020_",
+      "reference": "_020_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_021_",
+      "reference": "_021_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_022_",
+      "reference": "_022_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_023_",
+      "reference": "_023_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_024_",
+      "reference": "_024_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_025_",
+      "reference": "_025_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_026_",
+      "reference": "_026_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_027_",
+      "reference": "_027_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_028_",
+      "reference": "_028_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_029_",
+      "reference": "_029_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_030_",
+      "reference": "_030_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_031_",
+      "reference": "_031_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_032_",
+      "reference": "_032_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_033_",
+      "reference": "_033_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_034_",
+      "reference": "_034_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_035_",
+      "reference": "_035_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_036_",
+      "reference": "_036_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_037_",
+      "reference": "_037_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_038_",
+      "reference": "_038_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_039_",
+      "reference": "_039_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_040_",
+      "reference": "_040_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_041_",
+      "reference": "_041_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_042_",
+      "reference": "_042_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_043_",
+      "reference": "_043_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_044_",
+      "reference": "_044_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_045_",
+      "reference": "_045_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_046_",
+      "reference": "_046_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_047_",
+      "reference": "_047_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_048_",
+      "reference": "_048_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_049_",
+      "reference": "_049_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_050_",
+      "reference": "_050_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_051_",
+      "reference": "_051_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_052_",
+      "reference": "_052_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_053_",
+      "reference": "_053_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_054_",
+      "reference": "_054_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_055_",
+      "reference": "_055_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_056_",
+      "reference": "_056_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_057_",
+      "reference": "_057_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_058_",
+      "reference": "_058_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_060_",
+      "reference": "_060_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_061_",
+      "reference": "_061_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_063_",
+      "reference": "_063_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_064_",
+      "reference": "_064_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_065_",
+      "reference": "_065_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_066_",
+      "reference": "_066_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_067_",
+      "reference": "_067_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_068_",
+      "reference": "_068_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_069_",
+      "reference": "_069_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_070_",
+      "reference": "_070_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_071_",
+      "reference": "_071_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_072_",
+      "reference": "_072_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_073_",
+      "reference": "_073_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_074_",
+      "reference": "_074_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_075_",
+      "reference": "_075_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_076_",
+      "reference": "_076_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_077_",
+      "reference": "_077_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_078_",
+      "reference": "_078_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_080_",
+      "reference": "_080_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_082_",
+      "reference": "_082_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_083_",
+      "reference": "_083_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_084_",
+      "reference": "_084_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_085_",
+      "reference": "_085_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_086_",
+      "reference": "_086_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_087_",
+      "reference": "_087_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_088_",
+      "reference": "_088_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_089_",
+      "reference": "_089_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_090_",
+      "reference": "_090_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_091_",
+      "reference": "_091_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_092_",
+      "reference": "_092_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_093_",
+      "reference": "_093_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_094_",
+      "reference": "_094_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_095_",
+      "reference": "_095_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_096_",
+      "reference": "_096_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_097_",
+      "reference": "_097_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_098_",
+      "reference": "_098_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_099_",
+      "reference": "_099_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_100_",
+      "reference": "_100_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_101_",
+      "reference": "_101_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_102_",
+      "reference": "_102_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_103_",
+      "reference": "_103_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_104_",
+      "reference": "_104_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_105_",
+      "reference": "_105_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_106_",
+      "reference": "_106_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_107_",
+      "reference": "_107_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_108_",
+      "reference": "_108_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_109_",
+      "reference": "_109_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_110_",
+      "reference": "_110_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_111_",
+      "reference": "_111_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_113_",
+      "reference": "_113_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_114_",
+      "reference": "_114_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_116_",
+      "reference": "_116_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_117_",
+      "reference": "_117_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_118_",
+      "reference": "_118_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_119_",
+      "reference": "_119_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_120_",
+      "reference": "_120_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_121_",
+      "reference": "_121_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_122_",
+      "reference": "_122_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_123_",
+      "reference": "_123_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_124_",
+      "reference": "_124_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_125_",
+      "reference": "_125_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_126_",
+      "reference": "_126_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_127_",
+      "reference": "_127_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_128_",
+      "reference": "_128_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_129_",
+      "reference": "_129_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_130_",
+      "reference": "_130_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_131_",
+      "reference": "_131_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_132_",
+      "reference": "_132_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_133_",
+      "reference": "_133_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_134_",
+      "reference": "_134_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_135_",
+      "reference": "_135_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_136_",
+      "reference": "_136_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_137_",
+      "reference": "_137_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_138_",
+      "reference": "_138_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_139_",
+      "reference": "_139_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_140_",
+      "reference": "_140_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_141_",
+      "reference": "_141_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_142_",
+      "reference": "_142_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_143_",
+      "reference": "_143_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_144_",
+      "reference": "_144_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "_145_",
+      "reference": "_145_",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$512",
+      "reference": "__NC_CLKLOAD0_ZN__",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$830",
+      "reference": "__NC_CLKLOAD1_ZN__",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$400",
+      "reference": "__NC_CLKLOAD4_ZN__",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$797",
+      "reference": "__NC_CLKLOAD6_ZN__",
+      "pin": false,
+      "heuristic": false
+    }
+  ]
+}
