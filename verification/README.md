@@ -229,7 +229,7 @@ verification/records/
 ```
 
 - **`<experiment-slug>`** — short, descriptive, kebab-case name for the
-  claim being verified. This repo currently has eight:
+  claim being verified. This repo currently has ten:
   - `functional-smoke` — the harness-counter cocotb suite passes end-to-end
     via `klt functional-verification` (Icarus, no PDK dependency). A
     harness claim, not a PHY claim.
@@ -285,6 +285,21 @@ verification/records/
     half is still not attempted: #52 closed (PR #57) without ever
     committing a GDS/OASIS for any of the five analog blocks, so there is
     nothing under `layout/analog/` to extract.
+  - `digital-erc` (issue #77) — the `klt erc` supply read against the routed
+    GDS with the committed `layout/digital/erc-supply-spec.json`: the T1
+    item 11 (power delivery, structural) artifact for the digital
+    partition. `erc_status: "clean"`, zero `erc.unconnected_net` and zero
+    `erc.supply_short` naming `VDD`/`VSS` — each declared supply resolves
+    to exactly one electrical island. `erc.missing_tie` is **not
+    computed** (`no_ties_declared`, machine-recorded in
+    `erc_coverage.inapplicable`): the spec deliberately omits `ties[]`
+    because declaring one on a routed standard-cell layout reports a
+    false `erc.supply_short` (klayout-tools#2169), so the record names
+    the well-tie evidence that stands in for it (the committed
+    place-and-route `tapcell_master`/`global_connect`, the DEF
+    `SPECIALNETS` grid, and this GDS's own 62 `VNW` + 62 `VPW` drawn
+    tap labels). The item-11 LVS `power_connectivity` leg is a tracked
+    gap (#79), so item 11 remains partially met at the tracker level.
   One directory per distinct claim, not per run. Future entries (e.g.
   `analog-drc`/`analog-lvs`, `gate-level-sim`) follow the same pattern once
   those legs of the maturity ladder are taken up.
