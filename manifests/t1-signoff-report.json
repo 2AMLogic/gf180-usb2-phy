@@ -189,7 +189,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/records/digital-lvs/artifacts/20260921-125739-223bae5/lvs-report.json",
+        "file": "verification/records/digital-lvs/artifacts/20260921-132813-1376d98/lvs-report.json",
         "command": null,
         "kind": "lvs",
         "check_status": "match",
@@ -209,7 +209,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/records/digital-lvs/artifacts/20260921-125739-223bae5/lvs-report.json",
+        "file": "verification/records/digital-lvs/artifacts/20260921-132813-1376d98/lvs-report.json",
         "command": null,
         "kind": "lvs",
         "check_status": "match",

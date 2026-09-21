@@ -85,14 +85,14 @@ citing set the item's own text requires:
   plan-execution DRC probes live under `verification/records/analog-layout/`,
   incomplete by the routed-net gaps those records state).
 - **Item 4, LVS clean** — cites the re-minted gate-level LVS envelope
-  (`verification/records/digital-lvs/artifacts/20260921-125739-223bae5/lvs-report.json`,
+  (`verification/records/digital-lvs/artifacts/20260921-132813-1376d98/lvs-report.json`,
   `status: match`, negative control correctly rejecting), pinned to the
   frozen extracted layout-side netlist (`role: netlist`,
   `sha256:c681998…`). The superseded Aug-25 envelope predates `klt lvs`'s
   `provenance.input` recording (klayout-tools#1969) and **cannot** be
   pinned — it would grade `unverifiable_provenance` — which is exactly
   why re-pin move 6 re-minted it (record
-  `20260921-125739-223bae5.md`).
+  `20260921-132813-1376d98.md`).
 - **Item 11.digital, power delivery (structural) — cited, honestly
   `unmet`** — the first T1 item no single artifact proves, so its
   manifest entry is a **list**: the digital partition's `klt erc` supply

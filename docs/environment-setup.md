@@ -297,7 +297,7 @@ capabilities are present. The pin has moved forward four times so far:
    still correctly rejected) at the new pin — and the re-run's envelope
    now records `provenance.input.content_hash`, which the superseded Aug-25
    envelope could not; re-minted as
-   `verification/records/digital-lvs/records/20260921-125739-223bae5.md`.
+   `verification/records/digital-lvs/records/20260921-132813-1376d98.md`.
    The five committed analog plans re-execute with no status change
    (DRC-clean everywhere, `0 warnings[]` everywhere, routed tally
    unchanged per block), but `dplus_pullup`'s drawn Metal-1 routing

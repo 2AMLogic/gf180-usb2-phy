@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "engine": "klayout",
-  "layout": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-78/layout/digital/lvs/usb_utmi_phy_layout.spice",
-  "reference": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-78/layout/digital/lvs/usb_utmi_phy_reference_negctl.spice",
+  "layout": "./usb_utmi_phy_layout.spice",
+  "reference": "./usb_utmi_phy_reference_negctl.spice",
   "top": "USB_UTMI_PHY",
   "reference_top": "USB_UTMI_PHY",
   "parameter_tolerance": null,

@@ -4,7 +4,7 @@
   "deck": "gf180mcu",
   "top": "usb_utmi_phy",
   "dbu_um": 0.0005,
-  "netlist_path": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-78/layout/digital/lvs/usb_utmi_phy_layout.spice",
+  "netlist_path": "./usb_utmi_phy_layout.spice",
   "netlist_sha256": "c6819988aee1a2ec59cf6fb8e9e03baf9135d589203c7d1c9ebad0040351c2af",
   "status": "extracted",
   "device_count": 0,
