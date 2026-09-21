@@ -97,7 +97,7 @@
     "  degenerate_tap_declaration (klt#2199) rather than checked. With",
     "  the narrowed booleans the run reports both ties in erc_coverage",
     "  .checked, zero skipped, zero missing_tie findings (record",
-    "  20260921-212240-4b9148f).",
+    "  20260921-213041-4b9148f).",
     "  The LVS power_connectivity leg that issue #77's record named as",
     "  still-missing has since landed (issue #79, PR #82):",
     "  verification/records/digital-lvs/artifacts/20260921-145814-",
