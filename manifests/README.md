@@ -84,15 +84,18 @@ citing set the item's own text requires:
   analog partition has no full layout to run DRC on at all (its per-block
   plan-execution DRC probes live under `verification/records/analog-layout/`,
   incomplete by the routed-net gaps those records state).
-- **Item 4, LVS clean** — cites the re-minted gate-level LVS envelope
-  (`verification/records/digital-lvs/artifacts/20260921-132813-1376d98/lvs-report.json`,
-  `status: match`, negative control correctly rejecting), pinned to the
-  frozen extracted layout-side netlist (`role: netlist`,
-  `sha256:c681998…`). The superseded Aug-25 envelope predates `klt lvs`'s
-  `provenance.input` recording (klayout-tools#1969) and **cannot** be
-  pinned — it would grade `unverifiable_provenance` — which is exactly
-  why re-pin move 6 re-minted it (record
-  `20260921-132813-1376d98.md`).
+- **Item 4, LVS clean** — cites the gate-level LVS envelope minted against
+  the `gate-level-verilog` reference form
+  (`verification/records/digital-lvs/artifacts/20260921-145814-5bee855/lvs-report.json`,
+  `status: "match"` **and** `power_connectivity.status: "match"`,
+  negative control correctly rejecting), pinned to the frozen extracted
+  layout-side netlist (`role: netlist`,
+  `sha256:89f86b1…`) — this is the first envelope whose power/ground half
+  is computed rather than `"unchecked"` (issue #79; the Sep-21
+  plain-element envelope it supersedes, like the superseded Aug-25 one,
+  carries a hand-transcribed SPICE reference, and that form's power half
+  reads `"unchecked"` by construction — see record
+  `20260921-145814-5bee855.md`).
 - **Item 11.digital, power delivery (structural) — cited, honestly
   `unmet`** — the first T1 item no single artifact proves, so its
   manifest entry is a **list**: the digital partition's `klt erc` supply
@@ -101,7 +104,8 @@ citing set the item's own text requires:
   issue [#77] / PR #80 — `erc_status` clean, zero `erc.unconnected_net` /
   `erc.supply_short` naming `VDD`/`VSS`) pinned to the routed GDS it
   graded, **plus** item 4's own gate-level LVS envelope, pinned as for
-  item 4. The grader renders the row `unmet` with reason
+  item 4 (so including its `power_connectivity` verdict since issue #79's
+  re-mint). The grader renders the row `unmet` with reason
   **`supply_spec_incomplete`** — the *correct* current state, not a gap
   in the citation: the committed spec
   (`layout/digital/erc-supply-spec.json`) deliberately declares **no

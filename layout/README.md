@@ -25,17 +25,25 @@ corners (1v8, 3v3 and 5v0 families) positive on both setup and hold.
 `klt drc --deck gf180mcu` reports `status: "clean"`, `violation_count: 0`
 against this exact GDS.
 
-**LVS-matched** — `verification/records/digital-lvs/records/20260825-224930-6a83263.md`:
+**LVS-matched, power-verified** —
+`verification/records/digital-lvs/records/20260921-145814-5bee855.md`:
 gate-level LVS of this GDS against `usb_utmi_phy_routed.v` (the as-built,
-post-CTS netlist) is a `status: "match"` with 0 mismatches, and a negative
-control on a deliberately-broken reference is correctly rejected. Driven by
-`scripts/digital_lvs.py`, which documents the three real asymmetries between
-the two sides (physical-only filler cells, unconnected CTS load pins, and
-`assign`-aliased output ports) and how each is handled. That script exists
-because nothing upstream joins `klt place-and-route`'s outputs to a `klt lvs`
-verdict — filed generically as
-[klayout-tools#1419](https://github.com/2AMLogic/klayout-tools/issues/1419);
-if it closes, most of the script should become deletable.
+post-CTS netlist) is a `status: "match"` **and**
+`power_connectivity.status: "match"` — every power/ground pin of every
+instantiated standard cell reaches its expected net — with the negative
+control on a deliberately-broken reference correctly rejected. Driven by
+`scripts/digital_lvs.py`, which asks `klt lvs` to compare the as-built
+Verilog directly (`reference.form: "gate-level-verilog"`, the form
+[klayout-tools#1336](https://github.com/2AMLogic/klayout-tools/issues/1336)
+added to close
+[klayout-tools#1419](https://github.com/2AMLogic/klayout-tools/issues/1419)
+— the transcription half of this script this issue made deletable, exactly
+as the old closing note predicted) and to prune the physical-only
+filler/tap masters structurally instead of by name. The three flow-level
+asymmetries the script's earlier hand-transcription handled
+(physical-only fillers, unconnected CTS load pins, `assign`-aliased output
+ports) are the tool's own disclosed warnings now
+(`topology.power_only_pruned`, `topology.reference_port_alias_joined`).
 
 **What that does and does not say.** The curated `gf180mcu` deck is klt's own
 rule set, not the foundry sign-off deck; no metal/density fill is inserted, so
@@ -727,9 +735,10 @@ has somewhere to land without re-deriving the harness shape.
 
 `scripts/digital_lvs.py` writes its extracted/reference netlists and reports
 to `layout/digital/lvs/` (gitignored scratch — the frozen copies live under
-`verification/records/digital-lvs/`). It exits 0 only on `status: "match"`;
-with `--negative-control` it exits 0 only when the compare correctly *fails*
-on a deliberately broken reference.
+`verification/records/digital-lvs/`). It exits 0 only on a full pass —
+`status: "match"` **and** `power_connectivity.status: "match"` with every
+declared expected net exercised; with `--negative-control` it exits 0 only
+when the compare correctly *fails* on a deliberately broken reference.
 
 See `flow/README.md` for the digital flow's full detail and
 `verification/README.md` for the evidence-record convention that
