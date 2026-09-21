@@ -5,46 +5,71 @@ What this checks, precisely
 ---------------------------
 `klt place-and-route` writes three coupled artifacts for `rtl/usb_utmi_phy.v`:
 a routed DEF, the merged GDS, and the *as-built* gate-level Verilog
-(`write_verilog` — CTS buffers, resizes and antenna diodes included). This
-script asks the one question LVS exists to answer for a standard-cell block:
+(`write_verilog` -- CTS buffers, resizes and antenna diodes included). This
+script asks the two questions LVS exists to answer for a standard-cell block:
 
     does the GDS instantiate exactly the cells the as-built netlist names,
-    wired to exactly the same nets?
+    wired to exactly the same signal nets?
+    and does every power/ground pin land on the net it should?
 
-It answers it by comparing two netlists with `klt lvs`:
+It answers both with one `klt lvs` compare:
 
-* **layout side** — `klt extract` on the routed GDS with every *logic* cell
-  type held as an opaque black box (`--abstract-cells`), so the comparison is
+* **layout side** -- `klt extract` on the routed GDS with every cell of the
+  standard-cell library instantiated for this block (read from
+  `flow/request-usb-utmi-phy-par.json`'s own `pdk.cell_library`) held as an
+  opaque black box (`--abstract-cells '<library>__*'`), so the comparison is
   at the gate level rather than the transistor level. Physical-only cells
-  (`fill_*`, `endcap`, `filltie`) are deliberately *not* abstracted: they are
-  flattened, contribute zero devices, and therefore vanish from the compare —
-  which is what makes a filler-bearing layout comparable against a netlist
-  that (correctly) does not name fillers.
-* **reference side** — a SPICE transcription of the as-built Verilog,
-  generated here: one empty `.SUBCKT` per logic cell type and one `X` card per
-  instance.
-
-Why the transcription is not circular. The `.SUBCKT` *pin ordering* is read
-back from the extracted layout netlist, because SPICE has no named-port
-syntax and both sides must agree on a column order. Every *connection* is
-mapped by **pin name** out of the Verilog's own named port connections
-(`.A1(net)`), never by position — so an ordering taken from the layout side
-cannot mask a real wiring difference: it would surface as a mismatch, not as
-a false match. Supply pins are the one thing the Verilog does not name; they
-are bound from `flow/request-usb-utmi-phy-par.json`'s own `power` block
-(`power_net`/`ground_net`), i.e. from the same request that told OpenROAD's
-`global_connect` how to wire them.
+  (`fill_*`, `endcap`, `filltie`) are abstracted like every other cell,
+  deliberately with no name filter: `klt lvs` recognizes a power-only master
+  structurally and prunes it from the signal compare itself (klayout-tools
+  #1622, disclosed as `topology.power_only_pruned`), while the power/ground
+  half below still checks it.
+* **reference side** -- the as-built Verilog itself, via
+  ``"form": "gate-level-verilog"`` (klayout-tools #1336): `klt lvs` reads
+  the file as Verilog and converts it to plain-element SPICE internally,
+  resolving every cell's pin order from the PDK library's own `.spice` data
+  (``"library"``), never from a table maintained here.
+* **power/ground half** -- ``"options.power_connectivity"`` with
+  ``"expected_nets"`` naming the design's power/ground nets to themselves
+  (read from `flow/request-usb-utmi-phy-par.json`'s `power` block, the same
+  request that told OpenROAD's `global_connect` how to wire them). That
+  upgrades the default cross-instance consistency check to an absolute
+  verdict: a design wired *uniformly* wrong fails, not just one wired
+  inconsistently. The plain-element SPICE references earlier records used
+  could not ask this question at all (`power_connectivity.status` reads
+  `"unchecked"` for that form -- the check is honored only for
+  `gate-level-verilog`).
 
 What this does NOT check: transistor-level equivalence of the standard cells
-themselves (they are black boxes here — the foundry's own characterized GDS is
-taken as correct), and anything analog. See `layout/README.md`.
+themselves (they are black boxes here -- the foundry's own characterized GDS
+is taken as correct), rail/grid continuity in the physical sense (whether
+the VDD rail is geometrically unbroken, IR drop -- `klt power` /
+`klt ring-check`'s questions, which need routed geometry this compare no
+longer sees), and anything analog. See `layout/README.md`.
 
-Why this script exists at all. Every capability it uses is a documented `klt`
-flag; what is missing upstream is anything that joins them, so the four
-flow-level mismatches above (reference format, escaped identifiers, aliased
-ports, physical-only cells) land on the caller. Filed generically as
-klayout-tools#1419 per `CLAUDE.md`'s friction protocol — if that closes, most
-of this file should be deletable.
+Why the reference is a byte-identical copy of the as-built Verilog: the
+compare's request document, and so the `klt lvs` envelope itself, echoes the
+paths exactly as the request gave them. Copying the Verilog to
+`<out-dir>/<top>_reference.v` keeps those echoed paths relative to the run's
+own working directory (and so to the frozen artifacts committed beside the
+envelope), instead of naming a worktree-absolute scratch path that only
+re-hashes to `true` on the machine that produced it -- the
+path-portability defect PR #81's review caught on this record's predecessor.
+
+History: klayout-tools#1419 ("no supported path from place-and-route output
+to an LVS verdict on the block it implemented") was filed from here per
+`CLAUDE.md`'s friction protocol, and closed 2026-08-26 as #1336's
+`gate-level-verilog` form. The hand-rolled SPICE transcription of the
+as-built Verilog this script used to ship (`write_reference` /
+`parse_verilog`-driven, pin order read back from the extracted layout) -- and
+the four flow-level workarounds it carried -- is deleted with this form in
+place. The port-parsing half of `parse_verilog` stays for the one thing the
+tool leaves to the caller: `klt extract --pins` needs the module's
+top-level port list, and there is no request-side counterpart (the
+`gate-level-verilog` conversion reads the Verilog itself). The negative
+control re-parses the raw Verilog text on its own -- it rewrites net
+references *as written*, escaped identifiers and all, which the un-escaped
+view `parse_verilog` returns cannot express.
 
 Usage
 -----
@@ -53,9 +78,11 @@ Usage
 Runs against the committed signoff pair in `layout/digital/`
 (`usb_utmi_phy.gds` + `usb_utmi_phy_routed.v`) by default; `--gds`/`--verilog`
 point it at a fresh `flow/.klt/place-and-route/` run instead. Writes its
-artifacts to `layout/digital/lvs/` (gitignored scratch — the frozen copies
+artifacts to `layout/digital/lvs/` (gitignored scratch -- the frozen copies
 live under `verification/records/digital-lvs/`) and prints the `klt lvs`
-verdict. Exit status is 0 only on `status: "match"`.
+verdict. Exit status is 0 only on a **full** pass: `status: "match"` *and*
+`power_connectivity.status: "match"` with every declared expected net
+exercised.
 
     PDK=gf180mcuD python3 scripts/digital_lvs.py --negative-control
 
@@ -69,16 +96,11 @@ import argparse
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Cell-name prefixes that are physical-only fill/tie/endcap masters: present in
-# the routed DEF/GDS because `klt place-and-route`'s `request.power` stage
-# inserts them, absent from the as-built Verilog because they carry no logic.
-# They are left un-abstracted on purpose (see the module docstring).
-PHYSICAL_ONLY = ("__fill_", "__filltie", "__endcap")
 
 
 def _sh(cmd: list[str]) -> subprocess.CompletedProcess[str]:
@@ -115,7 +137,7 @@ def parse_verilog(path: str) -> tuple[list[str], list[tuple[str, str, dict[str, 
     # driver already has a name of its own (`assign LineState[0] =
     # line_state[0];`), and OpenROAD writes the DEF net under the *driver's*
     # name with the port hung off it as a PIN. `klt extract --def-net-names`
-    # therefore recovers `line_state[0]`, not `LineState[0]` — so the port has
+    # therefore recovers `line_state[0]`, not `LineState[0]` -- so the port has
     # to be resolved through the alias before the two sides can be compared.
     aliases = {
         unescape_verilog(lhs): unescape_verilog(rhs)
@@ -139,8 +161,8 @@ def unescape_verilog(name: str) -> str:
     r"""Normalize a Verilog identifier to the plain net name the DEF carries.
 
     OpenROAD's `write_verilog` emits hierarchical names as *escaped
-    identifiers*: `\u_destuffer/ones` — a backslash, then everything up to the
-    terminating whitespace. A bit-select of one is written `\u_destuffer/ones
+    identifiers*: `\u_destuffer/ones` -- a backslash, then everything up to
+    the terminating whitespace. A bit-select of one is written `\u_destuffer/ones
     [2]`, i.e. escaped identifier, terminator space, then the index. The DEF
     (and so `klt extract --def-net-names`) knows that net as
     `u_destuffer/ones[2]`, so both the leading backslash and the terminator
@@ -152,107 +174,79 @@ def unescape_verilog(name: str) -> str:
     return re.sub(r"\s+(?=\[)", "", name)
 
 
-def parse_subckt_pins(spice_path: str) -> dict[str, list[str]]:
-    """Pin order per `.SUBCKT` in a SPICE file (continuation lines folded)."""
-    text = open(spice_path, encoding="utf-8").read()
-    text = re.sub(r"\n\+\s*", " ", text)
-    out: dict[str, list[str]] = {}
-    for line in text.splitlines():
-        m = re.match(r"\.SUBCKT\s+(\S+)\s*(.*)", line, re.I)
-        if m:
-            out[m.group(1)] = m.group(2).split()
-    return out
+def break_one_connection(src_path: str, dst_path: str, cell_library: str) -> str:
+    """Copy ``src_path`` to ``dst_path`` rewiring exactly one connection.
 
+    The deliberately broken reference for `--negative-control`: the first
+    standard-cell instance's first non-constant connection is re-pointed at
+    a *different* declared net of the same module. Both nets still exist by
+    the Verilog's own declarations (the break must survive `klt lvs`'s
+    Verilog parsing, not work around it), but the reference now describes
+    connectivity the layout does not implement: the abandoned net loses a
+    terminal and the target net gains one, so a *passing* compare can be
+    told apart from a compare that never looked -- `klt lvs` must report
+    this as a mismatch; if it still says "match", the harness is not
+    testing anything and the clean result is worthless.
 
-def spice_name(net: str) -> str:
-    r"""Render a net name the way KLayout's own SPICE writer renders it.
-
-    Both sides of the compare have to spell a net identically, so this mirrors
-    the escaping observed in `klt extract`'s output rather than inventing one:
-    a name that does not begin with a letter (`_000_`, `$1043`) is written with
-    a leading backslash; everything else — including names carrying `/` and
-    `[...]`, e.g. `u_sync_detector/match[0]` — is written bare.
+    Replaces the SPICE-transcription break this script's predecessor used
+    (rewiring `write_reference()`'s first instance -- gone with that
+    function). Returns a one-line description of what was rewired.
     """
-    return net if re.match(r"^[A-Za-z]", net) else "\\" + net
-
-
-def write_reference(
-    out_path: str,
-    top: str,
-    ports: list[str],
-    instances: list[tuple[str, str, dict[str, str]]],
-    pin_order: dict[str, list[str]],
-    power_net: str,
-    ground_net: str,
-    negative_control: bool = False,
-) -> None:
-    if negative_control:
-        # Deliberately break one connection so a *passing* compare can be told
-        # apart from a compare that never looked: rewire the first instance's
-        # first non-supply input to the supply. `klt lvs` must report this as a
-        # mismatch; if it still says "match", the harness is not testing
-        # anything and the clean result above is worthless.
-        cell, inst, conns = instances[0]
-        for pin in pin_order[cell]:
-            if pin not in (power_net, ground_net) and conns.get(pin):
-                conns = dict(conns, **{pin: ground_net})
-                break
-        instances = [(cell, inst, conns)] + list(instances[1:])
-
-    lines = [
-        "* reference netlist for `klt lvs`, generated by scripts/digital_lvs.py",
-        "* source: the as-built gate-level Verilog from `klt place-and-route`",
-        "",
-    ]
-    cell_types = sorted({c for c, _, _ in instances})
-    for cell in cell_types:
-        pins = pin_order.get(cell)
-        if pins is None:
-            raise SystemExit(
-                f"no extracted .SUBCKT pin order for cell type '{cell}' -- the "
-                "layout does not instantiate a cell the netlist names"
-            )
-        lines.append(f".SUBCKT {cell} {' '.join(pins)}")
-        lines.append(".ENDS")
-    lines.append("")
-
-    # Top-level pin order is taken verbatim from the extracted layout netlist
-    # (`ports` is only used to cross-check that the two agree as a *set*), so
-    # the two circuits' pin columns line up without depending on either side's
-    # sort order. A port present on one side only is a real finding, so it is
-    # raised here rather than papered over.
-    top_pins = pin_order[top]
-    expected = {spice_name(p) for p in ports} | {power_net, ground_net}
-    if set(top_pins) != expected:
-        only_layout = sorted(set(top_pins) - expected)
-        only_netlist = sorted(expected - set(top_pins))
+    text = open(src_path, encoding="utf-8").read()
+    inst_re = re.compile(
+        rf"\b({re.escape(cell_library)}__\w+)\s+(\S+)\s*\(([^;]*?)\)\s*;", re.S
+    )
+    match = inst_re.search(text)
+    if match is None:
         raise SystemExit(
-            "top-level pin sets differ between the extracted layout and the "
-            f"as-built netlist: layout-only {only_layout}, netlist-only {only_netlist}"
+            "negative control found no standard-cell instance to break"
         )
-    lines.append(f".SUBCKT {top} {' '.join(top_pins)}")
-    for cell, inst, conns in instances:
-        args = []
-        for pin in pin_order[cell]:
-            if pin == power_net:
-                args.append(power_net)
-            elif pin == ground_net:
-                args.append(ground_net)
-            elif conns.get(pin):
-                args.append(spice_name(conns[pin]))
-            else:
-                # A pin the as-built Verilog leaves unconnected -- CTS's own
-                # `clkload*` dummy loads are instantiated with only their input
-                # tied. Give it a per-instance dangling node so it stays a
-                # one-terminal net on this side too, matching the isolated pin
-                # shape the layout side extracts. Naming it (rather than
-                # reusing one shared node) is what keeps two such pins from
-                # being silently shorted together in the reference.
-                args.append(spice_name(f"{inst}/{pin}.unconnected"))
-        lines.append(f"X{spice_name(inst)} {' '.join(args)} {cell}")
-    lines.append(".ENDS")
-    lines.append("")
-    open(out_path, "w", encoding="utf-8").write("\n".join(lines))
+    cell, inst, body = match.group(1), match.group(2), match.group(3)
+
+    def is_constant(net_text: str) -> bool:
+        return re.match(r"^1'[bdh]", net_text, re.I) is not None
+
+    named = [
+        (pin, net)
+        for pin, net in re.findall(r"\.(\w+)\s*\(([^)]*?)\)", body)
+        if not is_constant(net)
+    ]
+    if not named:
+        raise SystemExit(
+            f"negative control found no named connection on instance '{inst}'"
+        )
+    pin, net_a = named[0]
+    # A visible, net-text-distinct rewiring target: another net of the same
+    # instance first, any declared net of any later instance otherwise.
+    net_b = next((n for _, n in named[1:] if n != net_a), None)
+    if net_b is None:
+        for _c, _i, later_body in inst_re.findall(text):
+            for _p, n in re.findall(r"\.(\w+)\s*\(([^)]*?)\)", later_body):
+                if not is_constant(n) and n != net_a:
+                    net_b = n
+                    break
+            if net_b is not None:
+                break
+    if net_b is None or net_b == net_a:
+        raise SystemExit(
+            "negative control found no second net to rewire the first "
+            "connection to -- cannot build a deliberately broken reference"
+        )
+
+    old = f".{pin}({net_a})"
+    new = f".{pin}({net_b})"
+    broken_body, count = body.replace(old, new, 1), 1
+    if old not in body:
+        pattern = rf"{re.escape(f'.{pin}')}\s*\(\s*{re.escape(net_a)}\s*\)"
+        broken_body, count = re.subn(pattern, new, body, count=1)
+    if count != 1:
+        raise SystemExit(
+            f"negative control failed to rewrite '.{pin}({net_a})' on "
+            f"instance '{inst}'"
+        )
+    with open(dst_path, "w", encoding="utf-8") as fh:
+        fh.write(text[: match.start(3)] + broken_body + text[match.end(3) :])
+    return f"{cell} {inst}: .{pin}({net_a}) -> .{pin}({net_b})"
 
 
 def main() -> int:
@@ -289,7 +283,7 @@ def main() -> int:
         action="store_true",
         help=(
             "break one reference connection on purpose and require `klt lvs` to "
-            "report a mismatch; exits 0 only when the compare correctly fails"
+            "report it; exits 0 only when the compare correctly fails"
         ),
     )
     args = ap.parse_args()
@@ -307,20 +301,25 @@ def main() -> int:
     power_block = par_req.get("power") or {}
     power_net = power_block.get("power_net", "VDD")
     ground_net = power_block.get("ground_net", "VSS")
+    cell_library = (par_req.get("pdk") or {}).get("cell_library")
+    if not cell_library:
+        raise SystemExit(
+            f"{args.par_request} names no pdk.cell_library -- the standard-cell "
+            "library to abstract and compare against cannot be derived"
+        )
 
-    ports, instances = parse_verilog(verilog)
-    cell_types = sorted({c for c, _, _ in instances})
+    ports, _instances = parse_verilog(verilog)
     print(
-        f"as-built netlist: {len(instances)} instances, "
-        f"{len(cell_types)} cell types, {len(ports)} top-level ports"
+        f"as-built netlist: {len(_instances)} instances, "
+        f"{len(ports)} top-level ports (after assign-alias resolution)"
     )
 
     lef_dir = None
     pdk_root = os.environ.get("PDK_ROOT")
     if pdk_root:
         for root, _dirs, files in os.walk(pdk_root):
-            if "gf180mcu_fd_sc_mcu9t5v0.lef" in files:
-                lef_dir = os.path.join(root, "gf180mcu_fd_sc_mcu9t5v0.lef")
+            if f"{cell_library}.lef" in files:
+                lef_dir = os.path.join(root, f"{cell_library}.lef")
                 break
 
     layout_spice = os.path.join(args.out_dir, f"{args.top}_layout.spice")
@@ -336,15 +335,13 @@ def main() -> int:
         "--top-cell-pins",
         "--pins",
         ",".join(ports + [power_net, ground_net]),
+        "--abstract-cells",
+        f"{cell_library}__*",
         "-o",
         layout_spice,
         "--format",
         "json",
     ]
-    for cell in cell_types:
-        if any(marker in cell for marker in PHYSICAL_ONLY):
-            continue
-        extract_cmd += ["--abstract-cells", cell]
     if lef_dir:
         extract_cmd += ["--abstract-cell-lef", lef_dir]
 
@@ -360,28 +357,40 @@ def main() -> int:
     print(
         f"extracted: {extract_report['net_count']} nets, "
         f"{extract_report['device_count']} loose devices, "
-        f"{len(extract_report['abstracted_cells'])} abstracted cell types"
+        f"{len(extract_report['abstracted_cells'])} abstracted cell types "
+        f"(wildcard {cell_library}__*, fill/tap included -- klt lvs prunes "
+        "the power-only ones itself)"
     )
 
-    pin_order = parse_subckt_pins(layout_spice)
+    # The reference the compare names: a byte-identical copy of the as-built
+    # Verilog (clean run) or the one-connection-broken scratch copy
+    # (negative control). Copying rather than pointing at the repo path
+    # keeps the request document -- and so the envelope -- naming its
+    # reference relative to the run's own working directory, the
+    # portability shape PR #81's review put on record.
     suffix = "_reference_negctl" if args.negative_control else "_reference"
-    reference_spice = os.path.join(args.out_dir, f"{args.top}{suffix}.spice")
-    write_reference(
-        reference_spice,
-        args.top,
-        ports,
-        instances,
-        pin_order,
-        power_net,
-        ground_net,
-        negative_control=args.negative_control,
-    )
+    reference_netlist = os.path.join(args.out_dir, f"{args.top}{suffix}.v")
+    if args.negative_control:
+        breakage = break_one_connection(verilog, reference_netlist, cell_library)
+        print(f"negative control: rewired {breakage}")
+    else:
+        shutil.copyfile(verilog, reference_netlist)
 
     lvs_request = {
         "schema": "klt.lvs.request/1",
         "layout": {"netlist": layout_spice, "top": args.top},
-        "reference": {"netlist": reference_spice, "top": args.top},
+        "reference": {
+            "netlist": reference_netlist,
+            "top": args.top,
+            "form": "gate-level-verilog",
+            "library": cell_library,
+        },
         "engine": "klayout",
+        "options": {
+            "power_connectivity": {
+                "expected_nets": {power_net: power_net, ground_net: ground_net},
+            },
+        },
     }
     request_path = os.path.join(
         args.out_dir,
@@ -402,20 +411,48 @@ def main() -> int:
         json.dump(report, fh, indent=2)
 
     status = report.get("status")
-    print(f"klt lvs: status={status} mismatches={len(report.get('mismatches', []))}")
+    power = report.get("power_connectivity") or {}
+    power_status = power.get("status")
+    print(
+        f"klt lvs: status={status} mismatches={len(report.get('mismatches', []))}"
+    )
+    print(f"power_connectivity: status={power_status}")
+    if power_status == "unchecked":
+        print(f"  reason: {power.get('reason')}")
+    else:
+        print(
+            f"  pins: {power.get('power_pins')} "
+            f"(derivation {power.get('power_pins_derivation')})"
+        )
+        for finding in power.get("findings", [])[:5]:
+            print("  ", json.dumps(finding)[:240])
     for entry in report.get("mismatches", [])[:20]:
-        print("  ", json.dumps(entry)[:200])
+        print("  ", json.dumps(entry)[:240])
+
     if args.negative_control:
-        if status == "match":
+        if status == "match" and power_status == "match":
             print(
                 "NEGATIVE CONTROL FAILED: a deliberately broken reference still "
-                "compared as a match -- the clean result this harness reports is "
-                "not evidence of anything"
+                "compared clean on both the signal and the power/ground half "
+                "-- the results this harness reports are not evidence of anything"
             )
             return 1
         print("negative control OK: the broken reference is correctly rejected")
         return 0
-    return 0 if status == "match" else 1
+
+    unchecked = power.get("unchecked_expected_pins", [])
+    passed = status == "match" and power_status == "match" and not unchecked
+    if unchecked:
+        print(
+            f"declared expected_nets never exercised by this run: {unchecked} "
+            "(see docs/cli/lvs.md -- a signoff-grade check wants this empty)"
+        )
+    if passed:
+        print(
+            "full gate-level LVS pass: signal compare matched and every "
+            "power/ground pin reached its expected net"
+        )
+    return 0 if passed else 1
 
 
 if __name__ == "__main__":
