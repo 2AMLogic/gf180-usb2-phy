@@ -12,6 +12,15 @@ is a legitimate functional-verification technique for a half-duplex serial
 line and needs no additional Verilog scaffolding -- the module under test
 is the real top-level wrapper, not a second copy of it.
 
+Since issue #84 the four protocol transforms inside the wrapper are the
+vendored canonical modules under `rtl/common/`, and the wire-level
+expectations follow the master's stuffing scope (sky130-usb2-phy DR-0002
+Decision 3): SYNC is framing and is NEVER bit-stuffed; the stuffer's run
+counter starts fresh at the first post-SYNC bit (`sof`). The
+`_expected_wire_dpdm` model below encodes exactly that scope (the
+pre-vendoring wrapper ran SYNC *through* the stuffer, which could differ
+by one stuff position when a payload opens with a run of 1s).
+
 Byte-level TX driving follows the same "read `ready` before the edge it
 governs" convention `test_usb_bit_codec_loopback.py` established for the
 bit-level stuffer handshake, applied here one level up at the UTMI
@@ -45,13 +54,26 @@ def _line_to_dpdm(line_bit):
 
 
 def _expected_wire_dpdm(payload_bytes):
-    """(dp,dm) sequence for SYNC + payload, NRZI-encoded -- no EOP tail."""
-    pre_stuff = _byte_to_bits(SYNC_BYTE)
-    for b in payload_bytes:
-        pre_stuff += _byte_to_bits(b)
-    stuffed, _flags = bit_stuff(pre_stuff)
-    line = nrzi_encode(stuffed)
+    """(dp,dm) sequence for SYNC + payload -- no EOP tail, canonical scope.
+
+    SYNC (8'h80, LSB-first) is NRZI-encoded unstuffed around the stuffer;
+    the payload alone is bit-stuffed, its run counter starting fresh at
+    the first post-SYNC bit (the canonical `sof` scope, see the module
+    docstring); the two fields form one continuous NRZI stream from the
+    idle-J reference.
+    """
+    sync_bits = _byte_to_bits(SYNC_BYTE)
+    stuffed, _flags = bit_stuff(_byte_to_bits_list(payload_bytes))
+    line = nrzi_encode(sync_bits + stuffed)
     return [_line_to_dpdm(b) for b in line]
+
+
+def _byte_to_bits_list(payload_bytes):
+    """LSB-first bit list for a whole payload."""
+    bits = []
+    for b in payload_bytes:
+        bits += _byte_to_bits(b)
+    return bits
 
 
 async def _start_clock(dut):
@@ -91,16 +113,16 @@ async def _drive_packets(dut, packets, cycles, loopback=True):
 
     Note on `TxReady`: `usb_utmi_phy.v` pulses it not just in `TX_IDLE` but
     also, transiently, at the terminal-bit-consumed clock of whatever byte
-    `TX_SHIFT` is currently sending (a one-byte-ahead skid buffer, so the
-    PHY can request the next byte while still shifting the current one out
-    -- this is why offering only `len(packet)` bytes correctly stops after
-    exactly that many accepts, even though none of them may have finished
-    being shifted onto the wire yet). Deciding "safe to start the next
-    packet" therefore cannot use a bare `TxReady` pulse -- that fires
-    throughout the tail of the *current* packet's shifting too. This
-    driver reads `tx_state` (internal, whitebox) directly instead, since
-    `TX_IDLE` is the only state where `TxReady` is asserted, and the only
-    one that's safe to start a new packet from.
+    `TX_DATA` is currently sending (so the PHY can request the next byte
+    while still shifting the current one out -- this is why offering only
+    `len(packet)` bytes correctly stops after exactly that many accepts,
+    even though none of them may have finished being shifted onto the wire
+    yet). Deciding "safe to start the next packet" therefore cannot use a
+    bare `TxReady` pulse -- that fires throughout the tail of the *current*
+    packet's shifting too. This driver reads `tx_state` (internal, whitebox)
+    directly instead, since `TX_IDLE` is the only state where starting a
+    new packet is safe, and its encoded value 0 is stable API for this
+    testbench.
     """
     TX_IDLE_STATE = 0
     packets = [list(p) for p in packets]
@@ -208,8 +230,8 @@ async def test_tx_eop_tail_is_se0_se0_j(dut):
 
     # Search forward, after the encoded region begins, for the exact
     # SE0,SE0,J shape -- there may be one or more repeated samples of the
-    # last encoded bit immediately before it (the TX_FLUSHCHECK/DRAIN
-    # states hold the line steady while the pipeline empties; see
+    # last encoded bit immediately before it (the TX_FLUSH/TX_HOLD states
+    # hold the line steady while the last level gets its wire clock; see
     # usb_utmi_phy.v's TX section header), which this search tolerates.
     eop_index = None
     for i in range(start, len(dpdm) - 2):
@@ -265,19 +287,42 @@ async def test_loopback_multi_byte_with_stuffing(dut):
 
 
 @cocotb.test()
-async def test_loopback_trailing_run_of_six_ones_is_flushed(dut):
-    """A packet whose pre-stuff bit stream ends on exactly six 1s (USB 2.0
-    #7.1.9's mandatory trailing-stuff-bit case) still round-trips: the
-    wrapper's TX_FLUSHCHECK state must emit the trailing stuffed 0 before
-    EOP, exactly as `usb_bit_stuffer.v`'s own header documents."""
+async def test_loopback_leading_ones_payload_canonical_stuff_scope(dut):
+    """The canonical stuffing scope, exercised where it is observable: a
+    payload opening with a run of 1s must stuff after the SIXTH payload one
+    (the stuffer's `sof` run reset at the first post-SYNC bit), not after
+    five (which is what a SYNC run carry-through would produce). A 0xFF
+    first byte opens with eight 1s, so the stuff position lands inside it."""
     await _start_clock(dut)
     await _reset(dut)
 
-    # SYNC's own bits contribute a trailing single 1 (its last bit). Choose
-    # a payload whose LSB-first bit stream, appended after that single 1,
-    # ends on a run of exactly six more 1s: 0xFC's LSB-first bits are
-    # 0,0,1,1,1,1,1,1 -- six trailing 1s, immediately after a payload byte
-    # ending on a 0 boundary so the run does not start earlier.
+    payload = [0xFF, 0x00]
+    result = await _drive_packets(dut, [payload], cycles=80)
+
+    assert result["rx_bytes"] == payload, f"round trip mismatch: {result['rx_bytes']}"
+    assert not any(result["rx_error"]), "RxError asserted on a clean packet"
+
+    expected_wire = _expected_wire_dpdm(payload)
+    start = _find_wire_start(result["dpdm"])
+    actual_wire = result["dpdm"][start:start + len(expected_wire)]
+    assert actual_wire == expected_wire, (
+        "wire trace disagrees with the canonical (fresh-at-PID) stuffing scope"
+    )
+
+
+@cocotb.test()
+async def test_loopback_trailing_run_of_six_ones_is_flushed(dut):
+    """A packet whose payload bit stream ends on exactly six 1s (USB 2.0
+    #7.1.9's mandatory trailing-stuff-bit case) still round-trips: the
+    wrapper's TX_FLUSH state must emit the trailing stuffed 0 before EOP,
+    decided by the canonical `stuff_pending_after` lookahead (see
+    usb_utmi_phy.v's TX section header)."""
+    await _start_clock(dut)
+    await _reset(dut)
+
+    # 0xFC's LSB-first bits are 0,0,1,1,1,1,1,1 -- six trailing 1s, behind
+    # a leading 0x00 byte so the run starts at the 0xFC boundary. The
+    # canonical stuffer counts this run fresh (SYNC never reaches it).
     payload = [0x00, 0xFC]
     result = await _drive_packets(dut, [payload], cycles=80)
 
@@ -321,6 +366,32 @@ async def test_loopback_back_to_back_packets_minimal_gap(dut):
 
 
 @cocotb.test()
+async def test_raw_mode_puts_payload_on_the_wire_unencoded(dut):
+    """OpMode 2'b10 (raw/transparent test mode) drives the vendored modules'
+    `bypass`: the payload reaches the wire with NO bit stuffing and NO
+    NRZI transform (bit 1 = J, bit 0 = K, one clock each). SYNC is
+    PHY-generated framing and stays NRZI-encoded KJKJKJKK regardless (the
+    canonical convention usb_utmi_phy.v's header documents)."""
+    await _start_clock(dut)
+    await _reset(dut)
+    dut.OpMode.value = 0b10
+
+    payload = [0b1010_0110]
+    result = await _drive_packets(dut, [payload], cycles=60, loopback=False)
+
+    start = _find_wire_start(result["dpdm"])
+    sync_wire = result["dpdm"][start:start + 8]
+    expected_sync = [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1)]
+    assert sync_wire == expected_sync, f"SYNC must stay NRZI-encoded: {sync_wire}"
+
+    # The payload, LSB first, raw: 0,1,1,0,0,1,0,1 -> K,J,J,K,K,J,K,J.
+    raw_wire = result["dpdm"][start + 8:start + 16]
+    expected_raw = [_line_to_dpdm(b) for b in
+                    [(0b1010_0110 >> i) & 1 for i in range(8)]]
+    assert raw_wire == expected_raw, f"raw-mode payload was not raw: {raw_wire}"
+
+
+@cocotb.test()
 async def test_malformed_sync_never_activates_rx(dut):
     """A line pattern that starts like SYNC but breaks partway through never
     produces RxActive/RxValid -- bit-lock failure must fail safe."""
@@ -346,5 +417,3 @@ async def test_malformed_sync_never_activates_rx(dut):
         await FallingEdge(dut.clk)
         assert int(dut.RxActive.value) == 0
         assert int(dut.RxValid.value) == 0
-
-

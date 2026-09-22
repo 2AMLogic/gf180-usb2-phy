@@ -2,7 +2,7 @@
   "schema": "klt.functional_verification.request/1",
   "engine": "icarus",
   "sources": [
-    "../rtl/usb_bit_stuffer.v"
+    "../rtl/common/usb_bit_stuffer.v"
   ],
   "hdl_toplevel": "usb_bit_stuffer",
   "testbench": {

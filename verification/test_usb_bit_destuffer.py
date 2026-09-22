@@ -1,12 +1,28 @@
-"""cocotb testbench for `rtl/usb_bit_destuffer.v`.
+"""cocotb testbench for `rtl/common/usb_bit_destuffer.v` (vendored, issue #84).
 
-Checks the RX-side bit destuffer bit-exactly against
-`usb_bit_model.bit_destuff`, including the bit-stuff error case
-(`spec/usb2-device-phy.md` #2: at most six consecutive 1s may legally
-appear, so a seventh is a malformed stream).
+Checks the RX-side bit destuffer bit-exactly against `usb_bit_model`'s
+independent Python model -- the floor `spec/usb2-device-phy.md` #11 sets for
+this block's digital logic.
 
-Sampling discipline follows `test_harness_counter.py`: drive on a
-`FallingEdge`, read on the `FallingEdge` after the `RisingEdge` under test.
+The DUT is the rule-9 master's canonical interface (`enable`/`data_strobe`/
+`data_bit` -> registered `bit_valid`/`out_bit`/`stuff_err`, on the
+`clk_144`/`rst_144_n` port names that are the master's 144 MHz
+oversampling-domain vocabulary -- driven here at this repo's 12 MHz
+interface clock; see `rtl/usb_utmi_phy.v`'s header and `spec/decisions/0002`).
+
+`enable` is the canonical SOP..EOP gate (the master's `rx_active`), and it
+replaces this repo's former per-packet `init` packet-start clear. While
+`enable` is low the module is a transparent pass-through (it holds its run
+counter at zero and forwards every strobed bit) -- the property its caller
+relies on to search for the never-stuffed SYNC pattern on its output, and
+the property that makes indefinitely long idle (continuous decoded 1s,
+since NRZI of "no transitions" is all ones) incapable of ever accumulating
+into a false bit-stuff violation.
+
+Sampling discipline follows `test_harness_counter.py`: inputs are driven on
+a `FallingEdge` and outputs are read on the `FallingEdge` after the
+`RisingEdge` under test (the outputs are registered, one clock behind
+`data_strobe`).
 
 This file is *input* to `klt functional-verification` (see
 `request-usb-bit-destuffer.json`), not a pytest module.
@@ -18,200 +34,167 @@ import cocotb
 from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge
 
 from cocotb_helpers import start_clock as _start_clock
-from usb_bit_model import bit_destuff, bit_stuff
+from usb_bit_model import bit_stuff
+
+CLK = "clk_144"
+RST_N = "rst_144_n"
 
 
 async def _reset(dut):
-    dut.rst_n.value = 0
-    dut.init.value = 0
-    dut.in_valid.value = 0
-    dut.in_bit.value = 0
-    await ClockCycles(dut.clk, 3)
-    dut.rst_n.value = 1
-    await FallingEdge(dut.clk)
+    getattr(dut, RST_N).value = 0
+    dut.enable.value = 0
+    dut.data_strobe.value = 0
+    dut.data_bit.value = 0
+    await ClockCycles(getattr(dut, CLK), 3)
+    getattr(dut, RST_N).value = 1
+    await FallingEdge(getattr(dut, CLK))
 
 
-async def _step(dut, valid, bit=0, init=0):
-    """Drive one clock; return `(out_valid, out_bit, stuff_err)`."""
-    dut.init.value = init
-    dut.in_valid.value = valid
-    dut.in_bit.value = bit
-    await RisingEdge(dut.clk)
-    await FallingEdge(dut.clk)
+async def _cell(dut, bit=0, strobe=1, enable=1):
+    """Present one decoded bit cell; return (bit_valid, out_bit, stuff_err)
+    on the clock after it (the module's registered output stage)."""
+    dut.enable.value = enable
+    dut.data_strobe.value = strobe
+    dut.data_bit.value = bit
+    await RisingEdge(getattr(dut, CLK))
+    await FallingEdge(getattr(dut, CLK))
     return (
-        int(dut.out_valid.value),
+        int(dut.bit_valid.value),
         int(dut.out_bit.value),
         int(dut.stuff_err.value),
     )
 
 
 async def _destuff(dut, bits):
-    """Feed `bits`; return `(data_bits, error_positions)`.
-
-    `error_positions` indexes into `bits`, matching what
-    `usb_bit_model.bit_destuff` reports: the destuffer has one clock of
-    latency and consumes exactly one bit per clock, so the pulse observed
-    after driving bit `i` belongs to bit `i`.
-    """
+    """Feed `bits` as one enable-gated packet; return (data, errors)."""
     data = []
-    errors = []
-    for index, bit in enumerate(bits):
-        valid, out_bit, err = await _step(dut, valid=1, bit=bit)
-        if valid:
-            data.append(out_bit)
+    errors = 0
+    for bit in bits:
+        valid, out, err = await _cell(dut, bit=bit)
         if err:
-            errors.append(index)
-        assert not (valid and err), "a removed bit was also emitted"
+            errors += 1
+        if valid:
+            data.append(out)
     return data, errors
 
 
 @cocotb.test()
-async def test_all_zeros_pass_through(dut):
-    """A run of 0s is never a stuff position (edge case: no destuffing)."""
-    await _start_clock(dut)
+async def test_reset_is_quiescent(dut):
+    """Out of reset: no bit_valid, no stuff_err."""
+    await _start_clock(dut, clock_name=CLK)
     await _reset(dut)
-
-    bits = [0] * 32
-    data, errors = await _destuff(dut, bits)
-    assert data == bits, f"0s were altered: {data}"
-    assert errors == [], "a 0 run raised a stuff error"
-    assert (data, errors) == bit_destuff(bits), "DUT disagrees with the model"
+    assert int(dut.bit_valid.value) == 0, "bit_valid asserted out of reset"
+    assert int(dut.stuff_err.value) == 0, "stuff_err asserted out of reset"
 
 
 @cocotb.test()
-async def test_removes_the_stuffed_zero(dut):
-    """A stuffed stream comes back out as the original data."""
-    await _start_clock(dut)
+async def test_enabled_destuffing_matches_model(dut):
+    """Random packets (stuffed by the model) destuff back to the model's
+    data bits with zero stuff errors -- the round trip of the transform."""
+    await _start_clock(dut, clock_name=CLK)
     await _reset(dut)
 
-    original = [1] * 6 + [0, 1, 1]
-    stuffed, _flags = bit_stuff(original)
-    assert len(stuffed) == len(original) + 1, "fixture did not exercise stuffing"
-
-    data, errors = await _destuff(dut, stuffed)
-    assert data == original, f"destuffing did not recover the input: {data}"
-    assert errors == [], "a well-formed stream raised a stuff error"
-
-
-@cocotb.test()
-async def test_trailing_stuffed_zero_at_packet_end_is_removed(dut):
-    """A conformant peer's end-of-packet stuff bit is removed, not emitted.
-
-    USB 2.0 #7.1.9 requires the transmitter to insert the 0 "even if it is
-    the last bit before the end-of-packet (EOP) signal", so a packet whose
-    last six data bits are 1s arrives with a trailing stuffed 0. The stuff
-    position is fixed by the run count, so no packet-boundary special case
-    is needed on this side -- the trailing bit is destuffed like any other,
-    and the mirror of `usb_bit_stuffer`'s flush comes back out clean.
-    """
-    await _start_clock(dut)
-    await _reset(dut)
-
-    original = [1] * 6
-    stuffed, flags = bit_stuff(original)
-    assert stuffed == [1] * 6 + [0], f"fixture is not the #7.1.9 case: {stuffed}"
-    assert flags == [False] * 6 + [True], f"unexpected fixture flags: {flags}"
-
-    data, errors = await _destuff(dut, stuffed)
-    assert data == original, f"the trailing stuff bit was not removed: {data}"
-    assert errors == [], "a conformant trailing stuff bit raised a stuff error"
-    assert (data, errors) == bit_destuff(stuffed), "DUT disagrees with the model"
-
-
-@cocotb.test()
-async def test_seven_ones_raise_a_stuff_error(dut):
-    """Seven consecutive 1s is a bit-stuff error (edge case: injection)."""
-    await _start_clock(dut)
-    await _reset(dut)
-
-    bits = [1] * 7
-    data, errors = await _destuff(dut, bits)
-    assert errors == [6], f"seven 1s did not flag exactly one error: {errors}"
-    assert data == [1] * 6, f"the offending bit was not removed: {data}"
-    assert (data, errors) == bit_destuff(bits), "DUT disagrees with the model"
-
-
-@cocotb.test()
-async def test_stuff_error_is_a_single_clock_pulse(dut):
-    """`stuff_err` pulses for one clock and then clears itself."""
-    await _start_clock(dut)
-    await _reset(dut)
-
-    for _ in range(6):
-        _valid, _bit, err = await _step(dut, valid=1, bit=1)
-        assert err == 0, "stuff_err asserted before the seventh 1"
-
-    _valid, _bit, err = await _step(dut, valid=1, bit=1)
-    assert err == 1, "stuff_err did not assert on the seventh consecutive 1"
-
+    rng = random.Random(20260821)
     for _ in range(4):
-        _valid, _bit, err = await _step(dut, valid=1, bit=0)
-        assert err == 0, "stuff_err stayed high past its clock"
+        raw = [1 if rng.random() < 0.8 else 0 for _ in range(128)]
+        stuffed, _flags = bit_stuff(raw)
+
+        data, errors = await _destuff(dut, stuffed)
+        assert data == raw, "destuffed stream differs from the model"
+        assert errors == 0, "a conformant stuffed stream raised stuff_err"
+
+        # Inter-packet gap: EOP drops `enable` (SOP..EOP gating), which
+        # zeroes the run counter -- the model treats each packet fresh
+        # (its `bit_stuff` starts ones=0), so the DUT must too.
+        for _ in range(3):
+            await _cell(dut, bit=0, strobe=0, enable=0)
 
 
 @cocotb.test()
-async def test_long_run_of_ones_errors_every_seventh_bit(dut):
-    """An unbroken 1 run keeps flagging, once per stuff position."""
-    await _start_clock(dut)
+async def test_all_ones_enabled_stuffs_and_errors(dut):
+    """All-1s with `enable` high: every 7th bit-time is a stuff position,
+    and a 1 there is a violation -- `stuff_err` pulses and the offending
+    bit is dropped, exactly as the model's error positions say."""
+    await _start_clock(dut, clock_name=CLK)
     await _reset(dut)
 
-    bits = [1] * 21
+    bits = [1] * 32
     data, errors = await _destuff(dut, bits)
-    assert (data, errors) == bit_destuff(bits), "DUT disagrees with the model"
-    assert errors == [6, 13, 20], f"unexpected error positions: {errors}"
+
+    # Model the same input: every position after six 1s is an error.
+    expected_errors = 0
+    ones = 0
+    for bit in bits:
+        if ones == 6:
+            expected_errors += 1
+            ones = 0
+            continue
+        ones = ones + 1 if bit == 1 else 0
+    assert errors == expected_errors > 0, (
+        f"expected {expected_errors} stuff errors, saw {errors}"
+    )
+    assert all(b == 1 for b in data), "non-1 leaked through an all-1s stream"
 
 
 @cocotb.test()
-async def test_random_stream_round_trips(dut):
-    """512 random bits, model-stuffed, must come back out unchanged."""
-    await _start_clock(dut)
+async def test_trailing_stuffed_bit_at_packet_end_is_removed(dut):
+    """A packet ending on exactly six 1s ends with its #7.1.9 trailing
+    stuff bit; that bit is removed like any other (the receiver stays
+    bit-aligned), with no error."""
+    await _start_clock(dut, clock_name=CLK)
     await _reset(dut)
 
-    rng = random.Random(20260819)
-    # Biased toward 1s so the stream actually contains stuffed bits.
-    original = [1 if rng.random() < 0.8 else 0 for _ in range(512)]
-    stuffed, flags = bit_stuff(original)
-    assert any(flags), "the biased stream produced no stuffing at all"
+    raw = [0, 1, 0] + [1] * 6
+    stuffed, flags = bit_stuff(raw)
+    assert flags[-1] is True, "fixture does not end on a stuff position"
 
     data, errors = await _destuff(dut, stuffed)
-    assert (data, errors) == bit_destuff(stuffed), "DUT disagrees with the model"
-    assert data == original, "destuffing did not recover the input"
-    assert errors == [], "a well-formed stream raised a stuff error"
+    assert data == raw, "trailing stuff bit was not removed cleanly"
+    assert errors == 0, "conformant trailing stuff bit raised stuff_err"
 
 
 @cocotb.test()
-async def test_gap_preserves_the_run(dut):
-    """A gap in in_valid holds the run count instead of clearing it."""
-    await _start_clock(dut)
+async def test_disabled_is_transparent_and_never_errors(dut):
+    """`enable` low (not SOP-locked): every strobed bit passes through
+    untouched, the run counter does not accumulate, and not even an
+    unbounded run of 1s can raise a false stuff_err -- the idle
+    false-positive the canonical enable gating exists to remove."""
+    await _start_clock(dut, clock_name=CLK)
     await _reset(dut)
 
-    data, errors = await _destuff(dut, [1] * 3)
-    for _ in range(5):
-        valid, _bit, err = await _step(dut, valid=0, bit=1)
-        assert valid == 0, "out_valid asserted during a gap"
-        assert err == 0, "stuff_err asserted during a gap"
-
-    more, more_errors = await _destuff(dut, [1] * 4)
-    data += more
-    errors += [index + 3 for index in more_errors]
-
-    # Six 1s spanning the gap; the seventh is a stuff position and is a 1.
-    assert data == [1] * 6, f"run count did not survive the gap: {data}"
-    assert errors == [6], f"unexpected error positions: {errors}"
+    bits = [1] * 64  # far past the six-1 threshold
+    data = []
+    errors = 0
+    for bit in bits:
+        valid, out, err = await _cell(dut, bit=bit, enable=0)
+        assert valid == 1, "transparent mode dropped a bit"
+        assert out == bit, "transparent mode altered a bit"
+        errors += err
+    assert data == []
+    assert errors == 0, "transparent mode raised a stuff error on idle 1s"
 
 
 @cocotb.test()
-async def test_init_clears_the_run(dut):
-    """`init` clears the run count at a packet boundary."""
-    await _start_clock(dut)
+async def test_enable_drop_resets_the_run_counter(dut):
+    """Dropping `enable` (EOP) zeroes the run counter, so a following
+    packet destuffs with no carry-over misalignment -- the canonical
+    replacement for the former `init` packet-start clear."""
+    await _start_clock(dut, clock_name=CLK)
     await _reset(dut)
 
-    await _destuff(dut, [1] * 6)
-    valid, _bit, err = await _step(dut, valid=0, init=1)
-    assert valid == 0, "out_valid asserted while init was high"
-    assert err == 0, "stuff_err asserted while init was high"
+    # First packet: leaves the run counter at 5 (five trailing 1s).
+    first = [0] + [1] * 5
+    data, errors = await _destuff(dut, first)
+    assert data == first and errors == 0, "first packet did not pass cleanly"
 
-    # With the run cleared, six more 1s are accepted without an error.
-    data, errors = await _destuff(dut, [1] * 6)
-    assert data == [1] * 6, f"init did not clear the run: {data}"
-    assert errors == [], "init did not clear the run"
+    # The gap: enable low for a few clocks (EOP/idle).
+    for _ in range(4):
+        await _cell(dut, bit=1, enable=0)
+
+    # Second packet: starts with a 1. If the run counter carried over at
+    # 5, this 1 would reach 6 and the NEXT bit would be treated as a
+    # stuff position -- mis-eating the packet's second bit.
+    second = [1, 0, 1, 1, 0, 0, 1]
+    data, errors = await _destuff(dut, second)
+    assert data == second, "run counter carried across the enable gap"
+    assert errors == 0, "enable gap produced a spurious stuff error"

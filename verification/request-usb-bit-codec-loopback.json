@@ -2,10 +2,10 @@
   "schema": "klt.functional_verification.request/1",
   "engine": "icarus",
   "sources": [
-    "../rtl/usb_bit_stuffer.v",
-    "../rtl/usb_nrzi_encoder.v",
-    "../rtl/usb_nrzi_decoder.v",
-    "../rtl/usb_bit_destuffer.v",
+    "../rtl/common/usb_bit_stuffer.v",
+    "../rtl/common/usb_nrzi_encoder.v",
+    "../rtl/common/usb_nrzi_decoder.v",
+    "../rtl/common/usb_bit_destuffer.v",
     "tb_usb_bit_codec_loopback.v"
   ],
   "hdl_toplevel": "tb_usb_bit_codec_loopback",

@@ -2,7 +2,7 @@
   "schema": "klt.functional_verification.request/1",
   "engine": "icarus",
   "sources": [
-    "../rtl/usb_nrzi_encoder.v"
+    "../rtl/common/usb_nrzi_encoder.v"
   ],
   "hdl_toplevel": "usb_nrzi_encoder",
   "testbench": {

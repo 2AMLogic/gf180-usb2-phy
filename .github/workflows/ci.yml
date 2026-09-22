@@ -70,6 +70,13 @@ jobs:
       - name: npm run check:ci (lint + klt functional-verification)
         run: npm run check:ci
 
+      # Rule 9 (2am REUSE.md): the vendored copies under rtl/common/ must
+      # still byte-match their reuse.lock.json stamps. Per-repo mode --
+      # no network, no sibling checkout needed (the upstream cross-check
+      # additionally runs when a sky130-usb2-phy checkout is present).
+      - name: Reuse lock check (vendored byte-stamps)
+        run: python3 scripts/reuse-check.py .
+
       - name: Evidence-record linters, strict append-only against origin/main
         run: |
           python3 verification/check_records.py --require-append-only --base-ref origin/main

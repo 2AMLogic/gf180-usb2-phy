@@ -62,9 +62,11 @@ one place a mechanical port from sky130 would have been silently wrong:
 
 The real PHY digital logic — `rtl/usb_utmi_phy.v` (the top-level UTMI
 wrapper) and every submodule it instantiates (`usb_nrzi_encoder`,
-`usb_nrzi_decoder`, `usb_bit_stuffer`, `usb_bit_destuffer`,
-`usb_sync_detector`, `usb_eop_detector`, `usb_line_state_decode` — issues
-#31/#32) — synthesizes and place-and-routes to a committed, routed GDS
+`usb_nrzi_decoder`, `usb_bit_stuffer`, `usb_bit_destuffer` — since issue
+#84 the vendored canonical copies under `rtl/common/`, pinned by the root
+`reuse.lock.json` — plus `usb_sync_detector`, `usb_eop_detector`,
+`usb_line_state_decode` — issues #31/#32/#84) — synthesizes and
+place-and-routes to a committed, routed GDS
 under `layout/digital/`, via two chained request files:
 
 ```bash
