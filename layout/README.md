@@ -8,25 +8,29 @@ because they landed at very different maturity (issue #25, T1 checklist item
 
 `usb_utmi_phy.gds` / `usb_utmi_phy.def` / `usb_utmi_phy_routed.v` — the real
 PHY digital logic (`rtl/usb_utmi_phy.v` and every submodule it instantiates:
-`usb_nrzi_encoder`, `usb_nrzi_decoder`, `usb_bit_stuffer`,
-`usb_bit_destuffer`, `usb_sync_detector`, `usb_eop_detector`,
-`usb_line_state_decode`), synthesized (`klt synthesize`, Yosys) and
-place-and-routed (`klt place-and-route`, OpenROAD) against the gf180mcu
-`gf180mcu_fd_sc_mcu9t5v0` standard-cell library. Reproducible from a
-committed, real request-file flow — see `flow/README.md`'s "Digital
+the four vendored canonical protocol modules under `rtl/common/`
+(`usb_nrzi_encoder`, `usb_nrzi_decoder`, `usb_bit_stuffer`,
+`usb_bit_destuffer`, since #84) plus `usb_sync_detector`,
+`usb_eop_detector`, `usb_line_state_decode`), synthesized (`klt synthesize`,
+Yosys) and place-and-routed (`klt place-and-route`, OpenROAD) against the
+gf180mcu `gf180mcu_fd_sc_mcu9t5v0` standard-cell library. Reproducible from
+a committed, real request-file flow — see `flow/README.md`'s "Digital
 synthesis + place-and-route" section for the exact commands, and
-`verification/records/place-and-route/` for the measurement: 342 mapped
-standard cells becoming 1206 placed instances after tapcell/PDN/filler
-insertion, 0 setup/hold/antenna/router-DRC violations at the 12 MHz spec
-clock rate, ~68.5 MHz `fmax`, and every one of the cell library's 15 liberty
-corners (1v8, 3v3 and 5v0 families) positive on both setup and hold.
+`verification/records/place-and-route/records/20260922-042422-9ec2304.md`
+for the measurement (re-run post-#84 against the vendored sources, issue
+#87): 318 mapped standard cells becoming 1121 placed instances after
+tapcell/PDN/filler insertion, 0 setup/hold/antenna/router-DRC violations at
+the 12 MHz spec clock rate, ~51.8 MHz `fmax` at the nominal liberty corner
+(~54.8 MHz SPEF-annotated — see the post-layout PVT record), and every one
+of the cell library's 15 liberty corners (1v8, 3v3 and 5v0 families)
+positive on both setup and hold.
 
-**DRC-clean** — `verification/records/digital-drc/records/20260825-224815-6a83263.md`:
+**DRC-clean** — `verification/records/digital-drc/records/20260922-042422-9ec2304.md`:
 `klt drc --deck gf180mcu` reports `status: "clean"`, `violation_count: 0`
 against this exact GDS.
 
 **LVS-matched, power-verified** —
-`verification/records/digital-lvs/records/20260921-145814-5bee855.md`:
+`verification/records/digital-lvs/records/20260922-042422-9ec2304.md`:
 gate-level LVS of this GDS against `usb_utmi_phy_routed.v` (the as-built,
 post-CTS netlist) is a `status: "match"` **and**
 `power_connectivity.status: "match"` — every power/ground pin of every
@@ -49,7 +53,10 @@ ports) are the tool's own disclosed warnings now
 rule set, not the foundry sign-off deck; no metal/density fill is inserted, so
 this is not a density-clean claim. LVS holds the standard cells as black boxes
 — it verifies the *assembly*, not the foundry's library. There is no IO ring
-or pad frame (core-only), and no post-layout extracted-parasitic simulation.
+or pad frame (core-only). Extracted-parasitic (SPEF-annotated) STA of this
+layout is recorded separately under
+`verification/records/post-layout-pvt/` — liberty-corner timing on extracted
+digital parasitics, not a SPICE re-simulation of this netlist.
 
 **History.** Until 2026-08-25 this layout was **not** DRC-clean: 153 `Metal1`
 space/width violations at standard-cell row gaps, root-caused to

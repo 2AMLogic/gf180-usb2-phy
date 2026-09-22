@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "engine": "openroad",
+  "engine_version": "26Q3-1260-g06a5a02279",
+  "hdl_toplevel": "usb_utmi_phy",
+  "status": "ok",
+  "def_path": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-87/layout/digital/usb_utmi_phy.def",
+  "verilog_path": null,
+  "geometry_source": "routed",
+  "wire_load_model": null,
+  "wire_load_mode": null,
+  "spef_path": "/Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-87/flow/.klt/extract/usb_utmi_phy_route.spef",
+  "worst_slack_ns": 37.7904,
+  "total_negative_slack_ns": 0,
+  "worst_hold_slack_ns": 5.90006,
+  "total_negative_hold_slack_ns": 0,
+  "fmax_mhz": 21.9575,
+  "timing_status": "constrained",
+  "setup_violation_count": 0,
+  "hold_violation_count": 0,
+  "clock_skew_ns": 0.1422,
+  "estimated_power_mw": 0.1132,
+  "provenance": {
+    "klt_version": "0.5.0+ge8ca621a6961",
+    "klayout_version": "0.30.10",
+    "pdk": {
+      "name": "gf180mcuD",
+      "source": "PDK_ROOT environment variable",
+      "version": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b"
+    },
+    "deck": {
+      "name": "gf180mcu_fd_sc_mcu9t5v0__ss_125C_1v62",
+      "content_hash": "sha256:c7763daf5d8c2440207b13942e90533dbbc2b2978ed74afdc32ac460f045a630",
+      "released": false
+    },
+    "input": {
+      "content_hash": "sha256:82a57e76646067f49f4f48f796a8348b20b7e829fb8757778aed3c7900dde29e",
+      "role": "layout"
+    }
+  },
+  "spef_annotation": {
+    "nets_annotated": 342,
+    "nets_total": 986,
+    "design_nets_annotated": 342,
+    "design_nets_total": 342,
+    "design_nets_missing_sample": [],
+    "reader_warning_count": 1652,
+    "reader_warning_sample": [
+      "[WARNING STA-1650] /Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-87/flow/.klt/extract/usb_utmi_phy_route.spef line 361, net $1008 not found.",
+      "[WARNING STA-1650] /Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-87/flow/.klt/extract/usb_utmi_phy_route.spef line 384, net $1011 not found.",
+      "[WARNING STA-1650] /Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-87/flow/.klt/extract/usb_utmi_phy_route.spef line 400, net $1012 not found.",
+      "[WARNING STA-1650] /Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-87/flow/.klt/extract/usb_utmi_phy_route.spef line 412, net $1013 not found.",
+      "[WARNING STA-1650] /Users/rwalters/GitHub/gf180-usb2-phy/.loom/worktrees/issue-87/flow/.klt/extract/usb_utmi_phy_route.spef line 425, net $1014 not found."
+    ],
+    "unannotated_driver_count": 7,
+    "partially_unannotated_driver_count": 307,
+    "delay_changed": false,
+    "annotation_complete": false,
+    "annotation_warning": "read_spef discarded annotation for 1652 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); every timing path reported after read_spef is byte-identical to the same report taken before it, so this run's delays are the unannotated ones; report_parasitic_annotation found 7 driver(s) with no parasitics attached after read_spef -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+  },
+  "engine_log": {
+    "invocation_id": "21ae0af2adbd47149d67254c9cd09759",
+    "script_name": "sta_usb_utmi_phy.tcl",
+    "script_path": {
+      "path": "flow/.klt/sta/.klt/sta/sta_usb_utmi_phy.tcl",
+      "scope": "repo"
+    },
+    "script_sha256": "394bb3e600c61f599764dfb8fdbf927c9c3c8103fd001ec3e600a8a7386835e9",
+    "metrics_path": {
+      "path": "flow/.klt/sta/.klt/sta/usb_utmi_phy_metrics.json",
+      "scope": "repo"
+    },
+    "outcome": "exited",
+    "returncode": 0,
+    "directory": {
+      "path": "flow/.klt/sta/.klt/sta/openroad-logs/21ae0af2adbd47149d67254c9cd09759",
+      "scope": "repo"
+    },
+    "stdout_path": {
+      "path": "flow/.klt/sta/.klt/sta/openroad-logs/21ae0af2adbd47149d67254c9cd09759/stdout.log",
+      "scope": "repo"
+    },
+    "stderr_path": {
+      "path": "flow/.klt/sta/.klt/sta/openroad-logs/21ae0af2adbd47149d67254c9cd09759/stderr.log",
+      "scope": "repo"
+    },
+    "metadata_path": {
+      "path": "flow/.klt/sta/.klt/sta/openroad-logs/21ae0af2adbd47149d67254c9cd09759/invocation.json",
+      "scope": "repo"
+    },
+    "retention_errors": []
+  }
+}
