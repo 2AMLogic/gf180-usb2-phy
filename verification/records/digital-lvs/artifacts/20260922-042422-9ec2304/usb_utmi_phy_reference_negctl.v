@@ -307,7 +307,7 @@ module usb_utmi_phy (Reset,
  wire [2:0] \u_stuffer/run ;
  wire [3:0] \u_sync_detector/match ;
 
- gf180mcu_fd_sc_mcu9t5v0__clkinv_1 _148_ (.I(rx_receiving),
+ gf180mcu_fd_sc_mcu9t5v0__clkinv_1 _148_ (.I(_010_),
     .ZN(_010_));
  gf180mcu_fd_sc_mcu9t5v0__clkinv_1 _149_ (.I(Reset),
     .ZN(_051_));

@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "engine": "yosys",
+  "engine_version": "0.69+post",
+  "hdl_toplevel": "usb_utmi_phy",
+  "run_id": "run-28310edc84544193a936eb3410334969",
+  "status": "ok",
+  "instance_count": 318,
+  "area_um2": 12737.4912,
+  "sequential_area_um2": 5938.3296,
+  "instance_counts_by_type": {
+    "gf180mcu_fd_sc_mcu9t5v0__and2_1": 10,
+    "gf180mcu_fd_sc_mcu9t5v0__and2_2": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__and2_4": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__and3_1": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__and3_2": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__and3_4": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__and4_1": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__and4_4": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__aoi211_1": 14,
+    "gf180mcu_fd_sc_mcu9t5v0__aoi211_2": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__aoi21_1": 22,
+    "gf180mcu_fd_sc_mcu9t5v0__aoi21_2": 4,
+    "gf180mcu_fd_sc_mcu9t5v0__aoi21_4": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__aoi221_1": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__aoi22_4": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__buf_1": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__buf_2": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__buf_4": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__buf_8": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__clkbuf_12": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__clkinv_1": 32,
+    "gf180mcu_fd_sc_mcu9t5v0__dffq_1": 60,
+    "gf180mcu_fd_sc_mcu9t5v0__dffrnq_1": 11,
+    "gf180mcu_fd_sc_mcu9t5v0__dffsnq_1": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__inv_1": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__inv_2": 4,
+    "gf180mcu_fd_sc_mcu9t5v0__inv_3": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__mux2_1": 4,
+    "gf180mcu_fd_sc_mcu9t5v0__mux2_2": 11,
+    "gf180mcu_fd_sc_mcu9t5v0__mux4_1": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__nand2_1": 27,
+    "gf180mcu_fd_sc_mcu9t5v0__nand2_2": 4,
+    "gf180mcu_fd_sc_mcu9t5v0__nand2_4": 3,
+    "gf180mcu_fd_sc_mcu9t5v0__nand3_1": 4,
+    "gf180mcu_fd_sc_mcu9t5v0__nand3_2": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__nand3_4": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__nand4_1": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__nand4_4": 3,
+    "gf180mcu_fd_sc_mcu9t5v0__nor2_1": 25,
+    "gf180mcu_fd_sc_mcu9t5v0__nor2_2": 3,
+    "gf180mcu_fd_sc_mcu9t5v0__nor2_4": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__nor3_1": 10,
+    "gf180mcu_fd_sc_mcu9t5v0__nor3_2": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__nor3_4": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__nor4_1": 4,
+    "gf180mcu_fd_sc_mcu9t5v0__nor4_4": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__oai211_1": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__oai21_1": 4,
+    "gf180mcu_fd_sc_mcu9t5v0__oai221_2": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__oai22_1": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__oai31_1": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__or2_1": 4,
+    "gf180mcu_fd_sc_mcu9t5v0__or3_2": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__xnor2_1": 3,
+    "gf180mcu_fd_sc_mcu9t5v0__xnor2_4": 1,
+    "gf180mcu_fd_sc_mcu9t5v0__xor2_1": 2,
+    "gf180mcu_fd_sc_mcu9t5v0__xor2_2": 2
+  },
+  "leakage_power_nw": null,
+  "leakage_by_type_nw": null,
+  "timing": {
+    "source": "abc_stime",
+    "wire_load": null,
+    "critical_path_ps": 6383.86,
+    "delay_target_ps": null
+  },
+  "sta": null,
+  "structural": {
+    "latches": 0,
+    "expected_latches": 0,
+    "unexpected_latches": 0,
+    "comb_loops": 0,
+    "multi_driven": 0,
+    "has_critical": false
+  },
+  "warnings": {
+    "total": 0,
+    "by_category": {},
+    "representatives": []
+  },
+  "netlist_path": {
+    "path": "flow/.klt/synthesize/run-28310edc84544193a936eb3410334969/usb_utmi_phy_synth.v",
+    "scope": "repo"
+  },
+  "script_path": {
+    "path": "flow/.klt/synthesize/run-28310edc84544193a936eb3410334969/synth_usb_utmi_phy.ys",
+    "scope": "repo"
+  },
+  "run_script_path": {
+    "path": "flow/.klt/synthesize/run-28310edc84544193a936eb3410334969/synth_usb_utmi_phy.run.ys",
+    "scope": "repo"
+  },
+  "provenance": {
+    "klt_version": "0.5.0+ge8ca621a6961",
+    "klayout_version": "0.30.12",
+    "pdk": {
+      "name": "gf180mcuD",
+      "source": "PDK_ROOT environment variable",
+      "version": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b"
+    },
+    "deck": {
+      "name": "gf180mcu_fd_sc_mcu9t5v0__tt_025C_1v80",
+      "content_hash": "sha256:2482036479c89fbee3754524e3fcdb530aa40aff0fef9e9385e3bc7b7a67d4ef",
+      "released": false
+    },
+    "input": {
+      "content_hash": "sha256:6250cc7d40d90b24f939b33d2f19078214ee185c8090527eff8fc547134a4160",
+      "role": "source"
+    }
+  },
+  "equivalence": null,
+  "restructuring": null,
+  "arithmetic": null,
+  "baseline": null
+}
