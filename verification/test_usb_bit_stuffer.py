@@ -1,14 +1,24 @@
-"""cocotb testbench for `rtl/usb_bit_stuffer.v`.
+"""cocotb testbench for `rtl/common/usb_bit_stuffer.v` (vendored, issue #84).
 
-Checks the TX-side bit stuffer bit-exactly against `usb_bit_model.bit_stuff`
--- an independent Python model written from the prose rule in
-`spec/usb2-device-phy.md` #2 ("after every six consecutive 1s") -- per the
-bit-exact signoff bar in spec #11.
+Checks the TX-side bit stuffer bit-exactly against `usb_bit_model`'s
+independent Python model -- the floor `spec/usb2-device-phy.md` #11 sets for
+this block's digital logic.
 
-Sampling discipline follows `test_harness_counter.py`: drive on a
-`FallingEdge`, read on the `FallingEdge` after the `RisingEdge` under test.
-`in_ready` is combinational from internal state only, so it is stable at the
-falling edge and is sampled there, before the transfer it governs.
+The DUT is the rule-9 master's canonical interface (`bit_stb`/`bypass`/
+`sof`/`bit_in` -> combinational `bit_out`/`consume`/`stuff_pending_after`;
+sky130-usb2-phy DR-0002 Decision 3). Back-pressure inverts relative to this
+repo's former ready/valid stuffer: `consume == 0` on a strobed bit-time
+means "a stuff bit was emitted instead; hold `bit_in` and re-present it on
+the next strobe". `stuff_pending_after` is a same-cycle lookahead valid
+while `consume == 1`: the very next bit-time is mandatorily a forced stuff
+bit -- the signal the TX framer uses to discharge USB 2.0 #7.1.9's
+stuff-bit-immediately-before-EOP duty.
+
+Because the outputs are combinational, the sampling discipline differs from
+the registered-output testbenches: inputs are driven on a `FallingEdge`,
+`await ReadWrite()` lets the combinational logic settle, the outputs are
+read for the bit-time being presented, and only then does the `RisingEdge`
+commit the run-counter update.
 
 This file is *input* to `klt functional-verification` (see
 `request-usb-bit-stuffer.json`), not a pytest module.
@@ -17,266 +27,189 @@ This file is *input* to `klt functional-verification` (see
 import random
 
 import cocotb
-from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge
+from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge, Timer
 
 from cocotb_helpers import start_clock as _start_clock
-from usb_bit_model import STUFF_AFTER, bit_stuff
+from usb_bit_model import bit_stuff
 
 
 async def _reset(dut):
     dut.rst_n.value = 0
-    dut.init.value = 0
-    dut.in_valid.value = 0
-    dut.in_bit.value = 0
+    dut.bit_stb.value = 0
+    dut.bypass.value = 0
+    dut.sof.value = 0
+    dut.bit_in.value = 0
     await ClockCycles(dut.clk, 3)
     dut.rst_n.value = 1
     await FallingEdge(dut.clk)
 
 
-async def _step(dut, valid, bit=0, init=0):
-    """Drive one clock; return `(in_ready, out_valid, out_bit, out_stuffed)`.
+async def _bit_time(dut, bit=0, stb=1, sof=0, bypass=0):
+    """Present one bit-time; return (bit_out, consume, pending) for it.
 
-    `in_ready` is the value seen *before* the rising edge -- i.e. whether
-    the bit being presented was accepted on that edge.
+    The outputs are combinational on the just-driven inputs, so a 1 ps
+    settle (still safely inside the low half of the clock period) is
+    awaited before reading them -- a bare `ReadWrite()` resume can race
+    the write flush and read the pre-drive value.
     """
-    dut.init.value = init
-    dut.in_valid.value = valid
-    dut.in_bit.value = bit
-    ready = int(dut.in_ready.value)
+    dut.bypass.value = bypass
+    dut.sof.value = sof
+    dut.bit_in.value = bit
+    dut.bit_stb.value = stb
+    await Timer(1, unit="ps")
+    out = (
+        int(dut.bit_out.value),
+        int(dut.consume.value),
+        int(dut.stuff_pending_after.value),
+    )
     await RisingEdge(dut.clk)
     await FallingEdge(dut.clk)
-    return (
-        ready,
-        int(dut.out_valid.value),
-        int(dut.out_bit.value),
-        int(dut.out_stuffed.value),
+    return out
+
+
+async def _send(dut, bits, sof_first=True):
+    """Send `bits` as one packet's stuffable field (`sof` on the first bit,
+    the canonical packet-start run reset); return the emitted stream and the
+    count of stuffed bit-times."""
+    emitted = []
+    stuffed = 0
+    for i, bit in enumerate(bits):
+        # Hold `bit_in` across consume==0 cycles: the canonical protocol.
+        # Each such cycle emitted a forced stuff bit (bit_out == 0); the
+        # held data bit is accepted on the first consume==1 cycle.
+        while True:
+            result = await _bit_time(
+                dut, bit=bit, sof=1 if (sof_first and i == 0) else 0
+            )
+            emitted.append(result[0])
+            if result[1] == 1:
+                break
+            stuffed += 1
+    return emitted, stuffed
+
+
+@cocotb.test()
+async def test_reset_state_is_unstuffed(dut):
+    """Out of reset the run counter is zero: the first strobed bit is
+    consumed normally and nothing is pending."""
+    await _start_clock(dut)
+    await _reset(dut)
+
+    out, consume, pending = await _bit_time(dut, bit=0)
+    assert (out, consume, pending) == (0, 1, 0), (
+        f"reset state not clean: {(out, consume, pending)}"
     )
 
 
-async def _stuff(dut, bits, drain=4, flush=True):
-    """Feed `bits` honoring `in_ready`; return `(out_bits, stuffed_flags)`.
-
-    `bits` is treated as a whole packet, so by default the feed is followed
-    by the end-of-packet flush `rtl/usb_bit_stuffer.v`'s header specifies:
-    one clock of `in_valid` while `in_ready` is low, then deassert. That is
-    what makes USB 2.0 #7.1.9's trailing stuff bit appear, and what keeps
-    the DUT comparable bit for bit with `usb_bit_model.bit_stuff`, which has
-    a packet boundary where the streaming RTL does not.
-
-    Pass `flush=False` for a mid-stream segment (a stream that continues
-    after this call, e.g. across a gap or up to an `init`).
-    """
-    out_bits = []
-    flags = []
-    index = 0
-    # Guard against a livelock in the handshake rather than hanging the sim.
-    budget = 4 * len(bits) + 16
-    while index < len(bits):
-        budget -= 1
-        assert budget > 0, "in_ready never came back high -- handshake stalled"
-        ready, valid, bit, stuffed = await _step(dut, valid=1, bit=bits[index])
-        if valid:
-            out_bits.append(bit)
-            flags.append(bool(stuffed))
-        if ready:
-            index += 1
-    if flush and not int(dut.in_ready.value):
-        # A stuff position is pending: this clock emits it and consumes
-        # nothing, because no transfer happens while `in_ready` is low. The
-        # bit presented is a don't-care -- a 0 is used so that a wrongly
-        # consumed bit would show up as data (flag False) rather than hide
-        # inside the expected stuffed 0.
-        _ready, valid, bit, stuffed = await _step(dut, valid=1, bit=0)
-        if valid:
-            out_bits.append(bit)
-            flags.append(bool(stuffed))
-    for _ in range(drain):
-        _ready, valid, bit, stuffed = await _step(dut, valid=0)
-        if valid:
-            out_bits.append(bit)
-            flags.append(bool(stuffed))
-    return out_bits, flags
-
-
 @cocotb.test()
-async def test_all_zeros_are_never_stuffed(dut):
-    """A run of 0s passes through untouched (edge case: no stuffing)."""
+async def test_all_zeros_never_stuff(dut):
+    """A run of 0s never inserts anything (edge case: zero density)."""
     await _start_clock(dut)
     await _reset(dut)
 
-    bits = [0] * 32
-    out, flags = await _stuff(dut, bits)
-    assert out == bits, f"0s were altered: {out}"
-    assert not any(flags), "a 0 run should never insert a bit"
-    assert (out, flags) == bit_stuff(bits), "DUT disagrees with the model"
+    bits = [0] * 64
+    emitted, stuffed = await _send(dut, bits)
+    assert emitted == bits, "a 0 was altered in flight"
+    assert stuffed == 0, "a 0 run stuffed"
 
 
 @cocotb.test()
-async def test_all_ones_stuff_maximally(dut):
-    """A run of 1s stuffs a 0 after every six (edge case: max density)."""
+async def test_all_ones_stuff_every_seventh(dut):
+    """All-1s: a forced 0 every seventh bit-time, matching the model."""
     await _start_clock(dut)
     await _reset(dut)
 
-    bits = [1] * 49
-    out, flags = await _stuff(dut, bits)
-    assert (out, flags) == bit_stuff(bits), f"DUT disagrees with the model: {out}"
+    bits = [1] * 64
+    emitted, _stuffed = await _send(dut, bits)
 
-    # Independently of the model: never more than six 1s in a row on the
-    # wire, which is the whole point of the rule.
-    run = 0
-    longest = 0
-    for bit in out:
-        run = run + 1 if bit == 1 else 0
-        longest = max(longest, run)
-    assert longest == STUFF_AFTER, f"longest run of 1s emitted was {longest}"
-
-
-@cocotb.test()
-async def test_six_ones_then_zero_still_stuffs(dut):
-    """The inserted 0 is positional: it goes in even before a data 0."""
-    await _start_clock(dut)
-    await _reset(dut)
-
-    out, flags = await _stuff(dut, [1] * 6 + [0])
-    assert out == [1, 1, 1, 1, 1, 1, 0, 0], f"unexpected stuffed stream: {out}"
-    assert flags == [False] * 6 + [True, False], f"unexpected stuff flags: {flags}"
-
-
-@cocotb.test()
-async def test_trailing_run_of_six_is_not_stuffed_without_a_flush(dut):
-    """Six 1s alone stuff nothing *until* a seventh bit or a flush arrives.
-
-    This is the mid-stream case and it is correct: the stuffed 0 precedes
-    the seventh bit, so with neither a seventh bit nor a packet end there is
-    nothing yet to emit -- the run is simply still pending (`in_ready` stays
-    low, holding the position). It is *not* the packet-end case: ending a
-    packet here without flushing would violate USB 2.0 #7.1.9, which is
-    exactly why the wrapper must flush -- see
-    `test_trailing_run_of_six_is_stuffed_on_flush`.
-    """
-    await _start_clock(dut)
-    await _reset(dut)
-
-    out, flags = await _stuff(dut, [1] * 6, flush=False)
-    assert out == [1] * 6, f"a pending six-1 run was altered: {out}"
-    assert not any(flags), "an unflushed six-1 run should not stuff yet"
-    assert int(dut.in_ready.value) == 0, "the pending stuff position was not held"
-
-
-@cocotb.test()
-async def test_trailing_run_of_six_is_stuffed_on_flush(dut):
-    """A packet ending on six 1s stuffs a trailing 0 when flushed.
-
-    USB 2.0 #7.1.9: bit stuffing "is always enforced, without exception. If
-    required by the bit stuffing rules, a zero bit will be inserted even if
-    it is the last bit before the end-of-packet (EOP) signal." The stuffer
-    has no packet boundary of its own, so the framing wrapper reaches this
-    behavior by flushing it: one clock of `in_valid` while `in_ready` is
-    low, then deassert. The flush must not cost a data bit -- exactly six
-    are consumed here, and the seventh emitted bit is the inserted 0.
-    """
-    await _start_clock(dut)
-    await _reset(dut)
-
-    bits = [1] * 6
-    consumed = 0
-    for _ in range(len(bits)):
-        ready, valid, bit, stuffed = await _step(dut, valid=1, bit=1)
-        assert ready == 1, "in_ready fell before the run reached six"
-        assert valid and bit == 1 and not stuffed, "a data 1 was not passed through"
-        consumed += 1
-
-    # Packet ends here. `in_ready` is low, so the flush clock transfers
-    # nothing -- it only releases the pending stuffed 0.
-    assert int(dut.in_ready.value) == 0, "no stuff position was pending at packet end"
-    ready, valid, bit, stuffed = await _step(dut, valid=1, bit=0)
-    assert ready == 0, "the flush clock consumed a data bit"
-    assert valid and stuffed and bit == 0, f"flush emitted bit={bit} stuffed={stuffed}"
-
-    assert consumed == 6, f"the flush consumed extra data bits: {consumed}"
-    assert int(dut.in_ready.value) == 1, "in_ready did not recover after the flush"
-
-    # Same packet through the helper, checked against the golden model.
-    await _reset(dut)
-    out, flags = await _stuff(dut, bits)
-    assert out == [1] * 6 + [0], f"flushed packet is not conformant: {out}"
-    assert flags == [False] * 6 + [True], f"unexpected stuff flags: {flags}"
-    assert (out, flags) == bit_stuff(bits), "DUT disagrees with the model"
+    expected, flags = bit_stuff(bits)
+    assert emitted == expected, "stuffed stream differs from the model"
+    assert sum(flags) > 0, "model says stuffing must fire"
 
 
 @cocotb.test()
 async def test_random_stream_matches_model(dut):
-    """512 random bits, bit-exact against the model, flags included."""
+    """512 random bits (biased toward 1s so stuffing fires), bit-exact
+    against the model, with the hold-and-represent protocol exercised by
+    every inserted bit."""
     await _start_clock(dut)
     await _reset(dut)
 
-    rng = random.Random(20260818)
-    # Bias toward 1s so stuffing fires often -- a uniform stream almost
-    # never produces a six-long run of 1s.
+    rng = random.Random(20260819)
     bits = [1 if rng.random() < 0.8 else 0 for _ in range(512)]
 
-    out, flags = await _stuff(dut, bits)
-    assert (out, flags) == bit_stuff(bits), "DUT disagrees with the model"
-    assert any(flags), "the biased stream produced no stuffing at all"
+    emitted, _stuffed = await _send(dut, bits)
+    expected, flags = bit_stuff(bits)
+    assert emitted == expected, "stuffed stream differs from the model"
+    assert sum(flags) > 0, "fixture did not exercise stuffing"
+
+    # Every accepted data bit appears exactly once (the hold protocol
+    # neither loses nor duplicates): consumed == len(bits), and the
+    # emission count is data + stuff bits.
+    assert len(emitted) == len(expected)
 
 
 @cocotb.test()
-async def test_in_ready_falls_only_for_the_stuffed_bit(dut):
-    """`in_ready` deasserts for exactly one clock, per inserted bit."""
+async def test_stuff_pending_after_lookahead(dut):
+    """`stuff_pending_after` reads high exactly on the consumed cycle of
+    the sixth consecutive 1, and the very next strobed bit-time is the
+    forced stuff bit (consume == 0, bit_out == 0)."""
     await _start_clock(dut)
     await _reset(dut)
 
-    stalls = 0
-    stuffs = 0
-    previous_ready = 1
-    for _ in range(40):
-        ready, valid, _bit, stuffed = await _step(dut, valid=1, bit=1)
-        if not ready:
-            stalls += 1
-            assert previous_ready == 1, "in_ready stayed low for two clocks"
-        if valid and stuffed:
-            stuffs += 1
-        previous_ready = ready
+    for i in range(6):
+        out, consume, pending = await _bit_time(dut, bit=1, sof=1 if i == 0 else 0)
+        assert consume == 1, f"bit {i} was not consumed"
+        if i < 5:
+            assert pending == 0, f"pending fired early at bit {i}"
+        else:
+            assert pending == 1, "pending did not fire on the sixth 1"
 
-    assert stalls > 0, "a 40-bit run of 1s never stalled the source"
-    assert stalls == stuffs, f"{stalls} stalls but {stuffs} stuffed bits"
+    out, consume, pending = await _bit_time(dut, bit=1)
+    assert (out, consume, pending) == (0, 0, 0), (
+        "the bit-time after the sixth 1 was not a forced stuff bit"
+    )
 
 
 @cocotb.test()
-async def test_gap_preserves_the_run(dut):
-    """A gap in in_valid holds the run count instead of clearing it."""
+async def test_sof_resets_a_carried_run(dut):
+    """`sof` on a packet's first bit resets the consecutive-1s run even
+    when the previous stream left it maxed: no phantom stuff bit is
+    inserted, and the new stream's stuffing matches the model exactly."""
     await _start_clock(dut)
     await _reset(dut)
 
-    # Mid-stream segments: the packet is not over, so no flush.
-    out, flags = await _stuff(dut, [1] * 3, drain=0, flush=False)
-    for _ in range(5):
-        _ready, valid, _bit, _stuffed = await _step(dut, valid=0)
-        assert valid == 0, "out_valid asserted during a gap"
+    # First segment: six 1s, run left maxed -- deliberately NOT flushed.
+    for i in range(6):
+        _out, consume, _pending = await _bit_time(
+            dut, bit=1, sof=1 if i == 0 else 0
+        )
+        assert consume == 1
 
-    more, more_flags = await _stuff(dut, [1] * 4, flush=False)
-    out += more
-    flags += more_flags
-
-    # Six 1s spanning the gap, then the seventh bit forces a stuffed 0.
-    assert out == [1] * 6 + [0, 1], f"run count did not survive the gap: {out}"
-    assert flags == [False] * 6 + [True, False], f"unexpected stuff flags: {flags}"
+    # Second packet starts here: first bit presented WITH sof. If sof
+    # failed to reset the run, this strobe would emit a phantom stuff bit
+    # (consume == 0) instead of consuming the bit.
+    second = [0, 1, 1, 1, 1, 1, 1, 1, 0, 1]
+    emitted, _stuffed = await _send(dut, second)
+    expected, _flags = bit_stuff(second)
+    assert emitted == expected, (
+        "sof did not reset the carried run: second stream mis-stuffed"
+    )
 
 
 @cocotb.test()
-async def test_init_clears_the_run(dut):
-    """`init` clears the run count at a packet boundary."""
+async def test_bypass_disables_stuffing_entirely(dut):
+    """Raw/transparent mode (OpMode 2'b10's `bypass`): every bit passes
+    straight through, always consumed, never pending -- even a 64-long
+    run of 1s."""
     await _start_clock(dut)
     await _reset(dut)
 
-    # No flush: `init` is the other way a run of six ends, and the point
-    # here is that it discards the pending stuff position rather than
-    # emitting it.
-    await _stuff(dut, [1] * 6, drain=0, flush=False)
-    _ready, valid, _bit, _stuffed = await _step(dut, valid=0, init=1)
-    assert valid == 0, "out_valid asserted while init was high"
-
-    # With the run cleared, six more 1s pass through unstuffed.
-    out, flags = await _stuff(dut, [1] * 6, flush=False)
-    assert out == [1] * 6, f"init did not clear the run: {out}"
-    assert not any(flags), "init did not clear the run"
+    bits = [1] * 64
+    emitted = []
+    for bit in bits:
+        out, consume, pending = await _bit_time(dut, bit=bit, bypass=1)
+        assert consume == 1, "bypass stalled on a stuff position"
+        assert pending == 0, "bypass reported a pending stuff bit"
+        emitted.append(out)
+    assert emitted == bits, "bypass altered the bit stream"

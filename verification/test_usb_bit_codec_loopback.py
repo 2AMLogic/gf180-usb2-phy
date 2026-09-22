@@ -9,9 +9,18 @@ plan, made against real hardware on both ends rather than a model on one.
 
 The harness is testbench scaffolding, not PHY RTL, and deliberately has no
 SYNC, no EOP, no line-state decode and no UTMI ports -- see its own header.
+Since issue #84 the harness is the minimal *canonical caller* of the
+vendored modules (strobe/consume handshake, `sof` run resets, `enable`
+gating): a session is one burst of `tx_valid`, the harness itself
+discharges the #7.1.9 trailing-stuff-bit flush duty at session end, and
+the destuffer's `enable` tracks the session through a 2-clock pipeline
+delay. There is no `init` port any more -- a fresh session re-arms
+everything through the canonical `sof`/`enable` mechanisms.
 
 Sampling discipline follows `test_harness_counter.py`: drive on a
-`FallingEdge`, read on the `FallingEdge` after the `RisingEdge` under test.
+`FallingEdge` (with `await ReadWrite()` so the combinational `tx_ready`
+settles before it is read), read the registered observables on the
+`FallingEdge` after the `RisingEdge` under test.
 
 This file is *input* to `klt functional-verification` (see
 `request-usb-bit-codec-loopback.json`), not a pytest module.
@@ -20,18 +29,20 @@ This file is *input* to `klt functional-verification` (see
 import random
 
 import cocotb
-from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge
+from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge, Timer
 
 from cocotb_helpers import start_clock as _start_clock
 from usb_bit_model import bit_stuff, nrzi_encode
 
-# Stuffer -> encoder -> decoder -> destuffer, one registered stage each.
-PIPELINE_DEPTH = 4
+# Stuffer -> encoder -> decoder -> destuffer: the harness's session
+# machinery self-drains the last strobed bit through both registered
+# stages, so a couple of idle clocks after the last consumed bit-time
+# suffice to observe everything the session put on the wire.
+DRAIN_CLOCKS = 4
 
 
 async def _reset(dut):
     dut.rst_n.value = 0
-    dut.init.value = 0
     dut.tx_valid.value = 0
     dut.tx_bit.value = 0
     await ClockCycles(dut.clk, 3)
@@ -39,31 +50,35 @@ async def _reset(dut):
     await FallingEdge(dut.clk)
 
 
-async def _step(dut, valid, bit=0, init=0):
-    dut.init.value = init
+async def _step(dut, valid, bit=0):
     dut.tx_valid.value = valid
     dut.tx_bit.value = bit
+    # `tx_ready` and `tx_stuffed` are combinational on the just-driven
+    # `tx_valid` and belong to THIS bit-time; settle one scheduler round
+    # (still inside the low half of the clock period) and read them
+    # pre-edge. A post-edge read of `tx_stuffed` would report the *next*
+    # bit-time's evaluation and double-count the trailing flush.
+    await Timer(1, unit="ps")
     ready = int(dut.tx_ready.value)
+    stuffed = int(dut.tx_stuffed.value)
     await RisingEdge(dut.clk)
     await FallingEdge(dut.clk)
     return {
         "ready": ready,
         "line_valid": int(dut.line_valid.value),
         "line_bit": int(dut.line_bit.value),
-        "tx_stuffed": int(dut.tx_stuffed.value),
+        "tx_stuffed": stuffed,
         "rx_valid": int(dut.rx_valid.value),
         "rx_bit": int(dut.rx_bit.value),
         "rx_stuff_err": int(dut.rx_stuff_err.value),
     }
 
 
-async def _loopback(dut, bits, flush=True):
-    """Send `bits` through the whole path as one packet; return what came back.
-
-    The feed is followed by the end-of-packet flush `rtl/usb_bit_stuffer.v`
-    specifies -- one clock of `tx_valid` while `tx_ready` is low, then
-    deassert -- so a packet ending on six 1s puts USB 2.0 #7.1.9's trailing
-    stuffed 0 on the line. Pass `flush=False` for a mid-stream segment.
+async def _loopback(dut, bits):
+    """Send `bits` through the whole path as one session; return what came
+    back. The harness flushes a trailing stuff bit on its own when the
+    stream ends on a stuff position (USB 2.0 #7.1.9), so unlike the
+    pre-vendoring driver there is no explicit flush step here.
 
     Returns `(line_bits, stuffed_count, rx_bits, error_count)`.
     """
@@ -93,13 +108,9 @@ async def _loopback(dut, bits, flush=True):
         if sample["ready"]:
             index += 1
 
-    if flush and not int(dut.tx_ready.value):
-        # A stuff position is pending at the packet end: this clock releases
-        # it and consumes nothing, because no transfer happens while
-        # `tx_ready` is low.
-        observe(await _step(dut, valid=1, bit=0))
-
-    for _ in range(PIPELINE_DEPTH + 2):
+    # Session end: the harness spends one bit-time on the forced trailing
+    # stuff bit if one is owed, then the pipeline drains.
+    for _ in range(DRAIN_CLOCKS):
         observe(await _step(dut, valid=0))
 
     return line, stuffed, rx_bits, errors
@@ -172,12 +183,13 @@ async def test_round_trip_all_zeros(dut):
 
 @cocotb.test()
 async def test_round_trip_packet_ending_on_six_ones(dut):
-    """A packet ending on six 1s carries its #7.1.9 stuff bit and survives.
+    """A stream ending on six 1s carries its #7.1.9 stuff bit and survives.
 
-    The end-to-end statement of the packet-boundary rule: the flushed TX
-    path puts one extra 0 on the line, and the RX path removes it at the
-    same position, so the payload comes back unchanged with no stuff error.
-    Reachable in ordinary traffic -- a CRC16 residue can end in six 1s.
+    The end-to-end statement of the session-boundary rule: the harness's
+    auto-flush puts one extra 0 on the line, and the RX path removes it at
+    the same position, so the payload comes back unchanged with no stuff
+    error. Reachable in ordinary traffic -- a CRC16 residue can end in six
+    1s.
     """
     await _start_clock(dut)
     await _reset(dut)
@@ -195,8 +207,13 @@ async def test_round_trip_packet_ending_on_six_ones(dut):
 
 
 @cocotb.test()
-async def test_round_trip_after_init(dut):
-    """`init` re-arms the whole path for a second, independent stream."""
+async def test_round_trip_second_session_after_gap(dut):
+    """A second, independent session after an idle gap round-trips exactly:
+    the stuffer's `sof` re-anchors the run counter and the encoder's
+    transition reference (the canonical replacement for the former `init`
+    re-arm), and the destuffer's enable gating zeroed its run counter in
+    the gap.
+    """
     await _start_clock(dut)
     await _reset(dut)
 
@@ -205,14 +222,17 @@ async def test_round_trip_after_init(dut):
     assert rx_first == first, "first stream did not round trip"
     assert errors == 0, "first stream raised a stuff error"
 
-    await _step(dut, valid=0, init=1)
+    # The gap: a few idle clocks (no tx_valid).
+    for _ in range(3):
+        await _step(dut, valid=0)
 
     second = [1] * 9
     line, stuffed, rx_second, errors = await _loopback(dut, second)
-    assert rx_second == second, "second stream did not round trip after init"
+    assert rx_second == second, "second stream did not round trip after the gap"
     assert errors == 0, "second stream raised a stuff error"
-    assert stuffed == 1, f"unexpected stuffed-bit count after init: {stuffed}"
-    # `init` put the line back at J, so the second stream's encoding starts
-    # from the packet-start reference rather than wherever the first ended.
+    assert stuffed == 1, f"unexpected stuffed-bit count after the gap: {stuffed}"
+    # `sof` put the line reference back at J, so the second stream's
+    # encoding starts from the session-start reference rather than
+    # wherever the first ended.
     expected_stuffed, _flags = bit_stuff(second)
-    assert line == nrzi_encode(expected_stuffed), "init did not re-arm the line"
+    assert line == nrzi_encode(expected_stuffed), "sof did not re-arm the line"

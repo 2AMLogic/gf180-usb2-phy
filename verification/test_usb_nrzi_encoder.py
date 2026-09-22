@@ -1,9 +1,16 @@
-"""cocotb testbench for `rtl/usb_nrzi_encoder.v`.
+"""cocotb testbench for `rtl/common/usb_nrzi_encoder.v` (vendored, issue #84).
 
 Checks the TX-side NRZI encoder bit-exactly against `usb_bit_model`'s
 independent Python model -- the floor `spec/usb2-device-phy.md` #11 sets
 for this block's digital logic ("verified by a cocotb testbench, bit-exact
 against NRZI/bit-stuffing/... behavior").
+
+The DUT is the rule-9 master's canonical interface (`bit_stb`/`bypass`/
+`sof`/`bit_in` -> registered `level_out`; see sky130-usb2-phy DR-0002
+Decision 3): one bit-time strobe consumes `bit_in`, and `level_out` shows
+the freshly encoded level for the whole clock after that edge. There is no
+valid output -- the level is always meaningful -- so the model comparison
+is level-per-strobed-bit.
 
 Sampling discipline follows `test_harness_counter.py`: inputs are driven on
 a `FallingEdge` and outputs are read on the `FallingEdge` after the
@@ -25,41 +32,46 @@ from usb_bit_model import IDLE_J, nrzi_decode, nrzi_encode
 
 async def _reset(dut):
     dut.rst_n.value = 0
-    dut.init.value = 0
-    dut.data_valid.value = 0
-    dut.data_bit.value = 0
+    dut.bit_stb.value = 0
+    dut.bypass.value = 0
+    dut.sof.value = 0
+    dut.bit_in.value = 0
     await ClockCycles(dut.clk, 3)
     dut.rst_n.value = 1
     await FallingEdge(dut.clk)
 
 
-async def _step(dut, valid, bit=0, init=0):
-    """Drive one bit time; return `(line_valid, line_bit)` afterwards."""
-    dut.init.value = init
-    dut.data_valid.value = valid
-    dut.data_bit.value = bit
+async def _step(dut, bit=0, stb=1, sof=0, bypass=0):
+    """Drive one bit time; return `level_out` afterwards."""
+    dut.bypass.value = bypass
+    dut.sof.value = sof
+    dut.bit_stb.value = stb
+    dut.bit_in.value = bit
     await RisingEdge(dut.clk)
     await FallingEdge(dut.clk)
-    return int(dut.line_valid.value), int(dut.line_bit.value)
+    return int(dut.level_out.value)
 
 
 async def _encode(dut, bits):
-    """Push `bits` through the DUT; return the line states it emitted."""
+    """Push `bits` through the DUT, `sof` on the first; return the levels."""
     line = []
-    for bit in bits:
-        valid, state = await _step(dut, valid=1, bit=bit)
-        assert valid == 1, "line_valid low while a bit was being encoded"
-        line.append(state)
+    for i, bit in enumerate(bits):
+        # `sof` re-derives the transition reference from idle J -- the
+        # canonical packet-start behaviour (matched to nrzi_encode's
+        # default initial=IDLE_J). Asserted only on the first bit.
+        line.append(await _step(dut, bit=bit, sof=1 if i == 0 else 0))
     return line
 
 
 @cocotb.test()
 async def test_reset_idles_j(dut):
-    """Out of reset the line sits at J with nothing marked valid."""
+    """Out of reset, and un-strobed, the line sits at J."""
     await _start_clock(dut)
     await _reset(dut)
-    assert int(dut.line_bit.value) == IDLE_J, "line did not reset to J"
-    assert int(dut.line_valid.value) == 0, "line_valid asserted out of reset"
+    assert int(dut.level_out.value) == IDLE_J, "line did not reset to J"
+    # A clock with no strobe must not move the level either.
+    level = await _step(dut, bit=0, stb=0)
+    assert level == IDLE_J, "un-strobed clock moved the line"
 
 
 @cocotb.test()
@@ -98,42 +110,45 @@ async def test_random_stream_matches_model(dut):
 
     line = await _encode(dut, bits)
     assert line == nrzi_encode(bits), "DUT line stream differs from the model"
-    # Round trip: decoding the DUT's own output recovers the input exactly.
-    assert nrzi_decode(line) == bits, "NRZI round trip did not recover the input"
+    assert nrzi_decode(line) == bits, "DUT line stream is not NRZI-decodable"
 
 
 @cocotb.test()
-async def test_gap_holds_the_line(dut):
-    """With data_valid low the line holds and nothing is marked valid."""
+async def test_sof_rederives_reference_from_j(dut):
+    """`sof` re-derives this bit's transition from idle J mid-stream: after
+    the line has been driven to K, a `sof` bit re-anchors the reference, so
+    a data 1 holds at J (not at the stale K level)."""
     await _start_clock(dut)
     await _reset(dut)
 
-    await _encode(dut, [0, 1, 0])  # leaves the line somewhere non-trivial
-    held = int(dut.line_bit.value)
+    # A single 0 flips the line J -> K.
+    level = await _step(dut, bit=0)
+    assert level == 0, "first 0 did not land the line on K"
 
-    for _ in range(5):
-        valid, state = await _step(dut, valid=0)
-        assert valid == 0, "line_valid asserted during a gap"
-        assert state == held, "line moved during a gap"
-
-    # The run resumes from exactly where it left off.
-    valid, state = await _step(dut, valid=1, bit=0)
-    assert valid == 1 and state == held ^ 1, "line did not transition after the gap"
+    # sof + data 1: reference is J again, and 1 holds -> the line RETURNS
+    # to J on this very bit, where without sof it would have held at K.
+    level = await _step(dut, bit=1, sof=1)
+    assert level == IDLE_J, "sof did not re-derive the reference from J"
 
 
 @cocotb.test()
-async def test_init_returns_to_j(dut):
-    """`init` re-establishes the packet-start J reference without a reset."""
+async def test_bypass_passes_the_bit_through_raw(dut):
+    """Raw/transparent mode (OpMode 2'b10's `bypass`): `bit_in` reaches
+    `level_out` un-transformed and the transition state is not consumed."""
     await _start_clock(dut)
     await _reset(dut)
 
-    await _encode(dut, [0])  # drive the line to K
-    assert int(dut.line_bit.value) == 0, "a single 0 did not drive the line to K"
+    bits = [0, 1, 1, 0, 1, 0, 0, 1]
+    line = []
+    for bit in bits:
+        line.append(await _step(dut, bit=bit, bypass=1))
+    assert line == bits, f"bypass did not pass bits through raw: {line}"
 
-    valid, state = await _step(dut, valid=0, init=1)
-    assert valid == 0, "line_valid asserted while init was high"
-    assert state == IDLE_J, "init did not return the line to J"
-
-    # A following 1 holds J, proving the reference really was re-armed.
-    valid, state = await _step(dut, valid=1, bit=1)
-    assert valid == 1 and state == IDLE_J, "line moved off J after init"
+    # Leaving bypass, the encoder's reference is whatever bypass last put
+    # on the wire (bypass persists no transition state of its own): the
+    # next encoded 0 transitions from that raw level.
+    last_raw = bits[-1]
+    level = await _step(dut, bit=0)
+    assert level == (0 if last_raw == 1 else 1), (
+        "post-bypass transition did not start from the bypassed level"
+    )

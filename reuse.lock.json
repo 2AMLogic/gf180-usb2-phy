@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "imports": [
+    {
+      "from": "2AMLogic/sky130-usb2-phy",
+      "commit": "4f3b2c72f16672acd0227c788be1db01d41a3e96",
+      "mode": "vendored",
+      "files": [
+        {
+          "upstream": "rtl/usb_nrzi_encoder.v",
+          "local": "rtl/common/usb_nrzi_encoder.v",
+          "sha256": "9ab1f95a877aab538d13784fa02e7c260d173cac851b4c9e9fa78d25ea01bf39"
+        },
+        {
+          "upstream": "rtl/usb_nrzi_decoder.v",
+          "local": "rtl/common/usb_nrzi_decoder.v",
+          "sha256": "aa7eef14d8b00c6969ff375007ce34b960a9e2bd8f337d18590d902edad426c3"
+        },
+        {
+          "upstream": "rtl/usb_bit_stuffer.v",
+          "local": "rtl/common/usb_bit_stuffer.v",
+          "sha256": "8987568b5bf36d0bfa649c2cb8bfbe7c06a2a3c22df3491d5548820a917ce0c4"
+        },
+        {
+          "upstream": "rtl/usb_bit_destuffer.v",
+          "local": "rtl/common/usb_bit_destuffer.v",
+          "sha256": "03fc67bcec9eaece476ed46a7cb41fab4000bcd49e18cc7c7bf60f016f1ffc51"
+        }
+      ]
+    }
+  ]
+}

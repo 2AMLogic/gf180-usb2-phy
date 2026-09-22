@@ -1,10 +1,25 @@
-"""cocotb testbench for `rtl/usb_nrzi_decoder.v`.
+"""cocotb testbench for `rtl/common/usb_nrzi_decoder.v` (vendored, issue #84).
 
 Checks the RX-side NRZI decoder bit-exactly against `usb_bit_model`'s
-independent Python model, per `spec/usb2-device-phy.md` #11.
+independent Python model -- the floor `spec/usb2-device-phy.md` #11 sets for
+this block's digital logic.
 
-Sampling discipline follows `test_harness_counter.py`: drive on a
-`FallingEdge`, read on the `FallingEdge` after the `RisingEdge` under test.
+The DUT is the rule-9 master's canonical interface (`bit_strobe`/
+`bit_level`/`bit_is_jk` -> `data_strobe`/`data_bit`; sky130-usb2-phy
+DR-0002 Decision 3), on the `clk_144`/`rst_144_n` port names that are the
+master's domain vocabulary -- driven here at this repo's 12 MHz interface
+clock, one bit per strobe (see `rtl/usb_utmi_phy.v`'s header and
+`spec/decisions/0002`).
+
+`bit_is_jk` is load-bearing and gets its own tests: NRZI is defined only
+over the two valid differential states, so a bit cell flagged not-J/K (EOP's
+SE0 bit times, a bus reset, illegal SE1) must produce no `data_strobe`, no
+`data_bit` update, and no `prev_level` update -- the decode resumes
+correctly from the true reference on the next genuine J/K cell.
+
+Sampling discipline follows `test_harness_counter.py`: inputs are driven on
+a `FallingEdge` and outputs are read on the `FallingEdge` after the
+`RisingEdge` under test.
 
 This file is *input* to `klt functional-verification` (see
 `request-usb-nrzi-decoder.json`), not a pytest module.
@@ -16,122 +31,121 @@ import cocotb
 from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge
 
 from cocotb_helpers import start_clock as _start_clock
-from usb_bit_model import IDLE_J, nrzi_decode, nrzi_encode
+from usb_bit_model import IDLE_J, nrzi_encode
+
+# The vendored module's clock/reset port names (the master's 144 MHz
+# oversampling-domain vocabulary, instantiated here on the 12 MHz
+# interface clock -- see this file's docstring).
+CLK = "clk_144"
+RST_N = "rst_144_n"
 
 
 async def _reset(dut):
-    dut.rst_n.value = 0
-    dut.init.value = 0
-    dut.line_valid.value = 0
-    dut.line_bit.value = IDLE_J
-    await ClockCycles(dut.clk, 3)
-    dut.rst_n.value = 1
-    await FallingEdge(dut.clk)
+    getattr(dut, RST_N).value = 0
+    dut.bit_strobe.value = 0
+    dut.bit_level.value = IDLE_J
+    dut.bit_is_jk.value = 0
+    await ClockCycles(getattr(dut, CLK), 3)
+    getattr(dut, RST_N).value = 1
+    await FallingEdge(getattr(dut, CLK))
 
 
-async def _step(dut, valid, line=IDLE_J, init=0):
-    """Present one sampled line state; return `(data_valid, data_bit)`."""
-    dut.init.value = init
-    dut.line_valid.value = valid
-    dut.line_bit.value = line
-    await RisingEdge(dut.clk)
-    await FallingEdge(dut.clk)
-    return int(dut.data_valid.value), int(dut.data_bit.value)
+async def _sample(dut, level, is_jk=1, strobe=1):
+    """Present one recovered bit cell; return `(data_strobe, data_bit)`."""
+    dut.bit_is_jk.value = is_jk
+    dut.bit_strobe.value = strobe
+    dut.bit_level.value = level
+    await RisingEdge(getattr(dut, CLK))
+    await FallingEdge(getattr(dut, CLK))
+    return int(dut.data_strobe.value), int(dut.data_bit.value)
 
 
 async def _decode(dut, line_bits):
-    """Push a line stream through the DUT; return the recovered data bits."""
-    data = []
-    for state in line_bits:
-        valid, bit = await _step(dut, valid=1, line=state)
-        assert valid == 1, "data_valid low while a bit was being decoded"
-        data.append(bit)
-    return data
+    """Feed `line_bits` as J/K cells; return the decoded data bits."""
+    out = []
+    for level in line_bits:
+        strobe, bit = await _sample(dut, level)
+        assert strobe == 1, "data_strobe low for a genuine J/K cell"
+        out.append(bit)
+    return out
 
 
 @cocotb.test()
-async def test_reset_is_quiet(dut):
-    """Out of reset nothing is marked valid."""
-    await _start_clock(dut)
+async def test_reset_is_quiescent(dut):
+    """Out of reset: no data_strobe until a J/K cell is strobed in."""
+    await _start_clock(dut, clock_name=CLK)
     await _reset(dut)
-    assert int(dut.data_valid.value) == 0, "data_valid asserted out of reset"
+    assert int(dut.data_strobe.value) == 0, "data_strobe asserted out of reset"
+
+    strobe, _bit = await _sample(dut, IDLE_J, strobe=0)
+    assert strobe == 0, "an un-strobed clock produced data_strobe"
 
 
 @cocotb.test()
-async def test_no_transitions_decode_to_ones(dut):
-    """A line held at J with no transitions decodes to a run of 1s.
-
-    This is the "idle / hold" edge case from the issue's test plan: it is
-    correct NRZI behavior, not an error. Detecting an over-long run of 1s
-    is `usb_bit_destuffer`'s job, not this module's.
-    """
-    await _start_clock(dut)
-    await _reset(dut)
-
-    data = await _decode(dut, [IDLE_J] * 32)
-    assert data == [1] * 32, f"a static J line did not decode to 1s: {data}"
-    assert data == nrzi_decode([IDLE_J] * 32), "DUT disagrees with the model"
-
-
-@cocotb.test()
-async def test_transition_every_bit_decodes_to_zeros(dut):
-    """A line that transitions on every bit decodes to a run of 0s."""
-    await _start_clock(dut)
+async def test_idle_line_decodes_to_ones(dut):
+    """A line with no transitions at all (idle J) decodes to a run of 1s --
+    correct NRZI behaviour, not an error (the destuffer judges runs)."""
+    await _start_clock(dut, clock_name=CLK)
     await _reset(dut)
 
-    line = [i % 2 for i in range(32)]  # K, J, K, ... away from idle J
-    data = await _decode(dut, line)
-    assert data == [0] * 32, f"an alternating line did not decode to 0s: {data}"
-    assert data == nrzi_decode(line), "DUT disagrees with the model"
+    bits = await _decode(dut, [IDLE_J] * 32)
+    assert bits == [1] * 32, f"idle J did not decode to 1s: {bits}"
 
 
 @cocotb.test()
-async def test_random_stream_round_trips(dut):
-    """512 random bits, model-encoded, must come back out unchanged."""
-    await _start_clock(dut)
+async def test_alternating_line_decodes_to_zeros(dut):
+    """A transition on every cell recovers all 0s (edge case: max density)."""
+    await _start_clock(dut, clock_name=CLK)
+    await _reset(dut)
+
+    line = [i % 2 for i in range(32)]
+    bits = await _decode(dut, line)
+    assert bits == [0] * 32, f"alternating line did not decode to 0s: {bits}"
+
+
+@cocotb.test()
+async def test_random_stream_matches_model(dut):
+    """512 random bits round-trip through the model's own encoder first,
+    then decode bit-exactly back."""
+    await _start_clock(dut, clock_name=CLK)
     await _reset(dut)
 
     rng = random.Random(20260817)
     bits = [rng.getrandbits(1) for _ in range(512)]
     line = nrzi_encode(bits)
 
-    data = await _decode(dut, line)
-    assert data == nrzi_decode(line), "DUT disagrees with the model"
-    assert data == bits, "NRZI round trip did not recover the input"
+    got = await _decode(dut, line)
+    assert got == bits, "DUT decode differs from the model"
 
 
 @cocotb.test()
-async def test_gap_is_ignored(dut):
-    """A gap in line_valid emits nothing and does not disturb the reference."""
-    await _start_clock(dut)
+async def test_se0_cells_never_decode_as_data(dut):
+    """`bit_is_jk` low (SE0/SE1 cells: EOP, bus reset) produces no
+    data_strobe and leaves the reference untouched -- the decode after the
+    gap continues from the pre-gap line level, not from a phantom update.
+
+    This is the property EOP correctness rests on: an EOP's two SE0 bit
+    times must not decode as data bits appended to the packet."""
+    await _start_clock(dut, clock_name=CLK)
     await _reset(dut)
 
-    # Two transitions -> two 0s; the reference is now K.
-    assert await _decode(dut, [0, 1]) == [0, 0]
+    # Pre-gap: drive the line to K (a 0 from idle J).
+    strobe, bit = await _sample(dut, 0)
+    assert (strobe, bit) == (1, 0), "pre-gap transition did not decode to 0"
 
-    for _ in range(5):
-        # Wiggle line_bit during the gap: with line_valid low it must not
-        # be latched as the transition reference.
-        valid, _bit = await _step(dut, valid=0, line=0)
-        assert valid == 0, "data_valid asserted during a gap"
-        valid, _bit = await _step(dut, valid=0, line=1)
-        assert valid == 0, "data_valid asserted during a gap"
+    # The gap: two not-J/K cells (EOP's SE0 pair), strobed but flagged.
+    for _ in range(2):
+        strobe, _bit = await _sample(dut, 0, is_jk=0)
+        assert strobe == 0, "a not-J/K cell produced data_strobe"
 
-    # Reference is still J (the last valid line state), so J decodes to 1.
-    valid, bit = await _step(dut, valid=1, line=1)
-    assert valid == 1 and bit == 1, "reference was disturbed by the gap"
+    # Post-gap: line still at K. A 1 (hold) must decode as 1 -- proof the
+    # SE0 cells did not corrupt `prev_level` (a phantom update to the SE0
+    # level would make this a transition -> a spurious 0).
+    strobe, bit = await _sample(dut, 0)
+    assert (strobe, bit) == (1, 1), (
+        "SE0 cells corrupted the transition reference"
+    )
 
-
-@cocotb.test()
-async def test_init_rearms_the_j_reference(dut):
-    """`init` restores the packet-start J reference without a reset."""
-    await _start_clock(dut)
-    await _reset(dut)
-
-    await _decode(dut, [0])  # reference is now K
-    valid, _bit = await _step(dut, valid=0, init=1)
-    assert valid == 0, "data_valid asserted while init was high"
-
-    # With the reference back at J, a J line state decodes to 1.
-    valid, bit = await _step(dut, valid=1, line=IDLE_J)
-    assert valid == 1 and bit == 1, "init did not restore the J reference"
+    # And a genuine transition right after the gap still decodes to 0.
+    strobe, bit = await _sample(dut, 1)
+    assert (strobe, bit) == (1, 0), "post-gap transition lost"

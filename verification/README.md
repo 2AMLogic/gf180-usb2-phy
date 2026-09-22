@@ -57,44 +57,67 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   per spec §3) and `start_clock(dut)` coroutine that every testbench in this
   directory needs, extracted once here rather than redefined in each file
   (issue #44); imported as
-  `from cocotb_helpers import start_clock as _start_clock`. `_reset(dut)` is
+  `from cocotb_helpers import start_clock as _start_clock`. The
+  `clock_name` parameter exists for the two vendored modules whose clock
+  ports are named `clk_144` (the master's domain vocabulary — same 12 MHz
+  clock here; see `spec/decisions/0002`). `_reset(dut)` is
   deliberately *not* consolidated alongside it -- see its own docstring.
 - `test_usb_nrzi_encoder.py` / `request-usb-nrzi-encoder.json` — cocotb
-  testbench for `rtl/usb_nrzi_encoder.v`: reset-to-J, all-1s (a static
-  line), all-0s (a transition every bit), a 512-bit randomized bit-exact
-  cross-check against the model plus an NRZI round trip, `data_valid` gaps,
-  and `init`.
+  testbench for `rtl/common/usb_nrzi_encoder.v` (vendored, canonical
+  `bit_stb`/`bypass`/`sof`/`bit_in` → `level_out` interface): reset-to-J,
+  all-1s (a static line), all-0s (a transition every bit), a 512-bit
+  randomized bit-exact cross-check against the model plus an NRZI round
+  trip, un-strobed clocks holding the level, `sof` re-deriving the
+  transition reference from idle J mid-stream, and `bypass` passing bits
+  through raw.
 - `test_usb_nrzi_decoder.py` / `request-usb-nrzi-decoder.json` — cocotb
-  testbench for `rtl/usb_nrzi_decoder.v`: a line with no transitions at all
-  (the idle/hold case, which correctly decodes to 1s), a transition every
-  bit, a 512-bit randomized round trip, `line_valid` gaps (including
-  wiggling the line during the gap to prove the transition reference is not
-  disturbed), and `init`.
+  testbench for `rtl/common/usb_nrzi_decoder.v` (vendored, canonical
+  `bit_strobe`/`bit_level`/`bit_is_jk` → `data_strobe`/`data_bit`
+  interface, on the `clk_144`/`rst_144_n` port names): a line with no
+  transitions at all (the idle/hold case, which correctly decodes to 1s), a
+  transition every bit, a 512-bit randomized round trip, and — the
+  canonical `bit_is_jk` gating — SE0/SE1 cells producing no `data_strobe`
+  and leaving the transition reference untouched (the property EOP
+  correctness rests on).
 - `test_usb_bit_stuffer.py` / `request-usb-bit-stuffer.json` — cocotb
-  testbench for `rtl/usb_bit_stuffer.v`: all-0s (never stuffs), all-1s
-  (maximal stuffing density, and never more than six 1s emitted in a row),
-  the positional insertion before a data 0, the "stream ends on exactly six
-  1s" boundary, a 512-bit 1-biased randomized cross-check, the `in_ready`
-  backpressure contract (one stall per inserted bit, never two clocks in a
-  row), run-count survival across a gap, and `init`.
+  testbench for `rtl/common/usb_bit_stuffer.v` (vendored, canonical
+  `bit_stb`/`bypass`/`sof`/`bit_in` → combinational `bit_out`/`consume`/
+  `stuff_pending_after` interface): all-0s (never stuffs), all-1s (maximal
+  stuffing density), a 512-bit 1-biased randomized cross-check exercising
+  the hold-and-represent protocol at every inserted bit, the
+  `stuff_pending_after` lookahead (high exactly on the consumed sixth 1,
+  the next strobe the forced stuff bit), `sof` resetting a carried run at
+  a fresh packet's first bit (no phantom stuff), and `bypass` disabling
+  stuffing entirely.
 - `test_usb_bit_destuffer.py` / `request-usb-bit-destuffer.json` — cocotb
-  testbench for `rtl/usb_bit_destuffer.v`: all-0s, stuffed-bit removal,
-  **stuff-error injection** (seven consecutive 1s → a one-clock `stuff_err`
-  pulse, re-flagged at every subsequent stuff position in a long 1 run), a
-  512-bit 1-biased randomized round trip, run-count survival across a gap,
-  and `init`.
+  testbench for `rtl/common/usb_bit_destuffer.v` (vendored, canonical
+  `enable`/`data_strobe`/`data_bit` → `bit_valid`/`out_bit`/`stuff_err`
+  interface, on the `clk_144`/`rst_144_n` port names): enabled destuffing
+  against the model, **stuff-error injection** (a 1 in a mandatory stuff
+  position → `stuff_err`, the offending bit dropped), the trailing stuffed
+  bit at a packet end removed cleanly, `enable` low as a transparent
+  pass-through that never accumulates and can never raise a false
+  stuff_err on unbounded idle 1s, and an `enable` drop zeroing the run
+  counter for the next packet (the canonical replacement for the former
+  `init`).
 - `tb_usb_bit_codec_loopback.v` — **testbench scaffolding, not PHY RTL**
   (which is why it lives here and not in `rtl/`): a structural harness
   wiring the whole TX path (stuffer → NRZI encoder) into the whole RX path
   (NRZI decoder → destuffer), so one Icarus elaboration can carry an
-  RTL-to-RTL round-trip claim rather than an RTL-against-model one. It is
-  explicitly *not* the top-level digital wrapper — no SYNC, no EOP, no
+  RTL-to-RTL round-trip claim rather than an RTL-against-model one. Since
+  issue #84 it is the minimal *canonical caller* of the vendored modules:
+  a session is one `tx_valid` burst, it discharges the #7.1.9
+  trailing-stuff-bit flush duty itself, and it derives the destuffer's
+  `enable` by delaying the session strobe by the TX→RX pipeline depth. It
+  is explicitly *not* the top-level digital wrapper — no SYNC, no EOP, no
   line-state decode, no UTMI ports.
 - `test_usb_bit_codec_loopback.py` / `request-usb-bit-codec-loopback.json`
   — cocotb testbench for that harness: a 512-bit 1-biased random stream,
   all-1s (which also checks the line never holds the same state for more
-  than seven bit times — the entire point of bit stuffing), all-0s, and a
-  second stream after `init`.
+  than seven bit times — the entire point of bit stuffing), all-0s, the
+  "stream ends on exactly six 1s" boundary (the harness's auto-flush puts
+  the #7.1.9 trailing stuff bit on the wire), and a second independent
+  session after an idle gap (the canonical `sof`/`enable` re-arm).
 
 ### SYNC/EOP framing, line-state decode, and the top-level UTMI wrapper (`spec/usb2-device-phy.md` §2/§3/§4)
 
@@ -124,16 +147,20 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   port, the TX SYNC field's exact KJKJKJKK wire pattern, the TX EOP tail's
   exact SE0,SE0,J wire pattern, a single-byte TX→wire→RX self-loopback
   round trip, a multi-byte round trip that forces bit stuffing (cross-checked
-  against `usb_bit_model.py`'s `bit_stuff`/`nrzi_encode`), a packet whose
-  pre-stuff bit stream ends on exactly six 1s (USB 2.0 §7.1.9's mandatory
-  trailing-stuff-bit case, exercising the wrapper's flush-before-EOP path),
-  two packets sent back to back with the minimum possible inter-packet gap,
-  and a malformed/missing SYNC pattern that must never assert
-  `RxActive`/`RxValid` (bit-lock failure fails safe). The RX-side claim
-  uses self-loopback (the Python driver mirrors the DUT's own `txdp`/`txdm`
-  onto its own `rxdp`/`rxdm` each clock) rather than a second structural
-  harness file, since the module under test is already the real top-level
-  wrapper.
+  against `usb_bit_model.py`'s `bit_stuff`/`nrzi_encode`), a payload
+  opening with a run of 1s pinning the canonical stuffing scope (stuff
+  after the sixth payload one, not five — SYNC never reaches the stuffer),
+  a packet whose payload bit stream ends on exactly six 1s (USB 2.0
+  §7.1.9's mandatory trailing-stuff-bit case, exercising the wrapper's
+  `stuff_pending_after`-decided TX_FLUSH-before-EOP path), raw mode
+  (`OpMode 2'b10`: payload on the wire un-stuffed and un-NRZI-encoded,
+  SYNC still framed), two packets sent back to back with the minimum
+  possible inter-packet gap, and a malformed/missing SYNC pattern that
+  must never assert `RxActive`/`RxValid` (bit-lock failure fails safe).
+  The RX-side claim uses self-loopback (the Python driver mirrors the
+  DUT's own `txdp`/`txdm` onto its own `rxdp`/`rxdm` each clock) rather
+  than a second structural harness file, since the module under test is
+  already the real top-level wrapper.
 
 ### Harness smoke test
 
