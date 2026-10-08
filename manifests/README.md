@@ -144,7 +144,7 @@ citing set the item's own text requires:
   not require one, and this citation does not claim it:
   `klt functional-verification` envelopes record no `provenance` and
   cannot be freshness-pinned, and SDF gate-level verification is tracked
-  separately by #93. **Item 5.analog stays `unmet`/`no_evidence`**
+  separately by #93 (attempted; blocked, see item 7 below). **Item 5.analog stays `unmet`/`no_evidence`**
   (parked on klayout-tools#1962).
 - **Item 11.digital, power delivery (structural) — cited, `met`** — the
   first T1 item no single artifact proves, so its manifest entry is a
@@ -211,7 +211,12 @@ repo's rule that an envelope must actually support the item to be cited:
   layout exists to extract; the digital flow has SPEF-annotated STA
   (item-5-shaped evidence, deliberately not this item's) but no
   SDF-annotated `klt functional-verification` run. Tracked by #53 and
-  the analog `layout/README.md` narrative.
+  the analog `layout/README.md` narrative. **7.digital was attempted in
+  issue #93 and is still `unmet`:** record
+  `post-layout-functional/20261008-211700-2875d57` shows the zero-delay
+  gate-level replay passing 10/10 but the SDF annotation being rejected by
+  the pinned `klt` (klayout-tools#2885), so no annotated response exists
+  and no `"7.digital"` entry is cited.
 - **Item 11.analog** (power delivery, structural, analog partition) — no
   analog layout exists, so no `klt erc` supply run has anything to grade:
   `unmet`/`no_evidence`. The digital partition's `met` state is the

@@ -1,0 +1,22 @@
+{
+  "schema": "klt.functional_verification.request/1",
+  "engine": "icarus",
+  "sources": [
+    "../layout/digital/usb_utmi_phy_routed.v",
+    ".pdk-models/primitives.v",
+    ".pdk-models/gf180mcu_fd_sc_mcu9t5v0.v"
+  ],
+  "hdl_toplevel": "usb_utmi_phy",
+  "testbench": {
+    "module": "test_usb_utmi_phy",
+    "testcase": null
+  },
+  "options": {
+    "coverage": false,
+    "timescale": [
+      "1ns",
+      "1ps"
+    ],
+    "random_seed": 1
+  }
+}

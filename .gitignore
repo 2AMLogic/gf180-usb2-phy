@@ -111,3 +111,6 @@ results_icarus.xml
 # digital LVS scratch (scripts/digital_lvs.py) -- the committed evidence
 # lives under verification/records/digital-lvs/ instead
 layout/digital/lvs/
+
+# gate-level replay: staged PDK Verilog cell models (symlinks, see verification/README.md)
+verification/.pdk-models/

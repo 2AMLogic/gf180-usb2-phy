@@ -30,6 +30,8 @@ This file is *input* to `klt functional-verification` (see
 `request-usb-utmi-phy.json`), not a pytest module.
 """
 
+import os
+
 import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge
@@ -39,6 +41,14 @@ from usb_bit_model import bit_stuff, nrzi_encode
 # spec/usb2-device-phy.md #3 ratifies a 12 MHz interface clock. See
 # test_usb_nrzi_encoder.py for why 83334 ps rather than 83333 ps.
 CLK_PERIOD_PS = 83334
+
+# Negative-control hook (issue #93). The gate-level SDF regression's negative
+# control replays this *same* suite with only the interface clock period
+# shortened, to show the regression fails when timing is broken. This file
+# starts its own clock (it does not use `cocotb_helpers.start_clock`), so the
+# override has to live here. Unset (the default, and every committed RTL and
+# nominal gate-level run) the period is the ratified 12 MHz one above.
+CLK_PERIOD_PS_OVERRIDE_ENV = "USB_UTMI_PHY_TB_CLK_PERIOD_PS"
 
 SYNC_BYTE = 0x80
 
@@ -76,8 +86,13 @@ def _byte_to_bits_list(payload_bytes):
     return bits
 
 
+def _clock_period_ps():
+    override = os.environ.get(CLK_PERIOD_PS_OVERRIDE_ENV)
+    return int(override) if override else CLK_PERIOD_PS
+
+
 async def _start_clock(dut):
-    cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_PS, unit="ps").start())
+    cocotb.start_soon(Clock(dut.clk, _clock_period_ps(), unit="ps").start())
 
 
 async def _reset(dut):
@@ -119,12 +134,16 @@ async def _drive_packets(dut, packets, cycles, loopback=True):
     even though none of them may have finished being shifted onto the wire
     yet). Deciding "safe to start the next packet" therefore cannot use a
     bare `TxReady` pulse -- that fires throughout the tail of the *current*
-    packet's shifting too. This driver reads `tx_state` (internal, whitebox)
-    directly instead, since `TX_IDLE` is the only state where starting a
-    new packet is safe, and its encoded value 0 is stable API for this
-    testbench.
+    packet's shifting too. Starting the next packet is safe only once the
+    PHY is back in `TX_IDLE`, which this driver recognizes from the ports
+    alone (issue #93: a synthesized/routed netlist has no `tx_state` of the
+    RTL's encoding -- the flow re-encodes it one-hot): the previous packet's
+    EOP tail (SE0, SE0, J) has been seen on `txdp`/`txdm`, and `TxReady` is
+    high again. The EOPJ state itself holds `TxReady` low, so `TxReady`
+    returning high after the tail is exactly the first `TX_IDLE` sample --
+    the same sample the former whitebox `tx_state == TX_IDLE` read fired on.
     """
-    TX_IDLE_STATE = 0
+    EOP_TAIL = [(0, 0), (0, 0), (1, 0)]
     packets = [list(p) for p in packets]
     pkt_idx = 0
     byte_idx = 0
@@ -156,7 +175,11 @@ async def _drive_packets(dut, packets, cycles, loopback=True):
             byte_idx += 1
             if byte_idx == len(packets[pkt_idx]):
                 ended_current = True
-        elif ended_current and int(dut.tx_state.value) == TX_IDLE_STATE:
+        elif (
+            ended_current
+            and dpdm[-3:] == EOP_TAIL
+            and int(dut.TxReady.value) == 1
+        ):
             pkt_idx += 1
             byte_idx = 0
             ended_current = False
