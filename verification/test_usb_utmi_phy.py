@@ -440,3 +440,249 @@ async def test_malformed_sync_never_activates_rx(dut):
         await FallingEdge(dut.clk)
         assert int(dut.RxActive.value) == 0
         assert int(dut.RxValid.value) == 0
+
+
+# ---------------------------------------------------------------------------
+# RX stuffing-error propagation and recovery (issue #118)
+#
+# Independent wire stimulus: the receive pins are driven directly from the
+# bit-level model (`usb_bit_model`), not looped back from the DUT's own TX
+# path, because TX can only ever emit correctly stuffed frames. No new error
+# semantics are invented: the wrapper's contract under test is the existing
+# one -- `RxError` is the destuffer's `stuff_err` (a seventh consecutive 1 in
+# the decoded stream) registered and gated by `rx_receiving`; `RxActive`
+# falls on EOP; byte assembly is cleared whenever reception ends.
+# ---------------------------------------------------------------------------
+
+SE0_CELL = (0, 0)
+J_CELL = (1, 0)
+IDLE_LEAD = 6          # idle J clocks before a frame
+IDLE_TAIL = 14         # idle J clocks after EOP (EOP detector + pipeline drain)
+# Upper bound, in clocks after the first SE0 cell is presented, by which
+# RxActive must have fallen (2 SE0 cells to qualify the EOP + registered
+# pulse + `rx_receiving` clear). Finite and small; not a timing claim beyond
+# "terminates promptly".
+RX_ACTIVE_FALL_BOUND = 6
+
+
+def _rx_frame_cells(body_bits, eop=True):
+    """Wire cells for SYNC + `body_bits` (already stuffed/violated as the
+    caller wants) NRZI-encoded from idle J, then SE0,SE0,J if `eop`."""
+    line = nrzi_encode(_byte_to_bits(SYNC_BYTE) + list(body_bits))
+    cells = [_line_to_dpdm(b) for b in line]
+    if eop:
+        cells += [SE0_CELL, SE0_CELL, J_CELL]
+    return cells
+
+
+def _good_body(payload):
+    stuffed, _flags = bit_stuff(_byte_to_bits_list(payload))
+    return stuffed
+
+
+async def _drive_rx_cells(dut, cells, trace=None):
+    """Present `cells` on rxdp/rxdm, one per clock, sampling the UTMI RX
+    outputs after each edge. Appends to `trace` (a dict of lists) and
+    returns it."""
+    if trace is None:
+        trace = {"active": [], "error": [], "valid": [], "bytes": [], "cells": []}
+    for dp, dm in cells:
+        dut.rxdp.value = dp
+        dut.rxdm.value = dm
+        await RisingEdge(dut.clk)
+        await FallingEdge(dut.clk)
+        trace["cells"].append((dp, dm))
+        trace["active"].append(int(dut.RxActive.value))
+        trace["error"].append(int(dut.RxError.value))
+        v = int(dut.RxValid.value)
+        trace["valid"].append(v)
+        if v:
+            trace["bytes"].append(int(dut.DataIn.value))
+    return trace
+
+
+async def _drive_rx_frame(dut, body_bits, trace=None):
+    cells = ([J_CELL] * IDLE_LEAD + _rx_frame_cells(body_bits)
+             + [J_CELL] * IDLE_TAIL)
+    return await _drive_rx_cells(dut, cells, trace)
+
+
+def _assert_rx_terminated(trace, what):
+    """RxActive is low at the end of the trace and fell within the bound
+    after the first SE0 cell of the EOP."""
+    assert trace["active"][-1] == 0, f"{what}: RxActive still high after EOP"
+    first_se0 = trace["cells"].index(SE0_CELL)
+    window = trace["active"][first_se0:first_se0 + RX_ACTIVE_FALL_BOUND + 1]
+    assert 0 in window, (
+        f"{what}: RxActive did not fall within {RX_ACTIVE_FALL_BOUND} clocks "
+        f"of EOP: {window}"
+    )
+
+
+async def _assert_clean_packet(dut, payload, what):
+    trace = await _drive_rx_frame(dut, _good_body(payload))
+    assert trace["bytes"] == payload, f"{what}: bytes {trace['bytes']} != {payload}"
+    assert not any(trace["error"]), f"{what}: RxError inherited / spurious"
+    assert any(trace["active"]), f"{what}: RxActive never asserted"
+    _assert_rx_terminated(trace, what)
+    return trace
+
+
+@cocotb.test()
+async def test_rx_clean_wire_packet_has_no_error(dut):
+    """Control: the independent wire driver, with correct stuffing (including
+    a mid-byte stuffed 0 and the #7.1.9 trailing stuffed 0), yields exact
+    bytes and no RxError -- so a pulse in the tests below is caused by the
+    injected violation, not by the stimulus."""
+    await _start_clock(dut)
+    await _reset(dut)
+
+    await _assert_clean_packet(dut, [0x00, 0xFF, 0xA5], "mid-byte stuff control")
+    await _assert_clean_packet(dut, [0x00, 0xFC], "trailing stuff control")
+
+
+@cocotb.test()
+async def test_rx_missing_stuff_bit_mid_byte_reaches_rxerror(dut):
+    """Delete the stuffed 0 from inside a byte (0xFF: six 1s, [0], 1, 1): the
+    decoded stream carries a seventh consecutive 1 while RxActive is high.
+    RxError must pulse (exactly once, during active reception), RxActive must
+    terminate, and the next clean packet must receive exact bytes with no
+    inherited error."""
+    await _start_clock(dut)
+    await _reset(dut)
+
+    payload = [0x00, 0xFF, 0xA5]
+    stuffed, flags = bit_stuff(_byte_to_bits_list(payload))
+    stuff_pos = flags.index(True)
+    bad = stuffed[:stuff_pos] + stuffed[stuff_pos + 1:]
+    assert bad != stuffed
+
+    trace = await _drive_rx_frame(dut, bad)
+    pulses = [i for i, e in enumerate(trace["error"]) if e]
+    assert len(pulses) == 1, f"expected exactly one RxError pulse, got {pulses}"
+    assert trace["active"][pulses[0]] == 1, "RxError pulsed outside active reception"
+    first_se0 = trace["cells"].index(SE0_CELL)
+    assert pulses[0] < first_se0, "RxError arrived after EOP began, not mid-packet"
+
+    # Timing derived from the interface: the violating bit is the 7th 1 of
+    # the run, i.e. bad[stuff_pos] at wire cell (IDLE_LEAD + 8 + stuff_pos),
+    # the first body cell after SYNC being IDLE_LEAD + 8. The error is a
+    # registered chain (decoder -> destuffer -> RxError), so it must follow
+    # that cell by a small, fixed number of clocks.
+    violating_cell = IDLE_LEAD + 8 + stuff_pos
+    latency = pulses[0] - violating_cell
+    assert 0 <= latency <= 4, f"RxError latency {latency} from the violating cell"
+    dut._log.info(f"RxError latency from violating wire cell: {latency} clocks")
+
+    _assert_rx_terminated(trace, "mid-byte violation packet")
+
+    # Recovery: nothing leaks into the following clean packet.
+    await _assert_clean_packet(dut, [0x3C, 0xFF, 0x01], "post-violation recovery")
+
+
+@cocotb.test()
+async def test_rx_missing_trailing_stuff_bit_near_eop_reaches_rxerror(dut):
+    """The packet ends on six 1s, and the mandatory trailing stuffed 0 is
+    replaced by a 1 immediately before EOP (violation adjacent to EOP). The
+    error must still reach RxError before RxActive falls; termination is
+    finite; the next clean packet is exact."""
+    await _start_clock(dut)
+    await _reset(dut)
+
+    payload = [0x00, 0xFC]
+    stuffed, flags = bit_stuff(_byte_to_bits_list(payload))
+    assert flags[-1] and stuffed[-1] == 0, "model should end with a trailing stuff 0"
+    bad = stuffed[:-1] + [1]
+
+    trace = await _drive_rx_frame(dut, bad)
+    pulses = [i for i, e in enumerate(trace["error"]) if e]
+    assert len(pulses) == 1, f"expected exactly one RxError pulse, got {pulses}"
+    assert trace["active"][pulses[0]] == 1, "RxError pulsed outside active reception"
+    # The violating 1 is the last body bit, directly before the SE0 cells.
+    violating_cell = IDLE_LEAD + 8 + len(bad) - 1
+    latency = pulses[0] - violating_cell
+    assert 0 <= latency <= 4, f"RxError latency {latency} from the violating cell"
+    _assert_rx_terminated(trace, "near-EOP violation packet")
+
+    await _assert_clean_packet(dut, [0xC3, 0x00, 0xFF], "post-near-EOP recovery")
+
+
+@cocotb.test()
+async def test_rx_error_not_raised_after_reception_ends(dut):
+    """A run of 1s on the wire while no packet is active (no SYNC) must not
+    raise RxError (the destuffer is enable-gated by rx_receiving, and the
+    wrapper additionally gates its error with it)."""
+    await _start_clock(dut)
+    await _reset(dut)
+
+    # Idle J is a stream of NRZI 1s -- far more than seven of them.
+    trace = await _drive_rx_cells(dut, [J_CELL] * 40)
+    assert not any(trace["error"]), "RxError raised with no packet active"
+    assert not any(trace["active"]), "RxActive raised on idle"
+
+
+@cocotb.test()
+async def test_rx_utmi_reset_mid_packet_clears_pipeline(dut):
+    """Assert UTMI Reset while a packet is partway through reception (a
+    partial byte already shifted in). RxActive must drop, no RxValid/DataIn
+    leaks from the half-assembled byte, no RxError; the rest of the aborted
+    packet (no SYNC for it to lock onto) is ignored, and the next clean
+    packet is received exactly."""
+    await _start_clock(dut)
+    await _reset(dut)
+
+    payload = [0x11, 0x22, 0x33, 0x44]
+    body = _good_body(payload)
+    cells = [J_CELL] * IDLE_LEAD + _rx_frame_cells(body)
+    # Reset lands 8 (SYNC) + 8 + 8 + 3 bits in: two bytes delivered, three
+    # bits of the third shifted in.
+    cut = IDLE_LEAD + 8 + 19
+
+    trace = await _drive_rx_cells(dut, cells[:cut])
+    assert trace["bytes"] == payload[:2], f"pre-reset bytes: {trace['bytes']}"
+    assert trace["active"][-1] == 1, "packet not active at the reset point"
+
+    # Reset for two clocks while the rest of the packet keeps arriving.
+    dut.Reset.value = 1
+    post = await _drive_rx_cells(dut, cells[cut:cut + 2])
+    dut.Reset.value = 0
+    assert post["active"][-1] == 0, "RxActive not cleared by Reset"
+    assert not any(post["valid"]), "RxValid pulsed during Reset"
+
+    rest = await _drive_rx_cells(dut, cells[cut + 2:] + [J_CELL] * IDLE_TAIL)
+    assert not any(rest["valid"]), f"bytes leaked after Reset: {rest['bytes']}"
+    assert not any(rest["error"]), "RxError after Reset"
+    assert not any(rest["active"]), "aborted packet's tail re-activated RxActive"
+
+    await _assert_clean_packet(dut, [0x5A, 0xFF, 0x00, 0x81], "post-Reset reception")
+
+
+@cocotb.test()
+async def test_rx_utmi_reset_after_stuffing_error_mid_packet(dut):
+    """Reset arriving after a stuffing error, still inside the active packet,
+    leaves no error or byte state behind: the following clean packet is
+    exact and error-free."""
+    await _start_clock(dut)
+    await _reset(dut)
+
+    payload = [0x00, 0xFF, 0xA5, 0x0F]
+    stuffed, flags = bit_stuff(_byte_to_bits_list(payload))
+    stuff_pos = flags.index(True)
+    bad = stuffed[:stuff_pos] + stuffed[stuff_pos + 1:]
+    cells = [J_CELL] * IDLE_LEAD + _rx_frame_cells(bad)
+
+    cut = IDLE_LEAD + 8 + stuff_pos + 6   # a few clocks past the violation
+    trace = await _drive_rx_cells(dut, cells[:cut])
+    assert any(trace["error"]), "violation did not reach RxError before Reset"
+    assert trace["active"][-1] == 1
+
+    dut.Reset.value = 1
+    await _drive_rx_cells(dut, [cells[cut]])
+    dut.Reset.value = 0
+    assert int(dut.RxActive.value) == 0
+    assert int(dut.RxError.value) == 0
+
+    rest = await _drive_rx_cells(dut, [J_CELL] * 20)
+    assert not any(rest["error"]) and not any(rest["valid"])
+
+    await _assert_clean_packet(dut, [0x7E, 0xFF, 0x12], "post-error-Reset reception")
