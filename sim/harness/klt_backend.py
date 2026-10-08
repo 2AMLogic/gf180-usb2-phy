@@ -56,6 +56,7 @@ def build_request(
     timeout_s: int,
     backend: str | None,
     manifest: dict,
+    runner_version_check: str | None = None,
 ) -> Path:
     """Write ``body.spice`` + ``request.json`` into ``workdir``; return the request path."""
     klt_measure = manifest.get("klt_measure")
@@ -119,6 +120,8 @@ def build_request(
     }
     if backend:
         request["backend"] = backend
+    if runner_version_check:
+        request["batch"] = {"runner_version_check": runner_version_check}
     path = workdir / "request.json"
     path.write_text(json.dumps(request, indent=2) + "\n")
     return path
@@ -135,12 +138,15 @@ def run_grid_klt(
     workdir: Path,
     manifest: dict,
     backend: str | None = None,
+    runner_version_check: str | None = None,
     timeout_s: int = 300,
     on_result=None,
     log_dir: Path | None = None,
 ) -> tuple[list[PointResult], dict]:
     """Run the grid via ``klt sim``; return (results in grid order, backend info)."""
-    request = build_request(tb, pdk, points, workdir, timeout_s, backend, manifest)
+    request = build_request(
+        tb, pdk, points, workdir, timeout_s, backend, manifest, runner_version_check
+    )
     outdir = workdir / "klt-out"
     cmd = [KLT, "sim", str(request), "--format", "json", "-o", str(outdir)]
     if backend:

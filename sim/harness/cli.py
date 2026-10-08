@@ -162,6 +162,13 @@ def build_parser() -> argparse.ArgumentParser:
         "Default: the in-process ngspice runner (single-point probes only on a "
         "shared host).",
     )
+    parser.add_argument(
+        "--klt-runner-version-check",
+        choices=("enforce", "warn"),
+        default=None,
+        help="klt batch backend: how to treat a fleet-runner/client klt version "
+        "skew (sets request batch.runner_version_check; default enforce)",
+    )
     parser.add_argument("--quiet", action="store_true", help="only print the summary")
     parser.add_argument("--version", action="version", version=f"gf180-usb2-phy harness {HARNESS_VERSION}")
     return parser
@@ -319,6 +326,7 @@ def run(args: argparse.Namespace) -> int:
                 workdir,
                 _json.loads((tb.directory / "tb.json").read_text()),
                 backend=klt_name,
+                runner_version_check=args.klt_runner_version_check,
                 timeout_s=args.timeout,
                 on_result=progress,
                 log_dir=log_dir,
