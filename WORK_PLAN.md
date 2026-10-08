@@ -44,6 +44,7 @@ Issues carrying `loom:curated`.
 - **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief *(curated)*
 - **#53**: Post-layout (extracted-parasitic) re-verification: digital STA now, analog PVT after #52 *(curated)*
 - **#90**: README: embed the fleet burndown chart (one line) *(curated)*
+- **#92**: T1 item 5 (digital): mint one multi-corner klt sta envelope on the routed layout and cite it *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -63,7 +64,7 @@ _None._
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 3 |
+| Curated | 4 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
