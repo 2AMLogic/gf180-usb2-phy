@@ -2,6 +2,11 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-10-08
+
+- **PR #102**: Analog: differential_receiver resolves 200 mV over 0.8-2.5 V common mode (spec §4)
+- **Issue #97** (closed): Analog: re-size differential_receiver to meet spec §4 sensitivity across full common-mode range
+
 ### 2026-09-22
 
 - **PR #89**: feat: re-run usb_utmi_phy P&R and post-layout PVT against vendored sources
