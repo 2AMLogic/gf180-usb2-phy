@@ -5,7 +5,7 @@
   "tier": null,
   "t1_item_count": 22,
   "build_t1_item_count": 22,
-  "t1_met_count": 7,
+  "t1_met_count": 8,
   "source_doc": "docs/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:5ce13a12f12bfeb3ca07f45c7527e3423d69872f7f52a4bd0762099292e1c2e9",
   "build": {
@@ -241,10 +241,18 @@
       "notes": [
         "Both require the spec table itself to be ratified \u2014 verdicts against a draft spec are provisional by construction."
       ],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/sta-corners.json",
+        "command": null,
+        "kind": "sta",
+        "check_status": "ok",
+        "content_hash": "sha256:82a57e76646067f49f4f48f796a8348b20b7e829fb8757778aed3c7900dde29e",
+        "input_verified": true,
+        "exit_status": 0
+      }
     },
     {
       "tier": "T1",

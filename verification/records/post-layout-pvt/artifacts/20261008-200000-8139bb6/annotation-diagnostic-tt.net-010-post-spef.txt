@@ -1,0 +1,16 @@
+Net _010_
+ Pin capacitance: 0.031459
+ Wire capacitance: 0.000000
+ Total capacitance: 0.031459
+ Number of drivers: 1
+ Number of loads: 3
+ Number of pins: 4
+
+Driver pins
+ _148_/ZN output (gf180mcu_fd_sc_mcu9t5v0__clkinv_1) (76, 78)
+
+Load pins
+ _290_/A1 input (gf180mcu_fd_sc_mcu9t5v0__nor3_1) 0.005130 (81, 68)
+ u_sync_detector/_16_/I input (gf180mcu_fd_sc_mcu9t5v0__clkinv_1) 0.004939 (67, 74)
+ u_sync_detector/_21_/A1 input (gf180mcu_fd_sc_mcu9t5v0__nand3_4) 0.021390 (62, 73)
+

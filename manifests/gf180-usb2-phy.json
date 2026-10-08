@@ -10,6 +10,10 @@
       "file": "verification/records/digital-lvs/artifacts/20260922-042422-9ec2304/lvs-report.json",
       "content_hash": "sha256:487f649d70d71df5991b027d0b76bcbcf75e8cbb18cffa7a78ae268ddf53750c"
     },
+    "5.digital": {
+      "file": "verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/sta-corners.json",
+      "content_hash": "sha256:82a57e76646067f49f4f48f796a8348b20b7e829fb8757778aed3c7900dde29e"
+    },
     "8": {
       "file": "manifests/item8-characterization.json",
       "content_hash": "sha256:4748c583ffdec7bf55f500c6cc51511bcc3b4342b4e455e00a7721835713a8b9"

@@ -1,0 +1,894 @@
+OpenROAD 26Q3-1260-g06a5a02279 
+Features included (+) or not (-): +GPU +GUI +Python
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ODB-0388] unsupported LEF58_EOLENCLOSURE property for layer Via1 :"
+  	EOLENCLOSURE 0.34 0.06 ;"
+[INFO ODB-0388] unsupported LEF58_EOLENCLOSURE property for layer Via2 :" EOLENCLOSURE 0.34 0.06 ; "
+[INFO ODB-0388] unsupported LEF58_EOLENCLOSURE property for layer Via3 :" EOLENCLOSURE 0.34 0.06 ; "
+[INFO ODB-0388] unsupported LEF58_EOLENCLOSURE property for layer Via4 :" EOLENCLOSURE 0.34 0.06 ; "
+[INFO ODB-0227] LEF file: /home/ubuntu/.volare/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu9t5v0/techlef/gf180mcu_fd_sc_mcu9t5v0__nom.tlef, created 15 layers, 56 vias
+[WARNING ODB-0220] WARNING (LEFPARS-2008): NOWIREEXTENSIONATPIN statement is obsolete in version 5.6 or later.
+The NOWIREEXTENSIONATPIN statement will be ignored. See file /home/ubuntu/.volare/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu9t5v0/lef/gf180mcu_fd_sc_mcu9t5v0.lef at line 2.
+
+[INFO ODB-0227] LEF file: /home/ubuntu/.volare/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu9t5v0/lef/gf180mcu_fd_sc_mcu9t5v0.lef, created 229 library cells
+[INFO ODB-0127] Reading DEF file: layout/digital/usb_utmi_phy.def
+[INFO ODB-0128] Design: usb_utmi_phy
+[INFO ODB-0130]     Created 37 pins.
+[INFO ODB-0131]     Created 1121 components and 5406 component-terminals.
+[INFO ODB-0132]     Created 2 special nets and 4308 connections.
+[INFO ODB-0133]     Created 340 nets and 1091 connections.
+[INFO ODB-0134] Finished DEF file: layout/digital/usb_utmi_phy.def
+===PROBE_PRE_BEGIN===
+Startpoint: _340_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _340_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000 ^ _340_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   2.2270    2.2270 ^ _340_/Q (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   0.4303    2.6574 v _272_/ZN (gf180mcu_fd_sc_mcu9t5v0__aoi21_1)
+   0.0000    2.6574 v _340_/D (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+             2.6574   data arrival time
+
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000   clock reconvergence pessimism
+             0.0000 ^ _340_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   0.2365    0.2365   library hold time
+             0.2365   data required time
+-------------------------------------------------------------
+             0.2365   data required time
+            -2.6574   data arrival time
+-------------------------------------------------------------
+             2.4208   slack (MET)
+
+
+Startpoint: _344_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _319_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000 ^ _344_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   3.9865    3.9865 ^ _344_/Q (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   0.6647    4.6511 v _202_/ZN (gf180mcu_fd_sc_mcu9t5v0__nand2_1)
+   4.3171    8.9682 ^ _203_/ZN (gf180mcu_fd_sc_mcu9t5v0__nor4_1)
+   1.0748   10.0430 v u_stuffer/_15_/ZN (gf180mcu_fd_sc_mcu9t5v0__nor2_4)
+   1.5974   11.6404 ^ u_stuffer/_16_/ZN (gf180mcu_fd_sc_mcu9t5v0__nand4_4)
+   1.3880   13.0283 ^ _280_/Z (gf180mcu_fd_sc_mcu9t5v0__mux2_1)
+   1.0156   14.0439 v _281_/ZN (gf180mcu_fd_sc_mcu9t5v0__oai221_2)
+   2.2135   16.2574 v _282_/Z (gf180mcu_fd_sc_mcu9t5v0__or3_2)
+   0.9099   17.1673 ^ _285_/ZN (gf180mcu_fd_sc_mcu9t5v0__aoi211_2)
+   0.0000   17.1673 ^ _319_/D (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+            17.1673   data arrival time
+
+  83.3330   83.3330   clock clk (rise edge)
+   0.0000   83.3330   clock network delay (ideal)
+   0.0000   83.3330   clock reconvergence pessimism
+            83.3330 ^ _319_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+  -1.0793   82.2537   library setup time
+            82.2537   data required time
+-------------------------------------------------------------
+            82.2537   data required time
+           -17.1673   data arrival time
+-------------------------------------------------------------
+            65.0864   slack (MET)
+
+
+===PROBE_PRE_END===
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 53, net $1008 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 76, net $1011 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 92, net $1012 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 104, net $1013 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 117, net $1014 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 129, net $1015 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 141, net $1016 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 153, net $1018 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 169, net $1019 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 186, net $1020 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 201, net $1021 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 216, net $1022 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 230, net $1023 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 243, net $1024 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 255, net $1027 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 272, net $1028 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 289, net $1029 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 303, net $1030 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 318, net $1031 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 330, net $1032 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 343, net $1033 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 355, net $1037 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 365, net $1039 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 383, net $1040 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 400, net $1092 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 409, net $1095 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 433, net $1097 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 444, net $1098 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 462, net $1099 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 478, net $11 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 490, net $110 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 514, net $1100 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 527, net $1101 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 541, net $1102 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 555, net $1103 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 573, net $1105 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 586, net $1106 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 599, net $1107 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 612, net $1108 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 631, net $1109 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 644, net $1110 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 659, net $1111 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 674, net $1112 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 689, net $1113 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 704, net $1114 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 717, net $1115 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 729, net $1116 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 738, net $1118 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 766, net $1120 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 783, net $1124 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 797, net $1125 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 810, net $1126 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 826, net $1127 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 840, net $1129 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 857, net $1130 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 870, net $1131 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 885, net $1132 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 899, net $118 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 918, net $1182 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 945, net $1185 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 962, net $1186 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 973, net $1187 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 993, net $119 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1005, net $1195 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1016, net $1196 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1031, net $1197 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1041, net $1198 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1053, net $1200 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1064, net $1201 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1075, net $1203 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1088, net $1204 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1099, net $1205 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1111, net $1217 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1122, net $1218 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1137, net $1226 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1152, net $1227 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1167, net $1228 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1180, net $1229 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1194, net $1230 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1208, net $1231 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1221, net $1232 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1240, net $1233 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1258, net $1234 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1275, net $1235 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1290, net $1236 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1303, net $1237 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1316, net $1239 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1333, net $1240 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1351, net $1241 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1365, net $1242 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1378, net $1243 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1391, net $1244 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1404, net $1246 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1422, net $1247 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1441, net $1248 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1456, net $1249 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1471, net $1250 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1483, net $1251 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1495, net $1255 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1505, net $1258 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1516, net $1295 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1527, net $1296 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1548, net $1297 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1563, net $1298 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1577, net $13 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1587, net $1300 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1600, net $1301 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1614, net $1302 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1626, net $1303 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1638, net $1313 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1651, net $1316 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1666, net $1317 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1682, net $1318 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1695, net $1319 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1709, net $1320 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1723, net $1321 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1738, net $1335 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1749, net $1336 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1760, net $1337 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1770, net $134 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1789, net $1349 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1798, net $1352 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1807, net $1354 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1818, net $1356 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1837, net $1357 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1854, net $1359 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1867, net $1362 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1884, net $1363 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1901, net $1364 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1915, net $1365 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1931, net $137 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1945, net $1371 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1962, net $1372 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1978, net $1373 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 1992, net $1374 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2005, net $1375 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2019, net $1376 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2033, net $1377 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2046, net $1378 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2059, net $1379 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2072, net $138 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2086, net $1380 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2099, net $1381 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2115, net $1382 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2130, net $1383 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2146, net $1384 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2159, net $1385 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2171, net $140 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2185, net $141 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2200, net $142 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2212, net $1426 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2227, net $1427 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2245, net $1429 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2260, net $143 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2272, net $1430 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2287, net $1431 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2302, net $1432 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2315, net $1433 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2329, net $1434 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2343, net $1435 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2357, net $1438 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2373, net $1439 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2387, net $1440 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2401, net $1441 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2415, net $1442 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2428, net $1443 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2443, net $1444 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2457, net $1445 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2470, net $1446 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2483, net $1447 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2495, net $1449 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2514, net $145 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2526, net $1450 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2539, net $1451 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2554, net $1452 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2568, net $1453 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2581, net $1454 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2594, net $1455 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2606, net $1478 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2615, net $148 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2633, net $149 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2647, net $1493 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2656, net $1494 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2673, net $1495 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2683, net $1496 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2701, net $1497 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2719, net $1498 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2734, net $1499 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2744, net $150 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2758, net $1500 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2774, net $1501 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2788, net $1502 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2802, net $1503 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2812, net $1504 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2824, net $1505 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2834, net $1506 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2848, net $151 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2860, net $1510 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2874, net $1511 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2887, net $1512 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2900, net $1513 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2912, net $1514 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2924, net $1516 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2942, net $1517 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2957, net $1518 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2970, net $1519 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2985, net $152 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 2997, net $1520 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3012, net $1521 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3029, net $1522 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3043, net $1523 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3055, net $1524 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3071, net $1525 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3087, net $1526 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3101, net $1527 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3114, net $1528 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3126, net $1529 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3139, net $153 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3152, net $1530 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3165, net $1532 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3175, net $1533 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3185, net $1535 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3200, net $1536 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3213, net $1537 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3226, net $1538 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3238, net $1539 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3250, net $1580 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3273, net $1581 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3288, net $1582 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3303, net $1583 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3317, net $1584 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3331, net $1585 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3344, net $1586 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3357, net $1588 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3372, net $1589 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3382, net $1590 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3396, net $1591 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3409, net $1592 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3421, net $1593 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3433, net $1594 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3445, net $1595 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3458, net $1596 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3475, net $1597 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3486, net $1627 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3497, net $1628 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3506, net $1629 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3516, net $1630 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3527, net $1650 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3542, net $1652 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3556, net $1653 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3569, net $1654 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3583, net $1656 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3598, net $1657 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3612, net $1658 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3624, net $1659 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3637, net $1660 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3652, net $1662 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3663, net $1663 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3679, net $1665 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3691, net $1666 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3703, net $1667 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3715, net $1668 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3732, net $1670 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3746, net $1671 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3765, net $1672 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3779, net $1673 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3793, net $1674 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3808, net $1684 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3824, net $1686 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3836, net $1687 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3848, net $1688 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3860, net $1690 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3869, net $1692 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3885, net $1693 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3899, net $1694 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3913, net $1695 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3925, net $1697 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3939, net $1698 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3951, net $1700 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3968, net $1701 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3983, net $1703 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 3998, net $1704 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4012, net $1747 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4027, net $1748 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4038, net $1749 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4052, net $1750 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4067, net $1751 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4078, net $1752 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4095, net $1754 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4109, net $1755 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4124, net $1756 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4139, net $1757 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4152, net $1758 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4164, net $1759 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4176, net $1760 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4188, net $1762 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4203, net $1763 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4217, net $1764 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4232, net $1765 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4246, net $1766 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4259, net $1769 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4275, net $1770 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4288, net $1771 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4301, net $1772 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4314, net $1773 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4327, net $1774 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4342, net $1775 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4355, net $1776 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4367, net $1777 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4379, net $1778 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4391, net $178 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4407, net $179 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4422, net $1798 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4431, net $180 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4447, net $184 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4466, net $185 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4479, net $186 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4491, net $187 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4506, net $188 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4521, net $190 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4535, net $191 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4549, net $192 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4563, net $193 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4573, net $194 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4585, net $195 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4599, net $196 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4609, net $207 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4618, net $208 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4627, net $219 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4644, net $222 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4660, net $223 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4672, net $224 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4685, net $225 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4697, net $226 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4711, net $227 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4725, net $229 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4742, net $230 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4755, net $231 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4768, net $232 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4780, net $233 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4793, net $234 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4806, net $236 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4819, net $24 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4836, net $26 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4850, net $262 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4867, net $265 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4883, net $266 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4897, net $267 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4911, net $268 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4923, net $269 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4936, net $27 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4951, net $270 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4964, net $271 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4983, net $278 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 4999, net $279 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5010, net $28 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5023, net $280 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5035, net $281 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5051, net $282 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5063, net $283 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5075, net $284 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5085, net $285 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5098, net $29 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5110, net $30 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5124, net $301 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5134, net $302 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5150, net $309 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5165, net $31 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5179, net $312 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5194, net $313 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5206, net $314 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5219, net $315 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5232, net $316 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5243, net $32 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5256, net $320 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5270, net $322 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5283, net $323 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5294, net $324 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5306, net $325 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5315, net $326 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5327, net $327 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5341, net $328 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5352, net $329 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5367, net $331 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5380, net $332 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5392, net $333 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5405, net $336 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5419, net $34 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5432, net $344 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5449, net $345 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5459, net $35 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5471, net $36 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5483, net $368 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5497, net $37 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5511, net $371 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5527, net $372 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5542, net $373 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5554, net $374 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5566, net $375 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5579, net $376 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5592, net $378 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5603, net $380 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5614, net $381 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5630, net $382 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5650, net $386 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5664, net $39 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5681, net $40 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5695, net $403 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5710, net $41 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5723, net $419 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5739, net $42 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5751, net $420 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5764, net $422 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5781, net $423 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5794, net $424 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5808, net $425 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5820, net $426 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5832, net $427 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5844, net $429 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5859, net $43 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5871, net $430 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5885, net $431 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5898, net $432 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5911, net $433 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5923, net $434 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5936, net $438 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5950, net $439 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5968, net $44 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5980, net $440 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 5994, net $441 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6007, net $442 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6019, net $443 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6031, net $444 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6044, net $445 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6053, net $496 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6067, net $497 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6078, net $498 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6091, net $499 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6104, net $500 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6117, net $501 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6131, net $502 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6142, net $503 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6157, net $504 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6173, net $505 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6183, net $506 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6195, net $507 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6208, net $508 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6222, net $509 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6236, net $510 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6248, net $511 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6262, net $515 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6276, net $517 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6294, net $518 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6311, net $519 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6328, net $520 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6342, net $521 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6357, net $522 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6371, net $540 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6381, net $541 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6404, net $542 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6416, net $551 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6431, net $552 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6445, net $553 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6460, net $554 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6474, net $559 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6485, net $560 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6499, net $561 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6510, net $562 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6523, net $563 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6538, net $564 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6552, net $566 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6562, net $567 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6574, net $568 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6583, net $569 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6595, net $570 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6608, net $571 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6623, net $573 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6635, net $574 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6647, net $575 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6659, net $576 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6675, net $577 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6690, net $578 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6701, net $580 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6720, net $581 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6732, net $582 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6743, net $583 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6753, net $585 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6770, net $587 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6781, net $589 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6791, net $605 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6802, net $606 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6813, net $631 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6828, net $632 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6840, net $634 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6854, net $635 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6866, net $636 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6884, net $638 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6896, net $643 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6909, net $65 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6924, net $66 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6937, net $664 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6947, net $665 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6962, net $667 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6974, net $668 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6985, net $67 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 6998, net $670 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7013, net $671 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7030, net $673 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7042, net $675 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7052, net $676 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7068, net $677 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7082, net $678 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7096, net $679 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7109, net $68 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7122, net $680 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7135, net $681 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7148, net $682 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7162, net $683 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7175, net $684 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7187, net $685 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7199, net $686 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7211, net $69 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7225, net $70 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7238, net $707 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7248, net $71 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7263, net $720 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7276, net $722 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7286, net $724 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7301, net $726 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7317, net $727 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7327, net $728 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7339, net $729 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7352, net $730 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7364, net $731 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7377, net $732 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7390, net $733 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7403, net $736 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7421, net $737 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7440, net $738 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7456, net $739 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7470, net $740 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7485, net $741 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7499, net $761 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7514, net $762 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7523, net $763 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7533, net $783 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7548, net $785 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7558, net $786 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7574, net $787 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7597, net $789 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7615, net $790 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7625, net $791 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7640, net $792 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7650, net $793 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7667, net $794 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7681, net $795 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7692, net $796 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7706, net $798 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7718, net $800 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7737, net $801 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7752, net $802 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7768, net $804 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7782, net $805 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7795, net $806 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7810, net $807 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7824, net $809 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7839, net $811 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7855, net $812 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7869, net $813 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7881, net $814 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7893, net $815 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7905, net $816 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7918, net $84 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7928, net $857 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7942, net $858 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7952, net $859 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7965, net $860 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7977, net $861 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 7989, net $862 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8002, net $863 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8012, net $864 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8028, net $865 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8046, net $866 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8062, net $867 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8072, net $868 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8086, net $869 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8102, net $870 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8116, net $871 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8128, net $872 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8138, net $873 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8152, net $874 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8165, net $877 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8178, net $878 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8197, net $879 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8213, net $881 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8226, net $882 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8239, net $89 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8251, net $902 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8260, net $903 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8270, net $904 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8279, net $905 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8291, net $91 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8302, net $918 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8317, net $919 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8331, net $922 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8346, net $923 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8361, net $925 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8376, net $926 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8393, net $927 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8406, net $931 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8425, net $932 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8437, net $933 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8448, net $934 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8461, net $935 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8471, net $936 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8483, net $937 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8496, net $938 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8506, net $939 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8519, net $940 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8529, net $941 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8541, net $942 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8550, net $943 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8562, net $944 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8575, net $945 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8585, net $947 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8600, net $948 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8614, net $949 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8627, net $950 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8639, net $951 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8653, net $953 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8668, net $955 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8683, net $956 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8697, net $957 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8710, net $958 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8725, net $961 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8744, net $962 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8759, net $963 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8774, net $964 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8786, net $965 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8798, net $985 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8810, net $986 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8822, net $987 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 8833, net $99 not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 9340, net ZN not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 16620, net ZN not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 16647, net ZN not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 16682, net ZN not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 16717, net ZN not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 16744, net ZN not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 16771, net ZN not found.
+[WARNING STA-1650] flow/.klt/probe/repaired.spef line 16796, net ZN not found.
+===PROBE_ANNOTATION_BEGIN===
+Found 7 unannotated drivers.
+ clkload0/ZN
+ clkload1/ZN
+ clkload2/ZN
+ clkload3/ZN
+ clkload4/ZN
+ clkload5/ZN
+ clkload6/ZN
+Found 3 partially unannotated drivers.
+ _341_/Q
+  RxActive
+ u_line_state/_6_/Q
+  LineState[0]
+ u_line_state/_7_/Q
+  LineState[1]
+===PROBE_ANNOTATION_END===
+===PROBE_POST_BEGIN===
+Startpoint: _340_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _340_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000 ^ _340_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   2.3319    2.3319 ^ _340_/Q (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   0.4927    2.8246 v _272_/ZN (gf180mcu_fd_sc_mcu9t5v0__aoi21_1)
+   0.0000    2.8246 v _340_/D (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+             2.8246   data arrival time
+
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000   clock reconvergence pessimism
+             0.0000 ^ _340_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   0.2260    0.2260   library hold time
+             0.2260   data required time
+-------------------------------------------------------------
+             0.2260   data required time
+            -2.8246   data arrival time
+-------------------------------------------------------------
+             2.5986   slack (MET)
+
+
+Startpoint: _344_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _305_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000 ^ _344_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   4.5729    4.5729 ^ _344_/Q (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   0.7853    5.3582 v _202_/ZN (gf180mcu_fd_sc_mcu9t5v0__nand2_1)
+   5.2408   10.5991 ^ _203_/ZN (gf180mcu_fd_sc_mcu9t5v0__nor4_1)
+   1.2461   11.8451 v u_stuffer/_15_/ZN (gf180mcu_fd_sc_mcu9t5v0__nor2_4)
+   1.8795   13.7246 ^ u_stuffer/_16_/ZN (gf180mcu_fd_sc_mcu9t5v0__nand4_4)
+   1.0410   14.7656 v _187_/ZN (gf180mcu_fd_sc_mcu9t5v0__nand4_4)
+   2.5618   17.3275 ^ _213_/ZN (gf180mcu_fd_sc_mcu9t5v0__aoi22_4)
+   0.7948   18.1223 v _241_/ZN (gf180mcu_fd_sc_mcu9t5v0__nor2_1)
+   1.6848   19.8071 ^ _242_/ZN (gf180mcu_fd_sc_mcu9t5v0__aoi211_1)
+   0.0000   19.8071 ^ _305_/D (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+            19.8071   data arrival time
+
+  83.3330   83.3330   clock clk (rise edge)
+   0.0000   83.3330   clock network delay (ideal)
+   0.0000   83.3330   clock reconvergence pessimism
+            83.3330 ^ _305_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+  -1.1965   82.1365   library setup time
+            82.1365   data required time
+-------------------------------------------------------------
+            82.1365   data required time
+           -19.8071   data arrival time
+-------------------------------------------------------------
+            62.3294   slack (MET)
+
+
+===PROBE_POST_END===
+===PROBE_NET_BEGIN===
+Net _013_
+ Pin capacitance: 0.0095
+ Wire capacitance: 0.0025
+ Total capacitance: 0.0119
+ Number of drivers: 1
+ Number of loads: 1
+ Number of pins: 2
+
+Driver pins
+ _191_/Z output (gf180mcu_fd_sc_mcu9t5v0__mux2_1) (111, 93)
+
+Load pins
+ u_encoder/_4_/A1 input (gf180mcu_fd_sc_mcu9t5v0__xor2_2) 0.0095 (102, 94)
+
+Net rx_receiving
+ Pin capacitance: 0.1027
+ Wire capacitance: 0.0289
+ Total capacitance: 0.1316
+ Number of drivers: 1
+ Number of loads: 10
+ Number of pins: 11
+
+Driver pins
+ _341_/Q output (gf180mcu_fd_sc_mcu9t5v0__dffq_1) (85, 83)
+
+Load pins
+ RxActive output port (80, 186)
+ _148_/I input (gf180mcu_fd_sc_mcu9t5v0__clkinv_1) 0.0049 (76, 77)
+ _209_/A1 input (gf180mcu_fd_sc_mcu9t5v0__nand2_2) 0.0114 (41, 144)
+ _218_/A1 input (gf180mcu_fd_sc_mcu9t5v0__and4_4) 0.0103 (36, 138)
+ _271_/C input (gf180mcu_fd_sc_mcu9t5v0__oai211_1) 0.0053 (38, 124)
+ u_destuffer/_19_/A1 input (gf180mcu_fd_sc_mcu9t5v0__aoi21_4) 0.0251 (41, 114)
+ u_destuffer/_20_/A2 input (gf180mcu_fd_sc_mcu9t5v0__and4_1) 0.0031 (45, 108)
+ u_destuffer/_21_/A1 input (gf180mcu_fd_sc_mcu9t5v0__and3_2) 0.0057 (35, 118)
+ u_destuffer/_22_/A2 input (gf180mcu_fd_sc_mcu9t5v0__aoi21_2) 0.0124 (36, 114)
+ u_destuffer/_24_/A2 input (gf180mcu_fd_sc_mcu9t5v0__aoi21_4) 0.0245 (33, 88)
+
+Net line_state[0]
+ Pin capacitance: 0.0197
+ Wire capacitance: 0.0106
+ Total capacitance: 0.0303
+ Number of drivers: 1
+ Number of loads: 4
+ Number of pins: 5
+
+Driver pins
+ u_line_state/_6_/Q output (gf180mcu_fd_sc_mcu9t5v0__dffq_1) (105, 154)
+
+Load pins
+ LineState[0] output port (108, 186)
+ _172_/I input (gf180mcu_fd_sc_mcu9t5v0__clkinv_1) 0.0049 (88, 108)
+ _174_/A1 input (gf180mcu_fd_sc_mcu9t5v0__xor2_1) 0.0094 (87, 104)
+ u_eop_detector/_27_/A1 input (gf180mcu_fd_sc_mcu9t5v0__nor2_1) 0.0053 (93, 98)
+
+Net line_state[1]
+ Pin capacitance: 0.0193
+ Wire capacitance: 0.0113
+ Total capacitance: 0.0306
+ Number of drivers: 1
+ Number of loads: 4
+ Number of pins: 5
+
+Driver pins
+ u_line_state/_7_/Q output (gf180mcu_fd_sc_mcu9t5v0__dffq_1) (108, 164)
+
+Load pins
+ LineState[1] output port (109, 186)
+ _173_/A2 input (gf180mcu_fd_sc_mcu9t5v0__nor2_1) 0.0050 (85, 98)
+ _174_/A2 input (gf180mcu_fd_sc_mcu9t5v0__xor2_1) 0.0093 (88, 103)
+ u_eop_detector/_27_/A2 input (gf180mcu_fd_sc_mcu9t5v0__nor2_1) 0.0050 (92, 98)
+
+===PROBE_NET_END===
+worst slack max 62.3294
+worst slack min 2.5986

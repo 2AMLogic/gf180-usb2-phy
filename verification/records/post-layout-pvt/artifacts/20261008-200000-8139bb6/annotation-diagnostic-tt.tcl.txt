@@ -1,0 +1,11 @@
+# Diagnostic replay (tt_025C_1v80 only), OpenROAD 26Q3-1260-g06a5a02279. Paths are those of the producing worktree.
+# Same lines as the klt-generated script up to create_clock, then the probes below.
+read_lef /home/ubuntu/.volare/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu9t5v0/techlef/gf180mcu_fd_sc_mcu9t5v0__nom.tlef
+read_lef /home/ubuntu/.volare/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu9t5v0/lef/gf180mcu_fd_sc_mcu9t5v0.lef
+read_def layout/digital/usb_utmi_phy.def
+read_liberty /home/ubuntu/.volare/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu9t5v0/lib/gf180mcu_fd_sc_mcu9t5v0__tt_025C_1v80.lib
+create_clock -name clk -period 83.333 [get_ports clk]
+report_net -digits 6 _010_   ;# before and after read_spef: wire capacitance 0.000000 both times
+read_spef usb_utmi_phy_route.spef
+report_parasitic_annotation -report_unannotated
+report_checks -path_delay max -digits 6 -unconstrained -fields {cap slew input_pins nets}  ;# pre vs post: byte-identical

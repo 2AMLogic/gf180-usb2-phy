@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "engine": "openroad",
+  "engine_version": "26Q3-1260-g06a5a02279",
+  "hdl_toplevel": "usb_utmi_phy",
+  "status": "ok",
+  "def_path": "layout/digital/usb_utmi_phy.def",
+  "verilog_path": null,
+  "geometry_source": "routed",
+  "wire_load_model": null,
+  "wire_load_mode": null,
+  "spef_path": "flow/.klt/extract/usb_utmi_phy_route.spef",
+  "provenance": {
+    "klt_version": "0.5.0+ge8ca621a6961",
+    "klayout_version": "0.30.12",
+    "pdk": {
+      "name": "gf180mcuD",
+      "source": "PDK_ROOT environment variable",
+      "version": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b"
+    },
+    "deck": null,
+    "input": {
+      "content_hash": "sha256:82a57e76646067f49f4f48f796a8348b20b7e829fb8757778aed3c7900dde29e",
+      "role": "layout"
+    }
+  },
+  "corners": [
+    {
+      "corner": "tt_025C_1v80",
+      "engine_log": {
+        "invocation_id": "61deca2c753e44b1919ae3a3cd17b6f9",
+        "script_name": "sta_usb_utmi_phy__tt_025C_1v80.tcl",
+        "script_path": {
+          "path": "flow/.klt/sta/sta_usb_utmi_phy__tt_025C_1v80.tcl",
+          "scope": "repo"
+        },
+        "script_sha256": "e6c0a3a15b7cf5d2fae8292bf68179ae3157edf3588df2cca31cfc6ed36d4ebd",
+        "metrics_path": {
+          "path": "flow/.klt/sta/usb_utmi_phy__tt_025C_1v80_metrics.json",
+          "scope": "repo"
+        },
+        "outcome": "exited",
+        "returncode": 0,
+        "directory": {
+          "path": "flow/.klt/sta/openroad-logs/61deca2c753e44b1919ae3a3cd17b6f9",
+          "scope": "repo"
+        },
+        "stdout_path": {
+          "path": "flow/.klt/sta/openroad-logs/61deca2c753e44b1919ae3a3cd17b6f9/stdout.log",
+          "scope": "repo"
+        },
+        "stderr_path": {
+          "path": "flow/.klt/sta/openroad-logs/61deca2c753e44b1919ae3a3cd17b6f9/stderr.log",
+          "scope": "repo"
+        },
+        "metadata_path": {
+          "path": "flow/.klt/sta/openroad-logs/61deca2c753e44b1919ae3a3cd17b6f9/invocation.json",
+          "scope": "repo"
+        },
+        "retention_errors": []
+      },
+      "worst_slack_ns": 65.0864,
+      "total_negative_slack_ns": 0,
+      "worst_hold_slack_ns": 2.42085,
+      "total_negative_hold_slack_ns": 0,
+      "fmax_mhz": 54.8047,
+      "timing_status": "constrained",
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "clock_skew_ns": 0.06185,
+      "estimated_power_mw": 0.1358,
+      "spef_annotation": {
+        "nets_annotated": 342,
+        "nets_total": 986,
+        "design_nets_annotated": 342,
+        "design_nets_total": 342,
+        "design_nets_missing_sample": [],
+        "reader_warning_count": 1652,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 361, net $1008 not found.",
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 384, net $1011 not found.",
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 400, net $1012 not found.",
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 412, net $1013 not found.",
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 425, net $1014 not found."
+        ],
+        "unannotated_driver_count": 7,
+        "partially_unannotated_driver_count": 307,
+        "delay_changed": false,
+        "annotation_complete": false,
+        "annotation_warning": "read_spef discarded annotation for 1652 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); every timing path reported after read_spef is byte-identical to the same report taken before it, so this run's delays are the unannotated ones; report_parasitic_annotation found 7 driver(s) with no parasitics attached after read_spef -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "deck": {
+        "name": "gf180mcu_fd_sc_mcu9t5v0__tt_025C_1v80",
+        "content_hash": "sha256:2482036479c89fbee3754524e3fcdb530aa40aff0fef9e9385e3bc7b7a67d4ef",
+        "released": false
+      }
+    },
+    {
+      "corner": "ss_125C_1v62",
+      "engine_log": {
+        "invocation_id": "fdf03b3c8154435abd8b0c1eefcdeed7",
+        "script_name": "sta_usb_utmi_phy__ss_125C_1v62.tcl",
+        "script_path": {
+          "path": "flow/.klt/sta/sta_usb_utmi_phy__ss_125C_1v62.tcl",
+          "scope": "repo"
+        },
+        "script_sha256": "22aa8a82399448c930d47b1bdc6da137610e6b3daa972442c59db9d179a3571c",
+        "metrics_path": {
+          "path": "flow/.klt/sta/usb_utmi_phy__ss_125C_1v62_metrics.json",
+          "scope": "repo"
+        },
+        "outcome": "exited",
+        "returncode": 0,
+        "directory": {
+          "path": "flow/.klt/sta/openroad-logs/fdf03b3c8154435abd8b0c1eefcdeed7",
+          "scope": "repo"
+        },
+        "stdout_path": {
+          "path": "flow/.klt/sta/openroad-logs/fdf03b3c8154435abd8b0c1eefcdeed7/stdout.log",
+          "scope": "repo"
+        },
+        "stderr_path": {
+          "path": "flow/.klt/sta/openroad-logs/fdf03b3c8154435abd8b0c1eefcdeed7/stderr.log",
+          "scope": "repo"
+        },
+        "metadata_path": {
+          "path": "flow/.klt/sta/openroad-logs/fdf03b3c8154435abd8b0c1eefcdeed7/invocation.json",
+          "scope": "repo"
+        },
+        "retention_errors": []
+      },
+      "worst_slack_ns": 37.7904,
+      "total_negative_slack_ns": 0,
+      "worst_hold_slack_ns": 5.90006,
+      "total_negative_hold_slack_ns": 0,
+      "fmax_mhz": 21.9575,
+      "timing_status": "constrained",
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "clock_skew_ns": 0.1422,
+      "estimated_power_mw": 0.1132,
+      "spef_annotation": {
+        "nets_annotated": 342,
+        "nets_total": 986,
+        "design_nets_annotated": 342,
+        "design_nets_total": 342,
+        "design_nets_missing_sample": [],
+        "reader_warning_count": 1652,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 361, net $1008 not found.",
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 384, net $1011 not found.",
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 400, net $1012 not found.",
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 412, net $1013 not found.",
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 425, net $1014 not found."
+        ],
+        "unannotated_driver_count": 7,
+        "partially_unannotated_driver_count": 307,
+        "delay_changed": false,
+        "annotation_complete": false,
+        "annotation_warning": "read_spef discarded annotation for 1652 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); every timing path reported after read_spef is byte-identical to the same report taken before it, so this run's delays are the unannotated ones; report_parasitic_annotation found 7 driver(s) with no parasitics attached after read_spef -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "deck": {
+        "name": "gf180mcu_fd_sc_mcu9t5v0__ss_125C_1v62",
+        "content_hash": "sha256:c7763daf5d8c2440207b13942e90533dbbc2b2978ed74afdc32ac460f045a630",
+        "released": false
+      }
+    },
+    {
+      "corner": "ff_n40C_5v50",
+      "engine_log": {
+        "invocation_id": "8c56fc03051d4b18bbda169cec2626cb",
+        "script_name": "sta_usb_utmi_phy__ff_n40C_5v50.tcl",
+        "script_path": {
+          "path": "flow/.klt/sta/sta_usb_utmi_phy__ff_n40C_5v50.tcl",
+          "scope": "repo"
+        },
+        "script_sha256": "be96818851d2a4ce56e889d436a4db23b90ffedd5902df3435dcb57f7d5302be",
+        "metrics_path": {
+          "path": "flow/.klt/sta/usb_utmi_phy__ff_n40C_5v50_metrics.json",
+          "scope": "repo"
+        },
+        "outcome": "exited",
+        "returncode": 0,
+        "directory": {
+          "path": "flow/.klt/sta/openroad-logs/8c56fc03051d4b18bbda169cec2626cb",
+          "scope": "repo"
+        },
+        "stdout_path": {
+          "path": "flow/.klt/sta/openroad-logs/8c56fc03051d4b18bbda169cec2626cb/stdout.log",
+          "scope": "repo"
+        },
+        "stderr_path": {
+          "path": "flow/.klt/sta/openroad-logs/8c56fc03051d4b18bbda169cec2626cb/stderr.log",
+          "scope": "repo"
+        },
+        "metadata_path": {
+          "path": "flow/.klt/sta/openroad-logs/8c56fc03051d4b18bbda169cec2626cb/invocation.json",
+          "scope": "repo"
+        },
+        "retention_errors": []
+      },
+      "worst_slack_ns": 80.463,
+      "total_negative_slack_ns": 0,
+      "worst_hold_slack_ns": 0.40569,
+      "total_negative_hold_slack_ns": 0,
+      "fmax_mhz": 348.438,
+      "timing_status": "constrained",
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "clock_skew_ns": 0.01277,
+      "estimated_power_mw": 1.3961,
+      "spef_annotation": {
+        "nets_annotated": 342,
+        "nets_total": 986,
+        "design_nets_annotated": 342,
+        "design_nets_total": 342,
+        "design_nets_missing_sample": [],
+        "reader_warning_count": 1652,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 361, net $1008 not found.",
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 384, net $1011 not found.",
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 400, net $1012 not found.",
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 412, net $1013 not found.",
+          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 425, net $1014 not found."
+        ],
+        "unannotated_driver_count": 7,
+        "partially_unannotated_driver_count": 307,
+        "delay_changed": false,
+        "annotation_complete": false,
+        "annotation_warning": "read_spef discarded annotation for 1652 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); every timing path reported after read_spef is byte-identical to the same report taken before it, so this run's delays are the unannotated ones; report_parasitic_annotation found 7 driver(s) with no parasitics attached after read_spef -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "deck": {
+        "name": "gf180mcu_fd_sc_mcu9t5v0__ff_n40C_5v50",
+        "content_hash": "sha256:32c0df6b4f10c109739249484ca904f52360aec10f6fda03f888578366b11011",
+        "released": false
+      }
+    }
+  ]
+}

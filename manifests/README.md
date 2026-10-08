@@ -61,10 +61,10 @@ draws it exactly.
 
 ## Citations — what is cited, and why
 
-Four items carry citations, each pinned to the cited envelope's
-recorded input revision (`content_hash`); the three single-envelope ones
+Five item rows carry citations, each pinned to the cited envelope's
+recorded input revision (`content_hash`); the four single-envelope ones
 were verified fresh by the grader at freeze time (`input_verified: true`
-in the frozen report), and the fourth (item 11.digital) is the compound
+in the frozen report), and the fifth (item 11.digital) is the compound
 citing set the item's own text requires:
 
 - **Item 3, DRC clean** — cites the digital routed GDS's `klt drc`
@@ -96,6 +96,56 @@ citing set the item's own text requires:
   carries a hand-transcribed SPICE reference, and that form's power half
   reads `"unchecked"` by construction — see record
   `20260921-145814-5bee855.md`).
+- **Item 5.digital, corner verification (digital STA): cited, `met`**.
+  Cites one multi-corner `klt sta` envelope,
+  `verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/sta-corners.json`
+  (record `20261008-195826-74ccfac`, issue #92). It was run once with
+  `pdk.corners` over the routed `layout/digital/usb_utmi_phy.def` and an
+  SPEF extracted with `--def-pins`, which OpenSTA does attach:
+  `delay_changed: true` at every corner. `content_hash` is the DEF hash
+  the envelope records in `provenance.input` (`sha256:82a57e76…`,
+  `input_verified: true`). The cited file is the emitted response (kept
+  beside it as `sta-corners.emitted.json`) with only the producing
+  checkout's root prefix stripped, so `def_path` is repo-relative and can
+  be re-hashed from the repo root (klayout-tools#2879). The grader passes
+  it because every declared corner is `timing_status: "constrained"` with
+  non-negative setup and hold slack. Worst setup / hold slack:
+  62.33 / 2.60 ns at tt, 30.90 / 6.33 ns at ss, 80.09 / 0.43 ns at ff.
+
+  **What `met` here does and does not establish.** The grader checks the
+  slack signs. It does not check whether parasitics were attached. A
+  first version of this citation pointed at record
+  `20261008-200000-8139bb6`. That envelope also graded `met`, but its SPEF
+  had not attached at all (`delay_changed: false`, 307 partially
+  unannotated drivers, wire capacitance 0). It was wire-parasitic-free
+  timing presented as post-layout, and so was the earlier single-corner
+  record `20260922-042422-9ec2304`. The PR #104 review caught this. The
+  cited envelope still has two disclosed limits, measured in its record:
+  - 7 unannotated drivers: the floating outputs of the CTS dummy-load
+    cells.
+  - 3 partially unannotated drivers: the `RxActive` / `LineState[1:0]`
+    nets, whose DEF PIN name differs from their NET name. Attaching their
+    parasitics by another route leaves worst slack unchanged.
+
+  The timing is also a lumped-capacitance model. The extractor's wire
+  resistance never sits between two pins, so no wire RC delay is included.
+  The clock is ideal (klayout-tools#2739). Lateral coupling is modelled
+  only for `--critical-net` nets, and none were declared. Read the row as
+  "three-corner STA with extracted wire and vertical-coupling capacitance
+  attached". It is not full RC signoff.
+
+  **Corner scope: three corners, and only three**: `tt_025C_1v80`,
+  `ss_125C_1v62`, `ff_n40C_5v50`, the liberty corners of the
+  `gf180mcu_fd_sc_mcu9t5v0` library. This does **not** cover spec §8.1's
+  45-corner matrix (3 T x 3 V x 5 process including `fs`/`sf`), and the
+  grader does not widen it. The digital timing row is a three-corner
+  claim; the §8.1 difference is disclosed, not closed. The item's text
+  also names a bit-exact functional suite. The grader's `sta` rule does
+  not require one, and this citation does not claim it:
+  `klt functional-verification` envelopes record no `provenance` and
+  cannot be freshness-pinned, and SDF gate-level verification is tracked
+  separately by #93. **Item 5.analog stays `unmet`/`no_evidence`**
+  (parked on klayout-tools#1962).
 - **Item 11.digital, power delivery (structural) — cited, `met`** — the
   first T1 item no single artifact proves, so its manifest entry is a
   **list**: the digital partition's `klt erc` supply report
@@ -146,16 +196,12 @@ repo's rule that an envelope must actually support the item to be cited:
   `no_evidence` — the grader's honest statement that no *check* backs
   the claim — not a statement that the repo lacks sources, layout,
   testbenches, or hygiene.
-- **Items 5 + 5.digital / 5.analog** (corner verification vs ratified
-  spec) — the analog evidence (`sim/`, all 45 corners, per-row verdicts)
-  exists as this repo's *own* Markdown evidence-record convention, which
-  no `klt sim` envelope represents; and the digital evidence exists as
-  three per-corner OpenSTA envelopes that predate `klt sta`'s
-  `geometry_source`/`corner` response shape and are therefore not
-  gradeable either — plus `klt functional-verification` envelopes that
-  record no `provenance` and so cannot be freshness-pinned. Re-minting
-  either leg at the current pin is real work with its own scope
-  (post-layout STA is tracked by issue #53), not a manifest edit.
+- **Item 5.analog** (corner verification vs ratified spec, analog
+  partition) — the analog evidence (`sim/`, all 45 corners, per-row
+  verdicts) exists as this repo's *own* Markdown evidence-record
+  convention, which no `klt sim` envelope represents. Re-minting it as a
+  gradeable envelope waits on klayout-tools#1962 (tracked in #53);
+  `unmet`/`no_evidence`. (5.digital is cited above.)
 - **Item 6** (Monte Carlo) — the ratified §8.2 spec table contains no
   statistical (accuracy/offset/matching-distribution) row: every receiver
   threshold and the pull-up tolerance row are corner-matrix claims.
@@ -183,8 +229,8 @@ diff /tmp/fresh.json manifests/t1-signoff-report.json   # regeneration = update 
 ```
 
 Exit `0` means every T1 item met (this repo is **not** there:
-exit `3`, `tier: null`, `6/22` item-rows met at the time of freezing —
-items 3, 4, and 8, each in both partitions). Exit codes `0` and `3` are
+exit `3`, `tier: null`, `8/22` item-rows met at the time of freezing —
+items 3, 4, and 8 in both partitions, plus 5.digital and 11.digital). Exit codes `0` and `3` are
 both "clean runs"; exit `1` is an error and must be fixed, not committed
 around.
 
