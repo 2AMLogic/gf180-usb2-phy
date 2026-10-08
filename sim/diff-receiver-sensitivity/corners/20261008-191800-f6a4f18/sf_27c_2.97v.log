@@ -1,0 +1,93 @@
+klt sim corner sf/2.970V/27C status=error
+{
+  "corner_id": "sf/2.970V/27C",
+  "process": "sf",
+  "supply_v": {
+    "vsup": 2.97
+  },
+  "temperature_c": 27.0,
+  "status": "error",
+  "runtime_s": 0.0,
+  "measurements": [
+    {
+      "name": "vth_cm080_mv",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "vth_cm165_mv",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "vth_cm250_mv",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "hi_cm080",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "lo_cm080",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "hi_cm165",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "lo_cm165",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "hi_cm250",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "lo_cm250",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    }
+  ],
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "batch_job_failed",
+      "message": "batch job klt-sim-1a0429216567 finished 'failed' (job command exited 87): the job's klt reported: the fleet runner runs klt 0.5.0 but the submitting client is 0.7.0+g4cbdfa769875 -- the request was not run (update the runner image or use a compatible client)",
+      "runner_code": "batch_runner_version_mismatch",
+      "runner_klt_version": "0.5.0",
+      "client_klt_version": "0.7.0+g4cbdfa769875"
+    }
+  ],
+  "artifacts": {
+    "log": null,
+    "raw": null,
+    "waveform": null,
+    "deck": null
+  },
+  "monte_carlo": null
+}

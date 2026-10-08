@@ -319,7 +319,7 @@ and is the authority if this table and it ever disagree.
 | B | Driver fall time, 10–90 % into 50 pF | 9.59 ns | 12.98 ns | 19.27 ns | 4–20 ns (spec §6) | same as Row A | same | **Met** 45/45 | **Unmet/TBD — no record above 3.63 V** |
 | C | Rise/fall matching, `t_rise`/`t_fall` | 0.979 | 1.165 | 1.402 | within 10 % of each other, i.e. 0.90–1.10 (spec §6) | min: `sf`/125 °C/3.63 V; max: `fs`/−40 °C/2.97 V | same | **Unmet — 36 of 45 corners outside the window.** The dominant failure. The output stage's 60 µm PMOS / 30 µm NMOS pair makes pull-up systematically weaker than pull-down once mobility is accounted for; `fs` (fast NMOS / slow PMOS) is worst and `sf` is the only family inside the window. A device-sizing result, not a measurement artifact. | **Unmet/TBD — no record above 3.63 V**; a supply change does not fix a mobility-ratio asymmetry |
 | D | Output crossover voltage | 1.293 V | 1.602 V | 1.941 V | 1.3–2.0 V (spec §6) | min: `fs`/27 °C/2.97 V; max: `sf`/−40 °C/3.63 V | same | **Unmet — 2 of 45 corners below 1.3 V** (`fs_27c_2.97v` 1.2935 V, `fs_-40c_2.97v` 1.2968 V), both a few millivolts under, both on the same fast-NMOS/slow-PMOS/low-supply corner as Row C. Every other corner is comfortably inside. | **Unmet/TBD — no record above 3.63 V** |
-| E | Differential receiver input-referred threshold, common mode 0.8 V / 1.65 V / 2.5 V | −79 / −89 / −500 mV | −52 / −59 / −355 mV | −32 / −36 / −60 mV | \|D+ − D−\| > 200 mV over 0.8–2.5 V common mode (spec §4) | worst: 2.5 V common-mode point | `sim/diff-receiver-sensitivity/`, record `20260817-203852-5a963e7` | **Partly unmet.** At 0.8 V and 1.65 V common mode the threshold stays within −89…−32 mV, comfortably inside ±200 mV: **45/45 pass**. At 2.5 V it degrades to −60…−500 mV and **30 of 45 corners** read a K state (−200 mV) as a J. Mechanism: the 5T OTA's output common mode sits near VDD − \|V_GS,p\|, above the following buffer's trip point, and the loop gain available to overcome that collapses as the input common mode approaches the rail. (−500 mV entries are the sweep's saturating floor: "at least this bad".) The 0.8–2.5 V range is ratified, so this is a real receiver gap. | **Unmet/TBD** — and note a higher rail *raises* the buffer trip point this row is already losing to |
+| E | Differential receiver input-referred threshold, common mode 0.8 V / 1.65 V / 2.5 V | −31.5 / −34.9 / −81.0 mV | −22.3 / −24.8 / −30.2 mV | −14.5 / −16.1 / −18.5 mV | \|D+ − D−\| > 200 mV over 0.8–2.5 V common mode (spec §4) | worst: 2.5 V common-mode point, `fs_125c_2.97v` (−81 mV) | `sim/diff-receiver-sensitivity/`, record `20261008-193113-2e9f63e` (supersedes `20260817-203852-5a963e7`) | **Met.** **45/45** corners pass at each of the three common-mode points; worst threshold −81 mV against the ±200 mV limit. The earlier 30/45 failure at 2.5 V (K read as J) was the NMOS input pair's output floor (tail node, about V_cm − V_GS,n) sitting above the first buffer inverter's mid-rail trip point; the fix (issue #97) re-skews that inverter P-heavy so its trip point is about 0.65·VDD (2.13 V at tt/27 °C/3.3 V), at the OTA's balanced output level. A sizing change, not a topology change. | **Met in simulation** at the stated rail; no change to the single-ended receivers |
 | F | D+ pull-up resistance, trimmed | 1472.4 Ω | 1486.6 Ω | 1530.1 Ω | 1.5 kΩ ±5 % = 1425–1575 Ω (spec §5) | worst: `ss`, code 26 (2.01 %) | `sim/dplus-pullup-tolerance/`, record `20260817-203609-a408cb6`, plus `sim/dplus-pullup-tolerance/analyze_fixed_trim.py` over the same recorded logs | **Met**, and met under the *realistic* calibration model: **one trim code chosen per die at 27 °C / 3.30 V, then held fixed** across that die's whole temperature and supply grid, stays inside ±5 % for every process corner — worst 2.01 % (`ss`, code 26), best 1.38 % (`ff`, code 7). That is a stronger claim than a per-corner re-trim, which no production part could do. **Untrimmed** the same resistor spans 1722–2572 Ω across the grid, i.e. misses badly — so the trim ladder is a requirement, not a refinement, and it is exposed as `pu_trim[4:0]` (§2.2) for exactly that reason. | **Unmet/TBD — no record above 3.63 V** |
 | G | Pull-up rail `VPU_REG` | 2.97 V | 3.30 V | 3.63 V | 3.0–3.6 V regulated (spec §5) | min: any 2.97 V corner | spec §5; §2.5 of this document | **Unmet at the low supply corner** if `VPU_REG` is tied to a 3.3 V ±10 % `VDDA`, as §2.5 proposes: 2.97 V is below the ratified 3.00 V floor, and 3.63 V is above the 3.60 V ceiling. A regulation element, or a tighter supply spec from the harness, is required. Stated rather than rounded. | **Unmet** — a 5.0 V rail is further outside the window, not closer to it |
 | H | Single-ended receiver threshold (D+ and D−, identical circuits) | 1.203 V | 1.355 V | 1.506 V | VIH > 2.0 V, VIL < 0.8 V (spec §4) — i.e. the trip point must lie between them | min: `ff`/125 °C/2.97 V; max: `ss`/−40 °C/3.63 V | `sim/se-receiver-dp-thresholds/` record `20260817-203631-a408cb6`; `sim/se-receiver-dm-thresholds/` record `20260817-203654-a408cb6` | **Met 45/45** on both receivers. Output is a hard rail at both VIL and VIH at every corner. | **Unmet/TBD — no record above 3.63 V** |
@@ -334,14 +334,14 @@ Row I now has a post-layout re-verification: a SPEF-annotated `klt sta` re-run a
 ### Summary of verdicts
 
 **Met:** Rows B, F (conditional on per-part trim), H, I (at both 3.3 V and
-5.0 V), K, L and M (digital half).
-**Unmet:** Rows A, C, D, E, G, N, and the analog half of L and M.
+5.0 V), K, L and M (digital half), and E (as of issue #97).
+**Unmet:** Rows A, C, D, G, N, and the analog half of L and M.
 **Deliberately unjudged:** Row J.
 
-Rows C and E are the two that would change the design rather than the
-document: C is a driver output-stage sizing problem and E is a differential
-receiver topology problem at the top of the common-mode range. Neither is
-fixed by anything in this proposal, and neither is hidden by it.
+Row C would change the design rather than the document: it is a driver
+output-stage sizing problem, not fixed by anything in this proposal, and not
+hidden by it. Row E was the other such row; issue #97 fixed it in the design
+(a first-buffer-inverter sizing change) and re-measured it at 45/45.
 
 ---
 
@@ -428,9 +428,10 @@ plate for any point beyond bench ambient, since every simulated row spans
 4. **Differential receiver common-mode sweep (Row E).** Drive `DP`/`DM`
    externally with a controlled differential amplitude on a swept common
    mode from 0.8 V to 2.5 V and find the amplitude at which `DataIn`/
-   `RxValid` stop tracking. Row E predicts clean behaviour up to ~1.65 V
-   and failure approaching 2.5 V; measuring where the real part gives up is
-   the single most useful number this block can bring back from silicon.
+   `RxValid` stop tracking. Row E now predicts clean behaviour over the whole
+   0.8–2.5 V range in simulation (worst threshold −81 mV against ±200 mV);
+   measuring where the real part gives up is still the most useful number
+   this block can bring back from silicon.
 5. **Real enumeration against a real host (Rows K, and the system-level
    claim no simulation makes).** Attach the receptacle to a USB host with a
    minimal SIE driving the UTMI pins (an FPGA on the daughterboard), toggle
@@ -477,9 +478,10 @@ Listed honestly, in the order it gates:
    re-run cannot start.
 3. **Row C — driver rise/fall matching.** A device-sizing pass on the output
    stage; 36 of 45 corners currently fail.
-4. **Row E — differential receiver at high common mode.** A topology change
-   (the output common mode of the OTA versus the following buffer's trip
-   point), not a sizing tweak; 30 of 45 corners currently fail.
+4. **Row E — differential receiver at high common mode.** Closed by
+   issue #97: a first-buffer-inverter sizing change (not the topology
+   change originally expected) takes the 2.5 V common-mode point from 30/45
+   failing corners to 45/45 passing.
 5. **Rows A and D** are the same asymmetry as Row C seen at the slow/hot and
    the `fs` corners respectively; a Row C fix is expected to move both, but
    that expectation is not evidence and would be re-measured.

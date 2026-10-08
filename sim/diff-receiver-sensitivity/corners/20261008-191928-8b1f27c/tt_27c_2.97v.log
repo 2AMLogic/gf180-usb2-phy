@@ -1,0 +1,90 @@
+klt sim corner tt/2.970V/27C status=error
+{
+  "corner_id": "tt/2.970V/27C",
+  "process": "tt",
+  "supply_v": {
+    "vsup": 2.97
+  },
+  "temperature_c": 27.0,
+  "status": "error",
+  "runtime_s": 0.0,
+  "measurements": [
+    {
+      "name": "vth_cm080_mv",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "vth_cm165_mv",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "vth_cm250_mv",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "hi_cm080",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "lo_cm080",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "hi_cm165",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "lo_cm165",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "hi_cm250",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    },
+    {
+      "name": "lo_cm250",
+      "value": null,
+      "unit": null,
+      "status": "error",
+      "margin": null
+    }
+  ],
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "batch_job_failed",
+      "message": "batch job klt-sim-d5adb02037f7 finished 'failed' (job command exited 1): the job's klt reported: each request.measurements[] entry requires 'name' and 'spice'"
+    }
+  ],
+  "artifacts": {
+    "log": null,
+    "raw": null,
+    "waveform": null,
+    "deck": null
+  },
+  "monte_carlo": null
+}

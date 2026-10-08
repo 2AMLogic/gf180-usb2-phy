@@ -553,6 +553,14 @@ def render_record(record: dict, experiment: str) -> str:
         f"- PDK: {pdk.get('variant')} @ open_pdks `{pdk.get('open_pdks_version')}`"
         f" ({pdk.get('path')}, found via {pdk.get('discovered_via')})",
         f"- ngspice: {env['ngspice']}",
+    ]
+    if env.get("klt_sim"):
+        ks = env["klt_sim"]
+        lines.append(
+            f"- klt sim: version {ks.get('klt_version')}, backend `{ks.get('backend')}`, "
+            f"klt status `{ks.get('klt_status')}`, remote `{ks.get('remote')}`"
+        )
+    lines += [
         f"- Harness: sim/harness {env['harness_version']}, python {env['python']}",
         f"- git: `{git['commit']}` on `{git['branch']}`"
         + (" (dirty)" if git["dirty"] else " (clean)"),

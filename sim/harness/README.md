@@ -50,6 +50,31 @@ python3 sim/run_corners.py smoke-inverter  # run the full PVT grid, mint a recor
 bash sim/selftest.sh                       # prove the harness works (writes nothing)
 ```
 
+## Full grids go through `klt sim` on a shared host
+
+`run_corners.py` runs ngspice in-process, which is fine for a single-point
+probe (`--corners tt --temps 27 --supply-tol 0 --no-write`) but must not be
+used for a whole grid on a shared worker. `--backend klt` builds one `klt sim`
+corners request for the grid (`sim/harness/klt_backend.py`), runs it (with
+`KLT_SIM_BACKEND=batch` it goes to the Spot fleet; the job id lands in the
+record's `klt sim` environment line) and mints the usual record:
+
+```bash
+python3 sim/run_corners.py diff-receiver-sensitivity --backend klt \
+    --klt-runner-version-check warn --supersedes <record-id>
+```
+
+A testbench opts in with `klt_measure` in `tb.json` (a `.meas` card plus an
+optional `scale` per measurement; see the module docstring). Only
+`diff-receiver-sensitivity` declares it so far. `--klt-runner-version-check
+warn` is needed while the fleet image's klt is older than the client; the
+request then uses only features the older runner has. `--backend klt:local` /
+`klt:batch` force one klt backend. The klt backend does not need a local
+ngspice (the submitting host's version is recorded only as provenance), and
+any `klt sim` failure (no JSON report, `klt` not on PATH) exits 3
+(environment). Unit tests: `KltRequestTests` / `KltRunGridTests` /
+`KltCliTests` in `sim/tests/test_harness.py`, stubbing the `klt` subprocess.
+
 ## Prerequisites
 
 | Tool | Why | Install |

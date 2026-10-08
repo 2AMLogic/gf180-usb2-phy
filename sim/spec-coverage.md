@@ -75,7 +75,7 @@ experiment directory, and read its newest record.
 | Full-speed signal quality | §6 rows as a set + monotonic single-zero-crossing transition | `sim/driver-signal-quality/` | `20260817-203552-a408cb6` | **FAIL** on the §6 numeric rows above; the monotonicity/single-crossing half **passes** at 45/45 |
 | Driver-output timing jitter | §8.2's own note: no confirmed numeric limit ⇒ engineering data, no spec citation | `sim/driver-jitter/` | `20260817-203915-5a963e7` | **No pass/fail claimed** (see below) — data recorded at 45/45 |
 | D+ pull-up tolerance | §5 (1.5 kΩ ±5 %) | `sim/dplus-pullup-tolerance/` | `20260905-185112-6bfe679` (supersedes `20260817-203609-a408cb6`) | **PASS** 45/45 — re-run against the flattened `dplus_pullup` netlist (issue #56 / DR-0001); same verdict, same trim code at every corner, ≤ 0.01 Ω from the superseded result |
-| Receiver thresholds — differential | §4 (\|D+ − D−\| > 200 mV over 0.8–2.5 V common mode) | `sim/diff-receiver-sensitivity/` | `20260817-203852-5a963e7` | **FAIL** — 30/45 corners fail at the 2.5 V common-mode point; 45/45 pass at 0.8 V and 1.65 V |
+| Receiver thresholds — differential | §4 (\|D+ − D−\| > 200 mV over 0.8–2.5 V common mode) | `sim/diff-receiver-sensitivity/` | `20261008-193113-2e9f63e` (supersedes `20260817-203852-5a963e7`) | **PASS** — 45/45 corners at each of the 0.8 V, 1.65 V and 2.5 V common-mode points; worst input-referred threshold −81 mV (`fs_125c_2.97v`, 2.5 V common mode). Sizing fix in issue #97; the previous record's 30/45 failure at 2.5 V is retained as history in the section below |
 | Receiver thresholds — single-ended D+ | §4 (VIH > 2.0 V, VIL < 0.8 V) | `sim/se-receiver-dp-thresholds/` | `20260817-203631-a408cb6` | **PASS** 45/45 |
 | Receiver thresholds — single-ended D− | §4 (VIH > 2.0 V, VIL < 0.8 V) | `sim/se-receiver-dm-thresholds/` | `20260817-203654-a408cb6` | **PASS** 45/45 |
 | DRC / LVS | §8.2 marks this "N/A — layout hygiene, not an electrical spec row" | `layout/digital/`; `layout/analog/` | `verification/records/digital-drc/records/20260825-224815-6a83263.md`; `verification/records/digital-lvs/records/20260825-224930-6a83263.md`; `verification/records/analog-layout/records/20260905-200628-80cb14c.md`; `verification/records/analog-layout/records/20260905-190024-525c67c.md` | **PASS for the digital half. Analog half re-measured under issues #52, #56, and #61; still not delivered.** `klt drc` on `layout/digital/usb_utmi_phy.gds` is `clean` / 0 violations; gate-level `klt lvs` against the as-built netlist is `match` / 0 mismatches, with a passing negative control. For analog: the `klt` pin was advanced to consume three friction fixes this repo filed (klayout-tools#1163/#1164/#1165, all closed), but the three placeable blocks (`differential_receiver`, `se_receiver_dm`, `se_receiver_dp`) still route 0/N of their nets — the new fields the plans would need to exploit them (block orientation, a two-layer bus role) are opt-in and unused by the committed plans — and are DRC-**violating** rather than clean, a regression filed as klayout-tools#1424. That issue closed `NOT_PLANNED`/refuted 2026-08-26 (the maintainer found no polygon-miter construction via source inspection), but issue #61's 2026-09-05 re-measurement found the violations reproduce byte-for-byte unchanged against the exact commit that inspection covered — the closure corrected the claimed mechanism, not the observed symptom. `dplus_pullup`'s ingestion blocker is **cleared** as of issue #56 / DR-0001 (its switch devices are drawn one device per gate, and klt now ingests and places the block), but it has no committed layout plan yet, so it still produces no layout. `differential_driver` still cannot be ingested at all (unchanged `rm1` error text). No analog GDS is committed (`layout/README.md` § "Analog"). §11 requires both halves before signoff. |
@@ -115,19 +115,39 @@ the low supply — the same asymmetry the matching failure comes from, seen as a
 crossing that sits below mid-rail. Every other corner is comfortably inside
 1.3–2.0 V (grid maximum 1.941 V at `sf_-40c_3.63v`).
 
-### Differential receiver at 2.5 V common mode (30/45 corners)
+### Differential receiver at 2.5 V common mode (was 30/45 corners; now 45/45)
 
-At the 0.8 V and 1.65 V common-mode points the input-referred threshold stays
-within −89…−32 mV, comfortably inside the ±200 mV §4 requires. At the 2.5 V
-point it degrades to −60…−500 mV (the −500 mV entries are the saturating floor
-of the sweep — see that experiment's testbench header — so they mean "at least
-this bad"), and at 30 of the 45 corners the receiver still reads a **K** state
-(D+ − D− = −200 mV) as a **J**. The mechanism is a systematic offset: the 5T
-OTA's output common-mode sits near VDD − |V_GS,p|, well above the trip point of
-the CMOS buffer that follows it, and the loop gain available to overcome that
-difference collapses as the input common mode approaches the top of the range.
-§4's 0.8–2.5 V common-mode range is ratified, so this is a real gap in the
-receiver, not a testbench choice.
+**Current result** (`20261008-193113-2e9f63e`, supersedes
+`20260817-203852-5a963e7`, issue #97): all three common-mode points pass at
+45/45 corners, against the unchanged ±200 mV requirement. Input-referred
+threshold: −31.5…−14.5 mV at 0.8 V, −34.9…−16.1 mV at 1.65 V, −81.0…−18.5 mV
+at 2.5 V (worst: `fs_125c_2.97v`); output levels are valid logic levels at
+±200 mV everywhere. This run was taken through `klt sim` on the Spot batch
+fleet (ngspice-46); its threshold is the interpolated `.meas ... WHEN`
+crossing, so it is not quantised to the 1 mV sweep step the earlier records'
+vector form was.
+
+**What was wrong** (history, from `20260817-203852-5a963e7`): at the 0.8 V and
+1.65 V common-mode points the input-referred threshold stayed within
+−89…−32 mV, but at 2.5 V it degraded to −60…−500 mV and at 30 of the 45
+corners the receiver read a **K** state (D+ − D− = −200 mV) as a **J**. The
+original diagnosis (OTA output common mode above the buffer trip point) was
+right in effect but the precise mechanism, found in issue #97, is that the
+NMOS input pair cannot pull `AMPOUT` below its own tail node
+(V_cm − V_GS,n ≈ 1.6 V at 2.5 V common mode), which sits above the old
+mid-rail trip point of the first buffer inverter, so a K state never read low.
+
+**Fix**: the first buffer inverter was made deliberately P-heavy
+(`MP_B1`/`MN_B1` 8u/4u → 32u/2u), moving its trip point to about 0.65·VDD (2.13 V at tt/27 °C/3.3 V),
+which is the OTA's balanced output level (VDD − |V_SG,p| of the diode load)
+and tracks it over supply. This was the cheap sizing lever the issue named
+first; the complementary-input-pair topology change was not needed. The
+single-ended receivers and the spec are untouched.
+
+Records `20261008-191800-f6a4f18` and `20261008-191928-8b1f27c` are 0/45
+infrastructure-error records (the fleet runner image's klt predated the
+client's request features) kept as append-only evidence of the failed
+submissions; they carry no design result.
 
 ### Jitter — recorded, deliberately unjudged
 
