@@ -14,7 +14,7 @@ RXD tracks DP>DM non-inverting (two buffer inversions cancel): RXD=1
 when DP is the more-positive line (J), RXD=0 when DM is (K). NRZI/bit
 decode of RXD is out of scope here (out-of-scope serial interface
 engine per CLAUDE.md) -- this cell stops at the recovered raw bit.
-Design-intent target (NOT yet PVT-simulated -- see #26):
+Design-intent target (PVT-simulated -- see sim/diff-receiver-sensitivity):
   differential sensitivity |DP-DM| > 200mV, over 0.8-2.5V common-mode
   (spec Sec.4).} -1900 -1000 0 0 0.32 0.32 {}
 T {Sizing rationale (first-order, hand calc -- to be confirmed by #26 PVT
@@ -28,16 +28,16 @@ bias reference is needed (consistent with CLAUDE.md's scope discipline
 floor). Load MP_LOADA/MP_LOADB sized 2:1 P:N (W=40u vs input pair's
 W=20u, gf180mcu 3.3V mobility ratio -- same convention as the driver's
 output stage in differential_driver.sch) for a balanced mirror.
-Buffer inv1 (MP_B1/MN_B1, W=8u/4u) and inv2 (MP_B2/MN_B2, W=16u/8u)
-follow a 2:1 P:N ratio each stage and roughly double per stage (fanout
-scaling) to square AMPOUT's small-signal swing to rail-to-rail RXD
-without adding excessive extra delay.
-Open PVT items (informal spot-check only; #26 owns verification):
-  - Common-mode headroom at the 0.8V floor: tail node sits at
-    Vcm-Vgs(MN_INA); MTAIL needs Vds >= its Vov to stay in saturation.
-    Not verified across process/temperature here.
-  - Common-mode headroom at the 2.5V ceiling: MP_LOADB needs Vsg
-    headroom as AMPOUT approaches VDD. Not verified across PVT here.} -1900 -650 0 0 0.28 0.28 {}
+Buffer inv1 (MP_B1/MN_B1, W=32u/2u) is deliberately P-heavy (16:1) so
+its trip point sits near 0.7*VDD, at the OTA's balanced output level
+(VDD - |Vsg,p| of the diode load), not at VDD/2. The 5T OTA's low output
+level is floored at the tail node (Vcm - Vgs,n), which at Vcm = 2.5V is above
+a mid-rail trip; a high trip point restores the margin (issue #97). inv2
+(MP_B2/MN_B2, W=16u/8u) is unchanged and squares BUF1 to rail-to-rail RXD.
+PVT status: input-referred threshold -18...-35mV at all three common-mode
+points over the 45-corner grid (sim/diff-receiver-sensitivity, see the
+record that supersedes 20260817-203852-5a963e7).
+} -1900 -650 0 0 0.28 0.28 {}
 N -2000 -400 -1960 -400 {}
 C {devices/iopin.sym} -2000 -400 0 0 {name=p_vdd lab=VDD}
 N -2000 -340 -1960 -340 {}
@@ -165,7 +165,7 @@ N 100 0 160 0 {}
 C {devices/lab_pin.sym} 160 0 0 0 {name=l31 lab=VDD}
 C {symbols/pfet_03v3.sym} 80 0 0 0 {name=MP_B1
 L=0.28u
-W=8u
+W=32u
 nf=1
 m=1
 model=pfet_03v3
@@ -181,7 +181,7 @@ N 340 0 400 0 {}
 C {devices/lab_pin.sym} 400 0 0 0 {name=l35 lab=VSS}
 C {symbols/nfet_03v3.sym} 320 0 0 0 {name=MN_B1
 L=0.28u
-W=4u
+W=2u
 nf=1
 m=1
 model=nfet_03v3

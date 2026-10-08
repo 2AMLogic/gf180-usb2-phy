@@ -152,6 +152,16 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="run but do not record evidence (debugging only)",
     )
+    parser.add_argument(
+        "--backend",
+        default=None,
+        metavar="NAME",
+        help="run the grid through `klt sim` instead of hand-launching ngspice: "
+        "'klt' (honours $KLT_SIM_BACKEND, e.g. batch on a shared host), or "
+        "'klt:local' / 'klt:batch' to force one. Needs 'klt_measure' in tb.json. "
+        "Default: the in-process ngspice runner (single-point probes only on a "
+        "shared host).",
+    )
     parser.add_argument("--quiet", action="store_true", help="only print the summary")
     parser.add_argument("--version", action="version", version=f"gf180-usb2-phy harness {HARNESS_VERSION}")
     return parser
@@ -295,18 +305,48 @@ def run(args: argparse.Namespace) -> int:
         print(f"[{completed:>3}/{len(points)}] {flag} {result.point.corner_id:<26} {detail}")
 
     wall_start = time.monotonic()
+    backend_info = None
     try:
-        results = runner.run_grid(
-            tb,
-            pdk,
-            points,
-            workdir,
-            jobs=jobs,
-            timeout_s=args.timeout,
-            on_result=progress,
-            log_dir=log_dir,
-        )
+        if args.backend and args.backend.split(":")[0] == "klt":
+            import json as _json
+            from . import klt_backend
+
+            klt_name = args.backend.partition(":")[2] or None
+            results, backend_info = klt_backend.run_grid_klt(
+                tb,
+                pdk,
+                points,
+                workdir,
+                _json.loads((tb.directory / "tb.json").read_text()),
+                backend=klt_name,
+                timeout_s=args.timeout,
+                on_result=progress,
+                log_dir=log_dir,
+            )
+            ngspice = (
+                f"ngspice-{backend_info['engine_version']} via `klt sim` "
+                f"(backend {backend_info['backend']}; submitting host had {ngspice})"
+            )
+        elif args.backend:
+            print(f"error: unknown --backend {args.backend!r}", file=sys.stderr)
+            return EXIT_ENVIRONMENT
+        else:
+            results = runner.run_grid(
+                tb,
+                pdk,
+                points,
+                workdir,
+                jobs=jobs,
+                timeout_s=args.timeout,
+                on_result=progress,
+                log_dir=log_dir,
+            )
     except NgspiceMissing as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return EXIT_ENVIRONMENT
+    except Exception as exc:  # klt_backend.KltError and friends
+        if type(exc).__name__ != "KltError":
+            raise
         print(f"error: {exc}", file=sys.stderr)
         return EXIT_ENVIRONMENT
     wall = time.monotonic() - wall_start
@@ -327,6 +367,9 @@ def run(args: argparse.Namespace) -> int:
         subset_reason=subset_reason,
         git=git,
     )
+    if backend_info is not None:
+        record["environment"]["klt_sim"] = backend_info
+        print(f"klt sim   : {backend_info}")
 
     print()
     print(f"summary ({record['grid']['points_ok']}/{len(points)} points ok, {wall:.1f}s):")
