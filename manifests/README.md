@@ -174,7 +174,7 @@ citing set the item's own text requires:
   a purpose-built **generic envelope**
   (`manifests/item8-characterization.json`), wrapping
   `docs/characterization-report.md` and pinned to that file's content
-  hash (`sha256:8e8fc4…`). The envelope's `status: "pass"` asserts the
+  hash (`sha256:d93edeb3…`). The envelope's `status: "pass"` asserts the
   *report's* existence, currency, and complete per-row coverage — it is
   **not** an assertion that every spec row passes; the wrapped report
   records 4 of 9 electrical rows as FAIL at some corners and says so, and
@@ -208,8 +208,8 @@ repo's rule that an envelope must actually support the item to be cited:
   Stated here explicitly per the item's own requirement that a spec with
   no statistical row must say so rather than silently omit the item.
 - **Items 7.analog / 7.digital** (post-layout verification) — no analog
-  layout exists to extract; the digital flow has SPEF-annotated STA
-  (item-5-shaped evidence, deliberately not this item's) but no
+  layout exists to extract; the digital flow has three-corner STA with extracted capacitance attached
+  (item 5.digital above; item-5-shaped evidence, deliberately not this item's) but no
   SDF-annotated `klt functional-verification` run. Tracked by #53 and
   the analog `layout/README.md` narrative. **7.digital was attempted in
   issue #93 and is still `unmet`:** record

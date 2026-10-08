@@ -242,6 +242,8 @@ almost the entire gap: 364/366 design nets annotated (the remaining 2 are
 unrouted single-pin nets with no wire to extract, not a correlation miss)
 — see
 `verification/records/post-layout-pvt/records/20260905-182000-80d4593.md`,
-which supersedes the record above. Every reported timing/power/skew number
+which supersedes the record above. ("Annotated" there means name-matched: the
+caveat at the top of this section applies, and the current evidence is
+`20261008-195826-74ccfac`.) Every reported timing/power/skew number
 is unchanged between the two runs. Read the newer record's "Result" section
 before citing numbers from either.

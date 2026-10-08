@@ -21,7 +21,7 @@ for the measurement (re-run post-#84 against the vendored sources, issue
 #87): 318 mapped standard cells becoming 1121 placed instances after
 tapcell/PDN/filler insertion, 0 setup/hold/antenna/router-DRC violations at
 the 12 MHz spec clock rate, ~51.8 MHz `fmax` at the nominal liberty corner
-(~54.8 MHz SPEF-annotated — see the post-layout PVT record), and every one
+(the earlier ~54.8 MHz "SPEF-annotated" figure was wire-parasitic-free and is superseded: 47.6 MHz at `tt_025C_1v80` with the parasitics actually attached — `verification/records/post-layout-pvt/records/20261008-195826-74ccfac.md`), and every one
 of the cell library's 15 liberty corners (1v8, 3v3 and 5v0 families)
 positive on both setup and hold.
 
@@ -53,10 +53,20 @@ ports) are the tool's own disclosed warnings now
 rule set, not the foundry sign-off deck; no metal/density fill is inserted, so
 this is not a density-clean claim. LVS holds the standard cells as black boxes
 — it verifies the *assembly*, not the foundry's library. There is no IO ring
-or pad frame (core-only). Extracted-parasitic (SPEF-annotated) STA of this
+or pad frame (core-only). Extracted-parasitic STA of this
 layout is recorded separately under
-`verification/records/post-layout-pvt/` — liberty-corner timing on extracted
-digital parasitics, not a SPICE re-simulation of this netlist.
+`verification/records/post-layout-pvt/` — three liberty corners with extracted
+wire and vertical-coupling capacitance attached (current record
+`20261008-195826-74ccfac`), not a SPICE re-simulation of this netlist and not
+RC signoff. A net being *name-matched* in the SPEF is not evidence its
+parasitics were attached: the earlier records (`20260922-042422-9ec2304`,
+`20261008-200000-8139bb6`) reported full name annotation while OpenSTA applied
+no wire capacitance (`delay_changed: false`). The current record discloses 7
+unannotated drivers (floating CTS dummy-load outputs) and 3 partially
+unannotated drivers (`RxActive`, `LineState[1:0]`), no wire RC delay (lumped
+capacitance), an ideal clock, and no lateral coupling (none declared); see
+`manifests/README.md` item 5.digital. The older name-annotation counts in
+`20260905-182000-80d4593.md` were not re-checked for attachment.
 
 **History.** Until 2026-08-25 this layout was **not** DRC-clean: 153 `Metal1`
 space/width violations at standard-cell row gaps, root-caused to
@@ -78,6 +88,24 @@ No GDS/OASIS is committed for the five analog blocks
 `design/netlist/*.spice`). This is a measured tooling result, not an untried
 assumption: the attempt is committed and re-runnable, and its raw output is
 recorded under `verification/records/analog-layout/`.
+
+### Current state in one paragraph
+
+Plans, incomplete routing, and layout are three different things here. All
+five blocks have a committed **plan** (`layout/analog/plans/*.json`) and every
+executed placement is DRC-clean, but **routing is incomplete**: `dplus_pullup`
+routes 6 of 21 nets, the three receiver plans 1 of 8/9/9, and
+`differential_driver` 0 of 10 (latest run:
+`verification/records/analog-layout/records/20260921-130120-223bae5.md`;
+`differential_driver` now ingests — the "cannot be ingested" wording in the
+early columns of the per-run table below is history). There is **no
+signoff-ready analog layout**: nothing under `layout/analog/` is committed
+(only plans), no analog LVS result is recorded, and no extracted
+re-simulation exists. Further, `differential_receiver` was resized by issue
+#97 (PR #102) after that run; its layout, DRC and LVS state is **not
+re-verified** for the resized design
+(`verification/records/analog-layout/records/20261008-200500-4c71e6e.md`, a
+provenance-only supersession). The per-run table below is dated history.
 
 ### What was attempted
 

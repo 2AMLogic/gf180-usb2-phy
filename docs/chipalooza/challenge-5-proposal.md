@@ -20,9 +20,10 @@ when it publishes; §2.8 lists what would change if any of them moved.
 block is at the sign-off bar: synthesized, placed and routed, **DRC-clean**
 and **LVS-matched**, with timing closed at every liberty corner of its cell
 library including the 5.0 V ones. The analog half is **simulation-complete
-but has no layout** — all five analog blocks have captured schematics,
-exported netlists and full 45-corner PVT sweeps, and three of the five spec
-rows they answer currently **fail** at some corners. Nothing has been
+but has no signoff-ready layout** — all five analog blocks have captured schematics,
+exported netlists and full 45-corner PVT sweeps, and the driver's §6 rows
+(Rows A, C, D) currently **fail** at some corners (the differential receiver,
+Row E, passes as of issue #97). Nothing has been
 fabricated and nothing has been measured on silicon. §4 states every row's
 verdict, met and unmet alike, and §6 says plainly what a shuttle seat
 would and would not settle.
@@ -218,7 +219,8 @@ budget be allocated to another entry.
   against `verification/`'s existing suite before the pinout is real.
 - **`VPU_REG`'s 3.0 V floor** (§2.5) is unresolved and is §4 Row G's unmet
   status.
-- **Three §4 rows fail in simulation today** (Rows C, D-partial, E) and are
+- **Three §4 rows fail in simulation today** (Rows A, C, D — all driver §6
+  rows; Row E was fixed by issue #97, `sim/diff-receiver-sensitivity/records/20261008-193113-2e9f63e.md`) and are
   *design* work, not documentation work — see §4's own notes.
 
 ### 2.8 What changes if the published Challenge #5 rules differ
@@ -307,8 +309,8 @@ something a shipped part can do.
 from the 45-corner PVT matrix of spec §8.1 (5 process corners `tt`/`ff`/
 `ss`/`fs`/`sf` × 3 temperatures −40/27/125 °C × 3 supplies 2.97/3.30/
 3.63 V) — no row below is a subset of that matrix. **No spec limit was
-relaxed to make any row pass**; four rows fail and are reported as failures
-with their offending corners.
+relaxed to make any row pass**; the driver rows A, C and D fail and Row G is
+unmet, all reported as such with their offending corners.
 
 `sim/spec-coverage.md` is the index from spec §8.2's rows to these records
 and is the authority if this table and it ever disagree.
@@ -320,7 +322,7 @@ and is the authority if this table and it ever disagree.
 | C | Rise/fall matching, `t_rise`/`t_fall` | 0.979 | 1.165 | 1.402 | within 10 % of each other, i.e. 0.90–1.10 (spec §6) | min: `sf`/125 °C/3.63 V; max: `fs`/−40 °C/2.97 V | same | **Unmet — 36 of 45 corners outside the window.** The dominant failure. The output stage's 60 µm PMOS / 30 µm NMOS pair makes pull-up systematically weaker than pull-down once mobility is accounted for; `fs` (fast NMOS / slow PMOS) is worst and `sf` is the only family inside the window. A device-sizing result, not a measurement artifact. | **Unmet/TBD — no record above 3.63 V**; a supply change does not fix a mobility-ratio asymmetry |
 | D | Output crossover voltage | 1.293 V | 1.602 V | 1.941 V | 1.3–2.0 V (spec §6) | min: `fs`/27 °C/2.97 V; max: `sf`/−40 °C/3.63 V | same | **Unmet — 2 of 45 corners below 1.3 V** (`fs_27c_2.97v` 1.2935 V, `fs_-40c_2.97v` 1.2968 V), both a few millivolts under, both on the same fast-NMOS/slow-PMOS/low-supply corner as Row C. Every other corner is comfortably inside. | **Unmet/TBD — no record above 3.63 V** |
 | E | Differential receiver input-referred threshold, common mode 0.8 V / 1.65 V / 2.5 V | −31.5 / −34.9 / −81.0 mV | −22.3 / −24.8 / −30.2 mV | −14.5 / −16.1 / −18.5 mV | \|D+ − D−\| > 200 mV over 0.8–2.5 V common mode (spec §4) | worst: 2.5 V common-mode point, `fs_125c_2.97v` (−81 mV) | `sim/diff-receiver-sensitivity/`, record `20261008-193113-2e9f63e` (supersedes `20260817-203852-5a963e7`) | **Met.** **45/45** corners pass at each of the three common-mode points; worst threshold −81 mV against the ±200 mV limit. The earlier 30/45 failure at 2.5 V (K read as J) was the NMOS input pair's output floor (tail node, about V_cm − V_GS,n) sitting above the first buffer inverter's mid-rail trip point; the fix (issue #97) re-skews that inverter P-heavy so its trip point is about 0.65·VDD (2.13 V at tt/27 °C/3.3 V), at the OTA's balanced output level. A sizing change, not a topology change. | **Met in simulation** at the stated rail; no change to the single-ended receivers |
-| F | D+ pull-up resistance, trimmed | 1472.4 Ω | 1486.6 Ω | 1530.1 Ω | 1.5 kΩ ±5 % = 1425–1575 Ω (spec §5) | worst: `ss`, code 26 (2.01 %) | `sim/dplus-pullup-tolerance/`, record `20260817-203609-a408cb6`, plus `sim/dplus-pullup-tolerance/analyze_fixed_trim.py` over the same recorded logs | **Met**, and met under the *realistic* calibration model: **one trim code chosen per die at 27 °C / 3.30 V, then held fixed** across that die's whole temperature and supply grid, stays inside ±5 % for every process corner — worst 2.01 % (`ss`, code 26), best 1.38 % (`ff`, code 7). That is a stronger claim than a per-corner re-trim, which no production part could do. **Untrimmed** the same resistor spans 1722–2572 Ω across the grid, i.e. misses badly — so the trim ladder is a requirement, not a refinement, and it is exposed as `pu_trim[4:0]` (§2.2) for exactly that reason. | **Unmet/TBD — no record above 3.63 V** |
+| F | D+ pull-up resistance, trimmed | 1472.4 Ω | 1486.6 Ω | 1530.1 Ω | 1.5 kΩ ±5 % = 1425–1575 Ω (spec §5) | worst: `ss`, code 26 (2.01 %) | `sim/dplus-pullup-tolerance/`, record `20260817-203609-a408cb6` (superseded by `20260905-185112-6bfe679`, the flattened-netlist re-run: same verdict, same trim codes, ≤ 0.01 Ω difference), plus `sim/dplus-pullup-tolerance/analyze_fixed_trim.py` over the same recorded logs | **Met**, and met under the *realistic* calibration model: **one trim code chosen per die at 27 °C / 3.30 V, then held fixed** across that die's whole temperature and supply grid, stays inside ±5 % for every process corner — worst 2.01 % (`ss`, code 26), best 1.38 % (`ff`, code 7). That is a stronger claim than a per-corner re-trim, which no production part could do. **Untrimmed** the same resistor spans 1722–2572 Ω across the grid, i.e. misses badly — so the trim ladder is a requirement, not a refinement, and it is exposed as `pu_trim[4:0]` (§2.2) for exactly that reason. | **Unmet/TBD — no record above 3.63 V** |
 | G | Pull-up rail `VPU_REG` | 2.97 V | 3.30 V | 3.63 V | 3.0–3.6 V regulated (spec §5) | min: any 2.97 V corner | spec §5; §2.5 of this document | **Unmet at the low supply corner** if `VPU_REG` is tied to a 3.3 V ±10 % `VDDA`, as §2.5 proposes: 2.97 V is below the ratified 3.00 V floor, and 3.63 V is above the 3.60 V ceiling. A regulation element, or a tighter supply spec from the harness, is required. Stated rather than rounded. | **Unmet** — a 5.0 V rail is further outside the window, not closer to it |
 | H | Single-ended receiver threshold (D+ and D−, identical circuits) | 1.203 V | 1.355 V | 1.506 V | VIH > 2.0 V, VIL < 0.8 V (spec §4) — i.e. the trip point must lie between them | min: `ff`/125 °C/2.97 V; max: `ss`/−40 °C/3.63 V | `sim/se-receiver-dp-thresholds/` record `20260817-203631-a408cb6`; `sim/se-receiver-dm-thresholds/` record `20260817-203654-a408cb6` | **Met 45/45** on both receivers. Output is a hard rail at both VIL and VIH at every corner. | **Unmet/TBD — no record above 3.63 V** |
 | I | Digital section maximum clock frequency (`fmax`) | — | 68.53 MHz @ `tt_025C_1v80` | — | must exceed the 12 MHz UTMI interface clock (spec §3) | worst setup slack 47.29 ns @ `ss_125C_1v62`; worst hold 0.383 ns @ `ff_n40C_5v50` | `verification/records/place-and-route/records/20260825-224709-6a83263.md` | **Met** — 5.7× the required rate, 0 setup / 0 hold / 0 antenna / 0 router-DRC violations. | **Met.** Uniquely among these rows: the standard-cell library `gf180mcu_fd_sc_mcu9t5v0` is a 5 V-capable library and the P&R run's own multi-corner STA covers `4v50`/`5v00`/`5v50` as well as `3v00`/`3v30`/`3v60`. Every one of the 15 corners is positive on setup and hold. At `tt_025C_3v30`: 77.73 ns setup / 0.886 ns hold. At `tt_025C_5v00`: 79.36 ns setup / 0.613 ns hold. |
@@ -328,8 +330,8 @@ and is the authority if this table and it ever disagree.
 | K | Digital UTMI logic functional correctness | — | — | — | spec §11: bit-exact against NRZI / bit-stuffing / SYNC / EOP / line-state behaviour, by cocotb testbench | n/a | `verification/records/bit-codec-functional/` (record `20260817-212707-6c7f7ff`), `verification/records/utmi-framing-functional/` (record `20260818-025302-ea10f21`) | **Met.** Bit-exact against an independently-written Python golden model, plus TX→wire→RX loopback including the trailing-stuff-bit case, back-to-back packets at minimum gap, and a malformed-SYNC case that must never assert `RxActive`/`RxValid`. | Rail-independent (a functional claim, not an electrical one) |
 | L | DRC | — | 0 violations | — | spec §11: clean before signoff | n/a | `verification/records/digital-drc/records/20260825-224815-6a83263.md` | **Met for the digital half** — `klt drc --deck gf180mcu` reports `status: "clean"`, `violation_count: 0` against `layout/digital/usb_utmi_phy.gds`. **Unmet for the analog half: no analog GDS exists** (§5). | Rail-independent |
 | M | LVS | — | match, 0 mismatches | — | spec §11: clean before signoff | n/a | `verification/records/digital-lvs/records/20260825-224930-6a83263.md` | **Met for the digital half** — gate-level LVS of the routed GDS against the as-built netlist is a match, with a passing negative control. **Unmet for the analog half: no analog GDS exists.** | Rail-independent |
-| N | Post-layout (extracted-parasitic) PVT simulation | — | — | — | spec §11 (implied by "verified by simulation" once a layout exists) | n/a | `verification/records/post-layout-pvt/records/20260905-182000-80d4593.md` (digital half only; supersedes `20260825-233200-1c84648.md`) | **Unmet.** Every electrical row above is still measured against the **schematic** netlist under `design/netlist/`, not an extracted one — issue #52 closed (PR #57, 2026-08-26) without ever committing a GDS/OASIS for any of the five analog blocks, so there is still nothing under `layout/analog/` to extract; tracked onward at klayout-tools#1424 and gf180-usb2-phy#56.
-Row I now has a post-layout re-verification: a SPEF-annotated `klt sta` re-run at three corners against the committed digital layout, moving worst setup slack by +0.22 to +2.96 ns versus the liberty/estimated-RC numbers Row I cites. Its first attempt reached only 186 of 366 design nets, root-caused to a `klt sta` net-name-correlation defect (klayout-tools#1422); that defect is now fixed upstream (klayout-tools#1423), and re-running the identical recipe against this repo's now-current `klt` pin closes the gap to 364 of 366 (100% of nets that physically carry routed metal) with every reported timing/power/skew number unchanged. That is real progress on the digital half, but this row's verdict is about *every* electrical row in this table having an extracted-netlist re-run, and none of Rows A–H, J is a digital-timing row — so this still does not make this row **Met**. | Same |
+| N | Post-layout (extracted-parasitic) PVT simulation | — | — | — | spec §11 (implied by "verified by simulation" once a layout exists) | n/a | `verification/records/post-layout-pvt/records/20261008-195826-74ccfac.md` (digital half only; three liberty corners, parasitics attached; supersedes the name-annotation-only `20260905-182000-80d4593.md`) | **Unmet.** Every electrical row above is still measured against the **schematic** netlist under `design/netlist/`, not an extracted one — issue #52 closed (PR #57, 2026-08-26) without ever committing a GDS/OASIS for any of the five analog blocks, so there is still nothing under `layout/analog/` to extract (plans exist; routing is incomplete — `layout/README.md` § "Analog").
+Row I now has a post-layout re-verification: a SPEF-annotated `klt sta` re-run at three corners against the committed digital layout, moving worst setup slack by +0.22 to +2.96 ns versus the liberty/estimated-RC numbers Row I cites. Caution: that record's name-annotation counts (186, then 364 of 366 nets) were later shown not to establish attached capacitance — the same extraction applied no wire parasitics (`delay_changed: false`). The current evidence is `verification/records/post-layout-pvt/records/20261008-195826-74ccfac.md`: parasitics attached, 7 unannotated and 3 partially unannotated drivers, lumped capacitance (no wire RC delay), ideal clock; attaching them cost 2.76 / 6.89 / 0.37 ns of setup slack at tt / ss / ff versus the wire-free figures, so the +0.22 to +2.96 ns delta quoted here was not a real post-layout delta. That is real progress on the digital half, but this row's verdict is about *every* electrical row in this table having an extracted-netlist re-run, and none of Rows A–H, J is a digital-timing row — so this still does not make this row **Met**. | Same |
 
 ### Summary of verdicts
 
@@ -468,11 +470,11 @@ Listed honestly, in the order it gates:
 2. **Post-layout (extracted-parasitic) PVT re-verification** of every Row
    A–H measurement (blocked on item 1). The digital section's timing (Row
    N) has been re-verified against extracted parasitics —
-   `verification/records/post-layout-pvt/records/20260905-182000-80d4593.md`
-   — reaching 364 of 366 design nets (100% of nets that physically carry
-   routed metal); an earlier attempt's incomplete annotation (a `klt sta`
-   correlation defect, klayout-tools#1422) is now fixed upstream
-   (klayout-tools#1423) and superseded. The remaining item here is
+   `verification/records/post-layout-pvt/records/20261008-195826-74ccfac.md`
+   — three liberty corners with extracted capacitance attached (earlier
+   name-annotation counts such as 364 of 366 nets did not prove attachment
+   and are superseded; disclosed limits: lumped capacitance, ideal clock,
+   3 corners not the 45-corner matrix). The remaining item here is
    entirely the analog half, blocked on item 1: there is nothing under
    `layout/analog/` to extract, so Rows A–H's own extracted-netlist
    re-run cannot start.
