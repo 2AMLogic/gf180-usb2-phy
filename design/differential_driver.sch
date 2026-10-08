@@ -18,19 +18,22 @@ Design-intent targets (NOT yet PVT-simulated -- see #26):
   rise/fall matching: within 10%        (Sec.6)
   crossover voltage: 1.3-2.0V            (Sec.6)
   output resistance: 28-44 ohm           (Sec.6)} -900 -900 0 0 0.35 0.35 {}
-T {Sizing rationale (first-order, hand calc -- to be confirmed by #26 PVT sim):
-Output stage Wp:Wn = 2:1 (gf180mcu 3.3V mobility ratio) for rise/fall
-matching and a crossover point near VDD/2 = 1.65V, inside [1.3,2.0]V.
-R_series (rm1, metal1) sized 36 ohm nominal (L/W=400, e.g. W=2u L=800u):
-rm1 sheet-rho process spread is only +/-13% (rsh_rm1=0.09+/-0.012 ohm/sq,
-see libs.tech/ngspice/sm141064.ngspice) -- comfortably inside the
-spec's +/-22%-wide 28-44 ohm band without a trim network (contrast with
-the D+ pull-up in dplus_pullup.sch, whose +/-5% target IS tighter than
-untrimmed poly/metal spread and needs a trim ladder).
-R_series alone into 50pF gives a floor of ~2.2*36ohm*50pF=3.96ns (10-90%),
-right at the lower spec edge; R_slew (poly, ~4kohm) into the big output
-FET's gate cap adds a second RC stage so the edge lands mid-window
-instead of at the floor -- this is the 'why' for R_slew's existence.} -900 -700 0 0 0.3 0.3 {}
+T {Sizing rationale (issue #96 re-size; replaces the issue #30 first-order hand calc):
+Output stage per half: PMOS W=80u m=4, NMOS W=30u m=4 (Wp:Wn = 8:3, wider
+than the 2:1 mobility ratio on purpose: PMOS is the weaker puller, worst
+at the fs corner). Large enough that the FETs act as a near-linear Ron
+in series with R_series rather than as current-limited sources, which holds
+rise/fall matching inside +/-10 % across fs/sf; the old 60/30 stage was
+saturation-limited and failed matching at 36/45 corners. Predriver
+8u/2.5u (was 4u/2u): its Wp:Wn sets the relative P/N turn-on timing and so
+centres the D+/D- crossover inside 1.3-2.0 V.
+R_series (rm1, metal1) unchanged: 36 ohm nominal (L/W=400, W=2u L=800u),
+rsh_rm1=0.09 +/-0.012 ohm/sq, inside the 28-44 ohm band without a trim.
+R_series x 50pF alone is only ~3.4 ns (10-90 %) at the ff corner, below the
+4 ns floor, so FET Ron and the R_slew gate RC must supply the rest; the
+output stage is therefore deliberately NOT sized any larger. R_slew is
+unchanged.
+Evidence: sim/driver-signal-quality (record id in design/README.md).} -900 -700 0 0 0.3 0.3 {}
 N -880 -30 -880 -70 {}
 C {devices/lab_pin.sym} -880 -70 0 0 {name=l1 lab=VDD}
 N -920 0 -980 0 {}
@@ -41,7 +44,7 @@ N -880 0 -820 0 {}
 C {devices/lab_pin.sym} -820 0 0 0 {name=l4 lab=VDD}
 C {symbols/pfet_03v3.sym} -900 0 0 0 {name=MP1DP
 L=0.28u
-W=4u
+W=8u
 nf=1
 m=1
 model=pfet_03v3
@@ -57,7 +60,7 @@ N -640 0 -580 0 {}
 C {devices/lab_pin.sym} -580 0 0 0 {name=l8 lab=VSS}
 C {symbols/nfet_03v3.sym} -660 0 0 0 {name=MN1DP
 L=0.28u
-W=2u
+W=2.5u
 nf=1
 m=1
 model=nfet_03v3
@@ -86,9 +89,9 @@ N -160 0 -100 0 {}
 C {devices/lab_pin.sym} -100 0 0 0 {name=l15 lab=VDD}
 C {symbols/pfet_03v3.sym} -180 0 0 0 {name=MP2DP
 L=0.28u
-W=60u
+W=80u
 nf=1
-m=1
+m=4
 model=pfet_03v3
 spiceprefix=X
 }
@@ -104,7 +107,7 @@ C {symbols/nfet_03v3.sym} 60 0 0 0 {name=MN2DP
 L=0.28u
 W=30u
 nf=1
-m=1
+m=4
 model=nfet_03v3
 spiceprefix=X
 }
@@ -129,7 +132,7 @@ N 520 0 580 0 {}
 C {devices/lab_pin.sym} 580 0 0 0 {name=l25 lab=VDD}
 C {symbols/pfet_03v3.sym} 500 0 0 0 {name=MP1DM
 L=0.28u
-W=4u
+W=8u
 nf=1
 m=1
 model=pfet_03v3
@@ -145,7 +148,7 @@ N 760 0 820 0 {}
 C {devices/lab_pin.sym} 820 0 0 0 {name=l29 lab=VSS}
 C {symbols/nfet_03v3.sym} 740 0 0 0 {name=MN1DM
 L=0.28u
-W=2u
+W=2.5u
 nf=1
 m=1
 model=nfet_03v3
@@ -174,9 +177,9 @@ N 1240 0 1300 0 {}
 C {devices/lab_pin.sym} 1300 0 0 0 {name=l36 lab=VDD}
 C {symbols/pfet_03v3.sym} 1220 0 0 0 {name=MP2DM
 L=0.28u
-W=60u
+W=80u
 nf=1
-m=1
+m=4
 model=pfet_03v3
 spiceprefix=X
 }
@@ -192,7 +195,7 @@ C {symbols/nfet_03v3.sym} 1460 0 0 0 {name=MN2DM
 L=0.28u
 W=30u
 nf=1
-m=1
+m=4
 model=nfet_03v3
 spiceprefix=X
 }
