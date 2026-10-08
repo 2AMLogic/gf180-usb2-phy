@@ -1,0 +1,196 @@
+     -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.13.0rc1 interpreter at /tmp/kltpin-93/bin/python
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+     0.00ns INFO     cocotb                             Running on Icarus Verilog version 13.0 (stable)
+     0.00ns INFO     cocotb                             Seeding Python random module with supplied seed 1
+     0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /tmp/kltpin-93/lib/python3.13/site-packages/cocotb
+     0.00ns INFO     cocotb.regression                  pytest not found, install it to enable better AssertionError messages
+     0.00ns INFO     cocotb                             Running tests
+     0.00ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_reset_state (1/10)
+                                                            Out of reset: TxReady high (idle, ready for a packet), RX quiescent,
+VPI error: Could not insert intermodpath!
+	port1 = Q, port1_has_index = 0, port1_bit_index = 0
+	port2 = RxActive, port2_has_index = 0, port2_bit_index = 0
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:497: Could not find intermodpath!
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:1098: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._174_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:1099: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._174_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:1100: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._174_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:1101: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._174_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:1306: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._191_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:1307: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._191_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:1928: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._220_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:1929: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._220_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2400: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._255_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2401: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._255_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2625: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut._267_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2626: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut._267_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2627: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut._267_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2628: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut._267_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2657: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._269_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2658: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._269_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2677: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._270_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2678: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._270_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2738: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._273_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2739: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._273_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2801: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._277_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2802: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._277_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2839: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._280_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2840: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._280_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2977: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._286_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2978: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._286_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2997: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._287_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:2998: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._287_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3017: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._288_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3018: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._288_
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3256: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3274: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3292: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3310: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3328: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3346: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3364: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3382: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3400: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3418: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3436: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3454: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3472: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3490: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3508: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3526: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3544: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3562: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3580: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3598: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3616: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3634: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3652: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3670: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3688: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3706: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3724: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3742: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3760: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3778: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3796: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3814: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3832: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3850: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3868: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3886: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3904: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3922: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3940: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3958: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3976: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:3994: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4012: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4030: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4048: TIMINGCHECK not supported.
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4092: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_07_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4093: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_07_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4102: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_08_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4103: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_08_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4104: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_08_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4105: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_08_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4124: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_09_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4125: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_09_
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4146: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4176: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4206: TIMINGCHECK not supported.
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4336: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_destuffer/_25_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4337: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_destuffer/_25_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4338: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_destuffer/_25_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4339: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_destuffer/_25_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4368: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_destuffer/_27_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4369: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_destuffer/_27_
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4444: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4474: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4504: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4534: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4564: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4594: TIMINGCHECK not supported.
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4623: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_encoder/_4_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4624: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_encoder/_4_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4625: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_encoder/_4_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4626: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_encoder/_4_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4645: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_encoder/_5_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4646: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_encoder/_5_
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4667: TIMINGCHECK not supported.
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4784: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_eop_detector/_36_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4785: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_eop_detector/_36_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4786: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_eop_detector/_36_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:4787: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_eop_detector/_36_
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5015: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5033: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5051: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5069: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5087: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5105: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5123: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5141: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5188: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5206: TIMINGCHECK not supported.
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5378: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_26_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5379: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_26_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5380: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_26_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5381: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_26_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5418: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_29_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5419: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_29_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5420: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_29_
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5421: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_29_
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5459: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5489: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functionVPI error: Could not insert intermodpath!
+	port1 = OpMode, port1_has_index = 1, port1_bit_index = 0
+	port2 = A2, port2_has_index = 0, port2_bit_index = 0
+   208.34ns INFO     cocotb.regression                  test_usb_utmi_phy.test_reset_state passed
+   208.34ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_sync_pattern_is_kjkjkjkk (2/10)
+                                                            The first 8 wire samples of any packet are exactly J/K's SYNC shape:
+  3750.03ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_sync_pattern_is_kjkjkjkk passed
+  3750.03ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_eop_tail_is_se0_se0_j (3/10)
+                                                            A packet's tail is exactly two SE0 clocks then one J clock (spec #2/#4).
+  8958.41ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_eop_tail_is_se0_se0_j passed
+  8958.41ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_loopback_single_byte (4/10)
+                                                            One TX byte, self-looped back, is received bit-exactly as one RX byte.
+ 14166.78ns INFO     cocotb.regression                  test_usb_utmi_phy.test_loopback_single_byte passed
+ 14166.78ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_loopback_multi_byte_with_stuffing (5/10)
+                                                            Several bytes, including runs long enough to force bit stuffing,
+ 26041.88ns INFO     cocotb.regression                  test_usb_utmi_phy.test_loopback_multi_byte_with_stuffing passed
+ 26041.88ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_loopback_leading_ones_payload_canonical_stuff_scope (6/10)
+                                                            The canonical stuffing scope, exercised where it is observable: a
+ 32916.93ns INFO     cocotb.regression                  test_usb_utmi_phy.test_loopback_leading_ones_payload_canonical_stuff_scope passed
+ 32916.93ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_loopback_trailing_run_of_six_ones_is_flushed (7/10)
+                                                            A packet whose payload bit stream ends on exactly six 1s (USB 2.0
+ 39791.99ns INFO     cocotb.regression                  test_usb_utmi_phy.test_loopback_trailing_run_of_six_ones_is_flushed passed
+ 39791.99ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_loopback_back_to_back_packets_minimal_gap (8/10)
+                                                            Two packets sent back to back, TxValid reasserted the instant
+ 53333.77ns INFO     cocotb.regression                  test_usb_utmi_phy.test_loopback_back_to_back_packets_minimal_gap passed
+ 53333.77ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_raw_mode_puts_payload_on_the_wire_unencoded (9/10)
+                                                            OpMode 2'b10 (raw/transparent test mode) drives the vendored modules'
+ 58542.14ns INFO     cocotb.regression                  test_usb_utmi_phy.test_raw_mode_puts_payload_on_the_wire_unencoded passed
+ 58542.14ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_malformed_sync_never_activates_rx (10/10)
+                                                            A line pattern that starts like SYNC but breaks partway through never
+ 60583.83ns INFO     cocotb.regression                  test_usb_utmi_phy.test_malformed_sync_never_activates_rx passed
+ 60583.83ns INFO     cocotb.regression                  ************************************************************************************************************************************
+                                                        ** TEST                                                                        STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ************************************************************************************************************************************
+                                                        ** test_usb_utmi_phy.test_reset_state                                           PASS         208.34           0.03       8187.97  **
+                                                        ** test_usb_utmi_phy.test_tx_sync_pattern_is_kjkjkjkk                           PASS        3541.69           0.00     853977.90  **
+                                                        ** test_usb_utmi_phy.test_tx_eop_tail_is_se0_se0_j                              PASS        5208.37           0.01     847349.14  **
+                                                        ** test_usb_utmi_phy.test_loopback_single_byte                                  PASS        5208.38           0.01     736953.35  **
+                                                        ** test_usb_utmi_phy.test_loopback_multi_byte_with_stuffing                     PASS       11875.10           0.02     772920.32  **
+                                                        ** test_usb_utmi_phy.test_loopback_leading_ones_payload_canonical_stuff_scope   PASS        6875.05           0.01     548297.66  **
+                                                        ** test_usb_utmi_phy.test_loopback_trailing_run_of_six_ones_is_flushed          PASS        6875.06           0.01     715002.99  **
+                                                        ** test_usb_utmi_phy.test_loopback_back_to_back_packets_minimal_gap             PASS       13541.78           0.02     722670.92  **
+                                                        ** test_usb_utmi_phy.test_raw_mode_puts_payload_on_the_wire_unencoded           PASS        5208.38           0.01     808284.61  **
+                                                        ** test_usb_utmi_phy.test_malformed_sync_never_activates_rx                     PASS        2041.68           0.00     789475.35  **
+                                                        ************************************************************************************************************************************
+                                                        ** TESTS=10 PASS=10 FAIL=0 SKIP=0                                                          60583.83           0.11     541707.77  **
+                                                        ************************************************************************************************************************************
+al-verification/klt_sdf_safe.sdf:5519: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5730: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5748: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5766: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5784: TIMINGCHECK not supported.
+SDF WARNING: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:5802: TIMINGCHECK not supported.
+SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_deferred_bus_ports.sdf:5920: Could not find intermodpath!

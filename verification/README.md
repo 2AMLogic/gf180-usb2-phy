@@ -186,8 +186,34 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
 
   Default (no env) is the reduced 1/8/64-byte grid. The result and its
   interpretation live in `records/utmi-framing-functional/` (record
-  `20261008-213500-2875d57`); the sampled matrix says nothing about points
+  `20261008-210900-2875d57`); the sampled matrix says nothing about points
   between grid points.
+
+### Gate-level / SDF replay of the top-level wrapper (issue #93, T1 item 7.digital)
+
+- `request-usb-utmi-phy-gate-zero-delay.json` — the same
+  `test_usb_utmi_phy.py` suite (all 10 tests, unchanged assertions) against
+  the routed netlist `layout/digital/usb_utmi_phy_routed.v` plus the PDK
+  Verilog cell models, **no SDF**. A diagnostic: it is not item-7 evidence
+  (an unannotated run grades `not_post_layout`).
+- `request-usb-utmi-phy-gate-sdf.json` / `request-usb-utmi-phy-gate-sdf-tt.json`
+  — the same replay with `options.sdf` set to the slow-corner
+  (`ss_125C_1v62`, Icarus `-T max`) and nominal (`tt_025C_1v80`, `-T typ`)
+  SDF under `records/post-layout-functional/artifacts/`. **Both are currently
+  rejected by `klt`'s annotation gate** (64 Icarus `SDF ERROR`s, XOR/XNOR/MUX
+  edge-qualified modpaths; klayout-tools#2885), so `7.digital` is still
+  `unmet`. See record `post-layout-functional/20261008-211700-2875d57`.
+- Cell models are not vendored. Stage them first (gitignored dir):
+  ```
+  mkdir -p verification/.pdk-models
+  ln -sf "$PDK_ROOT"/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu9t5v0/verilog/{primitives.v,gf180mcu_fd_sc_mcu9t5v0.v} verification/.pdk-models/
+  ```
+- The testbench no longer reads the RTL-internal `tx_state` (the routed
+  netlist re-encodes it); packet completion is detected from the ports
+  (EOP tail seen, `TxReady` high). `USB_UTMI_PHY_TB_CLK_PERIOD_PS=<ps>`
+  overrides the clock the testbench starts, for a negative-control replay
+  once annotation works (e.g. `USB_UTMI_PHY_TB_CLK_PERIOD_PS=8000 klt
+  functional-verification verification/request-usb-utmi-phy-gate-sdf.json`).
 
 ### Harness smoke test
 
@@ -284,7 +310,7 @@ verification/records/
 ```
 
 - **`<experiment-slug>`** — short, descriptive, kebab-case name for the
-  claim being verified. This repo currently has ten:
+  claim being verified. This repo currently has eleven:
   - `functional-smoke` — the harness-counter cocotb suite passes end-to-end
     via `klt functional-verification` (Icarus, no PDK dependency). A
     harness claim, not a PHY claim.
@@ -323,6 +349,11 @@ verification/records/
     klt's own per-net failure reasons frozen as artifacts — see
     `layout/README.md` § "Analog" for the diagnosis and the friction issues
     filed upstream.
+  - `post-layout-functional` (issue #93) — the gate-level, SDF-annotated
+    regression behind T1 item `7.digital`. First record is a **negative
+    result**: the zero-delay replay on the routed netlist passes 10/10, but
+    the pinned `klt` rejects the SDF annotation (klayout-tools#2885), so no
+    annotated response exists and the row stays `unmet`.
   - `post-layout-pvt` (issues #51/#53) — the digital half of post-layout
     (extracted-parasitic) timing re-verification: a `klt extract
     --parasitics --def-net-names --def-net-connections` SPEF fed through

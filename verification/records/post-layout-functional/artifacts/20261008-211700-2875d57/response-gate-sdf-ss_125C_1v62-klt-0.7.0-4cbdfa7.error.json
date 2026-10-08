@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "error": {
+    "command": "functional-verification",
+    "message": "SDF back-annotation of '<worktree>/verification/records/post-layout-functional/artifacts/20261008-211700-2875d57/usb_utmi_phy_route_ss_125C_1v62.sdf' did not fully apply: 63 diagnostic(s) in the icarus transcript -- SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:1098: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._174_ | SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:1099: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._174_ | SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:1100: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._174_ | SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:1101: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._174_ | SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_safe.sdf:1306: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._191_ (+58 more). The simulator exits 0 after skipping an annotation it cannot apply, so this run's verdict would have been a zero-delay one reported as if it were annotated."
+  }
+}

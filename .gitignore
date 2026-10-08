@@ -8,6 +8,9 @@ __pycache__/
 # sim/ harness: per-corner ngspice logs under corners/ are committed evidence
 # (append-only record trail), so they escape the *.log rule.
 !sim/*/corners/**/*.log
+# verification/ records: simulator transcripts cited by a record are committed
+# evidence too (e.g. Icarus SDF-annotation diagnostics), so they escape *.log.
+!verification/records/*/artifacts/**/*.log
 sim/build/
 # sim/ harness: generated ngspice decks are disposable scratch, never evidence
 sim/.work/
@@ -111,3 +114,6 @@ results_icarus.xml
 # digital LVS scratch (scripts/digital_lvs.py) -- the committed evidence
 # lives under verification/records/digital-lvs/ instead
 layout/digital/lvs/
+
+# gate-level replay: staged PDK Verilog cell models (symlinks, see verification/README.md)
+verification/.pdk-models/
