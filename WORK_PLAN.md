@@ -23,7 +23,7 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#92**: T1 item 5 (digital): mint one multi-corner klt sta envelope on the routed layout and cite it
 
 ## PRs Awaiting Review
 
@@ -61,7 +61,7 @@ _None._
 | Operator merge-risk holds | 0 |
 | Operator priority | 0 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 0 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
 | Curated | 4 |
