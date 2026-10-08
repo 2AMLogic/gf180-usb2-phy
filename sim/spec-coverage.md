@@ -15,7 +15,8 @@ these records, because none of them is a subset.
 
 - **PDK**: `gf180mcuD` @ open_pdks `c6d73a35f524070e85faff4a6a9eef49553ebc2b`
 - **Simulator**: ngspice-47
-- **Netlist provenance**: schematic — the DUT of every experiment in the
+- **Netlist provenance** (current state: `layout/README.md` § "Analog"; the dated
+  narrative that follows is history): schematic — the DUT of every experiment in the
   table below is the generated export under `design/netlist/`, not a
   post-layout extraction. There is no **analog** layout, so no extracted
   re-run exists to compare any electrical row against; issue #52 closed
@@ -44,18 +45,23 @@ these records, because none of them is a subset.
   `verification/records/analog-layout/records/20260909-215500-29c5780.md`.
   (The digital half does have a committed,
   DRC-clean, LVS-matched layout and, as of issue #53's `post-layout-pvt`
-  experiment, a SPEF-annotated post-layout STA re-run with 364/366 design
-  nets carrying real extracted parasitics — 100% of nets that physically
-  carry routed metal, the other 2 being unrouted single-pin nets with
-  nothing to extract:
+  experiment, a SPEF post-layout STA re-run whose record reported 364/366 design
+  nets *name-annotated*:
   `verification/records/post-layout-pvt/records/20260905-182000-80d4593.md`.
+  **Name annotation is not attached capacitance.** A later record found the
+  same extraction recipe reported full name annotation while OpenSTA applied
+  no wire parasitics (`delay_changed: false`); the 364/366 figure was not
+  re-checked for attachment. The current digital STA evidence is
+  `verification/records/post-layout-pvt/records/20261008-195826-74ccfac.md`
+  (three liberty corners, parasitics attached with `--def-pins`, 7 unannotated
+  and 3 partially unannotated drivers, lumped capacitance with no wire RC
+  delay, ideal clock, no lateral coupling; not RC signoff and not the §8.1
+  45-corner matrix — see `manifests/README.md` item 5.digital).
   That record supersedes an earlier, partial attempt
-  (`20260825-233200-1c84648.md`, 186/366 nets annotated, root-caused to a
-  `klt sta` net-name-correlation defect filed as klayout-tools#1422) once
-  this repo's `klt` pin advanced to
-  klayout-tools#1423, the fix for that defect — re-running the identical
-  recipe against the fixed tool closed the coverage gap and left every
-  reported timing/power/skew number unchanged. No row in *this* table is
+  (`20260825-233200-1c84648.md`, 186/366 nets name-annotated, filed as
+  klayout-tools#1422 and fixed by #1423); the later
+  record above shows that fix changed name matching, not attached
+  capacitance. No row in *this* table is
   a digital timing row, so neither post-layout-pvt record changes any
   verdict below; both are cited here only so "post-layout re-verification"
   for the digital half is discoverable from this index.)
@@ -78,10 +84,13 @@ experiment directory, and read its newest record.
 | Receiver thresholds — differential | §4 (\|D+ − D−\| > 200 mV over 0.8–2.5 V common mode) | `sim/diff-receiver-sensitivity/` | `20261008-193113-2e9f63e` (supersedes `20260817-203852-5a963e7`) | **PASS** — 45/45 corners at each of the 0.8 V, 1.65 V and 2.5 V common-mode points; worst input-referred threshold −81 mV (`fs_125c_2.97v`, 2.5 V common mode). Sizing fix in issue #97; the previous record's 30/45 failure at 2.5 V is retained as history in the section below |
 | Receiver thresholds — single-ended D+ | §4 (VIH > 2.0 V, VIL < 0.8 V) | `sim/se-receiver-dp-thresholds/` | `20260817-203631-a408cb6` | **PASS** 45/45 |
 | Receiver thresholds — single-ended D− | §4 (VIH > 2.0 V, VIL < 0.8 V) | `sim/se-receiver-dm-thresholds/` | `20260817-203654-a408cb6` | **PASS** 45/45 |
-| DRC / LVS | §8.2 marks this "N/A — layout hygiene, not an electrical spec row" | `layout/digital/`; `layout/analog/` | `verification/records/digital-drc/records/20260825-224815-6a83263.md`; `verification/records/digital-lvs/records/20260825-224930-6a83263.md`; `verification/records/analog-layout/records/20260905-200628-80cb14c.md`; `verification/records/analog-layout/records/20260905-190024-525c67c.md` | **PASS for the digital half. Analog half re-measured under issues #52, #56, and #61; still not delivered.** `klt drc` on `layout/digital/usb_utmi_phy.gds` is `clean` / 0 violations; gate-level `klt lvs` against the as-built netlist is `match` / 0 mismatches, with a passing negative control. For analog: the `klt` pin was advanced to consume three friction fixes this repo filed (klayout-tools#1163/#1164/#1165, all closed), but the three placeable blocks (`differential_receiver`, `se_receiver_dm`, `se_receiver_dp`) still route 0/N of their nets — the new fields the plans would need to exploit them (block orientation, a two-layer bus role) are opt-in and unused by the committed plans — and are DRC-**violating** rather than clean, a regression filed as klayout-tools#1424. That issue closed `NOT_PLANNED`/refuted 2026-08-26 (the maintainer found no polygon-miter construction via source inspection), but issue #61's 2026-09-05 re-measurement found the violations reproduce byte-for-byte unchanged against the exact commit that inspection covered — the closure corrected the claimed mechanism, not the observed symptom. `dplus_pullup`'s ingestion blocker is **cleared** as of issue #56 / DR-0001 (its switch devices are drawn one device per gate, and klt now ingests and places the block), but it has no committed layout plan yet, so it still produces no layout. `differential_driver` still cannot be ingested at all (unchanged `rm1` error text). No analog GDS is committed (`layout/README.md` § "Analog"). §11 requires both halves before signoff. |
+| DRC / LVS | §8.2 marks this "N/A — layout hygiene, not an electrical spec row" | `layout/digital/`; `layout/analog/` | `verification/records/digital-drc/records/20260825-224815-6a83263.md`; `verification/records/digital-lvs/records/20260825-224930-6a83263.md`; `verification/records/analog-layout/records/20260905-200628-80cb14c.md`; `verification/records/analog-layout/records/20260905-190024-525c67c.md` | **PASS for the digital half. Analog half not delivered.** `klt drc` on `layout/digital/usb_utmi_phy.gds` is `clean` / 0 violations; gate-level `klt lvs` against the as-built netlist is `match` / 0 mismatches, with a passing negative control (the digital rows are cited at their original records; later re-runs are in `verification/records/digital-drc/` and `digital-lvs/`). For analog, the current state is in `layout/README.md` § "Analog" ("Current state in one paragraph") and `verification/records/analog-layout/records/20260921-130120-223bae5.md`: all five blocks have committed layout *plans* and every executed placement is DRC-clean, but routing is incomplete (`dplus_pullup` 6/21 nets, the three receiver plans 1 of 8/9/9, `differential_driver` 0/10), no analog GDS and no analog LVS result is committed, and `differential_receiver`'s layout state is not re-verified after issue #97's resize (`20261008-200500-4c71e6e`, provenance-only). The earlier DRC-violating receivers (klayout-tools#1424) were cleared by the legal-width plan fix (issue #65), and the `differential_driver` ingestion error (`rm1`) and `dplus_pullup` blocker are both cleared (issues #56/#70/#72); those statements in the superseded records `20260905-200628-80cb14c` and `20260905-190024-525c67c` are history. No analog row is substantiated by layout. **The driver rows above remain unmet in simulation.** §11 requires both halves before signoff. |
 
-**No spec limit was relaxed to produce this table.** Four §6/§4 rows fail at
-some corners; those are recorded as failures with the offending corner-ids and
+**No spec limit was relaxed to produce this table.** Four index rows fail at
+some corners, all of them driver rows (§6: rise/fall time, crossover, rise/fall
+matching, and the full-speed signal-quality row that aggregates them; the
+differential receiver row formerly in this set now passes — see its section
+below); those are recorded as failures with the offending corner-ids and
 measured values, per `CLAUDE.md` ("Agents do not relax the ratified spec to
 make a result pass"). The design changes that would fix them are *not* in
 scope here — this issue's product is the measurement.
@@ -187,9 +196,11 @@ evidence already exists and is not re-derived here:
 | NRZI encode/decode, bit stuffing/destuffing, codec loopback | `verification/records/bit-codec-functional/records/20260816-074908-4e92fcc.md` |
 | SYNC detection, EOP detection, line-state decode, top-level UTMI wrapper | `verification/records/utmi-framing-functional/records/20260817-184228-72de176.md` |
 
-Gate-level PVT timing closure of that logic (standard-cell timing corners
-across the same §8.1 grid) is **not** covered by any record yet; it needs a
-synthesized netlist with SDF, which this repo does not produce today. §8.2 does
+Gate-level PVT timing closure of that logic across the same §8.1 grid is
+**not** covered: STA exists at three liberty corners only (see the
+netlist-provenance note above), and the SDF-annotated gate-level replay was
+attempted and blocked (`verification/records/post-layout-functional/` record
+`20261008-211700-2875d57`, klayout-tools#2885). §8.2 does
 not require it, so it is noted here as a known gap rather than claimed.
 
 ## Reproducing any row

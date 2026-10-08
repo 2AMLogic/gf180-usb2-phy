@@ -15,13 +15,13 @@ interface.
 ## Status
 
 **Spec ratified; digital half at the DRC/LVS sign-off bar, analog half
-simulation-complete with no layout.** Nothing has been taped out and nothing
+simulation-complete with no signoff-ready layout.** Nothing has been taped out and nothing
 has been measured on silicon.
 
 | Half | Where it is |
 |---|---|
 | Digital (UTMI-side logic, §2/§3) | Verified bit-exact by cocotb, synthesized and placed-and-routed against `gf180mcu_fd_sc_mcu9t5v0`, **DRC-clean** and **LVS-matched** — `layout/digital/`, `verification/records/digital-drc/`, `verification/records/digital-lvs/` |
-| Analog (driver, receivers, D+ pull-up) | Schematics captured and netlisted for all five blocks with full 45-corner PVT sweeps recorded — but **no layout**, and four spec rows currently fail in simulation. `layout/README.md` § "Analog" and `sim/spec-coverage.md` say exactly which, and why |
+| Analog (driver, receivers, D+ pull-up) | Schematics captured and netlisted for all five blocks with full 45-corner PVT sweeps recorded — but **no signoff-ready layout** (all five blocks have committed layout *plans*, routing is incomplete — e.g. `dplus_pullup` 6/21 nets, receivers 1 of 8/9/9, driver 0/10 — and no analog GDS or analog LVS result is committed; `layout/README.md` § "Analog"). In simulation the **differential driver's** §6 rows fail at some corners (rise/fall time 3/45, crossover 2/45, rise/fall matching 36/45, hence the full-speed signal-quality row; `sim/driver-signal-quality/records/20260817-203552-a408cb6.md`). The differential receiver now **passes** 45/45 at all three common-mode points (issue #97, `sim/diff-receiver-sensitivity/records/20261008-193113-2e9f63e.md`; its layout state is not re-verified after the resize). `sim/spec-coverage.md` says exactly which, and why |
 
 Read `sim/spec-coverage.md` for the per-spec-row pass/fail index; it is the
 authority, and it records failures rather than hiding them.
@@ -83,7 +83,7 @@ to the slot budget (including why D+/D− must be dedicated pads and cannot ride
 a shared multiplexed analog line), the UTMI boundary statement, a spec table
 whose every row is re-derived from `sim/` and `verification/` with a met/unmet
 verdict at both the 3.3 V and 5.0 V rails, and a bench test plan. No spec row
-is relaxed to make it pass — four of them are recorded as unmet.
+is relaxed to make it pass — the driver's §6 rows (rise time, crossover, rise/fall matching) and the `VPU_REG` rail row are recorded as unmet; the differential receiver row is met as of issue #97.
 
 ## Repo layout
 

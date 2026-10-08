@@ -207,3 +207,35 @@ file-link through `klt signoff --manifest` did not exist. The staleness
 table above remains the operational freshness check for this *document*;
 the manifest's envelope is regenerated in the same change whenever this
 file is (see `manifests/README.md`).
+
+## Addendum (2026-10-08): current verdicts that supersede rows above
+
+Issue #120 reconciliation. The tables above are dated history (the report
+as of 2026-08-18) and are left intact; where a newer record supersedes a
+row, the newer record is authoritative and `sim/spec-coverage.md` is the
+index. The Staleness check table above pins the original records and still
+verifies; it is not a claim those records are the newest.
+
+| §8.2 row | Superseding verdict | Evidence record |
+|---|---|---|
+| Receiver thresholds — differential | **PASS** — 45/45 corners at each of the 0.8 V, 1.65 V and 2.5 V common-mode points (worst input-referred threshold −81 mV against the unchanged ±200 mV requirement). Supersedes the 30/45 failure at 2.5 V above. | `sim/diff-receiver-sensitivity/records/20261008-193113-2e9f63e.md` (issue #97) |
+| D+ pull-up tolerance | **PASS** 45/45 — re-run against the flattened `dplus_pullup` netlist, same verdict | `sim/dplus-pullup-tolerance/records/20260905-185112-6bfe679.md` |
+| DRC / LVS | **Digital half only**: DRC-clean and LVS-matched (`verification/records/digital-drc/`, `verification/records/digital-lvs/`). The "no `layout/` content" statement above is stale for the digital half. **Analog half not delivered**: plans only, routing incomplete, no GDS or analog LVS (`layout/README.md` § "Analog"). | `layout/README.md`; `verification/records/analog-layout/records/20261008-200500-4c71e6e.md` |
+
+**Current tally**: of the 9 electrical rows, 4 PASS at 45/45 (D+ pull-up,
+differential receiver, single-ended D+, single-ended D−), 4 **FAIL** (all
+driver rows: rise/fall time, crossover, rise/fall matching, and the
+full-speed signal-quality row that aggregates them), and 1 (jitter) carries
+no pass/fail claim. This supersedes the "3 PASS / 4 FAIL" tally and the
+differential-receiver FAIL row above; the "four FAIL rows" wording in the
+2026-09-21 addendum below stays numerically correct, but the four are now
+exactly the driver rows.
+
+**Digital timing.** The "gate-level PVT timing ... not covered" note above
+is refined by `verification/records/post-layout-pvt/records/20261008-195826-74ccfac.md`:
+three liberty corners with extracted capacitance attached (not the §8.1
+45-corner matrix), lumped capacitance with no wire RC delay, ideal clock,
+7 unannotated and 3 partially unannotated drivers. Name-matched SPEF
+annotation in earlier records was not evidence of attached parasitics.
+SDF-annotated gate-level verification remains blocked (`post-layout-functional`
+record `20261008-211700-2875d57`).
