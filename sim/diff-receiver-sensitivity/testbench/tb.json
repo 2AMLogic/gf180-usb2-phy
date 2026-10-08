@@ -6,9 +6,17 @@
   "dut": "design/netlist/differential_receiver.spice",
   "nominal_supply_v": 3.3,
   "supply_tolerance": 0.1,
-  "temperatures_c": [-40, 27, 125],
-  "corners": ["mos"],
-  "analyses": ["dc vsw -0.5 0.5 0.001"],
+  "temperatures_c": [
+    -40,
+    27,
+    125
+  ],
+  "corners": [
+    "mos"
+  ],
+  "analyses": [
+    "dc vsw -0.5 0.5 0.001"
+  ],
   "derive": [
     "let vth_cm080 = minimum(v(sw) + 1.0*(v(rxd1) lt vmid))",
     "let vth_cm165 = minimum(v(sw) + 1.0*(v(rxd2) lt vmid))",
@@ -22,15 +30,36 @@
   ],
   "klt_supply_source": "vsup",
   "klt_measure": {
-    "vth_cm080_mv": "minimum(v(sw) + 1.0*(v(rxd1) lt 0.5*maximum(v(vdd))))*1e3",
-    "vth_cm165_mv": "minimum(v(sw) + 1.0*(v(rxd2) lt 0.5*maximum(v(vdd))))*1e3",
-    "vth_cm250_mv": "minimum(v(sw) + 1.0*(v(rxd3) lt 0.5*maximum(v(vdd))))*1e3",
-    "hi_cm080": "v(rxd1)[700]/maximum(v(vdd))",
-    "lo_cm080": "v(rxd1)[300]/maximum(v(vdd))",
-    "hi_cm165": "v(rxd2)[700]/maximum(v(vdd))",
-    "lo_cm165": "v(rxd2)[300]/maximum(v(vdd))",
-    "hi_cm250": "v(rxd3)[700]/maximum(v(vdd))",
-    "lo_cm250": "v(rxd3)[300]/maximum(v(vdd))"
+    "vth_cm080_mv": {
+      "spice": ".meas dc vth_cm080_mv WHEN v(rxd1)=v(mid) CROSS=1",
+      "scale": 1000.0
+    },
+    "vth_cm165_mv": {
+      "spice": ".meas dc vth_cm165_mv WHEN v(rxd2)=v(mid) CROSS=1",
+      "scale": 1000.0
+    },
+    "vth_cm250_mv": {
+      "spice": ".meas dc vth_cm250_mv WHEN v(rxd3)=v(mid) CROSS=1",
+      "scale": 1000.0
+    },
+    "hi_cm080": {
+      "spice": ".meas dc hi_cm080 FIND v(n1) AT=0.2"
+    },
+    "lo_cm080": {
+      "spice": ".meas dc lo_cm080 FIND v(n1) AT=-0.2"
+    },
+    "hi_cm165": {
+      "spice": ".meas dc hi_cm165 FIND v(n2) AT=0.2"
+    },
+    "lo_cm165": {
+      "spice": ".meas dc lo_cm165 FIND v(n2) AT=-0.2"
+    },
+    "hi_cm250": {
+      "spice": ".meas dc hi_cm250 FIND v(n3) AT=0.2"
+    },
+    "lo_cm250": {
+      "spice": ".meas dc lo_cm250 FIND v(n3) AT=-0.2"
+    }
   },
   "measure": {
     "vth_cm080_mv": "vth_cm080*1e3",
@@ -69,9 +98,25 @@
       "max": 0.1,
       "description": "spec §4: at D+ − D− = −200 mV the receiver output must be a valid logic low (≤ 0.1 × VDD)"
     },
-    "hi_cm165": {"min": 0.9, "max": 1.05, "description": "as hi_cm080, at the 1.65 V common-mode point"},
-    "lo_cm165": {"min": -0.05, "max": 0.1, "description": "as lo_cm080, at the 1.65 V common-mode point"},
-    "hi_cm250": {"min": 0.9, "max": 1.05, "description": "as hi_cm080, at the 2.5 V common-mode point"},
-    "lo_cm250": {"min": -0.05, "max": 0.1, "description": "as lo_cm080, at the 2.5 V common-mode point"}
+    "hi_cm165": {
+      "min": 0.9,
+      "max": 1.05,
+      "description": "as hi_cm080, at the 1.65 V common-mode point"
+    },
+    "lo_cm165": {
+      "min": -0.05,
+      "max": 0.1,
+      "description": "as lo_cm080, at the 1.65 V common-mode point"
+    },
+    "hi_cm250": {
+      "min": 0.9,
+      "max": 1.05,
+      "description": "as hi_cm080, at the 2.5 V common-mode point"
+    },
+    "lo_cm250": {
+      "min": -0.05,
+      "max": 0.1,
+      "description": "as lo_cm080, at the 2.5 V common-mode point"
+    }
   }
 }

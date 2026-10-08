@@ -8,10 +8,13 @@ must go this way: with ``KLT_SIM_BACKEND=batch`` the request is submitted to
 the Spot batch fleet instead of occupying local cores.
 
 A testbench opts in by declaring ``klt_measure`` in ``tb.json``: a map of
-measurement name -> a *self-contained* ngspice expression evaluated after the
-analysis (``klt sim`` ``measurements[].expr``). It cannot use ``derive``'s
-helper vectors or ``meas`` results, because the request has no equivalent of
-the local deck's free-form ``.control`` statements. The names must equal
+measurement name -> either ``{"spice": ".meas ...", "scale": k}`` (a ``.meas``
+card, result multiplied by ``k`` -- the form the fleet's older runner image
+accepts) or a bare *self-contained* ngspice expression string
+(``measurements[].expr``, needs a newer runner). It cannot use ``derive``'s
+helper vectors, because the request has no equivalent of the local deck's
+free-form ``.control`` statements; put any needed reference nodes in the
+testbench netlist instead. The names must equal
 ``measure``'s, so the same ``checks`` apply.
 
 The supply is driven through the voltage source named by ``klt_supply_source``
@@ -46,6 +49,18 @@ def klt_version() -> str:
         raise KltError("klt not found on PATH")
     out = subprocess.run([exe, "--version"], capture_output=True, text=True, check=False)
     return (out.stdout or out.stderr).strip()
+
+
+def _measurement(name: str, entry) -> dict:
+    """A ``klt_measure`` entry: a ``.meas`` card dict, or a bare expression string."""
+    if isinstance(entry, str):
+        return {"name": name, "expr": entry}
+    return {"name": name, "spice": entry["spice"]}
+
+
+def _scale(manifest: dict, name: str) -> float:
+    entry = manifest["klt_measure"][name]
+    return float(entry.get("scale", 1.0)) if isinstance(entry, dict) else 1.0
 
 
 def build_request(
@@ -115,7 +130,7 @@ def build_request(
             "temperature_c": temps,
         },
         "analysis": {"kind": analysis[0], "args": analysis[1] if len(analysis) > 1 else ""},
-        "measurements": [{"name": n, "expr": klt_measure[n]} for n in tb.measure],
+        "measurements": [_measurement(n, klt_measure[n]) for n in tb.measure],
         "options": {"timeout_s": timeout_s, "keep_artifacts": True},
     }
     if backend:
@@ -178,8 +193,9 @@ def run_grid_klt(
         if c is None:
             res = PointResult(point=point, status="error", message="corner missing from klt report")
         else:
-            meas = {m["name"]: m["value"] for m in c.get("measurements", [])
-                    if m.get("value") is not None}
+            meas = {m["name"]: m["value"] * _scale(manifest, m["name"])
+                    for m in c.get("measurements", [])
+                    if m.get("value") is not None and m["name"] in tb.measure}
             missing = [n for n in tb.measure if n not in meas]
             diags = "; ".join(f"{d.get('code')}: {d.get('message')}" for d in c.get("diagnostics", []))
             if c.get("status") == "error" or missing:
