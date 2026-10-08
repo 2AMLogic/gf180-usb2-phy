@@ -162,6 +162,33 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   than a second structural harness file, since the module under test is
   already the real top-level wrapper.
 
+- `test_usb_rx_clock_tolerance.py` / `request-usb-rx-clock-tolerance.json`
+  — cocotb *characterization* (issue #108) of `rtl/usb_utmi_phy.v`'s RX
+  against a host whose bit clock is independent of the device clock (spec
+  §7's +/-2500 ppm, unsynchronized). An independent host model drives
+  `rxdp`/`rxdm` at absolute simulator times (exact-rational deadlines, no
+  accumulating rounding, never waiting on DUT edges) with a configurable
+  rate offset (`ppm = 1e6*(f_host/f_dev - 1)`) and start phase (k/8 of a
+  device period); a separate per-clock monitor scores `DataIn` byte for
+  byte, `RxActive` rise/fall, and `RxError`. `npm test` asserts only the
+  harness (stimulus decodes back to the payload, edges on the requested
+  grid, scoreboard catches corrupt/missing/extra bytes with `RxError` low,
+  missing SYNC terminates, zero-offset control at phase 1/2 matches every
+  byte, a +5% control fails) and that the sweep completes. The tolerance
+  matrix is **recorded, not asserted**: measured failures stay failures in
+  the artifact. Run the full issue grid (lengths 1/8/64/1024 bytes, 9
+  offsets, 8 phases, 3 patterns = 864 cases, ~1 minute) with:
+
+  ```bash
+  USB_RXTOL_GRID=full USB_RXTOL_OUT=/path/matrix.json \
+    klt functional-verification verification/request-usb-rx-clock-tolerance.json --format json
+  ```
+
+  Default (no env) is the reduced 1/8/64-byte grid. The result and its
+  interpretation live in `records/utmi-framing-functional/` (record
+  `20261008-213500-2875d57`); the sampled matrix says nothing about points
+  between grid points.
+
 ### Harness smoke test
 
 - `test_harness_counter.py` — cocotb testbench for `rtl/harness_counter.v`,
@@ -206,6 +233,7 @@ klt functional-verification verification/request-usb-line-state-decode.json --fo
 klt functional-verification verification/request-usb-sync-detector.json --format json
 klt functional-verification verification/request-usb-eop-detector.json --format json
 klt functional-verification verification/request-usb-utmi-phy.json --format json
+klt functional-verification verification/request-usb-rx-clock-tolerance.json --format json
 ```
 
 A request needs one invocation each because `klt
