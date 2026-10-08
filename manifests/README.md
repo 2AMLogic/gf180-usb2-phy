@@ -112,10 +112,15 @@ citing set the item's own text requires:
   because every declared corner is `timing_status: "constrained"` with
   non-negative setup and hold slack. **Corner scope: three corners, and
   only three** — `tt_025C_1v80`, `ss_125C_1v62`, `ff_n40C_5v50`
-  (liberty corners of the `gf180mcu_fd_sc_mcu9t5v0` library, SPEF
-  annotated 342/342 design nets at each; the 1652 non-design SPEF
-  records the reader discards are the disclosed physical-only-net
-  warning). This does **not** cover spec §8.1's 45-corner matrix
+  (liberty corners of the `gf180mcu_fd_sc_mcu9t5v0` library). **The
+  parasitic annotation is not shown to take effect:** the envelope's
+  342/342 is a net-name match, but each corner also reports 7
+  unannotated and 307 partially unannotated drivers and
+  `delay_changed: false`, and a replay shows the SPEF leaves a net's
+  wire capacitance at 0 (record `20261008-200000-8139bb6`). The `met`
+  here is the grader's mechanical `sta` rule; it is **not** evidence of
+  extracted-parasitic post-layout timing, which stays unestablished
+  until the annotation question is resolved. This does **not** cover spec §8.1's 45-corner matrix
   (3 T x 3 V x 5 process incl. `fs`/`sf`), and the grader does not widen
   it; the digital timing row is a three-corner claim, with the §8.1
   difference disclosed rather than closed. The item's text also names a

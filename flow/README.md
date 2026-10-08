@@ -197,6 +197,8 @@ after step 1 above, from the repo root:
 PDK_ROOT=~/.volare PDK=gf180mcuD klt sta flow/request-usb-utmi-phy-sta-corners.json --format json
 ```
 
+Caveat: the envelope's SPEF-annotation diagnostics (unannotated drivers, `delay_changed: false`) mean the slacks are not shown to include parasitics; see record `20261008-200000-8139bb6`.
+
 Scope: these three corners are the whole claim; spec §8.1's 45-corner
 matrix is not covered by the digital liberty library's corner set here.
 The frozen copy under the record's `artifacts/` directory has its
