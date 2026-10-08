@@ -1,6 +1,6 @@
 """Run a PVT grid through ``klt sim`` instead of hand-launching ngspice.
 
-``run_corners.py --backend klt`` (or ``klt-local`` / ``klt-batch``) builds one
+``run_corners.py --backend klt`` (or ``klt:local`` / ``klt:batch``) builds one
 ``klt sim`` corners request for the whole grid, runs it, and maps the
 per-corner results back onto the harness's ``PointResult`` objects so the
 usual evidence record is minted unchanged. On a shared host the full grid
@@ -55,6 +55,11 @@ def _measurement(name: str, entry) -> dict:
     """A ``klt_measure`` entry: a ``.meas`` card dict, or a bare expression string."""
     if isinstance(entry, str):
         return {"name": name, "expr": entry}
+    if not isinstance(entry, dict) or not isinstance(entry.get("spice"), str):
+        raise KltError(
+            f"klt_measure[{name!r}] must be an expression string or "
+            "{'spice': '.meas ...', 'scale': k}"
+        )
     return {"name": name, "spice": entry["spice"]}
 
 
@@ -116,7 +121,11 @@ def build_request(
     for p in points:
         if p.temp_c not in temps:
             temps.append(p.temp_c)
-    if len(process) * len(supplies) * len(temps) != len(points):
+    # Compare the actual point set against the full product, not just counts:
+    # a duplicated point can otherwise hide a missing one.
+    keys = [_key(p.corner.name, p.temp_c, p.vdd) for p in points]
+    full = {_key(c["name"], t, v) for c in process for t in temps for v in supplies}
+    if len(set(keys)) != len(keys) or set(keys) != full:
         raise KltError("grid is not a full factorial; klt backend cannot express it")
 
     analysis = tb.analyses[0].split(None, 1)
@@ -167,23 +176,38 @@ def run_grid_klt(
     if backend:
         cmd += ["--backend", backend]
     started = time.monotonic()
-    proc = subprocess.run(cmd, capture_output=True, text=True, check=False)
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, check=False)
+    except FileNotFoundError as exc:
+        raise KltError(f"{KLT} not found on PATH; cannot run `klt sim`") from exc
     wall = time.monotonic() - started
-    (workdir / "klt-stderr.txt").write_text(proc.stderr)
+    (workdir / "klt-stderr.txt").write_text(proc.stderr or "")
     try:
         report = json.loads(proc.stdout)
-    except json.JSONDecodeError as exc:
-        (workdir / "klt-stdout.txt").write_text(proc.stdout)
+    except (json.JSONDecodeError, TypeError) as exc:
+        (workdir / "klt-stdout.txt").write_text(proc.stdout or "")
         raise KltError(
             f"klt sim produced no JSON report (exit {proc.returncode}); "
-            f"stderr tail:\n{proc.stderr[-2000:]}"
+            f"stderr tail:\n{(proc.stderr or '')[-2000:]}"
         ) from exc
+    if not isinstance(report, dict) or not isinstance(report.get("corners", []), list):
+        (workdir / "klt-stdout.txt").write_text(proc.stdout)
+        raise KltError(
+            f"klt sim report is not a report object (exit {proc.returncode}); "
+            f"got {type(report).__name__}"
+        )
     (workdir / "klt-report.json").write_text(json.dumps(report, indent=2) + "\n")
 
     by_key = {}
     for c in report.get("corners", []):
-        vdd = next(iter(c.get("supply_v", {}).values()), None)
-        by_key[_key(c.get("process"), c.get("temperature_c"), vdd)] = c
+        if not isinstance(c, dict):
+            continue
+        supply = c.get("supply_v")
+        vdd = next(iter(supply.values()), None) if isinstance(supply, dict) else None
+        try:
+            by_key[_key(c.get("process"), c.get("temperature_c"), vdd)] = c
+        except (TypeError, ValueError):
+            continue  # malformed corner: its grid point is reported missing
 
     if log_dir is not None:
         log_dir.mkdir(parents=True, exist_ok=True)
@@ -191,13 +215,23 @@ def run_grid_klt(
     for point in points:
         c = by_key.get(_key(point.corner.name, point.temp_c, point.vdd))
         if c is None:
-            res = PointResult(point=point, status="error", message="corner missing from klt report")
+            res = PointResult(
+                point=point, status="error", missing=list(tb.measure),
+                message=f"corner missing from klt report (klt status {report.get('status')})",
+            )
         else:
-            meas = {m["name"]: m["value"] * _scale(manifest, m["name"])
-                    for m in c.get("measurements", [])
-                    if m.get("value") is not None and m["name"] in tb.measure}
+            meas = {}
+            for m in c.get("measurements") or []:
+                name = m.get("name") if isinstance(m, dict) else None
+                if name not in tb.measure:
+                    continue
+                try:
+                    meas[name] = float(m["value"]) * _scale(manifest, name)
+                except (KeyError, TypeError, ValueError):
+                    continue  # absent / null / non-numeric: reported missing
             missing = [n for n in tb.measure if n not in meas]
-            diags = "; ".join(f"{d.get('code')}: {d.get('message')}" for d in c.get("diagnostics", []))
+            diags = "; ".join(f"{d.get('code')}: {d.get('message')}"
+                              for d in c.get("diagnostics") or [] if isinstance(d, dict))
             if c.get("status") == "error" or missing:
                 res = PointResult(
                     point=point, status="failed" if meas else "error", measurements=meas,

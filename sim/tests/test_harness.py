@@ -17,14 +17,18 @@ from __future__ import annotations
 import datetime
 import json
 import sys
+import io
+import subprocess
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
+from unittest import mock
 
 SIM_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SIM_DIR))
 
-from harness import corners, report, runner, testbench  # noqa: E402
+from harness import cli, corners, klt_backend, report, runner, testbench  # noqa: E402
 from harness.pdk import Pdk  # noqa: E402
 
 
@@ -445,6 +449,439 @@ class RecordRenderingTests(unittest.TestCase):
         self.assertIn(self.tb.netlist_sha256, path.read_text())
         with self.assertRaises(report.RecordExists):
             report.write_netlist_snapshot(self.tb, experiment, "20260729-153000-1a7ef75")
+
+
+# --------------------------------------------------------------------------
+# klt sim backend (sim/harness/klt_backend.py) and its CLI dispatch. No PDK,
+# no ngspice and no klt: the `klt sim` subprocess is stubbed with canned
+# JSON reports, so these exercise only the harness side of the protocol.
+# --------------------------------------------------------------------------
+
+KLT_MEASURE = {
+    "vth_mv": {"spice": ".meas dc vth_mv WHEN v(out)=v(mid) CROSS=1", "scale": 1000.0},
+    "vhi": {"spice": ".meas dc vhi FIND v(out) AT=0.2"},
+    "vlo": "v(out)[0]",
+}
+
+
+class _KltFixture(unittest.TestCase):
+    """A two-measurement-family testbench + a 2x2x2 grid (tt/ff, -40/27 C, 2.97/3.3 V)."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name)
+        self.pdk = fake_pdk(self.root / "pdk" / "gf180mcuD")
+        self.manifest = {
+            "name": "kltx",
+            "netlist": "x.spice",
+            "measure": {"vth_mv": "1000*vth", "vhi": "v(out)", "vlo": "v(out)"},
+            "analyses": ["dc vsw -0.5 0.5 0.001"],
+            "corners": ["tt", "ff"],
+            "temperatures_c": [-40, 27],
+            "supply_tolerance": 0.1,
+            "klt_supply_source": "vsup",
+            "klt_measure": KLT_MEASURE,
+        }
+        self.tb_dir = self.root / "kltx-exp" / "testbench"
+        self.tb_dir.mkdir(parents=True)
+        (self.tb_dir / "x.spice").write_text("vsup vdd 0 dc {vdd_val}\n")
+        self._write_manifest()
+        self.points = corners.build_grid(
+            corners.resolve_corners(["tt", "ff"]), (-40, 27), [2.97, 3.3]
+        )
+        self.workdir = self.root / "work"
+
+    def _write_manifest(self, **overrides):
+        manifest = dict(self.manifest, **overrides)
+        manifest = {k: v for k, v in manifest.items() if v is not None}
+        (self.tb_dir / "tb.json").write_text(json.dumps(manifest))
+        self.tb = testbench.load(self.tb_dir)
+        return manifest
+
+    def _request(self, manifest=None, points=None, backend=None, rvc=None) -> dict:
+        path = klt_backend.build_request(
+            self.tb, self.pdk, self.points if points is None else points, self.workdir,
+            123, backend, self.manifest if manifest is None else manifest, rvc,
+        )
+        return json.loads(path.read_text())
+
+    @staticmethod
+    def corner(process, temp, vdd, values, status="ok", **extra):
+        c = {
+            "corner_id": f"{process}/{temp}/{vdd}",
+            "process": process,
+            "temperature_c": temp,
+            "supply_v": {"vsup": vdd},
+            "status": status,
+            "runtime_s": 0.5,
+            "measurements": [{"name": n, "value": v} for n, v in values.items()],
+        }
+        c.update(extra)
+        return c
+
+    def full_report(self, values=None) -> dict:
+        """A passing report with every grid corner, deliberately in reverse order."""
+        corners_out = []
+        for i, p in enumerate(reversed(self.points)):
+            vals = values(p) if values else {"vth_mv": 0.001 * (i + 1), "vhi": 3.0, "vlo": 0.1}
+            corners_out.append(self.corner(p.corner.name, p.temp_c, p.vdd, vals))
+        return {
+            "status": "pass",
+            "corners": corners_out,
+            "provenance": {"klt_version": "9.9.9"},
+            "environment": {"engine_version": "45", "remote": {"job_id": "job-1"}},
+        }
+
+    def run_stubbed(self, stdout, returncode=0, stderr="", **kwargs):
+        """Run run_grid_klt with `klt sim` replaced by a canned CompletedProcess."""
+        if not isinstance(stdout, str):
+            stdout = json.dumps(stdout)
+        completed = subprocess.CompletedProcess([], returncode, stdout=stdout, stderr=stderr)
+        with mock.patch.object(klt_backend.subprocess, "run", return_value=completed) as run:
+            out = klt_backend.run_grid_klt(
+                self.tb, self.pdk, self.points, self.workdir, self.manifest, **kwargs
+            )
+        self.last_cmd = run.call_args.args[0]
+        return out
+
+
+class KltRequestTests(_KltFixture):
+    def test_request_carries_grid_axes_measurements_and_analysis(self):
+        req = self._request()
+        self.assertEqual(req["netlist"], "body.spice")
+        self.assertEqual(req["engine"], "ngspice")
+        self.assertEqual(req["models"]["pdk"], "gf180mcuD")
+        self.assertEqual([c["name"] for c in req["corners"]["process"]], ["tt", "ff"])
+        self.assertEqual(
+            req["corners"]["process"][0]["sections"], list(corners.CORNERS["tt"].sections)
+        )
+        self.assertEqual(req["corners"]["supply_v"], {"vsup": [2.97, 3.3]})
+        self.assertEqual(req["corners"]["temperature_c"], [-40.0, 27.0])
+        self.assertEqual(req["analysis"], {"kind": "dc", "args": "vsw -0.5 0.5 0.001"})
+        self.assertEqual(
+            req["measurements"],
+            [
+                {"name": "vth_mv", "spice": KLT_MEASURE["vth_mv"]["spice"]},
+                {"name": "vhi", "spice": KLT_MEASURE["vhi"]["spice"]},
+                {"name": "vlo", "expr": "v(out)[0]"},
+            ],
+        )
+        self.assertEqual(req["options"], {"timeout_s": 123, "keep_artifacts": True})
+
+    def test_body_includes_pdk_design_file_and_testbench(self):
+        self._request()
+        body = (self.workdir / "body.spice").read_text()
+        self.assertIn(f'.include "{self.pdk.design_include}"', body)
+        self.assertIn(f'.include "{self.tb.netlist}"', body)
+        self.assertIn(".param vdd_nom=3.3", body)
+
+    def test_no_backend_and_no_version_check_leave_klt_defaults(self):
+        req = self._request()
+        self.assertNotIn("backend", req)
+        self.assertNotIn("batch", req)
+
+    def test_backend_and_runner_version_check_are_propagated(self):
+        req = self._request(backend="batch", rvc="warn")
+        self.assertEqual(req["backend"], "batch")
+        self.assertEqual(req["batch"], {"runner_version_check": "warn"})
+
+    def test_supply_source_name_comes_from_the_manifest(self):
+        manifest = self._write_manifest(klt_supply_source="vdd_src")
+        req = self._request(manifest=manifest)
+        self.assertEqual(list(req["corners"]["supply_v"]), ["vdd_src"])
+
+    def test_missing_klt_measure_is_refused(self):
+        manifest = self._write_manifest(klt_measure=None)
+        with self.assertRaisesRegex(klt_backend.KltError, "klt_measure"):
+            self._request(manifest=manifest)
+
+    def test_mismatched_measurement_keys_are_refused(self):
+        for bad in (
+            {"vth_mv": "x", "vhi": "x"},                       # one missing
+            dict(KLT_MEASURE, extra="v(out)"),                 # one extra
+            {"vth_mv": "x", "vhi": "x", "vlow": "x"},          # one misspelt
+        ):
+            with self.subTest(keys=sorted(bad)):
+                with self.assertRaisesRegex(klt_backend.KltError, "differ from measure keys"):
+                    self._request(manifest=dict(self.manifest, klt_measure=bad))
+
+    def test_malformed_klt_measure_entry_is_refused(self):
+        for bad in ({"scale": 2.0}, {"spice": 3}, 42):
+            with self.subTest(entry=bad):
+                manifest = dict(self.manifest, klt_measure=dict(KLT_MEASURE, vhi=bad))
+                with self.assertRaisesRegex(klt_backend.KltError, "klt_measure"):
+                    self._request(manifest=manifest)
+
+    def test_more_than_one_analysis_is_refused(self):
+        manifest = self._write_manifest(analyses=["op", "dc vsw 0 1 0.1"])
+        with self.assertRaisesRegex(klt_backend.KltError, "exactly one analysis"):
+            self._request(manifest=manifest)
+
+    def test_non_factorial_grid_is_refused(self):
+        dropped = self.points[:-1]
+        with self.assertRaisesRegex(klt_backend.KltError, "full factorial"):
+            self._request(points=dropped)
+
+    def test_duplicate_cannot_mask_a_missing_point(self):
+        # Same length as the full grid, same axis values -- but one point is
+        # duplicated and another is absent. A count-only check would pass this.
+        tampered = self.points[:-1] + [self.points[0]]
+        self.assertEqual(len(tampered), len(self.points))
+        with self.assertRaisesRegex(klt_backend.KltError, "full factorial"):
+            self._request(points=tampered)
+
+
+class KltRunGridTests(_KltFixture):
+    def test_command_line_and_backend_info(self):
+        _, info = self.run_stubbed(self.full_report(), backend="batch", runner_version_check="warn")
+        self.assertEqual(self.last_cmd[:2], ["klt", "sim"])
+        self.assertEqual(self.last_cmd[2], str(self.workdir / "request.json"))
+        self.assertIn("--format", self.last_cmd)
+        self.assertEqual(self.last_cmd[-2:], ["--backend", "batch"])
+        req = json.loads((self.workdir / "request.json").read_text())
+        self.assertEqual(req["batch"], {"runner_version_check": "warn"})
+        self.assertEqual(info["backend"], "batch")
+        self.assertEqual(info["klt_exit_code"], 0)
+        self.assertEqual(info["klt_status"], "pass")
+        self.assertEqual(info["klt_version"], "9.9.9")
+        self.assertEqual(info["engine_version"], "45")
+        self.assertEqual(info["remote"], {"job_id": "job-1"})
+        self.assertTrue((self.workdir / "klt-report.json").is_file())
+
+    def test_default_backend_passes_no_backend_flag(self):
+        _, info = self.run_stubbed(self.full_report())
+        self.assertNotIn("--backend", self.last_cmd)
+        self.assertEqual(info["backend"], "request-default")
+
+    def test_results_come_back_in_grid_order_with_scaling(self):
+        def values(p):
+            # Encode the point in the value so a mis-mapping is visible.
+            tag = {"tt": 0, "ff": 1}[p.corner.name] * 100 + (p.temp_c + 40) + p.vdd
+            return {"vth_mv": tag / 1000.0, "vhi": tag, "vlo": -tag}
+
+        seen = []
+        results, _ = self.run_stubbed(self.full_report(values), on_result=seen.append)
+        self.assertEqual([r.point for r in results], self.points)
+        self.assertEqual(seen, results)
+        for r in results:
+            tag = {"tt": 0, "ff": 1}[r.point.corner.name] * 100 + (r.point.temp_c + 40) + r.point.vdd
+            with self.subTest(point=r.point.corner_id):
+                self.assertEqual(r.status, "ok")
+                self.assertAlmostEqual(r.measurements["vth_mv"], tag)   # x1000 scale
+                self.assertAlmostEqual(r.measurements["vhi"], tag)      # dict, no scale
+                self.assertAlmostEqual(r.measurements["vlo"], -tag)     # expr string
+                self.assertEqual(r.missing, [])
+
+    def test_float_noise_in_reported_axes_still_maps(self):
+        report_ = self.full_report()
+        for c in report_["corners"]:
+            c["supply_v"]["vsup"] += 1e-9
+            c["temperature_c"] = c["temperature_c"] + 1e-9
+        results, _ = self.run_stubbed(report_)
+        self.assertTrue(all(r.status == "ok" for r in results))
+
+    def test_corner_missing_from_report_is_an_error_point(self):
+        report_ = self.full_report()
+        report_["corners"] = report_["corners"][1:]   # drops the last grid point
+        results, _ = self.run_stubbed(report_)
+        self.assertEqual([r.status for r in results[:-1]], ["ok"] * (len(self.points) - 1))
+        self.assertEqual(results[-1].status, "error")
+        self.assertIn("corner missing", results[-1].message)
+        self.assertEqual(results[-1].missing, list(self.tb.measure))
+
+    def test_missing_measurement_fails_the_point(self):
+        report_ = self.full_report()
+        target = self.points[0]
+        for c in report_["corners"]:
+            if (c["process"], c["temperature_c"], c["supply_v"]["vsup"]) == (
+                target.corner.name, target.temp_c, target.vdd
+            ):
+                c["measurements"] = [m for m in c["measurements"] if m["name"] != "vhi"]
+        results, _ = self.run_stubbed(report_)
+        self.assertEqual(results[0].status, "failed")
+        self.assertEqual(results[0].missing, ["vhi"])
+        self.assertIn("vth_mv", results[0].measurements)
+
+    def test_corner_with_no_usable_measurements_is_an_error(self):
+        report_ = self.full_report()
+        report_["corners"][-1]["measurements"] = [
+            {"name": "vth_mv", "value": None},          # failed .meas
+            {"name": "vhi", "value": "nan-ish"},        # non-numeric
+            {"value": 1.0},                             # no name
+            "garbage",                                  # not an object
+        ]
+        results, _ = self.run_stubbed(report_)
+        # reversed order: the report's last corner is the grid's first point
+        self.assertEqual(results[0].status, "error")
+        self.assertEqual(sorted(results[0].missing), ["vhi", "vlo", "vth_mv"])
+
+    def test_corner_error_status_carries_diagnostics(self):
+        report_ = self.full_report()
+        report_["corners"][-1].update(
+            status="error",
+            measurements=[],
+            diagnostics=[{"code": "E_CONV", "message": "timestep too small"}, "junk"],
+        )
+        results, _ = self.run_stubbed(report_)
+        self.assertEqual(results[0].status, "error")
+        self.assertIn("E_CONV: timestep too small", results[0].message)
+
+    def test_measurements_not_in_the_testbench_are_ignored(self):
+        report_ = self.full_report()
+        for c in report_["corners"]:
+            c["measurements"].append({"name": "stray", "value": 1.0})
+        results, _ = self.run_stubbed(report_)
+        self.assertTrue(all("stray" not in r.measurements for r in results))
+        self.assertTrue(all(r.status == "ok" for r in results))
+
+    def test_malformed_corner_entries_become_missing_points(self):
+        report_ = self.full_report()
+        report_["corners"][-1]["supply_v"] = "3.3"            # not a map
+        report_["corners"][-2]["temperature_c"] = "hot"       # not a number
+        report_["corners"].append("not-a-corner")
+        results, _ = self.run_stubbed(report_)
+        self.assertEqual(results[0].status, "error")
+        self.assertEqual(results[1].status, "error")
+        self.assertTrue(all(r.status == "ok" for r in results[2:]))
+
+    def test_non_json_output_raises_and_keeps_stdout(self):
+        with self.assertRaisesRegex(klt_backend.KltError, r"no JSON report \(exit 2\)"):
+            self.run_stubbed("Traceback: boom", returncode=2, stderr="fleet down")
+        self.assertEqual((self.workdir / "klt-stdout.txt").read_text(), "Traceback: boom")
+        self.assertEqual((self.workdir / "klt-stderr.txt").read_text(), "fleet down")
+
+    def test_json_that_is_not_a_report_object_raises(self):
+        for bad in ([], "\"pass\"", {"corners": "none"}):
+            with self.subTest(stdout=bad):
+                with self.assertRaisesRegex(klt_backend.KltError, "not a report object"):
+                    self.run_stubbed(bad if isinstance(bad, str) else json.dumps(bad))
+
+    def test_failed_klt_run_with_report_marks_every_point_error(self):
+        report_ = {"status": "error", "corners": [], "diagnostics": [{"code": "E_SKEW"}]}
+        results, info = self.run_stubbed(report_, returncode=1)
+        self.assertEqual({r.status for r in results}, {"error"})
+        self.assertIn("klt status error", results[0].message)
+        self.assertEqual(info["klt_exit_code"], 1)
+        self.assertEqual(info["klt_status"], "error")
+
+    def test_klt_not_on_path_is_a_klt_error(self):
+        with mock.patch.object(klt_backend.subprocess, "run", side_effect=FileNotFoundError("klt")):
+            with self.assertRaisesRegex(klt_backend.KltError, "not found"):
+                klt_backend.run_grid_klt(
+                    self.tb, self.pdk, self.points, self.workdir, self.manifest
+                )
+
+    def test_logs_are_copied_from_artifacts_or_synthesised(self):
+        report_ = self.full_report()
+        art = self.root / "corner0.log"
+        art.write_text("real ngspice log\n")
+        report_["corners"][-1]["artifacts"] = {"log": str(art)}   # grid point 0
+        log_dir = self.root / "logs"
+        results, _ = self.run_stubbed(report_, log_dir=log_dir)
+        self.assertEqual(results[0].log, f"{self.points[0].corner_id}.log")
+        self.assertEqual((log_dir / results[0].log).read_text(), "real ngspice log\n")
+        synthesized = (log_dir / results[1].log).read_text()
+        self.assertIn("klt sim corner", synthesized)
+        self.assertIn('"status": "ok"', synthesized)
+
+
+class KltCliTests(_KltFixture):
+    def setUp(self):
+        super().setUp()
+        self.calls = []
+        patches = [
+            mock.patch.object(cli, "find_pdk", return_value=self.pdk),
+            mock.patch.object(cli, "WORK_DIR", self.root / ".work"),
+            mock.patch.object(
+                cli.report, "git_provenance",
+                return_value={"commit": "a" * 40, "short": "aaaaaaa", "branch": "t", "dirty": False},
+            ),
+        ]
+        for p in patches:
+            p.start()
+            self.addCleanup(p.stop)
+
+    def fake_run_grid_klt(self, tb, pdk, points, workdir, manifest, **kwargs):
+        self.calls.append({"manifest": manifest, **kwargs})
+        results = [
+            runner.PointResult(point=p, status="ok",
+                               measurements={"vth_mv": 1.0, "vhi": 3.0, "vlo": 0.0})
+            for p in points
+        ]
+        return results, {"backend": kwargs.get("backend") or "request-default",
+                         "engine_version": "45", "klt_version": "9.9.9",
+                         "klt_status": "pass", "remote": None, "klt_exit_code": 0,
+                         "wall_seconds": 0.0}
+
+    def main(self, *extra, ngspice="ngspice-44"):
+        argv = [str(self.tb_dir), "--no-write", "--quiet", *extra]
+        ng = (mock.patch.object(cli.runner, "ngspice_version", return_value=ngspice)
+              if ngspice else
+              mock.patch.object(cli.runner, "ngspice_version",
+                                side_effect=runner.NgspiceMissing("no ngspice")))
+        out, err = io.StringIO(), io.StringIO()
+        with ng, redirect_stdout(out), redirect_stderr(err):
+            code = cli.main(argv)
+        return code, out.getvalue(), err.getvalue()
+
+    def test_backend_klt_dispatches_to_klt_backend(self):
+        with mock.patch.object(cli.klt_backend, "run_grid_klt", side_effect=self.fake_run_grid_klt), \
+             mock.patch.object(cli.runner, "run_grid") as local:
+            code, out, _ = self.main("--backend", "klt")
+        self.assertEqual(code, cli.EXIT_OK)
+        local.assert_not_called()
+        self.assertEqual(len(self.calls), 1)
+        self.assertIsNone(self.calls[0]["backend"])
+        self.assertIsNone(self.calls[0]["runner_version_check"])
+        self.assertEqual(self.calls[0]["manifest"]["klt_measure"], KLT_MEASURE)
+        self.assertIn("klt sim", out)
+
+    def test_backend_name_and_version_check_are_forwarded(self):
+        with mock.patch.object(cli.klt_backend, "run_grid_klt", side_effect=self.fake_run_grid_klt):
+            code, _, _ = self.main("--backend", "klt:batch", "--klt-runner-version-check", "warn")
+        self.assertEqual(code, cli.EXIT_OK)
+        self.assertEqual(self.calls[0]["backend"], "batch")
+        self.assertEqual(self.calls[0]["runner_version_check"], "warn")
+
+    def test_default_backend_is_the_local_runner(self):
+        def local(tb, pdk, points, workdir, **kwargs):
+            return self.fake_run_grid_klt(tb, pdk, points, workdir, {})[0]
+
+        with mock.patch.object(cli.klt_backend, "run_grid_klt") as klt, \
+             mock.patch.object(cli.runner, "run_grid", side_effect=local) as run_local:
+            code, _, _ = self.main()
+        self.assertEqual(code, cli.EXIT_OK)
+        klt.assert_not_called()
+        run_local.assert_called_once()
+
+    def test_klt_error_maps_to_the_environment_exit_code(self):
+        boom = klt_backend.KltError("klt sim produced no JSON report")
+        with mock.patch.object(cli.klt_backend, "run_grid_klt", side_effect=boom):
+            code, _, err = self.main("--backend", "klt")
+        self.assertEqual(code, cli.EXIT_ENVIRONMENT)
+        self.assertIn("no JSON report", err)
+
+    def test_unknown_backend_is_refused_before_running(self):
+        with mock.patch.object(cli.klt_backend, "run_grid_klt") as klt, \
+             mock.patch.object(cli.runner, "run_grid") as local:
+            code, _, err = self.main("--backend", "klt-batch")
+        self.assertEqual(code, cli.EXIT_ENVIRONMENT)
+        self.assertIn("unknown --backend", err)
+        klt.assert_not_called()
+        local.assert_not_called()
+
+    def test_klt_backend_does_not_need_local_ngspice(self):
+        with mock.patch.object(cli.klt_backend, "run_grid_klt", side_effect=self.fake_run_grid_klt):
+            code, _, _ = self.main("--backend", "klt", ngspice=None)
+        self.assertEqual(code, cli.EXIT_OK)
+
+    def test_local_backend_still_needs_ngspice(self):
+        with mock.patch.object(cli.runner, "run_grid") as local:
+            code, _, err = self.main(ngspice=None)
+        self.assertEqual(code, cli.EXIT_ENVIRONMENT)
+        self.assertIn("no ngspice", err)
+        local.assert_not_called()
 
 
 if __name__ == "__main__":

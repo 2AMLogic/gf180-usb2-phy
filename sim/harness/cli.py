@@ -4,12 +4,13 @@ from __future__ import annotations
 
 import argparse
 import datetime as _dt
+import json
 import os
 import sys
 import time
 from pathlib import Path
 
-from . import HARNESS_VERSION, corners as corners_mod, report, runner, testbench as tb_mod
+from . import HARNESS_VERSION, corners as corners_mod, klt_backend, report, runner, testbench as tb_mod
 from .pdk import PdkNotFound, find_pdk
 from .runner import NgspiceMissing
 
@@ -231,16 +232,43 @@ def cmd_print_env() -> int:
     return EXIT_OK
 
 
+def _klt_backend_name(backend: str | None) -> tuple[bool, str | None]:
+    """``--backend`` -> (use klt?, klt backend name or None for klt's default).
+
+    Raises ValueError for anything other than ``klt`` / ``klt:<name>``.
+    """
+    if not backend:
+        return False, None
+    head, _, name = backend.partition(":")
+    if head != "klt":
+        raise ValueError(f"unknown --backend {backend!r} (expected 'klt' or 'klt:<name>')")
+    return True, name or None
+
+
 def run(args: argparse.Namespace) -> int:
+    try:
+        use_klt, klt_name = _klt_backend_name(args.backend)
+    except ValueError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return EXIT_ENVIRONMENT
+
     tb_path = _resolve_tb_path(args.testbench)
     tb = tb_mod.load(tb_path, dut=args.dut)
 
     try:
         pdk = find_pdk()
-        ngspice = runner.ngspice_version()
-    except (PdkNotFound, NgspiceMissing) as exc:
+    except PdkNotFound as exc:
         print(f"error: {exc}", file=sys.stderr)
         return EXIT_ENVIRONMENT
+    try:
+        ngspice = runner.ngspice_version()
+    except NgspiceMissing as exc:
+        # The klt backend runs ngspice wherever `klt sim` sends the job; a
+        # local ngspice is only provenance for the submitting host.
+        if not use_klt:
+            print(f"error: {exc}", file=sys.stderr)
+            return EXIT_ENVIRONMENT
+        ngspice = "no local ngspice"
 
     corner_names = args.corners or ([args.corner_set] if args.corner_set else list(tb.corners))
     corner_list = corners_mod.resolve_corners(corner_names)
@@ -314,17 +342,13 @@ def run(args: argparse.Namespace) -> int:
     wall_start = time.monotonic()
     backend_info = None
     try:
-        if args.backend and args.backend.split(":")[0] == "klt":
-            import json as _json
-            from . import klt_backend
-
-            klt_name = args.backend.partition(":")[2] or None
+        if use_klt:
             results, backend_info = klt_backend.run_grid_klt(
                 tb,
                 pdk,
                 points,
                 workdir,
-                _json.loads((tb.directory / "tb.json").read_text()),
+                json.loads((tb.directory / tb_mod.MANIFEST_NAME).read_text()),
                 backend=klt_name,
                 runner_version_check=args.klt_runner_version_check,
                 timeout_s=args.timeout,
@@ -335,9 +359,6 @@ def run(args: argparse.Namespace) -> int:
                 f"ngspice-{backend_info['engine_version']} via `klt sim` "
                 f"(backend {backend_info['backend']}; submitting host had {ngspice})"
             )
-        elif args.backend:
-            print(f"error: unknown --backend {args.backend!r}", file=sys.stderr)
-            return EXIT_ENVIRONMENT
         else:
             results = runner.run_grid(
                 tb,
@@ -352,9 +373,7 @@ def run(args: argparse.Namespace) -> int:
     except NgspiceMissing as exc:
         print(f"error: {exc}", file=sys.stderr)
         return EXIT_ENVIRONMENT
-    except Exception as exc:  # klt_backend.KltError and friends
-        if type(exc).__name__ != "KltError":
-            raise
+    except klt_backend.KltError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return EXIT_ENVIRONMENT
     wall = time.monotonic() - wall_start

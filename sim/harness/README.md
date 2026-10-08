@@ -68,7 +68,12 @@ A testbench opts in with `klt_measure` in `tb.json` (a `.meas` card plus an
 optional `scale` per measurement; see the module docstring). Only
 `diff-receiver-sensitivity` declares it so far. `--klt-runner-version-check
 warn` is needed while the fleet image's klt is older than the client; the
-request then uses only features the older runner has.
+request then uses only features the older runner has. `--backend klt:local` /
+`klt:batch` force one klt backend. The klt backend does not need a local
+ngspice (the submitting host's version is recorded only as provenance), and
+any `klt sim` failure (no JSON report, `klt` not on PATH) exits 3
+(environment). Unit tests: `KltRequestTests` / `KltRunGridTests` /
+`KltCliTests` in `sim/tests/test_harness.py`, stubbing the `klt` subprocess.
 
 ## Prerequisites
 
