@@ -4,6 +4,17 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-10-08
 
+- **PR #122**: Add top-level RX stuffing-error propagation and recovery tests (#118)
+- **PR #121**: Reconcile status docs with superseding verification evidence
+- **PR #116**: Define and lint the digital-analog pin contract (DR-0004)
+- **PR #111**: Attempt SDF-annotated gate-level regression for T1 item 7.digital (blocked; negative result recorded) (#93)
+- **PR #110**: Characterize RX bit sampling vs host/device clock offset (#108)
+- **PR #104**: T1 item 5 (digital): cite multi-corner klt sta envelope (#92)
+- **Issue #118** (closed): Verify top-level RX stuffing-error propagation and packet recovery
+- **Issue #120** (closed): Reconcile current PHY status documents with superseding verification evidence
+- **Issue #109** (closed): Define and lint the digital-to-analog pin contract (PU_EN/TermSelect, TRIM, driver enable, unused RXD)
+- **Issue #108** (closed): Verify RX bit sampling against spec §7 ±0.25% clock tolerance (no test covers host/device rate offset)
+- **Issue #92** (closed): T1 item 5 (digital): mint one multi-corner klt sta envelope on the routed layout and cite it
 - **PR #102**: Analog: differential_receiver resolves 200 mV over 0.8-2.5 V common mode (spec §4)
 - **Issue #97** (closed): Analog: re-size differential_receiver to meet spec §4 sensitivity across full common-mode range
 

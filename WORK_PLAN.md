@@ -23,7 +23,7 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-- **#92**: T1 item 5 (digital): mint one multi-corner klt sta envelope on the routed layout and cite it
+- **#93**: T1 item 7 (digital): run the gate-level regression with SDF back-annotation and cite it
 
 ## PRs Awaiting Review
 
@@ -44,11 +44,13 @@ Issues carrying `loom:curated`.
 - **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief *(curated)*
 - **#53**: Post-layout (extracted-parasitic) re-verification: digital STA now, analog PVT after #52 *(curated)*
 - **#90**: README: embed the fleet burndown chart (one line) *(curated)*
-- **#92**: T1 item 5 (digital): mint one multi-corner klt sta envelope on the routed layout and cite it *(curated)*
+- **#93**: T1 item 7 (digital): run the gate-level regression with SDF back-annotation and cite it *(curated)*
 
 ## Proposed (Architect / Hermit)
 
-_None._
+- **#119**: Verify shared-pad analog bus ownership and receiver transients *(architect)*
+- **#123**: RTL: synchronize asynchronous rxdp/rxdm at the usb_utmi_phy boundary (unassigned in DR-0004) *(architect)*
+- **#107**: Remove sim/tools/mk_dut.py: unused, superseded by design/netlist.py *(hermit)*
 
 ## Epics
 
@@ -65,6 +67,6 @@ _None._
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
 | Curated | 4 |
-| Architect / Hermit proposals | 0 |
+| Architect / Hermit proposals | 3 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
