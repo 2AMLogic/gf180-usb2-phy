@@ -185,6 +185,23 @@ PDK_ROOT=~/.volare PDK=gf180mcuD klt extract layout/digital/usb_utmi_phy.gds \
 PDK_ROOT=~/.volare PDK=gf180mcuD klt sta flow/request-usb-utmi-phy-sta.json --format json
 ```
 
+**Multi-corner, one envelope (issue #92).**
+`request-usb-utmi-phy-sta-corners.json` is the same request with
+`pdk.corners` (a list; mutually exclusive with `pdk.corner`) naming
+`tt_025C_1v80`, `ss_125C_1v62`, `ff_n40C_5v50`, so a single `klt sta`
+run emits one envelope with a `corners` list — the shape
+`manifests/gf180-usb2-phy.json`'s `5.digital` citation needs. Run it
+after step 1 above, from the repo root:
+
+```bash
+PDK_ROOT=~/.volare PDK=gf180mcuD klt sta flow/request-usb-utmi-phy-sta-corners.json --format json
+```
+
+Scope: these three corners are the whole claim; spec §8.1's 45-corner
+matrix is not covered by the digital liberty library's corner set here.
+The frozen copy under the record's `artifacts/` directory has its
+`def`/`spef` paths rewritten relative to that directory so it replays.
+
 **The first attempt at this had incomplete annotation** —
 `verification/records/post-layout-pvt/records/20260825-233200-1c84648.md`
 measured only 186/366 design nets annotated, root-caused to every net
