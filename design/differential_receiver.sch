@@ -29,7 +29,7 @@ floor). Load MP_LOADA/MP_LOADB sized 2:1 P:N (W=40u vs input pair's
 W=20u, gf180mcu 3.3V mobility ratio -- same convention as the driver's
 output stage in differential_driver.sch) for a balanced mirror.
 Buffer inv1 (MP_B1/MN_B1, W=32u/2u) is deliberately P-heavy (16:1) so
-its trip point sits near 0.7*VDD, at the OTA's balanced output level
+its trip point sits near 0.65*VDD, at the OTA's balanced output level
 (VDD - |Vsg,p| of the diode load), not at VDD/2. The 5T OTA's low output
 level is floored at the tail node (Vcm - Vgs,n), which at Vcm = 2.5V is above
 a mid-rail trip; a high trip point restores the margin (issue #97). inv2

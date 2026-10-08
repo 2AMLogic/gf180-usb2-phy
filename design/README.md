@@ -258,10 +258,23 @@ Target (spec Sec.4), by design intent: differential input sensitivity
 headroom toward the 0.8V common-mode floor). Load `MP_LOADA`/
 `MP_LOADB` sized 2:1 P:N (`W=40u` vs the input pair's `W=20u`, gf180mcu
 3.3V mobility ratio -- same convention as `differential_driver.sch`'s
-output stage). Buffer inv1 (`MP_B1`/`MN_B1`, `W=8u`/`4u`) and inv2
-(`MP_B2`/`MN_B2`, `W=16u`/`8u`) follow the same 2:1 P:N ratio and
-roughly double per stage (fanout scaling) to square `AMPOUT`'s
-small-signal swing to rail-to-rail `RXD`.
+output stage). Buffer inv2 (`MP_B2`/`MN_B2`, `W=16u`/`8u`) is a
+2:1 P:N stage squaring `BUF1` to rail-to-rail `RXD`. Buffer inv1
+(`MP_B1`/`MN_B1`, `W=32u`/`2u`) is deliberately **P-heavy (16:1)** so its
+trip point is about 0.65*VDD (2.13V at tt/27degC/3.3V) rather than mid-rail: the 5T OTA's low output
+level is floored at its tail node (`V_cm - V_GS,n`, about 1.6V at 2.5V
+common mode), above a mid-rail trip, so with the original 8u/4u sizing a K
+state at the top of the common-mode range never read low (30/45 corners
+failed at 2.5V, issue #97). A 0.7*VDD trip sits at the OTA's balanced
+output level (`VDD - |V_SG,p|` of the diode load) and tracks it over
+supply.
+
+**PVT result (`sim/diff-receiver-sensitivity/`, record
+`20261008-193113-2e9f63e`, supersedes `20260817-203852-5a963e7`):** all 45
+corners pass at each of the 0.8V, 1.65V and 2.5V common-mode points;
+input-referred threshold -31.5...-14.5mV / -34.9...-16.1mV /
+-81.0...-18.5mV (worst `fs_125c_2.97v`, 2.5V), against +/-200mV. The
+single-ended receivers are unchanged.
 
 **Spot-check (informal, `ngspice -b`, tt corner, 27 degC, ideal 3.3V
 rail -- not a `sim/` evidence record):** DC operating-point sweep with
