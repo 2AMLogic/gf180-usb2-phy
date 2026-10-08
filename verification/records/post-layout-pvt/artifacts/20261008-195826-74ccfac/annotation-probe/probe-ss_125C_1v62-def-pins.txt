@@ -1,0 +1,1089 @@
+OpenROAD 26Q3-1260-g06a5a02279 
+Features included (+) or not (-): +GPU +GUI +Python
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ODB-0388] unsupported LEF58_EOLENCLOSURE property for layer Via1 :"
+  	EOLENCLOSURE 0.34 0.06 ;"
+[INFO ODB-0388] unsupported LEF58_EOLENCLOSURE property for layer Via2 :" EOLENCLOSURE 0.34 0.06 ; "
+[INFO ODB-0388] unsupported LEF58_EOLENCLOSURE property for layer Via3 :" EOLENCLOSURE 0.34 0.06 ; "
+[INFO ODB-0388] unsupported LEF58_EOLENCLOSURE property for layer Via4 :" EOLENCLOSURE 0.34 0.06 ; "
+[INFO ODB-0227] LEF file: /home/ubuntu/.volare/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu9t5v0/techlef/gf180mcu_fd_sc_mcu9t5v0__nom.tlef, created 15 layers, 56 vias
+[WARNING ODB-0220] WARNING (LEFPARS-2008): NOWIREEXTENSIONATPIN statement is obsolete in version 5.6 or later.
+The NOWIREEXTENSIONATPIN statement will be ignored. See file /home/ubuntu/.volare/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu9t5v0/lef/gf180mcu_fd_sc_mcu9t5v0.lef at line 2.
+
+[INFO ODB-0227] LEF file: /home/ubuntu/.volare/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu9t5v0/lef/gf180mcu_fd_sc_mcu9t5v0.lef, created 229 library cells
+[INFO ODB-0127] Reading DEF file: layout/digital/usb_utmi_phy.def
+[INFO ODB-0128] Design: usb_utmi_phy
+[INFO ODB-0130]     Created 37 pins.
+[INFO ODB-0131]     Created 1121 components and 5406 component-terminals.
+[INFO ODB-0132]     Created 2 special nets and 4308 connections.
+[INFO ODB-0133]     Created 340 nets and 1091 connections.
+[INFO ODB-0134] Finished DEF file: layout/digital/usb_utmi_phy.def
+===PROBE_PRE_BEGIN===
+Startpoint: _340_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _340_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000 ^ _340_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   5.3377    5.3377 ^ _340_/Q (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   1.0997    6.4374 v _272_/ZN (gf180mcu_fd_sc_mcu9t5v0__aoi21_1)
+   0.0000    6.4374 v _340_/D (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+             6.4374   data arrival time
+
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000   clock reconvergence pessimism
+             0.0000 ^ _340_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   0.5373    0.5373   library hold time
+             0.5373   data required time
+-------------------------------------------------------------
+             0.5373   data required time
+            -6.4374   data arrival time
+-------------------------------------------------------------
+             5.9001   slack (MET)
+
+
+Startpoint: _344_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _319_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000 ^ _344_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   9.3263    9.3263 ^ _344_/Q (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   2.0516   11.3778 v _202_/ZN (gf180mcu_fd_sc_mcu9t5v0__nand2_1)
+  10.6256   22.0034 ^ _203_/ZN (gf180mcu_fd_sc_mcu9t5v0__nor4_1)
+   3.2811   25.2845 v u_stuffer/_15_/ZN (gf180mcu_fd_sc_mcu9t5v0__nor2_4)
+   3.7590   29.0435 ^ u_stuffer/_16_/ZN (gf180mcu_fd_sc_mcu9t5v0__nand4_4)
+   3.3878   32.4313 ^ _280_/Z (gf180mcu_fd_sc_mcu9t5v0__mux2_1)
+   2.4096   34.8409 v _281_/ZN (gf180mcu_fd_sc_mcu9t5v0__oai221_2)
+   5.6913   40.5322 v _282_/Z (gf180mcu_fd_sc_mcu9t5v0__or3_2)
+   2.2726   42.8048 ^ _285_/ZN (gf180mcu_fd_sc_mcu9t5v0__aoi211_2)
+   0.0000   42.8048 ^ _319_/D (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+            42.8048   data arrival time
+
+  83.3330   83.3330   clock clk (rise edge)
+   0.0000   83.3330   clock network delay (ideal)
+   0.0000   83.3330   clock reconvergence pessimism
+            83.3330 ^ _319_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+  -2.7378   80.5952   library setup time
+            80.5952   data required time
+-------------------------------------------------------------
+            80.5952   data required time
+           -42.8048   data arrival time
+-------------------------------------------------------------
+            37.7904   slack (MET)
+
+
+===PROBE_PRE_END===
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 55, net $1008 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 78, net $1011 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 94, net $1012 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 106, net $1013 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 119, net $1014 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 131, net $1015 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 143, net $1016 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 155, net $1018 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 171, net $1019 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 188, net $1020 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 203, net $1021 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 218, net $1022 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 232, net $1023 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 245, net $1024 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 257, net $1027 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 274, net $1028 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 291, net $1029 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 305, net $1030 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 320, net $1031 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 332, net $1032 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 345, net $1033 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 357, net $1037 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 367, net $1039 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 385, net $1040 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 402, net $1092 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 411, net $1095 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 435, net $1097 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 446, net $1098 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 464, net $1099 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 480, net $11 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 492, net $110 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 516, net $1100 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 529, net $1101 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 543, net $1102 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 557, net $1103 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 575, net $1105 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 588, net $1106 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 601, net $1107 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 614, net $1108 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 633, net $1109 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 646, net $1110 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 661, net $1111 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 676, net $1112 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 691, net $1113 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 706, net $1114 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 719, net $1115 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 731, net $1116 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 740, net $1118 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 768, net $1120 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 785, net $1124 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 799, net $1125 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 812, net $1126 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 828, net $1127 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 842, net $1129 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 859, net $1130 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 872, net $1131 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 887, net $1132 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 901, net $118 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 920, net $1182 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 947, net $1185 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 964, net $1186 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 975, net $1187 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 995, net $119 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1007, net $1195 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1018, net $1196 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1033, net $1197 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1043, net $1198 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1055, net $1200 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1066, net $1201 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1077, net $1203 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1090, net $1204 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1101, net $1205 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1113, net $1217 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1124, net $1218 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1139, net $1226 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1154, net $1227 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1169, net $1228 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1182, net $1229 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1196, net $1230 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1210, net $1231 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1223, net $1232 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1242, net $1233 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1260, net $1234 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1277, net $1235 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1292, net $1236 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1305, net $1237 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1318, net $1239 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1335, net $1240 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1353, net $1241 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1367, net $1242 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1380, net $1243 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1393, net $1244 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1406, net $1246 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1424, net $1247 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1443, net $1248 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1458, net $1249 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1473, net $1250 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1485, net $1251 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1497, net $1255 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1507, net $1258 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1518, net $1295 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1529, net $1296 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1550, net $1297 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1565, net $1298 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1579, net $13 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1589, net $1300 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1602, net $1301 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1616, net $1302 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1628, net $1303 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1640, net $1313 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1653, net $1316 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1668, net $1317 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1684, net $1318 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1697, net $1319 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1711, net $1320 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1725, net $1321 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1740, net $1335 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1751, net $1336 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1762, net $1337 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1772, net $134 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1791, net $1349 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1800, net $1352 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1809, net $1354 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1820, net $1356 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1839, net $1357 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1856, net $1359 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1869, net $1362 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1886, net $1363 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1903, net $1364 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1917, net $1365 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1933, net $137 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1947, net $1371 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1964, net $1372 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1980, net $1373 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 1994, net $1374 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2007, net $1375 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2021, net $1376 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2035, net $1377 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2048, net $1378 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2061, net $1379 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2074, net $138 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2088, net $1380 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2101, net $1381 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2117, net $1382 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2132, net $1383 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2148, net $1384 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2161, net $1385 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2173, net $140 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2187, net $141 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2202, net $142 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2214, net $1426 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2229, net $1427 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2247, net $1429 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2262, net $143 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2274, net $1430 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2289, net $1431 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2304, net $1432 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2317, net $1433 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2331, net $1434 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2345, net $1435 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2359, net $1438 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2375, net $1439 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2389, net $1440 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2403, net $1441 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2417, net $1442 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2430, net $1443 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2445, net $1444 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2459, net $1445 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2472, net $1446 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2485, net $1447 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2497, net $1449 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2516, net $145 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2528, net $1450 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2541, net $1451 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2556, net $1452 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2570, net $1453 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2583, net $1454 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2596, net $1455 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2608, net $1478 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2617, net $148 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2635, net $149 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2649, net $1493 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2658, net $1494 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2675, net $1495 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2685, net $1496 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2703, net $1497 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2721, net $1498 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2736, net $1499 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2746, net $150 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2760, net $1500 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2776, net $1501 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2790, net $1502 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2804, net $1503 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2814, net $1504 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2826, net $1505 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2836, net $1506 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2850, net $151 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2862, net $1510 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2876, net $1511 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2889, net $1512 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2902, net $1513 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2914, net $1514 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2926, net $1516 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2944, net $1517 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2959, net $1518 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2972, net $1519 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2987, net $152 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 2999, net $1520 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3014, net $1521 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3031, net $1522 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3045, net $1523 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3057, net $1524 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3073, net $1525 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3089, net $1526 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3103, net $1527 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3116, net $1528 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3128, net $1529 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3141, net $153 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3154, net $1530 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3167, net $1532 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3177, net $1533 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3187, net $1535 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3202, net $1536 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3215, net $1537 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3228, net $1538 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3240, net $1539 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3252, net $1580 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3275, net $1581 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3290, net $1582 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3305, net $1583 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3319, net $1584 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3333, net $1585 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3346, net $1586 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3359, net $1588 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3374, net $1589 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3384, net $1590 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3398, net $1591 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3411, net $1592 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3423, net $1593 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3435, net $1594 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3447, net $1595 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3460, net $1596 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3477, net $1597 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3488, net $1627 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3499, net $1628 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3508, net $1629 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3518, net $1630 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3529, net $1650 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3544, net $1652 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3558, net $1653 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3571, net $1654 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3585, net $1656 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3600, net $1657 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3614, net $1658 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3626, net $1659 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3639, net $1660 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3654, net $1662 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3665, net $1663 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3681, net $1665 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3693, net $1666 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3705, net $1667 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3717, net $1668 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3734, net $1670 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3748, net $1671 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3767, net $1672 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3781, net $1673 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3795, net $1674 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3810, net $1684 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3826, net $1686 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3838, net $1687 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3850, net $1688 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3862, net $1690 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3871, net $1692 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3887, net $1693 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3901, net $1694 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3915, net $1695 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3927, net $1697 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3941, net $1698 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3953, net $1700 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3970, net $1701 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 3985, net $1703 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4000, net $1704 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4014, net $1747 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4029, net $1748 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4040, net $1749 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4054, net $1750 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4069, net $1751 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4080, net $1752 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4097, net $1754 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4111, net $1755 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4126, net $1756 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4141, net $1757 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4154, net $1758 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4166, net $1759 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4178, net $1760 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4190, net $1762 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4205, net $1763 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4219, net $1764 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4234, net $1765 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4248, net $1766 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4261, net $1769 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4277, net $1770 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4290, net $1771 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4303, net $1772 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4316, net $1773 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4329, net $1774 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4344, net $1775 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4357, net $1776 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4369, net $1777 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4381, net $1778 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4393, net $178 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4409, net $179 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4424, net $1798 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4433, net $180 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4449, net $184 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4468, net $185 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4481, net $186 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4493, net $187 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4508, net $188 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4523, net $190 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4537, net $191 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4551, net $192 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4565, net $193 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4575, net $194 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4587, net $195 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4601, net $196 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4611, net $207 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4620, net $208 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4629, net $219 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4646, net $222 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4662, net $223 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4674, net $224 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4687, net $225 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4699, net $226 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4713, net $227 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4727, net $229 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4744, net $230 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4757, net $231 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4770, net $232 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4782, net $233 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4795, net $234 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4808, net $236 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4821, net $24 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4838, net $26 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4852, net $262 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4869, net $265 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4885, net $266 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4899, net $267 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4913, net $268 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4925, net $269 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4938, net $27 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4953, net $270 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4966, net $271 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 4985, net $278 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5001, net $279 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5012, net $28 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5025, net $280 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5037, net $281 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5053, net $282 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5065, net $283 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5077, net $284 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5087, net $285 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5100, net $29 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5112, net $30 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5126, net $301 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5136, net $302 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5152, net $309 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5167, net $31 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5181, net $312 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5196, net $313 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5208, net $314 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5221, net $315 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5234, net $316 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5245, net $32 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5258, net $320 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5272, net $322 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5285, net $323 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5296, net $324 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5308, net $325 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5317, net $326 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5329, net $327 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5343, net $328 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5354, net $329 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5369, net $331 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5382, net $332 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5394, net $333 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5407, net $336 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5421, net $34 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5434, net $344 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5451, net $345 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5461, net $35 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5473, net $36 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5485, net $368 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5499, net $37 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5513, net $371 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5529, net $372 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5544, net $373 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5556, net $374 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5568, net $375 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5581, net $376 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5594, net $378 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5605, net $380 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5616, net $381 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5632, net $382 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5652, net $386 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5666, net $39 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5683, net $40 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5697, net $403 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5712, net $41 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5725, net $419 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5741, net $42 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5753, net $420 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5766, net $422 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5783, net $423 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5796, net $424 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5810, net $425 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5822, net $426 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5834, net $427 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5846, net $429 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5861, net $43 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5873, net $430 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5887, net $431 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5900, net $432 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5913, net $433 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5925, net $434 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5938, net $438 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5952, net $439 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5970, net $44 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5982, net $440 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 5996, net $441 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6009, net $442 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6021, net $443 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6033, net $444 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6046, net $445 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6055, net $496 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6069, net $497 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6080, net $498 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6093, net $499 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6106, net $500 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6119, net $501 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6133, net $502 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6144, net $503 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6159, net $504 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6175, net $505 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6185, net $506 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6197, net $507 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6210, net $508 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6224, net $509 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6238, net $510 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6250, net $511 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6264, net $515 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6278, net $517 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6296, net $518 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6313, net $519 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6330, net $520 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6344, net $521 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6359, net $522 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6373, net $540 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6383, net $541 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6406, net $542 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6418, net $551 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6433, net $552 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6447, net $553 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6462, net $554 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6476, net $559 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6487, net $560 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6501, net $561 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6512, net $562 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6525, net $563 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6540, net $564 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6554, net $566 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6564, net $567 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6576, net $568 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6585, net $569 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6597, net $570 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6610, net $571 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6625, net $573 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6637, net $574 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6649, net $575 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6661, net $576 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6677, net $577 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6692, net $578 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6703, net $580 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6722, net $581 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6734, net $582 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6745, net $583 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6755, net $585 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6772, net $587 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6783, net $589 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6793, net $605 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6804, net $606 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6815, net $631 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6830, net $632 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6842, net $634 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6856, net $635 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6868, net $636 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6886, net $638 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6898, net $643 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6911, net $65 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6926, net $66 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6939, net $664 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6949, net $665 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6964, net $667 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6976, net $668 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 6987, net $67 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7000, net $670 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7015, net $671 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7032, net $673 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7044, net $675 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7054, net $676 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7070, net $677 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7084, net $678 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7098, net $679 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7111, net $68 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7124, net $680 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7137, net $681 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7150, net $682 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7164, net $683 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7177, net $684 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7189, net $685 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7201, net $686 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7213, net $69 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7227, net $70 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7240, net $707 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7250, net $71 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7265, net $720 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7278, net $722 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7288, net $724 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7303, net $726 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7319, net $727 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7329, net $728 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7341, net $729 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7354, net $730 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7366, net $731 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7379, net $732 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7392, net $733 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7405, net $736 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7423, net $737 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7442, net $738 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7458, net $739 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7472, net $740 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7487, net $741 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7501, net $761 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7516, net $762 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7525, net $763 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7535, net $783 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7550, net $785 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7560, net $786 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7576, net $787 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7599, net $789 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7617, net $790 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7627, net $791 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7642, net $792 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7652, net $793 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7669, net $794 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7683, net $795 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7694, net $796 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7708, net $798 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7720, net $800 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7739, net $801 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7754, net $802 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7770, net $804 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7784, net $805 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7797, net $806 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7812, net $807 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7826, net $809 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7841, net $811 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7857, net $812 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7871, net $813 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7883, net $814 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7895, net $815 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7907, net $816 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7920, net $84 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7930, net $857 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7944, net $858 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7954, net $859 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7967, net $860 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7979, net $861 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 7991, net $862 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8004, net $863 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8014, net $864 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8030, net $865 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8048, net $866 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8064, net $867 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8074, net $868 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8088, net $869 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8104, net $870 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8118, net $871 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8130, net $872 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8140, net $873 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8154, net $874 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8167, net $877 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8180, net $878 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8199, net $879 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8215, net $881 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8228, net $882 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8241, net $89 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8253, net $902 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8262, net $903 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8272, net $904 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8281, net $905 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8293, net $91 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8304, net $918 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8319, net $919 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8333, net $922 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8348, net $923 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8363, net $925 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8378, net $926 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8395, net $927 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8408, net $931 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8427, net $932 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8439, net $933 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8450, net $934 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8463, net $935 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8473, net $936 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8485, net $937 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8498, net $938 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8508, net $939 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8521, net $940 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8531, net $941 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8543, net $942 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8552, net $943 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8564, net $944 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8577, net $945 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8587, net $947 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8602, net $948 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8616, net $949 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8629, net $950 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8641, net $951 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8655, net $953 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8670, net $955 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8685, net $956 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8699, net $957 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8712, net $958 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8727, net $961 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8746, net $962 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8761, net $963 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8776, net $964 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8788, net $965 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8800, net $985 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8812, net $986 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8824, net $987 not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8835, net $99 not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8898, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8935, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8969, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 8992, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9046, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9101, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9102, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9157, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9158, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9245, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9246, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9275, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9276, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9312, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9313, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9315, pin rx_receiving not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9342, net ZN not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9353, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9354, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9454, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9455, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9508, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9509, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9512, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9683, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9684, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 9694, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 13226, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 13227, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 13236, pin rx_receiving not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 16622, net ZN not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 16647, net ZN not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 16680, net ZN not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 16713, net ZN not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 16738, net ZN not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 16763, net ZN not found.
+[WARNING STA-1650] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 16786, net ZN not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 16818, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 16914, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 16915, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 17035, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 17979, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 17980, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 18114, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 18115, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 18120, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 18653, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 18654, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 18704, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 18705, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 19253, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 19380, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 19381, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 19485, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 19532, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 19598, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 19599, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 19651, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 19652, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 19674, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 19675, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 19781, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 19782, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 20188, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 20443, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21008, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21009, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21014, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21105, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21179, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21266, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21345, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21558, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21559, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21680, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21706, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21707, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21708, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21747, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21796, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21857, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21929, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21930, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21930, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21931, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21932, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21933, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21934, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21935, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21936, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21937, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21939, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21940, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21941, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21942, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21943, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21944, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21945, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21946, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21947, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21948, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21949, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21950, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21951, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21952, pin line_state[0] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21963, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21964, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21965, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21966, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21967, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21968, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21970, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21971, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21972, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21973, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21974, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21975, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21976, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21977, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21978, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21979, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21980, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21981, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21982, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 21983, pin line_state[1] not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22172, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22229, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22230, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22231, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22232, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22233, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22234, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22235, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22236, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22237, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22238, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22239, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22240, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22241, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22242, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22244, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22245, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22246, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22247, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22248, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22249, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22250, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22251, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22252, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22253, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22254, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22255, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22256, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22257, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22258, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22259, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22260, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22261, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22262, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22263, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22264, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22265, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22266, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22267, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22268, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22269, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22270, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22271, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22272, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22273, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22274, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22275, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22276, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22277, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22278, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22279, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22280, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22281, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22282, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22283, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22284, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22285, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22286, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22287, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22288, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22289, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22290, pin rx_receiving not found.
+[WARNING STA-1656] verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/usb_utmi_phy_route.spef line 22291, pin rx_receiving not found.
+===PROBE_ANNOTATION_BEGIN===
+Found 7 unannotated drivers.
+ clkload0/ZN
+ clkload1/ZN
+ clkload2/ZN
+ clkload3/ZN
+ clkload4/ZN
+ clkload5/ZN
+ clkload6/ZN
+Found 3 partially unannotated drivers.
+ _341_/Q
+  RxActive
+  _148_/I
+  _209_/A1
+  _218_/A1
+  _271_/C
+  u_destuffer/_19_/A1
+  u_destuffer/_20_/A2
+  u_destuffer/_21_/A1
+  u_destuffer/_22_/A2
+  u_destuffer/_24_/A2
+ u_line_state/_6_/Q
+  LineState[0]
+  _172_/I
+  _174_/A1
+  u_eop_detector/_27_/A1
+ u_line_state/_7_/Q
+  LineState[1]
+  _173_/A2
+  _174_/A2
+  u_eop_detector/_27_/A2
+===PROBE_ANNOTATION_END===
+===PROBE_POST_BEGIN===
+Startpoint: _340_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _340_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000 ^ _340_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   5.5726    5.5726 ^ _340_/Q (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   1.2723    6.8449 v _272_/ZN (gf180mcu_fd_sc_mcu9t5v0__aoi21_1)
+   0.0000    6.8449 v _340_/D (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+             6.8449   data arrival time
+
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000   clock reconvergence pessimism
+             0.0000 ^ _340_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   0.5125    0.5125   library hold time
+             0.5125   data required time
+-------------------------------------------------------------
+             0.5125   data required time
+            -6.8449   data arrival time
+-------------------------------------------------------------
+             6.3324   slack (MET)
+
+
+Startpoint: _344_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _305_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000 ^ _344_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+  10.6460   10.6460 ^ _344_/Q (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+   2.4620   13.1080 v _202_/ZN (gf180mcu_fd_sc_mcu9t5v0__nand2_1)
+  12.8605   25.9685 ^ _203_/ZN (gf180mcu_fd_sc_mcu9t5v0__nor4_1)
+   3.8251   29.7936 v u_stuffer/_15_/ZN (gf180mcu_fd_sc_mcu9t5v0__nor2_4)
+   4.4142   34.2078 ^ u_stuffer/_16_/ZN (gf180mcu_fd_sc_mcu9t5v0__nand4_4)
+   2.6576   36.8654 v _187_/ZN (gf180mcu_fd_sc_mcu9t5v0__nand4_4)
+   6.1333   42.9987 ^ _213_/ZN (gf180mcu_fd_sc_mcu9t5v0__aoi22_4)
+   2.1654   45.1641 v _241_/ZN (gf180mcu_fd_sc_mcu9t5v0__nor2_1)
+   4.1770   49.3411 ^ _242_/ZN (gf180mcu_fd_sc_mcu9t5v0__aoi211_1)
+   0.0000   49.3411 ^ _305_/D (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+            49.3411   data arrival time
+
+  83.3330   83.3330   clock clk (rise edge)
+   0.0000   83.3330   clock network delay (ideal)
+   0.0000   83.3330   clock reconvergence pessimism
+            83.3330 ^ _305_/CLK (gf180mcu_fd_sc_mcu9t5v0__dffq_1)
+  -3.0905   80.2425   library setup time
+            80.2425   data required time
+-------------------------------------------------------------
+            80.2425   data required time
+           -49.3411   data arrival time
+-------------------------------------------------------------
+            30.9015   slack (MET)
+
+
+===PROBE_POST_END===
+===PROBE_NET_BEGIN===
+Net _013_
+ Pin capacitance: 0.0096
+ Wire capacitance: 0.0025
+ Total capacitance: 0.0121
+ Number of drivers: 1
+ Number of loads: 1
+ Number of pins: 2
+
+Driver pins
+ _191_/Z output (gf180mcu_fd_sc_mcu9t5v0__mux2_1) (111, 93)
+
+Load pins
+ u_encoder/_4_/A1 input (gf180mcu_fd_sc_mcu9t5v0__xor2_2) 0.0096 (102, 94)
+
+Net rx_receiving
+ Pin capacitance: 0.1041
+ Wire capacitance: 0.0000
+ Total capacitance: 0.1041
+ Number of drivers: 1
+ Number of loads: 10
+ Number of pins: 11
+
+Driver pins
+ _341_/Q output (gf180mcu_fd_sc_mcu9t5v0__dffq_1) (85, 83)
+
+Load pins
+ RxActive output port (80, 186)
+ _148_/I input (gf180mcu_fd_sc_mcu9t5v0__clkinv_1) 0.0049 (76, 77)
+ _209_/A1 input (gf180mcu_fd_sc_mcu9t5v0__nand2_2) 0.0115 (41, 144)
+ _218_/A1 input (gf180mcu_fd_sc_mcu9t5v0__and4_4) 0.0104 (36, 138)
+ _271_/C input (gf180mcu_fd_sc_mcu9t5v0__oai211_1) 0.0053 (38, 124)
+ u_destuffer/_19_/A1 input (gf180mcu_fd_sc_mcu9t5v0__aoi21_4) 0.0256 (41, 114)
+ u_destuffer/_20_/A2 input (gf180mcu_fd_sc_mcu9t5v0__and4_1) 0.0031 (45, 108)
+ u_destuffer/_21_/A1 input (gf180mcu_fd_sc_mcu9t5v0__and3_2) 0.0058 (35, 118)
+ u_destuffer/_22_/A2 input (gf180mcu_fd_sc_mcu9t5v0__aoi21_2) 0.0127 (36, 114)
+ u_destuffer/_24_/A2 input (gf180mcu_fd_sc_mcu9t5v0__aoi21_4) 0.0249 (33, 88)
+
+Net line_state[0]
+ Pin capacitance: 0.0199
+ Wire capacitance: 0.0000
+ Total capacitance: 0.0199
+ Number of drivers: 1
+ Number of loads: 4
+ Number of pins: 5
+
+Driver pins
+ u_line_state/_6_/Q output (gf180mcu_fd_sc_mcu9t5v0__dffq_1) (105, 154)
+
+Load pins
+ LineState[0] output port (108, 186)
+ _172_/I input (gf180mcu_fd_sc_mcu9t5v0__clkinv_1) 0.0049 (88, 108)
+ _174_/A1 input (gf180mcu_fd_sc_mcu9t5v0__xor2_1) 0.0096 (87, 104)
+ u_eop_detector/_27_/A1 input (gf180mcu_fd_sc_mcu9t5v0__nor2_1) 0.0054 (93, 98)
+
+Net line_state[1]
+ Pin capacitance: 0.0195
+ Wire capacitance: 0.0000
+ Total capacitance: 0.0195
+ Number of drivers: 1
+ Number of loads: 4
+ Number of pins: 5
+
+Driver pins
+ u_line_state/_7_/Q output (gf180mcu_fd_sc_mcu9t5v0__dffq_1) (108, 164)
+
+Load pins
+ LineState[1] output port (109, 186)
+ _173_/A2 input (gf180mcu_fd_sc_mcu9t5v0__nor2_1) 0.0050 (85, 98)
+ _174_/A2 input (gf180mcu_fd_sc_mcu9t5v0__xor2_1) 0.0095 (88, 103)
+ u_eop_detector/_27_/A2 input (gf180mcu_fd_sc_mcu9t5v0__nor2_1) 0.0050 (92, 98)
+
+===PROBE_NET_END===
+worst slack max 30.9015
+worst slack min 6.3324

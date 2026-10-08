@@ -171,10 +171,15 @@ correlate with the DEF, then feed it through `klt sta`, sweeping only
 # 1. Extract parasitics with DEF-correlated net names (issue #951/#961's
 #    fix, --def-net-names / --def-net-connections) -- without these two
 #    flags the SPEF's net names are KLayout's own synthesized labels and
-#    correlate with almost nothing in the linked design.
+#    correlate with almost nothing in the linked design. --def-pins is
+#    also required: without it every DEF net is written as a top-level
+#    port with a bare-net-name hub node, OpenSTA drops every RC element
+#    ("STA-1656 pin ... not found"), and the "post-layout" timing is
+#    wire-parasitic-free (records before 20261008-195826-74ccfac).
 PDK_ROOT=~/.volare PDK=gf180mcuD klt extract layout/digital/usb_utmi_phy.gds \
     --deck gf180mcu --top usb_utmi_phy --pdk gf180mcuD --parasitics \
     --def-net-names --def-net-connections layout/digital/usb_utmi_phy.def \
+    --def-pins layout/digital/usb_utmi_phy.def \
     --spef flow/.klt/extract/usb_utmi_phy_route.spef \
     -o flow/.klt/extract/usb_utmi_phy_route.spice
 
@@ -197,7 +202,7 @@ after step 1 above, from the repo root:
 PDK_ROOT=~/.volare PDK=gf180mcuD klt sta flow/request-usb-utmi-phy-sta-corners.json --format json
 ```
 
-Caveat: the envelope's SPEF-annotation diagnostics (unannotated drivers, `delay_changed: false`) mean the slacks are not shown to include parasitics; see record `20261008-200000-8139bb6`.
+Caveat: record `20261008-200000-8139bb6`'s envelope (`delay_changed: false`, 307 partially unannotated drivers) is wire-parasitic-free timing: its SPEF was extracted without `--def-pins` and did not attach. The cited envelope is now `20261008-195826-74ccfac`'s; see below.
 
 Scope: these three corners are the whole claim; spec §8.1's 45-corner
 matrix is not covered by the digital liberty library's corner set here.
@@ -208,6 +213,20 @@ record keeps the response as emitted (`sta-corners.emitted.json`) and
 cites a copy with the producing checkout's root prefix stripped
 (`sta-corners.json`, `def_path: layout/digital/usb_utmi_phy.def`), which
 `klt signoff` can re-hash from any checkout's repo root.
+
+**Check that the parasitics actually attached.** The fact that
+`spef_annotation.design_nets_annotated` equals `design_nets_total` only
+shows that the net names matched. Check `delay_changed` (must be `true`)
+and `partially_unannotated_driver_count`. Record
+`20261008-200000-8139bb6` had 342/342 nets matched, `delay_changed:
+false` and 307 partially unannotated drivers, so its timing had no wire
+parasitics. Its successor `20261008-195826-74ccfac` (`--def-pins`) has
+`delay_changed: true`. Its remaining 7 + 3 drivers are identified and
+measured there: CTS dummy-load outputs, and three nets whose DEF PIN name
+differs from their NET name, which do not move worst slack. The
+extractor's wire resistance never sits between two pins: every pin has a
+0 Ω leg to its net's hub, so each net is timed as a lumped capacitance.
+`annotation-probe/run.sh` in that record re-derives all of this.
 
 **The first attempt at this had incomplete annotation** —
 `verification/records/post-layout-pvt/records/20260825-233200-1c84648.md`

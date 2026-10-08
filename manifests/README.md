@@ -96,39 +96,56 @@ citing set the item's own text requires:
   carries a hand-transcribed SPICE reference, and that form's power half
   reads `"unchecked"` by construction — see record
   `20260921-145814-5bee855.md`).
-- **Item 5.digital, corner verification (digital STA) — cited, `met`** —
-  cites one multi-corner `klt sta` envelope
-  (`verification/records/post-layout-pvt/artifacts/20261008-200000-8139bb6/sta-corners.json`,
-  record `20261008-200000-8139bb6`, issue #92), run once with
-  `pdk.corners` over the routed `layout/digital/usb_utmi_phy.def` plus
-  its DEF-correlated extracted SPEF. `content_hash` is the DEF hash the
-  envelope records in `provenance.input`
-  (`sha256:82a57e76…`, `input_verified: true`). `klt sta` writes
-  `def_path` as an absolute host path, which would leave
-  `input_verified` `null` on any other checkout; the cited file is the
-  emitted response (kept beside it as `sta-corners.emitted.json`) with
-  only the producing checkout's root prefix stripped, so `def_path` is
-  repo-relative and re-hashes from the repo root (see the record). The grader passes it
-  because every declared corner is `timing_status: "constrained"` with
-  non-negative setup and hold slack. **Corner scope: three corners, and
-  only three** — `tt_025C_1v80`, `ss_125C_1v62`, `ff_n40C_5v50`
-  (liberty corners of the `gf180mcu_fd_sc_mcu9t5v0` library). **The
-  parasitic annotation is not shown to take effect:** the envelope's
-  342/342 is a net-name match, but each corner also reports 7
-  unannotated and 307 partially unannotated drivers and
-  `delay_changed: false`, and a replay shows the SPEF leaves a net's
-  wire capacitance at 0 (record `20261008-200000-8139bb6`). The `met`
-  here is the grader's mechanical `sta` rule; it is **not** evidence of
-  extracted-parasitic post-layout timing, which stays unestablished
-  until the annotation question is resolved. This does **not** cover spec §8.1's 45-corner matrix
-  (3 T x 3 V x 5 process incl. `fs`/`sf`), and the grader does not widen
-  it; the digital timing row is a three-corner claim, with the §8.1
-  difference disclosed rather than closed. The item's text also names a
-  bit-exact functional suite; the grader's `sta` rule does not require
-  one and this citation does not claim it (`klt functional-verification`
-  envelopes record no `provenance` and cannot be freshness-pinned; SDF
-  gate-level verification is tracked separately by #93). **Item
-  5.analog stays `unmet`/`no_evidence`** (parked on klayout-tools#1962).
+- **Item 5.digital, corner verification (digital STA): cited, `met`**.
+  Cites one multi-corner `klt sta` envelope,
+  `verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/sta-corners.json`
+  (record `20261008-195826-74ccfac`, issue #92). It was run once with
+  `pdk.corners` over the routed `layout/digital/usb_utmi_phy.def` and an
+  SPEF extracted with `--def-pins`, which OpenSTA does attach:
+  `delay_changed: true` at every corner. `content_hash` is the DEF hash
+  the envelope records in `provenance.input` (`sha256:82a57e76…`,
+  `input_verified: true`). The cited file is the emitted response (kept
+  beside it as `sta-corners.emitted.json`) with only the producing
+  checkout's root prefix stripped, so `def_path` is repo-relative and can
+  be re-hashed from the repo root (klayout-tools#2879). The grader passes
+  it because every declared corner is `timing_status: "constrained"` with
+  non-negative setup and hold slack. Worst setup / hold slack:
+  62.33 / 2.60 ns at tt, 30.90 / 6.33 ns at ss, 80.09 / 0.43 ns at ff.
+
+  **What `met` here does and does not establish.** The grader checks the
+  slack signs. It does not check whether parasitics were attached. A
+  first version of this citation pointed at record
+  `20261008-200000-8139bb6`. That envelope also graded `met`, but its SPEF
+  had not attached at all (`delay_changed: false`, 307 partially
+  unannotated drivers, wire capacitance 0). It was wire-parasitic-free
+  timing presented as post-layout, and so was the earlier single-corner
+  record `20260922-042422-9ec2304`. The PR #104 review caught this. The
+  cited envelope still has two disclosed limits, measured in its record:
+  - 7 unannotated drivers: the floating outputs of the CTS dummy-load
+    cells.
+  - 3 partially unannotated drivers: the `RxActive` / `LineState[1:0]`
+    nets, whose DEF PIN name differs from their NET name. Attaching their
+    parasitics by another route leaves worst slack unchanged.
+
+  The timing is also a lumped-capacitance model. The extractor's wire
+  resistance never sits between two pins, so no wire RC delay is included.
+  The clock is ideal (klayout-tools#2739). Lateral coupling is modelled
+  only for `--critical-net` nets, and none were declared. Read the row as
+  "three-corner STA with extracted wire and vertical-coupling capacitance
+  attached". It is not full RC signoff.
+
+  **Corner scope: three corners, and only three**: `tt_025C_1v80`,
+  `ss_125C_1v62`, `ff_n40C_5v50`, the liberty corners of the
+  `gf180mcu_fd_sc_mcu9t5v0` library. This does **not** cover spec §8.1's
+  45-corner matrix (3 T x 3 V x 5 process including `fs`/`sf`), and the
+  grader does not widen it. The digital timing row is a three-corner
+  claim; the §8.1 difference is disclosed, not closed. The item's text
+  also names a bit-exact functional suite. The grader's `sta` rule does
+  not require one, and this citation does not claim it:
+  `klt functional-verification` envelopes record no `provenance` and
+  cannot be freshness-pinned, and SDF gate-level verification is tracked
+  separately by #93. **Item 5.analog stays `unmet`/`no_evidence`**
+  (parked on klayout-tools#1962).
 - **Item 11.digital, power delivery (structural) — cited, `met`** — the
   first T1 item no single artifact proves, so its manifest entry is a
   **list**: the digital partition's `klt erc` supply report

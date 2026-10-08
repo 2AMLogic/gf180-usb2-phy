@@ -245,7 +245,7 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/records/post-layout-pvt/artifacts/20261008-200000-8139bb6/sta-corners.json",
+        "file": "verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/sta-corners.json",
         "command": null,
         "kind": "sta",
         "check_status": "ok",
