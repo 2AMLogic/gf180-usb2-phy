@@ -186,7 +186,7 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
 
   Default (no env) is the reduced 1/8/64-byte grid. The result and its
   interpretation live in `records/utmi-framing-functional/` (record
-  `20261008-213500-2875d57`); the sampled matrix says nothing about points
+  `20261008-210900-2875d57`); the sampled matrix says nothing about points
   between grid points.
 
 ### Gate-level / SDF replay of the top-level wrapper (issue #93, T1 item 7.digital)

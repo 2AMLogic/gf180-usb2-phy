@@ -13,61 +13,61 @@
       "name": "test_reset_state",
       "status": "passed",
       "sim_time_ns": 208.335,
-      "real_time_s": 0.0009610652923583984
+      "real_time_s": 0.0008723735809326172
     },
     {
       "name": "test_tx_sync_pattern_is_kjkjkjkk",
       "status": "passed",
       "sim_time_ns": 3541.6949999999997,
-      "real_time_s": 0.002553224563598633
+      "real_time_s": 0.0034227371215820312
     },
     {
       "name": "test_tx_eop_tail_is_se0_se0_j",
       "status": "passed",
       "sim_time_ns": 5208.374999999999,
-      "real_time_s": 0.0037353038787841797
+      "real_time_s": 0.004715442657470703
     },
     {
       "name": "test_loopback_single_byte",
       "status": "passed",
       "sim_time_ns": 5208.375,
-      "real_time_s": 0.003966569900512695
+      "real_time_s": 0.005244016647338867
     },
     {
       "name": "test_loopback_multi_byte_with_stuffing",
       "status": "passed",
       "sim_time_ns": 11875.095000000001,
-      "real_time_s": 0.009000062942504883
+      "real_time_s": 0.01162266731262207
     },
     {
       "name": "test_loopback_leading_ones_payload_canonical_stuff_scope",
       "status": "passed",
       "sim_time_ns": 6875.054999999997,
-      "real_time_s": 0.005111217498779297
+      "real_time_s": 0.006902456283569336
     },
     {
       "name": "test_loopback_trailing_run_of_six_ones_is_flushed",
       "status": "passed",
       "sim_time_ns": 6875.055,
-      "real_time_s": 0.005104780197143555
+      "real_time_s": 0.006726980209350586
     },
     {
       "name": "test_loopback_back_to_back_packets_minimal_gap",
       "status": "passed",
       "sim_time_ns": 13541.775000000001,
-      "real_time_s": 0.010078907012939453
+      "real_time_s": 0.013187646865844727
     },
     {
       "name": "test_raw_mode_puts_payload_on_the_wire_unencoded",
       "status": "passed",
       "sim_time_ns": 5208.375,
-      "real_time_s": 0.003633737564086914
+      "real_time_s": 0.0047607421875
     },
     {
       "name": "test_malformed_sync_never_activates_rx",
       "status": "passed",
       "sim_time_ns": 2041.6829999999973,
-      "real_time_s": 0.0011894702911376953
+      "real_time_s": 0.0017778873443603516
     }
   ],
   "coverage": null,

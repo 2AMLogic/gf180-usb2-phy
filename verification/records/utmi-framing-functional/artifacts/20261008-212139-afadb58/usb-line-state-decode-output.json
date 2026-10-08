@@ -13,37 +13,37 @@
       "name": "test_reset_defaults_to_j",
       "status": "passed",
       "sim_time_ns": 208.335,
-      "real_time_s": 0.0007150173187255859
+      "real_time_s": 0.0004665851593017578
     },
     {
       "name": "test_j_state",
       "status": "passed",
       "sim_time_ns": 291.669,
-      "real_time_s": 0.0002684593200683594
+      "real_time_s": 0.0005676746368408203
     },
     {
       "name": "test_k_state",
       "status": "passed",
       "sim_time_ns": 291.669,
-      "real_time_s": 0.00028204917907714844
+      "real_time_s": 0.00023865699768066406
     },
     {
       "name": "test_se0_state",
       "status": "passed",
       "sim_time_ns": 291.669,
-      "real_time_s": 0.0002257823944091797
+      "real_time_s": 0.00021076202392578125
     },
     {
       "name": "test_se1_state",
       "status": "passed",
       "sim_time_ns": 291.6690000000001,
-      "real_time_s": 0.0002510547637939453
+      "real_time_s": 0.00021314620971679688
     },
     {
       "name": "test_tracks_toggling_inputs",
       "status": "passed",
       "sim_time_ns": 708.3389999999999,
-      "real_time_s": 0.0004799365997314453
+      "real_time_s": 0.00043392181396484375
     }
   ],
   "coverage": null,
