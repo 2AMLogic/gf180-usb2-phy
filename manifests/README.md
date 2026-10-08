@@ -103,7 +103,12 @@ citing set the item's own text requires:
   `pdk.corners` over the routed `layout/digital/usb_utmi_phy.def` plus
   its DEF-correlated extracted SPEF. `content_hash` is the DEF hash the
   envelope records in `provenance.input`
-  (`sha256:82a57e76…`, `input_verified: true`). The grader passes it
+  (`sha256:82a57e76…`, `input_verified: true`). `klt sta` writes
+  `def_path` as an absolute host path, which would leave
+  `input_verified` `null` on any other checkout; the cited file is the
+  emitted response (kept beside it as `sta-corners.emitted.json`) with
+  only the producing checkout's root prefix stripped, so `def_path` is
+  repo-relative and re-hashes from the repo root (see the record). The grader passes it
   because every declared corner is `timing_status: "constrained"` with
   non-negative setup and hold slack. **Corner scope: three corners, and
   only three** — `tt_025C_1v80`, `ss_125C_1v62`, `ff_n40C_5v50`

@@ -201,6 +201,11 @@ Scope: these three corners are the whole claim; spec §8.1's 45-corner
 matrix is not covered by the digital liberty library's corner set here.
 The frozen copy under the record's `artifacts/` directory has its
 `def`/`spef` paths rewritten relative to that directory so it replays.
+`klt sta` emits `def_path`/`spef_path` as absolute host paths, so the
+record keeps the response as emitted (`sta-corners.emitted.json`) and
+cites a copy with the producing checkout's root prefix stripped
+(`sta-corners.json`, `def_path: layout/digital/usb_utmi_phy.def`), which
+`klt signoff` can re-hash from any checkout's repo root.
 
 **The first attempt at this had incomplete annotation** —
 `verification/records/post-layout-pvt/records/20260825-233200-1c84648.md`

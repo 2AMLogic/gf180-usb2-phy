@@ -4,12 +4,12 @@
   "engine_version": "26Q3-1260-g06a5a02279",
   "hdl_toplevel": "usb_utmi_phy",
   "status": "ok",
-  "def_path": "layout/digital/usb_utmi_phy.def",
+  "def_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/layout/digital/usb_utmi_phy.def",
   "verilog_path": null,
   "geometry_source": "routed",
   "wire_load_model": null,
   "wire_load_mode": null,
-  "spef_path": "flow/.klt/extract/usb_utmi_phy_route.spef",
+  "spef_path": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef",
   "provenance": {
     "klt_version": "0.5.0+ge8ca621a6961",
     "klayout_version": "0.30.12",
@@ -77,11 +77,11 @@
         "design_nets_missing_sample": [],
         "reader_warning_count": 1652,
         "reader_warning_sample": [
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 361, net $1008 not found.",
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 384, net $1011 not found.",
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 400, net $1012 not found.",
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 412, net $1013 not found.",
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 425, net $1014 not found."
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 361, net $1008 not found.",
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 384, net $1011 not found.",
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 400, net $1012 not found.",
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 412, net $1013 not found.",
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 425, net $1014 not found."
         ],
         "unannotated_driver_count": 7,
         "partially_unannotated_driver_count": 307,
@@ -147,11 +147,11 @@
         "design_nets_missing_sample": [],
         "reader_warning_count": 1652,
         "reader_warning_sample": [
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 361, net $1008 not found.",
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 384, net $1011 not found.",
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 400, net $1012 not found.",
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 412, net $1013 not found.",
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 425, net $1014 not found."
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 361, net $1008 not found.",
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 384, net $1011 not found.",
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 400, net $1012 not found.",
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 412, net $1013 not found.",
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 425, net $1014 not found."
         ],
         "unannotated_driver_count": 7,
         "partially_unannotated_driver_count": 307,
@@ -217,11 +217,11 @@
         "design_nets_missing_sample": [],
         "reader_warning_count": 1652,
         "reader_warning_sample": [
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 361, net $1008 not found.",
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 384, net $1011 not found.",
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 400, net $1012 not found.",
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 412, net $1013 not found.",
-          "[WARNING STA-1650] flow/.klt/extract/usb_utmi_phy_route.spef line 425, net $1014 not found."
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 361, net $1008 not found.",
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 384, net $1011 not found.",
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 400, net $1012 not found.",
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 412, net $1013 not found.",
+          "[WARNING STA-1650] /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-92/flow/.klt/extract/usb_utmi_phy_route.spef line 425, net $1014 not found."
         ],
         "unannotated_driver_count": 7,
         "partially_unannotated_driver_count": 307,
