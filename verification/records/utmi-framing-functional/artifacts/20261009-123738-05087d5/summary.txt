@@ -1,0 +1,231 @@
+## grid: baseline (full, 1080 cases)
+receive pass 588/1080; measured failures 492 (349 never raised RxError)
+failure reasons: {'corrupt_byte': 482, 'extra_bytes': 6, 'truncated': 4}
+cases with a host edge coincident with a DUT edge (unclaimed): 108; excluding them: pass 522/972
+manufactured SE0/SE1 in any grid case: 0
+phases (columns): 0/8(coincident) +1tick 1/8 2/8 3/8 4/8 5/8 6/8 7/8 -1tick
+| offset | 1 B | 8 B | 64 B | 1024 B |
+|---|---|---|---|---|
+| +0 | PPPPPPPPPP | PPPPPPPPPP | PPPPPPPPPP | PPPPPPPPPP |
+| +1000 | PPPPPPPPPP | PPPPPPPPPP | PPFFFFPPPP | FFFFFFFFFF |
+| -1000 | PPPPPPPPPP | PPPPPPPPPP | PPPPPFFFFP | FFFFFFFFFF |
+| +2500 | PPPPPPPPPP | PPFPPPPPPP | FFFFFFFFFF | FFFFFFFFFF |
+| -2500 | PPPPPPPPPP | PPPPPPPPFP | FFFFFFFFFF | FFFFFFFFFF |
+| +5000 | PPFPPPPPPP | PPFFFPPPPP | FFFFFFFFFF | FFFFFFFFFF |
+| -5000 | PPPPPPPPPP | PPPPPPFFFP | FFFFFFFFFF | FFFFFFFFFF |
+| +endpoint(1.0025/0.9975) | PPFPPPPPPP | PPFFFPPPPP | FFFFFFFFFF | FFFFFFFFFF |
+| -endpoint(0.9975/1.0025) | PPPPPPPPPP | PPPPPPFFFP | FFFFFFFFFF | FFFFFFFFFF |
+
+## grid: candidate (full, 1080 cases)
+receive pass 588/1080; measured failures 492 (349 never raised RxError)
+failure reasons: {'corrupt_byte': 482, 'extra_bytes': 6, 'truncated': 4}
+cases with a host edge coincident with a DUT edge (unclaimed): 108; excluding them: pass 522/972
+manufactured SE0/SE1 in any grid case: 0
+phases (columns): 0/8(coincident) +1tick 1/8 2/8 3/8 4/8 5/8 6/8 7/8 -1tick
+| offset | 1 B | 8 B | 64 B | 1024 B |
+|---|---|---|---|---|
+| +0 | PPPPPPPPPP | PPPPPPPPPP | PPPPPPPPPP | PPPPPPPPPP |
+| +1000 | PPPPPPPPPP | PPPPPPPPPP | PPFFFFPPPP | FFFFFFFFFF |
+| -1000 | PPPPPPPPPP | PPPPPPPPPP | PPPPPFFFFP | FFFFFFFFFF |
+| +2500 | PPPPPPPPPP | PPFPPPPPPP | FFFFFFFFFF | FFFFFFFFFF |
+| -2500 | PPPPPPPPPP | PPPPPPPPFP | FFFFFFFFFF | FFFFFFFFFF |
+| +5000 | PPFPPPPPPP | PPFFFPPPPP | FFFFFFFFFF | FFFFFFFFFF |
+| -5000 | PPPPPPPPPP | PPPPPPFFFP | FFFFFFFFFF | FFFFFFFFFF |
+| +endpoint(1.0025/0.9975) | PPFPPPPPPP | PPFFFPPPPP | FFFFFFFFFF | FFFFFFFFFF |
+| -endpoint(0.9975/1.0025) | PPPPPPPPPP | PPPPPPFFFP | FFFFFFFFFF | FFFFFFFFFF |
+
+## baseline vs candidate: 1080 common cases, 8 differ in pass, reason, received_bytes, rx_error_seen, first_mismatch_index, rx_active_seen, rx_active_ended; 8 of those have no host edge coincident with a DUT edge
+   ('+2500', '7/8', 'ones', 1024) {'received_bytes': (1028, 1027)}
+   ('+5000', '1/8', 'mixed', 1) {'received_bytes': (5, 4)}
+   ('+5000', '1/8', 'ones', 1) {'received_bytes': (5, 4)}
+   ('+5000', '1/8', 'zeros', 1) {'received_bytes': (5, 4)}
+   ('+endpoint(1.0025/0.9975)', '1/8', 'mixed', 1) {'received_bytes': (5, 4)}
+   ('+endpoint(1.0025/0.9975)', '1/8', 'ones', 1) {'received_bytes': (5, 4)}
+   ('+endpoint(1.0025/0.9975)', '1/8', 'zeros', 1) {'received_bytes': (5, 4)}
+   ('+endpoint(1.0025/0.9975)', '6/8', 'ones', 1024) {'received_bytes': (1028, 1027)}
+
+## candidate - baseline status-edge shift over cases passing in both:
+   first_rx_valid_edge: +2 clocks in 588 cases
+   rx_active_fall_edge: +2 clocks in 588 cases
+   rx_active_rise_edge: +2 clocks in 588 cases
+
+## historical record matrix (unwrapped usb_utmi_phy) vs wrapper baseline: 864 common cases, 0 differ in pass, reason, received_bytes, rx_error_seen, first_mismatch_index, rx_active_seen, rx_active_ended; 0 of those have no host edge coincident with a DUT edge
+
+## skew x injection sweep (3750 cases, offset 0, 8 B, all phases x patterns)
+| design | skew | pass (all) | pass (excl. coincident) | cases w/ manuf. SE0 | max SE0 run | cases w/ SE1 | max SE1 run | eop_pulses!=1 | bus_reset | dropped (no RxActive) | silent corruption (RxActive, RxError low) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| baseline | none | 30/30 | 27/27 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| baseline | all:J->K:dp-leads:1tick | 24/30 | 24/24 | 6 | 1 | 0 | 0 | 0 | 0 | 6 | 0 |
+| baseline | all:J->K:dp-leads:T/8 | 21/30 | 21/24 | 9 | 1 | 0 | 0 | 0 | 0 | 9 | 0 |
+| baseline | all:J->K:dp-leads:T/2 | 15/30 | 12/24 | 15 | 1 | 0 | 0 | 0 | 0 | 15 | 0 |
+| baseline | all:J->K:dm-leads:1tick | 24/30 | 24/24 | 0 | 0 | 6 | 1 | 0 | 0 | 6 | 0 |
+| baseline | all:J->K:dm-leads:T/8 | 21/30 | 21/24 | 0 | 0 | 9 | 1 | 0 | 0 | 9 | 0 |
+| baseline | all:J->K:dm-leads:T/2 | 15/30 | 12/24 | 0 | 0 | 15 | 1 | 0 | 0 | 15 | 0 |
+| baseline | all:K->J:dp-leads:1tick | 24/30 | 24/24 | 0 | 0 | 6 | 1 | 0 | 0 | 6 | 0 |
+| baseline | all:K->J:dp-leads:T/8 | 21/30 | 21/24 | 0 | 0 | 9 | 1 | 0 | 0 | 9 | 0 |
+| baseline | all:K->J:dp-leads:T/2 | 15/30 | 12/24 | 0 | 0 | 15 | 1 | 0 | 0 | 15 | 0 |
+| baseline | all:K->J:dm-leads:1tick | 24/30 | 24/24 | 6 | 1 | 0 | 0 | 0 | 0 | 6 | 0 |
+| baseline | all:K->J:dm-leads:T/8 | 21/30 | 21/24 | 9 | 1 | 0 | 0 | 0 | 0 | 9 | 0 |
+| baseline | all:K->J:dm-leads:T/2 | 15/30 | 12/24 | 15 | 1 | 0 | 0 | 0 | 0 | 15 | 0 |
+| baseline | payload:J->K:dp-leads:1tick | 24/30 | 24/24 | 6 | 1 | 0 | 0 | 0 | 0 | 0 | 2 |
+| baseline | payload:J->K:dp-leads:T/8 | 21/30 | 21/24 | 9 | 1 | 0 | 0 | 0 | 0 | 0 | 3 |
+| baseline | payload:J->K:dp-leads:T/2 | 15/30 | 12/24 | 15 | 1 | 0 | 0 | 0 | 0 | 0 | 5 |
+| baseline | payload:J->K:dm-leads:1tick | 24/30 | 24/24 | 0 | 0 | 6 | 1 | 0 | 0 | 0 | 2 |
+| baseline | payload:J->K:dm-leads:T/8 | 21/30 | 21/24 | 0 | 0 | 9 | 1 | 0 | 0 | 0 | 3 |
+| baseline | payload:J->K:dm-leads:T/2 | 15/30 | 12/24 | 0 | 0 | 15 | 1 | 0 | 0 | 0 | 5 |
+| baseline | payload:K->J:dp-leads:1tick | 24/30 | 24/24 | 0 | 0 | 6 | 1 | 0 | 0 | 0 | 2 |
+| baseline | payload:K->J:dp-leads:T/8 | 21/30 | 21/24 | 0 | 0 | 9 | 1 | 0 | 0 | 0 | 3 |
+| baseline | payload:K->J:dp-leads:T/2 | 15/30 | 12/24 | 0 | 0 | 15 | 1 | 0 | 0 | 0 | 5 |
+| baseline | payload:K->J:dm-leads:1tick | 24/30 | 24/24 | 6 | 1 | 0 | 0 | 0 | 0 | 0 | 2 |
+| baseline | payload:K->J:dm-leads:T/8 | 21/30 | 21/24 | 9 | 1 | 0 | 0 | 0 | 0 | 0 | 3 |
+| baseline | payload:K->J:dm-leads:T/2 | 15/30 | 12/24 | 15 | 1 | 0 | 0 | 0 | 0 | 0 | 5 |
+| candidate | none | 30/30 | 27/27 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| candidate | all:J->K:dp-leads:1tick | 27/30 | 24/24 | 3 | 1 | 0 | 0 | 0 | 0 | 3 | 0 |
+| candidate | all:J->K:dp-leads:T/8 | 24/30 | 21/24 | 6 | 1 | 0 | 0 | 0 | 0 | 6 | 0 |
+| candidate | all:J->K:dp-leads:T/2 | 15/30 | 12/24 | 15 | 1 | 0 | 0 | 0 | 0 | 15 | 0 |
+| candidate | all:J->K:dm-leads:1tick | 27/30 | 24/24 | 0 | 0 | 3 | 1 | 0 | 0 | 3 | 0 |
+| candidate | all:J->K:dm-leads:T/8 | 24/30 | 21/24 | 0 | 0 | 6 | 1 | 0 | 0 | 6 | 0 |
+| candidate | all:J->K:dm-leads:T/2 | 15/30 | 12/24 | 0 | 0 | 15 | 1 | 0 | 0 | 15 | 0 |
+| candidate | all:K->J:dp-leads:1tick | 27/30 | 24/24 | 0 | 0 | 3 | 1 | 0 | 0 | 3 | 0 |
+| candidate | all:K->J:dp-leads:T/8 | 24/30 | 21/24 | 0 | 0 | 6 | 1 | 0 | 0 | 6 | 0 |
+| candidate | all:K->J:dp-leads:T/2 | 15/30 | 12/24 | 0 | 0 | 15 | 1 | 0 | 0 | 15 | 0 |
+| candidate | all:K->J:dm-leads:1tick | 27/30 | 24/24 | 3 | 1 | 0 | 0 | 0 | 0 | 3 | 0 |
+| candidate | all:K->J:dm-leads:T/8 | 24/30 | 21/24 | 6 | 1 | 0 | 0 | 0 | 0 | 6 | 0 |
+| candidate | all:K->J:dm-leads:T/2 | 15/30 | 12/24 | 15 | 1 | 0 | 0 | 0 | 0 | 15 | 0 |
+| candidate | payload:J->K:dp-leads:1tick | 27/30 | 24/24 | 3 | 1 | 0 | 0 | 0 | 0 | 0 | 1 |
+| candidate | payload:J->K:dp-leads:T/8 | 24/30 | 21/24 | 6 | 1 | 0 | 0 | 0 | 0 | 0 | 2 |
+| candidate | payload:J->K:dp-leads:T/2 | 15/30 | 12/24 | 15 | 1 | 0 | 0 | 0 | 0 | 0 | 5 |
+| candidate | payload:J->K:dm-leads:1tick | 27/30 | 24/24 | 0 | 0 | 3 | 1 | 0 | 0 | 0 | 1 |
+| candidate | payload:J->K:dm-leads:T/8 | 24/30 | 21/24 | 0 | 0 | 6 | 1 | 0 | 0 | 0 | 2 |
+| candidate | payload:J->K:dm-leads:T/2 | 15/30 | 12/24 | 0 | 0 | 15 | 1 | 0 | 0 | 0 | 5 |
+| candidate | payload:K->J:dp-leads:1tick | 27/30 | 24/24 | 0 | 0 | 3 | 1 | 0 | 0 | 0 | 1 |
+| candidate | payload:K->J:dp-leads:T/8 | 24/30 | 21/24 | 0 | 0 | 6 | 1 | 0 | 0 | 0 | 2 |
+| candidate | payload:K->J:dp-leads:T/2 | 15/30 | 12/24 | 0 | 0 | 15 | 1 | 0 | 0 | 0 | 5 |
+| candidate | payload:K->J:dm-leads:1tick | 27/30 | 24/24 | 3 | 1 | 0 | 0 | 0 | 0 | 0 | 1 |
+| candidate | payload:K->J:dm-leads:T/8 | 24/30 | 21/24 | 6 | 1 | 0 | 0 | 0 | 0 | 0 | 2 |
+| candidate | payload:K->J:dm-leads:T/2 | 15/30 | 12/24 | 15 | 1 | 0 | 0 | 0 | 0 | 0 | 5 |
+| candidate+inj_dp | none | 0/30 | 0/27 | 30 | 1 | 30 | 1 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | all:J->K:dp-leads:1tick | 0/30 | 0/24 | 30 | 1 | 27 | 1 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | all:J->K:dp-leads:T/8 | 0/30 | 0/24 | 30 | 1 | 24 | 1 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | all:J->K:dp-leads:T/2 | 0/30 | 0/24 | 30 | 1 | 15 | 1 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | all:J->K:dm-leads:1tick | 0/30 | 0/24 | 30 | 1 | 30 | 2 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | all:J->K:dm-leads:T/8 | 0/30 | 0/24 | 30 | 1 | 30 | 2 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | all:J->K:dm-leads:T/2 | 0/30 | 0/24 | 30 | 1 | 30 | 2 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | all:K->J:dp-leads:1tick | 0/30 | 0/24 | 27 | 1 | 30 | 1 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | all:K->J:dp-leads:T/8 | 0/30 | 0/24 | 24 | 1 | 30 | 1 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | all:K->J:dp-leads:T/2 | 0/30 | 0/24 | 15 | 1 | 30 | 1 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | all:K->J:dm-leads:1tick | 0/30 | 0/24 | 30 | 2 | 30 | 1 | 2 | 0 | 30 | 0 |
+| candidate+inj_dp | all:K->J:dm-leads:T/8 | 0/30 | 0/24 | 30 | 2 | 30 | 1 | 4 | 0 | 30 | 0 |
+| candidate+inj_dp | all:K->J:dm-leads:T/2 | 0/30 | 0/24 | 30 | 2 | 30 | 1 | 10 | 0 | 30 | 0 |
+| candidate+inj_dp | payload:J->K:dp-leads:1tick | 0/30 | 0/24 | 30 | 1 | 30 | 1 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | payload:J->K:dp-leads:T/8 | 0/30 | 0/24 | 30 | 1 | 30 | 1 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | payload:J->K:dp-leads:T/2 | 0/30 | 0/24 | 30 | 1 | 30 | 1 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | payload:J->K:dm-leads:1tick | 0/30 | 0/24 | 30 | 1 | 30 | 2 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | payload:J->K:dm-leads:T/8 | 0/30 | 0/24 | 30 | 1 | 30 | 2 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | payload:J->K:dm-leads:T/2 | 0/30 | 0/24 | 30 | 1 | 30 | 2 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | payload:K->J:dp-leads:1tick | 0/30 | 0/24 | 30 | 1 | 30 | 1 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | payload:K->J:dp-leads:T/8 | 0/30 | 0/24 | 30 | 1 | 30 | 1 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | payload:K->J:dp-leads:T/2 | 0/30 | 0/24 | 30 | 1 | 30 | 1 | 0 | 0 | 30 | 0 |
+| candidate+inj_dp | payload:K->J:dm-leads:1tick | 0/30 | 0/24 | 30 | 2 | 30 | 1 | 2 | 0 | 30 | 0 |
+| candidate+inj_dp | payload:K->J:dm-leads:T/8 | 0/30 | 0/24 | 30 | 2 | 30 | 1 | 4 | 0 | 30 | 0 |
+| candidate+inj_dp | payload:K->J:dm-leads:T/2 | 0/30 | 0/24 | 30 | 2 | 30 | 1 | 10 | 0 | 30 | 0 |
+| candidate+inj_dm | none | 0/30 | 0/27 | 30 | 1 | 30 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | all:J->K:dp-leads:1tick | 0/30 | 0/24 | 30 | 2 | 30 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | all:J->K:dp-leads:T/8 | 0/30 | 0/24 | 30 | 2 | 30 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | all:J->K:dp-leads:T/2 | 0/30 | 0/24 | 30 | 2 | 30 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | all:J->K:dm-leads:1tick | 0/30 | 0/24 | 27 | 1 | 30 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | all:J->K:dm-leads:T/8 | 0/30 | 0/24 | 24 | 1 | 30 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | all:J->K:dm-leads:T/2 | 0/30 | 0/24 | 15 | 1 | 30 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | all:K->J:dp-leads:1tick | 0/30 | 0/24 | 30 | 1 | 30 | 2 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | all:K->J:dp-leads:T/8 | 0/30 | 0/24 | 30 | 1 | 30 | 2 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | all:K->J:dp-leads:T/2 | 0/30 | 0/24 | 30 | 1 | 30 | 2 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | all:K->J:dm-leads:1tick | 0/30 | 0/24 | 30 | 1 | 27 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | all:K->J:dm-leads:T/8 | 0/30 | 0/24 | 30 | 1 | 24 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | all:K->J:dm-leads:T/2 | 0/30 | 0/24 | 30 | 1 | 15 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | payload:J->K:dp-leads:1tick | 0/30 | 0/24 | 30 | 2 | 30 | 1 | 29 | 0 | 30 | 0 |
+| candidate+inj_dm | payload:J->K:dp-leads:T/8 | 0/30 | 0/24 | 30 | 2 | 30 | 1 | 28 | 0 | 30 | 0 |
+| candidate+inj_dm | payload:J->K:dp-leads:T/2 | 0/30 | 0/24 | 30 | 2 | 30 | 1 | 25 | 0 | 30 | 0 |
+| candidate+inj_dm | payload:J->K:dm-leads:1tick | 0/30 | 0/24 | 30 | 1 | 30 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | payload:J->K:dm-leads:T/8 | 0/30 | 0/24 | 30 | 1 | 30 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | payload:J->K:dm-leads:T/2 | 0/30 | 0/24 | 30 | 1 | 30 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | payload:K->J:dp-leads:1tick | 0/30 | 0/24 | 30 | 1 | 30 | 2 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | payload:K->J:dp-leads:T/8 | 0/30 | 0/24 | 30 | 1 | 30 | 2 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | payload:K->J:dp-leads:T/2 | 0/30 | 0/24 | 30 | 1 | 30 | 2 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | payload:K->J:dm-leads:1tick | 0/30 | 0/24 | 30 | 1 | 30 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | payload:K->J:dm-leads:T/8 | 0/30 | 0/24 | 30 | 1 | 30 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_dm | payload:K->J:dm-leads:T/2 | 0/30 | 0/24 | 30 | 1 | 30 | 1 | 30 | 0 | 30 | 0 |
+| candidate+inj_both | none | 30/30 | 27/27 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| candidate+inj_both | all:J->K:dp-leads:1tick | 27/30 | 24/24 | 3 | 1 | 0 | 0 | 0 | 0 | 3 | 0 |
+| candidate+inj_both | all:J->K:dp-leads:T/8 | 24/30 | 21/24 | 6 | 1 | 0 | 0 | 0 | 0 | 6 | 0 |
+| candidate+inj_both | all:J->K:dp-leads:T/2 | 15/30 | 12/24 | 15 | 1 | 0 | 0 | 0 | 0 | 15 | 0 |
+| candidate+inj_both | all:J->K:dm-leads:1tick | 27/30 | 24/24 | 0 | 0 | 3 | 1 | 0 | 0 | 3 | 0 |
+| candidate+inj_both | all:J->K:dm-leads:T/8 | 24/30 | 21/24 | 0 | 0 | 6 | 1 | 0 | 0 | 6 | 0 |
+| candidate+inj_both | all:J->K:dm-leads:T/2 | 15/30 | 12/24 | 0 | 0 | 15 | 1 | 0 | 0 | 15 | 0 |
+| candidate+inj_both | all:K->J:dp-leads:1tick | 27/30 | 24/24 | 0 | 0 | 3 | 1 | 0 | 0 | 3 | 0 |
+| candidate+inj_both | all:K->J:dp-leads:T/8 | 24/30 | 21/24 | 0 | 0 | 6 | 1 | 0 | 0 | 6 | 0 |
+| candidate+inj_both | all:K->J:dp-leads:T/2 | 15/30 | 12/24 | 0 | 0 | 15 | 1 | 0 | 0 | 15 | 0 |
+| candidate+inj_both | all:K->J:dm-leads:1tick | 27/30 | 24/24 | 3 | 1 | 0 | 0 | 0 | 0 | 3 | 0 |
+| candidate+inj_both | all:K->J:dm-leads:T/8 | 24/30 | 21/24 | 6 | 1 | 0 | 0 | 0 | 0 | 6 | 0 |
+| candidate+inj_both | all:K->J:dm-leads:T/2 | 15/30 | 12/24 | 15 | 1 | 0 | 0 | 0 | 0 | 15 | 0 |
+| candidate+inj_both | payload:J->K:dp-leads:1tick | 27/30 | 24/24 | 3 | 1 | 0 | 0 | 0 | 0 | 0 | 1 |
+| candidate+inj_both | payload:J->K:dp-leads:T/8 | 24/30 | 21/24 | 6 | 1 | 0 | 0 | 0 | 0 | 0 | 2 |
+| candidate+inj_both | payload:J->K:dp-leads:T/2 | 15/30 | 12/24 | 15 | 1 | 0 | 0 | 0 | 0 | 0 | 5 |
+| candidate+inj_both | payload:J->K:dm-leads:1tick | 27/30 | 24/24 | 0 | 0 | 3 | 1 | 0 | 0 | 0 | 1 |
+| candidate+inj_both | payload:J->K:dm-leads:T/8 | 24/30 | 21/24 | 0 | 0 | 6 | 1 | 0 | 0 | 0 | 2 |
+| candidate+inj_both | payload:J->K:dm-leads:T/2 | 15/30 | 12/24 | 0 | 0 | 15 | 1 | 0 | 0 | 0 | 5 |
+| candidate+inj_both | payload:K->J:dp-leads:1tick | 27/30 | 24/24 | 0 | 0 | 3 | 1 | 0 | 0 | 0 | 1 |
+| candidate+inj_both | payload:K->J:dp-leads:T/8 | 24/30 | 21/24 | 0 | 0 | 6 | 1 | 0 | 0 | 0 | 2 |
+| candidate+inj_both | payload:K->J:dp-leads:T/2 | 15/30 | 12/24 | 0 | 0 | 15 | 1 | 0 | 0 | 0 | 5 |
+| candidate+inj_both | payload:K->J:dm-leads:1tick | 27/30 | 24/24 | 3 | 1 | 0 | 0 | 0 | 0 | 0 | 1 |
+| candidate+inj_both | payload:K->J:dm-leads:T/8 | 24/30 | 21/24 | 6 | 1 | 0 | 0 | 0 | 0 | 0 | 2 |
+| candidate+inj_both | payload:K->J:dm-leads:T/2 | 15/30 | 12/24 | 15 | 1 | 0 | 0 | 0 | 0 | 0 | 5 |
+failure reasons by design:
+   baseline {'no_rx_active(sync_not_recognized)': 120, 'corrupt_byte': 120}
+   candidate {'no_rx_active(sync_not_recognized)': 96, 'corrupt_byte': 96}
+   candidate+inj_dp {'no_rx_active(sync_not_recognized)': 750}
+   candidate+inj_dm {'no_rx_active(sync_not_recognized)': 750}
+   candidate+inj_both {'no_rx_active(sync_not_recognized)': 96, 'corrupt_byte': 96}
+## skew baseline vs skew candidate: 750 common cases, 48 differ in pass, reason, received_bytes, rx_error_seen, first_mismatch_index, rx_active_seen, rx_active_ended; 0 of those have no host edge coincident with a DUT edge
+   ('all:J->K:dm-leads:1tick', '-1tick', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dm-leads:1tick', '-1tick', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dm-leads:1tick', '-1tick', 'zeros') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dm-leads:T/8', '7/8', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dm-leads:T/8', '7/8', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dm-leads:T/8', '7/8', 'zeros') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dp-leads:1tick', '-1tick', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dp-leads:1tick', '-1tick', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dp-leads:1tick', '-1tick', 'zeros') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dp-leads:T/8', '7/8', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dp-leads:T/8', '7/8', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dp-leads:T/8', '7/8', 'zeros') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dm-leads:1tick', '-1tick', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dm-leads:1tick', '-1tick', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dm-leads:1tick', '-1tick', 'zeros') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dm-leads:T/8', '7/8', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dm-leads:T/8', '7/8', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dm-leads:T/8', '7/8', 'zeros') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dp-leads:1tick', '-1tick', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dp-leads:1tick', '-1tick', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+
+## skew baseline vs skew candidate+inj_both: 750 common cases, 48 differ in pass, reason, received_bytes, rx_error_seen, first_mismatch_index, rx_active_seen, rx_active_ended; 0 of those have no host edge coincident with a DUT edge
+   ('all:J->K:dm-leads:1tick', '-1tick', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dm-leads:1tick', '-1tick', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dm-leads:1tick', '-1tick', 'zeros') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dm-leads:T/8', '7/8', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dm-leads:T/8', '7/8', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dm-leads:T/8', '7/8', 'zeros') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dp-leads:1tick', '-1tick', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dp-leads:1tick', '-1tick', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dp-leads:1tick', '-1tick', 'zeros') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dp-leads:T/8', '7/8', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dp-leads:T/8', '7/8', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:J->K:dp-leads:T/8', '7/8', 'zeros') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dm-leads:1tick', '-1tick', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dm-leads:1tick', '-1tick', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dm-leads:1tick', '-1tick', 'zeros') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dm-leads:T/8', '7/8', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dm-leads:T/8', '7/8', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dm-leads:T/8', '7/8', 'zeros') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dp-leads:1tick', '-1tick', 'mixed') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+   ('all:K->J:dp-leads:1tick', '-1tick', 'ones') {'pass': (False, True), 'reason': ('no_rx_active(sync_not_recognized)', 'ok'), 'received_bytes': (0, 8), 'rx_active_seen': (False, True)}
+

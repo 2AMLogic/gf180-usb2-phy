@@ -189,6 +189,76 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   `20261008-210900-2875d57`); the sampled matrix says nothing about points
   between grid points.
 
+- `tb_usb_rx_sync_candidate.v` / `test_usb_rx_sync_candidate.py` /
+  `request-usb-rx-sync-candidate.json` / `rx_sync_candidate_summary.py` —
+  a **verification-only structural synchronization experiment** (issue
+  #123). Not a production change and not a decision: `rtl/` is untouched,
+  and whether the block gets an RX synchronizer, where, and in which form
+  are questions for DR-0003's operator ruling (#126). The wrapper puts a
+  *candidate* in front of the unchanged `usb_utmi_phy`: two flops per
+  input, on `rxdp` and on `rxdm` as independent chains, every stage
+  resetting synchronously to J on `rst_n`=0 or UTMI `Reset`=1. `cand_en`=0
+  selects the baseline (the raw ports, no added flops). `inj_dp`/`inj_dm`
+  add one extra capture clock on a line. That is deterministic digital
+  fault injection for unequal capture, **not** a metastability model.
+  The test reuses `test_usb_rx_clock_tolerance.py`'s host model,
+  scheduler and scoreboard by import, and adds:
+  - **Asserted controls** (an experiment whose controls fail is invalid):
+    - The skewed-stimulus model has the expected polarity: J->K with DP
+      leading gives SE0, with DM leading gives SE1, and K->J is the
+      reverse.
+    - Scoreboard negative controls: altered, missing and extra bytes
+      fail, even on a real DUT run with `RxError` low.
+    - Reset to J from both reset sources, whatever the line holds.
+    - Measured latency, from input to `LineState`: 1 edge (baseline),
+      3 (candidate), 4 on an injected line. `RxActive` rise, every
+      `RxValid` and `RxActive` fall are exactly baseline + 2 clocks.
+    - Zero-skew/zero-offset/no-injection exact-byte controls on both
+      designs, plus a +5% host that must fail.
+    - A real 2-bit SE0 EOP pulses `eop` once.
+    - Sustained SE0 raises the internal `bus_reset`.
+    - Recovery to an exact next packet after bus reset (after a packet
+      and mid-packet), and after UTMI `Reset`/`rst_n` (idle and
+      mid-packet).
+    - Injection self-check: single-line injection manufactures non-J/K
+      samples; both-line injection does not.
+  - **Recorded characterization** (never asserted; failures stay
+    failures):
+    - The existing offset × phase × pattern × length grid for each
+      design, with phases extended by one simulator tick after and
+      before a rising edge.
+    - A J->K / K->J skew sweep (each line leading; 0, 1 tick, T/8, T/2;
+      skew on all transitions or payload-only) × {baseline, candidate,
+      candidate + DP/DM/both injection}. Each case records the per-sample
+      `LineState` run-length string, manufactured SE0/SE1 runs, `eop`
+      pulses, `bus_reset` samples and the packet result.
+
+  Every case carries `coincident_host_edges`: the number of host edges
+  landing exactly on a DUT rising edge. Their capture order is
+  scheduler-dependent and not claimed. Phases are measured from the
+  clock's actual start time: cocotb restarts the clock in each test at
+  the current sim time, so absolute multiples of T are not edges. Default
+  `npm test` runs the reduced grid for both designs (~45 s). To run the
+  full grid, invoke the designs sequentially, one process each:
+
+  ```bash
+  USB_RXTOL_GRID=full USB_RXSYNC_DESIGNS=baseline  USB_RXSYNC_OUT_DIR=/tmp/a \
+    klt functional-verification verification/request-usb-rx-sync-candidate.json --format json
+  USB_RXTOL_GRID=full USB_RXSYNC_DESIGNS=candidate USB_RXSYNC_OUT_DIR=/tmp/b \
+    klt functional-verification verification/request-usb-rx-sync-candidate.json --format json
+  python3 verification/rx_sync_candidate_summary.py \
+    --baseline /tmp/a/baseline-grid-matrix.json --candidate /tmp/b/candidate-grid-matrix.json \
+    --skew /tmp/a/skew-injection-sweep.json
+  ```
+
+  The result and its limitations are in record
+  `utmi-framing-functional/20261009-123738-05087d5`. In short, the candidate
+  adds exactly 2 clocks of latency and does not change the clock-offset
+  result. Two independent chains manufacture SE0/SE1 whenever the two
+  lines are captured on different clocks. One clock of inter-line capture
+  skew drops every packet. No USB-compliance, tolerance-envelope or
+  MTBF claim is made.
+
 ### Gate-level / SDF replay of the top-level wrapper (issue #93, T1 item 7.digital)
 
 - `request-usb-utmi-phy-gate-zero-delay.json` — the same

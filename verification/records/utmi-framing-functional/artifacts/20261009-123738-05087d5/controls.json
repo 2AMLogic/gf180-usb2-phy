@@ -1,0 +1,543 @@
+{
+ "controls": {
+  "candidate_reset_to_j": [
+   {
+    "edges_to_refill_inj_both": 3,
+    "line": [
+     0,
+     1
+    ],
+    "linestate_during_reset": "J",
+    "source": "rst_n",
+    "stages_after_reset": "J"
+   },
+   {
+    "edges_to_refill_inj_both": 3,
+    "line": [
+     0,
+     0
+    ],
+    "linestate_during_reset": "J",
+    "source": "rst_n",
+    "stages_after_reset": "J"
+   },
+   {
+    "edges_to_refill_inj_both": 3,
+    "line": [
+     1,
+     1
+    ],
+    "linestate_during_reset": "J",
+    "source": "rst_n",
+    "stages_after_reset": "J"
+   },
+   {
+    "edges_to_refill_inj_both": 3,
+    "line": [
+     0,
+     1
+    ],
+    "linestate_during_reset": "J",
+    "source": "Reset",
+    "stages_after_reset": "J"
+   },
+   {
+    "edges_to_refill_inj_both": 3,
+    "line": [
+     0,
+     0
+    ],
+    "linestate_during_reset": "J",
+    "source": "Reset",
+    "stages_after_reset": "J"
+   },
+   {
+    "edges_to_refill_inj_both": 3,
+    "line": [
+     1,
+     1
+    ],
+    "linestate_during_reset": "J",
+    "source": "Reset",
+    "stages_after_reset": "J"
+   }
+  ],
+  "eop_and_reset": {
+   "baseline:bus_reset_mid_packet": {
+    "bus_reset_samples": 11,
+    "eop_pulses": 2,
+    "first_packet": {
+     "bytes": 3,
+     "exact": false,
+     "rx_error": false
+    },
+    "linestate_rle": "J*12 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*1 K*1 J*1 SE0*40 J*16 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*40",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   },
+   "baseline:real_eop_then_next_packet": {
+    "bus_reset_samples": 0,
+    "eop_pulses": 2,
+    "first_packet": {
+     "bytes": 8,
+     "exact": true,
+     "rx_error": false
+    },
+    "linestate_rle": "J*12 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*1 K*1 J*2 K*2 J*2 K*1 J*1 K*1 J*1 K*1 J*2 K*1 J*1 K*1 J*3 K*1 J*4 K*1 J*2 K*2 J*1 K*2 J*2 K*1 SE0*2 J*17 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*40",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   },
+   "baseline:rst_n_idle": {
+    "bus_reset_samples": 0,
+    "eop_pulses": 2,
+    "first_packet": {
+     "bytes": 8,
+     "exact": true,
+     "rx_error": false
+    },
+    "linestate_rle": "J*12 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*1 K*1 J*2 K*2 J*2 K*1 J*1 K*1 J*1 K*1 J*2 K*1 J*1 K*1 J*3 K*1 J*4 K*1 J*2 K*2 J*1 K*2 J*2 K*1 SE0*2 J*33 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*40",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   },
+   "baseline:rst_n_mid_packet": {
+    "bus_reset_samples": 0,
+    "eop_pulses": 2,
+    "first_packet": {
+     "bytes": 3,
+     "exact": false,
+     "rx_error": false
+    },
+    "linestate_rle": "J*12 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*1 K*1 J*6 K*1 J*1 K*1 J*1 K*1 J*2 K*1 J*1 K*1 J*3 K*1 J*4 K*1 J*2 K*2 J*1 K*2 J*2 K*1 SE0*2 J*33 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*40",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   },
+   "baseline:sustained_bus_reset_after_packet": {
+    "bus_reset_samples": 11,
+    "eop_pulses": 3,
+    "first_packet": {
+     "bytes": 8,
+     "exact": true,
+     "rx_error": false
+    },
+    "linestate_rle": "J*12 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*1 K*1 J*2 K*2 J*2 K*1 J*1 K*1 J*1 K*1 J*2 K*1 J*1 K*1 J*3 K*1 J*4 K*1 J*2 K*2 J*1 K*2 J*2 K*1 SE0*2 J*1 SE0*40 J*16 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*40",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   },
+   "baseline:utmi_reset_idle": {
+    "bus_reset_samples": 0,
+    "eop_pulses": 2,
+    "first_packet": {
+     "bytes": 8,
+     "exact": true,
+     "rx_error": false
+    },
+    "linestate_rle": "J*12 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*1 K*1 J*2 K*2 J*2 K*1 J*1 K*1 J*1 K*1 J*2 K*1 J*1 K*1 J*3 K*1 J*4 K*1 J*2 K*2 J*1 K*2 J*2 K*1 SE0*2 J*33 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*40",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   },
+   "baseline:utmi_reset_mid_packet": {
+    "bus_reset_samples": 0,
+    "eop_pulses": 2,
+    "first_packet": {
+     "bytes": 3,
+     "exact": false,
+     "rx_error": false
+    },
+    "linestate_rle": "J*12 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*1 K*1 J*6 K*1 J*1 K*1 J*1 K*1 J*2 K*1 J*1 K*1 J*3 K*1 J*4 K*1 J*2 K*2 J*1 K*2 J*2 K*1 SE0*2 J*33 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*40",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   },
+   "candidate:bus_reset_mid_packet": {
+    "bus_reset_samples": 11,
+    "eop_pulses": 2,
+    "first_packet": {
+     "bytes": 3,
+     "exact": false,
+     "rx_error": false
+    },
+    "linestate_rle": "J*14 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*1 K*1 J*1 SE0*40 J*16 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*38",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   },
+   "candidate:real_eop_then_next_packet": {
+    "bus_reset_samples": 0,
+    "eop_pulses": 2,
+    "first_packet": {
+     "bytes": 8,
+     "exact": true,
+     "rx_error": false
+    },
+    "linestate_rle": "J*14 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*1 K*1 J*2 K*2 J*2 K*1 J*1 K*1 J*1 K*1 J*2 K*1 J*1 K*1 J*3 K*1 J*4 K*1 J*2 K*2 J*1 K*2 J*2 K*1 SE0*2 J*17 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*38",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   },
+   "candidate:rst_n_idle": {
+    "bus_reset_samples": 0,
+    "eop_pulses": 2,
+    "first_packet": {
+     "bytes": 8,
+     "exact": true,
+     "rx_error": false
+    },
+    "linestate_rle": "J*14 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*1 K*1 J*2 K*2 J*2 K*1 J*1 K*1 J*1 K*1 J*2 K*1 J*1 K*1 J*3 K*1 J*4 K*1 J*2 K*2 J*1 K*2 J*2 K*1 SE0*2 J*33 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*38",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   },
+   "candidate:rst_n_mid_packet": {
+    "bus_reset_samples": 0,
+    "eop_pulses": 2,
+    "first_packet": {
+     "bytes": 3,
+     "exact": false,
+     "rx_error": false
+    },
+    "linestate_rle": "J*14 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*8 K*1 J*1 K*1 J*1 K*1 J*2 K*1 J*1 K*1 J*3 K*1 J*4 K*1 J*2 K*2 J*1 K*2 J*2 K*1 SE0*2 J*33 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*38",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   },
+   "candidate:sustained_bus_reset_after_packet": {
+    "bus_reset_samples": 11,
+    "eop_pulses": 3,
+    "first_packet": {
+     "bytes": 8,
+     "exact": true,
+     "rx_error": false
+    },
+    "linestate_rle": "J*14 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*1 K*1 J*2 K*2 J*2 K*1 J*1 K*1 J*1 K*1 J*2 K*1 J*1 K*1 J*3 K*1 J*4 K*1 J*2 K*2 J*1 K*2 J*2 K*1 SE0*2 J*1 SE0*40 J*16 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*38",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   },
+   "candidate:utmi_reset_idle": {
+    "bus_reset_samples": 0,
+    "eop_pulses": 2,
+    "first_packet": {
+     "bytes": 8,
+     "exact": true,
+     "rx_error": false
+    },
+    "linestate_rle": "J*14 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*1 K*1 J*2 K*2 J*2 K*1 J*1 K*1 J*1 K*1 J*2 K*1 J*1 K*1 J*3 K*1 J*4 K*1 J*2 K*2 J*1 K*2 J*2 K*1 SE0*2 J*33 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*38",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   },
+   "candidate:utmi_reset_mid_packet": {
+    "bus_reset_samples": 0,
+    "eop_pulses": 2,
+    "first_packet": {
+     "bytes": 3,
+     "exact": false,
+     "rx_error": false
+    },
+    "linestate_rle": "J*14 K*1 J*1 K*1 J*1 K*1 J*1 K*6 J*1 K*1 J*4 K*4 J*1 K*1 J*1 K*3 J*1 K*1 J*2 K*3 J*8 K*1 J*1 K*1 J*1 K*1 J*2 K*1 J*1 K*1 J*3 K*1 J*4 K*1 J*2 K*2 J*1 K*2 J*2 K*1 SE0*2 J*33 K*1 J*1 K*1 J*1 K*1 J*1 K*2 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 J*1 K*1 SE0*2 J*38",
+    "next_packet": [
+     true,
+     "ok",
+     null
+    ],
+    "rx_active_episodes": 2
+   }
+  },
+  "injection_self_check": {
+   "candidate": {
+    "eop_pulses": 1,
+    "manufactured_se0_samples": 0,
+    "manufactured_se1_samples": 0,
+    "pass": true,
+    "reason": "ok"
+   },
+   "candidate+inj_both": {
+    "eop_pulses": 1,
+    "manufactured_se0_samples": 0,
+    "manufactured_se1_samples": 0,
+    "pass": true,
+    "reason": "ok"
+   },
+   "candidate+inj_dm": {
+    "eop_pulses": 0,
+    "manufactured_se0_samples": 22,
+    "manufactured_se1_samples": 21,
+    "pass": false,
+    "reason": "no_rx_active(sync_not_recognized)"
+   },
+   "candidate+inj_dp": {
+    "eop_pulses": 1,
+    "manufactured_se0_samples": 21,
+    "manufactured_se1_samples": 22,
+    "pass": false,
+    "reason": "no_rx_active(sync_not_recognized)"
+   }
+  },
+  "latency": {
+   "input_step_J_to_K_first_edge": {
+    "baseline": {
+     "LineState_dm_bit": 1,
+     "LineState_dp_bit": 1,
+     "dm_s1": 1,
+     "dm_s2": 2,
+     "dp_s1": 1,
+     "dp_s2": 2,
+     "phy_rxdm": 1,
+     "phy_rxdp": 1
+    },
+    "candidate": {
+     "LineState_dm_bit": 3,
+     "LineState_dp_bit": 3,
+     "dm_s1": 1,
+     "dm_s2": 2,
+     "dp_s1": 1,
+     "dp_s2": 2,
+     "phy_rxdm": 2,
+     "phy_rxdp": 2
+    },
+    "candidate+inj_both": {
+     "LineState_dm_bit": 4,
+     "LineState_dp_bit": 4,
+     "dm_s1": 1,
+     "dm_s2": 2,
+     "dp_s1": 1,
+     "dp_s2": 2,
+     "phy_rxdm": 3,
+     "phy_rxdp": 3
+    },
+    "candidate+inj_dm": {
+     "LineState_dm_bit": 4,
+     "LineState_dp_bit": 3,
+     "dm_s1": 1,
+     "dm_s2": 2,
+     "dp_s1": 1,
+     "dp_s2": 2,
+     "phy_rxdm": 3,
+     "phy_rxdp": 2
+    },
+    "candidate+inj_dp": {
+     "LineState_dm_bit": 3,
+     "LineState_dp_bit": 4,
+     "dm_s1": 1,
+     "dm_s2": 2,
+     "dp_s1": 1,
+     "dp_s2": 2,
+     "phy_rxdm": 2,
+     "phy_rxdp": 3
+    }
+   },
+   "note": "edge n = n-th rising edge after a mid-cycle (T/2) input change; packet edges are relative to the reference edge preceding the first host edge at phase 1/2, zero offset",
+   "packet_status_edges": {
+    "baseline": {
+     "mixed": {
+      "host_eop_start_edge": 81,
+      "rx_active_fall_edge": 84,
+      "rx_active_rise_edge": 18,
+      "rx_valid_edges": [
+       27,
+       35,
+       43,
+       51,
+       59,
+       67,
+       75,
+       83
+      ]
+     },
+     "ones": {
+      "host_eop_start_edge": 91,
+      "rx_active_fall_edge": 94,
+      "rx_active_rise_edge": 18,
+      "rx_valid_edges": [
+       28,
+       37,
+       46,
+       56,
+       65,
+       74,
+       84,
+       93
+      ]
+     },
+     "zeros": {
+      "host_eop_start_edge": 81,
+      "rx_active_fall_edge": 84,
+      "rx_active_rise_edge": 18,
+      "rx_valid_edges": [
+       27,
+       35,
+       43,
+       51,
+       59,
+       67,
+       75,
+       83
+      ]
+     }
+    },
+    "candidate": {
+     "mixed": {
+      "host_eop_start_edge": 81,
+      "rx_active_fall_edge": 86,
+      "rx_active_rise_edge": 20,
+      "rx_valid_edges": [
+       29,
+       37,
+       45,
+       53,
+       61,
+       69,
+       77,
+       85
+      ]
+     },
+     "ones": {
+      "host_eop_start_edge": 91,
+      "rx_active_fall_edge": 96,
+      "rx_active_rise_edge": 20,
+      "rx_valid_edges": [
+       30,
+       39,
+       48,
+       58,
+       67,
+       76,
+       86,
+       95
+      ]
+     },
+     "zeros": {
+      "host_eop_start_edge": 81,
+      "rx_active_fall_edge": 86,
+      "rx_active_rise_edge": 20,
+      "rx_valid_edges": [
+       29,
+       37,
+       45,
+       53,
+       61,
+       69,
+       77,
+       85
+      ]
+     }
+    }
+   }
+  },
+  "scoreboard_negative_controls": {
+   "baseline": {
+    "altered_byte": [
+     false,
+     "corrupt_byte",
+     3
+    ],
+    "extra_byte": [
+     false,
+     "extra_bytes",
+     8
+    ],
+    "missing_byte": [
+     false,
+     "truncated",
+     7
+    ],
+    "unmodified": [
+     true,
+     "ok",
+     null
+    ]
+   },
+   "candidate": {
+    "altered_byte": [
+     false,
+     "corrupt_byte",
+     3
+    ],
+    "extra_byte": [
+     false,
+     "extra_bytes",
+     8
+    ],
+    "missing_byte": [
+     false,
+     "truncated",
+     7
+    ],
+    "unmodified": [
+     true,
+     "ok",
+     null
+    ]
+   }
+  },
+  "zero_offset_controls": {
+   "baseline:+5%:mixed:64(must fail)": "corrupt_byte",
+   "baseline:mixed:1": "ok",
+   "baseline:mixed:64": "ok",
+   "baseline:mixed:8": "ok",
+   "baseline:ones:1": "ok",
+   "baseline:ones:64": "ok",
+   "baseline:ones:8": "ok",
+   "baseline:zeros:1": "ok",
+   "baseline:zeros:64": "ok",
+   "baseline:zeros:8": "ok",
+   "candidate:+5%:mixed:64(must fail)": "corrupt_byte",
+   "candidate:mixed:1": "ok",
+   "candidate:mixed:64": "ok",
+   "candidate:mixed:8": "ok",
+   "candidate:ones:1": "ok",
+   "candidate:ones:64": "ok",
+   "candidate:ones:8": "ok",
+   "candidate:zeros:1": "ok",
+   "candidate:zeros:64": "ok",
+   "candidate:zeros:8": "ok"
+  }
+ },
+ "device_period_ps": 83334,
+ "schema": "usb-rx-sync-candidate-controls/1"
+}
