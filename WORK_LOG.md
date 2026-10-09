@@ -4,6 +4,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-10-09
 
+- **Issue #106** (closed): Post-layout STA: SPEF parasitics not applied despite 342/342 net-name annotation (follow-up to #92)
+- **Issue #129** (closed): Auditor Capability Request: pinned klt digital validation environment
 - **PR #141**: docs(layout): re-measure resized differential_receiver (DRC clean, LVS mismatch)
 - **Issue #103** (closed): Re-run differential_receiver layout/DRC/LVS after MP_B1/MN_B1 resize (PR #102)
 - **PR #139**: fix(signoff): key DRC/LVS citations to the digital partition (#95)
