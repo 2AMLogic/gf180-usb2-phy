@@ -2,6 +2,11 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-10-09
+
+- **PR #125**: Add --tool-light mode to setup-env.sh (#117)
+- **Issue #117** (closed): Audit setup: add a tool-light mode to the existing environment bootstrap
+
 ### 2026-10-08
 
 - **PR #122**: Add top-level RX stuffing-error propagation and recovery tests (#118)

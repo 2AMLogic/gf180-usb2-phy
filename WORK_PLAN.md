@@ -23,7 +23,7 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-- **#93**: T1 item 7 (digital): run the gate-level regression with SDF back-annotation and cite it
+- **#123**: Characterize RX boundary synchronization with paired-input skew and reset injection
 
 ## PRs Awaiting Review
 
@@ -45,11 +45,12 @@ Issues carrying `loom:curated`.
 - **#53**: Post-layout (extracted-parasitic) re-verification: digital STA now, analog PVT after #52 *(curated)*
 - **#90**: README: embed the fleet burndown chart (one line) *(curated)*
 - **#93**: T1 item 7 (digital): run the gate-level regression with SDF back-annotation and cite it *(curated)*
+- **#123**: Characterize RX boundary synchronization with paired-input skew and reset injection *(curated)*
 
 ## Proposed (Architect / Hermit)
 
 - **#119**: Verify shared-pad analog bus ownership and receiver transients *(architect)*
-- **#123**: RTL: synchronize asynchronous rxdp/rxdm at the usb_utmi_phy boundary (unassigned in DR-0004) *(architect)*
+- **#126**: Resolve DR-0003: transition-resynchronized RX oversampling for independent host clocks *(architect)*
 - **#107**: Remove sim/tools/mk_dut.py: unused, superseded by design/netlist.py *(hermit)*
 
 ## Epics
@@ -66,7 +67,7 @@ Issues carrying `loom:curated`.
 | In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 4 |
+| Curated | 5 |
 | Architect / Hermit proposals | 3 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
