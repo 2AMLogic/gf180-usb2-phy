@@ -4,6 +4,12 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-10-09
 
+- **PR #139**: fix(signoff): key DRC/LVS citations to the digital partition (#95)
+- **PR #137**: fix: require full 45-corner evidence before fixed-trim PASS
+- **PR #134**: fix(rtl): synchronous UTMI Reset on the TX path, with TX reset-and-recovery regression
+- **Issue #95** (closed): signoff: bare evidence keys 3 and 4 grade the analog partition met with no analog layout
+- **Issue #136** (closed): Require complete PVT evidence before fixed-trim analysis can report PASS
+- **Issue #130** (closed): Verify UTMI Reset aborts transmission through stuffing and EOP states
 - **PR #128**: verification: structural RX synchronization experiment (#123)
 - **Issue #123** (closed): Characterize RX boundary synchronization with paired-input skew and reset injection
 - **PR #125**: Add --tool-light mode to setup-env.sh (#117)
