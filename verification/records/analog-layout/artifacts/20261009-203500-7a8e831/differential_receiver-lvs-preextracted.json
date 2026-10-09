@@ -1,0 +1,294 @@
+{
+  "schema_version": 1,
+  "engine": "klayout",
+  "layout": "differential_receiver-extracted.spice",
+  "reference": "differential_receiver_reference.spice",
+  "top": "DIFFERENTIAL_RECEIVER",
+  "reference_top": "DIFFERENTIAL_RECEIVER",
+  "parameter_tolerance": null,
+  "options": {
+    "combine_devices": false,
+    "combine_devices_per_circuit": null,
+    "flatten_layout": false,
+    "flatten_reference": false,
+    "netgen_setup": null,
+    "parameter_tolerance": null,
+    "compare_parameters": null,
+    "power_connectivity": null,
+    "supply_nets": [
+      "GND",
+      "VCC",
+      "VDD",
+      "VGND",
+      "VPWR",
+      "VSS"
+    ]
+  },
+  "hints_applied": null,
+  "status": "mismatch",
+  "power_connectivity": {
+    "status": "unchecked",
+    "reason": "reference.form is 'subckt-call', whose reference netlist carries its own power/ground pins and nets -- they take part in the ordinary compare, so this check (which exists to cover the signal-only 'gate-level-verilog' form) does not apply",
+    "power_pins": [],
+    "power_pins_derivation": null,
+    "instance_count": 0,
+    "expected_nets": null,
+    "unchecked_expected_pins": [],
+    "findings": [],
+    "finding_count": 0
+  },
+  "body_verification": {
+    "status": "unchecked",
+    "reason": "no request.layout.deck was given (the pre-extracted request.layout.netlist form), so nothing establishes this layout's substrate/well-tap convention and no synthesized body net can be told apart from a real one -- this run verified nothing about the device bodies either way",
+    "device_classes": [],
+    "device_count": 0,
+    "findings": [],
+    "finding_count": 0
+  },
+  "mismatch_count": 13,
+  "error_count": 13,
+  "category_counts": {
+    "topology": 13
+  },
+  "category_error_counts": {
+    "topology": 13
+  },
+  "counts": {
+    "nets": {
+      "layout": 31,
+      "reference": 10,
+      "matched": 0
+    },
+    "devices": {
+      "layout": 0,
+      "reference": 11,
+      "matched": 0
+    },
+    "pins": {
+      "layout": 4,
+      "reference": 5,
+      "matched": 0
+    }
+  },
+  "device_classes": null,
+  "environment": {
+    "engine": "klayout",
+    "engine_version": "0.30.12",
+    "layout_sha256": "0c1813d56aac5ae526cddadbc40e3055844081fb249575f4b1dc093ba6305fc0",
+    "reference_sha256": "76a1e6f9263a115f9103461a03d1f796ec92644e15398a463659c25cce78b13d",
+    "extracted_netlist": null
+  },
+  "provenance": {
+    "klt_version": "0.5.0+ge8ca621a6961",
+    "klayout_version": "0.30.12",
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "content_hash": "sha256:0c1813d56aac5ae526cddadbc40e3055844081fb249575f4b1dc093ba6305fc0",
+      "role": "netlist"
+    },
+    "klayout_version_mismatch": true
+  },
+  "mismatches": [
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "both",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "DIFFERENTIAL_RECEIVER",
+        "reference": "DIFFERENTIAL_RECEIVER"
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "NFET_03V3(AD=1P|AS=1P|L=0_28U|PD=5U|PS=5U|W=2U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "NFET_03V3(AD=2P|AS=2P|L=0_5U|PD=9U|PS=9U|W=4U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "NFET_03V3(AD=4P|AS=4P|L=0_28U|PD=17U|PS=17U|W=8U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "NFET_03V3(AD=4P|AS=4P|L=0_5U|PD=17U|PS=17U|W=8U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "NFET_03V3(AD=10P|AS=10P|L=0_28U|PD=41U|PS=41U|W=20U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "PFET_03V3(AD=8P|AS=8P|L=0_28U|PD=33U|PS=33U|W=16U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "PFET_03V3(AD=16P|AS=16P|L=0_28U|PD=65U|PS=65U|W=32U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "PFET_03V3(AD=20P|AS=20P|L=0_28U|PD=81U|PS=81U|W=40U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "PPOLYF_U_1K(R_LENGTH=0_4M|R_WIDTH=2U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "device class could not be mapped to a counterpart",
+      "side": "reference",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "device class could not be mapped to a counterpart",
+      "side": "reference",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "device class could not be mapped to a counterpart",
+      "side": "reference",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    }
+  ],
+  "net_correspondence": []
+}
