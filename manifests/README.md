@@ -61,13 +61,16 @@ draws it exactly.
 
 ## Citations — what is cited, and why
 
-Five item rows carry citations, each pinned to the cited envelope's
+Five manifest entries carry citations, each pinned to the cited envelope's
 recorded input revision (`content_hash`); the four single-envelope ones
 were verified fresh by the grader at freeze time (`input_verified: true`
 in the frozen report), and the fifth (item 11.digital) is the compound
-citing set the item's own text requires:
+citing set the item's own text requires. Items 3, 4, 5 and 11 are keyed
+to the **digital partition only** (`"3.digital"`, `"4.digital"`,
+`"5.digital"`, `"11.digital"`); only item 8 uses a bare key and so
+grades in both partitions:
 
-- **Item 3, DRC clean** — cites the digital routed GDS's `klt drc`
+- **Item 3.digital, DRC clean** — cites the digital routed GDS's `klt drc`
   envelope (`verification/records/digital-drc/artifacts/20260825-224815-6a83263/drc-report.json`),
   pinned to the committed GDS
   (`layout/digital/usb_utmi_phy.gds`,
@@ -84,7 +87,7 @@ citing set the item's own text requires:
   analog partition has no full layout to run DRC on at all (its per-block
   plan-execution DRC probes live under `verification/records/analog-layout/`,
   incomplete by the routed-net gaps those records state).
-- **Item 4, LVS clean** — cites the gate-level LVS envelope minted against
+- **Item 4.digital, LVS clean** — cites the gate-level LVS envelope minted against
   the `gate-level-verilog` reference form
   (`verification/records/digital-lvs/artifacts/20260921-145814-5bee855/lvs-report.json`,
   `status: "match"` **and** `power_connectivity.status: "match"`,
@@ -96,6 +99,15 @@ citing set the item's own text requires:
   carries a hand-transcribed SPICE reference, and that form's power half
   reads `"unchecked"` by construction — see record
   `20260921-145814-5bee855.md`).
+
+  **Items 3.analog and 4.analog are `unmet`/`no_evidence`.** Until issue
+  #95 these two citations sat under the bare keys `"3"` and `"4"`. On a
+  `mixed-signal` manifest `klt signoff` looks up the partition-qualified
+  key first and falls back to the bare key. So the analog rows also
+  graded `met` from the *digital* DRC and LVS reports, although no analog
+  layout exists to run DRC or LVS on. Re-keying the citations to the
+  digital partition dropped the frozen count from `8/22` to `6/22`. That
+  is a correction of an overstated count, not a regression.
 - **Item 5.digital, corner verification (digital STA): cited, `met`**.
   Cites one multi-corner `klt sta` envelope,
   `verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/sta-corners.json`
@@ -234,8 +246,10 @@ diff /tmp/fresh.json manifests/t1-signoff-report.json   # regeneration = update 
 ```
 
 Exit `0` means every T1 item met (this repo is **not** there:
-exit `3`, `tier: null`, `8/22` item-rows met at the time of freezing —
-items 3, 4, and 8 in both partitions, plus 5.digital and 11.digital). Exit codes `0` and `3` are
+exit `3`, `tier: null`, `6/22` item-rows met at the time of freezing —
+item 8 in both partitions, plus 3.digital, 4.digital, 5.digital and
+11.digital; it was `8/22` before issue #95 stopped items 3 and 4 from
+grading the analog partition off digital evidence). Exit codes `0` and `3` are
 both "clean runs"; exit `1` is an error and must be fixed, not committed
 around.
 

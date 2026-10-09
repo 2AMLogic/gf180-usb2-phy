@@ -2,11 +2,11 @@
   "block": "gf180-usb2-phy",
   "kind": "mixed-signal",
   "evidence": {
-    "3": {
+    "3.digital": {
       "file": "verification/records/digital-drc/artifacts/20260922-042422-9ec2304/drc-report.json",
       "content_hash": "sha256:32e6dead081fefe5a237a66196699f6fb3cbcd032061964868104dd7d1ff484f"
     },
-    "4": {
+    "4.digital": {
       "file": "verification/records/digital-lvs/artifacts/20260922-042422-9ec2304/lvs-report.json",
       "content_hash": "sha256:487f649d70d71df5991b027d0b76bcbcf75e8cbb18cffa7a78ae268ddf53750c"
     },
