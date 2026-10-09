@@ -34,7 +34,7 @@ import os
 
 import cocotb
 from cocotb.clock import Clock
-from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge
+from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge, Timer
 
 from usb_bit_model import bit_stuff, nrzi_encode
 
@@ -686,3 +686,262 @@ async def test_rx_utmi_reset_after_stuffing_error_mid_packet(dut):
     assert not any(rest["error"]) and not any(rest["valid"])
 
     await _assert_clean_packet(dut, [0x7E, 0xFF, 0x12], "post-error-Reset reception")
+
+
+# ---------------------------------------------------------------------------
+# TX reset-and-recovery (issue #130)
+#
+# UTMI `Reset` is folded into the internal reset (`int_rst_n = rst_n &
+# ~Reset`) that clears the TX framer, the vendored stuffer and the vendored
+# NRZI encoder together. The RX-side tests above interrupt reception; these
+# interrupt *transmission* at selected wire phases and then require the first
+# packet after release to be bit-exact against the independent model.
+#
+# Contract under test (issue #130's statement of the UTMI reset semantics;
+# spec/decisions/0005 records the RTL change this regression forced -- the
+# vendored transforms' asynchronous reset port had let `Reset` change the
+# wire mid-clock, before the sampling edge):
+#
+#   * Reset is synchronous: the edge that samples `Reset` high is the edge on
+#     which the wire returns to idle J and `TxReady` returns to its idle value
+#     (high, as in `test_reset_state`). Before that edge the in-flight cell is
+#     still on the wire (checked 1 ns after `Reset` is raised).
+#   * While `Reset` is high nothing is accepted, whatever `TxValid` and
+#     `TxReady` read: the wire stays at idle J on every reset clock.
+#   * Acceptance at release follows the ordinary UTMI handshake: the first
+#     rising edge that samples `Reset` low with `TxValid` and `TxReady` both
+#     high accepts `DataOut`. With `TxValid` held high through reset that is
+#     the release edge itself, so SYNC's first cell (K) is on the wire right
+#     after it; with `TxValid` low the link starts the packet whenever it
+#     chooses (here two idle clocks later).
+#
+# Phase selection is port-only and model-derived: the injection point is
+# named by the index `c` (into the model's SYNC + stuffed payload + SE0,SE0,J
+# wire sequence) of the cell the reset edge preempts, and the test first
+# checks that cells 0..c-1 appeared on the wire exactly as the model predicts
+# -- so the phase of cell `c` is known from the model, not from the RTL. When
+# the simulated netlist exposes the RTL's `tx_state` / `stuff_consume` with
+# the RTL's width (the RTL run; a routed gate-level netlist re-encodes
+# `tx_state` one-hot), they are read only to *confirm* injection coverage,
+# never to form an expectation.
+# ---------------------------------------------------------------------------
+
+TX_EOP_TAIL = [SE0_CELL, SE0_CELL, J_CELL]
+
+# Aborted packet: an ordinary first byte (0x5A), a 0xFF whose eight 1s force a
+# mid-byte stuffed 0, and a trailing 0xFC whose six final 1s owe the #7.1.9
+# trailing stuff bit (TX_FLUSH) before EOP.
+TX_RESET_ABORTED = [0x5A, 0xFF, 0x3C, 0xFC]
+# Fresh packet after release: opens with sixteen 1s (two stuffed 0s; an
+# inherited stuffer run would move the first one early) and ends with the
+# trailing-stuff case. Distinct from every aborted byte, so a stale byte,
+# duplicate or leaked run shows up as a wire mismatch.
+TX_RESET_FRESH = [0xFF, 0xFF, 0x00, 0xFC]
+
+# RTL `tx_state` encodings, for the optional whitebox coverage confirmation.
+_TX_STATE_NAMES = {1: "TX_SYNC", 2: "TX_DATA", 3: "TX_FLUSH", 4: "TX_HOLD",
+                   5: "TX_EOP0", 6: "TX_EOP1", 7: "TX_EOPJ"}
+
+TX_RESET_PHASES = ["sync", "sync_last", "payload", "stuff", "flush", "hold",
+                   "eop_se0", "eop_j", "eop_idle"]
+
+
+def _tx_full_wire(payload):
+    """Model wire sequence for one packet: SYNC + stuffed payload + EOP tail."""
+    return _expected_wire_dpdm(payload) + TX_EOP_TAIL
+
+
+def _tx_reset_cell(phase, payload):
+    """(c, rtl_state) for `phase`: `c` is the index into `_tx_full_wire` of
+    the cell the reset edge preempts (cells 0..c-1 are on the wire first);
+    `rtl_state` is the RTL state expected to be in flight then (whitebox
+    confirmation only). Asserts that `payload` actually has the phase."""
+    stuffed, flags = bit_stuff(_byte_to_bits_list(payload))
+    body = 8
+    end = body + len(stuffed)  # index of the first EOP SE0 cell
+    if phase == "sync":
+        return 4, "TX_SYNC"           # SYNC bit 4 in flight
+    if phase == "sync_last":
+        # SYNC's final bit (the only 1 in 8'h80) in flight: the SYNC bit
+        # index is at its last value, so a reset that failed to re-arm it
+        # would open the next packet with a 1 (J) instead of K.
+        return 7, "TX_SYNC"
+    if phase == "payload":
+        assert not any(flags[:4])
+        return body + 3, "TX_DATA"    # byte 0 bit 3, an ordinary data bit
+    if phase == "stuff":
+        pos = flags.index(True)
+        assert pos < len(stuffed) - 1, "need a mid-packet stuff bit"
+        return body + pos, "TX_DATA"  # the inserted 0 itself (run count 6)
+    if phase == "flush":
+        assert flags[-1], "payload must owe a trailing stuff bit"
+        return end - 1, "TX_FLUSH"    # the #7.1.9 trailing stuffed 0
+    if phase == "hold":
+        return end, "TX_HOLD"         # last level's own wire clock -> SE0
+    if phase == "eop_se0":
+        return end + 1, "TX_EOP0"     # first SE0 on the wire, second pending
+    if phase == "eop_j":
+        return end + 2, "TX_EOP1"     # second SE0 on the wire, EOP J pending
+    if phase == "eop_idle":
+        return end + 3, "TX_EOPJ"     # EOP J on the wire, idle pending
+    raise ValueError(phase)
+
+
+def _probe(dut, name, width):
+    """Internal signal value if the netlist exposes it with the RTL's width,
+    else None. A synthesized/routed netlist may keep the name but re-encode
+    the register (yosys turns the 3-bit `tx_state` into a one-hot vector),
+    so a width mismatch means "not the RTL encoding" and is not read."""
+    try:
+        handle = getattr(dut, name)
+        if len(handle) != width:
+            return None
+        return int(handle.value)
+    except (AttributeError, TypeError, ValueError):
+        return None
+
+
+async def _tx_cycle(dut, trace, loopback=True):
+    """One clock: edge, then sample the wire and UTMI outputs after it."""
+    await RisingEdge(dut.clk)
+    await FallingEdge(dut.clk)
+    sample = (int(dut.txdp.value), int(dut.txdm.value))
+    trace["wire"].append(sample)
+    trace["ready"].append(int(dut.TxReady.value))
+    trace["error"].append(int(dut.RxError.value))
+    if int(dut.RxValid.value):
+        trace["rx_bytes"].append(int(dut.DataIn.value))
+    if loopback:
+        dut.rxdp.value = sample[0]
+        dut.rxdm.value = sample[1]
+    return sample
+
+
+def _new_trace():
+    return {"wire": [], "ready": [], "error": [], "rx_bytes": []}
+
+
+@cocotb.test()
+@cocotb.parametrize(
+    phase=TX_RESET_PHASES,
+    hold=[1, 3],
+    txvalid_held=[False, True],
+)
+async def test_tx_utmi_reset_aborts_and_recovers(dut, phase, hold, txvalid_held):
+    """UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+    stuff bit, trailing-stuff flush, last-level hold, each EOP tail cell)
+    aborts the packet on the sampling edge, holds idle J / TxReady-idle for
+    every reset clock (TxValid low or held high), and the first packet after
+    release is bit-exact -- SYNC, stuffed payload including a trailing stuff
+    bit, EOP -- with no stale byte, NRZI reference or stuffing run. The
+    looped-back RX path receives exactly the fresh packet's bytes."""
+    await _start_clock(dut)
+    await _reset(dut)
+
+    aborted, fresh = TX_RESET_ABORTED, TX_RESET_FRESH
+    full_aborted = _tx_full_wire(aborted)
+    full_fresh = _tx_full_wire(fresh)
+    c, rtl_state = _tx_reset_cell(phase, aborted)
+    assert 1 <= c <= len(full_aborted)
+
+    # --- 1. Send the aborted packet until cells 0..c-1 are on the wire. ---
+    trace = _new_trace()
+    pre = []
+    idx = 0
+    started = False
+    for _ in range(4 * len(full_aborted)):
+        if len(pre) == c:
+            break
+        have = idx < len(aborted)
+        dut.TxValid.value = 1 if have else 0
+        dut.DataOut.value = aborted[idx] if have else 0
+        ready = int(dut.TxReady.value)
+        sample = await _tx_cycle(dut, trace)
+        if have and ready:
+            idx += 1
+            started = True
+        if started:
+            pre.append(sample)
+    assert pre == full_aborted[:c], (
+        f"{phase}: wire before injection disagrees with the model: "
+        f"{pre} != {full_aborted[:c]}"
+    )
+
+    # --- 2. Raise Reset. Synchronous: the in-flight cell stays until the edge.
+    dut.Reset.value = 1
+    dut.TxValid.value = 1 if txvalid_held else 0
+    dut.DataOut.value = fresh[0] if txvalid_held else 0
+    await Timer(1, unit="ns")
+    in_flight = (int(dut.txdp.value), int(dut.txdm.value))
+    assert in_flight == full_aborted[c - 1], (
+        f"{phase}: wire changed before the reset edge (not synchronous): "
+        f"{in_flight} != {full_aborted[c - 1]}"
+    )
+    assert int(dut.TxReady.value) == trace["ready"][-1], (
+        f"{phase}: TxReady changed before the reset edge (not synchronous)"
+    )
+    state = _probe(dut, "tx_state", 3)
+    if state is not None:
+        assert _TX_STATE_NAMES.get(state) == rtl_state, (
+            f"{phase}: injection coverage -- RTL in {state}, expected {rtl_state}"
+        )
+        consume = _probe(dut, "stuff_consume", 1)
+        if phase == "stuff":
+            assert consume == 0, "stuff phase: stuffer not inserting at injection"
+        elif phase == "payload":
+            assert consume == 1, "payload phase: stuffer not consuming data"
+    dut._log.info(
+        f"phase={phase} hold={hold} txvalid_held={txvalid_held}: reset preempts "
+        f"model cell {c} of {len(full_aborted)}; in-flight RTL state "
+        f"{_TX_STATE_NAMES.get(state, state) if state is not None else 'n/a (not exposed)'}"
+    )
+
+    rx_mark = len(trace["rx_bytes"])
+    err_mark = len(trace["error"])
+    for n in range(hold):
+        sample = await _tx_cycle(dut, trace)
+        assert sample == J_CELL, (
+            f"{phase}: reset clock {n}: wire {sample} is not idle J"
+        )
+        assert trace["ready"][-1] == 1, (
+            f"{phase}: reset clock {n}: TxReady not at its idle value"
+        )
+
+    # --- 3. Release and send the fresh packet through the normal handshake.
+    dut.Reset.value = 0
+    post_start = len(trace["wire"])
+    if not txvalid_held:
+        dut.TxValid.value = 0
+        dut.DataOut.value = 0
+        for _ in range(2):
+            await _tx_cycle(dut, trace)
+    accepts = []
+    idx = 0
+    for _ in range(len(full_fresh) + 16):
+        have = idx < len(fresh)
+        dut.TxValid.value = 1 if have else 0
+        dut.DataOut.value = fresh[idx] if have else 0
+        ready = int(dut.TxReady.value)
+        await _tx_cycle(dut, trace)
+        if have and ready:
+            accepts.append(len(trace["wire"]) - 1 - post_start)
+            idx += 1
+    post = trace["wire"][post_start:]
+
+    assert len(accepts) == len(fresh), f"{phase}: accepted {len(accepts)} bytes"
+    first = accepts[0]
+    assert first == (0 if txvalid_held else 2), (
+        f"{phase}: first fresh byte accepted at release+{first}, not per handshake"
+    )
+    expected = ([J_CELL] * first + full_fresh
+                + [J_CELL] * (len(post) - first - len(full_fresh)))
+    assert post == expected, (
+        f"{phase}: post-release wire disagrees with the model\n"
+        f"  got      {post}\n  expected {expected}"
+    )
+
+    rx_after = trace["rx_bytes"][rx_mark:]
+    assert rx_after == fresh, (
+        f"{phase}: loopback RX after reset got {rx_after}, expected {fresh}"
+    )
+    assert not any(trace["error"][err_mark:]), f"{phase}: RxError after reset"

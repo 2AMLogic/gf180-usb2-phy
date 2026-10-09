@@ -192,7 +192,14 @@
 //   commanding the PHY to reset after it has itself decided (via
 //   `LineState`) that a bus reset is underway -- that decision is
 //   SIE-layer policy (out of scope), consuming the resulting command is
-//   not.
+//   not. UTMI signals are synchronous to the interface clock, and so is
+//   this reset's effect: every TX-side register clears on the edge that
+//   samples `Reset` high, never mid-clock. The vendored TX transforms'
+//   asynchronous reset port therefore sees only `rst_n`; `Reset` reaches
+//   them through their canonical inputs (`tx_clear`, issue #130,
+//   spec/decisions/0005). The RX vendored transforms still take
+//   `int_rst_n` on their asynchronous port (no UTMI output is a
+//   combinational function of their state; see that decision record).
 //
 // Rate: one bit per clock throughout, at the spec #3 interface clock of
 // 12 MHz -- no oversampling, no dual-rate mode, high speed out of scope
@@ -293,14 +300,36 @@ module usb_utmi_phy (
   // bit), TX_FLUSH presents the forced trailing stuff bit.
   wire tx_body_active = (tx_state == TX_DATA) || (tx_state == TX_FLUSH);
 
+  // UTMI Reset reaches the two vendored TX transforms SYNCHRONOUSLY
+  // (issue #130). Their own reset port is asynchronous (the master's
+  // style, spec/decisions/0002 Decision 5), so feeding it `int_rst_n`
+  // let the link's `Reset` input clear the encoder's registered level
+  // (and the stuffer's run, hence `consume`/`TxReady`) mid-clock,
+  // before the edge that resets the TX state machine: an in-flight K
+  // cell turned into J combinationally from `Reset`. Instead their
+  // asynchronous port sees only the power-on `rst_n`, and while
+  // `int_rst_n` is low the wrapper drives their canonical inputs so the
+  // sampling edge itself clears them: one strobe with `bit_in` = 0
+  // zeroes the stuffer's run counter in every branch (bypass, sof,
+  // stuff, data), and one strobe with `sof` and `bit_in` = 1 sets the
+  // encoder's level to idle J (bypass or not). Neither change reaches
+  // `consume` (a function of the run register, `bypass` and `sof`
+  // only), so `TxReady` stays a function of registered state; the
+  // stuffer outputs that do follow `bit_in` (`bit_out`,
+  // `stuff_pending_after`) feed only the encoder input overridden below
+  // and the TX state machine, which is itself in reset.
+  wire tx_clear = !int_rst_n;
+
   usb_bit_stuffer u_stuffer (
       .clk                 (clk),
-      .rst_n               (int_rst_n),
-      .bit_stb             (tx_body_active),
+      .rst_n               (rst_n),
+      .bit_stb             (tx_body_active || tx_clear),
       .bypass              (raw_mode),
       .sof                 (tx_body_active && (tx_state == TX_DATA) &&
                             first_byte && (byte_idx == 3'd0)),
-      .bit_in              ((tx_state == TX_FLUSH) ? 1'b0 : byte_reg[byte_idx]),
+      .bit_in              (tx_clear                   ? 1'b0 :
+                            (tx_state == TX_FLUSH)     ? 1'b0 :
+                                                         byte_reg[byte_idx]),
       .bit_out             (stuff_bit_out),
       .consume             (stuff_consume),
       .stuff_pending_after (stuff_pending_after)
@@ -310,15 +339,19 @@ module usb_utmi_phy (
 
   usb_nrzi_encoder u_encoder (
       .clk       (clk),
-      .rst_n     (int_rst_n),
+      .rst_n     (rst_n),
       // SYNC bypasses the stuffer: the encoder is strobed through
       // TX_SYNC (and on the entering edge itself) with the SYNC bit,
-      // and through the body states with the stuffer's output.
-      .bit_stb   (tx_body_active || (tx_state == TX_SYNC) || entering_sync),
+      // and through the body states with the stuffer's output. While
+      // `tx_clear` is high it is strobed with `sof` and a 1, which
+      // loads idle J on the sampling edge (see `tx_clear` above).
+      .bit_stb   (tx_body_active || (tx_state == TX_SYNC) || entering_sync ||
+                  tx_clear),
       .bypass    (raw_mode && tx_body_active),
-      .sof       (entering_sync),
-      .bit_in    ((tx_state == TX_SYNC || entering_sync) ? sync_bit
-                                                          : stuff_bit_out),
+      .sof       (entering_sync || tx_clear),
+      .bit_in    (tx_clear                                ? 1'b1     :
+                  (tx_state == TX_SYNC || entering_sync) ? sync_bit :
+                                                            stuff_bit_out),
       .level_out (nrzi_level)
   );
 

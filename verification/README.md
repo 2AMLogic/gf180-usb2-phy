@@ -161,6 +161,17 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   DUT's own `txdp`/`txdm` onto its own `rxdp`/`rxdm` each clock) rather
   than a second structural harness file, since the module under test is
   already the real top-level wrapper.
+  Since issue #130 it also carries `test_tx_utmi_reset_aborts_and_recovers`,
+  a `cocotb.parametrize`d TX reset-and-recovery regression with 36 cases.
+  It raises UTMI `Reset` at nine model-located wire phases (inside SYNC,
+  SYNC's last bit, an ordinary payload bit, an inserted stuff bit, the
+  trailing-stuff flush, the last level's hold clock, and each EOP-tail
+  cell). `Reset` is held for 1 or 3 clocks, with `TxValid` low or held
+  high. Each case checks three things: the abort happens on the sampling
+  edge and not before it; the line holds idle J with `TxReady` high
+  during reset; and the next packet is bit-exact against
+  `usb_bit_model.py`, with acceptance at release following the normal
+  handshake. See `spec/decisions/0005` for the RTL fix this test forced.
 
 - `test_usb_rx_clock_tolerance.py` / `request-usb-rx-clock-tolerance.json`
   — cocotb *characterization* (issue #108) of `rtl/usb_utmi_phy.v`'s RX
