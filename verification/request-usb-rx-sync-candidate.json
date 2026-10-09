@@ -1,0 +1,28 @@
+{
+  "schema": "klt.functional_verification.request/1",
+  "engine": "icarus",
+  "sources": [
+    "../rtl/usb_utmi_phy.v",
+    "../rtl/usb_line_state_decode.v",
+    "../rtl/usb_sync_detector.v",
+    "../rtl/usb_eop_detector.v",
+    "../rtl/common/usb_bit_stuffer.v",
+    "../rtl/common/usb_nrzi_encoder.v",
+    "../rtl/common/usb_nrzi_decoder.v",
+    "../rtl/common/usb_bit_destuffer.v",
+    "tb_usb_rx_sync_candidate.v"
+  ],
+  "hdl_toplevel": "tb_usb_rx_sync_candidate",
+  "testbench": {
+    "module": "test_usb_rx_sync_candidate",
+    "testcase": null
+  },
+  "options": {
+    "coverage": false,
+    "timescale": [
+      "1ns",
+      "1ps"
+    ],
+    "random_seed": 1
+  }
+}
