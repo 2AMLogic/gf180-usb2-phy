@@ -1,0 +1,31 @@
+* extracted by klt extract --deck gf180mcu
+
+* cell differential_receiver
+* pin AMPOUT
+* pin IBIASN
+* pin VDD
+* pin vsubs
+.SUBCKT differential_receiver AMPOUT IBIASN VDD vsubs
+* device instance $1 r0 *1 407.73,1.25 nfet
+X$1 \$12 AMPOUT \$10 vsubs nfet_03v3 L=0.28U W=2U AS=1P AD=1P PS=5U PD=5U
+* device instance $2 r0 *1 403.84,2.25 nfet
+X$2 \$9 IBIASN \$7 vsubs nfet_03v3 L=0.5U W=4U AS=2P AD=2P PS=9U PD=9U
+* device instance $3 r0 *1 411.51,4.25 nfet
+X$3 \$14 \$2 \$13 vsubs nfet_03v3 L=0.28U W=8U AS=4P AD=4P PS=17U PD=17U
+* device instance $4 r0 *1 438.08,4.25 nfet
+X$4 \$26 IBIASN \$25 vsubs nfet_03v3 L=0.5U W=8U AS=4P AD=4P PS=17U PD=17U
+* device instance $5 r0 *1 415.29,10.25 nfet
+X$5 \$17 \$16 \$15 vsubs nfet_03v3 L=0.28U W=20U AS=10P AD=10P PS=41U PD=41U
+* device instance $6 r0 *1 419.07,10.25 nfet
+X$6 \$19 \$3 \$18 vsubs nfet_03v3 L=0.28U W=20U AS=10P AD=10P PS=41U PD=41U
+* device instance $7 r0 *1 426.63,8.25 pfet
+X$7 \$21 \$4 VDD \$28 pfet_03v3 L=0.28U W=16U AS=8P AD=8P PS=33U PD=33U
+* device instance $8 r0 *1 422.85,16.25 pfet
+X$8 \$20 AMPOUT VDD \$27 pfet_03v3 L=0.28U W=32U AS=16P AD=16P PS=65U PD=65U
+* device instance $9 r0 *1 430.41,20.25 pfet
+X$9 \$23 \$22 VDD \$29 pfet_03v3 L=0.28U W=40U AS=20P AD=20P PS=81U PD=81U
+* device instance $10 r0 *1 434.19,20.25 pfet
+X$10 \$24 \$5 VDD \$30 pfet_03v3 L=0.28U W=40U AS=20P AD=20P PS=81U PD=81U
+* device instance $11 r0 *1 200.42,1 ppolyf_u_1k
+X$11 \$6 VDD vsubs ppolyf_u_1k r_length=400U r_width=2U
+.ENDS differential_receiver

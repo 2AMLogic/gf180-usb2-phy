@@ -1,0 +1,12 @@
+{
+  "schema": "klt.lvs.request/1",
+  "layout": {
+    "netlist": "differential_receiver-extracted.spice",
+    "top": "differential_receiver"
+  },
+  "reference": {
+    "netlist": "differential_receiver_reference.spice",
+    "top": "differential_receiver",
+    "form": "subckt-call"
+  }
+}
