@@ -4,6 +4,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-10-09
 
+- **PR #128**: verification: structural RX synchronization experiment (#123)
+- **Issue #123** (closed): Characterize RX boundary synchronization with paired-input skew and reset injection
 - **PR #125**: Add --tool-light mode to setup-env.sh (#117)
 - **Issue #117** (closed): Audit setup: add a tool-light mode to the existing environment bootstrap
 
