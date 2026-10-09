@@ -126,6 +126,36 @@ Activate the venv for interactive use with:
 source .venv/bin/activate
 ```
 
+### Tool-light mode: `scripts/setup-env.sh --tool-light`
+
+For audit or lint hosts that only need the canonical `npm run lint` and
+`npm run check:ci` commands (the same split CI uses), run:
+
+```bash
+./scripts/setup-env.sh --tool-light
+source .venv/bin/activate
+npm run lint
+npm run check:ci
+```
+
+This provisions the same `.venv` with `klt` at the pinned revision and
+`cocotb==2.0.1`, and prints the selected Python, `klt`, `cocotb`, and Icarus
+versions. It does **not** install `volare`, create a PDK directory, or fetch
+the PDK, and it does not need `yosys` or `openroad`. It exits nonzero with an
+actionable message if Python (3.10–3.13, with `venv` support) is missing,
+package installation fails, or `iverilog`/`vvp` are absent.
+
+Host-administrator prerequisites (the script never installs system packages
+and cannot provision Python): a compatible Python 3.10–3.13 with the `venv`
+module, `git`, Node/npm, and Icarus Verilog (`iverilog` and `vvp`), plus
+network access to GitHub and PyPI.
+
+Bootstrap success only means the prerequisites are usable. It is not
+verification evidence: `npm run lint` and `npm run check:ci` are separate
+steps whose results must be reported on their own, and no verification record
+is minted by installing tools. Re-running is safe; an existing `.venv` is
+reused.
+
 ### Pinned versions
 
 | Component | Pinned to | Resolved via |
