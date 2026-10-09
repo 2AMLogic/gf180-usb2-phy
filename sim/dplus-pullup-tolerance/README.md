@@ -25,10 +25,20 @@ table at each of the 45 points (`print rvec` in the manifest's `derive`), so it
 picks the best code at 27 °C / 3.30 V per process corner, holds it fixed, and
 reads it back at all nine (T, V) points of that corner.
 
+It only reaches that verdict on complete evidence. The required matrix comes
+from `testbench/tb.json` via the harness's own corner expansion (never smaller
+than the ratified five process families x nine (T, V) points = 45 corners),
+not from whichever logs are on disk, and every required corner must carry a
+32-code table of finite, positive resistances. A missing corner or process
+family, a log with no or a truncated table, nonfinite values, or an unexpected
+log is listed per corner and the script exits 2 with `Overall: INCOMPLETE
+EVIDENCE` -- it does not report PASS or FAIL on a partial record. (Exit codes:
+0 PASS, 1 FAIL, 2 incomplete.) Both committed records cover all 45 corners.
+
 ```
 $ python3 sim/dplus-pullup-tolerance/analyze_fixed_trim.py
 record   : 20260817-203609-a408cb6
-logs     : 45 corner(s) under sim/dplus-pullup-tolerance/corners/20260817-203609-a408cb6/
+corners  : 45 of 45 required corner(s) usable under sim/dplus-pullup-tolerance/corners/20260817-203609-a408cb6/
 criterion: one trim code chosen at 27 °C / 3.30 V, held across
            that process corner's whole (T, V) grid, must stay inside ±5 % of 1500 Ω (spec §5)
 
