@@ -100,8 +100,10 @@ routes 6 of 21 nets, the three receiver plans 1 of 8/9/9, and
 `differential_driver` now ingests — the "cannot be ingested" wording in the
 early columns of the per-run table below is history). There is **no
 signoff-ready analog layout**: nothing under `layout/analog/` is committed
-(only plans), no analog LVS result is recorded, and no extracted
-re-simulation exists. `differential_receiver` was resized by issue
+(only plans), the only committed analog GDS is the incompletely routed
+`differential_receiver` evidence artifact frozen with the record below,
+the only analog LVS result recorded is that record's **mismatch** (no LVS
+match is claimed), and no extracted re-simulation exists. `differential_receiver` was resized by issue
 #97 (PR #102) after that run and has since been re-measured
 (`verification/records/analog-layout/records/20261009-203500-7a8e831.md`,
 issue #103): the regenerated geometry carries the new `MP_B1` 32u / `MN_B1`
