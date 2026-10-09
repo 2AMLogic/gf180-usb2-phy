@@ -4,6 +4,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-10-09
 
+- **PR #141**: docs(layout): re-measure resized differential_receiver (DRC clean, LVS mismatch)
+- **Issue #103** (closed): Re-run differential_receiver layout/DRC/LVS after MP_B1/MN_B1 resize (PR #102)
 - **PR #139**: fix(signoff): key DRC/LVS citations to the digital partition (#95)
 - **PR #137**: fix: require full 45-corner evidence before fixed-trim PASS
 - **PR #134**: fix(rtl): synchronous UTMI Reset on the TX path, with TX reset-and-recovery regression
