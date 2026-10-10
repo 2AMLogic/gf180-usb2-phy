@@ -40,6 +40,33 @@
     "print dev",
     "print cons"
   ],
+  "klt_supply_source": "vsup",
+  "klt_measure": {
+      "tprop_ns": {
+          "spice": ".meas tran atx1 WHEN v(dp)=v(dm) CROSS=1\n.meas tran atx2 WHEN v(dp)=v(dm) CROSS=2\n.meas tran atx3 WHEN v(dp)=v(dm) CROSS=3\n.meas tran atx4 WHEN v(dp)=v(dm) CROSS=4\n.meas tran atx5 WHEN v(dp)=v(dm) CROSS=5\n.meas tran atx6 WHEN v(dp)=v(dm) CROSS=6\n.meas tran atx7 WHEN v(dp)=v(dm) CROSS=7\n.meas tran atx8 WHEN v(dp)=v(dm) CROSS=8\n.meas tran atx9 WHEN v(dp)=v(dm) CROSS=LAST\n.meas tran tprop_ns param='atx1-283.3333e-9'",
+          "scale": 1000000000.0
+      },
+      "jit_grid_pp_ps": {
+          "spice": ".meas tran btx1 WHEN v(dp)=v(dm) CROSS=1\n.meas tran btx2 WHEN v(dp)=v(dm) CROSS=2\n.meas tran btx3 WHEN v(dp)=v(dm) CROSS=3\n.meas tran btx4 WHEN v(dp)=v(dm) CROSS=4\n.meas tran btx5 WHEN v(dp)=v(dm) CROSS=5\n.meas tran btx6 WHEN v(dp)=v(dm) CROSS=6\n.meas tran btx7 WHEN v(dp)=v(dm) CROSS=7\n.meas tran btx8 WHEN v(dp)=v(dm) CROSS=8\n.meas tran btx9 WHEN v(dp)=v(dm) CROSS=LAST\n.meas tran jit_grid_pp_ps param='max(max(max(max(max(max(max((btx1-btx1-0*83.3333333e-9),(btx2-btx1-1*83.3333333e-9)),(btx3-btx1-3*83.3333333e-9)),(btx4-btx1-4*83.3333333e-9)),(btx5-btx1-7*83.3333333e-9)),(btx6-btx1-8*83.3333333e-9)),(btx7-btx1-14*83.3333333e-9)),(btx8-btx1-15*83.3333333e-9))-min(min(min(min(min(min(min((btx1-btx1-0*83.3333333e-9),(btx2-btx1-1*83.3333333e-9)),(btx3-btx1-3*83.3333333e-9)),(btx4-btx1-4*83.3333333e-9)),(btx5-btx1-7*83.3333333e-9)),(btx6-btx1-8*83.3333333e-9)),(btx7-btx1-14*83.3333333e-9)),(btx8-btx1-15*83.3333333e-9))'",
+          "scale": 1000000000000.0
+      },
+      "jit_grid_max_ps": {
+          "spice": ".meas tran ctx1 WHEN v(dp)=v(dm) CROSS=1\n.meas tran ctx2 WHEN v(dp)=v(dm) CROSS=2\n.meas tran ctx3 WHEN v(dp)=v(dm) CROSS=3\n.meas tran ctx4 WHEN v(dp)=v(dm) CROSS=4\n.meas tran ctx5 WHEN v(dp)=v(dm) CROSS=5\n.meas tran ctx6 WHEN v(dp)=v(dm) CROSS=6\n.meas tran ctx7 WHEN v(dp)=v(dm) CROSS=7\n.meas tran ctx8 WHEN v(dp)=v(dm) CROSS=8\n.meas tran ctx9 WHEN v(dp)=v(dm) CROSS=LAST\n.meas tran jit_grid_max_ps param='max(max(max(max(max(max(max(abs(ctx1-ctx1-0*83.3333333e-9),abs(ctx2-ctx1-1*83.3333333e-9)),abs(ctx3-ctx1-3*83.3333333e-9)),abs(ctx4-ctx1-4*83.3333333e-9)),abs(ctx5-ctx1-7*83.3333333e-9)),abs(ctx6-ctx1-8*83.3333333e-9)),abs(ctx7-ctx1-14*83.3333333e-9)),abs(ctx8-ctx1-15*83.3333333e-9))'",
+          "scale": 1000000000000.0
+      },
+      "jit_cons_pp_ps": {
+          "spice": ".meas tran dtx1 WHEN v(dp)=v(dm) CROSS=1\n.meas tran dtx2 WHEN v(dp)=v(dm) CROSS=2\n.meas tran dtx3 WHEN v(dp)=v(dm) CROSS=3\n.meas tran dtx4 WHEN v(dp)=v(dm) CROSS=4\n.meas tran dtx5 WHEN v(dp)=v(dm) CROSS=5\n.meas tran dtx6 WHEN v(dp)=v(dm) CROSS=6\n.meas tran dtx7 WHEN v(dp)=v(dm) CROSS=7\n.meas tran dtx8 WHEN v(dp)=v(dm) CROSS=8\n.meas tran dtx9 WHEN v(dp)=v(dm) CROSS=LAST\n.meas tran jit_cons_pp_ps param='max(max(max(max(max(max((dtx2-dtx1-1*83.3333333e-9),(dtx3-dtx2-2*83.3333333e-9)),(dtx4-dtx3-1*83.3333333e-9)),(dtx5-dtx4-3*83.3333333e-9)),(dtx6-dtx5-1*83.3333333e-9)),(dtx7-dtx6-6*83.3333333e-9)),(dtx8-dtx7-1*83.3333333e-9))-min(min(min(min(min(min((dtx2-dtx1-1*83.3333333e-9),(dtx3-dtx2-2*83.3333333e-9)),(dtx4-dtx3-1*83.3333333e-9)),(dtx5-dtx4-3*83.3333333e-9)),(dtx6-dtx5-1*83.3333333e-9)),(dtx7-dtx6-6*83.3333333e-9)),(dtx8-dtx7-1*83.3333333e-9))'",
+          "scale": 1000000000000.0
+      },
+      "jit_cons_max_ps": {
+          "spice": ".meas tran etx1 WHEN v(dp)=v(dm) CROSS=1\n.meas tran etx2 WHEN v(dp)=v(dm) CROSS=2\n.meas tran etx3 WHEN v(dp)=v(dm) CROSS=3\n.meas tran etx4 WHEN v(dp)=v(dm) CROSS=4\n.meas tran etx5 WHEN v(dp)=v(dm) CROSS=5\n.meas tran etx6 WHEN v(dp)=v(dm) CROSS=6\n.meas tran etx7 WHEN v(dp)=v(dm) CROSS=7\n.meas tran etx8 WHEN v(dp)=v(dm) CROSS=8\n.meas tran etx9 WHEN v(dp)=v(dm) CROSS=LAST\n.meas tran jit_cons_max_ps param='max(max(max(max(max(max(abs(etx2-etx1-1*83.3333333e-9),abs(etx3-etx2-2*83.3333333e-9)),abs(etx4-etx3-1*83.3333333e-9)),abs(etx5-etx4-3*83.3333333e-9)),abs(etx6-etx5-1*83.3333333e-9)),abs(etx7-etx6-6*83.3333333e-9)),abs(etx8-etx7-1*83.3333333e-9))'",
+          "scale": 1000000000000.0
+      },
+      "xings_extra_ps": {
+          "spice": ".meas tran ftx1 WHEN v(dp)=v(dm) CROSS=1\n.meas tran ftx2 WHEN v(dp)=v(dm) CROSS=2\n.meas tran ftx3 WHEN v(dp)=v(dm) CROSS=3\n.meas tran ftx4 WHEN v(dp)=v(dm) CROSS=4\n.meas tran ftx5 WHEN v(dp)=v(dm) CROSS=5\n.meas tran ftx6 WHEN v(dp)=v(dm) CROSS=6\n.meas tran ftx7 WHEN v(dp)=v(dm) CROSS=7\n.meas tran ftx8 WHEN v(dp)=v(dm) CROSS=8\n.meas tran ftx9 WHEN v(dp)=v(dm) CROSS=LAST\n.meas tran xings_extra_ps param='ftx9-ftx8'",
+          "scale": 1000000000000.0
+      }
+  },
   "measure": {
     "tprop_ns": "(tx1 - 283.3333e-9)*1e9",
     "jit_grid_pp_ps": "(maximum(dev) - minimum(dev))*1e12",
