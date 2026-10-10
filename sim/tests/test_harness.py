@@ -572,7 +572,8 @@ class KltRequestTests(_KltFixture):
     def test_body_includes_pdk_design_file_and_testbench(self):
         self._request()
         body = (self.workdir / "body.spice").read_text()
-        self.assertIn(f'.include "{self.pdk.design_include}"', body)
+        rel = self.pdk.design_include.relative_to(self.pdk.path.parent).as_posix()
+        self.assertIn(f'.include "$PDK_ROOT/{rel}"', body)
         self.assertIn(f'.include "{self.tb.netlist}"', body)
         self.assertIn(".param vdd_nom=3.3", body)
 
