@@ -23,7 +23,7 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#114**: Analog: add TXOE high-Z enable to differential_driver (pin contract, #109)
 
 ## PRs Awaiting Review
 
@@ -45,6 +45,8 @@ Issues carrying `loom:curated`.
 - **#53**: Post-layout (extracted-parasitic) re-verification: digital STA now, analog PVT after #52 *(curated)*
 - **#90**: README: embed the fleet burndown chart (one line) *(curated)*
 - **#93**: T1 item 7 (digital): run the gate-level regression with SDF back-annotation and cite it *(curated)*
+- **#114**: Analog: add TXOE high-Z enable to differential_driver (pin contract, #109) *(curated)*
+- **#115**: RTL: add trim[4:0] pass-through input port (pin contract, #109) *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -64,10 +66,10 @@ Issues carrying `loom:curated`.
 | Operator merge-risk holds | 0 |
 | Operator priority | 0 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 0 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 4 |
+| Curated | 6 |
 | Architect / Hermit proposals | 4 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
