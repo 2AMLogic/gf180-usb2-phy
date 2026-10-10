@@ -95,8 +95,36 @@ async def _start_clock(dut):
     cocotb.start_soon(Clock(dut.clk, _clock_period_ps(), unit="ps").start())
 
 
+TRIM_WIDTH = 5  # spec/decisions/0004 decision 3: trim[4:0] <-> dplus_pullup.TRIM0..4
+
+
+def _has_trim(dut):
+    """True when the DUT exposes the `trim[4:0]` integration input (#115).
+
+    Absence is tolerated ONLY for the older routed gate-level netlist
+    (`layout/digital/usb_utmi_phy_routed.v`, replayed by the
+    `request-usb-utmi-phy-gate-*.json` requests), which predates every
+    DR-0004 port. That legacy interface is recognized by lacking `pu_en`
+    and `txoe` as well; any DUT exposing those (the RTL path, or a
+    regenerated netlist) must also expose a five-bit `trim`.
+    """
+    if hasattr(dut, "trim"):
+        assert len(dut.trim) == TRIM_WIDTH, (
+            f"trim is {len(dut.trim)} bits wide, DR-0004 requires {TRIM_WIDTH}"
+        )
+        return True
+    legacy = not hasattr(dut, "pu_en") and not hasattr(dut, "txoe")
+    assert legacy, (
+        "usb_utmi_phy exposes pu_en/txoe but no trim[4:0] input "
+        "(DR-0004 decision 3, issue #115)"
+    )
+    return False
+
+
 async def _reset(dut):
     dut.rst_n.value = 0
+    if _has_trim(dut):
+        dut.trim.value = 0  # unprogrammed default; static for the whole test
     dut.Reset.value = 0
     dut.TxValid.value = 0
     dut.DataOut.value = 0
@@ -1324,4 +1352,66 @@ async def test_pu_en_follows_termselect_gated_by_rst_n(dut):
     assert int(dut.pu_en.value) == 1, "rst_n release did not restore pu_en"
 
     # Restore testbench inputs.
+    await _reset(dut)
+
+
+@cocotb.test()
+async def test_trim_static_codes_do_not_affect_framing(dut):
+    """`trim[4:0]` (DR-0004 decision 3, #115) is a five-bit integration
+    input the wrapper does not consume: for static codes 0, 1, 16 and 31
+    (unprogrammed default, LSB, MSB, all-ones) a stuffing loopback packet
+    round-trips byte-exactly with no RxError, RxActive returns low, TX
+    returns to idle (TxReady high after the SE0,SE0,J tail), and the whole
+    per-clock wire/RX trace is identical to the code-0 run. The code is
+    held constant for each packet -- no live calibration is modelled."""
+    await _start_clock(dut)
+    if not _has_trim(dut):
+        dut._log.info("legacy routed netlist without trim[4:0]; RTL-only check skipped")
+        return
+
+    payload = [0xC3, 0xFF, 0x00, 0x5A]
+    expected_wire = _expected_wire_dpdm(payload)
+    baseline = None
+    for code in (0, 1, 16, 31):
+        await _reset(dut)
+        dut.trim.value = code
+        await FallingEdge(dut.clk)
+
+        trim_seen = set()
+
+        async def watch_trim():
+            for _ in range(120):
+                await RisingEdge(dut.clk)
+                trim_seen.add(int(dut.trim.value))
+
+        mon = cocotb.start_soon(watch_trim())
+        result = await _drive_packets(dut, [payload], cycles=120)
+        await mon
+
+        assert trim_seen == {code}, f"trim={code}: code not static during packet: {trim_seen}"
+        assert result["rx_bytes"] == payload, (
+            f"trim={code}: round trip mismatch: {result['rx_bytes']}"
+        )
+        assert not any(result["rx_error"]), f"trim={code}: RxError on a clean packet"
+        assert any(result["rx_active"]), f"trim={code}: RxActive never asserted"
+        assert result["rx_active"][-1] == 0, f"trim={code}: RxActive still high after EOP"
+
+        dpdm = result["dpdm"]
+        start = _find_wire_start(dpdm)
+        assert dpdm[start:start + len(expected_wire)] == expected_wire, (
+            f"trim={code}: wire disagrees with the bit-level model"
+        )
+        tail = [(0, 0), (0, 0), (1, 0)]
+        assert any(dpdm[i:i + 3] == tail for i in range(start, len(dpdm) - 2)), (
+            f"trim={code}: no SE0,SE0,J EOP tail"
+        )
+        assert dpdm[-1] == (1, 0), f"trim={code}: line not back at idle J"
+        assert int(dut.TxReady.value) == 1, f"trim={code}: TX handshake did not return to idle"
+
+        if baseline is None:
+            baseline = result
+        else:
+            assert result == baseline, f"trim={code}: trace differs from the trim=0 run"
+
+    # Restore testbench inputs (trim back to the unprogrammed default).
     await _reset(dut)
