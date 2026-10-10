@@ -108,7 +108,7 @@ no counterpart on that side. Analog direction is what the generated
 | RXDP | rxdp | input | se_receiver_dp.RXDP | B | current | analog | SE receiver on D+ |
 | RXDM | rxdm | input | se_receiver_dm.RXDM | B | current | analog | SE receiver on D- |
 | RXD | - | - | differential_receiver.RXD | B | current | analog | deliberately unused by digital (decision 4) |
-| PU_EN | pu_en | output | dplus_pullup.PU_EN | I | planned-dig #112 | RTL | `TermSelect & rst_n` |
+| PU_EN | pu_en | output | dplus_pullup.PU_EN | I | current | RTL | `TermSelect & rst_n` |
 | TRIM0 | trim[0] | input | dplus_pullup.TRIM0 | I | planned-dig #115 | integrator | test-time code |
 | TRIM1 | trim[1] | input | dplus_pullup.TRIM1 | I | planned-dig #115 | integrator | test-time code |
 | TRIM2 | trim[2] | input | dplus_pullup.TRIM2 | I | planned-dig #115 | integrator | test-time code |

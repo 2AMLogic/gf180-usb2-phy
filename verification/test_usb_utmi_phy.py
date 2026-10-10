@@ -945,3 +945,55 @@ async def test_tx_utmi_reset_aborts_and_recovers(dut, phase, hold, txvalid_held)
         f"{phase}: loopback RX after reset got {rx_after}, expected {fresh}"
     )
     assert not any(trace["error"][err_mark:]), f"{phase}: RxError after reset"
+
+
+@cocotb.test()
+async def test_pu_en_follows_termselect_gated_by_rst_n(dut):
+    """pu_en == TermSelect & rst_n for every rst_n/TermSelect/Reset/SuspendM
+    combination, combinationally (DR-0004 decision 1)."""
+    await _start_clock(dut)
+    await _reset(dut)
+
+    for rst_n in (0, 1):
+        for term in (0, 1):
+            for reset in (0, 1):
+                for susp in (0, 1):
+                    dut.rst_n.value = rst_n
+                    dut.TermSelect.value = term
+                    dut.Reset.value = reset
+                    dut.SuspendM.value = susp
+                    await Timer(1, unit="ns")
+                    got = int(dut.pu_en.value)
+                    assert got == (term & rst_n), (
+                        f"rst_n={rst_n} TermSelect={term} Reset={reset} "
+                        f"SuspendM={susp}: pu_en={got}"
+                    )
+
+    # Reset / SuspendM, alone and together, never drop pu_en.
+    dut.rst_n.value = 1
+    dut.TermSelect.value = 1
+    for reset, susp in ((1, 1), (0, 0), (1, 0), (0, 1), (0, 1)):
+        dut.Reset.value = reset
+        dut.SuspendM.value = susp
+        await Timer(1, unit="ns")
+        assert int(dut.pu_en.value) == 1, f"Reset={reset} SuspendM={susp} dropped pu_en"
+
+    # Not registered: changes take effect between clock edges, no edge needed.
+    await FallingEdge(dut.clk)
+    dut.Reset.value = 0
+    dut.SuspendM.value = 1
+    dut.TermSelect.value = 0
+    await Timer(1, unit="ns")
+    assert int(dut.pu_en.value) == 0, "pu_en did not fall with TermSelect before an edge"
+    dut.TermSelect.value = 1
+    await Timer(1, unit="ns")
+    assert int(dut.pu_en.value) == 1, "pu_en did not rise with TermSelect before an edge"
+    dut.rst_n.value = 0
+    await Timer(1, unit="ns")
+    assert int(dut.pu_en.value) == 0, "rst_n low did not force pu_en low (TermSelect high)"
+    dut.rst_n.value = 1
+    await Timer(1, unit="ns")
+    assert int(dut.pu_en.value) == 1, "rst_n release did not restore pu_en"
+
+    # Restore testbench inputs.
+    await _reset(dut)
