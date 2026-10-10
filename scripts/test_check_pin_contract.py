@@ -71,10 +71,11 @@ class PinContractTests(unittest.TestCase):
                   ".subckt differential_driver VDD", ".subckt differential_driver TXOE VDD")
         self.assertTrue(any("not covered" in e or "TXOE" in e for e in cpc.check(self.root)))
 
-    # Uses TXOE (still planned, #113-114); PU_EN landed in #112 and is current.
+    # Uses trim[4:0] (planned-dig, #115); PU_EN (#112) and the digital txoe
+    # port (#113) have landed and their rows are current / planned-ana.
     def test_planned_pin_landing_without_table_update_fails(self):
-        self.edit(cpc.RTL, "output wire txdm,", "output wire txdm,\n    output wire txoe,")
-        self.assertTrue(any("planned" in e and "txoe" in e for e in cpc.check(self.root)))
+        self.edit(cpc.RTL, "output wire txdm,", "output wire txdm,\n    input  wire [4:0] trim,")
+        self.assertTrue(any("planned" in e and "trim" in e for e in cpc.check(self.root)))
 
     def test_bad_table_is_parse_error(self):
         self.edit(cpc.RECORD, cpc.BEGIN, "")
