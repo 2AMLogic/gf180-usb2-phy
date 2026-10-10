@@ -91,9 +91,9 @@ direction (from `*.PININFO`: I input, O output, B bidirectional); for
 digital rows the port must exist in `usb_utmi_phy` with the stated
 direction. Rows with status `planned-dig #N` / `planned-ana #N` / `planned #N`
 (both sides) must be **absent** on the planned side until the follow-up
-lands (`PU_EN`/`TRIM` already exist in the netlist; `TXOE` is planned on
-both sides, digital #113, analog #114); landing it requires flipping the row to
-`current`. Every `.subckt` pin and every module port must appear. `-` means
+lands (`PU_EN`/`TRIM` already exist in the netlist; `TXOE` is `planned-ana #114`:
+the digital `txoe` port landed in #113, the analog pin is still to come);
+landing the analog side requires flipping the row to `current`. Every `.subckt` pin and every module port must appear. `-` means
 no counterpart on that side. Analog direction is what the generated
 `*.PININFO` line says: the receiver output pins are marked `B` there
 (not `O`), and the table records that as-is rather than the intent
@@ -104,7 +104,7 @@ no counterpart on that side. Analog direction is what the generated
 |---|---|---|---|---|---|---|---|
 | TXDP | txdp | output | differential_driver.TXDP | I | current | RTL | `tx_state` pad mux |
 | TXDM | txdm | output | differential_driver.TXDM | I | current | RTL | `tx_state` pad mux |
-| TXOE | txoe | output | differential_driver.TXOE | I | planned #113-114 | RTL | `tx_state != TX_IDLE`  |
+| TXOE | txoe | output | differential_driver.TXOE | I | planned-ana #114 | RTL | `tx_state != TX_IDLE`  |
 | RXDP | rxdp | input | se_receiver_dp.RXDP | B | current | analog | SE receiver on D+ |
 | RXDM | rxdm | input | se_receiver_dm.RXDM | B | current | analog | SE receiver on D- |
 | RXD | - | - | differential_receiver.RXD | B | current | analog | deliberately unused by digital (decision 4) |
