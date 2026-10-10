@@ -354,3 +354,48 @@ it is the level of diligence reasonable to expect from schematic capture
 (catching an obviously-wrong polarity or component value before it
 ships -- the polarity bug above is a concrete example of exactly that),
 not a claim that the Sec.4 thresholds are met.
+
+## 2026-10-10 -- `differential_driver` TXOE high-Z enable (issue #114)
+
+The earlier "No output-enable/tri-state in this cell" note above is history:
+`DP`/`DM` are shared with the host, so the cell now has an active-high
+input `TXOE` (DR-0004 pin contract; pin order is now
+`VDD VSS TXDP TXDM TXOE DP DM`). `TXOE=0` turns **both** output transistors
+off on **both** pads for every `TXDP`/`TXDM` value; `TXOE=1` is the previous
+driver. The disable is in the cell, not in a testbench.
+
+Topology. The old shared-gate output stage (PMOS and NMOS on one `*_GATE`
+net) cannot turn both devices off from one net, so each half now has two
+gated predrivers feeding the same two output devices:
+
+- `NAND(TXDx, TXOE)` -> `RSLEWP*` -> PMOS gate (`*_GATEP`); held at VDD when
+  disabled (PMOS off). `NAND` input pair sized 4u PMOS / 4u NMOS (stack).
+- `NOR(TXDx, !TXOE)` -> `RSLEWN*` -> NMOS gate (`*_GATEN`); held at VSS when
+  disabled (NMOS off). `!TXOE` comes from one shared inverter (`MPOEB`/`MNOEB`).
+  `NOR` pair sized 8u PMOS (stack) / 2u NMOS.
+
+With `TXOE=1` each predriver reduces to the old inverter, the output
+devices (60u/30u), the slew resistor value (`ppolyf_u` 1u x 2u) and the
+`rm1` series resistor are unchanged, but the gate load is now split across
+two identical slew resistors (each sees one gate instead of both) and the
+two predrivers are slightly different stacks, so P and N gate edges are no
+longer perfectly correlated as they were on the shared node. That is the
+only intended effect on the existing slew path; whether it moves any
+Sec.6 number is a measurement, see the evidence list below. `TXDP`/`TXDM`
+input capacitance roughly doubles (two gates per input per half).
+
+Evidence (append-only; ids in `sim/*/records/`):
+
+- `sim/driver-disabled-leakage/` (new): external 0 V / 3.3 V sources on
+  DP and DM (SE0, J, K, SE1 pad states) x all four `TXDP`/`TXDM`
+  combinations with the inputs toggling while disabled, enable/disable
+  transitions, and a deliberately enabled opposing-drive control. No numeric
+  leakage limit is adopted (the ratified spec has none); numbers are
+  reported as measured, the only check is that the contention control is
+  detectable.
+- `sim/driver-signal-quality/` and `sim/driver-jitter/`: the TXOE=1
+  re-runs of the Sec.6 edge parameters. The existing failures recorded in
+  `sim/spec-coverage.md` (#96) are not addressed here.
+
+See the pull request for issue #114 for the record ids that were obtained
+and for any batch-fleet outage that prevented a full 45-corner record.
