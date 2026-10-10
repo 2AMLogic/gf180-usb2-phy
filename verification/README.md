@@ -172,6 +172,25 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   during reset; and the next packet is bit-exact against
   `usb_bit_model.py`, with acceptance at release following the normal
   handshake. See `spec/decisions/0005` for the RTL fix this test forced.
+  Since issue #132 it also carries three edge-timed RX reset tests
+  (`spec/decisions/0006`). `test_rx_utmi_reset_edge_timed_abort_and_release`
+  (40 cases) raises `Reset` between edges at ten model-located receive
+  phases (mid-SYNC, the edge that would arm reception, the first PID bit,
+  a partial byte, a byte-delivery edge, a six-1 run, the stuffed 0, a
+  stuffing violation and the edge that would raise `RxError`, EOP). It
+  holds `Reset` for 1 or 3 clocks and releases it with J or K on the wire.
+  It checks that the RX ports do not move before the sampling edge, that
+  the edge suppresses the pending byte or error, that RX stays quiet
+  through reset and the aborted tail, and that a fresh packet is exact.
+  `test_rx_utmi_reset_release_straight_into_sync` (8 cases) starts SYNC on
+  the release edge itself, after a J or K pre-reset line.
+  `test_rx_utmi_reset_pulse_between_edges_is_not_sampled` (4 cases) is a
+  structural probe, not a UTMI-legal stimulus: a `Reset` pulse that no
+  edge samples must leave the packet in flight intact, and any
+  asynchronous path from `Reset` into RX state fails it. The RTL run also
+  checks the vendored decoder's and destuffer's internal reset state
+  through hierarchical names. Set `USB_UTMI_PHY_TB_PORTS_ONLY=1` to skip
+  those whitebox reads; gate-level netlists skip them automatically.
 
 - `test_usb_rx_clock_tolerance.py` / `request-usb-rx-clock-tolerance.json`
   — cocotb *characterization* (issue #108) of `rtl/usb_utmi_phy.v`'s RX
