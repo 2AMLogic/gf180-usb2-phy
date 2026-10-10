@@ -175,13 +175,15 @@
 //   `bypass`; every other encoding is ignored -- this FS-only,
 //   device-only block has no HS chirp mode, no host/OTG role, no LS
 //   support (spec #3's own "UTMI, not UTMI+" decision).
-// - `TermSelect`, `XcvrSelect` are present as ports (spec #3's table
-//   requires them) but not consumed by any logic in this file.
-//   `TermSelect`'s real analog effect (D+ pull-up enable) is explicitly
-//   deferred to "a PHY-level wrapper" by `design/README.md`'s own
-//   differential-driver section; this is that wrapper, but wiring an
-//   enable signal to an analog pad is a separate, not-yet-filed
-//   integration issue, not this one's digital framing scope.
+// - `XcvrSelect` is present as a port (spec #3's table requires it) but
+//   not consumed by any logic in this file.
+// - `TermSelect` drives the `pu_en` output (D+ pull-up enable, pin
+//   contract spec/decisions/0004 decision 1): `pu_en = TermSelect & rst_n`.
+//   It is purely combinational: the pull-up is off while the block's own
+//   `rst_n` is low, and UTMI `Reset` deliberately does NOT drop it (a
+//   link command must not detach the device from the bus), nor does
+//   `SuspendM` gate it (a suspended device keeps its pull-up). It
+//   therefore does not use `int_rst_n`.
 // - `SuspendM` is likewise present but unconsumed; this block does not
 //   model low-power state retention (nothing here is stateful enough to
 //   need it, and "how much current does an unclocked flop draw" is not
@@ -225,10 +227,13 @@ module usb_utmi_phy (
     // UTMI status/control (spec #3)
     output wire [1:0]  LineState,
     input  wire [1:0]  OpMode,      // 2'b10 = raw mode, consumed as bypass; see header
-    input  wire        TermSelect,  // present per spec #3; not consumed, see header
+    input  wire        TermSelect,  // source of pu_en (TermSelect & rst_n); see header
     input  wire        XcvrSelect,  // present per spec #3; not consumed, see header
     input  wire        SuspendM,    // present per spec #3; not consumed, see header
     input  wire        Reset,       // active-high UTMI reset command; consumed, see header
+
+    // D+ pull-up enable -- to design dplus_pullup.PU_EN (DR-0004 decision 1)
+    output wire pu_en,
 
     // Wire-level TX -- drives design/differential_driver.sch's TXDP/TXDM
     output wire txdp,
@@ -244,6 +249,10 @@ module usb_utmi_phy (
   localparam [1:0] LS_K   = 2'b10;
 
   wire int_rst_n = rst_n & ~Reset;
+
+  // Pull-up enable: TermSelect gated only by the block's own rst_n (not
+  // int_rst_n: UTMI Reset must not drop it), no register, no SuspendM.
+  assign pu_en = TermSelect & rst_n;
 
   // ---------------------------------------------------------------------
   // LineState
