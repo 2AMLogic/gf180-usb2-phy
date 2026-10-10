@@ -150,6 +150,7 @@ module tb_usb_rx_sync_candidate (
       .XcvrSelect (XcvrSelect),
       .SuspendM   (SuspendM),
       .Reset      (Reset),
+      .trim       (5'b00000),   // DR-0004 #115: unprogrammed default, static
       .txdp       (txdp),
       .txdm       (txdm),
       .rxdp       (phy_rxdp),
