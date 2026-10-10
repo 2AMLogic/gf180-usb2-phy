@@ -397,5 +397,14 @@ Evidence (append-only; ids in `sim/*/records/`):
   re-runs of the Sec.6 edge parameters. The existing failures recorded in
   `sim/spec-coverage.md` (#96) are not addressed here.
 
-See the pull request for issue #114 for the record ids that were obtained
-and for any batch-fleet outage that prevented a full 45-corner record.
+Status of the evidence at the time of writing: the batch Spot fleet refused
+every full-grid submit (`batch_no_capacity`, no capacity in any of 30 pools,
+four attempts) and one earlier submit failed on a harness include-path bug
+that is now fixed (kept as the ERROR record
+`sim/driver-signal-quality/records/20261010-065704-8e5ea08.md`). **No
+45-corner record exists yet for the TXOE cell** -- not for leakage, not for
+the TXOE=1 edge parameters, not for jitter. The only numbers so far are
+single-corner local probes through `klt sim --backend local`, which are not
+records: see the pull request. The cell's Sec.6 behaviour with the new
+predrivers is therefore unmeasured across PVT; run the three experiments
+named above with `--backend klt` to mint the records.
