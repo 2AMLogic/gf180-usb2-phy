@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "tb_usb_rx_sync_candidate",
+  "testbench": "test_usb_rx_sync_candidate",
+  "status": "pass",
+  "test_count": 9,
+  "passed_count": 9,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_skew_stimulus_model",
+      "status": "passed",
+      "sim_time_ns": 0.0,
+      "real_time_s": 0.0008358955383300781
+    },
+    {
+      "name": "test_scoreboard_negative_controls",
+      "status": "passed",
+      "sim_time_ns": 21958.509,
+      "real_time_s": 0.017026424407958984
+    },
+    {
+      "name": "test_candidate_reset_to_j",
+      "status": "passed",
+      "sim_time_ns": 11458.425000000003,
+      "real_time_s": 0.0066258907318115234
+    },
+    {
+      "name": "test_latency",
+      "status": "passed",
+      "sim_time_ns": 73875.59100000001,
+      "real_time_s": 0.050536155700683594
+    },
+    {
+      "name": "test_zero_offset_controls",
+      "status": "passed",
+      "sim_time_ns": 504962.373,
+      "real_time_s": 0.37218499183654785
+    },
+    {
+      "name": "test_eop_and_reset_controls",
+      "status": "passed",
+      "sim_time_ns": 277960.5569999999,
+      "real_time_s": 0.20504140853881836
+    },
+    {
+      "name": "test_injection_self_check",
+      "status": "passed",
+      "sim_time_ns": 43958.68499999994,
+      "real_time_s": 0.032561540603637695
+    },
+    {
+      "name": "test_skew_injection_sweep",
+      "status": "passed",
+      "sim_time_ns": 42291963.333,
+      "real_time_s": 36.081947803497314
+    },
+    {
+      "name": "test_grid",
+      "status": "passed",
+      "sim_time_ns": 215084762.331,
+      "real_time_s": 189.91682076454163
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "<worktree>/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1,
+    "sdf": null
+  }
+}

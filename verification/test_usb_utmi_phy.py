@@ -36,7 +36,7 @@ import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge, Timer
 
-from usb_bit_model import bit_stuff, nrzi_encode
+from usb_bit_model import bit_stuff, nrzi_decode, nrzi_encode
 
 # spec/usb2-device-phy.md #3 ratifies a 12 MHz interface clock. See
 # test_usb_nrzi_encoder.py for why 83334 ps rather than 83333 ps.
@@ -686,6 +686,334 @@ async def test_rx_utmi_reset_after_stuffing_error_mid_packet(dut):
     assert not any(rest["error"]) and not any(rest["valid"])
 
     await _assert_clean_packet(dut, [0x7E, 0xFF, 0x12], "post-error-Reset reception")
+
+
+# ---------------------------------------------------------------------------
+# RX reset assertion / release, edge-timed (issue #132)
+#
+# Contract under test (spec/decisions/0006): UTMI `Reset` is synchronous to
+# the interface clock on the receive side too.
+#
+#   * Nothing at the RX ports (`RxActive`, `RxValid`, `RxError`, `DataIn`)
+#     changes between clock edges when `Reset` rises or falls: checked 1 ns
+#     after the change and again shortly before the next rising edge.
+#   * The edge that samples `Reset` high aborts reception: `RxActive`,
+#     `RxValid` and `RxError` are low after it and stay low on every reset
+#     clock, whatever the wire carries. A byte or error the pipeline was about
+#     to deliver on that edge is suppressed. `DataIn` is not cleared (it is
+#     only meaningful with `RxValid`); it simply does not change.
+#   * After release the receiver restarts from the idle-J NRZI reference with
+#     an empty SYNC search and a zero stuffing run. The aborted packet's tail
+#     (no SYNC for it to lock onto) is ignored, whether the wire sampled by the
+#     release edge is J or K, and the next SYNC/payload/EOP is received
+#     exactly -- including a SYNC whose first K is the cell the release edge
+#     itself samples, so no first payload bit is dropped.
+#
+# Injection points are named from the frame model, not from the RTL. A cell
+# presented before edge t reaches `LineState` at t, the NRZI decoder's output
+# at t+1, the destuffer's output at t+2 and `RxValid`/`RxError` at t+3 (the
+# fixed registered chain the #118 tests above already measure). `cut` is the
+# index of the cell whose edge is the first to sample `Reset` high, so the
+# destuffer would have been processing body cell `cut - 2` on that edge.
+# When the simulated netlist exposes the RTL's destuffer run counter it is
+# read only to confirm the stuffing boundary was hit, never to form an
+# expectation.
+# ---------------------------------------------------------------------------
+
+# Aborted packet: an ordinary first byte, a 0xFF whose six leading 1s force a
+# mid-byte stuffed 0, then two more bytes (no SYNC pattern anywhere in the
+# decoded tail). Fresh packet: sixteen leading 1s (two stuffed 0s; an
+# inherited run would move the first one) and a trailing #7.1.9 stuff bit.
+RX_RESET_ABORTED = [0x5A, 0xFF, 0x3C, 0xFC]
+RX_RESET_FRESH = [0xFF, 0xFF, 0x00, 0xFC]
+
+RX_RESET_PHASES = [
+    "sync",           # mid-SYNC, reception not yet active
+    "sync_final",     # SYNC's final bit at the destuffer: arming edge preempted
+    "first_bit",      # first PID bit at the destuffer
+    "partial_byte",   # byte 2, three bits already shifted in
+    "byte_complete",  # the edge that would deliver byte 1 on RxValid
+    "six_ones",       # sixth consecutive 1 at the destuffer (run 5 -> 6)
+    "stuff_bit",      # the stuffed 0 at the destuffer (run == 6)
+    "error",          # violating seventh 1 at the destuffer (stuff_err edge)
+    "error_out",      # stuff_err registered, the RxError edge preempted
+    "eop",            # first SE0 cell of the EOP
+]
+
+K_CELL = (0, 1)
+
+PORTS_ONLY_ENV = "USB_UTMI_PHY_TB_PORTS_ONLY"
+
+
+def _stuffed_index(flags, data_index):
+    """Index into the stuffed stream of the `data_index`-th real data bit."""
+    seen = -1
+    for i, is_stuff in enumerate(flags):
+        if not is_stuff:
+            seen += 1
+            if seen == data_index:
+                return i
+    raise ValueError(data_index)
+
+
+def _rx_reset_plan(phase):
+    """(cells, cut, run_expected, delivered) for `phase`.
+
+    `cells` is the aborted frame (idle lead, SYNC, body, EOP); `cut` as in
+    the section header; `run_expected` is the destuffer run count the RTL
+    should hold just before the reset edge (whitebox confirmation only, None
+    when not meaningful); `delivered` is how many aborted bytes RxValid must
+    have delivered before the reset edge."""
+    payload = RX_RESET_ABORTED
+    stuffed, flags = bit_stuff(_byte_to_bits_list(payload))
+    stuff_pos = flags.index(True)
+    body0 = IDLE_LEAD + 8
+    body = stuffed
+    if phase in ("error", "error_out"):
+        body = stuffed[:stuff_pos] + stuffed[stuff_pos + 1:]
+    cells = [J_CELL] * IDLE_LEAD + _rx_frame_cells(body)
+    run = None
+    if phase == "sync":
+        cut = IDLE_LEAD + 4
+    elif phase == "sync_final":
+        cut = IDLE_LEAD + 7 + 2
+    elif phase == "first_bit":
+        cut = body0 + 2
+    elif phase == "partial_byte":
+        cut = body0 + _stuffed_index(flags, 19) + 2
+    elif phase == "byte_complete":
+        cut = body0 + _stuffed_index(flags, 15) + 3
+    elif phase == "six_ones":
+        cut = body0 + stuff_pos - 1 + 2
+        run = 5
+    elif phase in ("stuff_bit", "error"):
+        cut = body0 + stuff_pos + 2
+        run = 6
+    elif phase == "error_out":
+        cut = body0 + stuff_pos + 3
+    elif phase == "eop":
+        cut = cells.index(SE0_CELL)
+    else:
+        raise ValueError(phase)
+    # A byte reaches RxValid three edges after its last cell's edge.
+    delivered = 0
+    for b in range(len(payload)):
+        last = body0 + _stuffed_index(flags, 8 * b + 7)
+        if phase in ("error", "error_out") and _stuffed_index(flags, 8 * b + 7) > stuff_pos:
+            last -= 1
+        if last + 3 < cut:
+            delivered += 1
+    return cells, cut, run, delivered
+
+
+def _rx_ports(dut):
+    """RX port snapshot (binary strings: DataIn is legitimately X until the
+    first byte, since it is never reset)."""
+    return (str(dut.RxActive.value), str(dut.RxValid.value),
+            str(dut.RxError.value), str(dut.DataIn.value))
+
+
+async def _assert_rx_ports_hold(dut, expect, what):
+    """Called right after a falling edge, having just changed `Reset`: the RX
+    ports must not move before the next rising edge."""
+    await Timer(1, unit="ns")
+    assert _rx_ports(dut) == expect, f"{what}: RX ports changed 1 ns after Reset moved"
+    await Timer(max(_clock_period_ps() // 2 - 3000, 1), unit="ps")
+    assert _rx_ports(dut) == expect, (
+        f"{what}: RX ports changed before the sampling edge")
+
+
+def _probe_path(dut, path, width):
+    """Like `_probe`, for a hierarchical path (RTL only; None when the
+    netlist does not expose it with the RTL's width, or when the
+    `USB_UTMI_PHY_TB_PORTS_ONLY` environment variable is set -- a ports-only
+    replay of the RTL, used to establish which checks are port-observable)."""
+    if os.environ.get(PORTS_ONLY_ENV):
+        return None
+    try:
+        handle = dut
+        for part in path.split("."):
+            handle = getattr(handle, part)
+        if len(handle) != width:
+            return None
+        return int(handle.value)
+    except (AttributeError, TypeError, ValueError):
+        return None
+
+
+def _assert_rx_internal_cleared(dut, what, released=False):
+    """RTL-only whitebox check (skipped when the netlist does not expose the
+    RTL names): after an edge that sampled `Reset` high, the vendored
+    decoder holds the idle-J reference and the destuffer has a zero run, no
+    forwarded bit and no error -- the state its asynchronous reset used to
+    produce. After the release edge additionally nothing has reached the
+    SYNC search or the destuffer (`released`): the reset-edge strobe the
+    decoder emits is masked. Port-level tests cannot see all of this (see
+    spec/decisions/0006's coverage limit), so it is checked here."""
+    expect = {
+        "u_decoder.prev_level": (1, 1),
+        "u_destuffer.ones_run": (3, 0),
+        "u_destuffer.bit_valid": (1, 0),
+        "u_destuffer.stuff_err": (1, 0),
+    }
+    if released:
+        expect["u_sync_detector.match"] = (4, 0)
+    for path, (width, want) in expect.items():
+        got = _probe_path(dut, path, width)
+        if got is not None:
+            assert got == want, f"{what}: {path} = {got}, expected {want}"
+
+
+def _decoded_tail_has_sync(cells):
+    """Would the receiver find SYNC in `cells`, starting right after a
+    release edge? The release edge decodes the line-state register's reset
+    value (J) against the idle-J reference, then each J/K cell in turn (SE0
+    cells are not NRZI data). Precondition for the stimulus, not a claim."""
+    levels = [1] + [1 if c == J_CELL else 0 for c in cells if c in (J_CELL, K_CELL)]
+    bits = nrzi_decode(levels)
+    pattern = _byte_to_bits(SYNC_BYTE)
+    return any(bits[i:i + 8] == pattern for i in range(len(bits) - 7))
+
+
+@cocotb.test()
+@cocotb.parametrize(phase=RX_RESET_PHASES, hold=[1, 3], release=["J", "K"])
+async def test_rx_utmi_reset_edge_timed_abort_and_release(dut, phase, hold, release):
+    """UTMI Reset raised between edges during reception (SYNC, the arming
+    edge, the first PID bit, a partial byte, a byte-delivery edge, a six-1
+    run, the stuffed 0, a stuffing violation and its RxError edge, EOP):
+    ports hold until the sampling edge, the edge aborts with no byte or error
+    delivered, every reset clock keeps RX quiet, release with J or K on the
+    wire ignores the aborted tail, and a fresh packet is received exactly."""
+    await _start_clock(dut)
+    await _reset(dut)
+
+    cells, cut, run_expected, delivered = _rx_reset_plan(phase)
+    release_cell = J_CELL if release == "J" else K_CELL
+    tail = [release_cell] + cells[cut + hold + 1:] + [J_CELL] * IDLE_TAIL
+    assert not _decoded_tail_has_sync(tail), f"{phase}: stimulus tail contains SYNC"
+
+    # --- 1. Receive the aborted frame up to the injection point. ---
+    pre = await _drive_rx_cells(dut, cells[:cut])
+    assert pre["bytes"] == RX_RESET_ABORTED[:delivered], (
+        f"{phase}: bytes before reset {pre['bytes']}, expected "
+        f"{RX_RESET_ABORTED[:delivered]}")
+    assert not any(pre["error"]), f"{phase}: RxError before the reset edge"
+    if phase not in ("sync", "sync_final"):
+        assert pre["active"][-1] == 1, f"{phase}: reception not active at injection"
+    run = _probe_path(dut, "u_destuffer.ones_run", 3)
+    if run_expected is not None and run is not None:
+        assert run == run_expected, (
+            f"{phase}: injection coverage -- destuffer run {run}, expected {run_expected}")
+    dut._log.info(
+        f"phase={phase} hold={hold} release={release}: reset edge at cell {cut} "
+        f"of {len(cells)}; {delivered} byte(s) delivered; destuffer run "
+        f"{run if run is not None else 'n/a (not exposed)'}")
+
+    # --- 2. Raise Reset mid-clock: ports hold until the sampling edge. ---
+    before = _rx_ports(dut)
+    data_in = before[3]
+    dut.Reset.value = 1
+    dut.rxdp.value, dut.rxdm.value = cells[cut]
+    await _assert_rx_ports_hold(dut, before, f"{phase} assert")
+
+    # --- 3. Every reset clock: RX quiet, DataIn unchanged. ---
+    for n in range(hold):
+        during = await _drive_rx_cells(dut, [cells[cut + n]])
+        assert (during["active"][0], during["valid"][0], during["error"][0]) == (0, 0, 0), (
+            f"{phase}: reset clock {n}: RxActive/RxValid/RxError = "
+            f"{during['active'][0]}/{during['valid'][0]}/{during['error'][0]}")
+        _assert_rx_internal_cleared(dut, f"{phase}: reset clock {n}")
+    assert str(dut.DataIn.value) == data_in, f"{phase}: DataIn changed under Reset"
+
+    # --- 4. Release mid-clock with J or K on the wire; ports hold. ---
+    quiet = _rx_ports(dut)
+    dut.Reset.value = 0
+    dut.rxdp.value, dut.rxdm.value = release_cell
+    await _assert_rx_ports_hold(dut, quiet, f"{phase} release")
+
+    # --- 5. The aborted tail is ignored. ---
+    rest = await _drive_rx_cells(dut, tail[:1])
+    _assert_rx_internal_cleared(dut, f"{phase}: release edge", released=True)
+    rest = await _drive_rx_cells(dut, tail[1:], rest)
+    assert not any(rest["active"]), f"{phase}: aborted tail re-activated RxActive"
+    assert not any(rest["valid"]), f"{phase}: bytes leaked after release: {rest['bytes']}"
+    assert not any(rest["error"]), f"{phase}: RxError after release"
+    assert str(dut.DataIn.value) == data_in, f"{phase}: DataIn changed after release"
+
+    # --- 6. A fresh packet is exact. ---
+    await _assert_clean_packet(dut, RX_RESET_FRESH, f"{phase} fresh packet")
+
+
+@cocotb.test()
+@cocotb.parametrize(before=["J", "K"], hold=[1, 3], gap=[0, 1])
+async def test_rx_utmi_reset_release_straight_into_sync(dut, before, hold, gap):
+    """Reset raised with J or K as the last cell before it (so the first
+    reset edge sees that level in the line-state register), then a fresh
+    frame starting `gap` cells after the release clock -- with `gap` 0 the
+    release edge itself samples SYNC's first K. The NRZI reference after
+    release must be idle J whatever the line was, and the stuffing run zero,
+    so SYNC locks and the first PID bit is neither dropped nor mis-decoded
+    (both payloads open with the bit that a wrong reference or a one-bit
+    slip would flip). `before`=K, `hold`=1, `gap`=0 is the one case where a
+    decoder left holding the pre-reset level (K) would emit a decoded 0
+    just ahead of SYNC and lose the packet."""
+    await _start_clock(dut)
+    await _reset(dut)
+
+    lead = [J_CELL] * IDLE_LEAD + ([K_CELL] if before == "K" else [])
+    for payload in ([0xFF, 0xFF, 0x00, 0xFC], [0x2D, 0x00, 0x10]):
+        await _drive_rx_cells(dut, lead)
+        dut.Reset.value = 1
+        await _drive_rx_cells(dut, [J_CELL] * hold)
+        dut.Reset.value = 0
+        frame = [J_CELL] * gap + _rx_frame_cells(_good_body(payload))
+        trace = await _drive_rx_cells(dut, frame + [J_CELL] * IDLE_TAIL)
+        assert trace["bytes"] == payload, (
+            f"before={before} hold={hold} gap={gap}: bytes {trace['bytes']} != {payload}")
+        assert not any(trace["error"]), f"before={before} hold={hold} gap={gap}: RxError"
+        _assert_rx_terminated(trace, f"before={before} hold={hold} gap={gap}")
+
+
+RX_RESET_UNSAMPLED_PHASES = ["sync", "partial_byte", "six_ones", "stuff_bit"]
+
+
+@cocotb.test()
+@cocotb.parametrize(phase=RX_RESET_UNSAMPLED_PHASES)
+async def test_rx_utmi_reset_pulse_between_edges_is_not_sampled(dut, phase):
+    """Structural probe, not a UTMI-legal stimulus: a `Reset` pulse that rises
+    and falls between two clock edges is sampled by no edge, so a receiver
+    that consumes `Reset` only synchronously must ignore it completely -- the
+    packet in flight is received exactly, with no error. Any asynchronous
+    path from `Reset` into RX state (the former `int_rst_n` on the vendored
+    decoder's and destuffer's reset port, spec/decisions/0002 Decision 5)
+    clears the NRZI reference, the decoded bit in flight and the stuffing
+    run, which this test sees at the ports."""
+    await _start_clock(dut)
+    await _reset(dut)
+
+    payload = RX_RESET_ABORTED
+    cells, cut, run_expected, _delivered = _rx_reset_plan(phase)
+    cells = cells + [J_CELL] * IDLE_TAIL
+
+    trace = await _drive_rx_cells(dut, cells[:cut])
+    run = _probe_path(dut, "u_destuffer.ones_run", 3)
+    if run_expected is not None and run is not None:
+        assert run == run_expected, (
+            f"{phase}: injection coverage -- destuffer run {run}, expected {run_expected}")
+    before = _rx_ports(dut)
+    await Timer(5, unit="ns")
+    dut.Reset.value = 1
+    await Timer(5, unit="ns")
+    dut.Reset.value = 0
+    await Timer(1, unit="ns")
+    assert _rx_ports(dut) == before, f"{phase}: RX ports moved during the pulse"
+
+    trace = await _drive_rx_cells(dut, cells[cut:], trace)
+    assert trace["bytes"] == payload, (
+        f"{phase}: unsampled Reset pulse corrupted reception: "
+        f"{trace['bytes']} != {payload}")
+    assert not any(trace["error"]), f"{phase}: unsampled Reset pulse raised RxError"
+    _assert_rx_terminated(trace, phase)
 
 
 # ---------------------------------------------------------------------------

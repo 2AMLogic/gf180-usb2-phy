@@ -148,9 +148,10 @@
 // RX pipeline -- free-running NRZI decode, SYNC-searched, enable-gated
 // destuffing.
 //
-// `usb_nrzi_decoder` is fed continuously and never re-initialized after
-// the block's own reset (the canonical module has no `init` port at
-// all): `bit_strobe`/`bit_is_jk` are asserted whenever `line_state` is
+// `usb_nrzi_decoder` is fed continuously and never re-initialized except
+// by a reset (power-on `rst_n` on its asynchronous port, UTMI `Reset`
+// through `rx_clear` on the sampling edge; the canonical module has no
+// `init` port at all): `bit_strobe`/`bit_is_jk` are asserted whenever `line_state` is
 // a genuine J or K sample (never during SE0/SE1), so the decoder simply
 // holds across EOP/idle gaps and SE0 cells never decode as data. This
 // is deliberate, not an oversight: a mid-packet re-reference would be
@@ -205,9 +206,10 @@
 //   samples `Reset` high, never mid-clock. The vendored TX transforms'
 //   asynchronous reset port therefore sees only `rst_n`; `Reset` reaches
 //   them through their canonical inputs (`tx_clear`, issue #130,
-//   spec/decisions/0005). The RX vendored transforms still take
-//   `int_rst_n` on their asynchronous port (no UTMI output is a
-//   combinational function of their state; see that decision record).
+//   spec/decisions/0005). The RX vendored transforms are treated the
+//   same way (`rx_clear`, issue #132, spec/decisions/0006): their
+//   asynchronous port sees only `rst_n`, so `Reset` reaches no
+//   asynchronous reset pin anywhere in this block.
 //
 // Rate: one bit per clock throughout, at the spec #3 interface clock of
 // 12 MHz -- no oversampling, no dual-rate mode, high speed out of scope
@@ -486,18 +488,56 @@ module usb_utmi_phy (
   wire dec_data_strobe;
   wire dec_data_bit;
 
+  // UTMI Reset reaches the two vendored RX transforms SYNCHRONOUSLY too
+  // (issue #132, spec/decisions/0006 -- the RX counterpart of `tx_clear`).
+  // Their asynchronous reset port sees only the power-on `rst_n`, so a
+  // link-driven `Reset` no longer asserts and releases an asynchronous
+  // reset (no recovery/removal arc from the `Reset` input). While
+  // `int_rst_n` is low (`rx_clear`) the wrapper drives canonical inputs
+  // so the sampling edge produces the state the asynchronous reset used
+  // to, as far as anything downstream can see:
+  //   * decoder: one J/K strobe with `bit_level` = J loads the idle-J
+  //     NRZI reference (`prev_level` = 1) on every reset edge. The same
+  //     strobe also sets `data_strobe` (the asynchronous reset cleared
+  //     it), so `rx_dec_mask` -- high for exactly the one clock after an
+  //     edge that sampled `int_rst_n` low -- hides that one strobe from
+  //     the SYNC search and the destuffer. On the release edge the
+  //     decoder then strobes the line-state register's reset value (J)
+  //     against the J reference exactly as before, so from the release
+  //     edge on its `prev_level`/`data_strobe`/`data_bit` match the old
+  //     asynchronous behaviour cycle for cycle.
+  //   * destuffer: `enable` and `data_strobe` forced low on reset edges.
+  //     `enable` low zeroes the run counter, `data_strobe` low clears
+  //     `bit_valid` (the transparent branch would otherwise forward a
+  //     bit) and `stuff_err` is cleared by its own default. `out_bit`
+  //     holds instead of clearing; it is read only qualified by
+  //     `bit_valid` (byte assembly), so the difference is invisible.
+  // Every override is a D-input path sampled on the clock edge, so
+  // nothing at the RX ports can change between edges when `Reset` moves.
+  wire rx_clear = !int_rst_n;
+
+  reg rx_dec_mask;
+
+  always @(posedge clk) begin
+    rx_dec_mask <= rx_clear;
+  end
+
   usb_nrzi_decoder u_decoder (
       .clk_144     (clk),
-      .rst_144_n   (int_rst_n),
-      .bit_strobe  (dec_bit_strobe),
-      .bit_level   (dec_bit_level),
+      .rst_144_n   (rst_n),
+      .bit_strobe  (dec_bit_strobe || rx_clear),
+      .bit_level   (dec_bit_level  || rx_clear),
       // `bit_is_jk` from the line-state decode: the strobe itself is
       // only asserted on genuine J/K samples, so SE0/SE1 cells (EOP,
-      // bus reset) are never decoded as data -- see the header.
-      .bit_is_jk   (dec_bit_strobe),
+      // bus reset) are never decoded as data -- see the header. Forced
+      // with the strobe while `rx_clear` loads the J reference.
+      .bit_is_jk   (dec_bit_strobe || rx_clear),
       .data_strobe (dec_data_strobe),
       .data_bit    (dec_data_bit)
   );
+
+  // The decoder's strobe as the rest of the RX pipeline sees it.
+  wire rx_dec_strobe = dec_data_strobe && !rx_dec_mask;
 
   reg rx_receiving;
 
@@ -511,7 +551,7 @@ module usb_utmi_phy (
       .clk        (clk),
       .rst_n      (int_rst_n),
       .enable     (!rx_receiving),
-      .data_valid (dec_data_strobe),
+      .data_valid (rx_dec_strobe),
       .data_bit   (dec_data_bit),
       .sync_valid (),
       .sync_next  (sync_next)
@@ -534,13 +574,14 @@ module usb_utmi_phy (
 
   usb_bit_destuffer u_destuffer (
       .clk_144     (clk),
-      .rst_144_n   (int_rst_n),
+      .rst_144_n   (rst_n),
       // SOP..EOP gating -- the canonical `enable`, replacing the former
       // per-packet `init`: armed by `sync_next` one clock before the
       // first post-SYNC bit arrives here, dropped by EOP/bus-reset,
-      // which also resets the run counter for the next packet.
-      .enable      (rx_receiving),
-      .data_strobe (dec_data_strobe),
+      // which also resets the run counter for the next packet. Both
+      // inputs are forced low while `rx_clear` (see the decoder above).
+      .enable      (rx_receiving  && !rx_clear),
+      .data_strobe (rx_dec_strobe && !rx_clear),
       .data_bit    (dec_data_bit),
       .bit_valid   (rx_bit_valid),
       .out_bit     (rx_out_bit),
