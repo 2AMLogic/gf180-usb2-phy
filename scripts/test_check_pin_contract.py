@@ -68,8 +68,8 @@ class PinContractTests(unittest.TestCase):
 
     def test_new_uncovered_pin_fails(self):
         self.edit("design/netlist/differential_driver.spice",
-                  ".subckt differential_driver VDD", ".subckt differential_driver TXOE VDD")
-        self.assertTrue(any("not covered" in e or "TXOE" in e for e in cpc.check(self.root)))
+                  ".subckt differential_driver VDD", ".subckt differential_driver NEWPIN VDD")
+        self.assertTrue(any("not covered" in e or "NEWPIN" in e for e in cpc.check(self.root)))
 
     # Uses trim[4:0] (planned-dig, #115); PU_EN (#112) and the digital txoe
     # port (#113) have landed and their rows are current / planned-ana.

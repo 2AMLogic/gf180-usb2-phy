@@ -24,6 +24,7 @@ The supply is driven through the voltage source named by ``klt_supply_source``
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import subprocess
 import tempfile
@@ -68,6 +69,25 @@ def _scale(manifest: dict, name: str) -> float:
     return float(entry.get("scale", 1.0)) if isinstance(entry, dict) else 1.0
 
 
+def _design_include(pdk: Pdk) -> str:
+    """The PDK ``design.ngspice`` path, spelled so an off-host runner can resolve it.
+
+    ``klt sim`` leaves an include that names ``$PDK_ROOT`` verbatim (the
+    executing host owns its resolution) but also leaves verbatim an absolute
+    path under the submitting host's PDK root -- which does not exist on the
+    batch fleet (it keeps the PDK elsewhere), so the deck dies at the include.
+    Spelling the path relative to ``$PDK_ROOT`` works on both; ``run_grid_klt``
+    exports ``PDK_ROOT`` to the ``klt`` subprocess so the local backend resolves
+    it to the same file.
+    """
+    root = pdk.path.parent
+    try:
+        rel = pdk.design_include.relative_to(root)
+    except ValueError:
+        return str(pdk.design_include)
+    return f"$PDK_ROOT/{rel.as_posix()}"
+
+
 def build_request(
     tb: Testbench,
     pdk: Pdk,
@@ -103,7 +123,7 @@ def build_request(
     ]
     for key, value in tb.params.items():
         body.append(f".param {key}={value}")
-    body.append(f'.include "{pdk.design_include}"')
+    body.append(f'.include "{_design_include(pdk)}"')
     if tb.dut is not None:
         body.append(f'.include "{tb.dut}"')
     body.append(f'.include "{tb.netlist}"')
@@ -177,7 +197,10 @@ def run_grid_klt(
         cmd += ["--backend", backend]
     started = time.monotonic()
     try:
-        proc = subprocess.run(cmd, capture_output=True, text=True, check=False)
+        proc = subprocess.run(
+            cmd, capture_output=True, text=True, check=False,
+            env={**os.environ, "PDK_ROOT": str(pdk.path.parent)},
+        )
     except FileNotFoundError as exc:
         raise KltError(f"{KLT} not found on PATH; cannot run `klt sim`") from exc
     wall = time.monotonic() - started
