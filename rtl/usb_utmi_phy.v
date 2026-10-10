@@ -87,6 +87,12 @@
 // directory's Verilog convention):
 //
 //   txdp, txdm  -- drive the differential driver's TXDP/TXDM inputs.
+//   txoe        -- driver output enable for the differential driver's
+//                  TXOE (pin contract, spec/decisions/0004): high for
+//                  exactly the states where the wrapper drives the line
+//                  (`tx_state != TX_IDLE`: SYNC through the final EOPJ
+//                  bit), low otherwise so the driver is high-Z while
+//                  receiving or idle.
 //   rxdp, rxdm  -- read from the two single-ended receivers' RXDP/RXDM
 //                  outputs.
 //
@@ -238,6 +244,7 @@ module usb_utmi_phy (
     // Wire-level TX -- drives design/differential_driver.sch's TXDP/TXDM
     output wire txdp,
     output wire txdm,
+    output wire txoe,   // driver enable: high while tx_state != TX_IDLE
 
     // Wire-level RX -- from design/se_receiver_dp.sch / se_receiver_dm.sch
     input  wire rxdp,
@@ -461,6 +468,10 @@ module usb_utmi_phy (
                 (tx_state == TX_EOPJ)                       ? 1'b0 :
                 tx_line_phase                                ? ~nrzi_level :
                                                                 1'b0;  // idle J
+
+  // txoe: the wrapper owns the line in every non-IDLE TX state (SYNC,
+  // DATA, FLUSH, HOLD, EOP0, EOP1, EOPJ), including the final J bit.
+  assign txoe = (tx_state != TX_IDLE);
 
   // ---------------------------------------------------------------------
   // RX path: vendored usb_nrzi_decoder (free-running, strobed only on
