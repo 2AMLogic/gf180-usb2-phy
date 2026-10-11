@@ -1348,11 +1348,14 @@ async def _inert_run(dut, opmode, xcvr, suspend):
     trace = {name: [] for name in _INERT_SIGNALS}
 
     def sample():
+        rx_valid = int(dut.RxValid.value)
         for name in _INERT_SIGNALS:
-            v = int(getattr(dut, name).value)
-            if name == "DataIn" and not int(dut.RxValid.value):
-                v = None  # DataIn is only defined while RxValid pulses
-            trace[name].append(v)
+            if name == "DataIn" and not rx_valid:
+                # DataIn is an unreset hold register, only defined while
+                # RxValid pulses; do not read it (it may still be X).
+                trace[name].append(None)
+                continue
+            trace[name].append(int(getattr(dut, name).value))
 
     # Loopback TX packet: the wire is mirrored back onto rxdp/rxdm.
     sent = 0
@@ -1384,16 +1387,20 @@ async def _inert_run(dut, opmode, xcvr, suspend):
     return trace
 
 
+# Variant id -> (description, OpMode, XcvrSelect, SuspendM). The ids are
+# short identifiers so cocotb shows them in the test name
+# (e.g. ``test_unconsumed_pins_are_inert/variant=opmode11``).
+_INERT_VARIANTS = {
+    "xcvr0": ("XcvrSelect=0", 0b00, 0, 1),
+    "suspend0": ("SuspendM=0", 0b00, 1, 0),
+    "opmode01": ("OpMode=01", 0b01, 1, 1),
+    "opmode11": ("OpMode=11", 0b11, 1, 1),
+    "all": ("all non-baseline", 0b11, 0, 0),
+}
+
+
 @cocotb.test()
-@cocotb.parametrize(
-    variant=[
-        ("XcvrSelect=0", 0b00, 0, 1),
-        ("SuspendM=0", 0b00, 1, 0),
-        ("OpMode=01", 0b01, 1, 1),
-        ("OpMode=11", 0b11, 1, 1),
-        ("all non-baseline", 0b11, 0, 0),
-    ],
-)
+@cocotb.parametrize(variant=list(_INERT_VARIANTS))
 async def test_unconsumed_pins_are_inert(dut, variant):
     """Pins `XcvrSelect`, `SuspendM` and non-raw `OpMode` (00/01/11) have no
     effect on a loopback TX packet plus an RX frame: wire (txdp/txdm/txoe),
@@ -1404,7 +1411,7 @@ async def test_unconsumed_pins_are_inert(dut, variant):
     it does not assert that these pins should be inert. OpMode=10 (raw) is
     covered by test_raw_mode_puts_payload_on_the_wire_unencoded."""
     await _start_clock(dut)
-    name, opmode, xcvr, suspend = variant
+    name, opmode, xcvr, suspend = _INERT_VARIANTS[variant]
 
     base = await _inert_run(dut, 0b00, 1, 1)
     # The baseline must actually exercise the paths being compared.
