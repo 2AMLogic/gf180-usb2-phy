@@ -1325,3 +1325,97 @@ async def test_pu_en_follows_termselect_gated_by_rst_n(dut):
 
     # Restore testbench inputs.
     await _reset(dut)
+
+
+# ---------------------------------------------------------------------------
+# Pin inertness (issue #155)
+# ---------------------------------------------------------------------------
+
+INERT_PAYLOAD = [0x5A, 0xFF, 0x3C, 0xFC]
+INERT_RX_PAYLOAD = [0x00, 0xFF, 0xA5]
+INERT_TX_CYCLES = 80
+_INERT_SIGNALS = ("txdp", "txdm", "txoe", "TxReady", "RxValid", "RxActive",
+                  "RxError", "DataIn", "LineState", "pu_en")
+
+
+async def _inert_run(dut, opmode, xcvr, suspend):
+    """Reset, apply the pin values, then run a loopback TX packet and a
+    wire-driven RX frame, recording every output after each clock."""
+    await _reset(dut)
+    dut.OpMode.value = opmode
+    dut.XcvrSelect.value = xcvr
+    dut.SuspendM.value = suspend
+    trace = {name: [] for name in _INERT_SIGNALS}
+
+    def sample():
+        for name in _INERT_SIGNALS:
+            v = int(getattr(dut, name).value)
+            if name == "DataIn" and not int(dut.RxValid.value):
+                v = None  # DataIn is only defined while RxValid pulses
+            trace[name].append(v)
+
+    # Loopback TX packet: the wire is mirrored back onto rxdp/rxdm.
+    sent = 0
+    for _ in range(INERT_TX_CYCLES):
+        have = sent < len(INERT_PAYLOAD)
+        dut.TxValid.value = 1 if have else 0
+        dut.DataOut.value = INERT_PAYLOAD[sent] if have else 0
+        ready = int(dut.TxReady.value)
+        await RisingEdge(dut.clk)
+        await FallingEdge(dut.clk)
+        if have and ready:
+            sent += 1
+        sample()
+        dut.rxdp.value = int(dut.txdp.value)
+        dut.rxdm.value = int(dut.txdm.value)
+    assert sent == len(INERT_PAYLOAD), "inertness run: TX packet not fully accepted"
+    dut.TxValid.value = 0
+    dut.DataOut.value = 0
+
+    # Wire-driven RX frame.
+    cells = ([J_CELL] * IDLE_LEAD + _rx_frame_cells(_good_body(INERT_RX_PAYLOAD))
+             + [J_CELL] * IDLE_TAIL)
+    for dp, dm in cells:
+        dut.rxdp.value = dp
+        dut.rxdm.value = dm
+        await RisingEdge(dut.clk)
+        await FallingEdge(dut.clk)
+        sample()
+    return trace
+
+
+@cocotb.test()
+@cocotb.parametrize(
+    variant=[
+        ("XcvrSelect=0", 0b00, 0, 1),
+        ("SuspendM=0", 0b00, 1, 0),
+        ("OpMode=01", 0b01, 1, 1),
+        ("OpMode=11", 0b11, 1, 1),
+        ("all non-baseline", 0b11, 0, 0),
+    ],
+)
+async def test_unconsumed_pins_are_inert(dut, variant):
+    """Pins `XcvrSelect`, `SuspendM` and non-raw `OpMode` (00/01/11) have no
+    effect on a loopback TX packet plus an RX frame: wire (txdp/txdm/txoe),
+    TxReady, RxData/RxValid/RxActive/RxError, LineState and pu_en traces are
+    cycle-identical to the baseline (OpMode=00, XcvrSelect=1, SuspendM=1).
+
+    This pins the CURRENT, documented behaviour (rtl/usb_utmi_phy.v header);
+    it does not assert that these pins should be inert. OpMode=10 (raw) is
+    covered by test_raw_mode_puts_payload_on_the_wire_unencoded."""
+    await _start_clock(dut)
+    name, opmode, xcvr, suspend = variant
+
+    base = await _inert_run(dut, 0b00, 1, 1)
+    # The baseline must actually exercise the paths being compared.
+    assert (0, 1) in list(zip(base["txdp"], base["txdm"])), "no K on the wire"
+    assert any(base["txoe"]) and any(base["RxActive"]) and any(base["RxValid"])
+
+    got = await _inert_run(dut, opmode, xcvr, suspend)
+    for sig in _INERT_SIGNALS:
+        assert got[sig] == base[sig], (
+            f"{name}: {sig} trace differs from baseline at cycle "
+            f"{next(i for i, (a, b) in enumerate(zip(got[sig], base[sig])) if a != b)}"
+        )
+
+    await _reset(dut)
