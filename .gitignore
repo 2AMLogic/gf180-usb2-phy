@@ -69,6 +69,8 @@ results_icarus.xml
 .loom/targets/
 .loom/target*/
 .cargo-target*/
+.loom-target/
+/target-*/
 .loom/state/*
 !.loom/state/detect-unlabeled-epics-dismissed
 .loom/stats/
