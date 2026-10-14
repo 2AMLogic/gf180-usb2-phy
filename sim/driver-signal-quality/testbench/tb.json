@@ -18,6 +18,17 @@
     "meas tran v_xr FIND v(dp) AT=$&t_xr",
     "meas tran v_xf FIND v(dp) AT=$&t_xf"
   ],
+  "klt_supply_source": "vsup",
+  "klt_measure": {
+    "trise_ns": {"spice": ".meas tran trise_ns TRIG v(dpn) VAL=0.1 RISE=1 TARG v(dpn) VAL=0.9 RISE=1", "scale": 1e9},
+    "tfall_ns": {"spice": ".meas tran tfall_ns TRIG v(dpn) VAL=0.9 FALL=1 TARG v(dpn) VAL=0.1 FALL=1", "scale": 1e9},
+    "trf_ratio": {"spice": ".meas tran trf_ratio param='trise_ns/tfall_ns'"},
+    "vcross_rise": {"spice": ".meas tran vcross_rise FIND v(dp) WHEN v(dp)=v(dm) RISE=1"},
+    "vcross_fall": {"spice": ".meas tran vcross_fall FIND v(dp) WHEN v(dp)=v(dm) FALL=1"},
+    "xing_extra_ps": {"spice": ".meas tran xlast WHEN v(dp)=v(dm) CROSS=LAST\n.meas tran xfall WHEN v(dp)=v(dm) FALL=1\n.meas tran xing_extra_ps param='(xlast-xfall)*1e12'"},
+    "dp_over_mv": {"spice": ".meas tran dp_over_mv MAX v(dpo)", "scale": 1e3},
+    "dp_under_mv": {"spice": ".meas tran dp_under_mv MIN v(dp)", "scale": 1e3}
+  },
   "measure": {
     "trise_ns": "t_rise*1e9",
     "tfall_ns": "t_fall*1e9",

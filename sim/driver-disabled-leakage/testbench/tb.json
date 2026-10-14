@@ -1,0 +1,115 @@
+{
+  "name": "driver-disabled-leakage",
+  "description": "Differential driver with TXOE low on an externally driven DP/DM bus: pad current for every J/K/SE0/SE1 pad state and TXDP/TXDM combination, input toggling while disabled, enable/disable transitions, and an enabled opposing-drive contention control. Engineering data -- no numeric leakage limit is adopted.",
+  "claim": "design/README.md (issue #114) and spec/decisions/0004-digital-analog-pin-contract.md pin TXOE: with TXOE=0 the DP/DM outputs are high-Z. spec/usb2-device-phy.md has no numeric leakage row, so this record reports measured absolute current with NO spec limit attached; the only check is a harness-integrity check that the enabled opposing-drive control produces detectable contention.",
+  "netlist": "driver_disabled_tb.spice",
+  "dut": "design/netlist/differential_driver.spice",
+  "nominal_supply_v": 3.3,
+  "supply_tolerance": 0.1,
+  "temperatures_c": [
+    -40,
+    27,
+    125
+  ],
+  "corners": [
+    "mos"
+  ],
+  "analyses": [
+    "tran 100p 1400n"
+  ],
+  "klt_supply_source": "vsup",
+  "klt_measure": {
+    "leak_se0_dp_na": {
+      "spice": ".meas tran leak_se0_dp_na MAX v(w_se0_dp)",
+      "scale": 1000000000.0
+    },
+    "leak_se0_dm_na": {
+      "spice": ".meas tran leak_se0_dm_na MAX v(w_se0_dm)",
+      "scale": 1000000000.0
+    },
+    "leak_j_dp_na": {
+      "spice": ".meas tran leak_j_dp_na MAX v(w_j_dp)",
+      "scale": 1000000000.0
+    },
+    "leak_j_dm_na": {
+      "spice": ".meas tran leak_j_dm_na MAX v(w_j_dm)",
+      "scale": 1000000000.0
+    },
+    "leak_k_dp_na": {
+      "spice": ".meas tran leak_k_dp_na MAX v(w_k_dp)",
+      "scale": 1000000000.0
+    },
+    "leak_k_dm_na": {
+      "spice": ".meas tran leak_k_dm_na MAX v(w_k_dm)",
+      "scale": 1000000000.0
+    },
+    "leak_se1_dp_na": {
+      "spice": ".meas tran leak_se1_dp_na MAX v(w_se1_dp)",
+      "scale": 1000000000.0
+    },
+    "leak_se1_dm_na": {
+      "spice": ".meas tran leak_se1_dm_na MAX v(w_se1_dm)",
+      "scale": 1000000000.0
+    },
+    "leak_worst_na": {
+      "spice": ".meas tran leak_worst_na MAX v(w_all)",
+      "scale": 1000000000.0
+    },
+    "toggle_peak_dp_na": {
+      "spice": ".meas tran toggle_peak_dp_na MAX v(w_tog_dp)",
+      "scale": 1000000000.0
+    },
+    "contention_dp_ua": {
+      "spice": ".meas tran contention_dp_ua MAX v(w_con_dp)",
+      "scale": 1000000.0
+    },
+    "toggle_peak_dm_na": {
+      "spice": ".meas tran toggle_peak_dm_na MAX v(w_tog_dm)",
+      "scale": 1000000000.0
+    },
+    "contention_dm_ua": {
+      "spice": ".meas tran contention_dm_ua MAX v(w_con_dm)",
+      "scale": 1000000.0
+    },
+    "release_na": {
+      "spice": ".meas tran release_na MAX v(w_rel)",
+      "scale": 1000000000.0
+    },
+    "enabled_matched_na": {
+      "spice": ".meas tran enabled_matched_na MAX v(w_en)",
+      "scale": 1000000000.0
+    },
+    "transition_peak_ua": {
+      "spice": ".meas tran transition_peak_ua MAX v(w_trn)",
+      "scale": 1000000.0
+    }
+  },
+  "measure": {
+    "leak_se0_dp_na": "maximum(v(w_se0_dp))*1e9",
+    "leak_se0_dm_na": "maximum(v(w_se0_dm))*1e9",
+    "leak_j_dp_na": "maximum(v(w_j_dp))*1e9",
+    "leak_j_dm_na": "maximum(v(w_j_dm))*1e9",
+    "leak_k_dp_na": "maximum(v(w_k_dp))*1e9",
+    "leak_k_dm_na": "maximum(v(w_k_dm))*1e9",
+    "leak_se1_dp_na": "maximum(v(w_se1_dp))*1e9",
+    "leak_se1_dm_na": "maximum(v(w_se1_dm))*1e9",
+    "leak_worst_na": "maximum(v(w_all))*1e9",
+    "toggle_peak_dp_na": "maximum(v(w_tog_dp))*1e9",
+    "contention_dp_ua": "maximum(v(w_con_dp))*1e6",
+    "toggle_peak_dm_na": "maximum(v(w_tog_dm))*1e9",
+    "contention_dm_ua": "maximum(v(w_con_dm))*1e6",
+    "release_na": "maximum(v(w_rel))*1e9",
+    "enabled_matched_na": "maximum(v(w_en))*1e9",
+    "transition_peak_ua": "maximum(v(w_trn))*1e6"
+  },
+  "checks": {
+    "contention_dp_ua": {
+      "min": 1000.0,
+      "description": "harness integrity, NOT a spec row: with the driver deliberately enabled against an opposing 3.3 V / 0 V source the pad current must exceed 1 mA, otherwise the current meter could not have seen a fight and the disabled-state numbers would prove nothing. The 1 mA floor is an arbitrary detection margin chosen here (three orders above the observed disabled leakage scale), not a USB number."
+    },
+    "contention_dm_ua": {
+      "min": 1000.0,
+      "description": "harness integrity, NOT a spec row: same detection control for DM"
+    }
+  }
+}
