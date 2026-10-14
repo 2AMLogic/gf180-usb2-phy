@@ -36,7 +36,7 @@ and so `TxReady`, which is the same hazard on the handshake (not
 separately observed in the failing cases). The post-edge behaviour and
 the next packet were already correct. Only the timing of the reset was
 wrong. Evidence:
-`verification/records/utmi-framing-functional/records/20261009-140000-5e89df9.md`.
+`verification/records/utmi-framing-functional/records/20261009-141010-5e89df9.md`.
 
 ## Decision
 
