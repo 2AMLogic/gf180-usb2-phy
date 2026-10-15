@@ -1,0 +1,1312 @@
+{
+  "schema_version": 1,
+  "engine": "openroad",
+  "engine_version": "26Q3-1510-g6cb3f2b704",
+  "engine_logs": [
+    {
+      "invocation_id": "7253e992727f460b809efc3a98df5347",
+      "script_name": "pnr_usb_utmi_phy_floorplan.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "94d7cf9ae0db34038ca57282aa417d9b28f169df0c725b2cfb6b7510fe27edfc",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "55f5d631736840b5a67e199bedb5c0e2",
+      "script_name": "pnr_usb_utmi_phy_place.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "fe1534b0b3212b3d81c33abaced01fe6ff3aa5077175e5ce3fff6e570d37b999",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "ab03cb9316cb40129465669ce78300de",
+      "script_name": "pnr_usb_utmi_phy_cts.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "83074dc51bad433d5bedad23ad3ae8ddc3db107daf7e02600d5a633ec9afe995",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "03ac9664d9204e309a336e58ebe13c40",
+      "script_name": "pnr_usb_utmi_phy_route.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "3ff82186aed8e28280b1f80c1b104af8927535a331a526ff94dab0ea28722c53",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "2bebcaf0b5344b8889759def22507c92",
+      "script_name": "pnr_usb_utmi_phy_route_corners.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "a8e3b02995f94b2a86ac33ee6beeef1cecc2bf0bd2b5ee7db7abd2fa0ed651cc",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "947fc09780df40e497a2a8156c9cc679",
+      "script_name": "pnr_usb_utmi_phy_route_corner_ff_125C_1v98.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "ef51cd8abf0083a69bbd98ce391b9ad12c2c1d5581897c477900404e9e8eede7",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "698d589c30b74e3393edf9d3e836bed1",
+      "script_name": "pnr_usb_utmi_phy_route_corner_ff_125C_3v60.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "5aef780282fbb694f467a488ac5b968c163363602a0128c8ba3d1f13ae2430d2",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "aa48aba1f1f04e33a878dacd9f716bcb",
+      "script_name": "pnr_usb_utmi_phy_route_corner_ff_125C_5v50.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "5e71861f2d3911cd8232c930788edcc35a8d6134f9986833ec043a961b252f44",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "0aa9801136704de6ade2916a0d367bab",
+      "script_name": "pnr_usb_utmi_phy_route_corner_ff_n40C_1v98.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "a399a774d5147315e2a1e5bd32e9d6d90db8fb4abd13501759d499d79ebba1f6",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "77c38f83597549e689a4293e7cb88612",
+      "script_name": "pnr_usb_utmi_phy_route_corner_ff_n40C_3v60.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "f7a4a67a88bae3ea779028f8761498a539c67d07d85c954debb4b787e5337132",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "176fe07da64b40e9ab7587ee7bfa8e07",
+      "script_name": "pnr_usb_utmi_phy_route_corner_ff_n40C_5v50.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "72127d0261847c26cc74d96f72bdf899daf09d1688d9458b962e908f7825b75b",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "b5b02b7fe94a4cd2928bf3d66fbbbbfb",
+      "script_name": "pnr_usb_utmi_phy_route_corner_ss_125C_1v62.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "b9d1e77df18216009a9f3c992d0b04043dbff1b010ebc7d81b9809f13bc298de",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "f71a717967974bdfa77ef485786012c1",
+      "script_name": "pnr_usb_utmi_phy_route_corner_ss_125C_3v00.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "5125d801f3c7c0d0af27666ee2eb550534aa0d3ad7636032245db146100a95e6",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "f5f5185efcf54a42a065c2b26558cd6d",
+      "script_name": "pnr_usb_utmi_phy_route_corner_ss_125C_4v50.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "6c7ec45b4f120ca9ce4795484002ff4d5c4d5e359d8d4a6830381f40bbc94a46",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "5cd6b97f62d34a948cefe445cbc8e57e",
+      "script_name": "pnr_usb_utmi_phy_route_corner_ss_n40C_1v62.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "426473d7085e3c5c95bf77b5ffaa1611daa8dc75d8b9b306b7614d922d848e29",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "727458257bbd4d2baf1471effa0b6b96",
+      "script_name": "pnr_usb_utmi_phy_route_corner_ss_n40C_3v00.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "b704f35b8bf0a94be7fcb636239a3b1eb46bacee32cb75f31e76de7ecae5070d",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "09bb007d94504e178199ff5f9ba70378",
+      "script_name": "pnr_usb_utmi_phy_route_corner_ss_n40C_4v50.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "d50b00d522e2a321c83299be815f768dff52034520f3682f5837979e2c2d99d1",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "393ee82b945e4d7ebe9535279ba95009",
+      "script_name": "pnr_usb_utmi_phy_route_corner_tt_025C_1v80.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "ea260a99731c44c9686d7679d018e075886b17fbcaa9dbb1377b295bd5c47183",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "d1e68e6f98c944239ed655aad20a4369",
+      "script_name": "pnr_usb_utmi_phy_route_corner_tt_025C_3v30.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "74f05c5ec79fcf35ea22e96205877264ac1c9ba4907b77eb67040a3236e615fd",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "370ae2beb1854d0a81219d9961abcd37",
+      "script_name": "pnr_usb_utmi_phy_route_corner_tt_025C_5v00.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "ab3b7b7b131e2c94c0213df6a0f075a60572d0d9a4bdd3f6788b53f9c7cb9cba",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "7e6f30f135864b0f9bc0d76539fac29b",
+      "script_name": "pnr_usb_utmi_phy_route_spef.tcl",
+      "script_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "script_sha256": "4bb5471f4cc15ce2cd88d0595bc5555ef312907b7f59b54c2366b8f69be21f02",
+      "metrics_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "outcome": "exited",
+      "returncode": 0,
+      "directory": {
+        "path": null,
+        "scope": "external"
+      },
+      "stdout_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "stderr_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "metadata_path": {
+        "path": null,
+        "scope": "external"
+      },
+      "retention_errors": []
+    }
+  ],
+  "hdl_toplevel": "usb_utmi_phy",
+  "status": "ok",
+  "stage_reached": "route",
+  "seed": 1,
+  "coverage": {
+    "metal_density_fill": {
+      "status": "unsupported",
+      "inserted": false,
+      "reason": "no metal density fill is inserted at any stage; standard-cell gap fillers are not metal fill"
+    },
+    "density_compliance": {
+      "status": "unsupported",
+      "evaluated": false,
+      "reason": "metal density rules are not evaluated by place-and-route; a zero route_drc_violation_count does not imply density compliance"
+    }
+  },
+  "interconnect_corner": "nom",
+  "die_area_um2": 34881.2,
+  "core_area_um2": 31413.3,
+  "utilization_pct": 43.6927,
+  "wirelength_um": 13140,
+  "worst_slack_ns": 60.8235,
+  "total_negative_slack_ns": 0,
+  "fmax_mhz": 44.4256,
+  "setup_violation_count": 0,
+  "hold_violation_count": 0,
+  "nominal_hold_slack_ns": 2.45208,
+  "antenna_violation_count": 0,
+  "route_drc_violation_count": 0,
+  "estimated_power_mw": 0.139,
+  "clock_skew_ns": 0.11619,
+  "worst_setup_slack_ns": 27.4122,
+  "worst_hold_slack_ns": 0.41107,
+  "corners": [
+    {
+      "name": "ff_125C_1v98",
+      "setup_slack_ns": 68.8982,
+      "hold_slack_ns": 1.57139,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ff_125C_3v60",
+      "setup_slack_ns": 75.9916,
+      "hold_slack_ns": 0.80847,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ff_125C_5v50",
+      "setup_slack_ns": 78.057,
+      "hold_slack_ns": 0.58045,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ff_n40C_1v98",
+      "setup_slack_ns": 72.8914,
+      "hold_slack_ns": 1.15334,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ff_n40C_3v60",
+      "setup_slack_ns": 78.3186,
+      "hold_slack_ns": 0.55725,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ff_n40C_5v50",
+      "setup_slack_ns": 79.6266,
+      "hold_slack_ns": 0.41107,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ss_125C_1v62",
+      "setup_slack_ns": 27.4122,
+      "hold_slack_ns": 5.9085,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ss_125C_3v00",
+      "setup_slack_ns": 66.0061,
+      "hold_slack_ns": 1.90914,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ss_125C_4v50",
+      "setup_slack_ns": 72.5596,
+      "hold_slack_ns": 1.20149,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ss_n40C_1v62",
+      "setup_slack_ns": 31.5055,
+      "hold_slack_ns": 5.54228,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ss_n40C_3v00",
+      "setup_slack_ns": 71.6185,
+      "hold_slack_ns": 1.30387,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ss_n40C_4v50",
+      "setup_slack_ns": 76.0415,
+      "hold_slack_ns": 0.82368,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "tt_025C_1v80",
+      "setup_slack_ns": 60.5981,
+      "hold_slack_ns": 2.45313,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "tt_025C_3v30",
+      "setup_slack_ns": 74.6683,
+      "hold_slack_ns": 0.96618,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "tt_025C_5v00",
+      "setup_slack_ns": 77.4675,
+      "hold_slack_ns": 0.66084,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    }
+  ],
+  "max_transition_violation_count": 0,
+  "max_capacitance_violation_count": 0,
+  "max_transition_violation_count_vs_library": 0,
+  "max_capacitance_violation_count_vs_library": 0,
+  "timing_status": "constrained",
+  "stages": [
+    {
+      "name": "floorplan",
+      "die_area_um2": 34881.2,
+      "core_area_um2": 31413.3,
+      "utilization_pct": 42.2731,
+      "worst_slack_ns": 62.9318,
+      "total_negative_slack_ns": 0,
+      "timing_status": "constrained"
+    },
+    {
+      "name": "place",
+      "die_area_um2": 34881.2,
+      "core_area_um2": 31413.3,
+      "utilization_pct": 41.7161,
+      "worst_slack_ns": 61.2911,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 10216.7,
+      "fmax_mhz": 45.368,
+      "estimated_power_mw": 0.0876,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "nominal_hold_slack_ns": 2.33212,
+      "timing_status": "constrained"
+    },
+    {
+      "name": "cts",
+      "die_area_um2": 34881.2,
+      "core_area_um2": 31413.3,
+      "utilization_pct": 43.6927,
+      "worst_slack_ns": 61.1811,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 11018.3,
+      "fmax_mhz": 45.1428,
+      "estimated_power_mw": 0.1359,
+      "clock_skew_ns": 0.06615,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "nominal_hold_slack_ns": 2.37903,
+      "timing_status": "constrained"
+    },
+    {
+      "name": "route",
+      "die_area_um2": 34881.2,
+      "core_area_um2": 31413.3,
+      "utilization_pct": 43.6927,
+      "worst_slack_ns": 60.8235,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 13140,
+      "fmax_mhz": 44.4256,
+      "estimated_power_mw": 0.139,
+      "clock_skew_ns": 0.11619,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "nominal_hold_slack_ns": 2.45208,
+      "antenna_violation_count": 0,
+      "route_drc_violation_count": 0,
+      "worst_setup_slack_ns": 27.4122,
+      "worst_hold_slack_ns": 0.41107,
+      "corners": [
+        {
+          "name": "ff_125C_1v98",
+          "setup_slack_ns": 68.8982,
+          "hold_slack_ns": 1.57139,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ff_125C_3v60",
+          "setup_slack_ns": 75.9916,
+          "hold_slack_ns": 0.80847,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ff_125C_5v50",
+          "setup_slack_ns": 78.057,
+          "hold_slack_ns": 0.58045,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ff_n40C_1v98",
+          "setup_slack_ns": 72.8914,
+          "hold_slack_ns": 1.15334,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ff_n40C_3v60",
+          "setup_slack_ns": 78.3186,
+          "hold_slack_ns": 0.55725,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ff_n40C_5v50",
+          "setup_slack_ns": 79.6266,
+          "hold_slack_ns": 0.41107,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ss_125C_1v62",
+          "setup_slack_ns": 27.4122,
+          "hold_slack_ns": 5.9085,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ss_125C_3v00",
+          "setup_slack_ns": 66.0061,
+          "hold_slack_ns": 1.90914,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ss_125C_4v50",
+          "setup_slack_ns": 72.5596,
+          "hold_slack_ns": 1.20149,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ss_n40C_1v62",
+          "setup_slack_ns": 31.5055,
+          "hold_slack_ns": 5.54228,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ss_n40C_3v00",
+          "setup_slack_ns": 71.6185,
+          "hold_slack_ns": 1.30387,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ss_n40C_4v50",
+          "setup_slack_ns": 76.0415,
+          "hold_slack_ns": 0.82368,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "tt_025C_1v80",
+          "setup_slack_ns": 60.5981,
+          "hold_slack_ns": 2.45313,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "tt_025C_3v30",
+          "setup_slack_ns": 74.6683,
+          "hold_slack_ns": 0.96618,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "tt_025C_5v00",
+          "setup_slack_ns": 77.4675,
+          "hold_slack_ns": 0.66084,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        }
+      ],
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0,
+      "timing_status": "constrained"
+    }
+  ],
+  "macros": [],
+  "def_path": "<scratch>/.klt/place-and-route/usb_utmi_phy.def",
+  "unrouted_def_path": null,
+  "gds_path": "<scratch>/.klt/place-and-route/usb_utmi_phy.gds",
+  "layer_map": {
+    "path": "/home/ubuntu/.volare/gf180mcuD/libs.tech/klayout/tech/gf180mcu.map",
+    "resolution": "family"
+  },
+  "def_net_names": {
+    "single_pin_markers": 1,
+    "unresolved_single_pin_nets": []
+  },
+  "min_area_repair": {
+    "status": "skipped",
+    "reason": "the curated deck for PDK variant 'gf180mcuD' carries no plain minimum-area rule on any routed-net layer",
+    "patches": 0,
+    "repaired": 0,
+    "remaining": 0,
+    "rules": [],
+    "unrepaired": []
+  },
+  "verilog_path": "<scratch>/.klt/place-and-route/usb_utmi_phy.v",
+  "spef_sta": {
+    "spef_path": "<scratch>/.klt/place-and-route/usb_utmi_phy_route.spef",
+    "sdf_path": "<scratch>/.klt/place-and-route/usb_utmi_phy_route.sdf",
+    "worst_slack_ns": 59.8678,
+    "total_negative_slack_ns": 0,
+    "timing_status": "constrained",
+    "setup_violation_count": 0,
+    "hold_violation_count": 0,
+    "nets_annotated": 359,
+    "nets_total": 972,
+    "design_nets_annotated": 359,
+    "design_nets_total": 359,
+    "annotation_complete": true,
+    "annotation_warning": null
+  },
+  "power": {
+    "preset": null,
+    "pdn": true,
+    "global_connect": true,
+    "power_net": "VDD",
+    "ground_net": "VSS",
+    "tapcell_master": "gf180mcu_fd_sc_mcu9t5v0__filltie",
+    "endcap_master": "gf180mcu_fd_sc_mcu9t5v0__endcap",
+    "filler_masters": [
+      "gf180mcu_fd_sc_mcu9t5v0__fill_64",
+      "gf180mcu_fd_sc_mcu9t5v0__fill_32",
+      "gf180mcu_fd_sc_mcu9t5v0__fill_16",
+      "gf180mcu_fd_sc_mcu9t5v0__fill_8",
+      "gf180mcu_fd_sc_mcu9t5v0__fill_4",
+      "gf180mcu_fd_sc_mcu9t5v0__fill_2",
+      "gf180mcu_fd_sc_mcu9t5v0__fill_1"
+    ],
+    "straps": [
+      {
+        "layer": "Metal1",
+        "spacing_um": null
+      },
+      {
+        "layer": "Metal4",
+        "spacing_um": 0.56
+      },
+      {
+        "layer": "Metal5",
+        "spacing_um": null
+      }
+    ],
+    "connects": [
+      {
+        "layers": [
+          "Metal1",
+          "Metal4"
+        ],
+        "max_columns": 5,
+        "ongrid": [
+          "Metal2",
+          "Metal3",
+          "Metal4"
+        ],
+        "split_cuts": {
+          "layer": "Metal3",
+          "width_um": 0.128
+        }
+      },
+      {
+        "layers": [
+          "Metal4",
+          "Metal5"
+        ],
+        "max_columns": null,
+        "ongrid": null,
+        "split_cuts": null
+      }
+    ],
+    "row_rail": {
+      "emitted": false,
+      "layer": null,
+      "power_net": null,
+      "ground_net": null,
+      "filler_masters": []
+    },
+    "placed": {
+      "evidence": "def",
+      "def_path": "<scratch>/.klt/place-and-route/usb_utmi_phy.def",
+      "unavailable_reason": null,
+      "status": "complete",
+      "missing": [],
+      "components": 1155,
+      "tapcells": 18,
+      "endcaps": 70,
+      "fillers": 727,
+      "special_nets": [
+        {
+          "name": "VDD",
+          "use": "POWER",
+          "followpin_segments": 18,
+          "stripe_segments": 5121,
+          "other_segments": 72,
+          "stripe_layers": [
+            "Metal5",
+            "Metal4",
+            "Metal3",
+            "Metal2",
+            "Metal1"
+          ],
+          "vias": 5116
+        },
+        {
+          "name": "VSS",
+          "use": "GROUND",
+          "followpin_segments": 18,
+          "stripe_segments": 5126,
+          "other_segments": 72,
+          "stripe_layers": [
+            "Metal5",
+            "Metal4",
+            "Metal3",
+            "Metal2",
+            "Metal1"
+          ],
+          "vias": 5120
+        }
+      ]
+    }
+  },
+  "warnings": [],
+  "provenance": {
+    "klt_version": "0.7.1.dev452+g065dd522caae",
+    "klayout_version": "0.30.12",
+    "pdk": {
+      "name": "gf180mcuD",
+      "source": "PDK_ROOT environment variable",
+      "version": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b"
+    },
+    "deck": {
+      "name": "gf180mcu_fd_sc_mcu9t5v0__tt_025C_1v80",
+      "content_hash": "sha256:2482036479c89fbee3754524e3fcdb530aa40aff0fef9e9385e3bc7b7a67d4ef",
+      "released": false
+    },
+    "input": {
+      "content_hash": "sha256:a6e1e9d7a6ef6cd5a5df1c61feab004d4e8057a0a6b7d071948ddcb31c31e5f1",
+      "role": "netlist"
+    }
+  }
+}
