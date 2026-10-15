@@ -52,8 +52,8 @@ these records, because none of them is a subset.
   same extraction recipe reported full name annotation while OpenSTA applied
   no wire parasitics (`delay_changed: false`); the 364/366 figure was not
   re-checked for attachment. The current digital STA evidence is
-  `verification/records/post-layout-pvt/records/20261008-195826-74ccfac.md`
-  (three liberty corners, parasitics attached with `--def-pins`, 7 unannotated
+  `verification/records/post-layout-pvt/records/20261015-011505-32db02a.md`
+  (regenerated layout of #131; three liberty corners, parasitics attached with `--def-pins`, 7 unannotated
   and 3 partially unannotated drivers, lumped capacitance with no wire RC
   delay, ideal clock, no lateral coupling; not RC signoff and not the §8.1
   45-corner matrix — see `manifests/README.md` item 5.digital).
@@ -200,7 +200,7 @@ Gate-level PVT timing closure of that logic across the same §8.1 grid is
 **not** covered: STA exists at three liberty corners only (see the
 netlist-provenance note above), and the SDF-annotated gate-level replay was
 attempted and blocked (`verification/records/post-layout-functional/` record
-`20261008-211700-2875d57`, klayout-tools#2885). §8.2 does
+`20261015-011506-32db02a`; zero-delay replay 111/111, SDF annotation still rejected, klayout-tools#2885/#2886). §8.2 does
 not require it, so it is noted here as a known gap rather than claimed.
 
 ## Reproducing any row
