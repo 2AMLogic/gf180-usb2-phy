@@ -22,8 +22,8 @@ and **LVS-matched**, with timing closed at every liberty corner of its cell
 library including the 5.0 V ones. The analog half is **simulation-complete
 but has no signoff-ready layout** — all five analog blocks have captured schematics,
 exported netlists and full 45-corner PVT sweeps, and the driver's §6 rows
-(Rows A, C, D) currently **fail** at some corners (the differential receiver,
-Row E, passes as of issue #97). Nothing has been
+(Rows A–D) and the differential receiver (Row E) **pass** 45/45 in simulation
+(as of issues #96 and #97). Nothing has been
 fabricated and nothing has been measured on silicon. §4 states every row's
 verdict, met and unmet alike, and §6 says plainly what a shuttle seat
 would and would not settle.
@@ -219,9 +219,9 @@ budget be allocated to another entry.
   against `verification/`'s existing suite before the pinout is real.
 - **`VPU_REG`'s 3.0 V floor** (§2.5) is unresolved and is §4 Row G's unmet
   status.
-- **Three §4 rows fail in simulation today** (Rows A, C, D — all driver §6
-  rows; Row E was fixed by issue #97, `sim/diff-receiver-sensitivity/records/20261008-193113-2e9f63e.md`) and are
-  *design* work, not documentation work — see §4's own notes.
+- **No §4 analog row fails in simulation today.** The three driver §6 rows
+  that failed (Rows A, C, D) were fixed by issue #96 (`sim/driver-signal-quality/records/20261015-104027-d109790.md`)
+  and Row E by issue #97 (`sim/diff-receiver-sensitivity/records/20261008-193113-2e9f63e.md`). Row G is still unmet.
 
 ### 2.8 What changes if the published Challenge #5 rules differ
 
@@ -270,8 +270,8 @@ times of SE0 followed by one bit time of J. If the pre-stuff bit stream ends
 on exactly six consecutive 1s, the mandatory trailing stuff bit is emitted
 before the EOP — a case the testbench exercises explicitly.
 
-The analog driver (`design/differential_driver.sch`) is a 60 µm PMOS /
-30 µm NMOS output pair per leg into a fixed `rm1` series termination of
+The analog driver (`design/differential_driver.sch`) is an 80 µm × 4 PMOS /
+30 µm × 4 NMOS output pair per leg (re-sized in issue #96 from 60 µm / 30 µm) into a fixed `rm1` series termination of
 ~36 Ω, nominally centred in the ratified 28–44 Ω window.
 
 ### 3.3 Receive path
@@ -309,24 +309,25 @@ something a shipped part can do.
 from the 45-corner PVT matrix of spec §8.1 (5 process corners `tt`/`ff`/
 `ss`/`fs`/`sf` × 3 temperatures −40/27/125 °C × 3 supplies 2.97/3.30/
 3.63 V) — no row below is a subset of that matrix. **No spec limit was
-relaxed to make any row pass**; the driver rows A, C and D fail and Row G is
-unmet, all reported as such with their offending corners.
+relaxed to make any row pass**; the driver rows A, C and D failed in the first record and pass in the
+issue #96 re-run, and Row G is unmet; every outcome is reported with its
+corners.
 
 `sim/spec-coverage.md` is the index from spec §8.2's rows to these records
 and is the authority if this table and it ever disagree.
 
 | # | Parameter | Min | Typ (`tt`/27 °C/3.30 V) | Max | Ratified limit | Binding corner | Citation | Verdict at 3.3 V | Verdict at 5.0 V analog rail |
 |---|---|---|---|---|---|---|---|---|---|
-| A | Driver rise time, 10–90 % into 50 pF | 10.82 ns | 15.13 ns | 22.33 ns | 4–20 ns (spec §6) | max: `ss`/125 °C/2.97 V; min: `ff`/−40 °C/3.63 V | `sim/driver-signal-quality/`, record `20260817-203552-a408cb6` | **Unmet** — 3 of 45 corners exceed 20 ns (`ss_125c_2.97v` 22.33, `fs_125c_2.97v` 20.92, `ss_125c_3.30v` 20.79). Nominal has 25 % margin; the slow/hot/low corner loses it. The 4 ns floor is never approached. | **Unmet/TBD — no analog record above 3.63 V** (§2.5) |
-| B | Driver fall time, 10–90 % into 50 pF | 9.59 ns | 12.98 ns | 19.27 ns | 4–20 ns (spec §6) | same as Row A | same | **Met** 45/45 | **Unmet/TBD — no record above 3.63 V** |
-| C | Rise/fall matching, `t_rise`/`t_fall` | 0.979 | 1.165 | 1.402 | within 10 % of each other, i.e. 0.90–1.10 (spec §6) | min: `sf`/125 °C/3.63 V; max: `fs`/−40 °C/2.97 V | same | **Unmet — 36 of 45 corners outside the window.** The dominant failure. The output stage's 60 µm PMOS / 30 µm NMOS pair makes pull-up systematically weaker than pull-down once mobility is accounted for; `fs` (fast NMOS / slow PMOS) is worst and `sf` is the only family inside the window. A device-sizing result, not a measurement artifact. | **Unmet/TBD — no record above 3.63 V**; a supply change does not fix a mobility-ratio asymmetry |
-| D | Output crossover voltage | 1.293 V | 1.602 V | 1.941 V | 1.3–2.0 V (spec §6) | min: `fs`/27 °C/2.97 V; max: `sf`/−40 °C/3.63 V | same | **Unmet — 2 of 45 corners below 1.3 V** (`fs_27c_2.97v` 1.2935 V, `fs_-40c_2.97v` 1.2968 V), both a few millivolts under, both on the same fast-NMOS/slow-PMOS/low-supply corner as Row C. Every other corner is comfortably inside. | **Unmet/TBD — no record above 3.63 V** |
+| A | Driver rise time, 10–90 % into 50 pF | 4.09 ns | 5.90 ns | 8.78 ns | 4–20 ns (spec §6) | max: `ss`/125 °C/2.97 V; min: `ff`/−40 °C/3.63 V | `sim/driver-signal-quality/`, record `20261015-104027-d109790` (supersedes `20260817-203552-a408cb6`) | **Met** 45/45. Thinnest margin is the fast corner, 2.3 % above the 4 ns floor; the slow end has a factor of 2.3. The earlier record had 3 corners over 20 ns. | **Unmet/TBD — no analog record above 3.63 V** (§2.5) |
+| B | Driver fall time, 10–90 % into 50 pF | 4.13 ns | 5.86 ns | 8.76 ns | 4–20 ns (spec §6) | same as Row A | same, record `20261015-104027-d109790` | **Met** 45/45 | **Unmet/TBD — no record above 3.63 V** |
+| C | Rise/fall matching, `t_rise`/`t_fall` | 0.944 | 1.006 | 1.086 | within 10 % of each other, i.e. 0.90–1.10 (spec §6) | min: `sf`/125 °C/2.97 V; max: `fs`/−40 °C/2.97 V | same | **Met** 45/45 (issue #96). The earlier 36/45 failure was the 60/30 µm output pair's weak pull-up; the output stage is now 320 µm / 120 µm effective (P:N ≈ 2.7:1) with a larger predriver. | **Unmet/TBD — no record above 3.63 V** |
+| D | Output crossover voltage | 1.405 V | 1.633 V | 1.883 V | 1.3–2.0 V (spec §6) | min: `fs`/−40 °C/2.97 V; max: `sf`/−40 °C/3.63 V | same | **Met** 45/45 (issue #96). The earlier two sub-1.3 V corners (`fs`, 2.97 V) now sit at 1.405 V and above. | **Unmet/TBD — no record above 3.63 V** |
 | E | Differential receiver input-referred threshold, common mode 0.8 V / 1.65 V / 2.5 V | −31.5 / −34.9 / −81.0 mV | −22.3 / −24.8 / −30.2 mV | −14.5 / −16.1 / −18.5 mV | \|D+ − D−\| > 200 mV over 0.8–2.5 V common mode (spec §4) | worst: 2.5 V common-mode point, `fs_125c_2.97v` (−81 mV) | `sim/diff-receiver-sensitivity/`, record `20261008-193113-2e9f63e` (supersedes `20260817-203852-5a963e7`) | **Met.** **45/45** corners pass at each of the three common-mode points; worst threshold −81 mV against the ±200 mV limit. The earlier 30/45 failure at 2.5 V (K read as J) was the NMOS input pair's output floor (tail node, about V_cm − V_GS,n) sitting above the first buffer inverter's mid-rail trip point; the fix (issue #97) re-skews that inverter P-heavy so its trip point is about 0.65·VDD (2.13 V at tt/27 °C/3.3 V), at the OTA's balanced output level. A sizing change, not a topology change. | **Met in simulation** at the stated rail; no change to the single-ended receivers |
 | F | D+ pull-up resistance, trimmed | 1472.4 Ω | 1486.6 Ω | 1530.1 Ω | 1.5 kΩ ±5 % = 1425–1575 Ω (spec §5) | worst: `ss`, code 26 (2.01 %) | `sim/dplus-pullup-tolerance/`, record `20260817-203609-a408cb6` (superseded by `20260905-185112-6bfe679`, the flattened-netlist re-run: same verdict, same trim codes, ≤ 0.01 Ω difference), plus `sim/dplus-pullup-tolerance/analyze_fixed_trim.py` over the same recorded logs | **Met**, and met under the *realistic* calibration model: **one trim code chosen per die at 27 °C / 3.30 V, then held fixed** across that die's whole temperature and supply grid, stays inside ±5 % for every process corner — worst 2.01 % (`ss`, code 26), best 1.38 % (`ff`, code 7). That is a stronger claim than a per-corner re-trim, which no production part could do. **Untrimmed** the same resistor spans 1722–2572 Ω across the grid, i.e. misses badly — so the trim ladder is a requirement, not a refinement, and it is exposed as `pu_trim[4:0]` (§2.2) for exactly that reason. | **Unmet/TBD — no record above 3.63 V** |
 | G | Pull-up rail `VPU_REG` | 2.97 V | 3.30 V | 3.63 V | 3.0–3.6 V regulated (spec §5) | min: any 2.97 V corner | spec §5; §2.5 of this document | **Unmet at the low supply corner** if `VPU_REG` is tied to a 3.3 V ±10 % `VDDA`, as §2.5 proposes: 2.97 V is below the ratified 3.00 V floor, and 3.63 V is above the 3.60 V ceiling. A regulation element, or a tighter supply spec from the harness, is required. Stated rather than rounded. | **Unmet** — a 5.0 V rail is further outside the window, not closer to it |
 | H | Single-ended receiver threshold (D+ and D−, identical circuits) | 1.203 V | 1.355 V | 1.506 V | VIH > 2.0 V, VIL < 0.8 V (spec §4) — i.e. the trip point must lie between them | min: `ff`/125 °C/2.97 V; max: `ss`/−40 °C/3.63 V | `sim/se-receiver-dp-thresholds/` record `20260817-203631-a408cb6`; `sim/se-receiver-dm-thresholds/` record `20260817-203654-a408cb6` | **Met 45/45** on both receivers. Output is a hard rail at both VIL and VIH at every corner. | **Unmet/TBD — no record above 3.63 V** |
 | I | Digital section maximum clock frequency (`fmax`) | — | 44.4256 MHz @ `tt_025C_1v80` | — | must exceed the 12 MHz UTMI interface clock (spec §3) | worst setup slack 27.4122 ns @ `ss_125C_1v62`; worst hold 0.41107 ns @ `ff_n40C_5v50` | `verification/records/place-and-route/records/20261015-011501-32db02a.md` | **Met** — 3.7× the required rate, 0 setup / 0 hold / 0 antenna / 0 router-DRC violations. | **Met.** Uniquely among these rows: the standard-cell library `gf180mcu_fd_sc_mcu9t5v0` is a 5 V-capable library and the P&R run's own multi-corner STA covers `4v50`/`5v00`/`5v50` as well as `3v00`/`3v30`/`3v60`. Every one of the 15 corners is positive on setup and hold. At `tt_025C_3v30`: 74.6683 ns setup / 0.96618 ns hold. At `tt_025C_5v00`: 77.4675 ns setup / 0.66084 ns hold. |
-| J | Driver propagation delay and data-dependent jitter | 5.36 ns | 7.05 ns | 10.10 ns | **none** — spec §8.2 records that this repo has no confirmed numeric USB 2.0 source-jitter limits from the physical specification text and forbids inventing them | min: `ff`/−40 °C/3.63 V; max: `ss`/125 °C/2.97 V | `sim/driver-jitter/`, record `20260817-203915-5a963e7` | **No pass/fail claimed, by design.** Corner-to-corner propagation-delay spread is 4.74 ns. Data-dependent jitter within one corner, over an 18-bit 12 Mbps pattern with run lengths 1,1,2,1,3,1,6,1,2, is ≤ 2.53 ps peak-to-peak consecutive-transition and ≤ 1.33 ps against the ideal bit grid — ~3 × 10⁻⁵ UI at an 83.33 ns bit time, i.e. at the transient solver's own resolution floor. Read as "below the noise of this measurement". | **Unmet/TBD — no record above 3.63 V** |
+| J | Driver propagation delay and data-dependent jitter | 3.02 ns | 3.94 ns | 5.50 ns | **none** — spec §8.2 records that this repo has no confirmed numeric USB 2.0 source-jitter limits from the physical specification text and forbids inventing them | min: `ff`/−40 °C/3.63 V; max: `ss`/125 °C/2.97 V | `sim/driver-jitter/`, record `20261015-104027-d109790` (supersedes `20260817-203915-5a963e7`) | **No pass/fail claimed, by design.** Corner-to-corner propagation-delay spread is 2.48 ns. Data-dependent jitter within one corner, over an 18-bit 12 Mbps pattern with run lengths 1,1,2,1,3,1,6,1,2, is ≤ 0.26 ps peak-to-peak consecutive-transition and ≤ 0.16 ps against the ideal bit grid — ~3 × 10⁻⁶ UI at an 83.33 ns bit time, i.e. at the transient solver's own resolution floor. Read as "below the noise of this measurement". | **Unmet/TBD — no record above 3.63 V** |
 | K | Digital UTMI logic functional correctness | — | — | — | spec §11: bit-exact against NRZI / bit-stuffing / SYNC / EOP / line-state behaviour, by cocotb testbench | n/a | `verification/records/bit-codec-functional/` (record `20260817-212707-6c7f7ff`), `verification/records/utmi-framing-functional/` (record `20260818-025302-ea10f21`) | **Met.** Bit-exact against an independently-written Python golden model, plus TX→wire→RX loopback including the trailing-stuff-bit case, back-to-back packets at minimum gap, and a malformed-SYNC case that must never assert `RxActive`/`RxValid`. | Rail-independent (a functional claim, not an electrical one) |
 | L | DRC | — | 0 violations | — | spec §11: clean before signoff | n/a | `verification/records/digital-drc/records/20261015-011502-32db02a.md` | **Met for the digital half** — `klt drc --deck gf180mcu` reports `status: "clean"`, `violation_count: 0` against `layout/digital/usb_utmi_phy.gds`. **Unmet for the analog half: no analog GDS exists** (§5). | Rail-independent |
 | M | LVS | — | match, 0 mismatches | — | spec §11: clean before signoff | n/a | `verification/records/digital-lvs/records/20261015-011503-32db02a.md` | **Met for the digital half** — gate-level LVS of the routed GDS against the as-built netlist is a match, with a passing negative control. **Unmet for the analog half: no analog GDS exists.** | Rail-independent |
@@ -335,15 +336,15 @@ Row I now has a post-layout re-verification: a SPEF-annotated `klt sta` re-run a
 
 ### Summary of verdicts
 
-**Met:** Rows B, F (conditional on per-part trim), H, I (at both 3.3 V and
-5.0 V), K, L and M (digital half), and E (as of issue #97).
-**Unmet:** Rows A, C, D, G, N, and the analog half of L and M.
+**Met:** Rows A, B, C, D (as of issue #96), E (as of issue #97), F (conditional on per-part trim), H, I (at both 3.3 V and
+5.0 V), K, L and M (digital half).
+**Unmet:** Rows G, N, and the analog half of L and M.
 **Deliberately unjudged:** Row J.
 
-Row C would change the design rather than the document: it is a driver
-output-stage sizing problem, not fixed by anything in this proposal, and not
-hidden by it. Row E was the other such row; issue #97 fixed it in the design
-(a first-buffer-inverter sizing change) and re-measured it at 45/45.
+Rows A, C and D needed a design change rather than a document change: a
+driver output-stage and predriver re-size (issue #96), re-measured at 45/45
+against the unchanged §6 limits. Row E was the other such row; issue #97 fixed
+it (a first-buffer-inverter sizing change) and re-measured it at 45/45.
 
 ---
 
@@ -423,10 +424,10 @@ plate for any point beyond bench ambient, since every simulated row spans
    through `DataOut`/`TxValid`, capture `DP`/`DM` into the 50 pF fixture,
    and measure rise time, fall time, their ratio, and crossover voltage
    against the per-corner tables in the `sim/driver-signal-quality/`
-   record. **This is the step that settles Rows A/C/D** — all three fail in
-   simulation, all three are sizing/topology-sensitive, and all three are
-   exactly the kind of claim a scope on a real load resolves better than a
-   corner model does.
+   record. **This is the step that settles Rows A/C/D** — all three pass in
+   simulation, but the fast-corner rise time sits only 2.3 % above the 4 ns
+   floor, and these are exactly the kind of claim a scope on a real load
+   resolves better than a corner model does.
 4. **Differential receiver common-mode sweep (Row E).** Drive `DP`/`DM`
    externally with a controlled differential amplitude on a swept common
    mode from 0.8 V to 2.5 V and find the amplitude at which `DataIn`/
@@ -478,15 +479,16 @@ Listed honestly, in the order it gates:
    entirely the analog half, blocked on item 1: there is nothing under
    `layout/analog/` to extract, so Rows A–H's own extracted-netlist
    re-run cannot start.
-3. **Row C — driver rise/fall matching.** A device-sizing pass on the output
-   stage; 36 of 45 corners currently fail.
+3. **Row C — driver rise/fall matching.** Closed by issue #96: an
+   output-stage and predriver re-size takes it from 36/45 failing corners to
+   45/45 passing (ratio 0.944–1.086).
 4. **Row E — differential receiver at high common mode.** Closed by
    issue #97: a first-buffer-inverter sizing change (not the topology
    change originally expected) takes the 2.5 V common-mode point from 30/45
    failing corners to 45/45 passing.
-5. **Rows A and D** are the same asymmetry as Row C seen at the slow/hot and
-   the `fs` corners respectively; a Row C fix is expected to move both, but
-   that expectation is not evidence and would be re-measured.
+5. **Rows A and D** were the same asymmetry as Row C seen at the slow/hot and
+   the `fs` corners respectively; the issue #96 re-size moved both and was
+   re-measured (`20261015-104027-d109790`).
 6. **Row G — `VPU_REG` regulation**, or a narrower supply guarantee.
 7. **The test-chip wrapper RTL** of §2.7.
 8. **A 5.0 V answer for the analog front end** (§2.5), if the program
