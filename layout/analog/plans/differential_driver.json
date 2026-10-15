@@ -45,10 +45,10 @@
       }
     },
     {
-      "id": "mn_n2dm",
+      "id": "mn_n2dm_1",
       "devices": [
         {
-          "name": "N2DM",
+          "name": "N2DM_1",
           "device_class": "NFET"
         }
       ],
@@ -62,10 +62,112 @@
       }
     },
     {
-      "id": "mn_n2dp",
+      "id": "mn_n2dm_2",
       "devices": [
         {
-          "name": "N2DP",
+          "name": "N2DM_2",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mn_n2dm_3",
+      "devices": [
+        {
+          "name": "N2DM_3",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mn_n2dm_4",
+      "devices": [
+        {
+          "name": "N2DM_4",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mn_n2dp_1",
+      "devices": [
+        {
+          "name": "N2DP_1",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mn_n2dp_2",
+      "devices": [
+        {
+          "name": "N2DP_2",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mn_n2dp_3",
+      "devices": [
+        {
+          "name": "N2DP_3",
+          "device_class": "NFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "nfet"
+      }
+    },
+    {
+      "id": "mn_n2dp_4",
+      "devices": [
+        {
+          "name": "N2DP_4",
           "device_class": "NFET"
         }
       ],
@@ -113,10 +215,10 @@
       }
     },
     {
-      "id": "mp_p2dm",
+      "id": "mp_p2dm_1",
       "devices": [
         {
-          "name": "P2DM",
+          "name": "P2DM_1",
           "device_class": "PFET"
         }
       ],
@@ -130,10 +232,112 @@
       }
     },
     {
-      "id": "mp_p2dp",
+      "id": "mp_p2dm_2",
       "devices": [
         {
-          "name": "P2DP",
+          "name": "P2DM_2",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mp_p2dm_3",
+      "devices": [
+        {
+          "name": "P2DM_3",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mp_p2dm_4",
+      "devices": [
+        {
+          "name": "P2DM_4",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mp_p2dp_1",
+      "devices": [
+        {
+          "name": "P2DP_1",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mp_p2dp_2",
+      "devices": [
+        {
+          "name": "P2DP_2",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mp_p2dp_3",
+      "devices": [
+        {
+          "name": "P2DP_3",
+          "device_class": "PFET"
+        }
+      ],
+      "generator": "mos_array",
+      "params": {
+        "rows": 1,
+        "cols": 1,
+        "dummy": 0,
+        "gate_contact": true,
+        "flavor": "pfet"
+      }
+    },
+    {
+      "id": "mp_p2dp_4",
+      "devices": [
+        {
+          "name": "P2DP_4",
           "device_class": "PFET"
         }
       ],
@@ -210,12 +414,24 @@
       "order": [
         "mn_n1dm",
         "mn_n1dp",
-        "mn_n2dm",
-        "mn_n2dp",
+        "mn_n2dm_1",
+        "mn_n2dm_2",
+        "mn_n2dm_3",
+        "mn_n2dm_4",
+        "mn_n2dp_1",
+        "mn_n2dp_2",
+        "mn_n2dp_3",
+        "mn_n2dp_4",
         "mp_p1dm",
         "mp_p1dp",
-        "mp_p2dm",
-        "mp_p2dp",
+        "mp_p2dm_1",
+        "mp_p2dm_2",
+        "mp_p2dm_3",
+        "mp_p2dm_4",
+        "mp_p2dp_1",
+        "mp_p2dp_2",
+        "mp_p2dp_3",
+        "mp_p2dp_4",
         "r_slewdm",
         "r_slewdp",
         "r_serdm",
