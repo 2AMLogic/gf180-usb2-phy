@@ -1,0 +1,33 @@
+* driver-jitter -- klt sim circuit body (issue #96)
+*
+* Same circuit and stimulus as driver_jitter_tb.spice, re-expressed as a
+* `klt sim` request body (klt-sim-request.json) so the 45-corner matrix runs on the
+* batch fleet. Measurement plumbing only, none of it electrical (same rewrites as
+* sim/driver-signal-quality/testbench/driver_tb_klt.spice):
+*  - Supply is a plain DC source vsup swept by the request's corners.supply_v.
+*  - TXDP/TXDM are B-sources: a 0/1 unit PWL (vpu, the TXDP waveform of
+*    driver_jitter_tb.spice scaled to 1 V) times v(vdd), so the swing follows the supply.
+*  - The harness' .control `dev`/`cons` vectors become .meas param expressions of
+*    tx1..tx8: grid deviation dev_k = tx(k+1) - tx1 - n_k*tbit, consecutive-edge
+*    deviation cons_k, exactly as in tb.json's derive list.
+*  - design.ngspice switch parameters inlined (see driver_tb_klt.spice).
+* No limits are attached to any jitter measurement (spec section 8.2 note).
+
+.param sw_stat_global=0 sw_stat_mismatch=0 mc_skew=3 res_mc_skew=3 cap_mc_skew=3 fnoicor=0
+.param tbit=83.3333333e-9
+.options reltol=1e-5
+.include "../../../design/netlist/differential_driver.spice"
+
+vsup VDD 0 dc 3.3
+vpu PU 0 pwl(0.0000n 1 283.3333n 1 284.3333n 0 366.6667n 0
++ 367.6667n 1 533.3333n 1 534.3333n 0 616.6667n 0
++ 617.6667n 1 866.6667n 1 867.6667n 0 950.0000n 0
++ 951.0000n 1 1450.0000n 1 1451.0000n 0 1533.3333n 0
++ 1534.3333n 1 1700.0000n 1)
+btxdp TXDP 0 V='v(vdd)*v(pu)'
+btxdm TXDM 0 V='v(vdd)*(1-v(pu))'
+
+Xdrv VDD 0 TXDP TXDM DP DM differential_driver
+
+cdp DP 0 50p
+cdm DM 0 50p
