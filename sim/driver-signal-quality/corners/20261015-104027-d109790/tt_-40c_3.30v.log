@@ -1,0 +1,22 @@
+klt sim per-corner result (batch backend), corner tt/3.300V/-40C -> tt_-40c_3.30v
+status: pass  runtime_s: 178.054
+
+          t_rise = 4.78589e-09 s  [pass]
+          t_fall = 4.74767e-09 s  [pass]
+            t_xr = 1.03171e-07 s  [pass]
+            t_xf = 2.03671e-07 s  [pass]
+         t_xlast = 2.03671e-07 s  [pass]
+          dp_max = 3.30106 V  [pass]
+          dp_min = -0.000674905 V  [pass]
+         vdd_max = 3.3 V  [pass]
+        trise_ns = 4.78589 ns  [pass]
+        tfall_ns = 4.74767 ns  [pass]
+       trf_ratio = 1.00805   [pass]
+     vcross_rise = 1.64174 V  [pass]
+     vcross_fall = 1.64174 V  [pass]
+   xing_extra_ps = 0.0 ps  [pass]
+      dp_over_mv = 1.0558 mV  [pass]
+     dp_under_mv = -0.674905 mV  [pass]
+
+verdict: PASS
+full report: klt-sim-report.json
