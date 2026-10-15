@@ -191,6 +191,15 @@
 //   link command must not detach the device from the bus), nor does
 //   `SuspendM` gate it (a suspended device keeps its pull-up). It
 //   therefore does not use `int_rst_n`.
+// - `trim[4:0]` is an integration input only (pin contract
+//   spec/decisions/0004 decision 3, issue #115): the integrator supplies
+//   the D+ pull-up trim code from OTP/fuse/strap and the same five nets
+//   connect to the analog cell, `trim[i]` <-> `dplus_pullup.TRIMi`. This
+//   wrapper instantiates no analog cell, so "pass-through" means only
+//   that the port exists on the digital top: no logic, no register, no
+//   internally driven default, and nothing in the packet datapath reads
+//   it. All-zero is the unprogrammed default; the code is static after
+//   test (no live calibration).
 // - `SuspendM` is likewise present but unconsumed; this block does not
 //   model low-power state retention (nothing here is stateful enough to
 //   need it, and "how much current does an unclocked flop draw" is not
@@ -242,6 +251,11 @@ module usb_utmi_phy (
 
     // D+ pull-up enable -- to design dplus_pullup.PU_EN (DR-0004 decision 1)
     output wire pu_en,
+
+    // D+ pull-up trim code -- integrator-supplied (OTP/fuse/strap), static
+    // after test, all-zero = unprogrammed default; trim[i] <-> design
+    // dplus_pullup.TRIMi (DR-0004 decision 3). Not consumed here; see header.
+    input  wire [4:0] trim,
 
     // Wire-level TX -- drives design/differential_driver.sch's TXDP/TXDM
     output wire txdp,

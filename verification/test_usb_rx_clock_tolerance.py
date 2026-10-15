@@ -161,6 +161,15 @@ async def _start_clock(dut):
 
 async def _reset(dut):
     dut.rst_n.value = 0
+    # trim[4:0] (DR-0004 decision 3, #115): the direct production top must
+    # expose it and gets the unprogrammed default. Other tops reusing this
+    # helper (e.g. tb_usb_rx_sync_candidate, which ties its instance's
+    # trim to 5'b00000 itself) are not required to have the port.
+    if dut._name == "usb_utmi_phy":
+        assert len(dut.trim) == 5, f"trim is {len(dut.trim)} bits wide, want 5"
+        dut.trim.value = 0
+    elif hasattr(dut, "trim"):
+        dut.trim.value = 0
     dut.Reset.value = 0
     dut.TxValid.value = 0
     dut.DataOut.value = 0
