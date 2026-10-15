@@ -19,7 +19,7 @@ Design-intent targets (NOT yet PVT-simulated -- see #26):
   crossover voltage: 1.3-2.0V            (Sec.6)
   output resistance: 28-44 ohm           (Sec.6)} -900 -900 0 0 0.35 0.35 {}
 T {Sizing rationale (issue #96 re-size; replaces the issue #30 first-order hand calc):
-Output stage per half: PMOS W=80u m=4, NMOS W=30u m=4 (Wp:Wn = 8:3, wider
+Output stage per half: PMOS W=80u x4 parallel m=1, NMOS W=30u x4 parallel m=1 (Wp:Wn = 8:3, wider
 than the 2:1 mobility ratio on purpose: PMOS is the weaker puller, worst
 at the fs corner). Large enough that the FETs act as a near-linear Ron
 in series with R_series rather than as current-limited sources, which holds
@@ -80,34 +80,130 @@ spiceprefix=X
 m=1
 }
 N -160 -30 -160 -70 {}
-C {devices/lab_pin.sym} -160 -70 0 0 {name=l12 lab=VDD}
+C {devices/lab_pin.sym} -160 -70 0 0 {name=l101 lab=VDD}
 N -200 0 -260 0 {}
-C {devices/lab_pin.sym} -260 0 0 0 {name=l13 lab=DP_GATE}
+C {devices/lab_pin.sym} -260 0 0 0 {name=l102 lab=DP_GATE}
 N -160 30 -160 70 {}
-C {devices/lab_pin.sym} -160 70 0 0 {name=l14 lab=DP_OUTINT}
+C {devices/lab_pin.sym} -160 70 0 0 {name=l103 lab=DP_OUTINT}
 N -160 0 -100 0 {}
-C {devices/lab_pin.sym} -100 0 0 0 {name=l15 lab=VDD}
-C {symbols/pfet_03v3.sym} -180 0 0 0 {name=MP2DP
+C {devices/lab_pin.sym} -100 0 0 0 {name=l104 lab=VDD}
+C {symbols/pfet_03v3.sym} -180 0 0 0 {name=MP2DP_1
 L=0.28u
 W=80u
 nf=1
-m=4
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -160 170 -160 130 {}
+C {devices/lab_pin.sym} -160 130 0 0 {name=l105 lab=VDD}
+N -200 200 -260 200 {}
+C {devices/lab_pin.sym} -260 200 0 0 {name=l106 lab=DP_GATE}
+N -160 230 -160 270 {}
+C {devices/lab_pin.sym} -160 270 0 0 {name=l107 lab=DP_OUTINT}
+N -160 200 -100 200 {}
+C {devices/lab_pin.sym} -100 200 0 0 {name=l108 lab=VDD}
+C {symbols/pfet_03v3.sym} -180 200 0 0 {name=MP2DP_2
+L=0.28u
+W=80u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -160 370 -160 330 {}
+C {devices/lab_pin.sym} -160 330 0 0 {name=l109 lab=VDD}
+N -200 400 -260 400 {}
+C {devices/lab_pin.sym} -260 400 0 0 {name=l110 lab=DP_GATE}
+N -160 430 -160 470 {}
+C {devices/lab_pin.sym} -160 470 0 0 {name=l111 lab=DP_OUTINT}
+N -160 400 -100 400 {}
+C {devices/lab_pin.sym} -100 400 0 0 {name=l112 lab=VDD}
+C {symbols/pfet_03v3.sym} -180 400 0 0 {name=MP2DP_3
+L=0.28u
+W=80u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N -160 570 -160 530 {}
+C {devices/lab_pin.sym} -160 530 0 0 {name=l113 lab=VDD}
+N -200 600 -260 600 {}
+C {devices/lab_pin.sym} -260 600 0 0 {name=l114 lab=DP_GATE}
+N -160 630 -160 670 {}
+C {devices/lab_pin.sym} -160 670 0 0 {name=l115 lab=DP_OUTINT}
+N -160 600 -100 600 {}
+C {devices/lab_pin.sym} -100 600 0 0 {name=l116 lab=VDD}
+C {symbols/pfet_03v3.sym} -180 600 0 0 {name=MP2DP_4
+L=0.28u
+W=80u
+nf=1
+m=1
 model=pfet_03v3
 spiceprefix=X
 }
 N 80 30 80 70 {}
-C {devices/lab_pin.sym} 80 70 0 0 {name=l16 lab=VSS}
+C {devices/lab_pin.sym} 80 70 0 0 {name=l117 lab=VSS}
 N 40 0 -20 0 {}
-C {devices/lab_pin.sym} -20 0 0 0 {name=l17 lab=DP_GATE}
+C {devices/lab_pin.sym} -20 0 0 0 {name=l118 lab=DP_GATE}
 N 80 -30 80 -70 {}
-C {devices/lab_pin.sym} 80 -70 0 0 {name=l18 lab=DP_OUTINT}
+C {devices/lab_pin.sym} 80 -70 0 0 {name=l119 lab=DP_OUTINT}
 N 80 0 140 0 {}
-C {devices/lab_pin.sym} 140 0 0 0 {name=l19 lab=VSS}
-C {symbols/nfet_03v3.sym} 60 0 0 0 {name=MN2DP
+C {devices/lab_pin.sym} 140 0 0 0 {name=l120 lab=VSS}
+C {symbols/nfet_03v3.sym} 60 0 0 0 {name=MN2DP_1
 L=0.28u
 W=30u
 nf=1
-m=4
+m=1
+model=nfet_03v3
+spiceprefix=X
+}
+N 80 230 80 270 {}
+C {devices/lab_pin.sym} 80 270 0 0 {name=l121 lab=VSS}
+N 40 200 -20 200 {}
+C {devices/lab_pin.sym} -20 200 0 0 {name=l122 lab=DP_GATE}
+N 80 170 80 130 {}
+C {devices/lab_pin.sym} 80 130 0 0 {name=l123 lab=DP_OUTINT}
+N 80 200 140 200 {}
+C {devices/lab_pin.sym} 140 200 0 0 {name=l124 lab=VSS}
+C {symbols/nfet_03v3.sym} 60 200 0 0 {name=MN2DP_2
+L=0.28u
+W=30u
+nf=1
+m=1
+model=nfet_03v3
+spiceprefix=X
+}
+N 80 430 80 470 {}
+C {devices/lab_pin.sym} 80 470 0 0 {name=l125 lab=VSS}
+N 40 400 -20 400 {}
+C {devices/lab_pin.sym} -20 400 0 0 {name=l126 lab=DP_GATE}
+N 80 370 80 330 {}
+C {devices/lab_pin.sym} 80 330 0 0 {name=l127 lab=DP_OUTINT}
+N 80 400 140 400 {}
+C {devices/lab_pin.sym} 140 400 0 0 {name=l128 lab=VSS}
+C {symbols/nfet_03v3.sym} 60 400 0 0 {name=MN2DP_3
+L=0.28u
+W=30u
+nf=1
+m=1
+model=nfet_03v3
+spiceprefix=X
+}
+N 80 630 80 670 {}
+C {devices/lab_pin.sym} 80 670 0 0 {name=l129 lab=VSS}
+N 40 600 -20 600 {}
+C {devices/lab_pin.sym} -20 600 0 0 {name=l130 lab=DP_GATE}
+N 80 570 80 530 {}
+C {devices/lab_pin.sym} 80 530 0 0 {name=l131 lab=DP_OUTINT}
+N 80 600 140 600 {}
+C {devices/lab_pin.sym} 140 600 0 0 {name=l132 lab=VSS}
+C {symbols/nfet_03v3.sym} 60 600 0 0 {name=MN2DP_4
+L=0.28u
+W=30u
+nf=1
+m=1
 model=nfet_03v3
 spiceprefix=X
 }
@@ -168,34 +264,130 @@ spiceprefix=X
 m=1
 }
 N 1240 -30 1240 -70 {}
-C {devices/lab_pin.sym} 1240 -70 0 0 {name=l33 lab=VDD}
+C {devices/lab_pin.sym} 1240 -70 0 0 {name=l133 lab=VDD}
 N 1200 0 1140 0 {}
-C {devices/lab_pin.sym} 1140 0 0 0 {name=l34 lab=DM_GATE}
+C {devices/lab_pin.sym} 1140 0 0 0 {name=l134 lab=DM_GATE}
 N 1240 30 1240 70 {}
-C {devices/lab_pin.sym} 1240 70 0 0 {name=l35 lab=DM_OUTINT}
+C {devices/lab_pin.sym} 1240 70 0 0 {name=l135 lab=DM_OUTINT}
 N 1240 0 1300 0 {}
-C {devices/lab_pin.sym} 1300 0 0 0 {name=l36 lab=VDD}
-C {symbols/pfet_03v3.sym} 1220 0 0 0 {name=MP2DM
+C {devices/lab_pin.sym} 1300 0 0 0 {name=l136 lab=VDD}
+C {symbols/pfet_03v3.sym} 1220 0 0 0 {name=MP2DM_1
 L=0.28u
 W=80u
 nf=1
-m=4
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 1240 170 1240 130 {}
+C {devices/lab_pin.sym} 1240 130 0 0 {name=l137 lab=VDD}
+N 1200 200 1140 200 {}
+C {devices/lab_pin.sym} 1140 200 0 0 {name=l138 lab=DM_GATE}
+N 1240 230 1240 270 {}
+C {devices/lab_pin.sym} 1240 270 0 0 {name=l139 lab=DM_OUTINT}
+N 1240 200 1300 200 {}
+C {devices/lab_pin.sym} 1300 200 0 0 {name=l140 lab=VDD}
+C {symbols/pfet_03v3.sym} 1220 200 0 0 {name=MP2DM_2
+L=0.28u
+W=80u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 1240 370 1240 330 {}
+C {devices/lab_pin.sym} 1240 330 0 0 {name=l141 lab=VDD}
+N 1200 400 1140 400 {}
+C {devices/lab_pin.sym} 1140 400 0 0 {name=l142 lab=DM_GATE}
+N 1240 430 1240 470 {}
+C {devices/lab_pin.sym} 1240 470 0 0 {name=l143 lab=DM_OUTINT}
+N 1240 400 1300 400 {}
+C {devices/lab_pin.sym} 1300 400 0 0 {name=l144 lab=VDD}
+C {symbols/pfet_03v3.sym} 1220 400 0 0 {name=MP2DM_3
+L=0.28u
+W=80u
+nf=1
+m=1
+model=pfet_03v3
+spiceprefix=X
+}
+N 1240 570 1240 530 {}
+C {devices/lab_pin.sym} 1240 530 0 0 {name=l145 lab=VDD}
+N 1200 600 1140 600 {}
+C {devices/lab_pin.sym} 1140 600 0 0 {name=l146 lab=DM_GATE}
+N 1240 630 1240 670 {}
+C {devices/lab_pin.sym} 1240 670 0 0 {name=l147 lab=DM_OUTINT}
+N 1240 600 1300 600 {}
+C {devices/lab_pin.sym} 1300 600 0 0 {name=l148 lab=VDD}
+C {symbols/pfet_03v3.sym} 1220 600 0 0 {name=MP2DM_4
+L=0.28u
+W=80u
+nf=1
+m=1
 model=pfet_03v3
 spiceprefix=X
 }
 N 1480 30 1480 70 {}
-C {devices/lab_pin.sym} 1480 70 0 0 {name=l37 lab=VSS}
+C {devices/lab_pin.sym} 1480 70 0 0 {name=l149 lab=VSS}
 N 1440 0 1380 0 {}
-C {devices/lab_pin.sym} 1380 0 0 0 {name=l38 lab=DM_GATE}
+C {devices/lab_pin.sym} 1380 0 0 0 {name=l150 lab=DM_GATE}
 N 1480 -30 1480 -70 {}
-C {devices/lab_pin.sym} 1480 -70 0 0 {name=l39 lab=DM_OUTINT}
+C {devices/lab_pin.sym} 1480 -70 0 0 {name=l151 lab=DM_OUTINT}
 N 1480 0 1540 0 {}
-C {devices/lab_pin.sym} 1540 0 0 0 {name=l40 lab=VSS}
-C {symbols/nfet_03v3.sym} 1460 0 0 0 {name=MN2DM
+C {devices/lab_pin.sym} 1540 0 0 0 {name=l152 lab=VSS}
+C {symbols/nfet_03v3.sym} 1460 0 0 0 {name=MN2DM_1
 L=0.28u
 W=30u
 nf=1
-m=4
+m=1
+model=nfet_03v3
+spiceprefix=X
+}
+N 1480 230 1480 270 {}
+C {devices/lab_pin.sym} 1480 270 0 0 {name=l153 lab=VSS}
+N 1440 200 1380 200 {}
+C {devices/lab_pin.sym} 1380 200 0 0 {name=l154 lab=DM_GATE}
+N 1480 170 1480 130 {}
+C {devices/lab_pin.sym} 1480 130 0 0 {name=l155 lab=DM_OUTINT}
+N 1480 200 1540 200 {}
+C {devices/lab_pin.sym} 1540 200 0 0 {name=l156 lab=VSS}
+C {symbols/nfet_03v3.sym} 1460 200 0 0 {name=MN2DM_2
+L=0.28u
+W=30u
+nf=1
+m=1
+model=nfet_03v3
+spiceprefix=X
+}
+N 1480 430 1480 470 {}
+C {devices/lab_pin.sym} 1480 470 0 0 {name=l157 lab=VSS}
+N 1440 400 1380 400 {}
+C {devices/lab_pin.sym} 1380 400 0 0 {name=l158 lab=DM_GATE}
+N 1480 370 1480 330 {}
+C {devices/lab_pin.sym} 1480 330 0 0 {name=l159 lab=DM_OUTINT}
+N 1480 400 1540 400 {}
+C {devices/lab_pin.sym} 1540 400 0 0 {name=l160 lab=VSS}
+C {symbols/nfet_03v3.sym} 1460 400 0 0 {name=MN2DM_3
+L=0.28u
+W=30u
+nf=1
+m=1
+model=nfet_03v3
+spiceprefix=X
+}
+N 1480 630 1480 670 {}
+C {devices/lab_pin.sym} 1480 670 0 0 {name=l161 lab=VSS}
+N 1440 600 1380 600 {}
+C {devices/lab_pin.sym} 1380 600 0 0 {name=l162 lab=DM_GATE}
+N 1480 570 1480 530 {}
+C {devices/lab_pin.sym} 1480 530 0 0 {name=l163 lab=DM_OUTINT}
+N 1480 600 1540 600 {}
+C {devices/lab_pin.sym} 1540 600 0 0 {name=l164 lab=VSS}
+C {symbols/nfet_03v3.sym} 1460 600 0 0 {name=MN2DM_4
+L=0.28u
+W=30u
+nf=1
+m=1
 model=nfet_03v3
 spiceprefix=X
 }
