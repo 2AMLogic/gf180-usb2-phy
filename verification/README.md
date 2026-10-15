@@ -302,21 +302,37 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   `test_usb_utmi_txoe.py` (the `txoe` driver-enable output, #113; 5 tests).
   The routed netlist carries `txoe` since #131, so these tests are no longer
   RTL-only. Passes 5/5.
-- `request-usb-utmi-phy-gate-sdf.json` / `request-usb-utmi-phy-gate-sdf-tt.json`
-  — the same replay with `options.sdf` set to the slow-corner
-  (`ss_125C_1v62`, Icarus `-T max`) and nominal (`tt_025C_1v80`, `-T typ`)
-  SDF under `records/post-layout-functional/artifacts/`. The nominal request
-  points at the SDF of the #131 layout
-  (`20261015-011506-32db02a`). The slow-corner request still names the SDF of
-  the superseded layout (`20261008-211700-2875d57`): klt has no route to a
-  slow-corner SDF for an already-routed DEF (klayout-tools#2886, open), so
-  that request must not be run until a matching SDF can be produced. **The
-  nominal replay is still rejected by `klt`'s annotation gate**: with the
-  repo-pinned klt, 53 Icarus `SDF ERROR`s (the edge-qualified XOR/XNOR/MUX
-  modpath class of klayout-tools#2885); with klt `0.7.1.dev452` (which
-  contains the #2885 fix) one remaining `Could not find intermodpath!` from
-  the top-level bus-port `INTERCONNECT` file (klayout-tools#2984, open). So `7.digital` is still
-  `unmet`. See record `post-layout-functional/20261015-011506-32db02a`.
+- `request-usb-utmi-phy-gate-sdf-ss.json` — the same suite with
+  `options.sdf` set to the slow-corner (`ss_125C_1v62`, Icarus `-T max`) SDF
+  `records/post-layout-functional/artifacts/20261015-040000-963c79c/usb_utmi_phy_route_ss_125C_1v62.filtered.sdf`.
+  **This is the item-7 request**: 111/111 pass, `environment.sdf.annotated:
+  true`, `partial: true` (52 `ifnone` edge-only IOPATH entries and all 68
+  TIMINGCHECK sections dropped; see the record). It needs klt at or after
+  klayout-tools `bc386fb` (the #2885 fix), which the repo pin does not have;
+  replay it from a throwaway venv, not the host tool:
+  `uv venv -p 3.12 /tmp/klt-sdf && VIRTUAL_ENV=/tmp/klt-sdf uv pip install
+  "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@0258b255c21c1f46da63d23bde193cca4d61dd2d"
+  cocotb==2.0.1` (CI does not run it, so the repo pin is unchanged).
+  `request-usb-utmi-phy-gate-sdf-ss-unfiltered.json` is the same request on
+  the SDF exactly as exported; klt refuses it with one `Could not find
+  intermodpath!` (an all-zero `INTERCONNECT OpMode[0] _203_.A2` entry,
+  klayout-tools#2984). The filtered SDF is that file with that one line
+  deleted. How the slow-corner SDF is made: replay the OpenSTA script that
+  `klt place-and-route` generates for the post-route SPEF session with only
+  `read_liberty` swapped to the ss library (`write-sdf-ss_125C_1v62.tcl` in
+  the artifacts; klt has no route for this, klayout-tools#2886).
+- Negative control: `USB_UTMI_PHY_TB_CLK_PERIOD_PS=30000 klt
+  functional-verification verification/request-usb-utmi-phy-gate-sdf-ss.json`
+  fails 48/111 on functional assertions (60 ns passes, 45 ns fails 53); the
+  same 30 ns on `request-usb-utmi-phy-gate-zero-delay.json` passes 111/111,
+  which attributes the failure to the annotated delays. A control counts only
+  if the transcript shows a built, annotated run and the failures are
+  assertions; an annotation or elaboration error is not a detection.
+- `request-usb-utmi-phy-gate-sdf-tt.json` — the nominal-corner request on
+  the unfiltered nominal SDF of the #131 layout; it is refused by the same
+  one-entry gate and was not re-run. `request-usb-utmi-phy-gate-sdf.json`
+  names the slow-corner SDF of a superseded layout
+  (`20261008-211700-2875d57`) and must not be run; use `-ss`.
 - Cell models are not vendored. Stage them first (gitignored dir):
   ```
   mkdir -p verification/.pdk-models
@@ -325,9 +341,9 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
 - The testbench no longer reads the RTL-internal `tx_state` (the routed
   netlist re-encodes it); packet completion is detected from the ports
   (EOP tail seen, `TxReady` high). `USB_UTMI_PHY_TB_CLK_PERIOD_PS=<ps>`
-  overrides the clock the testbench starts, for a negative-control replay
-  once annotation works (e.g. `USB_UTMI_PHY_TB_CLK_PERIOD_PS=8000 klt
-  functional-verification verification/request-usb-utmi-phy-gate-sdf.json`).
+  overrides the clock the testbench starts, for the negative-control replay
+  above. The one combinational-settle wait in the suite
+  (`PU_EN_SETTLE_NS`, 10 ns) is sized for annotated gate delays.
 
 ### Harness smoke test
 
@@ -464,10 +480,12 @@ verification/records/
     `layout/README.md` § "Analog" for the diagnosis and the friction issues
     filed upstream.
   - `post-layout-functional` (issue #93) — the gate-level, SDF-annotated
-    regression behind T1 item `7.digital`. First record is a **negative
-    result**: the zero-delay replay on the routed netlist passes 10/10, but
-    the pinned `klt` rejects the SDF annotation (klayout-tools#2885), so no
-    annotated response exists and the row stays `unmet`.
+    regression behind T1 item `7.digital`. The early records are **negative
+    results** (the pinned `klt` rejected the SDF annotation,
+    klayout-tools#2885); `20261015-040000-963c79c` is the passing slow-corner
+    annotated replay (111/111), with its negative control, the refused raw-SDF
+    run and the one-line SDF filter all archived. Annotation is partial (see
+    that record) and the row is a functional, not a timing, claim.
   - `post-layout-pvt` (issues #51/#53) — the digital half of post-layout
     (extracted-parasitic) timing re-verification: a `klt extract
     --parasitics --def-net-names --def-net-connections` SPEF fed through

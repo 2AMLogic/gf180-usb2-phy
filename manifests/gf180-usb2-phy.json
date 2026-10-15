@@ -14,6 +14,9 @@
       "file": "verification/records/post-layout-pvt/artifacts/20261015-011505-32db02a/sta-corners.json",
       "content_hash": "sha256:2bccf4bdddabd953f297d0d113253e802c3ad3750e0d56b5b3c87493c708964f"
     },
+    "7.digital": {
+      "file": "verification/records/post-layout-functional/artifacts/20261015-040000-963c79c/response-gate-sdf-ss_125C_1v62-filtered-klt-0.7.1.dev472.json"
+    },
     "8": {
       "file": "manifests/item8-characterization.json",
       "content_hash": "sha256:b2502c53b9536bbe94e33289a55d4a1d3740156568ada4ed77923aab90e7439d"

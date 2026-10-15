@@ -158,7 +158,7 @@ grades in both partitions:
   not require one, and this citation does not claim it:
   `klt functional-verification` envelopes record no `provenance` and
   cannot be freshness-pinned, and SDF gate-level verification is tracked
-  separately by #93 (attempted; blocked, see item 7 below). **Item 5.analog stays `unmet`/`no_evidence`**
+  separately by #93 (cited as item 7.digital, see item 7 below). **Item 5.analog stays `unmet`/`no_evidence`**
   (parked on klayout-tools#1962).
 - **Item 11.digital, power delivery (structural) — cited, `met`** — the
   first T1 item no single artifact proves, so its manifest entry is a
@@ -221,22 +221,35 @@ repo's rule that an envelope must actually support the item to be cited:
   threshold and the pull-up tolerance row are corner-matrix claims.
   Stated here explicitly per the item's own requirement that a spec with
   no statistical row must say so rather than silently omit the item.
-- **Items 7.analog / 7.digital** (post-layout verification) — no analog
-  layout exists to extract; the digital flow has three-corner STA with extracted capacitance attached
-  (item 5.digital above; item-5-shaped evidence, deliberately not this item's) but no
-  SDF-annotated `klt functional-verification` run. Tracked by #53 and
-  the analog `layout/README.md` narrative. **7.digital was attempted in
-  issue #93 and is still `unmet`:** record
-  `post-layout-functional/20261015-011506-32db02a` (issue #131, on the
-  regenerated layout) shows the zero-delay gate-level replay passing
-  111/111 (and the `txoe` suite 5/5), but the nominal SDF annotation being
-  rejected by `klt`'s annotation gate: 53 diagnostics under the pinned klt
-  (the klayout-tools#2885 class), 1 under klt `0.7.1.dev452`, which
-  contains the #2885 fix (a residual top-level bus-port `INTERCONNECT`
-  entry, klayout-tools#2984, open). No slow-corner SDF can be produced for an already-routed DEF
-  (klayout-tools#2886, open) and the shortened-clock negative control was
-  not run, so no annotated response exists and no `"7.digital"` entry is
-  cited.
+- **Item 7.digital, post-layout verification — cited, `met`** — the
+  gate-level `test_usb_utmi_phy.py` suite (all 111 tests, none skipped)
+  replayed through `klt functional-verification` against the routed netlist,
+  the PDK cell models and the post-route SDF at the slow corner
+  `ss_125C_1v62` (`options.sdf`, `environment.sdf.annotated: true`):
+  `verification/records/post-layout-functional/artifacts/20261015-040000-963c79c/response-gate-sdf-ss_125C_1v62-filtered-klt-0.7.1.dev472.json`,
+  111/111 pass (record `post-layout-functional/20261015-040000-963c79c`,
+  issue #93). A `klt functional-verification` response carries no
+  `provenance` block, so the entry has **no `content_hash`** (a pinned one
+  would render `unverifiable_provenance`); the layout, SDF, test and request
+  hashes are pinned in the record, where `verification/check_records.py`
+  checks them for freshness. **Read the limits before relying on this row:**
+  the grader accepts the run as annotated, but klt reports it as
+  `partial` (52 IOPATH entries on XOR/XNOR/MUX-select arcs dropped because
+  Icarus cannot elaborate their `ifnone` edge-only paths, and every
+  TIMINGCHECK section dropped because Icarus implements none), so it is a
+  functional check against annotated cell delays, not a setup/hold signoff;
+  and one zero-delay `INTERCONNECT` entry was deleted from the SDF before the
+  replay to pass klt's annotation gate (klayout-tools#2984, open; the raw
+  SDF and the refused run are archived next to it). The negative control
+  (same suite, 30 ns clock) fails 48/111 on functional assertions while the
+  zero-delay replay at 30 ns passes. The replay needs klt at or after
+  klayout-tools `bc386fb` (the #2885 fix); the repo pin `e8ca621a` still
+  renders the signoff report correctly but cannot replay the SDF (53
+  diagnostics), and CI does not run the replay, so the pin was not bumped.
+  The slow-corner SDF was produced outside klt from klt's generated
+  OpenSTA script (klayout-tools#2886, open). **Item 7.analog stays
+  `unmet`/`no_evidence`** (no analog layout; parked on klayout-tools#1962,
+  tracked by #53 and the analog `layout/README.md` narrative).
 - **Item 11.analog** (power delivery, structural, analog partition) — no
   analog layout exists, so no `klt erc` supply run has anything to grade:
   `unmet`/`no_evidence`. The digital partition's `met` state is the
