@@ -50,6 +50,15 @@ CLK_PERIOD_PS = 83334
 # nominal gate-level run) the period is the ratified 12 MHz one above.
 CLK_PERIOD_PS_OVERRIDE_ENV = "USB_UTMI_PHY_TB_CLK_PERIOD_PS"
 
+# Settle time allowed for the purely combinational `pu_en` path (issue #93).
+# In RTL and zero-delay gate-level simulation the path settles in 0 ns, so any
+# value passes; in the SDF-annotated routed netlist the gates carry real
+# delays (the ss_125C_1v62 SDF run measured more than 1 ns), and a 1 ns sample races
+# them. 10 ns is still far below one 12 MHz clock period (83.3 ns), so the
+# test keeps asserting that pu_en follows its inputs between clock edges with
+# no edge needed (DR-0004 decision 1) and is not registered.
+PU_EN_SETTLE_NS = 10
+
 SYNC_BYTE = 0x80
 
 
@@ -1318,7 +1327,7 @@ async def test_pu_en_follows_termselect_gated_by_rst_n(dut):
                     dut.TermSelect.value = term
                     dut.Reset.value = reset
                     dut.SuspendM.value = susp
-                    await Timer(1, unit="ns")
+                    await Timer(PU_EN_SETTLE_NS, unit="ns")
                     got = int(dut.pu_en.value)
                     assert got == (term & rst_n), (
                         f"rst_n={rst_n} TermSelect={term} Reset={reset} "
@@ -1331,7 +1340,7 @@ async def test_pu_en_follows_termselect_gated_by_rst_n(dut):
     for reset, susp in ((1, 1), (0, 0), (1, 0), (0, 1), (0, 1)):
         dut.Reset.value = reset
         dut.SuspendM.value = susp
-        await Timer(1, unit="ns")
+        await Timer(PU_EN_SETTLE_NS, unit="ns")
         assert int(dut.pu_en.value) == 1, f"Reset={reset} SuspendM={susp} dropped pu_en"
 
     # Not registered: changes take effect between clock edges, no edge needed.
@@ -1339,16 +1348,16 @@ async def test_pu_en_follows_termselect_gated_by_rst_n(dut):
     dut.Reset.value = 0
     dut.SuspendM.value = 1
     dut.TermSelect.value = 0
-    await Timer(1, unit="ns")
+    await Timer(PU_EN_SETTLE_NS, unit="ns")
     assert int(dut.pu_en.value) == 0, "pu_en did not fall with TermSelect before an edge"
     dut.TermSelect.value = 1
-    await Timer(1, unit="ns")
+    await Timer(PU_EN_SETTLE_NS, unit="ns")
     assert int(dut.pu_en.value) == 1, "pu_en did not rise with TermSelect before an edge"
     dut.rst_n.value = 0
-    await Timer(1, unit="ns")
+    await Timer(PU_EN_SETTLE_NS, unit="ns")
     assert int(dut.pu_en.value) == 0, "rst_n low did not force pu_en low (TermSelect high)"
     dut.rst_n.value = 1
-    await Timer(1, unit="ns")
+    await Timer(PU_EN_SETTLE_NS, unit="ns")
     assert int(dut.pu_en.value) == 1, "rst_n release did not restore pu_en"
 
     # Restore testbench inputs.
