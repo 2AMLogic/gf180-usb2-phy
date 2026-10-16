@@ -30,7 +30,6 @@ sim/
   check_records.py          evidence-record format + append-only checker
   pdk.json                  committed PDK defaults (variant, extra search roots)
   harness/                  the runner itself (this directory)
-  tools/                    helper scripts (mk_dut.py)
   tests/                    harness unit tests (no PDK, no ngspice required)
   .work/                    generated ngspice decks (git-ignored, disposable)
 
@@ -193,9 +192,9 @@ line this experiment substantiates. `--claim` overrides it per run.
 `dut` (optional) names the **device under test**: a second fragment holding
 nothing but subcircuit definitions, `.include`d ahead of the testbench. That
 indirection is what lets several testbenches share one netlist, and what lets
-the *same* testbench re-run unedited against a different one — see
-`sim/tools/mk_dut.py`'s docstring for how to generate one from an xschem
-export once `design/` has schematics. No testbench in this repo uses `dut`
+the *same* testbench re-run unedited against a different one; the
+per-cell exports under `design/netlist/` (see `design/netlist.py`) are the
+natural source. No testbench in this repo uses `dut`
 yet; `smoke-inverter`'s netlist below is self-contained instead.
 
 `subset_reason` (optional) pre-declares why this experiment's grid is a
