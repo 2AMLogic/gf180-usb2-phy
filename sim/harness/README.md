@@ -192,7 +192,7 @@ line this experiment substantiates. `--claim` overrides it per run.
 `dut` (optional) names the **device under test**: a second fragment holding
 nothing but subcircuit definitions, `.include`d ahead of the testbench. That
 indirection is what lets several testbenches share one netlist, and what lets
-the *same* testbench re-run unedited against a different one ; the
+the *same* testbench re-run unedited against a different one; the
 per-cell exports under `design/netlist/` (see `design/netlist.py`) are the
 natural source. No testbench in this repo uses `dut`
 yet; `smoke-inverter`'s netlist below is self-contained instead.
