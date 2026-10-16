@@ -2,6 +2,13 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-10-10
+
+- **PR #146**: RTL: add txoe driver-enable output (pin contract, #109)
+- **PR #145**: RTL: add pu_en output derived from TermSelect (#112)
+- **Issue #113** (closed): RTL: add txoe driver-enable output (pin contract, #109)
+- **Issue #112** (closed): RTL: add pu_en output derived from TermSelect (pin contract, #109)
+
 ### 2026-10-09
 
 - **Issue #106** (closed): Post-layout STA: SPEF parasitics not applied despite 342/342 net-name annotation (follow-up to #92)
