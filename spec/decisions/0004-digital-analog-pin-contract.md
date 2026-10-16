@@ -54,6 +54,10 @@ option for each, and records alternatives.
    already places it in the integrator's OTP/fuse/scan mechanism, and
    `sim/tests/test_fixed_trim.py` assumes one fixed code); all-zero is the
    unprogrammed default. Bit order: `trim[i]` <-> `TRIMi`.
+   Landed in #115: `usb_utmi_phy` exposes `input wire [4:0] trim` with
+   this contract in its port comment; the five TRIM rows are `current`.
+   The RTL does not consume the code, and the physical trim connectivity
+   is not re-certified by that change (refreshed physical evidence is #131).
    - Alternatives rejected: an RTL constant (cannot be corrected per die,
      defeating the trim ladder); a register loaded over a side bus (adds a
      configuration interface -- scope creep towards a controller); on-chip
@@ -92,7 +96,8 @@ digital rows the port must exist in `usb_utmi_phy` with the stated
 direction. Rows with status `planned-dig #N` / `planned-ana #N` / `planned #N`
 (both sides) must be **absent** on the planned side until the follow-up
 lands (`PU_EN`/`TRIM` already exist in the netlist; `TXOE` is `planned-ana #114`:
-the digital `txoe` port landed in #113, the analog pin is still to come);
+the digital `txoe` port landed in #113, the analog pin is still to come;
+the digital `trim[4:0]` port landed in #115, so all five TRIM rows are `current`);
 landing the analog side requires flipping the row to `current`. Every `.subckt` pin and every module port must appear. `-` means
 no counterpart on that side. Analog direction is what the generated
 `*.PININFO` line says: the receiver output pins are marked `B` there
@@ -109,11 +114,11 @@ no counterpart on that side. Analog direction is what the generated
 | RXDM | rxdm | input | se_receiver_dm.RXDM | B | current | analog | SE receiver on D- |
 | RXD | - | - | differential_receiver.RXD | B | current | analog | deliberately unused by digital (decision 4) |
 | PU_EN | pu_en | output | dplus_pullup.PU_EN | I | current | RTL | `TermSelect & rst_n` |
-| TRIM0 | trim[0] | input | dplus_pullup.TRIM0 | I | planned-dig #115 | integrator | test-time code |
-| TRIM1 | trim[1] | input | dplus_pullup.TRIM1 | I | planned-dig #115 | integrator | test-time code |
-| TRIM2 | trim[2] | input | dplus_pullup.TRIM2 | I | planned-dig #115 | integrator | test-time code |
-| TRIM3 | trim[3] | input | dplus_pullup.TRIM3 | I | planned-dig #115 | integrator | test-time code |
-| TRIM4 | trim[4] | input | dplus_pullup.TRIM4 | I | planned-dig #115 | integrator | test-time code |
+| TRIM0 | trim[0] | input | dplus_pullup.TRIM0 | I | current | integrator | test-time code |
+| TRIM1 | trim[1] | input | dplus_pullup.TRIM1 | I | current | integrator | test-time code |
+| TRIM2 | trim[2] | input | dplus_pullup.TRIM2 | I | current | integrator | test-time code |
+| TRIM3 | trim[3] | input | dplus_pullup.TRIM3 | I | current | integrator | test-time code |
+| TRIM4 | trim[4] | input | dplus_pullup.TRIM4 | I | current | integrator | test-time code |
 | DP.driver | - | - | differential_driver.DP | B | current | analog | pad net |
 | DM.driver | - | - | differential_driver.DM | B | current | analog | pad net |
 | DP.rx_se | - | - | se_receiver_dp.DP | I | current | analog | pad net |

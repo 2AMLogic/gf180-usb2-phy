@@ -1,0 +1,38 @@
+* driver-signal-quality -- klt sim circuit body (issue #96)
+*
+* Same circuit and the same measurements as driver_tb.spice, re-expressed as a
+* `klt sim` request body (klt-sim-request.json) so the 45-corner matrix can be
+* dispatched to the batch fleet instead of run by the local harness. Differences
+* from driver_tb.spice, all measurement plumbing and none of them electrical:
+*
+*  - Supply is a plain DC source `vsup`, swept by the request's
+*    corners.supply_v. (klt sim rejects a PULSE source as a supply_v target, and
+*    ngspice `alter` does not move a .param that a PULSE source references.)
+*  - TXDP/TXDM are B-sources: a 0/1 unit PULSE (`vpu`) multiplied by v(vdd), so the
+*    stimulus swing follows the swept supply exactly as driver_tb.spice's
+*    pulse(0 {vdd_val} ...) does. Edge 0.5 ns, rise at 100 ns, fall at 200 ns,
+*    as in driver_tb.spice.
+*  - `.meas` cannot take v(vdd) as a threshold, so the 10 %/90 % rise/fall
+*    thresholds are measured on the normalised node dpn = v(dp)/v(vdd), a
+*    measurement-only B-source that loads nothing. 0.1/0.9 of dpn is exactly
+*    0.1/0.9 of the rail, the same levels driver_tb.spice's .csparam publishes.
+*  - design.ngspice (the gf180mcu global switch parameters) is inlined as the
+*    .param line below because the klt deck emits the .lib cards ahead of the
+*    body; values are the PDK file's own defaults.
+*
+* Load: 50 pF from each of D+/D- to ground (spec §6 test load), no resistor.
+
+.param sw_stat_global=0 sw_stat_mismatch=0 mc_skew=3 res_mc_skew=3 cap_mc_skew=3 fnoicor=0
+.include "../../../design/netlist/differential_driver.spice"
+
+vsup VDD 0 dc 3.3
+vpu PU 0 pulse(0 1 100n 0.5n 0.5n 100n 200n)
+btxdp TXDP 0 V='v(vdd)*v(pu)'
+btxdm TXDM 0 V='v(vdd)*(1-v(pu))'
+
+Xdrv VDD 0 TXDP TXDM DP DM differential_driver
+
+cdp DP 0 50p
+cdm DM 0 50p
+
+bdpn DPN 0 V='v(dp)/v(vdd)'

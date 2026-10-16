@@ -1,0 +1,701 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_utmi_phy",
+  "testbench": "test_usb_utmi_phy",
+  "status": "fail",
+  "test_count": 106,
+  "passed_count": 85,
+  "failed_count": 21,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_reset_state",
+      "status": "passed",
+      "sim_time_ns": 208.335,
+      "real_time_s": 0.0014929771423339844
+    },
+    {
+      "name": "test_tx_sync_pattern_is_kjkjkjkk",
+      "status": "passed",
+      "sim_time_ns": 3541.6949999999997,
+      "real_time_s": 0.004034519195556641
+    },
+    {
+      "name": "test_tx_eop_tail_is_se0_se0_j",
+      "status": "passed",
+      "sim_time_ns": 5208.374999999999,
+      "real_time_s": 0.005445003509521484
+    },
+    {
+      "name": "test_loopback_single_byte",
+      "status": "passed",
+      "sim_time_ns": 5208.375,
+      "real_time_s": 0.006052494049072266
+    },
+    {
+      "name": "test_loopback_multi_byte_with_stuffing",
+      "status": "passed",
+      "sim_time_ns": 11875.095000000001,
+      "real_time_s": 0.012696027755737305
+    },
+    {
+      "name": "test_loopback_leading_ones_payload_canonical_stuff_scope",
+      "status": "passed",
+      "sim_time_ns": 6875.054999999997,
+      "real_time_s": 0.006996631622314453
+    },
+    {
+      "name": "test_loopback_trailing_run_of_six_ones_is_flushed",
+      "status": "passed",
+      "sim_time_ns": 6875.055,
+      "real_time_s": 0.00702667236328125
+    },
+    {
+      "name": "test_loopback_back_to_back_packets_minimal_gap",
+      "status": "passed",
+      "sim_time_ns": 13541.775000000001,
+      "real_time_s": 0.01311492919921875
+    },
+    {
+      "name": "test_raw_mode_puts_payload_on_the_wire_unencoded",
+      "status": "passed",
+      "sim_time_ns": 5208.375,
+      "real_time_s": 0.004614591598510742
+    },
+    {
+      "name": "test_malformed_sync_never_activates_rx",
+      "status": "passed",
+      "sim_time_ns": 2041.6829999999973,
+      "real_time_s": 0.0019083023071289062
+    },
+    {
+      "name": "test_rx_clean_wire_packet_has_no_error",
+      "status": "passed",
+      "sim_time_ns": 8875.071000000004,
+      "real_time_s": 0.007647991180419922
+    },
+    {
+      "name": "test_rx_missing_stuff_bit_mid_byte_reaches_rxerror",
+      "status": "passed",
+      "sim_time_ns": 9458.409,
+      "real_time_s": 0.008756875991821289
+    },
+    {
+      "name": "test_rx_missing_trailing_stuff_bit_near_eop_reaches_rxerror",
+      "status": "passed",
+      "sim_time_ns": 8875.070999999996,
+      "real_time_s": 0.008107662200927734
+    },
+    {
+      "name": "test_rx_error_not_raised_after_reception_ends",
+      "status": "passed",
+      "sim_time_ns": 3541.695000000007,
+      "real_time_s": 0.0029451847076416016
+    },
+    {
+      "name": "test_rx_utmi_reset_mid_packet_clears_pipeline",
+      "status": "passed",
+      "sim_time_ns": 10791.753000000012,
+      "real_time_s": 0.009281396865844727
+    },
+    {
+      "name": "test_rx_utmi_reset_after_stuffing_error_mid_packet",
+      "status": "passed",
+      "sim_time_ns": 9541.743000000002,
+      "real_time_s": 0.00799870491027832
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999993,
+      "real_time_s": 0.010361909866333008
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.010308027267456055
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.011006593704223633
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.01092982292175293
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.010223627090454102
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.010213375091552734
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.011219024658203125
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.011214494705200195
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.010644912719726562
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.010940313339233398
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.011760234832763672
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.011474609375
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.011406421661376953
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.012219905853271484
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.01315927505493164
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.01268148422241211
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.011349201202392578
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.011614322662353516
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.01205134391784668
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.011673927307128906
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.010503053665161133
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.010481119155883789
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.011372804641723633
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.012043476104736328
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.011233091354370117
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.01070404052734375
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.011344671249389648
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.011253595352172852
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.010498762130737305
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.01097726821899414
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.011831045150756836
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.01627039909362793
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.012434720993041992
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.015430450439453125
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.012327194213867188
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.012054920196533203
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.011845111846923828
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.012214422225952148
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11208.422999999952,
+      "real_time_s": 0.012655258178710938
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11208.422999999952,
+      "real_time_s": 0.012074470520019531
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=0",
+      "status": "passed",
+      "sim_time_ns": 10458.417000000016,
+      "real_time_s": 0.009362936019897461
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=1",
+      "status": "passed",
+      "sim_time_ns": 10625.08500000008,
+      "real_time_s": 0.00962066650390625
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=0",
+      "status": "passed",
+      "sim_time_ns": 10791.753000000026,
+      "real_time_s": 0.009717226028442383
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=1",
+      "status": "passed",
+      "sim_time_ns": 10958.420999999973,
+      "real_time_s": 0.009733200073242188
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=0",
+      "status": "passed",
+      "sim_time_ns": 10625.08500000008,
+      "real_time_s": 0.009676694869995117
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=1",
+      "status": "passed",
+      "sim_time_ns": 10791.753000000026,
+      "real_time_s": 0.009674787521362305
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=0",
+      "status": "passed",
+      "sim_time_ns": 10958.420999999973,
+      "real_time_s": 0.013011932373046875
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=1",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.011155843734741211
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=0",
+      "status": "failed",
+      "sim_time_ns": 5625.0449999999255,
+      "real_time_s": 0.006373167037963867,
+      "error_type": "AssertionError",
+      "error_message": "sync: unsampled Reset pulse corrupted reception: [] != [90, 255, 60, 252]"
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=1",
+      "status": "failed",
+      "sim_time_ns": 5625.045000000042,
+      "real_time_s": 0.006334781646728516,
+      "error_type": "AssertionError",
+      "error_message": "partial_byte: unsampled Reset pulse corrupted reception: [90, 255, 12] != [90, 255, 60, 252]"
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=2",
+      "status": "failed",
+      "sim_time_ns": 5625.045000000042,
+      "real_time_s": 0.005921125411987305,
+      "error_type": "AssertionError",
+      "error_message": "six_ones: unsampled Reset pulse corrupted reception: [90, 127, 30] != [90, 255, 60, 252]"
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=3",
+      "status": "failed",
+      "sim_time_ns": 5625.045000000042,
+      "real_time_s": 0.005734682083129883,
+      "error_type": "AssertionError",
+      "error_message": "stuff_bit: unsampled Reset pulse corrupted reception: [90, 127, 30] != [90, 255, 60, 252]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 5958.380999999936,
+      "real_time_s": 0.0069806575775146484
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 5791.712999999989,
+      "real_time_s": 0.0063648223876953125
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 6125.048999999999,
+      "real_time_s": 0.0066945552825927734
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 5958.381000000052,
+      "real_time_s": 0.006553173065185547
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 792.673000000068,
+      "real_time_s": 0.0016696453094482422,
+      "error_type": "AssertionError",
+      "error_message": "sync_last: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 792.673000000068,
+      "real_time_s": 0.0016429424285888672,
+      "error_type": "AssertionError",
+      "error_message": "sync_last: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 792.673000000068,
+      "real_time_s": 0.0016608238220214844,
+      "error_type": "AssertionError",
+      "error_message": "sync_last: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 792.673000000068,
+      "real_time_s": 0.001592874526977539,
+      "error_type": "AssertionError",
+      "error_message": "sync_last: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 1126.0090000000782,
+      "real_time_s": 0.001939535140991211,
+      "error_type": "AssertionError",
+      "error_message": "payload: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 1126.0090000000782,
+      "real_time_s": 0.00232696533203125,
+      "error_type": "AssertionError",
+      "error_message": "payload: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 1126.0089999999618,
+      "real_time_s": 0.0020241737365722656,
+      "error_type": "AssertionError",
+      "error_message": "payload: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 1126.0089999999618,
+      "real_time_s": 0.0020737648010253906,
+      "error_type": "AssertionError",
+      "error_message": "payload: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 2042.6829999999609,
+      "real_time_s": 0.0031728744506835938,
+      "error_type": "AssertionError",
+      "error_message": "stuff: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 2042.6829999999609,
+      "real_time_s": 0.0031473636627197266,
+      "error_type": "AssertionError",
+      "error_message": "stuff: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 2042.6829999999609,
+      "real_time_s": 0.0031571388244628906,
+      "error_type": "AssertionError",
+      "error_message": "stuff: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 2042.6829999999609,
+      "real_time_s": 0.0031638145446777344,
+      "error_type": "AssertionError",
+      "error_message": "stuff: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9041.738999999943,
+      "real_time_s": 0.010409116744995117
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 8875.070999999996,
+      "real_time_s": 0.01021885871887207
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9208.407000000007,
+      "real_time_s": 0.010866880416870117
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9041.738999999943,
+      "real_time_s": 0.01106715202331543
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 3709.363000000012,
+      "real_time_s": 0.005173206329345703,
+      "error_type": "AssertionError",
+      "error_message": "hold: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 3709.3629999998957,
+      "real_time_s": 0.00525665283203125,
+      "error_type": "AssertionError",
+      "error_message": "hold: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 3709.363000000012,
+      "real_time_s": 0.00528407096862793,
+      "error_type": "AssertionError",
+      "error_message": "hold: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 3709.363000000012,
+      "real_time_s": 0.0053462982177734375,
+      "error_type": "AssertionError",
+      "error_message": "hold: wire changed before the reset edge (not synchronous): (1, 0) != (0, 1)"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9208.407000000007,
+      "real_time_s": 0.011085271835327148
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9041.738999999943,
+      "real_time_s": 0.011348962783813477
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9375.074999999953,
+      "real_time_s": 0.010102272033691406
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9208.407000000007,
+      "real_time_s": 0.010196447372436523
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9291.741000000038,
+      "real_time_s": 0.010456562042236328
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9125.073000000091,
+      "real_time_s": 0.010587930679321289
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9458.408999999985,
+      "real_time_s": 0.010631561279296875
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9291.741000000038,
+      "real_time_s": 0.01053929328918457
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9375.07500000007,
+      "real_time_s": 0.010477066040039062
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9208.407000000007,
+      "real_time_s": 0.01065373420715332
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9541.743000000017,
+      "real_time_s": 0.010715723037719727
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9375.07500000007,
+      "real_time_s": 0.010762453079223633
+    },
+    {
+      "name": "test_pu_en_follows_termselect_gated_by_rst_n",
+      "status": "failed",
+      "sim_time_ns": 209.33499999996275,
+      "real_time_s": 0.004522085189819336,
+      "error_type": "AttributeError",
+      "error_message": "usb_utmi_phy contains no child object named pu_en"
+    },
+    {
+      "name": "test_trim_static_codes_do_not_affect_framing",
+      "status": "passed",
+      "sim_time_ns": 0.0,
+      "real_time_s": 0.0003674030303955078
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "<worktree>/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1,
+    "sdf": null
+  }
+}

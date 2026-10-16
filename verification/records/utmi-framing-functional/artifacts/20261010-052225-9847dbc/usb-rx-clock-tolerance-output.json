@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_utmi_phy",
+  "testbench": "test_usb_rx_clock_tolerance",
+  "status": "pass",
+  "test_count": 5,
+  "passed_count": 5,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_stimulus_model",
+      "status": "passed",
+      "sim_time_ns": 0.0,
+      "real_time_s": 0.5360114574432373
+    },
+    {
+      "name": "test_scoreboard_detects_faults",
+      "status": "passed",
+      "sim_time_ns": 0.0,
+      "real_time_s": 4.1961669921875e-05
+    },
+    {
+      "name": "test_missing_sync_terminates",
+      "status": "passed",
+      "sim_time_ns": 10458.417,
+      "real_time_s": 0.007027387619018555
+    },
+    {
+      "name": "test_zero_offset_control",
+      "status": "passed",
+      "sim_time_ns": 251710.34699999998,
+      "real_time_s": 0.1710987091064453
+    },
+    {
+      "name": "test_tolerance_matrix",
+      "status": "passed",
+      "sim_time_ns": 172065584.847,
+      "real_time_s": 120.0736711025238
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "<worktree>/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1,
+    "sdf": null
+  }
+}

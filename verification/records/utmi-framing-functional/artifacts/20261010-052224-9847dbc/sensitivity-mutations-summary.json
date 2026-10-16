@@ -1,0 +1,796 @@
+{
+ "final/whitebox": {
+  "status": "pass",
+  "tests": 105,
+  "passed": 105,
+  "failed": 0,
+  "failures": []
+ },
+ "final/ports_only": {
+  "status": "pass",
+  "tests": 105,
+  "passed": 105,
+  "failed": 0,
+  "failures": []
+ },
+ "async_baseline_main/whitebox": {
+  "status": "fail",
+  "tests": 105,
+  "passed": 101,
+  "failed": 4,
+  "failures": [
+   {
+    "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=0",
+    "message": "sync: unsampled Reset pulse corrupted reception: [] != [90, 255, 60, 252]"
+   },
+   {
+    "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=1",
+    "message": "partial_byte: unsampled Reset pulse corrupted reception: [90, 255, 12] != [90, 255, 60, 252]"
+   },
+   {
+    "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=2",
+    "message": "six_ones: unsampled Reset pulse corrupted reception: [90, 127, 30] != [90, 255, 60, 252]"
+   },
+   {
+    "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=3",
+    "message": "stuff_bit: unsampled Reset pulse corrupted reception: [90, 127, 30] != [90, 255, 60, 252]"
+   }
+  ]
+ },
+ "async_baseline_main/ports_only": {
+  "status": "fail",
+  "tests": 105,
+  "passed": 101,
+  "failed": 4,
+  "failures": [
+   {
+    "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=0",
+    "message": "sync: unsampled Reset pulse corrupted reception: [] != [90, 255, 60, 252]"
+   },
+   {
+    "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=1",
+    "message": "partial_byte: unsampled Reset pulse corrupted reception: [90, 255, 12] != [90, 255, 60, 252]"
+   },
+   {
+    "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=2",
+    "message": "six_ones: unsampled Reset pulse corrupted reception: [90, 127, 30] != [90, 255, 60, 252]"
+   },
+   {
+    "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=3",
+    "message": "stuff_bit: unsampled Reset pulse corrupted reception: [90, 127, 30] != [90, 255, 60, 252]"
+   }
+  ]
+ },
+ "no_dec_mask/whitebox": {
+  "status": "fail",
+  "tests": 105,
+  "passed": 65,
+  "failed": 40,
+  "failures": [
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=J",
+    "message": "sync: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=K",
+    "message": "sync: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=J",
+    "message": "sync: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=K",
+    "message": "sync: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=J",
+    "message": "sync_final: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=K",
+    "message": "sync_final: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=J",
+    "message": "sync_final: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=K",
+    "message": "sync_final: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=J",
+    "message": "first_bit: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=K",
+    "message": "first_bit: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=J",
+    "message": "first_bit: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=K",
+    "message": "first_bit: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=J",
+    "message": "partial_byte: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=K",
+    "message": "partial_byte: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=J",
+    "message": "partial_byte: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=K",
+    "message": "partial_byte: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=J",
+    "message": "byte_complete: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=K",
+    "message": "byte_complete: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=J",
+    "message": "byte_complete: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=K",
+    "message": "byte_complete: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=J",
+    "message": "six_ones: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=K",
+    "message": "six_ones: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=J",
+    "message": "six_ones: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=K",
+    "message": "six_ones: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=J",
+    "message": "stuff_bit: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=K",
+    "message": "stuff_bit: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=J",
+    "message": "stuff_bit: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=K",
+    "message": "stuff_bit: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J",
+    "message": "error: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K",
+    "message": "error: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J",
+    "message": "error: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K",
+    "message": "error: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=J",
+    "message": "error_out: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=K",
+    "message": "error_out: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=J",
+    "message": "error_out: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=K",
+    "message": "error_out: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J",
+    "message": "eop: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K",
+    "message": "eop: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J",
+    "message": "eop: release edge: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K",
+    "message": "eop: release edge: u_destuffer.bit_valid = 1, expected 0"
+   }
+  ]
+ },
+ "no_dec_mask/ports_only": {
+  "status": "pass",
+  "tests": 105,
+  "passed": 105,
+  "failed": 0,
+  "failures": []
+ },
+ "dec_level_not_forced/whitebox": {
+  "status": "fail",
+  "tests": 105,
+  "passed": 96,
+  "failed": 9,
+  "failures": [
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J",
+    "message": "error: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K",
+    "message": "error: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J",
+    "message": "error: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K",
+    "message": "error: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J",
+    "message": "eop: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K",
+    "message": "eop: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J",
+    "message": "eop: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K",
+    "message": "eop: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=0",
+    "message": "before=K hold=1 gap=0: bytes [] != [255, 255, 0, 252]"
+   }
+  ]
+ },
+ "dec_level_not_forced/ports_only": {
+  "status": "fail",
+  "tests": 105,
+  "passed": 104,
+  "failed": 1,
+  "failures": [
+   {
+    "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=0",
+    "message": "before=K hold=1 gap=0: bytes [] != [255, 255, 0, 252]"
+   }
+  ]
+ },
+ "dec_not_forced/whitebox": {
+  "status": "fail",
+  "tests": 105,
+  "passed": 96,
+  "failed": 9,
+  "failures": [
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J",
+    "message": "error: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K",
+    "message": "error: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J",
+    "message": "error: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K",
+    "message": "error: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J",
+    "message": "eop: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K",
+    "message": "eop: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J",
+    "message": "eop: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K",
+    "message": "eop: reset clock 0: u_decoder.prev_level = 0, expected 1"
+   },
+   {
+    "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=0",
+    "message": "before=K hold=1 gap=0: bytes [] != [255, 255, 0, 252]"
+   }
+  ]
+ },
+ "dec_not_forced/ports_only": {
+  "status": "fail",
+  "tests": 105,
+  "passed": 104,
+  "failed": 1,
+  "failures": [
+   {
+    "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=0",
+    "message": "before=K hold=1 gap=0: bytes [] != [255, 255, 0, 252]"
+   }
+  ]
+ },
+ "dst_enable_not_forced/whitebox": {
+  "status": "fail",
+  "tests": 105,
+  "passed": 81,
+  "failed": 24,
+  "failures": [
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=J",
+    "message": "partial_byte: reset clock 0: u_destuffer.ones_run = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=K",
+    "message": "partial_byte: reset clock 0: u_destuffer.ones_run = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=J",
+    "message": "partial_byte: reset clock 0: u_destuffer.ones_run = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=K",
+    "message": "partial_byte: reset clock 0: u_destuffer.ones_run = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=J",
+    "message": "byte_complete: reset clock 0: u_destuffer.ones_run = 2, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=K",
+    "message": "byte_complete: reset clock 0: u_destuffer.ones_run = 2, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=J",
+    "message": "byte_complete: reset clock 0: u_destuffer.ones_run = 2, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=K",
+    "message": "byte_complete: reset clock 0: u_destuffer.ones_run = 2, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=J",
+    "message": "six_ones: reset clock 0: u_destuffer.ones_run = 5, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=K",
+    "message": "six_ones: reset clock 0: u_destuffer.ones_run = 5, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=J",
+    "message": "six_ones: reset clock 0: u_destuffer.ones_run = 5, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=K",
+    "message": "six_ones: reset clock 0: u_destuffer.ones_run = 5, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=J",
+    "message": "stuff_bit: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=K",
+    "message": "stuff_bit: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=J",
+    "message": "stuff_bit: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=K",
+    "message": "stuff_bit: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J",
+    "message": "error: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K",
+    "message": "error: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J",
+    "message": "error: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K",
+    "message": "error: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J",
+    "message": "eop: reset clock 0: u_destuffer.ones_run = 5, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K",
+    "message": "eop: reset clock 0: u_destuffer.ones_run = 5, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J",
+    "message": "eop: reset clock 0: u_destuffer.ones_run = 5, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K",
+    "message": "eop: reset clock 0: u_destuffer.ones_run = 5, expected 0"
+   }
+  ]
+ },
+ "dst_enable_not_forced/ports_only": {
+  "status": "pass",
+  "tests": 105,
+  "passed": 105,
+  "failed": 0,
+  "failures": []
+ },
+ "dst_strobe_not_forced/whitebox": {
+  "status": "fail",
+  "tests": 105,
+  "passed": 65,
+  "failed": 40,
+  "failures": [
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=J",
+    "message": "sync: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=K",
+    "message": "sync: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=J",
+    "message": "sync: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=K",
+    "message": "sync: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=J",
+    "message": "sync_final: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=K",
+    "message": "sync_final: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=J",
+    "message": "sync_final: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=K",
+    "message": "sync_final: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=J",
+    "message": "first_bit: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=K",
+    "message": "first_bit: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=J",
+    "message": "first_bit: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=K",
+    "message": "first_bit: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=J",
+    "message": "partial_byte: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=K",
+    "message": "partial_byte: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=J",
+    "message": "partial_byte: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=K",
+    "message": "partial_byte: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=J",
+    "message": "byte_complete: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=K",
+    "message": "byte_complete: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=J",
+    "message": "byte_complete: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=K",
+    "message": "byte_complete: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=J",
+    "message": "six_ones: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=K",
+    "message": "six_ones: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=J",
+    "message": "six_ones: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=K",
+    "message": "six_ones: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=J",
+    "message": "stuff_bit: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=K",
+    "message": "stuff_bit: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=J",
+    "message": "stuff_bit: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=K",
+    "message": "stuff_bit: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J",
+    "message": "error: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K",
+    "message": "error: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J",
+    "message": "error: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K",
+    "message": "error: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=J",
+    "message": "error_out: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=K",
+    "message": "error_out: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=J",
+    "message": "error_out: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=K",
+    "message": "error_out: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J",
+    "message": "eop: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K",
+    "message": "eop: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J",
+    "message": "eop: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K",
+    "message": "eop: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   }
+  ]
+ },
+ "dst_strobe_not_forced/ports_only": {
+  "status": "pass",
+  "tests": 105,
+  "passed": 105,
+  "failed": 0,
+  "failures": []
+ },
+ "dst_not_forced/whitebox": {
+  "status": "fail",
+  "tests": 105,
+  "passed": 69,
+  "failed": 36,
+  "failures": [
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=J",
+    "message": "sync: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=K",
+    "message": "sync: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=J",
+    "message": "sync: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=K",
+    "message": "sync: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=J",
+    "message": "sync_final: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=K",
+    "message": "sync_final: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=J",
+    "message": "sync_final: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=K",
+    "message": "sync_final: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=J",
+    "message": "first_bit: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=K",
+    "message": "first_bit: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=J",
+    "message": "first_bit: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=K",
+    "message": "first_bit: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=J",
+    "message": "partial_byte: reset clock 0: u_destuffer.ones_run = 2, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=K",
+    "message": "partial_byte: reset clock 0: u_destuffer.ones_run = 2, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=J",
+    "message": "partial_byte: reset clock 0: u_destuffer.ones_run = 2, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=K",
+    "message": "partial_byte: reset clock 0: u_destuffer.ones_run = 2, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=J",
+    "message": "byte_complete: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=K",
+    "message": "byte_complete: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=J",
+    "message": "byte_complete: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=K",
+    "message": "byte_complete: reset clock 0: u_destuffer.bit_valid = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=J",
+    "message": "six_ones: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=K",
+    "message": "six_ones: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=J",
+    "message": "six_ones: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=K",
+    "message": "six_ones: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J",
+    "message": "error: reset clock 0: u_destuffer.stuff_err = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K",
+    "message": "error: reset clock 0: u_destuffer.stuff_err = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J",
+    "message": "error: reset clock 0: u_destuffer.stuff_err = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K",
+    "message": "error: reset clock 0: u_destuffer.stuff_err = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=J",
+    "message": "error_out: reset clock 0: u_destuffer.ones_run = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=K",
+    "message": "error_out: reset clock 0: u_destuffer.ones_run = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=J",
+    "message": "error_out: reset clock 0: u_destuffer.ones_run = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=K",
+    "message": "error_out: reset clock 0: u_destuffer.ones_run = 1, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J",
+    "message": "eop: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K",
+    "message": "eop: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J",
+    "message": "eop: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   },
+   {
+    "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K",
+    "message": "eop: reset clock 0: u_destuffer.ones_run = 6, expected 0"
+   }
+  ]
+ },
+ "dst_not_forced/ports_only": {
+  "status": "pass",
+  "tests": 105,
+  "passed": 105,
+  "failed": 0,
+  "failures": []
+ }
+}

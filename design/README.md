@@ -55,8 +55,8 @@ Targets (spec Sec.6), by design intent:
 | Parameter | Target | This cell's approach |
 |---|---|---|
 | Rise/fall time (10-90%) into 50pF | 4-20ns | `R_series` (36ohm nominal) x 50pF alone gives a ~4ns floor; `R_slew` (poly, ~4kohm) into the big output FET's gate cap adds a second RC stage so the edge lands mid-window instead of at the floor |
-| Rise/fall matching | within 10% | Output stage `Wp:Wn = 2:1` (gf180mcu 3.3V mobility ratio), both edges driven from the *same* shared gate node so they see correlated RC delay |
-| Crossover voltage | 1.3-2.0V | Balanced `Wp:Wn` centers the crossover near VDD/2 = 1.65V |
+| Rise/fall matching | within 10% | Output stage `Wp:Wn = 80u*4 : 30u*4` (P:N ~2.7:1, issue #96: the originally assumed 2:1 mobility ratio left the pull-up weak, worst at `fs`), both edges driven from the *same* shared gate node so they see correlated RC delay |
+| Crossover voltage | 1.3-2.0V | Balanced rise/fall drive centers the crossover near VDD/2 = 1.65V |
 | Output resistance | 28-44ohm | `RSER*` = `rm1`, W=2u L=800u -> 36ohm nominal (L/W=400, rsh_rm1=0.09ohm/sq) |
 
 No output-enable/tri-state in this cell. `DP`/`DM` are physically shared
@@ -73,8 +73,16 @@ comfortably inside the spec's +/-22%-wide 28-44ohm band around a 36ohm
 center -- so a plain untrimmed metal resistor is sufficient here, unlike
 the pull-up's much tighter +/-5% target.
 
-**Spot-check (informal, not a `sim/` evidence record -- #26 owns
-verification):** `ngspice -b`, tt corner, 27 degC, ideal 3.3V rail,
+**Re-size (issue #96):** output PMOS `W=80u m=4` / NMOS `W=30u m=4`,
+predriver `8u`/`2.5u` (was `60u`/`30u`, `4u`/`2u`); `rm1` termination and
+`R_slew` unchanged. All 45 PVT corners pass the Sec.6 rows (rise 4.09-8.78ns,
+fall 4.13-8.76ns, ratio 0.944-1.086, crossover 1.405-1.883V): record
+`sim/driver-signal-quality/records/20261015-104027-d109790.md`, which supersedes
+`20260817-203552-a408cb6`. The fast-corner rise time is 2.3% above the
+4ns floor, the thinnest margin.
+
+**Original spot-check of the 60u/30u design (informal, not a `sim/` evidence record -- #26 owns
+verification; superseded by the re-size above):** `ngspice -b`, tt corner, 27 degC, ideal 3.3V rail,
 `TXDP`/`TXDM` driven by a matched pulse pair into two 50pF loads, measured
 via `.meas`:
 - rise (10-90%) ~15.1ns, fall (10-90%) ~13.0ns -- both inside [4,20]ns.

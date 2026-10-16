@@ -5,7 +5,7 @@
   "tier": null,
   "t1_item_count": 22,
   "build_t1_item_count": 22,
-  "t1_met_count": 6,
+  "t1_met_count": 7,
   "source_doc": "docs/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:5ce13a12f12bfeb3ca07f45c7527e3423d69872f7f52a4bd0762099292e1c2e9",
   "build": {
@@ -89,11 +89,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/records/digital-drc/artifacts/20260922-042422-9ec2304/drc-report.json",
+        "file": "verification/records/digital-drc/artifacts/20261015-011502-32db02a/drc-report.json",
         "command": null,
         "kind": "drc",
         "check_status": "clean",
-        "content_hash": "sha256:32e6dead081fefe5a237a66196699f6fb3cbcd032061964868104dd7d1ff484f",
+        "content_hash": "sha256:4491a5483d685c101f4a323511c8cea97d082873f1539d6fb2709e11d5fe5971",
         "input_verified": true,
         "exit_status": 0,
         "coverage": {
@@ -157,11 +157,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/records/digital-lvs/artifacts/20260922-042422-9ec2304/lvs-report.json",
+        "file": "verification/records/digital-lvs/artifacts/20261015-011503-32db02a/lvs-report.json",
         "command": null,
         "kind": "lvs",
         "check_status": "match",
-        "content_hash": "sha256:487f649d70d71df5991b027d0b76bcbcf75e8cbb18cffa7a78ae268ddf53750c",
+        "content_hash": "sha256:0c9650223a0698571b32ef8e6576712051bddd8e4c3d809fa64427834bbf4b28",
         "input_verified": true,
         "exit_status": 0
       }
@@ -193,11 +193,11 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/records/post-layout-pvt/artifacts/20261008-195826-74ccfac/sta-corners.json",
+        "file": "verification/records/post-layout-pvt/artifacts/20261015-011505-32db02a/sta-corners.json",
         "command": null,
         "kind": "sta",
         "check_status": "ok",
-        "content_hash": "sha256:82a57e76646067f49f4f48f796a8348b20b7e829fb8757778aed3c7900dde29e",
+        "content_hash": "sha256:2bccf4bdddabd953f297d0d113253e802c3ad3750e0d56b5b3c87493c708964f",
         "input_verified": true,
         "exit_status": 0
       }
@@ -249,10 +249,18 @@
       "notes": [
         "A `klt pex` citation is only as good as the **device-body bias** of the netlist it ran on (#1983). A device body left on an anonymous, deck-synthesized net has no DC bias path at all, which makes a resimulation of that extracted netlist *physically wrong, not merely imprecise* (`docs/cli/extract.md` \u2192 \"Coverage\") \u2014 the run converges and reports numbers, and those numbers are not comparable to the schematic leg they are being diffed against. A `klt pex` report states the condition in its own `body_bias` block (`docs/cli/pex.md`), and `klt signoff` surfaces it verbatim on this item's citation (`citation.body_bias`). **It does not grade on it**: an item-7 citation whose `body_bias.status` is `\"unbiased\"` still renders `met`, because the condition is a deck-coverage property some PDKs produce on every layout they extract, not a defect this command can adjudicate. So a claim citing item 7 must read that field and state whether its post-layout numbers were measured on a properly-biased netlist \u2014 claimant-enforced, exactly like item 3's DRC-coverage disclosure. The same discipline applies upstream at item 4: `klt lvs`'s `body_verification` block says whether the compare verified the body ties at all, and `\"unchecked\"` (a pre-extracted netlist) is not `\"verified\"`."
       ],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "verification/records/post-layout-functional/artifacts/20261015-040000-963c79c/response-gate-sdf-ss_125C_1v62-filtered-klt-0.7.1.dev472.json",
+        "command": null,
+        "kind": "functional-verification",
+        "check_status": "pass",
+        "content_hash": null,
+        "input_verified": null,
+        "exit_status": 0
+      }
     },
     {
       "tier": "T1",
@@ -269,7 +277,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:d93edeb32f79c2c8217fe879365dc5abb6f69627db6c4d44526c18fe43e79ff1",
+        "content_hash": "sha256:b2502c53b9536bbe94e33289a55d4a1d3740156568ada4ed77923aab90e7439d",
         "input_verified": null,
         "exit_status": 0
       }
@@ -289,7 +297,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:d93edeb32f79c2c8217fe879365dc5abb6f69627db6c4d44526c18fe43e79ff1",
+        "content_hash": "sha256:b2502c53b9536bbe94e33289a55d4a1d3740156568ada4ed77923aab90e7439d",
         "input_verified": null,
         "exit_status": 0
       }
@@ -369,38 +377,38 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/records/digital-erc/artifacts/20260922-042422-9ec2304/erc-supply-report.json",
+        "file": "verification/records/digital-erc/artifacts/20261015-011504-32db02a/erc-supply-report.json",
         "command": null,
         "kind": "erc",
         "check_status": "not_checked",
-        "content_hash": "sha256:32e6dead081fefe5a237a66196699f6fb3cbcd032061964868104dd7d1ff484f",
+        "content_hash": "sha256:4491a5483d685c101f4a323511c8cea97d082873f1539d6fb2709e11d5fe5971",
         "input_verified": true,
         "exit_status": 0,
         "parts": [
           {
-            "file": "verification/records/digital-erc/artifacts/20260922-042422-9ec2304/erc-supply-report.json",
+            "file": "verification/records/digital-erc/artifacts/20261015-011504-32db02a/erc-supply-report.json",
             "command": null,
             "kind": "erc",
             "check_status": "not_checked",
-            "content_hash": "sha256:32e6dead081fefe5a237a66196699f6fb3cbcd032061964868104dd7d1ff484f",
+            "content_hash": "sha256:4491a5483d685c101f4a323511c8cea97d082873f1539d6fb2709e11d5fe5971",
             "input_verified": true,
             "exit_status": 0
           },
           {
-            "file": "verification/records/digital-lvs/artifacts/20260922-042422-9ec2304/lvs-report.json",
+            "file": "verification/records/digital-lvs/artifacts/20261015-011503-32db02a/lvs-report.json",
             "command": null,
             "kind": "lvs",
             "check_status": "match",
-            "content_hash": "sha256:487f649d70d71df5991b027d0b76bcbcf75e8cbb18cffa7a78ae268ddf53750c",
+            "content_hash": "sha256:0c9650223a0698571b32ef8e6576712051bddd8e4c3d809fa64427834bbf4b28",
             "input_verified": true,
             "exit_status": 0
           },
           {
-            "file": "verification/records/place-and-route/artifacts/20260922-042422-9ec2304/place-and-route-output.json",
+            "file": "verification/records/place-and-route/artifacts/20261015-011501-32db02a/place-and-route-output.json",
             "command": null,
             "kind": "place-and-route",
             "check_status": "ok",
-            "content_hash": "sha256:97d25128168bf0a21037feba583db4b4f74ad6b2fa211244d8ab54b8af486bb4",
+            "content_hash": "sha256:a6e1e9d7a6ef6cd5a5df1c61feab004d4e8057a0a6b7d071948ddcb31c31e5f1",
             "input_verified": null,
             "exit_status": 0
           }

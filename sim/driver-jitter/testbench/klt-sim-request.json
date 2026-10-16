@@ -1,0 +1,232 @@
+{
+  "netlist": "driver_jitter_tb_klt.spice",
+  "engine": "ngspice",
+  "backend": "batch",
+  "models": {
+    "pdk": "gf180mcuD",
+    "lib": "libs.tech/ngspice/sm141064.ngspice"
+  },
+  "corners": {
+    "process": [
+      {
+        "name": "tt",
+        "sections": [
+          "typical",
+          "res_typical",
+          "bjt_typical",
+          "diode_typical",
+          "moscap_typical",
+          "mimcap_typical"
+        ]
+      },
+      {
+        "name": "ff",
+        "sections": [
+          "ff",
+          "res_ff",
+          "bjt_ff",
+          "diode_ff",
+          "moscap_ff",
+          "mimcap_ff"
+        ]
+      },
+      {
+        "name": "ss",
+        "sections": [
+          "ss",
+          "res_ss",
+          "bjt_ss",
+          "diode_ss",
+          "moscap_ss",
+          "mimcap_ss"
+        ]
+      },
+      {
+        "name": "fs",
+        "sections": [
+          "fs",
+          "res_typical",
+          "bjt_typical",
+          "diode_typical",
+          "moscap_typical",
+          "mimcap_typical"
+        ]
+      },
+      {
+        "name": "sf",
+        "sections": [
+          "sf",
+          "res_typical",
+          "bjt_typical",
+          "diode_typical",
+          "moscap_typical",
+          "mimcap_typical"
+        ]
+      }
+    ],
+    "supply_v": {
+      "vsup": [
+        2.97,
+        3.3,
+        3.63
+      ]
+    },
+    "temperature_c": [
+      -40,
+      27,
+      125
+    ]
+  },
+  "analysis": {
+    "kind": "tran",
+    "args": "50p 1.75u"
+  },
+  "measurements": [
+    {
+      "name": "tx1",
+      "spice": ".meas tran tx1 WHEN v(dp)=v(dm) CROSS=1",
+      "unit": "s"
+    },
+    {
+      "name": "tx2",
+      "spice": ".meas tran tx2 WHEN v(dp)=v(dm) CROSS=2",
+      "unit": "s"
+    },
+    {
+      "name": "tx3",
+      "spice": ".meas tran tx3 WHEN v(dp)=v(dm) CROSS=3",
+      "unit": "s"
+    },
+    {
+      "name": "tx4",
+      "spice": ".meas tran tx4 WHEN v(dp)=v(dm) CROSS=4",
+      "unit": "s"
+    },
+    {
+      "name": "tx5",
+      "spice": ".meas tran tx5 WHEN v(dp)=v(dm) CROSS=5",
+      "unit": "s"
+    },
+    {
+      "name": "tx6",
+      "spice": ".meas tran tx6 WHEN v(dp)=v(dm) CROSS=6",
+      "unit": "s"
+    },
+    {
+      "name": "tx7",
+      "spice": ".meas tran tx7 WHEN v(dp)=v(dm) CROSS=7",
+      "unit": "s"
+    },
+    {
+      "name": "tx8",
+      "spice": ".meas tran tx8 WHEN v(dp)=v(dm) CROSS=8",
+      "unit": "s"
+    },
+    {
+      "name": "tx9",
+      "spice": ".meas tran tx9 WHEN v(dp)=v(dm) CROSS=LAST",
+      "unit": "s"
+    },
+    {
+      "name": "dev0",
+      "spice": ".meas tran dev0 param='tx1-tx1-0*tbit'"
+    },
+    {
+      "name": "dev1",
+      "spice": ".meas tran dev1 param='tx2-tx1-1*tbit'"
+    },
+    {
+      "name": "dev2",
+      "spice": ".meas tran dev2 param='tx3-tx1-3*tbit'"
+    },
+    {
+      "name": "dev3",
+      "spice": ".meas tran dev3 param='tx4-tx1-4*tbit'"
+    },
+    {
+      "name": "dev4",
+      "spice": ".meas tran dev4 param='tx5-tx1-7*tbit'"
+    },
+    {
+      "name": "dev5",
+      "spice": ".meas tran dev5 param='tx6-tx1-8*tbit'"
+    },
+    {
+      "name": "dev6",
+      "spice": ".meas tran dev6 param='tx7-tx1-14*tbit'"
+    },
+    {
+      "name": "dev7",
+      "spice": ".meas tran dev7 param='tx8-tx1-15*tbit'"
+    },
+    {
+      "name": "cons0",
+      "spice": ".meas tran cons0 param='tx2-tx1-1*tbit'"
+    },
+    {
+      "name": "cons1",
+      "spice": ".meas tran cons1 param='tx3-tx2-2*tbit'"
+    },
+    {
+      "name": "cons2",
+      "spice": ".meas tran cons2 param='tx4-tx3-1*tbit'"
+    },
+    {
+      "name": "cons3",
+      "spice": ".meas tran cons3 param='tx5-tx4-3*tbit'"
+    },
+    {
+      "name": "cons4",
+      "spice": ".meas tran cons4 param='tx6-tx5-1*tbit'"
+    },
+    {
+      "name": "cons5",
+      "spice": ".meas tran cons5 param='tx7-tx6-6*tbit'"
+    },
+    {
+      "name": "cons6",
+      "spice": ".meas tran cons6 param='tx8-tx7-1*tbit'"
+    },
+    {
+      "name": "tprop_ns",
+      "spice": ".meas tran tprop_ns param='(tx1-283.3333e-9)*1e9'",
+      "unit": "ns"
+    },
+    {
+      "name": "jit_grid_pp_ps",
+      "spice": ".meas tran jit_grid_pp_ps param='(max(max(max(max(max(max(max(dev0,dev1),dev2),dev3),dev4),dev5),dev6),dev7)-min(min(min(min(min(min(min(dev0,dev1),dev2),dev3),dev4),dev5),dev6),dev7))*1e12'",
+      "unit": "ps"
+    },
+    {
+      "name": "jit_grid_max_ps",
+      "spice": ".meas tran jit_grid_max_ps param='max(max(max(max(max(max(max(abs(dev0),abs(dev1)),abs(dev2)),abs(dev3)),abs(dev4)),abs(dev5)),abs(dev6)),abs(dev7))*1e12'",
+      "unit": "ps"
+    },
+    {
+      "name": "jit_cons_pp_ps",
+      "spice": ".meas tran jit_cons_pp_ps param='(max(max(max(max(max(max(cons0,cons1),cons2),cons3),cons4),cons5),cons6)-min(min(min(min(min(min(cons0,cons1),cons2),cons3),cons4),cons5),cons6))*1e12'",
+      "unit": "ps"
+    },
+    {
+      "name": "jit_cons_max_ps",
+      "spice": ".meas tran jit_cons_max_ps param='max(max(max(max(max(max(abs(cons0),abs(cons1)),abs(cons2)),abs(cons3)),abs(cons4)),abs(cons5)),abs(cons6))*1e12'",
+      "unit": "ps"
+    },
+    {
+      "name": "xings_extra_ps",
+      "spice": ".meas tran xings_extra_ps param='(tx9-tx8)*1e12'",
+      "unit": "ps"
+    }
+  ],
+  "options": {
+    "timeout_s": 900,
+    "keep_artifacts": true
+  },
+  "batch": {
+    "poll_interval_s": 30,
+    "poll_timeout_s": 5400
+  },
+  "remote": {
+    "hosts": 9
+  }
+}

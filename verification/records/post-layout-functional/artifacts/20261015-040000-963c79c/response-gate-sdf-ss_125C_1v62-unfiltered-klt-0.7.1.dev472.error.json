@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "error": {
+    "command": "functional-verification",
+    "message": "SDF back-annotation of '<worktree>/verification/records/post-layout-functional/artifacts/20261015-040000-963c79c/usb_utmi_phy_route_ss_125C_1v62.sdf' did not fully apply: 1 diagnostic(s) in the icarus transcript -- SDF ERROR: <worktree>/verification/.klt/functional-verification/klt_sdf_deferred_bus_ports.sdf:5968: Could not find intermodpath!. The simulator exits 0 after skipping an annotation it cannot apply, so this run's verdict would have been a zero-delay one reported as if it were annotated."
+  }
+}
