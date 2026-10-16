@@ -20,7 +20,7 @@ plus anything in the manifest's ``params`` map.
 
 A manifest may also name a **device under test**::
 
-    sim/<experiment-slug>/testbench/tb.json   {"dut": "sim/dut/usb2_phy_driver.spice"}
+    sim/<experiment-slug>/testbench/tb.json   {"dut": "design/netlist/differential_driver.spice"}
 
 The DUT is a second fragment holding nothing but ``.subckt`` definitions;
 the harness ``.include``s it ahead of the testbench so several testbenches
