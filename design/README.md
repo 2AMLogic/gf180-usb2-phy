@@ -16,6 +16,16 @@ Do not restructure or remove another issue's section from this file.
   `python3 design/netlist.py --check` verifies the committed netlists are
   current and reproduce byte-for-byte. Both need `source sim/env.sh` first
   (PDK discovery) and `klt` (klayout-tools) plus `ngspice` on `PATH`.
+- **klt version.** `klt netlist` does not exist in the CI/repo pin
+  (`e8ca621a`, `klt 0.5.0+ge8ca621a6961`), so `netlist.py` runs on a newer
+  host klt than that pin. The committed netlists reproduce byte-for-byte
+  (`python3 design/netlist.py --check -v`: `OK: 5 netlist(s)`) with
+  `klt 0.7.1.dev1624+gdfc7323c0839`. A reviewer's run on
+  `klt 0.7.1.dev1614+gdb1192cb3a0b` did not (`*.iopin`/`*.ipin` pin comments
+  instead of `*.PININFO`, commented `.subckt`, re-wrapped device lines), so
+  the export is klt-build sensitive; `--check` prints the klt version on
+  failure. The committed netlists are deliberately not regenerated or
+  normalized around that difference.
 - **Headless xschem via `klt netlist`, never raw `xschem`**:
   `design/netlist.py` calls `klt netlist --rcfile design/xschemrc --pdk ...
   --pdk-root ... -o <out> <cell>.sch` per cell. `klt netlist` forces

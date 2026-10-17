@@ -115,6 +115,15 @@ def export_cell(cell: str, outdir: Path, env: dict[str, str], pdk: str, pdk_root
     return header + text
 
 
+def klt_version() -> str:
+    """The ``klt --version`` line, or ``unknown`` (the netlist text is klt-version sensitive)."""
+    try:
+        proc = subprocess.run(["klt", "--version"], capture_output=True, text=True, timeout=60, check=False)
+    except (OSError, subprocess.TimeoutExpired):
+        return "unknown"
+    return (proc.stdout or proc.stderr).strip() or "unknown"
+
+
 def run(check: bool, only: str | None, verbose: bool) -> int:
     try:
         env, pdk, pdk_root = xschem_env()
@@ -122,6 +131,9 @@ def run(check: bool, only: str | None, verbose: bool) -> int:
         print(f"design/netlist.py: {exc}", file=sys.stderr)
         return 2
 
+    version = klt_version()
+    if verbose:
+        print(f"  {version}")
     wanted = [only] if only else cells()
     netlists: dict[str, str] = {}
     with tempfile.TemporaryDirectory(prefix="gf180-netlist-") as tmp:
@@ -163,7 +175,13 @@ def run(check: bool, only: str | None, verbose: bool) -> int:
 
     status = 0
     if failures:
-        print("\nFAIL:", file=sys.stderr)
+        print(f"\nFAIL (with {version}):", file=sys.stderr)
+        if check:
+            print(
+                "  note: the exported text (pin-comment style, line wrapping) differs "
+                "between klt builds; see design/README.md for the verified klt.",
+                file=sys.stderr,
+            )
         for failure in failures:
             print(f"  - {failure}", file=sys.stderr)
         status = 1
