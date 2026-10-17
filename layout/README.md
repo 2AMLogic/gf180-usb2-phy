@@ -171,8 +171,8 @@ holds the `klt` pin fixed and changes exactly one design input —
 (`spec/decisions/0001-dplus-pullup-switch-device-flattening.md`) — so that
 its effect is isolated. The fourth changes no design source at all: it adds
 the committed `dplus_pullup` layout plan (issue #62) and drops that block
-from the driver's `BLOCKED_BLOCKS`. The fifth (issue #65) changes no design
-source and no `klt` pin either: it adds an explicit `routing` block (`metal`,
+from the driver's (since removed, issue #177) list of plan-less blocks. The
+fifth (issue #65) changes no design source and no `klt` pin either: it adds an explicit `routing` block (`metal`,
 0.23 µm) to the three older plan documents themselves, in place of the
 illegal 0.17 µm default they had taken by omission since the second run. The
 sixth (issue #68) changes exactly one repo input — `scripts/setup-env.sh`'s
@@ -770,19 +770,16 @@ PDK_ROOT=$HOME/.volare python3 scripts/gen_analog_layout.py --format json
 response JSON, and a combined `analog-layout-report.json` under
 `layout/analog/out/` (gitignored scratch), and prints one verdict line per
 block. Its exit code is about *the run*, never about the quality of the
-layout: `0` means every plan executed and every blocked block was probed,
+layout: `0` means every plan executed,
 `1` means the run itself failed (no klt, no PDK, unexpected exception). Read
 the report for the verdict — as of this writing it ends `analog layout NOT
 delivered`.
 
-As of issue #72, `BLOCKED_BLOCKS` in `scripts/gen_analog_layout.py` is empty
-— every one of the five analog blocks now executes from a committed plan
-(`differential_driver.json` was the last to be authored, once
+As of issue #72 every one of the five analog blocks executes from a
+committed plan (`differential_driver.json` was the last to be authored, once
 klayout-tools#1731 gave `res_array` drawn-geometry support for gf180mcu
-metal resistors). The script's `_probe_blocked()` re-ingestion path (and
-the `BLOCKED_BLOCKS` dict itself) is kept in the driver rather than deleted,
-so a future block that regresses to "cannot be ingested"/"no plan possible"
-has somewhere to land without re-deriving the harness shape.
+metal resistors), so the driver no longer carries a plan-less-block path
+(removed in issue #177; it is in git history if a future block needs one).
 
 `scripts/digital_lvs.py` writes its extracted/reference netlists and reports
 to `layout/digital/lvs/` (gitignored scratch — the frozen copies live under
