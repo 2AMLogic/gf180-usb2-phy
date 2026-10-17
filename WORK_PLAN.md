@@ -26,13 +26,15 @@ _None._
 
 Human-approved issues ready for implementation (`loom:issue`).
 
+- **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief
 - **#114**: Analog: add TXOE high-Z enable to differential_driver (pin contract, #109)
+- **#179**: Simplify design/netlist.py: replace raw xschem call with klt netlist
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#176**: Finish #44: four cocotb testbenches still redefine the shared 12 MHz clock helper
 
 ## PRs Awaiting Review
 
@@ -61,6 +63,7 @@ Issues carrying `loom:curated`.
 
 - **#119**: Verify shared-pad analog bus ownership and receiver transients *(architect)*
 - **#126**: Resolve DR-0003: transition-resynchronized RX oversampling for independent host clocks *(architect)*
+- **#177**: Remove inert BLOCKED_BLOCKS path from gen_analog_layout.py: empty since #72 *(hermit)*
 
 ## Epics
 
@@ -73,11 +76,11 @@ Issues carrying `loom:curated`.
 | Operator merge-risk holds | 2 |
 | Very important | 0 |
 | Important | 3 |
-| Ready (`loom:issue`) | 1 |
-| In Progress (`loom:building`) | 0 |
+| Ready (`loom:issue`) | 3 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 2 |
 | Curated | 5 |
-| Architect / Hermit proposals | 2 |
+| Architect / Hermit proposals | 3 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
