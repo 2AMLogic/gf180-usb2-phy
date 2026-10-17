@@ -485,7 +485,7 @@ class _KltFixture(unittest.TestCase):
             "checks": {
                 "vth_mv": {"min": -200.0, "max": 200.0},
                 "vhi": {"min": 2.9},
-                "vlo": {"max": 0.1, "min_spread_pct": 1.0},
+                "vlo": {"max": 0.1},
             },
         }
         self.tb_dir = self.root / "kltx-exp" / "testbench"
