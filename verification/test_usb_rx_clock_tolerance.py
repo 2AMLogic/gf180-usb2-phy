@@ -54,11 +54,11 @@ import random
 from fractions import Fraction
 
 import cocotb
-from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles, FallingEdge, Timer
 from cocotb.utils import get_sim_time
 
 from cocotb_helpers import CLK_PERIOD_PS
+from cocotb_helpers import start_clock as _start_clock
 from usb_bit_model import bit_destuff, bit_stuff, nrzi_decode, nrzi_encode
 
 SYNC_BYTE = 0x80
@@ -153,10 +153,6 @@ def score(expected, got_bytes, rx_active_seen, rx_active_end_low, rx_error_seen)
     if rx_error_seen:
         return False, "rx_error_asserted", None
     return True, "ok", None
-
-
-async def _start_clock(dut):
-    cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_PS, unit="ps").start())
 
 
 async def _reset(dut):
