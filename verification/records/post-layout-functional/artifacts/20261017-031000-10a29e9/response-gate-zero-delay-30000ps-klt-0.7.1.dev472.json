@@ -1,0 +1,689 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_utmi_phy",
+  "testbench": "test_usb_utmi_phy",
+  "status": "pass",
+  "test_count": 111,
+  "passed_count": 111,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_reset_state",
+      "status": "passed",
+      "sim_time_ns": 75.0,
+      "real_time_s": 0.0010132789611816406
+    },
+    {
+      "name": "test_tx_sync_pattern_is_kjkjkjkk",
+      "status": "passed",
+      "sim_time_ns": 1275.0,
+      "real_time_s": 0.00327301025390625
+    },
+    {
+      "name": "test_tx_eop_tail_is_se0_se0_j",
+      "status": "passed",
+      "sim_time_ns": 1875.0,
+      "real_time_s": 0.0045239925384521484
+    },
+    {
+      "name": "test_loopback_single_byte",
+      "status": "passed",
+      "sim_time_ns": 1874.9999999999995,
+      "real_time_s": 0.005127668380737305
+    },
+    {
+      "name": "test_loopback_multi_byte_with_stuffing",
+      "status": "passed",
+      "sim_time_ns": 4275.000000000001,
+      "real_time_s": 0.011274576187133789
+    },
+    {
+      "name": "test_loopback_leading_ones_payload_canonical_stuff_scope",
+      "status": "passed",
+      "sim_time_ns": 2475.0,
+      "real_time_s": 0.006606340408325195
+    },
+    {
+      "name": "test_loopback_trailing_run_of_six_ones_is_flushed",
+      "status": "passed",
+      "sim_time_ns": 2475.0,
+      "real_time_s": 0.006566047668457031
+    },
+    {
+      "name": "test_loopback_back_to_back_packets_minimal_gap",
+      "status": "passed",
+      "sim_time_ns": 4875.000000000002,
+      "real_time_s": 0.012832164764404297
+    },
+    {
+      "name": "test_raw_mode_puts_payload_on_the_wire_unencoded",
+      "status": "passed",
+      "sim_time_ns": 1875.0,
+      "real_time_s": 0.004372596740722656
+    },
+    {
+      "name": "test_malformed_sync_never_activates_rx",
+      "status": "passed",
+      "sim_time_ns": 735.0,
+      "real_time_s": 0.001680135726928711
+    },
+    {
+      "name": "test_rx_clean_wire_packet_has_no_error",
+      "status": "passed",
+      "sim_time_ns": 3195.0,
+      "real_time_s": 0.0074005126953125
+    },
+    {
+      "name": "test_rx_missing_stuff_bit_mid_byte_reaches_rxerror",
+      "status": "passed",
+      "sim_time_ns": 3405.0,
+      "real_time_s": 0.00786733627319336
+    },
+    {
+      "name": "test_rx_missing_trailing_stuff_bit_near_eop_reaches_rxerror",
+      "status": "passed",
+      "sim_time_ns": 3195.0,
+      "real_time_s": 0.007442951202392578
+    },
+    {
+      "name": "test_rx_error_not_raised_after_reception_ends",
+      "status": "passed",
+      "sim_time_ns": 1275.0,
+      "real_time_s": 0.0027208328247070312
+    },
+    {
+      "name": "test_rx_utmi_reset_mid_packet_clears_pipeline",
+      "status": "passed",
+      "sim_time_ns": 3885.0,
+      "real_time_s": 0.009368896484375
+    },
+    {
+      "name": "test_rx_utmi_reset_after_stuffing_error_mid_packet",
+      "status": "passed",
+      "sim_time_ns": 3435.0,
+      "real_time_s": 0.008086442947387695
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.010526657104492188
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.010120868682861328
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.011110782623291016
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.010923624038696289
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.01017308235168457
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.010256052017211914
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.010949134826660156
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.010974884033203125
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.010373830795288086
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.010140180587768555
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.010958194732666016
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.011072158813476562
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.010795354843139648
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.01054692268371582
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.011224508285522461
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.015084028244018555
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.01459360122680664
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.012051582336425781
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.011648893356323242
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.011570215225219727
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.011383056640625
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.011326074600219727
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.011716604232788086
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.011572122573852539
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.01058650016784668
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.010547637939453125
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.011319637298583984
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.011336326599121094
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.010285615921020508
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.010366439819335938
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.011631250381469727
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.01162576675415039
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.010628700256347656
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.01040029525756836
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.01183629035949707
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.011377573013305664
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.010828018188476562
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.011198997497558594
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4035.0,
+      "real_time_s": 0.011820077896118164
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4035.0,
+      "real_time_s": 0.011787652969360352
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=0",
+      "status": "passed",
+      "sim_time_ns": 3765.0,
+      "real_time_s": 0.00912785530090332
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=1",
+      "status": "passed",
+      "sim_time_ns": 3825.0,
+      "real_time_s": 0.009313344955444336
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=0",
+      "status": "passed",
+      "sim_time_ns": 3885.0,
+      "real_time_s": 0.009571552276611328
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=1",
+      "status": "passed",
+      "sim_time_ns": 3945.0,
+      "real_time_s": 0.009506702423095703
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=0",
+      "status": "passed",
+      "sim_time_ns": 3825.0,
+      "real_time_s": 0.009293317794799805
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=1",
+      "status": "passed",
+      "sim_time_ns": 3885.0,
+      "real_time_s": 0.009130716323852539
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=0",
+      "status": "passed",
+      "sim_time_ns": 3945.0,
+      "real_time_s": 0.009371280670166016
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=1",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.0093536376953125
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=0",
+      "status": "passed",
+      "sim_time_ns": 2025.0,
+      "real_time_s": 0.0050258636474609375
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=1",
+      "status": "passed",
+      "sim_time_ns": 2025.0,
+      "real_time_s": 0.00506901741027832
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=2",
+      "status": "passed",
+      "sim_time_ns": 2025.0,
+      "real_time_s": 0.005042552947998047
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=3",
+      "status": "passed",
+      "sim_time_ns": 2025.0,
+      "real_time_s": 0.005007266998291016
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 2145.0,
+      "real_time_s": 0.0064716339111328125
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 2085.0,
+      "real_time_s": 0.006215572357177734
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 2205.0,
+      "real_time_s": 0.0063283443450927734
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 2145.0,
+      "real_time_s": 0.006110191345214844
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 2235.0,
+      "real_time_s": 0.006647586822509766
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 2175.0,
+      "real_time_s": 0.0064733028411865234
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 2295.0,
+      "real_time_s": 0.006707906723022461
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 2235.0,
+      "real_time_s": 0.006528615951538086
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 2355.0,
+      "real_time_s": 0.006926774978637695
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 2295.0,
+      "real_time_s": 0.007538557052612305
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 2414.999999999971,
+      "real_time_s": 0.006941318511962891
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 2355.0,
+      "real_time_s": 0.006943702697753906
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 2685.0,
+      "real_time_s": 0.008121252059936523
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 2625.0,
+      "real_time_s": 0.007954597473144531
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 2745.0,
+      "real_time_s": 0.008188724517822266
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 2685.0,
+      "real_time_s": 0.008150815963745117
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 3255.0,
+      "real_time_s": 0.009926557540893555
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 3195.0,
+      "real_time_s": 0.010378122329711914
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 3315.0,
+      "real_time_s": 0.009999275207519531
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 3255.0,
+      "real_time_s": 0.009756326675415039
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 3285.0,
+      "real_time_s": 0.00978994369506836
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 3225.0,
+      "real_time_s": 0.00996541976928711
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 3345.0,
+      "real_time_s": 0.010105133056640625
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 3285.0,
+      "real_time_s": 0.010561943054199219
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 3315.0,
+      "real_time_s": 0.010203361511230469
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 3255.0,
+      "real_time_s": 0.009888172149658203
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 3375.0,
+      "real_time_s": 0.01007533073425293
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 3315.0,
+      "real_time_s": 0.009829282760620117
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 3345.0,
+      "real_time_s": 0.009789466857910156
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 3285.0,
+      "real_time_s": 0.010348081588745117
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 3405.0,
+      "real_time_s": 0.010575056076049805
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 3345.0,
+      "real_time_s": 0.010510683059692383
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 3375.0,
+      "real_time_s": 0.015424728393554688
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 3315.0,
+      "real_time_s": 0.010473251342773438
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 3435.0,
+      "real_time_s": 0.012459754943847656
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 3375.0,
+      "real_time_s": 0.010559320449829102
+    },
+    {
+      "name": "test_pu_en_follows_termselect_gated_by_rst_n",
+      "status": "passed",
+      "sim_time_ns": 405.0,
+      "real_time_s": 0.0014977455139160156
+    },
+    {
+      "name": "test_trim_static_codes_do_not_affect_framing",
+      "status": "passed",
+      "sim_time_ns": 14955.0,
+      "real_time_s": 0.043280839920043945
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=xcvr0",
+      "status": "passed",
+      "sim_time_ns": 8415.0,
+      "real_time_s": 0.02444624900817871
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=suspend0",
+      "status": "passed",
+      "sim_time_ns": 8415.0,
+      "real_time_s": 0.02439570426940918
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=opmode01",
+      "status": "passed",
+      "sim_time_ns": 8415.0,
+      "real_time_s": 0.024262428283691406
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=opmode11",
+      "status": "passed",
+      "sim_time_ns": 8415.0,
+      "real_time_s": 0.024366140365600586
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=all",
+      "status": "passed",
+      "sim_time_ns": 8415.0,
+      "real_time_s": 0.024446725845336914
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "<worktree>/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1,
+    "sdf": null
+  }
+}
