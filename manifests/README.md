@@ -216,11 +216,24 @@ repo's rule that an envelope must actually support the item to be cited:
   convention, which no `klt sim` envelope represents. Re-minting it as a
   gradeable envelope waits on klayout-tools#1962 (tracked in #53);
   `unmet`/`no_evidence`. (5.digital is cited above.)
-- **Item 6** (Monte Carlo) — the ratified §8.2 spec table contains no
-  statistical (accuracy/offset/matching-distribution) row: every receiver
-  threshold and the pull-up tolerance row are corner-matrix claims.
-  Stated here explicitly per the item's own requirement that a spec with
-  no statistical row must say so rather than silently omit the item.
+- **Item 6** (Monte Carlo) — **digital partition: no statistical row,
+  stated explicitly** in `verification/statistical-claims-na.md`, pinned to
+  the SHA-256 of the ratified spec and re-checked by
+  `verification/check_statistical_na.py`. `klt signoff` can grade this as a
+  `not_applicable` outcome from `verification/statistical-na/*.json`, but the
+  `klt` pinned in CI (`e8ca621`) predates that form and renders it
+  `unmet` / `invalid_evidence`, so `6.digital` stays uncited (`unmet` /
+  `no_evidence`) until the pin is bumped (cite block in
+  `verification/statistical-claims-na.md`).
+  **Analog partition: statistical rows exist.** An earlier version of this
+  paragraph said the whole block has none; that was wrong for the analog
+  partition. `spec/decisions/0007-analog-statistical-rows.md` classifies them:
+  the differential and single-ended receiver thresholds (input-referred
+  offset is a MOS matching quantity) and the D+ pull-up tolerance (resistor
+  ladder matching; not measurable with the gf180mcuD resistor model, whose
+  mismatch hook ships disabled). A corner matrix cannot validate those, so
+  `6.analog` stays `unmet` until a `klt yield` report backs it (campaign:
+  `sim/diff-receiver-mc/`).
 - **Item 7.digital, post-layout verification — cited, `met`** — the
   gate-level `test_usb_utmi_phy.py` suite (all 111 tests, none skipped)
   replayed through `klt functional-verification` against the routed netlist,
