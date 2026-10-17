@@ -2,6 +2,11 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-10-17
+
+- **PR #181**: refactor: route design netlisting through klt netlist
+- **Issue #179** (closed): Simplify design/netlist.py: replace raw xschem call with klt netlist
+
 ### 2026-10-16
 
 - **PR #173**: chore(sim): remove unused mk_dut.py and fix stale DUT references
