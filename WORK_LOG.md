@@ -4,6 +4,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-10-17
 
+- **PR #198**: chore(verification): remove superseded gate-sdf request
+- **Issue #196** (closed): Remove verification/request-usb-utmi-phy-gate-sdf.json: request for a superseded layout that README says must not be run
 - **PR #184**: refactor(layout): remove inert BLOCKED_BLOCKS path from gen_analog_layout.py
 - **PR #178**: test: use shared start_clock in four remaining cocotb testbenches
 - **PR #181**: refactor: route design netlisting through klt netlist
