@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "t1_item": 2,
+  "status": "pass",
+  "summary": "Routed layout of the digital partition: layout/digital/usb_utmi_phy.gds, bound by hash (the same GDS the item 3.digital DRC and item 11.digital supply-ERC citations were run on). Its committed P&R flow is flow/request-usb-utmi-phy-par.json (klt place-and-route; the pinned grader binds a single input path, so the flow request is named here and is not itself hash-bound; the item 11.digital place-and-route citation records the run). This asserts the routed layout artifact exists and is the one the committed DRC and ERC reports describe. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run. It does not assert area, timing or any analog layout (item 2.analog stays unmet: no analog GDS exists).",
+  "source": "layout/digital/usb_utmi_phy.gds",
+  "provenance": {
+    "klt_version": null,
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "layout/digital/usb_utmi_phy.gds",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:4491a5483d685c101f4a323511c8cea97d082873f1539d6fb2709e11d5fe5971"
+    }
+  }
+}

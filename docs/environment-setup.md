@@ -160,14 +160,16 @@ reused.
 
 | Component | Pinned to | Resolved via |
 |---|---|---|
-| `klayout-tools` (`klt`) | git revision [`e8ca621a6961879cec1af60cc932c3b3d58ddcaa`](https://github.com/2AMLogic/klayout-tools/commit/e8ca621a6961879cec1af60cc932c3b3d58ddcaa) (reports as `klt 0.5.0+ge8ca621a6961`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@e8ca621a6961879cec1af60cc932c3b3d58ddcaa"` (what `scripts/setup-env.sh` runs) |
+| `klayout-tools` (`klt`), CI and signoff grader | released version `0.7.0` (reports as `klt 0.7.0`) | `pip install "klayout-tools==0.7.0"` (what `.github/workflows/ci.yml` runs; use the same to re-render `manifests/t1-signoff-report.json`) |
+| `klayout-tools` (`klt`), `scripts/setup-env.sh` venv | git revision [`e8ca621a6961879cec1af60cc932c3b3d58ddcaa`](https://github.com/2AMLogic/klayout-tools/commit/e8ca621a6961879cec1af60cc932c3b3d58ddcaa) (reports as `klt 0.5.0+ge8ca621a6961`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@e8ca621a6961879cec1af60cc932c3b3d58ddcaa"` (what `scripts/setup-env.sh` runs) |
 | `gf180mcu` PDK | `open_pdks` commit `c6d73a35f524070e85faff4a6a9eef49553ebc2b` (variants `gf180mcuA`/`B`/`C`/`D`; the digital harness uses `gf180mcuD`, whose standard-cell libraries are `gf180mcu_fd_sc_mcu7t5v0` / `gf180mcu_fd_sc_mcu9t5v0`) | `volare enable --pdk-root ~/.volare --pdk gf180mcu c6d73a35f524070e85faff4a6a9eef49553ebc2b` |
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
 
-The `klt` revision is pinned by commit, not by version: klayout-tools has
-not cut a PyPI release past `0.2.0`, so a version pin cannot express which
-capabilities are present. The pin has moved forward four times so far:
+The `klt` pin was a git revision everywhere until move 7 below. Move 7 moved
+only CI and the signoff grader to a released version; the `scripts/setup-env.sh`
+venv keeps the revision pin on purpose (see move 7). Moves 1-6 are the history
+of the revision pin and are kept verbatim; the pin has moved seven times so far:
 
 1. `af5791b5` → `b3e284fff4243cdc5ab59a684d9c0582444b485d` by issue #25,
    specifically to pick up the netlist-driven layout-plan compiler/executor
@@ -342,6 +344,24 @@ capabilities are present. The pin has moved forward four times so far:
    `klayout_version_mismatch: false` (a venv left to resolve the newest
    `klayout` shows the flag `true`; the first extraction attempt here did,
    and was discarded, not committed).
+
+7. CI and the signoff grader: `e8ca621a6961879cec1af60cc932c3b3d58ddcaa`
+   (`klt 0.5.0+ge8ca621a6961`) → released `klayout-tools==0.7.0` by issue #187, so
+   that `klt signoff` can grade the **artifact-anchored generic envelopes** for T1
+   items 1, 2, 9 and 10 (klayout-tools#2843, first released in 0.7.0). The old
+   revision predates that grader and renders those items `unmet`/`no_evidence`
+   whatever is cited. The unreleased `klt signoff --attest` (klayout-tools#2844)
+   is not used. **`scripts/setup-env.sh` deliberately keeps `e8ca621a`**: the
+   live `analog-layout` records `20261017-060000-a6673f6` and
+   `20261017-060001-a6673f6` hash that script as a provenance input, so editing
+   it turns them stale, and the append-only rule forbids editing them. Moving the
+   venv pin means re-running `scripts/gen_analog_layout.py` under 0.7.0 and
+   minting new records, which is separate work from this issue. Until then the
+   two pins are recorded side by side in `signoff/evidence/inventory-testbenches.json`.
+   **What the move bought, and what it didn't**: rendering the manifest as it
+   stood before this issue under 0.7.0 gives the same `status`/`reason` for every
+   previously cited item (3/4/5/7/8/11.digital, 8.analog) as the committed report
+   frozen at `e8ca621a`. No evidence record was re-minted.
 
 `npm run check:ci` was re-run against each new pin before it was committed.
 
