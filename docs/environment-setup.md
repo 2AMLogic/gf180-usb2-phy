@@ -353,6 +353,11 @@ capabilities are present. The pin has moved forward four times so far:
    the commit the fleet-dispatch host's `klt` was built from (`klt
    0.7.1.dev1743+g7ee09483b748`), which contains both, not a release tag.
    Re-pin to a release once one carries #2959.
+   For this move only the lint half of `npm run check:ci` was run locally
+   (`npm run lint`'s chain plus `scripts/check_signoff_report.py`); the cocotb
+   half (`npm run test`) was left to CI. The re-pin made two live
+   `analog-layout` records' `setup-env.sh` provenance hash stale; they are
+   superseded by source-only records, not re-run.
 
 `npm run check:ci` was re-run against each new pin before it was committed.
 

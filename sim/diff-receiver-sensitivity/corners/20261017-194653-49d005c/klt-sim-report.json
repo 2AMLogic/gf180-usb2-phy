@@ -1,0 +1,5068 @@
+{
+  "schema_version": 3,
+  "netlist": {
+    "path": "sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/body.spice",
+    "scope": "repo"
+  },
+  "status": "pass",
+  "corner_count": 45,
+  "passed": 45,
+  "failed": 0,
+  "errored": 0,
+  "inconclusive": 0,
+  "diagnostic_counts": {
+    "by_code": {},
+    "by_severity": {},
+    "corners_with_diagnostics": 0
+  },
+  "metrics": {
+    "sim__corner__count": 45,
+    "sim__corner__passed_count": 45,
+    "sim__corner__failed_count": 0,
+    "sim__corner__errored_count": 0,
+    "sim__corner__inconclusive_count": 0
+  },
+  "environment": {
+    "engine": "ngspice",
+    "engine_version": "46",
+    "ngspice_binary": "/usr/local/bin/ngspice",
+    "engine_build": {
+      "version_banner": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Sat Aug  1 17:32:09 UTC 2026\n******",
+      "binary_sha256": "555e04b8ddf17a382fe28d409251ce8968ba983b8c82396fb78e1ff542aa5dd5",
+      "probe": "ok",
+      "reason": null
+    },
+    "models_lib": {
+      "path": null,
+      "scope": "external"
+    },
+    "models_lib_sha256": "f6f4a96e18fc5ad11270ad3451aaecc7ac37fc81eb61e15b0d7d94c7bc594a24",
+    "models_lib_sha256_scope": "client",
+    "netlist_sha256": "b2c9f7c1d1929d1ef5c565af05e02b2c3aed4b4f58a9c4f6c71d9b662705010f",
+    "netlist_closure": [
+      {
+        "path": "sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/body.spice",
+        "scope": "repo",
+        "sha256": "b2c9f7c1d1929d1ef5c565af05e02b2c3aed4b4f58a9c4f6c71d9b662705010f"
+      },
+      {
+        "path": "sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/design.ngspice",
+        "scope": "repo",
+        "sha256": "091cb530bf85160a1f07878fb81f789ca367d018991c8ab41a584cd1a85c6692"
+      },
+      {
+        "path": "design/netlist/differential_receiver.spice",
+        "scope": "repo",
+        "sha256": "76a1e6f9263a115f9103461a03d1f796ec92644e15398a463659c25cce78b13d"
+      },
+      {
+        "path": "sim/diff-receiver-sensitivity/testbench/diff_rx_tb.spice",
+        "scope": "repo",
+        "sha256": "1b68ebfc89d5c81ab1ff3cb5c15f9827207b52ed0ddb6b76f64f69c49b2d4a49"
+      }
+    ],
+    "netlist_identity": "sha256:852c945d01ab9e8c49b9ea144763fd67581681e2a7319f0f1225be378ba3fdb0",
+    "remote": {
+      "fleet": [
+        {
+          "provider": "aws-batch-fleet",
+          "job_id": "klt-sim-5443819c2928",
+          "bucket": "2am-batch-jobs-221082181346",
+          "region": "us-east-1",
+          "instance_id": "i-0e9958101f5dfbf90",
+          "instance_type": "m7i.4xlarge",
+          "availability_zone": "us-east-1c",
+          "ami_id": "ami-0e0bec04ad8e81877",
+          "lifecycle": "spot",
+          "spot": true,
+          "state": "done",
+          "exit_code": "0",
+          "concurrency": "1",
+          "physical_cores": "8",
+          "elapsed_seconds": 46,
+          "client_submitted_at": "2026-10-17T19:46:53.543229Z",
+          "client_launched_at": "2026-10-17T19:47:16.657067Z",
+          "client_status_terminal_at": "2026-10-17T19:48:18.893593Z",
+          "client_collected_at": "2026-10-17T19:48:19.801820Z",
+          "runner_klt_version": "0.7.0",
+          "client_klt_version": "0.7.1.dev1743+g7ee09483b748",
+          "runner_compatibility": "match",
+          "worker_environment": {
+            "capture": "ok",
+            "simulator": {
+              "requested_binary": "ngspice",
+              "binary_source": "PATH",
+              "selected_path": "/usr/local/bin/ngspice",
+              "version_banner": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Thu Oct  1 23:51:59 UTC 2026\n******\n",
+              "version_probe": "ok"
+            },
+            "pdk": {
+              "variant": "gf180mcuD",
+              "root": "/opt/pdk",
+              "stamp_scheme": "sources-sha256",
+              "stamp_sha256": "d5ac52956829da3fee35d0b307d4e6cb83ae0e6535b56dba2eefed61cdffaf9b",
+              "stamp_text": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b",
+              "models_staged": false
+            },
+            "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+            "omp_num_threads": null,
+            "image_manifest": null,
+            "model_inputs": null,
+            "diagnostics": [],
+            "pdk_stamp_comparison": {
+              "status": "not_comparable"
+            },
+            "engine_build_comparison": {
+              "status": "mismatch",
+              "warning": "the worker's ngspice --version banner differs from the local binary's; build options (e.g. FFT linkage) may differ, so results derived from them can differ from a local run"
+            }
+          },
+          "runner_model_inputs": null,
+          "resumed": false
+        },
+        {
+          "provider": "aws-batch-fleet",
+          "job_id": "klt-sim-483a16d1bd67",
+          "bucket": "2am-batch-jobs-221082181346",
+          "region": "us-east-1",
+          "instance_id": "i-03e6de5b6fa469ab4",
+          "instance_type": "m6i.4xlarge",
+          "availability_zone": "us-east-1c",
+          "ami_id": "ami-0e0bec04ad8e81877",
+          "lifecycle": "spot",
+          "spot": true,
+          "state": "done",
+          "exit_code": "0",
+          "concurrency": "1",
+          "physical_cores": "8",
+          "elapsed_seconds": 41,
+          "client_submitted_at": "2026-10-17T19:46:53.544772Z",
+          "client_launched_at": "2026-10-17T19:47:16.075999Z",
+          "client_status_terminal_at": "2026-10-17T19:48:18.248183Z",
+          "client_collected_at": "2026-10-17T19:48:19.214678Z",
+          "runner_klt_version": "0.7.0",
+          "client_klt_version": "0.7.1.dev1743+g7ee09483b748",
+          "runner_compatibility": "match",
+          "worker_environment": {
+            "capture": "ok",
+            "simulator": {
+              "requested_binary": "ngspice",
+              "binary_source": "PATH",
+              "selected_path": "/usr/local/bin/ngspice",
+              "version_banner": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Thu Oct  1 23:51:59 UTC 2026\n******\n",
+              "version_probe": "ok"
+            },
+            "pdk": {
+              "variant": "gf180mcuD",
+              "root": "/opt/pdk",
+              "stamp_scheme": "sources-sha256",
+              "stamp_sha256": "d5ac52956829da3fee35d0b307d4e6cb83ae0e6535b56dba2eefed61cdffaf9b",
+              "stamp_text": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b",
+              "models_staged": false
+            },
+            "cpu_model": "Intel(R) Xeon(R) Platinum 8375C CPU @ 2.90GHz",
+            "omp_num_threads": null,
+            "image_manifest": null,
+            "model_inputs": null,
+            "diagnostics": [],
+            "pdk_stamp_comparison": {
+              "status": "not_comparable"
+            },
+            "engine_build_comparison": {
+              "status": "mismatch",
+              "warning": "the worker's ngspice --version banner differs from the local binary's; build options (e.g. FFT linkage) may differ, so results derived from them can differ from a local run"
+            }
+          },
+          "runner_model_inputs": null,
+          "resumed": false
+        },
+        {
+          "provider": "aws-batch-fleet",
+          "job_id": "klt-sim-29d4426ffc08",
+          "bucket": "2am-batch-jobs-221082181346",
+          "region": "us-east-1",
+          "instance_id": "i-074b2ec7c156a8bea",
+          "instance_type": "m6i.4xlarge",
+          "availability_zone": "us-east-1c",
+          "ami_id": "ami-0e0bec04ad8e81877",
+          "lifecycle": "spot",
+          "spot": true,
+          "state": "done",
+          "exit_code": "0",
+          "concurrency": "1",
+          "physical_cores": "8",
+          "elapsed_seconds": 42,
+          "client_submitted_at": "2026-10-17T19:46:53.547694Z",
+          "client_launched_at": "2026-10-17T19:47:16.568545Z",
+          "client_status_terminal_at": "2026-10-17T19:48:18.844488Z",
+          "client_collected_at": "2026-10-17T19:48:19.743612Z",
+          "runner_klt_version": "0.7.0",
+          "client_klt_version": "0.7.1.dev1743+g7ee09483b748",
+          "runner_compatibility": "match",
+          "worker_environment": {
+            "capture": "ok",
+            "simulator": {
+              "requested_binary": "ngspice",
+              "binary_source": "PATH",
+              "selected_path": "/usr/local/bin/ngspice",
+              "version_banner": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Thu Oct  1 23:51:59 UTC 2026\n******\n",
+              "version_probe": "ok"
+            },
+            "pdk": {
+              "variant": "gf180mcuD",
+              "root": "/opt/pdk",
+              "stamp_scheme": "sources-sha256",
+              "stamp_sha256": "d5ac52956829da3fee35d0b307d4e6cb83ae0e6535b56dba2eefed61cdffaf9b",
+              "stamp_text": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b",
+              "models_staged": false
+            },
+            "cpu_model": "Intel(R) Xeon(R) Platinum 8375C CPU @ 2.90GHz",
+            "omp_num_threads": null,
+            "image_manifest": null,
+            "model_inputs": null,
+            "diagnostics": [],
+            "pdk_stamp_comparison": {
+              "status": "not_comparable"
+            },
+            "engine_build_comparison": {
+              "status": "mismatch",
+              "warning": "the worker's ngspice --version banner differs from the local binary's; build options (e.g. FFT linkage) may differ, so results derived from them can differ from a local run"
+            }
+          },
+          "runner_model_inputs": null,
+          "resumed": false
+        },
+        {
+          "provider": "aws-batch-fleet",
+          "job_id": "klt-sim-6170eec74c8a",
+          "bucket": "2am-batch-jobs-221082181346",
+          "region": "us-east-1",
+          "instance_id": "i-0f71b3d0e10b82bf2",
+          "instance_type": "m7i.4xlarge",
+          "availability_zone": "us-east-1c",
+          "ami_id": "ami-0e0bec04ad8e81877",
+          "lifecycle": "spot",
+          "spot": true,
+          "state": "done",
+          "exit_code": "0",
+          "concurrency": "1",
+          "physical_cores": "8",
+          "elapsed_seconds": 45,
+          "client_submitted_at": "2026-10-17T19:46:53.547245Z",
+          "client_launched_at": "2026-10-17T19:47:16.404091Z",
+          "client_status_terminal_at": "2026-10-17T19:48:18.633825Z",
+          "client_collected_at": "2026-10-17T19:48:19.537016Z",
+          "runner_klt_version": "0.7.0",
+          "client_klt_version": "0.7.1.dev1743+g7ee09483b748",
+          "runner_compatibility": "match",
+          "worker_environment": {
+            "capture": "ok",
+            "simulator": {
+              "requested_binary": "ngspice",
+              "binary_source": "PATH",
+              "selected_path": "/usr/local/bin/ngspice",
+              "version_banner": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Thu Oct  1 23:51:59 UTC 2026\n******\n",
+              "version_probe": "ok"
+            },
+            "pdk": {
+              "variant": "gf180mcuD",
+              "root": "/opt/pdk",
+              "stamp_scheme": "sources-sha256",
+              "stamp_sha256": "d5ac52956829da3fee35d0b307d4e6cb83ae0e6535b56dba2eefed61cdffaf9b",
+              "stamp_text": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b",
+              "models_staged": false
+            },
+            "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+            "omp_num_threads": null,
+            "image_manifest": null,
+            "model_inputs": null,
+            "diagnostics": [],
+            "pdk_stamp_comparison": {
+              "status": "not_comparable"
+            },
+            "engine_build_comparison": {
+              "status": "mismatch",
+              "warning": "the worker's ngspice --version banner differs from the local binary's; build options (e.g. FFT linkage) may differ, so results derived from them can differ from a local run"
+            }
+          },
+          "runner_model_inputs": null,
+          "resumed": false
+        },
+        {
+          "provider": "aws-batch-fleet",
+          "job_id": "klt-sim-ba5457827e63",
+          "bucket": "2am-batch-jobs-221082181346",
+          "region": "us-east-1",
+          "instance_id": "i-0b8aba2845c93a94d",
+          "instance_type": "m7i.4xlarge",
+          "availability_zone": "us-east-1c",
+          "ami_id": "ami-0e0bec04ad8e81877",
+          "lifecycle": "spot",
+          "spot": true,
+          "state": "done",
+          "exit_code": "0",
+          "concurrency": "1",
+          "physical_cores": "8",
+          "elapsed_seconds": 43,
+          "client_submitted_at": "2026-10-17T19:46:53.545567Z",
+          "client_launched_at": "2026-10-17T19:47:16.173357Z",
+          "client_status_terminal_at": "2026-10-17T19:48:18.363867Z",
+          "client_collected_at": "2026-10-17T19:48:19.346214Z",
+          "runner_klt_version": "0.7.0",
+          "client_klt_version": "0.7.1.dev1743+g7ee09483b748",
+          "runner_compatibility": "match",
+          "worker_environment": {
+            "capture": "ok",
+            "simulator": {
+              "requested_binary": "ngspice",
+              "binary_source": "PATH",
+              "selected_path": "/usr/local/bin/ngspice",
+              "version_banner": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Thu Oct  1 23:51:59 UTC 2026\n******\n",
+              "version_probe": "ok"
+            },
+            "pdk": {
+              "variant": "gf180mcuD",
+              "root": "/opt/pdk",
+              "stamp_scheme": "sources-sha256",
+              "stamp_sha256": "d5ac52956829da3fee35d0b307d4e6cb83ae0e6535b56dba2eefed61cdffaf9b",
+              "stamp_text": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b",
+              "models_staged": false
+            },
+            "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+            "omp_num_threads": null,
+            "image_manifest": null,
+            "model_inputs": null,
+            "diagnostics": [],
+            "pdk_stamp_comparison": {
+              "status": "not_comparable"
+            },
+            "engine_build_comparison": {
+              "status": "mismatch",
+              "warning": "the worker's ngspice --version banner differs from the local binary's; build options (e.g. FFT linkage) may differ, so results derived from them can differ from a local run"
+            }
+          },
+          "runner_model_inputs": null,
+          "resumed": false
+        }
+      ]
+    },
+    "engine_host": "worker",
+    "client_ngspice_binary": "/home/ubuntu/.local/bin/ngspice",
+    "backend": {
+      "resolved": "batch",
+      "source": "flag",
+      "requested": "batch"
+    }
+  },
+  "coverage": {
+    "corners_simulated": 45,
+    "measurements_declared": 9,
+    "measurements_with_limits": 9,
+    "unrecognized_limit_keys": [],
+    "schema_version": 1,
+    "known": true,
+    "checked": [
+      "limit:[0,\"tt/2.970V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"hi_cm080\",\"max\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"hi_cm080\",\"min\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"hi_cm165\",\"max\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"hi_cm165\",\"min\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"hi_cm250\",\"max\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"hi_cm250\",\"min\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"lo_cm080\",\"max\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"lo_cm080\",\"min\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"lo_cm165\",\"max\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"lo_cm165\",\"min\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"lo_cm250\",\"max\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"lo_cm250\",\"min\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"hi_cm080\",\"max\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"hi_cm080\",\"min\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"hi_cm165\",\"max\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"hi_cm165\",\"min\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"hi_cm250\",\"max\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"hi_cm250\",\"min\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"lo_cm080\",\"max\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"lo_cm080\",\"min\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"lo_cm165\",\"max\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"lo_cm165\",\"min\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"lo_cm250\",\"max\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"lo_cm250\",\"min\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"vth_cm250_mv\",\"min\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"hi_cm080\",\"max\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"hi_cm080\",\"min\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"hi_cm165\",\"max\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"hi_cm165\",\"min\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"hi_cm250\",\"max\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"hi_cm250\",\"min\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"lo_cm080\",\"max\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"lo_cm080\",\"min\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"lo_cm165\",\"max\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"lo_cm165\",\"min\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"lo_cm250\",\"max\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"lo_cm250\",\"min\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"vth_cm080_mv\",\"max\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"vth_cm080_mv\",\"min\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"vth_cm165_mv\",\"max\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"vth_cm165_mv\",\"min\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"vth_cm250_mv\",\"max\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"vth_cm250_mv\",\"min\"]"
+    ],
+    "skipped": [],
+    "inapplicable": [],
+    "unknown": [],
+    "nothing_checked": false,
+    "nothing_checked_reasons": []
+  },
+  "provenance": {
+    "klt_version": "0.7.1.dev1743+g7ee09483b748",
+    "klayout_version": "0.30.12",
+    "pdk": {
+      "name": "gf180mcuD",
+      "source": "search root: ~/.ciel",
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
+      "ambiguous_sources": [
+        "search root: ~/.volare"
+      ]
+    },
+    "deck": {
+      "name": "sm141064.ngspice",
+      "content_hash": "sha256:f6f4a96e18fc5ad11270ad3451aaecc7ac37fc81eb61e15b0d7d94c7bc594a24",
+      "released": false
+    },
+    "input": {
+      "content_hash": "sha256:b2c9f7c1d1929d1ef5c565af05e02b2c3aed4b4f58a9c4f6c71d9b662705010f",
+      "role": "netlist"
+    }
+  },
+  "measurements": [
+    {
+      "name": "vth_cm080_mv",
+      "unit": null,
+      "limits": {
+        "min": -0.2,
+        "max": 0.2
+      },
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "ff/3.630V/125C",
+        "value": -0.0315104,
+        "margin": 0.16848960000000002
+      }
+    },
+    {
+      "name": "vth_cm165_mv",
+      "unit": null,
+      "limits": {
+        "min": -0.2,
+        "max": 0.2
+      },
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "ff/3.630V/125C",
+        "value": -0.0349395,
+        "margin": 0.1650605
+      }
+    },
+    {
+      "name": "vth_cm250_mv",
+      "unit": null,
+      "limits": {
+        "min": -0.2,
+        "max": 0.2
+      },
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "fs/2.970V/125C",
+        "value": -0.0810045,
+        "margin": 0.11899550000000002
+      }
+    },
+    {
+      "name": "hi_cm080",
+      "unit": null,
+      "limits": {
+        "min": 0.9,
+        "max": 1.05
+      },
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "tt/2.970V/-40C",
+        "value": 1.0,
+        "margin": 0.050000000000000044
+      }
+    },
+    {
+      "name": "lo_cm080",
+      "unit": null,
+      "limits": {
+        "min": -0.05,
+        "max": 0.1
+      },
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "fs/2.970V/-40C",
+        "value": 1.69217e-10,
+        "margin": 0.050000000169217004
+      }
+    },
+    {
+      "name": "hi_cm165",
+      "unit": null,
+      "limits": {
+        "min": 0.9,
+        "max": 1.05
+      },
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "tt/2.970V/-40C",
+        "value": 1.0,
+        "margin": 0.050000000000000044
+      }
+    },
+    {
+      "name": "lo_cm165",
+      "unit": null,
+      "limits": {
+        "min": -0.05,
+        "max": 0.1
+      },
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "fs/2.970V/-40C",
+        "value": 1.68922e-10,
+        "margin": 0.050000000168922004
+      }
+    },
+    {
+      "name": "hi_cm250",
+      "unit": null,
+      "limits": {
+        "min": 0.9,
+        "max": 1.05
+      },
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "tt/2.970V/-40C",
+        "value": 1.0,
+        "margin": 0.050000000000000044
+      }
+    },
+    {
+      "name": "lo_cm250",
+      "unit": null,
+      "limits": {
+        "min": -0.05,
+        "max": 0.1
+      },
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "fs/2.970V/-40C",
+        "value": 1.6793e-10,
+        "margin": 0.050000000167930006
+      }
+    }
+  ],
+  "corners": [
+    {
+      "corner_id": "tt/2.970V/-40C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 39.972,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0174464,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1825536
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0195131,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1804869
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0225841,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17741590000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.81652e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000181652
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.81507e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000181507
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 1.79234e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000179234005
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_2p970V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_2p970V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/2.970V/27C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 38.711,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0194565,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.18054350000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0215278,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17847220000000003
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0254832,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1745168
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.30056e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000230056005
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.31601e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000231601005
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 3.93566e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000393566
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_2p970V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_2p970V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/2.970V/125C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 38.374,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0224798,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17752020000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0247479,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17525210000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0295337,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17046630000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.01758e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000010175800004
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.51269e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000015126900006
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.26505e-07,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000226505
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_2p970V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_2p970V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/3.300V/-40C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 39.979,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0195101,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1804899
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0224555,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17754450000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0254267,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17457330000000001
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.08369e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000208369005
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.07735e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000207735006
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 1.99325e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000199325004
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_3p300V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_3p300V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/3.300V/27C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 38.957,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0215534,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1784466
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0244707,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1755293
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0274931,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17250690000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.60805e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000260805005
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.61032e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000261032004
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 3.05934e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000305934
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_3p300V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_3p300V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/3.300V/125C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 37.647,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0249705,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1750295
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0275106,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17248940000000001
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0312153,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1687847
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 9.67909e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000009679090004
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.40104e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.0500000140104
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 8.2997e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000082997000005
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_3p300V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_3p300V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/3.630V/-40C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 38.561,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.021662,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.178338
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0245701,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1754299
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0276855,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1723145
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.81988e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000281988005
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.80287e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000280287005
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.62942e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000262942004
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_3p630V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_3p630V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/3.630V/27C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 38.356,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0243978,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1756022
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0271165,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17288350000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0303993,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.16960070000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 3.48239e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000348239
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 3.46116e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000346116
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 3.58598e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000358598
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_3p630V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_3p630V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/3.630V/125C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 2.377,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0274748,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17252520000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0303871,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1696129
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0335044,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.16649560000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 9.52817e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000009528170006
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.36469e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.0500000136469
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 5.45954e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.0500000545954
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_3p630V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-5443819c2928/tt_3p630V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/2.970V/-40C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 35.609,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0204936,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1795064
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0234939,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1765061
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0274607,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1725393
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.80513e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000180513
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.79425e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000179425005
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 1.79626e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000179626004
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_2p970V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_2p970V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/2.970V/27C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 35.524,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0226111,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17738890000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0256218,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1743782
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.030458,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.16954200000000003
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 3.61571e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000361571005
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 4.80315e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000480315006
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 1.05979e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000010597900005
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_2p970V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_2p970V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/2.970V/125C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 35.638,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.026426,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.173574
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0294405,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1705595
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0352351,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.16476490000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 0.999998,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000199999999999
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.07711e-07,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000107711000004
+        },
+        {
+          "name": "hi_cm165",
+          "value": 0.999998,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000199999999999
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.17127e-07,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000217127
+        },
+        {
+          "name": "hi_cm250",
+          "value": 0.999998,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000199999999999
+        },
+        {
+          "name": "lo_cm250",
+          "value": 5.09094e-06,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050005090940000003
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_2p970V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_2p970V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/3.300V/-40C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 35.357,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0231099,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17689010000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0264376,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1735624
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0295436,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1704564
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.29109e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000229109005
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.25722e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000225722
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.11451e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000211451005
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_3p300V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_3p300V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/3.300V/27C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 34.679,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.025455,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.174545
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0285277,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17147230000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0324469,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1675531
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 4.19179e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000419179
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 5.27902e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000527902
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 3.2209e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.0500000032209
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_3p300V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_3p300V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/3.300V/125C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 35.331,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0288684,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17113160000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0323732,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.16762680000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0363916,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.16360840000000001
+        },
+        {
+          "name": "hi_cm080",
+          "value": 0.999998,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000199999999999
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.0399e-07,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000010399
+        },
+        {
+          "name": "hi_cm165",
+          "value": 0.999998,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000199999999999
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.98924e-07,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000198924000004
+        },
+        {
+          "name": "hi_cm250",
+          "value": 0.999998,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000199999999999
+        },
+        {
+          "name": "lo_cm250",
+          "value": 1.55579e-06,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050001555790000006
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_3p300V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_3p300V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/3.630V/-40C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 35.322,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0254417,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1745583
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0287401,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17125990000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0324646,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1675354
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 3.4656e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000346560006
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 3.38711e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000338711
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 3.09677e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000309677
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_3p630V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_3p630V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/3.630V/27C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 35.626,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0278348,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17216520000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0314368,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.16856320000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0353409,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1646591
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 5.62584e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000562584
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 6.68427e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000668427004
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.2076e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.0500000022076
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_3p630V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_3p630V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/3.630V/125C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 0.989,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0315104,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.16848960000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0349395,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1650605
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0389779,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1610221
+        },
+        {
+          "name": "hi_cm080",
+          "value": 0.999998,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000199999999999
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.03525e-07,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000103525000006
+        },
+        {
+          "name": "hi_cm165",
+          "value": 0.999998,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000199999999999
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.93341e-07,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000193341000004
+        },
+        {
+          "name": "hi_cm250",
+          "value": 0.999998,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000199999999999
+        },
+        {
+          "name": "lo_cm250",
+          "value": 9.54438e-07,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000954438000005
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_3p630V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-483a16d1bd67/ff_3p630V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/2.970V/-40C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 35.849,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.014488,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.185512
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0160671,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1839329
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0185047,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.18149530000000003
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.88908e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000188908
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.88907e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000188907004
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 1.8889e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000188890004
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_2p970V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_2p970V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/2.970V/27C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 36.449,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0164391,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1835609
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0175738,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1824262
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0206686,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1793314
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.35712e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000235712
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.35728e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000235728
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.39399e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000239399
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_2p970V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_2p970V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/2.970V/125C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 35.467,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0191742,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1808258
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0205786,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1794214
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.024533,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.175467
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.41675e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000001416750005
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.60515e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000000160515
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 1.08478e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.0500000108478
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_2p970V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_2p970V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/3.300V/-40C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 36.118,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0165271,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.18347290000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0185104,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1814896
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0212191,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17878090000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.0135e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000000020135
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.01329e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000201329005
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 1.97803e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000197803006
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_3p300V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_3p300V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/3.300V/27C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 35.579,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0185009,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.18149910000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0204906,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1795094
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0233383,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1766617
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.49146e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000249146005
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.48965e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000248965004
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.454e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.0500000002454
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_3p300V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_3p300V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/3.300V/125C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 36.195,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0214643,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17853570000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0234672,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17653280000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0264231,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1735769
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.34617e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000001346170005
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.51289e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000001512890004
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 5.1468e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.0500000051468
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_3p300V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_3p300V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/3.630V/-40C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 36.036,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0186156,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1813844
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0212523,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1787477
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0234988,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17650120000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.46261e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000246261
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.46182e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000246182
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.37721e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000237721005
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_3p630V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_3p630V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/3.630V/27C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 36.445,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0205688,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1794312
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.022793,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.177207
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0255042,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1744958
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 3.02295e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000302295004
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 3.01681e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000301681
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.90609e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000290609005
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_3p630V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_3p630V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/3.630V/125C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 1.031,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0235401,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1764599
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0255768,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1744232
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0285162,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17148380000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.3597e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.0500000013597
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.51895e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000000151895
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 3.81524e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000000381524
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_3p630V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-29d4426ffc08/ss_3p630V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/2.970V/-40C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 38.623,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0185323,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1814677
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0215085,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17849150000000003
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0357193,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1642807
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.69217e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000169217004
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.68922e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000168922004
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 1.6793e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000167930006
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_2p970V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_2p970V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/2.970V/27C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 38.667,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0210403,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1789597
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0236094,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1763906
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0536668,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1463332
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.07566e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000207566
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.07583e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000207583
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 1.21942e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000001219420005
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_2p970V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_2p970V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/2.970V/125C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 38.182,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0244327,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1755673
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.027431,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.172569
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0810045,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.11899550000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 0.999999,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000100000000007
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.84484e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000001844840006
+        },
+        {
+          "name": "hi_cm165",
+          "value": 0.999999,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000100000000007
+        },
+        {
+          "name": "lo_cm165",
+          "value": 3.55704e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000003557040006
+        },
+        {
+          "name": "hi_cm250",
+          "value": 0.999999,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000100000000007
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.60493e-06,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000260493
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_2p970V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_2p970V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/3.300V/-40C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 38.313,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0214695,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1785305
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0245183,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17548170000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0284543,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17154570000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.88052e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000188052
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.86678e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000186678
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 1.77911e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000177911
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_3p300V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_3p300V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/3.300V/27C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 38.698,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0235316,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17646840000000003
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0269805,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17301950000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0312857,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1687143
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.28796e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000228796006
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.26699e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000226699
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.41567e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000241567005
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_3p300V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_3p300V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/3.300V/125C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 38.755,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0273132,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1726868
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0304358,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1695642
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0352744,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.16472560000000003
+        },
+        {
+          "name": "hi_cm080",
+          "value": 0.999999,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000100000000007
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.77636e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000000177636
+        },
+        {
+          "name": "hi_cm165",
+          "value": 0.999999,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000100000000007
+        },
+        {
+          "name": "lo_cm165",
+          "value": 3.16433e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000000316433
+        },
+        {
+          "name": "hi_cm250",
+          "value": 0.999999,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000100000000007
+        },
+        {
+          "name": "lo_cm250",
+          "value": 5.23145e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000052314500006
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_3p300V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_3p300V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/3.630V/-40C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 38.749,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0237417,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1762583
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0274767,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17252330000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.031385,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.16861500000000001
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.43008e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000243008005
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.39482e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000239482
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.21511e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000221511
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_3p630V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_3p630V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/3.630V/27C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 38.711,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0264422,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1735578
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0296673,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1703327
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0335519,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.16644810000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.93357e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000293357
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.87437e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000287437
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.73986e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000273986
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_3p630V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_3p630V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/3.630V/125C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 0.625,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0295991,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17040090000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0334072,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1665928
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0374569,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1625431
+        },
+        {
+          "name": "hi_cm080",
+          "value": 0.999999,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000100000000007
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.80574e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000001805740005
+        },
+        {
+          "name": "hi_cm165",
+          "value": 0.999999,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000100000000007
+        },
+        {
+          "name": "lo_cm165",
+          "value": 3.04937e-09,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000000304937
+        },
+        {
+          "name": "hi_cm250",
+          "value": 0.999999,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000100000000007
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.10405e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000021040500005
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_3p630V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-6170eec74c8a/fs_3p630V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/2.970V/-40C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 35.78,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0163962,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1836038
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0177855,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1822145
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0204449,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17955510000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 1.9678e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000196780005
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 1.96752e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000196752
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 1.94477e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000194477
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_2p970V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_2p970V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/2.970V/27C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 36.408,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0182144,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.18178560000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0196088,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1803912
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0224742,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1775258
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 3.19152e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000319152006
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 3.25234e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000325234
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 6.99322e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000699322006
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_2p970V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_2p970V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/2.970V/125C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 36.286,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0212029,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17879710000000001
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0228158,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17718420000000001
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.025597,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.174403
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 6.80903e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000068090300005
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 8.22745e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.0500000822745
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 3.86803e-07,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000386803
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_2p970V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_2p970V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/3.300V/-40C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 36.706,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0184414,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.18155860000000001
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0204577,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17954230000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0225291,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17747090000000001
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 2.34589e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000234589004
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 2.34459e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000234459004
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.26914e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000226914004
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_3p300V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_3p300V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/3.300V/27C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 36.574,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0204331,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1795669
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0224437,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1775563
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0245714,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17542860000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 3.62871e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000362871
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 3.68813e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000368813004
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 5.87143e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000587143004
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_3p300V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_3p300V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/3.300V/125C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 36.733,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0234363,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17656370000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0254447,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17455530000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0281989,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1718011
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 6.46308e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.0500000646308
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 7.77858e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000077785800005
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.50422e-07,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000250422
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_3p300V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_3p300V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/3.630V/-40C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 36.465,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0204544,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1795456
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0224903,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17750970000000002
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0253536,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1746464
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 3.3331e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000000033331
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 3.3291e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05000000033291
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 3.17129e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000317129
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_3p630V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_3p630V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/3.630V/27C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 35.155,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0224797,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17752030000000002
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0244965,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1755035
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0274133,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1725867
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 4.82501e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000482501
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 4.88254e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000488254
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 6.47538e-10,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000647538005
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_3p630V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_3p630V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/3.630V/125C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 1.635,
+      "measurements": [
+        {
+          "name": "vth_cm080_mv",
+          "value": -0.0255246,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1744754
+        },
+        {
+          "name": "vth_cm165_mv",
+          "value": -0.0275135,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.17248650000000001
+        },
+        {
+          "name": "vth_cm250_mv",
+          "value": -0.0304581,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.16954190000000002
+        },
+        {
+          "name": "hi_cm080",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm080",
+          "value": 6.32344e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000063234400004
+        },
+        {
+          "name": "hi_cm165",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm165",
+          "value": 7.63926e-08,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000076392600006
+        },
+        {
+          "name": "hi_cm250",
+          "value": 1.0,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000000000000044
+        },
+        {
+          "name": "lo_cm250",
+          "value": 2.03204e-07,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.050000203204000004
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_3p630V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/diff-receiver-sensitivity/20261017-194653-49d005c/klt-out/klt-sim-ba5457827e63/sf_3p630V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    }
+  ]
+}

@@ -15,11 +15,20 @@
     "let codevec = v(sw) - 0.5",
     "print rvec"
   ],
+  "klt_supply_source": "vsup",
+  "klt_measure": {
+    "r_code0_ohm": "((v(vpu)-v(dp))*15e3/v(dp))[0]",
+    "r_code31_ohm": "((v(vpu)-v(dp))*15e3/v(dp))[31]",
+    "r_best_ohm": "minimum(((v(vpu)-v(dp))*15e3/v(dp)) + 1e9*((abs(((v(vpu)-v(dp))*15e3/v(dp))-1500)/15) gt minimum((abs(((v(vpu)-v(dp))*15e3/v(dp))-1500)/15))))",
+    "best_code": "minimum((v(sw)-0.5) + 1e6*((abs(((v(vpu)-v(dp))*15e3/v(dp))-1500)/15) gt minimum((abs(((v(vpu)-v(dp))*15e3/v(dp))-1500)/15))))",
+    "best_err_pct": "minimum((abs(((v(vpu)-v(dp))*15e3/v(dp))-1500)/15))",
+    "trim_step_pct": "(maximum(((v(vpu)-v(dp))*15e3/v(dp)))-minimum(((v(vpu)-v(dp))*15e3/v(dp))))/minimum(((v(vpu)-v(dp))*15e3/v(dp)))*100/31"
+  },
   "measure": {
     "r_code0_ohm": "rvec[0]",
     "r_code31_ohm": "rvec[31]",
-    "r_best_ohm": "minimum(rvec + 1e9*(errvec > minimum(errvec)))",
-    "best_code": "minimum(codevec + 1e6*(errvec > minimum(errvec)))",
+    "r_best_ohm": "minimum(rvec + 1e9*(errvec gt minimum(errvec)))",
+    "best_code": "minimum(codevec + 1e6*(errvec gt minimum(errvec)))",
     "best_err_pct": "minimum(errvec)",
     "trim_step_pct": "(maximum(rvec) - minimum(rvec))/minimum(rvec)*100/31"
   },

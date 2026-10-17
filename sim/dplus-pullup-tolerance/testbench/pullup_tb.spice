@@ -41,18 +41,22 @@
 * regulator would remove -- and it is stated here rather than silently assumed.
 
 vsup VDD 0 dc {vdd_val}
-vpu  VPU 0 dc {vdd_val}
-ven  PU_EN 0 dc {vdd_val}
+* VPU, PU_EN and the trim bits follow the supply node (VCVS / B-sources of
+* v(vdd)) rather than being separate DC sources at {vdd_val}: `klt sim`
+* moves one source per corner (`alter vsup`), and the local deck sets
+* vdd_val == vsup, so the two are electrically identical.
+evpu VPU    0 VDD 0 1
+een  PU_EN  0 VDD 0 1
 
 * trim-code sweep axis: v(sw) = code + 0.5
 vsw sw 0 dc 0.5
 
 * binary decode of the code into the five trim bits (0 / VDD logic levels)
-bt0 TRIM0 0 v = {vdd_val}*(floor(v(sw))     - 2*floor(v(sw)/2))
-bt1 TRIM1 0 v = {vdd_val}*(floor(v(sw)/2)   - 2*floor(v(sw)/4))
-bt2 TRIM2 0 v = {vdd_val}*(floor(v(sw)/4)   - 2*floor(v(sw)/8))
-bt3 TRIM3 0 v = {vdd_val}*(floor(v(sw)/8)   - 2*floor(v(sw)/16))
-bt4 TRIM4 0 v = {vdd_val}*(floor(v(sw)/16)  - 2*floor(v(sw)/32))
+bt0 TRIM0 0 v = v(vdd)*(floor(v(sw))     - 2*floor(v(sw)/2))
+bt1 TRIM1 0 v = v(vdd)*(floor(v(sw)/2)   - 2*floor(v(sw)/4))
+bt2 TRIM2 0 v = v(vdd)*(floor(v(sw)/4)   - 2*floor(v(sw)/8))
+bt3 TRIM3 0 v = v(vdd)*(floor(v(sw)/8)   - 2*floor(v(sw)/16))
+bt4 TRIM4 0 v = v(vdd)*(floor(v(sw)/16)  - 2*floor(v(sw)/32))
 
 Xpu DP VPU 0 PU_EN TRIM0 TRIM1 TRIM2 TRIM3 TRIM4 dplus_pullup
 

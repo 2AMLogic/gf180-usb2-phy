@@ -5,7 +5,7 @@
   "tier": null,
   "t1_item_count": 22,
   "build_t1_item_count": 22,
-  "t1_met_count": 7,
+  "t1_met_count": 6,
   "source_doc": "docs/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:a26b90262320d0fbd32b3f549a02b6300832706041797a559d8bf6bdb62efdc7",
   "build": {
@@ -176,9 +176,64 @@
         "Both require the spec table itself to be ratified \u2014 verdicts against a draft spec are provisional by construction."
       ],
       "status": "unmet",
-      "reason": "no_evidence",
+      "reason": "partial_coverage",
       "graded_by_build": true,
-      "citation": null
+      "citation": null,
+      "citations_graded": [
+        {
+          "citation": "sim/diff-receiver-sensitivity/corners/20261017-194653-49d005c/klt-sim-report.json",
+          "rows": [
+            "receiver-thresholds"
+          ],
+          "status": "met",
+          "reason": null
+        },
+        {
+          "citation": "sim/se-receiver-dp-thresholds/corners/20261017-194832-49d005c/klt-sim-report.json",
+          "rows": [
+            "receiver-thresholds"
+          ],
+          "status": "met",
+          "reason": null
+        },
+        {
+          "citation": "sim/se-receiver-dm-thresholds/corners/20261017-195101-49d005c/klt-sim-report.json",
+          "rows": [
+            "receiver-thresholds"
+          ],
+          "status": "met",
+          "reason": null
+        },
+        {
+          "citation": "sim/driver-signal-quality/corners/20261015-104027-d109790/klt-sim-report.json",
+          "rows": [
+            "rise-fall-time",
+            "crossover-voltage",
+            "full-speed-signal-quality"
+          ],
+          "status": "met",
+          "reason": null
+        },
+        {
+          "citation": "sim/dplus-pullup-tolerance/corners/20261017-195431-49d005c/klt-sim-report.json",
+          "rows": [
+            "dplus-pullup-tolerance"
+          ],
+          "status": "met",
+          "reason": null
+        }
+      ],
+      "detail": {
+        "failed_rows": [],
+        "uncovered_rows": [],
+        "declared_gaps": [
+          {
+            "id": "driver-output-timing-jitter",
+            "gap": "spec section 8.2 ratifies no numeric jitter limit: the row is recorded as engineering data with no pass/fail attached (sim/driver-jitter, record 20261015-104027-d109790), so no envelope can grade it"
+          }
+        ],
+        "unratified_rows": []
+      }
     },
     {
       "tier": "T1",
@@ -189,17 +244,33 @@
       "notes": [
         "Both require the spec table itself to be ratified \u2014 verdicts against a draft spec are provisional by construction."
       ],
-      "status": "met",
-      "reason": null,
+      "status": "unmet",
+      "reason": "partial_coverage",
       "graded_by_build": true,
-      "citation": {
-        "file": "verification/records/post-layout-pvt/artifacts/20261015-011505-32db02a/sta-corners.json",
-        "command": null,
-        "kind": "sta",
-        "check_status": "ok",
-        "content_hash": "sha256:2bccf4bdddabd953f297d0d113253e802c3ad3750e0d56b5b3c87493c708964f",
-        "input_verified": true,
-        "exit_status": 0
+      "citation": null,
+      "citations_graded": [
+        {
+          "citation": "verification/records/post-layout-pvt/artifacts/20261015-011505-32db02a/sta-corners.json",
+          "status": "met",
+          "reason": null
+        }
+      ],
+      "detail": {
+        "failed_rows": [],
+        "uncovered_rows": [
+          "rise-fall-time",
+          "crossover-voltage",
+          "full-speed-signal-quality",
+          "dplus-pullup-tolerance",
+          "receiver-thresholds"
+        ],
+        "declared_gaps": [
+          {
+            "id": "driver-output-timing-jitter",
+            "gap": "spec section 8.2 ratifies no numeric jitter limit: the row is recorded as engineering data with no pass/fail attached (sim/driver-jitter, record 20261015-104027-d109790), so no envelope can grade it"
+          }
+        ],
+        "unratified_rows": []
       }
     },
     {
