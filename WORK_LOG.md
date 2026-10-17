@@ -4,8 +4,12 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-10-17
 
+- **PR #184**: refactor(layout): remove inert BLOCKED_BLOCKS path from gen_analog_layout.py
+- **PR #178**: test: use shared start_clock in four remaining cocotb testbenches
 - **PR #181**: refactor: route design netlisting through klt netlist
 - **Issue #179** (closed): Simplify design/netlist.py: replace raw xschem call with klt netlist
+- **Issue #177** (closed): Remove inert BLOCKED_BLOCKS path from gen_analog_layout.py: empty since #72
+- **Issue #176** (closed): Finish #44: four cocotb testbenches still redefine the shared 12 MHz clock helper
 
 ### 2026-10-16
 
