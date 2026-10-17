@@ -8,6 +8,8 @@ Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a h
 - **#154**: feat(analog): TXOE high-Z enable for differential_driver (#114)
 - **#171**: ci: cancel in-progress runs only for pull_request events
 - **#190**: feat(signoff): cite artifact-anchored evidence for T1 items 1, 2.digital, 9, 10
+- **#192**: docs: classify analog statistical rows and state digital item-6 N/A
+- **#193**: feat(analog): cite five 45-corner klt sim envelopes as item 5.analog
 
 ## Very Important
 
@@ -28,6 +30,7 @@ _None._
 Human-approved issues ready for implementation (`loom:issue`).
 
 - **#114**: Analog: add TXOE high-Z enable to differential_driver (pin contract, #109)
+- **#196**: Remove verification/request-usb-utmi-phy-gate-sdf.json: request for a superseded layout that README says must not be run
 
 ## In Progress
 
@@ -50,6 +53,8 @@ PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 - **#154**: feat(analog): TXOE high-Z enable for differential_driver (#114)
 - **#171**: ci: cancel in-progress runs only for pull_request events
 - **#190**: feat(signoff): cite artifact-anchored evidence for T1 items 1, 2.digital, 9, 10
+- **#192**: docs: classify analog statistical rows and state digital item-6 N/A
+- **#193**: feat(analog): cite five 45-corner klt sim envelopes as item 5.analog
 
 ## Proposed
 
@@ -68,6 +73,7 @@ Issues carrying `loom:curated`.
 
 - **#119**: Verify shared-pad analog bus ownership and receiver transients *(architect)*
 - **#126**: Resolve DR-0003: transition-resynchronized RX oversampling for independent host clocks *(architect)*
+- **#195**: Remove in-process ngspice grid runner from sim harness: duplicates klt sim *(hermit)*
 
 ## Epics
 
@@ -77,14 +83,14 @@ Issues carrying `loom:curated`.
 
 | Bucket | Count |
 |------|-------|
-| Operator merge-risk holds | 3 |
+| Operator merge-risk holds | 5 |
 | Very important | 0 |
 | Important | 3 |
-| Ready (`loom:issue`) | 1 |
+| Ready (`loom:issue`) | 2 |
 | In Progress (`loom:building`) | 3 |
 | PRs awaiting review | 0 |
-| Approved PRs awaiting merge | 3 |
+| Approved PRs awaiting merge | 5 |
 | Curated | 8 |
-| Architect / Hermit proposals | 2 |
+| Architect / Hermit proposals | 3 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
