@@ -194,22 +194,67 @@ grades in both partitions:
   records 4 of 9 electrical rows as FAIL at some corners and says so, and
   the envelope's `summary` states this explicitly.
 
+### Items 1, 2.digital, 9 and 10 — artifact-anchored citations (issue #187)
+
+These four items have no `klt` verb behind them. Until `klt` 0.7.0 the
+grader accepted *any* passing envelope for them, so citing one would have
+been "borrowing a pass" and they were left uncited. klayout-tools#2843
+(released in 0.7.0) closed that gap: the envelope must declare `"t1_item"`
+and bind the audited artifact by path and content hash, and the row is
+`met` only while the artifact still re-hashes to the pinned value
+(`input_verified: true`). The repo pin moved to `klayout-tools==0.7.0` for
+this (`docs/environment-setup.md`, move 7). The unreleased
+`klt signoff --attest` (klayout-tools#2844) is **not** used: the envelopes
+are written by `signoff/inventories.py`.
+
+| Row | Envelope (`signoff/evidence/`) | Bound artifact | Members |
+|---|---|---|---|
+| 1.analog | `t1-item-1-analog-design-sources.json` | `inventory-design-sources-analog.json` | `design/*.sch` (5), derived `design/netlist/*.spice` (5), `design/netlist.py`, `design/xschemrc` |
+| 1.digital | `t1-item-1-digital-design-sources.json` | `inventory-design-sources-digital.json` | `rtl/*.v`, vendored `rtl/common/*.v`, `reuse.lock.json`, the synthesis request, the routed gate-level netlist `layout/digital/usb_utmi_phy_routed.v` that item 4.digital LVS compares against |
+| 2.digital | `t1-item-2-digital-layout.json` | `layout/digital/usb_utmi_phy.gds` (bound directly; the same GDS items 3.digital and 11.digital pin) | — |
+| 9 (both partitions) | `t1-item-9-testbenches.json` | `inventory-testbenches.json` | every cocotb test and `verification/request-*.json`, the `sim/*/testbench/` files of the 7 analog experiments, `sim/harness/`, the cold-start commands and the klt / cocotb / PDK pins |
+| 10 (both partitions) | `t1-item-10-repo-hygiene.json` | `inventory-repo-hygiene.json` | `README.md`, `LICENSE`, `spec/usb2-device-phy.md`, `docs/environment-setup.md`, `.github/workflows/ci.yml`, `package.json` |
+
+Each inventory lists every member with its sha256. `signoff/check.py`
+(wired into `npm run check:ci`) rebuilds each inventory from the live tree and
+fails on any changed, missing or newly added member, so editing an
+inventoried file without running `python3 signoff/check.py --regen` fails CI.
+`--regen` also refuses to write when an audit fails (a schematic without a
+derived netlist, a cocotb test no request runs, a `sim/` experiment
+`sim/spec-coverage.md` does not index, differing klt/cocotb pins between
+`ci.yml` and `scripts/setup-env.sh`).
+
+**Limits — read before relying on these rows.** A `met` here says the
+audited files exist, are listed, and have not moved since the audit. It does
+not say they are correct:
+
+- Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are **not**
+  run by `signoff/check.py` or by the PDK-free CI job: `python3
+  design/netlist.py --check` (1.analog), `klt synthesize` and
+  `klt place-and-route` (1.digital, 2.digital), and every ngspice testbench
+  (9). They are named in the inventories and in each envelope's `summary`,
+  not claimed as run.
+- The pinned grader binds a single `provenance.input.path`, so for 2.digital
+  only the routed GDS is hash-bound. The P&R request
+  (`flow/request-usb-utmi-phy-par.json`) is named in the envelope `summary`;
+  the committed `klt place-and-route` envelope cited under 11.digital
+  records the run.
+- Item 9 maps the analog experiments to `sim/spec-coverage.md`, but the
+  inventory does not assert that any measurement *passes*; the per-row
+  verdicts (including the 4 of 9 electrical rows that fail at some corners)
+  are in the characterization report (item 8).
+- Items 9 and 10 render `met` for the analog and the digital partition
+  alike, because one inventory covers the whole repo.
+- 2.analog stays `unmet` (below).
+
 ### What is deliberately uncited, and why
 
 Per `klt signoff`'s own guidance ("items 1, 2, 9, 10 have no `klt` verb
 behind them… the safest default is to leave them uncited"), and per this
 repo's rule that an envelope must actually support the item to be cited:
 
-- **Items 1, 2, 9, 10** (design sources, layout, testbenches shipped,
-  repo hygiene) — the artifacts are *present in the repo* (the graded
-  evidence the tracker narrative maps to them lives in issue #3's
-  2026-09-18 re-survey), but the grader accepts *any* passing envelope
-  for these four regardless of topical relevance, so citing a
-  coincidentally-passing envelope at them would be exactly the
-  "borrow a pass" the tiers doc warns about. They render `unmet` /
-  `no_evidence` — the grader's honest statement that no *check* backs
-  the claim — not a statement that the repo lacks sources, layout,
-  testbenches, or hygiene.
+- **Item 2.analog** (layout, analog partition) — no analog GDS exists
+  (#166, #167, #53), so there is nothing to bind: `unmet`/`no_evidence`.
 - **Item 5.analog** (corner verification vs ratified spec, analog
   partition) — the analog evidence (`sim/`, all 45 corners, per-row
   verdicts) exists as this repo's *own* Markdown evidence-record
@@ -259,24 +304,29 @@ repo's rule that an envelope must actually support the item to be cited:
 ## Regeneration and freshness
 
 ```bash
-./scripts/setup-env.sh          # provisions .venv at the pinned klt (see docs/environment-setup.md)
-source .venv/bin/activate
+# the grader pin is klayout-tools==0.7.0 (CI installs it; `scripts/setup-env.sh`'s venv
+# keeps an older revision, see docs/environment-setup.md move 7), e.g.:
+python3 -m venv /tmp/klt070 && /tmp/klt070/bin/pip install "klayout-tools==0.7.0" cocotb==2.0.1
+export PATH=/tmp/klt070/bin:$PATH
+python3 signoff/check.py --regen   # only if an inventoried file changed on purpose
 klt signoff --manifest manifests/gf180-usb2-phy.json --format json > /tmp/fresh.json
 klt signoff --manifest manifests/gf180-usb2-phy.json --format text
 diff /tmp/fresh.json manifests/t1-signoff-report.json   # regeneration = update the frozen report in the same change
 ```
 
 Exit `0` means every T1 item met (this repo is **not** there:
-exit `3`, `tier: null`, `6/22` item-rows met at the time of freezing —
-item 8 in both partitions, plus 3.digital, 4.digital, 5.digital and
-11.digital; it was `8/22` before issue #95 stopped items 3 and 4 from
-grading the analog partition off digital evidence). Exit codes `0` and `3` are
+exit `3`, `tier: null`, `14/22` item-rows met at the time of freezing —
+item 8 in both partitions, 3.digital, 4.digital, 5.digital, 7.digital and
+11.digital, plus the artifact-anchored rows 1.analog, 1.digital, 2.digital
+and items 9 and 10 in both partitions; it was `8/22` before issue #95
+stopped items 3 and 4 from grading the analog partition off digital
+evidence). Exit codes `0` and `3` are
 both "clean runs"; exit `1` is an error and must be fixed, not committed
 around.
 
 **The freshness contract is the pin, and CI re-checks it**
-(`scripts/check_signoff_report.py`, wired into `npm run check:ci` and
-hence `.github/workflows/ci.yml`):
+(`scripts/check_signoff_report.py` and `signoff/check.py`, both wired into
+`npm run check:ci` and hence `.github/workflows/ci.yml`):
 
 1. Every citation's `content_hash` pins the input revision the cited
    envelope was produced against. If a cited artifact's input changes
@@ -302,6 +352,7 @@ script, P&R request — to the working tree on every run).
 | `gf180-usb2-phy.json` | the block manifest — `block`, `kind`, per-item pinned evidence citations. **The stable path a fleet roll-up points at.** |
 | `t1-signoff-report.json` | `klt signoff --manifest gf180-usb2-phy.json --format json` output, frozen at the pinned `klt`; CI diff-checks a fresh render against it |
 | `item8-characterization.json` | the T1-item-8 `generic` evidence envelope wrapping `docs/characterization-report.md`, pinned to its content hash |
+| `../signoff/` | `inventories.py` (the only writer of the items 1/2.digital/9/10 inventories and envelopes), `check.py` (the drift gate), `evidence/` (inventories and envelopes) |
 | `README.md` | this claim document — kind/partition basis, citation rationale, disclosure of the uncited rows, the regeneration contract |
 
 [#78]: https://github.com/2AMLogic/gf180-usb2-phy/issues/78
