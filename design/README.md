@@ -15,13 +15,16 @@ Do not restructure or remove another issue's section from this file.
   `design/netlist/<cell>.spice` for every `design/*.sch`).
   `python3 design/netlist.py --check` verifies the committed netlists are
   current and reproduce byte-for-byte. Both need `source sim/env.sh` first
-  (PDK discovery) and a real `xschem`/`ngspice` on `PATH`.
-- **Headless xschem, no DISPLAY/X11 needed**: `xschem -x -q -n -s -r
-  --rcfile design/xschemrc -o <outdir> <cell>.sch` runs and netlists
-  correctly with no X server at all (`-x` disables the Tk GUI) -- confirmed
-  working in this repo's CI-equivalent environment. `design/netlist.py`
-  uses exactly this invocation, ported from the equivalent script in
-  `gf180-temp-por`/`gf180-bandgap` (CLAUDE.md's harness-bootstrap
+  (PDK discovery) and `klt` (klayout-tools) plus `ngspice` on `PATH`.
+- **Headless xschem via `klt netlist`, never raw `xschem`**:
+  `design/netlist.py` calls `klt netlist --rcfile design/xschemrc --pdk ...
+  --pdk-root ... -o <out> <cell>.sch` per cell. `klt netlist` forces
+  `-n -s -q -x -r` (no X server needed), bounds the run with `--timeout-s`
+  (a raw `xschem` can hang in the Tk loop), and judges success by a freshly
+  written output. The script then rewrites absolute `sch_path` comments
+  repo-relative and prepends the two-line header, so it does its own
+  `--check` diff rather than using `klt netlist --check`. Originally ported
+  from `gf180-temp-por`/`gf180-bandgap` (CLAUDE.md's harness-bootstrap
   instruction).
 - **No cross-cell hierarchy yet.** Every cell currently in `design/` is a
   flat leaf block (no cell instantiates another). A future PHY-level
