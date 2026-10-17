@@ -51,16 +51,35 @@ def klt_version() -> str:
     return (out.stdout or out.stderr).strip()
 
 
-def _measurement(name: str, entry) -> dict:
-    """A ``klt_measure`` entry: a ``.meas`` card dict, or a bare expression string."""
+def _measurement(name: str, entry, check: dict | None = None) -> dict:
+    """A ``klt_measure`` entry: a ``.meas`` card dict, or a bare expression string.
+
+    The bounds of the bench's ``checks[name]`` ride along as ``limits`` so the
+    envelope grades each corner against the spec bound itself. Without them
+    klt's per-corner ``pass`` only means "the measurement produced a value",
+    and a signoff citation would be vacuous. Limits are stated in klt's units,
+    i.e. before the ``scale`` the harness applies.
+    """
     if isinstance(entry, str):
-        return {"name": name, "expr": entry}
-    if not isinstance(entry, dict) or not isinstance(entry.get("spice"), str):
+        out = {"name": name, "expr": entry}
+        scale = 1.0
+    elif isinstance(entry, dict) and isinstance(entry.get("spice"), str):
+        out = {"name": name, "spice": entry["spice"]}
+        scale = float(entry.get("scale", 1.0))
+    else:
         raise KltError(
             f"klt_measure[{name!r}] must be an expression string or "
             "{'spice': '.meas ...', 'scale': k}"
         )
-    return {"name": name, "spice": entry["spice"]}
+    limits = {}
+    for bound in ("min", "max"):
+        if check and check.get(bound) is not None:
+            if scale <= 0:
+                raise KltError(f"klt_measure[{name!r}]: scale must be positive to carry limits")
+            limits[bound] = float(check[bound]) / scale
+    if limits:
+        out["limits"] = limits
+    return out
 
 
 def _scale(manifest: dict, name: str) -> float:
@@ -103,7 +122,12 @@ def build_request(
     ]
     for key, value in tb.params.items():
         body.append(f".param {key}={value}")
-    body.append(f'.include "{pdk.design_include}"')
+    # A job-relative copy, not the host's absolute PDK path: an off-host
+    # backend (batch) stages it with the job, whereas an absolute path under
+    # the submitting host's PDK root is left for the runner to resolve and is
+    # missing there.
+    shutil.copyfile(pdk.design_include, workdir / pdk.design_include.name)
+    body.append(f'.include "{pdk.design_include.name}"')
     if tb.dut is not None:
         body.append(f'.include "{tb.dut}"')
     body.append(f'.include "{tb.netlist}"')
@@ -139,7 +163,7 @@ def build_request(
             "temperature_c": temps,
         },
         "analysis": {"kind": analysis[0], "args": analysis[1] if len(analysis) > 1 else ""},
-        "measurements": [_measurement(n, klt_measure[n]) for n in tb.measure],
+        "measurements": [_measurement(n, klt_measure[n], tb.checks.get(n)) for n in tb.measure],
         "options": {"timeout_s": timeout_s, "keep_artifacts": True},
     }
     if backend:
@@ -163,6 +187,7 @@ def run_grid_klt(
     manifest: dict,
     backend: str | None = None,
     runner_version_check: str | None = None,
+    hosts: int | None = None,
     timeout_s: int = 300,
     on_result=None,
     log_dir: Path | None = None,
@@ -175,6 +200,8 @@ def run_grid_klt(
     cmd = [KLT, "sim", str(request), "--format", "json", "-o", str(outdir)]
     if backend:
         cmd += ["--backend", backend]
+    if hosts:
+        cmd += ["--hosts", str(hosts)]
     started = time.monotonic()
     try:
         proc = subprocess.run(cmd, capture_output=True, text=True, check=False)
