@@ -160,7 +160,7 @@ reused.
 
 | Component | Pinned to | Resolved via |
 |---|---|---|
-| `klayout-tools` (`klt`) | git revision [`e8ca621a6961879cec1af60cc932c3b3d58ddcaa`](https://github.com/2AMLogic/klayout-tools/commit/e8ca621a6961879cec1af60cc932c3b3d58ddcaa) (reports as `klt 0.5.0+ge8ca621a6961`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@e8ca621a6961879cec1af60cc932c3b3d58ddcaa"` (what `scripts/setup-env.sh` runs) |
+| `klayout-tools` (`klt`) | git revision [`7ee09483b74867a47a05eb353015c2cf5ca33ef3`](https://github.com/2AMLogic/klayout-tools/commit/7ee09483b74867a47a05eb353015c2cf5ca33ef3) (reports as `klt 0.7.1.dev1743+g7ee09483b748`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@7ee09483b74867a47a05eb353015c2cf5ca33ef3"` (what `scripts/setup-env.sh` runs) |
 | `gf180mcu` PDK | `open_pdks` commit `c6d73a35f524070e85faff4a6a9eef49553ebc2b` (variants `gf180mcuA`/`B`/`C`/`D`; the digital harness uses `gf180mcuD`, whose standard-cell libraries are `gf180mcu_fd_sc_mcu7t5v0` / `gf180mcu_fd_sc_mcu9t5v0`) | `volare enable --pdk-root ~/.volare --pdk gf180mcu c6d73a35f524070e85faff4a6a9eef49553ebc2b` |
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
@@ -342,6 +342,22 @@ capabilities are present. The pin has moved forward four times so far:
    `klayout_version_mismatch: false` (a venv left to resolve the newest
    `klayout` shows the flag `true`; the first extraction attempt here did,
    and was discarded, not committed).
+
+7. `e8ca621a6961879cec1af60cc932c3b3d58ddcaa` →
+   `7ee09483b74867a47a05eb353015c2cf5ca33ef3` by issue #188, to grade item
+   5.analog. The move was needed for two reasons: `measurements[].expr`
+   (klayout-tools#2533) and list-form item-5 evidence with `spec_rows`
+   coverage (klayout-tools#2959, which lets several `klt sim` envelopes
+   jointly cover one item). **`v0.7.0` (`0e2362bd`) has #2533 but not #2959**:
+   `klayout_tools.signoff` there has no `_grade_multi_citation`. So the pin is
+   the commit the fleet-dispatch host's `klt` was built from (`klt
+   0.7.1.dev1743+g7ee09483b748`), which contains both, not a release tag.
+   Re-pin to a release once one carries #2959.
+   For this move only the lint half of `npm run check:ci` was run locally
+   (`npm run lint`'s chain plus `scripts/check_signoff_report.py`); the cocotb
+   half (`npm run test`) was left to CI. The re-pin made two live
+   `analog-layout` records' `setup-env.sh` provenance hash stale; they are
+   superseded by source-only records, not re-run.
 
 `npm run check:ci` was re-run against each new pin before it was committed.
 

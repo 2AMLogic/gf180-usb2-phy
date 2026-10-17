@@ -1,0 +1,4375 @@
+{
+  "schema_version": 3,
+  "netlist": {
+    "path": "sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/body.spice",
+    "scope": "repo"
+  },
+  "status": "pass",
+  "corner_count": 45,
+  "passed": 45,
+  "failed": 0,
+  "errored": 0,
+  "inconclusive": 0,
+  "diagnostic_counts": {
+    "by_code": {},
+    "by_severity": {},
+    "corners_with_diagnostics": 0
+  },
+  "metrics": {
+    "sim__corner__count": 45,
+    "sim__corner__passed_count": 45,
+    "sim__corner__failed_count": 0,
+    "sim__corner__errored_count": 0,
+    "sim__corner__inconclusive_count": 0
+  },
+  "environment": {
+    "engine": "ngspice",
+    "engine_version": "46",
+    "ngspice_binary": "/usr/local/bin/ngspice",
+    "engine_build": {
+      "version_banner": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Sat Aug  1 17:32:09 UTC 2026\n******",
+      "binary_sha256": "555e04b8ddf17a382fe28d409251ce8968ba983b8c82396fb78e1ff542aa5dd5",
+      "probe": "ok",
+      "reason": null
+    },
+    "models_lib": {
+      "path": null,
+      "scope": "external"
+    },
+    "models_lib_sha256": "f6f4a96e18fc5ad11270ad3451aaecc7ac37fc81eb61e15b0d7d94c7bc594a24",
+    "models_lib_sha256_scope": "client",
+    "netlist_sha256": "877644331d5721bb3ab265b6d6420e0e2773a2b06499c1de17901195b654511e",
+    "netlist_closure": [
+      {
+        "path": "sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/body.spice",
+        "scope": "repo",
+        "sha256": "877644331d5721bb3ab265b6d6420e0e2773a2b06499c1de17901195b654511e"
+      },
+      {
+        "path": "sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/design.ngspice",
+        "scope": "repo",
+        "sha256": "091cb530bf85160a1f07878fb81f789ca367d018991c8ab41a584cd1a85c6692"
+      },
+      {
+        "path": "design/netlist/dplus_pullup.spice",
+        "scope": "repo",
+        "sha256": "9c645ecf0da6d80fb05d85c33d2941cc48bc328a00cd427f0c11bdf980b2cceb"
+      },
+      {
+        "path": "sim/dplus-pullup-tolerance/testbench/pullup_tb.spice",
+        "scope": "repo",
+        "sha256": "ef7ab6c6b85957fd263b7d07518c14947bad049669d103987bb583da173e274c"
+      }
+    ],
+    "netlist_identity": "sha256:bf2af9b10c006c498a2ca90f7e226c1473eedc6d79e29652d562d0384d002e62",
+    "remote": {
+      "fleet": [
+        {
+          "provider": "aws-batch-fleet",
+          "job_id": "klt-sim-af0ae6bc7d68",
+          "bucket": "2am-batch-jobs-221082181346",
+          "region": "us-east-1",
+          "instance_id": "i-0fd884c492fad44a1",
+          "instance_type": "m7i.4xlarge",
+          "availability_zone": "us-east-1c",
+          "ami_id": "ami-0e0bec04ad8e81877",
+          "lifecycle": "spot",
+          "spot": true,
+          "state": "done",
+          "exit_code": "0",
+          "concurrency": "1",
+          "physical_cores": "8",
+          "elapsed_seconds": 11,
+          "client_submitted_at": "2026-10-17T19:54:31.625506Z",
+          "client_launched_at": "2026-10-17T19:55:00.574463Z",
+          "client_status_terminal_at": "2026-10-17T19:55:32.812444Z",
+          "client_collected_at": "2026-10-17T19:55:34.058312Z",
+          "runner_klt_version": "0.7.0",
+          "client_klt_version": "0.7.1.dev1743+g7ee09483b748",
+          "runner_compatibility": "match",
+          "runner_request_features": {
+            "required": [
+              "measurements[].expr"
+            ],
+            "missing": [],
+            "status": "supported"
+          },
+          "worker_environment": {
+            "capture": "ok",
+            "simulator": {
+              "requested_binary": "ngspice",
+              "binary_source": "PATH",
+              "selected_path": "/usr/local/bin/ngspice",
+              "version_banner": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Thu Oct  1 23:51:59 UTC 2026\n******\n",
+              "version_probe": "ok"
+            },
+            "pdk": {
+              "variant": "gf180mcuD",
+              "root": "/opt/pdk",
+              "stamp_scheme": "sources-sha256",
+              "stamp_sha256": "d5ac52956829da3fee35d0b307d4e6cb83ae0e6535b56dba2eefed61cdffaf9b",
+              "stamp_text": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b",
+              "models_staged": false
+            },
+            "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+            "omp_num_threads": null,
+            "image_manifest": null,
+            "model_inputs": null,
+            "diagnostics": [],
+            "pdk_stamp_comparison": {
+              "status": "not_comparable"
+            },
+            "engine_build_comparison": {
+              "status": "mismatch",
+              "warning": "the worker's ngspice --version banner differs from the local binary's; build options (e.g. FFT linkage) may differ, so results derived from them can differ from a local run"
+            }
+          },
+          "runner_model_inputs": null,
+          "resumed": false
+        },
+        {
+          "provider": "aws-batch-fleet",
+          "job_id": "klt-sim-bdca2394fe6d",
+          "bucket": "2am-batch-jobs-221082181346",
+          "region": "us-east-1",
+          "instance_id": "i-09c9c42a8eabe1acd",
+          "instance_type": "m7i.4xlarge",
+          "availability_zone": "us-east-1c",
+          "ami_id": "ami-0e0bec04ad8e81877",
+          "lifecycle": "spot",
+          "spot": true,
+          "state": "done",
+          "exit_code": "0",
+          "concurrency": "1",
+          "physical_cores": "8",
+          "elapsed_seconds": 12,
+          "client_submitted_at": "2026-10-17T19:54:31.626791Z",
+          "client_launched_at": "2026-10-17T19:55:00.709730Z",
+          "client_status_terminal_at": "2026-10-17T19:55:32.845764Z",
+          "client_collected_at": "2026-10-17T19:55:34.056211Z",
+          "runner_klt_version": "0.7.0",
+          "client_klt_version": "0.7.1.dev1743+g7ee09483b748",
+          "runner_compatibility": "match",
+          "runner_request_features": {
+            "required": [
+              "measurements[].expr"
+            ],
+            "missing": [],
+            "status": "supported"
+          },
+          "worker_environment": {
+            "capture": "ok",
+            "simulator": {
+              "requested_binary": "ngspice",
+              "binary_source": "PATH",
+              "selected_path": "/usr/local/bin/ngspice",
+              "version_banner": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Thu Oct  1 23:51:59 UTC 2026\n******\n",
+              "version_probe": "ok"
+            },
+            "pdk": {
+              "variant": "gf180mcuD",
+              "root": "/opt/pdk",
+              "stamp_scheme": "sources-sha256",
+              "stamp_sha256": "d5ac52956829da3fee35d0b307d4e6cb83ae0e6535b56dba2eefed61cdffaf9b",
+              "stamp_text": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b",
+              "models_staged": false
+            },
+            "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+            "omp_num_threads": null,
+            "image_manifest": null,
+            "model_inputs": null,
+            "diagnostics": [],
+            "pdk_stamp_comparison": {
+              "status": "not_comparable"
+            },
+            "engine_build_comparison": {
+              "status": "mismatch",
+              "warning": "the worker's ngspice --version banner differs from the local binary's; build options (e.g. FFT linkage) may differ, so results derived from them can differ from a local run"
+            }
+          },
+          "runner_model_inputs": null,
+          "resumed": false
+        },
+        {
+          "provider": "aws-batch-fleet",
+          "job_id": "klt-sim-96cc6d54ef97",
+          "bucket": "2am-batch-jobs-221082181346",
+          "region": "us-east-1",
+          "instance_id": "i-0bf28fe111d43ce9f",
+          "instance_type": "m7i.4xlarge",
+          "availability_zone": "us-east-1c",
+          "ami_id": "ami-0e0bec04ad8e81877",
+          "lifecycle": "spot",
+          "spot": true,
+          "state": "done",
+          "exit_code": "0",
+          "concurrency": "1",
+          "physical_cores": "8",
+          "elapsed_seconds": 12,
+          "client_submitted_at": "2026-10-17T19:54:31.628168Z",
+          "client_launched_at": "2026-10-17T19:55:00.760995Z",
+          "client_status_terminal_at": "2026-10-17T19:55:32.918542Z",
+          "client_collected_at": "2026-10-17T19:55:34.116558Z",
+          "runner_klt_version": "0.7.0",
+          "client_klt_version": "0.7.1.dev1743+g7ee09483b748",
+          "runner_compatibility": "match",
+          "runner_request_features": {
+            "required": [
+              "measurements[].expr"
+            ],
+            "missing": [],
+            "status": "supported"
+          },
+          "worker_environment": {
+            "capture": "ok",
+            "simulator": {
+              "requested_binary": "ngspice",
+              "binary_source": "PATH",
+              "selected_path": "/usr/local/bin/ngspice",
+              "version_banner": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Thu Oct  1 23:51:59 UTC 2026\n******\n",
+              "version_probe": "ok"
+            },
+            "pdk": {
+              "variant": "gf180mcuD",
+              "root": "/opt/pdk",
+              "stamp_scheme": "sources-sha256",
+              "stamp_sha256": "d5ac52956829da3fee35d0b307d4e6cb83ae0e6535b56dba2eefed61cdffaf9b",
+              "stamp_text": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b",
+              "models_staged": false
+            },
+            "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+            "omp_num_threads": null,
+            "image_manifest": null,
+            "model_inputs": null,
+            "diagnostics": [],
+            "pdk_stamp_comparison": {
+              "status": "not_comparable"
+            },
+            "engine_build_comparison": {
+              "status": "mismatch",
+              "warning": "the worker's ngspice --version banner differs from the local binary's; build options (e.g. FFT linkage) may differ, so results derived from them can differ from a local run"
+            }
+          },
+          "runner_model_inputs": null,
+          "resumed": false
+        },
+        {
+          "provider": "aws-batch-fleet",
+          "job_id": "klt-sim-368bb66f0ae9",
+          "bucket": "2am-batch-jobs-221082181346",
+          "region": "us-east-1",
+          "instance_id": "i-0ac7a3f396f6ef9f0",
+          "instance_type": "m7i.4xlarge",
+          "availability_zone": "us-east-1c",
+          "ami_id": "ami-0e0bec04ad8e81877",
+          "lifecycle": "spot",
+          "spot": true,
+          "state": "done",
+          "exit_code": "0",
+          "concurrency": "1",
+          "physical_cores": "8",
+          "elapsed_seconds": 12,
+          "client_submitted_at": "2026-10-17T19:54:31.629939Z",
+          "client_launched_at": "2026-10-17T19:55:00.828583Z",
+          "client_status_terminal_at": "2026-10-17T19:55:33.058732Z",
+          "client_collected_at": "2026-10-17T19:55:34.207870Z",
+          "runner_klt_version": "0.7.0",
+          "client_klt_version": "0.7.1.dev1743+g7ee09483b748",
+          "runner_compatibility": "match",
+          "runner_request_features": {
+            "required": [
+              "measurements[].expr"
+            ],
+            "missing": [],
+            "status": "supported"
+          },
+          "worker_environment": {
+            "capture": "ok",
+            "simulator": {
+              "requested_binary": "ngspice",
+              "binary_source": "PATH",
+              "selected_path": "/usr/local/bin/ngspice",
+              "version_banner": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Thu Oct  1 23:51:59 UTC 2026\n******\n",
+              "version_probe": "ok"
+            },
+            "pdk": {
+              "variant": "gf180mcuD",
+              "root": "/opt/pdk",
+              "stamp_scheme": "sources-sha256",
+              "stamp_sha256": "d5ac52956829da3fee35d0b307d4e6cb83ae0e6535b56dba2eefed61cdffaf9b",
+              "stamp_text": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b",
+              "models_staged": false
+            },
+            "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+            "omp_num_threads": null,
+            "image_manifest": null,
+            "model_inputs": null,
+            "diagnostics": [],
+            "pdk_stamp_comparison": {
+              "status": "not_comparable"
+            },
+            "engine_build_comparison": {
+              "status": "mismatch",
+              "warning": "the worker's ngspice --version banner differs from the local binary's; build options (e.g. FFT linkage) may differ, so results derived from them can differ from a local run"
+            }
+          },
+          "runner_model_inputs": null,
+          "resumed": false
+        },
+        {
+          "provider": "aws-batch-fleet",
+          "job_id": "klt-sim-2fdb9e9f02e1",
+          "bucket": "2am-batch-jobs-221082181346",
+          "region": "us-east-1",
+          "instance_id": "i-01bb6212bba945e0b",
+          "instance_type": "m7i.4xlarge",
+          "availability_zone": "us-east-1c",
+          "ami_id": "ami-0e0bec04ad8e81877",
+          "lifecycle": "spot",
+          "spot": true,
+          "state": "done",
+          "exit_code": "0",
+          "concurrency": "1",
+          "physical_cores": "8",
+          "elapsed_seconds": 12,
+          "client_submitted_at": "2026-10-17T19:54:31.629389Z",
+          "client_launched_at": "2026-10-17T19:55:00.804200Z",
+          "client_status_terminal_at": "2026-10-17T19:55:32.999613Z",
+          "client_collected_at": "2026-10-17T19:55:34.156597Z",
+          "runner_klt_version": "0.7.0",
+          "client_klt_version": "0.7.1.dev1743+g7ee09483b748",
+          "runner_compatibility": "match",
+          "runner_request_features": {
+            "required": [
+              "measurements[].expr"
+            ],
+            "missing": [],
+            "status": "supported"
+          },
+          "worker_environment": {
+            "capture": "ok",
+            "simulator": {
+              "requested_binary": "ngspice",
+              "binary_source": "PATH",
+              "selected_path": "/usr/local/bin/ngspice",
+              "version_banner": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Thu Oct  1 23:51:59 UTC 2026\n******\n",
+              "version_probe": "ok"
+            },
+            "pdk": {
+              "variant": "gf180mcuD",
+              "root": "/opt/pdk",
+              "stamp_scheme": "sources-sha256",
+              "stamp_sha256": "d5ac52956829da3fee35d0b307d4e6cb83ae0e6535b56dba2eefed61cdffaf9b",
+              "stamp_text": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b",
+              "models_staged": false
+            },
+            "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+            "omp_num_threads": null,
+            "image_manifest": null,
+            "model_inputs": null,
+            "diagnostics": [],
+            "pdk_stamp_comparison": {
+              "status": "not_comparable"
+            },
+            "engine_build_comparison": {
+              "status": "mismatch",
+              "warning": "the worker's ngspice --version banner differs from the local binary's; build options (e.g. FFT linkage) may differ, so results derived from them can differ from a local run"
+            }
+          },
+          "runner_model_inputs": null,
+          "resumed": false
+        }
+      ]
+    },
+    "engine_host": "worker",
+    "client_ngspice_binary": "/home/ubuntu/.local/bin/ngspice",
+    "backend": {
+      "resolved": "batch",
+      "source": "flag",
+      "requested": "batch"
+    }
+  },
+  "coverage": {
+    "corners_simulated": 45,
+    "measurements_declared": 6,
+    "measurements_with_limits": 2,
+    "unrecognized_limit_keys": [],
+    "schema_version": 1,
+    "known": true,
+    "checked": [
+      "limit:[0,\"tt/2.970V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[0,\"tt/2.970V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[1,\"tt/2.970V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[10,\"ff/2.970V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[11,\"ff/2.970V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[12,\"ff/3.300V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[13,\"ff/3.300V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[14,\"ff/3.300V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[15,\"ff/3.630V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[16,\"ff/3.630V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[17,\"ff/3.630V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[18,\"ss/2.970V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[19,\"ss/2.970V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[2,\"tt/2.970V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[20,\"ss/2.970V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[21,\"ss/3.300V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[22,\"ss/3.300V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[23,\"ss/3.300V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[24,\"ss/3.630V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[25,\"ss/3.630V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[26,\"ss/3.630V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[27,\"fs/2.970V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[28,\"fs/2.970V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[29,\"fs/2.970V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[3,\"tt/3.300V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[30,\"fs/3.300V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[31,\"fs/3.300V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[32,\"fs/3.300V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[33,\"fs/3.630V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[34,\"fs/3.630V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[35,\"fs/3.630V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[36,\"sf/2.970V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[37,\"sf/2.970V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[38,\"sf/2.970V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[39,\"sf/3.300V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[4,\"tt/3.300V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[40,\"sf/3.300V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[41,\"sf/3.300V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[42,\"sf/3.630V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[43,\"sf/3.630V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[44,\"sf/3.630V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[5,\"tt/3.300V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[6,\"tt/3.630V/-40C\",\"r_best_ohm\",\"min\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"best_err_pct\",\"max\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"best_err_pct\",\"min\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"r_best_ohm\",\"max\"]",
+      "limit:[7,\"tt/3.630V/27C\",\"r_best_ohm\",\"min\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"best_err_pct\",\"max\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"best_err_pct\",\"min\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"r_best_ohm\",\"max\"]",
+      "limit:[8,\"tt/3.630V/125C\",\"r_best_ohm\",\"min\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"best_err_pct\",\"max\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"best_err_pct\",\"min\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"r_best_ohm\",\"max\"]",
+      "limit:[9,\"ff/2.970V/-40C\",\"r_best_ohm\",\"min\"]",
+      "measurement:[0,\"tt/2.970V/-40C\",\"best_code\"]/observation",
+      "measurement:[0,\"tt/2.970V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[0,\"tt/2.970V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[0,\"tt/2.970V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[1,\"tt/2.970V/27C\",\"best_code\"]/observation",
+      "measurement:[1,\"tt/2.970V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[1,\"tt/2.970V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[1,\"tt/2.970V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[10,\"ff/2.970V/27C\",\"best_code\"]/observation",
+      "measurement:[10,\"ff/2.970V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[10,\"ff/2.970V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[10,\"ff/2.970V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[11,\"ff/2.970V/125C\",\"best_code\"]/observation",
+      "measurement:[11,\"ff/2.970V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[11,\"ff/2.970V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[11,\"ff/2.970V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[12,\"ff/3.300V/-40C\",\"best_code\"]/observation",
+      "measurement:[12,\"ff/3.300V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[12,\"ff/3.300V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[12,\"ff/3.300V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[13,\"ff/3.300V/27C\",\"best_code\"]/observation",
+      "measurement:[13,\"ff/3.300V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[13,\"ff/3.300V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[13,\"ff/3.300V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[14,\"ff/3.300V/125C\",\"best_code\"]/observation",
+      "measurement:[14,\"ff/3.300V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[14,\"ff/3.300V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[14,\"ff/3.300V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[15,\"ff/3.630V/-40C\",\"best_code\"]/observation",
+      "measurement:[15,\"ff/3.630V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[15,\"ff/3.630V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[15,\"ff/3.630V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[16,\"ff/3.630V/27C\",\"best_code\"]/observation",
+      "measurement:[16,\"ff/3.630V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[16,\"ff/3.630V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[16,\"ff/3.630V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[17,\"ff/3.630V/125C\",\"best_code\"]/observation",
+      "measurement:[17,\"ff/3.630V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[17,\"ff/3.630V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[17,\"ff/3.630V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[18,\"ss/2.970V/-40C\",\"best_code\"]/observation",
+      "measurement:[18,\"ss/2.970V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[18,\"ss/2.970V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[18,\"ss/2.970V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[19,\"ss/2.970V/27C\",\"best_code\"]/observation",
+      "measurement:[19,\"ss/2.970V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[19,\"ss/2.970V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[19,\"ss/2.970V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[2,\"tt/2.970V/125C\",\"best_code\"]/observation",
+      "measurement:[2,\"tt/2.970V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[2,\"tt/2.970V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[2,\"tt/2.970V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[20,\"ss/2.970V/125C\",\"best_code\"]/observation",
+      "measurement:[20,\"ss/2.970V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[20,\"ss/2.970V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[20,\"ss/2.970V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[21,\"ss/3.300V/-40C\",\"best_code\"]/observation",
+      "measurement:[21,\"ss/3.300V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[21,\"ss/3.300V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[21,\"ss/3.300V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[22,\"ss/3.300V/27C\",\"best_code\"]/observation",
+      "measurement:[22,\"ss/3.300V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[22,\"ss/3.300V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[22,\"ss/3.300V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[23,\"ss/3.300V/125C\",\"best_code\"]/observation",
+      "measurement:[23,\"ss/3.300V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[23,\"ss/3.300V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[23,\"ss/3.300V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[24,\"ss/3.630V/-40C\",\"best_code\"]/observation",
+      "measurement:[24,\"ss/3.630V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[24,\"ss/3.630V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[24,\"ss/3.630V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[25,\"ss/3.630V/27C\",\"best_code\"]/observation",
+      "measurement:[25,\"ss/3.630V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[25,\"ss/3.630V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[25,\"ss/3.630V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[26,\"ss/3.630V/125C\",\"best_code\"]/observation",
+      "measurement:[26,\"ss/3.630V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[26,\"ss/3.630V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[26,\"ss/3.630V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[27,\"fs/2.970V/-40C\",\"best_code\"]/observation",
+      "measurement:[27,\"fs/2.970V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[27,\"fs/2.970V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[27,\"fs/2.970V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[28,\"fs/2.970V/27C\",\"best_code\"]/observation",
+      "measurement:[28,\"fs/2.970V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[28,\"fs/2.970V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[28,\"fs/2.970V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[29,\"fs/2.970V/125C\",\"best_code\"]/observation",
+      "measurement:[29,\"fs/2.970V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[29,\"fs/2.970V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[29,\"fs/2.970V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[3,\"tt/3.300V/-40C\",\"best_code\"]/observation",
+      "measurement:[3,\"tt/3.300V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[3,\"tt/3.300V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[3,\"tt/3.300V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[30,\"fs/3.300V/-40C\",\"best_code\"]/observation",
+      "measurement:[30,\"fs/3.300V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[30,\"fs/3.300V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[30,\"fs/3.300V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[31,\"fs/3.300V/27C\",\"best_code\"]/observation",
+      "measurement:[31,\"fs/3.300V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[31,\"fs/3.300V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[31,\"fs/3.300V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[32,\"fs/3.300V/125C\",\"best_code\"]/observation",
+      "measurement:[32,\"fs/3.300V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[32,\"fs/3.300V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[32,\"fs/3.300V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[33,\"fs/3.630V/-40C\",\"best_code\"]/observation",
+      "measurement:[33,\"fs/3.630V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[33,\"fs/3.630V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[33,\"fs/3.630V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[34,\"fs/3.630V/27C\",\"best_code\"]/observation",
+      "measurement:[34,\"fs/3.630V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[34,\"fs/3.630V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[34,\"fs/3.630V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[35,\"fs/3.630V/125C\",\"best_code\"]/observation",
+      "measurement:[35,\"fs/3.630V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[35,\"fs/3.630V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[35,\"fs/3.630V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[36,\"sf/2.970V/-40C\",\"best_code\"]/observation",
+      "measurement:[36,\"sf/2.970V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[36,\"sf/2.970V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[36,\"sf/2.970V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[37,\"sf/2.970V/27C\",\"best_code\"]/observation",
+      "measurement:[37,\"sf/2.970V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[37,\"sf/2.970V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[37,\"sf/2.970V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[38,\"sf/2.970V/125C\",\"best_code\"]/observation",
+      "measurement:[38,\"sf/2.970V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[38,\"sf/2.970V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[38,\"sf/2.970V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[39,\"sf/3.300V/-40C\",\"best_code\"]/observation",
+      "measurement:[39,\"sf/3.300V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[39,\"sf/3.300V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[39,\"sf/3.300V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[4,\"tt/3.300V/27C\",\"best_code\"]/observation",
+      "measurement:[4,\"tt/3.300V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[4,\"tt/3.300V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[4,\"tt/3.300V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[40,\"sf/3.300V/27C\",\"best_code\"]/observation",
+      "measurement:[40,\"sf/3.300V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[40,\"sf/3.300V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[40,\"sf/3.300V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[41,\"sf/3.300V/125C\",\"best_code\"]/observation",
+      "measurement:[41,\"sf/3.300V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[41,\"sf/3.300V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[41,\"sf/3.300V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[42,\"sf/3.630V/-40C\",\"best_code\"]/observation",
+      "measurement:[42,\"sf/3.630V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[42,\"sf/3.630V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[42,\"sf/3.630V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[43,\"sf/3.630V/27C\",\"best_code\"]/observation",
+      "measurement:[43,\"sf/3.630V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[43,\"sf/3.630V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[43,\"sf/3.630V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[44,\"sf/3.630V/125C\",\"best_code\"]/observation",
+      "measurement:[44,\"sf/3.630V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[44,\"sf/3.630V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[44,\"sf/3.630V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[5,\"tt/3.300V/125C\",\"best_code\"]/observation",
+      "measurement:[5,\"tt/3.300V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[5,\"tt/3.300V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[5,\"tt/3.300V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[6,\"tt/3.630V/-40C\",\"best_code\"]/observation",
+      "measurement:[6,\"tt/3.630V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[6,\"tt/3.630V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[6,\"tt/3.630V/-40C\",\"trim_step_pct\"]/observation",
+      "measurement:[7,\"tt/3.630V/27C\",\"best_code\"]/observation",
+      "measurement:[7,\"tt/3.630V/27C\",\"r_code0_ohm\"]/observation",
+      "measurement:[7,\"tt/3.630V/27C\",\"r_code31_ohm\"]/observation",
+      "measurement:[7,\"tt/3.630V/27C\",\"trim_step_pct\"]/observation",
+      "measurement:[8,\"tt/3.630V/125C\",\"best_code\"]/observation",
+      "measurement:[8,\"tt/3.630V/125C\",\"r_code0_ohm\"]/observation",
+      "measurement:[8,\"tt/3.630V/125C\",\"r_code31_ohm\"]/observation",
+      "measurement:[8,\"tt/3.630V/125C\",\"trim_step_pct\"]/observation",
+      "measurement:[9,\"ff/2.970V/-40C\",\"best_code\"]/observation",
+      "measurement:[9,\"ff/2.970V/-40C\",\"r_code0_ohm\"]/observation",
+      "measurement:[9,\"ff/2.970V/-40C\",\"r_code31_ohm\"]/observation",
+      "measurement:[9,\"ff/2.970V/-40C\",\"trim_step_pct\"]/observation"
+    ],
+    "skipped": [],
+    "inapplicable": [
+      {
+        "id": "measurement:[0,\"tt/2.970V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[0,\"tt/2.970V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[0,\"tt/2.970V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[0,\"tt/2.970V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[1,\"tt/2.970V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[1,\"tt/2.970V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[1,\"tt/2.970V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[1,\"tt/2.970V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[10,\"ff/2.970V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[10,\"ff/2.970V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[10,\"ff/2.970V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[10,\"ff/2.970V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[11,\"ff/2.970V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[11,\"ff/2.970V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[11,\"ff/2.970V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[11,\"ff/2.970V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[12,\"ff/3.300V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[12,\"ff/3.300V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[12,\"ff/3.300V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[12,\"ff/3.300V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[13,\"ff/3.300V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[13,\"ff/3.300V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[13,\"ff/3.300V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[13,\"ff/3.300V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[14,\"ff/3.300V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[14,\"ff/3.300V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[14,\"ff/3.300V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[14,\"ff/3.300V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[15,\"ff/3.630V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[15,\"ff/3.630V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[15,\"ff/3.630V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[15,\"ff/3.630V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[16,\"ff/3.630V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[16,\"ff/3.630V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[16,\"ff/3.630V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[16,\"ff/3.630V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[17,\"ff/3.630V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[17,\"ff/3.630V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[17,\"ff/3.630V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[17,\"ff/3.630V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[18,\"ss/2.970V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[18,\"ss/2.970V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[18,\"ss/2.970V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[18,\"ss/2.970V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[19,\"ss/2.970V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[19,\"ss/2.970V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[19,\"ss/2.970V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[19,\"ss/2.970V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[2,\"tt/2.970V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[2,\"tt/2.970V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[2,\"tt/2.970V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[2,\"tt/2.970V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[20,\"ss/2.970V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[20,\"ss/2.970V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[20,\"ss/2.970V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[20,\"ss/2.970V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[21,\"ss/3.300V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[21,\"ss/3.300V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[21,\"ss/3.300V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[21,\"ss/3.300V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[22,\"ss/3.300V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[22,\"ss/3.300V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[22,\"ss/3.300V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[22,\"ss/3.300V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[23,\"ss/3.300V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[23,\"ss/3.300V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[23,\"ss/3.300V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[23,\"ss/3.300V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[24,\"ss/3.630V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[24,\"ss/3.630V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[24,\"ss/3.630V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[24,\"ss/3.630V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[25,\"ss/3.630V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[25,\"ss/3.630V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[25,\"ss/3.630V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[25,\"ss/3.630V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[26,\"ss/3.630V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[26,\"ss/3.630V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[26,\"ss/3.630V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[26,\"ss/3.630V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[27,\"fs/2.970V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[27,\"fs/2.970V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[27,\"fs/2.970V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[27,\"fs/2.970V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[28,\"fs/2.970V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[28,\"fs/2.970V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[28,\"fs/2.970V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[28,\"fs/2.970V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[29,\"fs/2.970V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[29,\"fs/2.970V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[29,\"fs/2.970V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[29,\"fs/2.970V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[3,\"tt/3.300V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[3,\"tt/3.300V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[3,\"tt/3.300V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[3,\"tt/3.300V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[30,\"fs/3.300V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[30,\"fs/3.300V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[30,\"fs/3.300V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[30,\"fs/3.300V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[31,\"fs/3.300V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[31,\"fs/3.300V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[31,\"fs/3.300V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[31,\"fs/3.300V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[32,\"fs/3.300V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[32,\"fs/3.300V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[32,\"fs/3.300V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[32,\"fs/3.300V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[33,\"fs/3.630V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[33,\"fs/3.630V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[33,\"fs/3.630V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[33,\"fs/3.630V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[34,\"fs/3.630V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[34,\"fs/3.630V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[34,\"fs/3.630V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[34,\"fs/3.630V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[35,\"fs/3.630V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[35,\"fs/3.630V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[35,\"fs/3.630V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[35,\"fs/3.630V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[36,\"sf/2.970V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[36,\"sf/2.970V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[36,\"sf/2.970V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[36,\"sf/2.970V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[37,\"sf/2.970V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[37,\"sf/2.970V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[37,\"sf/2.970V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[37,\"sf/2.970V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[38,\"sf/2.970V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[38,\"sf/2.970V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[38,\"sf/2.970V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[38,\"sf/2.970V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[39,\"sf/3.300V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[39,\"sf/3.300V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[39,\"sf/3.300V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[39,\"sf/3.300V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[4,\"tt/3.300V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[4,\"tt/3.300V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[4,\"tt/3.300V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[4,\"tt/3.300V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[40,\"sf/3.300V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[40,\"sf/3.300V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[40,\"sf/3.300V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[40,\"sf/3.300V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[41,\"sf/3.300V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[41,\"sf/3.300V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[41,\"sf/3.300V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[41,\"sf/3.300V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[42,\"sf/3.630V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[42,\"sf/3.630V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[42,\"sf/3.630V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[42,\"sf/3.630V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[43,\"sf/3.630V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[43,\"sf/3.630V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[43,\"sf/3.630V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[43,\"sf/3.630V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[44,\"sf/3.630V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[44,\"sf/3.630V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[44,\"sf/3.630V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[44,\"sf/3.630V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[5,\"tt/3.300V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[5,\"tt/3.300V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[5,\"tt/3.300V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[5,\"tt/3.300V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[6,\"tt/3.630V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[6,\"tt/3.630V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[6,\"tt/3.630V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[6,\"tt/3.630V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[7,\"tt/3.630V/27C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[7,\"tt/3.630V/27C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[7,\"tt/3.630V/27C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[7,\"tt/3.630V/27C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[8,\"tt/3.630V/125C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[8,\"tt/3.630V/125C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[8,\"tt/3.630V/125C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[8,\"tt/3.630V/125C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[9,\"ff/2.970V/-40C\",\"best_code\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[9,\"ff/2.970V/-40C\",\"r_code0_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[9,\"ff/2.970V/-40C\",\"r_code31_ohm\"]/limits",
+        "reason": "characterization_without_limits"
+      },
+      {
+        "id": "measurement:[9,\"ff/2.970V/-40C\",\"trim_step_pct\"]/limits",
+        "reason": "characterization_without_limits"
+      }
+    ],
+    "unknown": [],
+    "nothing_checked": false,
+    "nothing_checked_reasons": []
+  },
+  "provenance": {
+    "klt_version": "0.7.1.dev1743+g7ee09483b748",
+    "klayout_version": "0.30.12",
+    "pdk": {
+      "name": "gf180mcuD",
+      "source": "search root: ~/.ciel",
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
+      "ambiguous_sources": [
+        "search root: ~/.volare"
+      ]
+    },
+    "deck": {
+      "name": "sm141064.ngspice",
+      "content_hash": "sha256:f6f4a96e18fc5ad11270ad3451aaecc7ac37fc81eb61e15b0d7d94c7bc594a24",
+      "released": false
+    },
+    "input": {
+      "content_hash": "sha256:877644331d5721bb3ab265b6d6420e0e2773a2b06499c1de17901195b654511e",
+      "role": "netlist"
+    }
+  },
+  "measurements": [
+    {
+      "name": "r_code0_ohm",
+      "unit": null,
+      "limits": null,
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "tt/2.970V/-40C",
+        "value": 2176.665,
+        "margin": null
+      }
+    },
+    {
+      "name": "r_code31_ohm",
+      "unit": null,
+      "limits": null,
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "tt/2.970V/-40C",
+        "value": 1080.482,
+        "margin": null
+      }
+    },
+    {
+      "name": "r_best_ohm",
+      "unit": null,
+      "limits": {
+        "min": 1425.0,
+        "max": 1575.0
+      },
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "ss/2.970V/-40C",
+        "value": 1530.084,
+        "margin": 44.91599999999994
+      }
+    },
+    {
+      "name": "best_code",
+      "unit": null,
+      "limits": null,
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "tt/2.970V/-40C",
+        "value": 20.0,
+        "margin": null
+      }
+    },
+    {
+      "name": "best_err_pct",
+      "unit": null,
+      "limits": {
+        "min": 0.0,
+        "max": 5.0
+      },
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "ff/3.630V/27C",
+        "value": 0.02666051,
+        "margin": 0.02666051
+      }
+    },
+    {
+      "name": "trim_step_pct",
+      "unit": null,
+      "limits": null,
+      "status": "pass",
+      "worst_case": {
+        "corner_id": "tt/2.970V/-40C",
+        "value": 3.272683,
+        "margin": null
+      }
+    }
+  ],
+  "corners": [
+    {
+      "corner_id": "tt/2.970V/-40C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.659,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2176.665,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1080.482,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1505.559,
+          "unit": null,
+          "status": "pass",
+          "margin": 69.44100000000003
+        },
+        {
+          "name": "best_code",
+          "value": 20.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.370599,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.370599
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.272683,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_2p970V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_2p970V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/2.970V/27C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.276,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2141.267,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1068.968,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1484.001,
+          "unit": null,
+          "status": "pass",
+          "margin": 59.000999999999976
+        },
+        {
+          "name": "best_code",
+          "value": 19.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.066574,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.066574
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.23586,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_2p970V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_2p970V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/2.970V/125C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 5.484,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2113.897,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1068.794,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1522.499,
+          "unit": null,
+          "status": "pass",
+          "margin": 52.500999999999976
+        },
+        {
+          "name": "best_code",
+          "value": 18.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.499956,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.499956
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.154304,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_2p970V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_2p970V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/3.300V/-40C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.619,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2176.393,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1078.666,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1504.621,
+          "unit": null,
+          "status": "pass",
+          "margin": 70.3789999999999
+        },
+        {
+          "name": "best_code",
+          "value": 20.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.3080869,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.3080869
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.282809,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_3p300V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_3p300V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/3.300V/27C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 4.954,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2140.934,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1068.005,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1483.835,
+          "unit": null,
+          "status": "pass",
+          "margin": 58.835000000000036
+        },
+        {
+          "name": "best_code",
+          "value": 19.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.07767,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.07767
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.240682,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_3p300V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_3p300V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/3.300V/125C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 5.254,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2113.482,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1066.9,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1522.398,
+          "unit": null,
+          "status": "pass",
+          "margin": 52.60200000000009
+        },
+        {
+          "name": "best_code",
+          "value": 18.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.493173,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.493173
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.164373,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_3p300V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_3p300V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/3.630V/-40C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.663,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2176.192,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1077.317,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1503.926,
+          "unit": null,
+          "status": "pass",
+          "margin": 71.07400000000007
+        },
+        {
+          "name": "best_code",
+          "value": 20.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.2617051,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.2617051
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.290355,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_3p630V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_3p630V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/3.630V/27C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.511,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2140.683,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1067.741,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1484.165,
+          "unit": null,
+          "status": "pass",
+          "margin": 59.164999999999964
+        },
+        {
+          "name": "best_code",
+          "value": 19.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.055679,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.055679
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.241517,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_3p630V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_3p630V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "tt/3.630V/125C",
+      "process": "tt",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 0.728,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2113.16,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1065.767,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1522.543,
+          "unit": null,
+          "status": "pass",
+          "margin": 52.45700000000011
+        },
+        {
+          "name": "best_code",
+          "value": 18.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.502845,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.502845
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.17019,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_3p630V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-af0ae6bc7d68/tt_3p630V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/2.970V/-40C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.436,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 1781.762,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 872.8095,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1501.537,
+          "unit": null,
+          "status": "pass",
+          "margin": 73.46299999999997
+        },
+        {
+          "name": "best_code",
+          "value": 9.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.1024861,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1024861
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.359385,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_2p970V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_2p970V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/2.970V/27C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.1,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 1749.781,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 863.5959,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1498.545,
+          "unit": null,
+          "status": "pass",
+          "margin": 73.54500000000007
+        },
+        {
+          "name": "best_code",
+          "value": 7.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.09701777,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.09701777
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.310183,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_2p970V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_2p970V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/2.970V/125C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 5.343,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 1723.001,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 862.445,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1502.156,
+          "unit": null,
+          "status": "pass",
+          "margin": 72.84400000000005
+        },
+        {
+          "name": "best_code",
+          "value": 8.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.1437213,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1437213
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.218741,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_2p970V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_2p970V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/3.300V/-40C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.349,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 1781.553,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 871.4702,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1500.878,
+          "unit": null,
+          "status": "pass",
+          "margin": 74.12200000000007
+        },
+        {
+          "name": "best_code",
+          "value": 9.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.05850334,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05850334
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.368735,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_3p300V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_3p300V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/3.300V/27C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.146,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 1749.523,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 863.5941,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1499.192,
+          "unit": null,
+          "status": "pass",
+          "margin": 74.19200000000001
+        },
+        {
+          "name": "best_code",
+          "value": 7.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.05386935,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.05386935
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.309233,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_3p300V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_3p300V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/3.300V/125C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 5.294,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 1722.674,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 861.4924,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1503.435,
+          "unit": null,
+          "status": "pass",
+          "margin": 71.56500000000005
+        },
+        {
+          "name": "best_code",
+          "value": 8.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.2289878,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.2289878
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.224644,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_3p300V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_3p300V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/3.630V/-40C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.148,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 1781.397,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 872.5268,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1502.504,
+          "unit": null,
+          "status": "pass",
+          "margin": 72.4960000000001
+        },
+        {
+          "name": "best_code",
+          "value": 9.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.1669072,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.1669072
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.360172,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_3p630V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_3p630V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/3.630V/27C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.44,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 1749.325,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 863.5113,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1499.6,
+          "unit": null,
+          "status": "pass",
+          "margin": 74.59999999999991
+        },
+        {
+          "name": "best_code",
+          "value": 7.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.02666051,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.02666051
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.309123,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_3p630V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_3p630V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ff/3.630V/125C",
+      "process": "ff",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 0.324,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 1722.417,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 860.7745,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1504.468,
+          "unit": null,
+          "status": "pass",
+          "margin": 70.53199999999993
+        },
+        {
+          "name": "best_code",
+          "value": 8.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.2978527,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.2978527
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.229059,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_3p630V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-bdca2394fe6d/ff_3p630V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/2.970V/-40C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.734,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2571.632,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1288.827,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1530.084,
+          "unit": null,
+          "status": "pass",
+          "margin": 44.91599999999994
+        },
+        {
+          "name": "best_code",
+          "value": 26.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 2.005626,
+          "unit": null,
+          "status": "pass",
+          "margin": 2.005626
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.210733,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_2p970V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_2p970V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/2.970V/27C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.36,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2532.829,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1276.315,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1506.768,
+          "unit": null,
+          "status": "pass",
+          "margin": 68.23199999999997
+        },
+        {
+          "name": "best_code",
+          "value": 26.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.4512004,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.4512004
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.175761,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_2p970V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_2p970V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/2.970V/125C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 5.159,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2504.883,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1276.966,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1496.444,
+          "unit": null,
+          "status": "pass",
+          "margin": 71.44399999999996
+        },
+        {
+          "name": "best_code",
+          "value": 26.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.2370765,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.2370765
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.101903,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_2p970V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_2p970V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/3.300V/-40C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.754,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2571.282,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1286.374,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1528.403,
+          "unit": null,
+          "status": "pass",
+          "margin": 46.59699999999998
+        },
+        {
+          "name": "best_code",
+          "value": 26.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.893553,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.893553
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.22213,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_3p300V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_3p300V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/3.300V/27C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.391,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2532.405,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1273.469,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1505.223,
+          "unit": null,
+          "status": "pass",
+          "margin": 69.77700000000004
+        },
+        {
+          "name": "best_code",
+          "value": 26.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.3481713,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.3481713
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.188991,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_3p300V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_3p300V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/3.300V/125C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 5.272,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2504.361,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1273.275,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1494.181,
+          "unit": null,
+          "status": "pass",
+          "margin": 69.18100000000004
+        },
+        {
+          "name": "best_code",
+          "value": 26.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.3879297,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.3879297
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.118919,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_3p300V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_3p300V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/3.630V/-40C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.775,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2571.025,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1284.575,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1527.173,
+          "unit": null,
+          "status": "pass",
+          "margin": 47.827
+        },
+        {
+          "name": "best_code",
+          "value": 26.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.811525,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.811525
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.230513,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_3p630V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_3p630V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/3.630V/27C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.544,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2532.086,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1272.912,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1505.722,
+          "unit": null,
+          "status": "pass",
+          "margin": 69.27800000000002
+        },
+        {
+          "name": "best_code",
+          "value": 26.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.3814603,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.3814603
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.190993,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_3p630V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_3p630V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "ss/3.630V/125C",
+      "process": "ss",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 0.646,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2503.959,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1271.597,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1493.607,
+          "unit": null,
+          "status": "pass",
+          "margin": 68.60699999999997
+        },
+        {
+          "name": "best_code",
+          "value": 26.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.4262005,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.4262005
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.126274,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_3p630V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-96cc6d54ef97/ss_3p630V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/2.970V/-40C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.782,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2177.014,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1082.804,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1506.761,
+          "unit": null,
+          "status": "pass",
+          "margin": 68.23900000000003
+        },
+        {
+          "name": "best_code",
+          "value": 20.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.4507362,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.4507362
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.259788,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_2p970V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_2p970V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/2.970V/27C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.402,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2141.686,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1071.717,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1485.832,
+          "unit": null,
+          "status": "pass",
+          "margin": 60.83200000000011
+        },
+        {
+          "name": "best_code",
+          "value": 19.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.9445054,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.9445054
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.220546,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_2p970V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_2p970V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/2.970V/125C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 5.601,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2114.403,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1072.272,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1524.175,
+          "unit": null,
+          "status": "pass",
+          "margin": 50.825000000000045
+        },
+        {
+          "name": "best_code",
+          "value": 18.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.611665,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.611665
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.135133,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_2p970V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_2p970V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/3.300V/-40C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.815,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2176.689,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1080.622,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1505.631,
+          "unit": null,
+          "status": "pass",
+          "margin": 69.36899999999991
+        },
+        {
+          "name": "best_code",
+          "value": 20.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.3753753,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.3753753
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.271913,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_3p300V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_3p300V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/3.300V/27C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.506,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2141.291,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1069.552,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1484.581,
+          "unit": null,
+          "status": "pass",
+          "margin": 59.580999999999904
+        },
+        {
+          "name": "best_code",
+          "value": 19.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.027963,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.027963
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.232401,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_3p300V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_3p300V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/3.300V/125C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 5.681,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2113.915,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1069.242,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1523.182,
+          "unit": null,
+          "status": "pass",
+          "margin": 51.817999999999984
+        },
+        {
+          "name": "best_code",
+          "value": 18.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.545473,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.545473
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.151684,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_3p300V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_3p300V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/3.630V/-40C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.798,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2176.45,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1079.015,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1504.8,
+          "unit": null,
+          "status": "pass",
+          "margin": 70.20000000000005
+        },
+        {
+          "name": "best_code",
+          "value": 20.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.3200005,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.3200005
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.280877,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_3p630V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_3p630V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/3.630V/27C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.085,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2140.995,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1069.06,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1484.785,
+          "unit": null,
+          "status": "pass",
+          "margin": 59.78500000000008
+        },
+        {
+          "name": "best_code",
+          "value": 19.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.014366,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.014366
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.234481,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_3p630V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_3p630V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "fs/3.630V/125C",
+      "process": "fs",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 0.729,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2113.539,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1067.754,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1523.143,
+          "unit": null,
+          "status": "pass",
+          "margin": 51.85699999999997
+        },
+        {
+          "name": "best_code",
+          "value": 18.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.542841,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.542841
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.159434,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_3p630V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-368bb66f0ae9/fs_3p630V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/2.970V/-40C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.496,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2176.348,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1078.389,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1504.479,
+          "unit": null,
+          "status": "pass",
+          "margin": 70.52099999999996
+        },
+        {
+          "name": "best_code",
+          "value": 20.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.2986077,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.2986077
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.284346,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_2p970V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_2p970V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/2.970V/27C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.195,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2140.886,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1067.006,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1482.917,
+          "unit": null,
+          "status": "pass",
+          "margin": 57.916999999999916
+        },
+        {
+          "name": "best_code",
+          "value": 19.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.138883,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.138883
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.246586,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_2p970V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_2p970V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/2.970V/125C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 2.97
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 5.224,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2113.435,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1066.099,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1521.676,
+          "unit": null,
+          "status": "pass",
+          "margin": 53.32400000000007
+        },
+        {
+          "name": "best_code",
+          "value": 18.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.445086,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.445086
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.169036,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_2p970V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_2p970V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/3.300V/-40C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.515,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2176.122,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1076.882,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1503.703,
+          "unit": null,
+          "status": "pass",
+          "margin": 71.29700000000003
+        },
+        {
+          "name": "best_code",
+          "value": 20.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.2468413,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.2468413
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.292779,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_3p300V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_3p300V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/3.300V/27C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.212,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2140.606,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1066.915,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1483.488,
+          "unit": null,
+          "status": "pass",
+          "margin": 58.488000000000056
+        },
+        {
+          "name": "best_code",
+          "value": 19.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.10078,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.10078
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.246296,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_3p300V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_3p300V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/3.300V/125C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 3.3
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 5.383,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2113.083,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1064.939,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1521.919,
+          "unit": null,
+          "status": "pass",
+          "margin": 53.080999999999904
+        },
+        {
+          "name": "best_code",
+          "value": 18.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.461298,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.461298
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.174935,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_3p300V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_3p300V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/3.630V/-40C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": -40.0,
+      "status": "pass",
+      "runtime_s": 5.522,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2175.953,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1075.754,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1503.122,
+          "unit": null,
+          "status": "pass",
+          "margin": 71.87799999999993
+        },
+        {
+          "name": "best_code",
+          "value": 20.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 0.2081292,
+          "unit": null,
+          "status": "pass",
+          "margin": 0.2081292
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.299106,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_3p630V_n40C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_3p630V_n40C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/3.630V/27C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 27.0,
+      "status": "pass",
+      "runtime_s": 5.413,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2140.393,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1066.824,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1483.901,
+          "unit": null,
+          "status": "pass",
+          "margin": 58.90100000000007
+        },
+        {
+          "name": "best_code",
+          "value": 19.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.073275,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.073275
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.246204,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_3p630V_27C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_3p630V_27C/corner.cir"
+      },
+      "monte_carlo": null
+    },
+    {
+      "corner_id": "sf/3.630V/125C",
+      "process": "sf",
+      "supply_v": {
+        "vsup": 3.63
+      },
+      "temperature_c": 125.0,
+      "status": "pass",
+      "runtime_s": 0.322,
+      "measurements": [
+        {
+          "name": "r_code0_ohm",
+          "value": 2112.807,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_code31_ohm",
+          "value": 1064.11,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "r_best_ohm",
+          "value": 1522.215,
+          "unit": null,
+          "status": "pass",
+          "margin": 52.78500000000008
+        },
+        {
+          "name": "best_code",
+          "value": 18.0,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        },
+        {
+          "name": "best_err_pct",
+          "value": 1.480996,
+          "unit": null,
+          "status": "pass",
+          "margin": 1.480996
+        },
+        {
+          "name": "trim_step_pct",
+          "value": 3.179081,
+          "unit": null,
+          "status": "pass",
+          "margin": null
+        }
+      ],
+      "diagnostics": [],
+      "artifacts": {
+        "log": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_3p630V_125C/ngspice.log",
+        "raw": null,
+        "waveform": null,
+        "deck": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-188/sim/.work/dplus-pullup-tolerance/20261017-195431-49d005c/klt-out/klt-sim-2fdb9e9f02e1/sf_3p630V_125C/corner.cir"
+      },
+      "monte_carlo": null
+    }
+  ]
+}

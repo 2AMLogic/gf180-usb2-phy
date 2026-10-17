@@ -170,6 +170,13 @@ def build_parser() -> argparse.ArgumentParser:
         help="klt batch backend: how to treat a fleet-runner/client klt version "
         "skew (sets request batch.runner_version_check; default enforce)",
     )
+    parser.add_argument(
+        "--klt-hosts",
+        type=int,
+        default=None,
+        help="klt batch backend: shard the grid across N fleet hosts (`klt sim --hosts`); "
+        "needed when the serial job bound exceeds the fleet's whole-job ceiling",
+    )
     parser.add_argument("--quiet", action="store_true", help="only print the summary")
     parser.add_argument("--version", action="version", version=f"gf180-usb2-phy harness {HARNESS_VERSION}")
     return parser
@@ -351,6 +358,7 @@ def run(args: argparse.Namespace) -> int:
                 json.loads((tb.directory / tb_mod.MANIFEST_NAME).read_text()),
                 backend=klt_name,
                 runner_version_check=args.klt_runner_version_check,
+                hosts=args.klt_hosts,
                 timeout_s=args.timeout,
                 on_result=progress,
                 log_dir=log_dir,
