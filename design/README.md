@@ -15,13 +15,26 @@ Do not restructure or remove another issue's section from this file.
   `design/netlist/<cell>.spice` for every `design/*.sch`).
   `python3 design/netlist.py --check` verifies the committed netlists are
   current and reproduce byte-for-byte. Both need `source sim/env.sh` first
-  (PDK discovery) and a real `xschem`/`ngspice` on `PATH`.
-- **Headless xschem, no DISPLAY/X11 needed**: `xschem -x -q -n -s -r
-  --rcfile design/xschemrc -o <outdir> <cell>.sch` runs and netlists
-  correctly with no X server at all (`-x` disables the Tk GUI) -- confirmed
-  working in this repo's CI-equivalent environment. `design/netlist.py`
-  uses exactly this invocation, ported from the equivalent script in
-  `gf180-temp-por`/`gf180-bandgap` (CLAUDE.md's harness-bootstrap
+  (PDK discovery) and `klt` (klayout-tools) plus `ngspice` on `PATH`.
+- **klt version.** `klt netlist` does not exist in the CI/repo pin
+  (`e8ca621a`, `klt 0.5.0+ge8ca621a6961`), so `netlist.py` runs on a newer
+  host klt than that pin. The committed netlists reproduce byte-for-byte
+  (`python3 design/netlist.py --check -v`: `OK: 5 netlist(s)`) with
+  `klt 0.7.1.dev1624+gdfc7323c0839`. A reviewer's run on
+  `klt 0.7.1.dev1614+gdb1192cb3a0b` did not (`*.iopin`/`*.ipin` pin comments
+  instead of `*.PININFO`, commented `.subckt`, re-wrapped device lines), so
+  the export is klt-build sensitive; `--check` prints the klt version on
+  failure. The committed netlists are deliberately not regenerated or
+  normalized around that difference.
+- **Headless xschem via `klt netlist`, never raw `xschem`**:
+  `design/netlist.py` calls `klt netlist --rcfile design/xschemrc --pdk ...
+  --pdk-root ... -o <out> <cell>.sch` per cell. `klt netlist` forces
+  `-n -s -q -x -r` (no X server needed), bounds the run with `--timeout-s`
+  (a raw `xschem` can hang in the Tk loop), and judges success by a freshly
+  written output. The script then rewrites absolute `sch_path` comments
+  repo-relative and prepends the two-line header, so it does its own
+  `--check` diff rather than using `klt netlist --check`. Originally ported
+  from `gf180-temp-por`/`gf180-bandgap` (CLAUDE.md's harness-bootstrap
   instruction).
 - **No cross-cell hierarchy yet.** Every cell currently in `design/` is a
   flat leaf block (no cell instantiates another). A future PHY-level
