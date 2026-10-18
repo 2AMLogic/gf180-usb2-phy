@@ -30,7 +30,6 @@ _None._
 Human-approved issues ready for implementation (`loom:issue`).
 
 - **#114**: Analog: add TXOE high-Z enable to differential_driver (pin contract, #109)
-- **#196**: Remove verification/request-usb-utmi-phy-gate-sdf.json: request for a superseded layout that README says must not be run
 
 ## In Progress
 
@@ -86,7 +85,7 @@ Issues carrying `loom:curated`.
 | Operator merge-risk holds | 5 |
 | Very important | 0 |
 | Important | 3 |
-| Ready (`loom:issue`) | 2 |
+| Ready (`loom:issue`) | 1 |
 | In Progress (`loom:building`) | 3 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 5 |
