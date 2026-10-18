@@ -2,6 +2,11 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-10-18
+
+- **PR #171**: ci: cancel in-progress runs only for pull_request events
+- **Issue #138** (closed): CI: preserve started main verification runs with event-aware concurrency
+
 ### 2026-10-17
 
 - **PR #198**: chore(verification): remove superseded gate-sdf request
