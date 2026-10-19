@@ -34,7 +34,6 @@ Human-approved issues ready for implementation (`loom:issue`).
 
 Issues currently being built (`loom:building`).
 
-- **#187**: T1 items 1, 2 (digital), 9 and 10: cite artifact-anchored evidence now that klt signoff binds it
 - **#188**: T1 item 5.analog: re-emit the 45-corner analog PVT suite as klt sim envelopes
 - **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition
 
@@ -84,7 +83,7 @@ Issues carrying `loom:curated`.
 | Very important | 0 |
 | Important | 3 |
 | Ready (`loom:issue`) | 1 |
-| In Progress (`loom:building`) | 3 |
+| In Progress (`loom:building`) | 2 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 4 |
 | Curated | 8 |
