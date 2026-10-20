@@ -28,15 +28,14 @@ _None._
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-- **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief
 - **#114**: Analog: add TXOE high-Z enable to differential_driver (pin contract, #109)
+- **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
 - **#188**: T1 item 5.analog: re-emit the 45-corner analog PVT suite as klt sim envelopes
-- **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition
 
 ## PRs Awaiting Review
 
@@ -70,8 +69,7 @@ Issues carrying `loom:curated`.
 
 - **#119**: Verify shared-pad analog bus ownership and receiver transients *(architect)*
 - **#126**: Resolve DR-0003: transition-resynchronized RX oversampling for independent host clocks *(architect)*
-- **#195**: Remove in-process ngspice grid runner from sim harness: duplicates klt sim *(hermit)*
-- **#204**: Remove dead legacy no-trim fallback from test_usb_utmi_phy.py (can silently skip the trim test) *(hermit)*
+- **#207**: Remove harness_counter.v smoke vehicle: redundant with real PHY tests *(hermit)*
 
 ## Epics
 
@@ -85,10 +83,10 @@ Issues carrying `loom:curated`.
 | Very important | 0 |
 | Important | 3 |
 | Ready (`loom:issue`) | 2 |
-| In Progress (`loom:building`) | 2 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 4 |
 | Curated | 8 |
-| Architect / Hermit proposals | 4 |
+| Architect / Hermit proposals | 3 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
