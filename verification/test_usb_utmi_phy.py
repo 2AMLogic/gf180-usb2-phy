@@ -107,33 +107,23 @@ async def _start_clock(dut):
 TRIM_WIDTH = 5  # spec/decisions/0004 decision 3: trim[4:0] <-> dplus_pullup.TRIM0..4
 
 
-def _has_trim(dut):
-    """True when the DUT exposes the `trim[4:0]` integration input (#115).
-
-    Absence is tolerated ONLY for the older routed gate-level netlist
-    (`layout/digital/usb_utmi_phy_routed.v`, replayed by the
-    `request-usb-utmi-phy-gate-*.json` requests), which predates every
-    DR-0004 port. That legacy interface is recognized by lacking `pu_en`
-    and `txoe` as well; any DUT exposing those (the RTL path, or a
-    regenerated netlist) must also expose a five-bit `trim`.
-    """
-    if hasattr(dut, "trim"):
-        assert len(dut.trim) == TRIM_WIDTH, (
-            f"trim is {len(dut.trim)} bits wide, DR-0004 requires {TRIM_WIDTH}"
-        )
-        return True
-    legacy = not hasattr(dut, "pu_en") and not hasattr(dut, "txoe")
-    assert legacy, (
-        "usb_utmi_phy exposes pu_en/txoe but no trim[4:0] input "
-        "(DR-0004 decision 3, issue #115)"
+def _check_trim(dut):
+    """Assert the DUT exposes the five-bit `trim[4:0]` integration input
+    (DR-0004 decision 3, #115). Every committed DUT (the RTL and the routed
+    gate-level netlist) has it; a missing or mis-sized port fails the test
+    instead of letting the trim test skip itself."""
+    assert hasattr(dut, "trim"), (
+        "usb_utmi_phy has no trim[4:0] input (DR-0004 decision 3, issue #115)"
     )
-    return False
+    assert len(dut.trim) == TRIM_WIDTH, (
+        f"trim is {len(dut.trim)} bits wide, DR-0004 requires {TRIM_WIDTH}"
+    )
 
 
 async def _reset(dut):
     dut.rst_n.value = 0
-    if _has_trim(dut):
-        dut.trim.value = 0  # unprogrammed default; static for the whole test
+    _check_trim(dut)
+    dut.trim.value = 0  # unprogrammed default; static for the whole test
     dut.Reset.value = 0
     dut.TxValid.value = 0
     dut.DataOut.value = 0
@@ -1374,9 +1364,7 @@ async def test_trim_static_codes_do_not_affect_framing(dut):
     per-clock wire/RX trace is identical to the code-0 run. The code is
     held constant for each packet -- no live calibration is modelled."""
     await _start_clock(dut)
-    if not _has_trim(dut):
-        dut._log.info("legacy routed netlist without trim[4:0]; RTL-only check skipped")
-        return
+    _check_trim(dut)
 
     payload = [0xC3, 0xFF, 0x00, 0x5A]
     expected_wire = _expected_wire_dpdm(payload)
