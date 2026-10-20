@@ -137,7 +137,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--claim",
         default="",
-        help="spec line this run substantiates, e.g. 'spec/usb2-device-phy.md#driver-characteristics' "
+        help="spec line this run substantiates, e.g. 'spec/usb2-device-phy.md#6-driver-characteristics' "
         "(overrides the manifest's 'claim')",
     )
     parser.add_argument(
