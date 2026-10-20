@@ -1236,7 +1236,9 @@ class RepoManifestContractTests(unittest.TestCase):
         self.assertEqual(len(self.manifests()), 7)
 
     def test_every_bench_has_exactly_one_resolved_transport(self):
-        expected = {"diff-receiver-sensitivity": "request"}
+        expected = {"diff-receiver-sensitivity": "request",
+                    "se-receiver-dp-thresholds": "request",
+                    "se-receiver-dm-thresholds": "request"}
         for path in self.manifests():
             manifest = json.loads(path.read_text())
             slug = path.parent.parent.name
