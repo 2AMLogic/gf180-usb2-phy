@@ -9,22 +9,16 @@ below.
 
 ## Contents
 
-- `request-harness-counter-synth.json` — a checked-in `klt synthesize`
-  request (`klt.synthesize.request/1`) that synthesizes
-  `rtl/harness_counter.v` (the throwaway smoke-test vehicle described in
-  `rtl/README.md`, not real PHY logic) against the gf180mcu
-  `gf180mcu_fd_sc_mcu9t5v0` standard-cell library at the `tt_025C_1v80`
-  corner, unconstrained (`clock_period_ns: null`).
 - `request-usb-utmi-phy-synth.json` / `request-usb-utmi-phy-par.json` — the
   real PHY digital flow (issue #25): `klt synthesize` then
   `klt place-and-route`, synthesizing and routing `rtl/usb_utmi_phy.v` and
   every submodule it instantiates against gf180mcu. See "Digital
   synthesis + place-and-route" below.
 
-## Running the harness-counter smoke synthesis
+## Running the synthesis smoke check
 
 ```bash
-PDK=gf180mcuD klt synthesize flow/request-harness-counter-synth.json --format json
+PDK=gf180mcuD klt synthesize flow/request-usb-utmi-phy-synth.json --format json
 ```
 
 `PDK=gf180mcuD` (or `--pdk gf180mcuD` via `PDK_ROOT`/`klt pdk find`
@@ -50,7 +44,7 @@ synthesis *claim* is substantiated.
 recipe lives as an ad-hoc shell heredoc in `docs/baseline.md` rather than a
 checked-in request file, because that repo's synthesis request was
 generated fresh per run rather than committed. This repo commits the
-request file directly (`request-harness-counter-synth.json`) so the
+request file directly (`request-usb-utmi-phy-synth.json`) so the
 "synthesis recipe driven through `klt`" is a concrete, reviewable artifact
 rather than prose describing how to construct one. The `pdk` block is the
 one place a mechanical port from sky130 would have been silently wrong:

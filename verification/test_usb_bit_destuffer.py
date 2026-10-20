@@ -19,7 +19,7 @@ the property that makes indefinitely long idle (continuous decoded 1s,
 since NRZI of "no transitions" is all ones) incapable of ever accumulating
 into a false bit-stuff violation.
 
-Sampling discipline follows `test_harness_counter.py`: inputs are driven on
+Sampling discipline: inputs are driven on
 a `FallingEdge` and outputs are read on the `FallingEdge` after the
 `RisingEdge` under test (the outputs are registered, one clock behind
 `data_strobe`).

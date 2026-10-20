@@ -428,7 +428,7 @@ gf180mcu_fd_sc_mcu7t5v0   (nominal supply 1.8V, corner ..._tt_025C_1v80)
 gf180mcu_fd_sc_mcu9t5v0   (nominal supply 1.8V, corner ..._tt_025C_1v80)
 ```
 
-`flow/request-harness-counter-synth.json` uses
+`flow/request-usb-utmi-phy-synth.json` uses
 `gf180mcu_fd_sc_mcu9t5v0` / `tt_025C_1v80` — see `flow/README.md`.
 
 ### Why local, not CI, for the PDK-heavy legs

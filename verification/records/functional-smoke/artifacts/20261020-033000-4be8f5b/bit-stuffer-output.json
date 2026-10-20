@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_bit_stuffer",
+  "testbench": "test_usb_bit_stuffer",
+  "status": "pass",
+  "test_count": 7,
+  "passed_count": 7,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_reset_state_is_unstuffed",
+      "status": "passed",
+      "sim_time_ns": 291.669,
+      "real_time_s": 0.0006387233734130859
+    },
+    {
+      "name": "test_all_zeros_never_stuff",
+      "status": "passed",
+      "sim_time_ns": 5541.711,
+      "real_time_s": 0.00508570671081543
+    },
+    {
+      "name": "test_all_ones_stuff_every_seventh",
+      "status": "passed",
+      "sim_time_ns": 6375.051000000001,
+      "real_time_s": 0.006319999694824219
+    },
+    {
+      "name": "test_random_stream_matches_model",
+      "status": "passed",
+      "sim_time_ns": 46208.703,
+      "real_time_s": 0.04210782051086426
+    },
+    {
+      "name": "test_stuff_pending_after_lookahead",
+      "status": "passed",
+      "sim_time_ns": 791.6730000000025,
+      "real_time_s": 0.0009055137634277344
+    },
+    {
+      "name": "test_sof_resets_a_carried_run",
+      "status": "passed",
+      "sim_time_ns": 1625.012999999999,
+      "real_time_s": 0.001458883285522461
+    },
+    {
+      "name": "test_bypass_disables_stuffing_entirely",
+      "status": "passed",
+      "sim_time_ns": 5541.710999999996,
+      "real_time_s": 0.004598379135131836
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "<worktree>/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1,
+    "sdf": null
+  }
+}

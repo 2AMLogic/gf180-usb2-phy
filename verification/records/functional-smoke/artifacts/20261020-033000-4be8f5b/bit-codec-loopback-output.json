@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "tb_usb_bit_codec_loopback",
+  "testbench": "test_usb_bit_codec_loopback",
+  "status": "pass",
+  "test_count": 5,
+  "passed_count": 5,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_round_trip_random_stream",
+      "status": "passed",
+      "sim_time_ns": 46458.705,
+      "real_time_s": 0.04219174385070801
+    },
+    {
+      "name": "test_round_trip_all_ones",
+      "status": "passed",
+      "sim_time_ns": 6708.387000000002,
+      "real_time_s": 0.006494283676147461
+    },
+    {
+      "name": "test_round_trip_all_zeros",
+      "status": "passed",
+      "sim_time_ns": 5875.047000000006,
+      "real_time_s": 0.005293846130371094
+    },
+    {
+      "name": "test_round_trip_packet_ending_on_six_ones",
+      "status": "passed",
+      "sim_time_ns": 1291.6770000000033,
+      "real_time_s": 0.0013110637664794922
+    },
+    {
+      "name": "test_round_trip_second_session_after_gap",
+      "status": "passed",
+      "sim_time_ns": 2791.6889999999985,
+      "real_time_s": 0.002439260482788086
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "<worktree>/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1,
+    "sdf": null
+  }
+}
