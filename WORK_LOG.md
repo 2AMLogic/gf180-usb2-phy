@@ -4,6 +4,9 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-10-20
 
+- **PR #215**: docs: record failed fleet attempts and limits for diff-receiver MC campaign
+- **PR #213**: feat(sim): klt_measure hooks and MC request builder for single-ended receivers
+- **PR #192**: docs: classify analog statistical rows and state digital item-6 N/A
 - **PR #206**: test: fail instead of skipping when DUT lacks trim[4:0]
 - **Issue #204** (closed): Remove dead legacy no-trim fallback from test_usb_utmi_phy.py (can silently skip the trim test)
 - **PR #208**: feat(sim): klt deck-list transport for all benches; refuse implicit local grid fan-out

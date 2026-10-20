@@ -70,7 +70,7 @@ python3 sim/run_corners.py diff-receiver-sensitivity --backend klt \
 
 | transport | what ships | measurement semantics |
 |---|---|---|
-| `request` | a `klt sim` corners request built from `klt_measure` | re-expressed as `.meas` cards (only `diff-receiver-sensitivity`) |
+| `request` | a `klt sim` corners request built from `klt_measure` | re-expressed as `.meas` cards (`diff-receiver-sensitivity` and the two `se-receiver-*-thresholds` benches) |
 | `decks` | this harness's own `compose_deck` output, one per PVT point, as a `klt sim` deck-list request (`decks[]`) | **identical**: the same `.control` block, `derive`, `measure`, `print m_<name>` and the same stdout parser/`checks` as a local run |
 
 `decks` changes only the deck's file-reference strings (`dut.spice` /
@@ -99,8 +99,8 @@ on the executor reproduces a committed record's per-corner measurements. Until
 then `run_grid` and the local branch stay.
 
 A testbench opts in to the `request` transport with `klt_measure` in `tb.json` (a `.meas` card plus an
-optional `scale` per measurement; see the module docstring). Only
-`diff-receiver-sensitivity` declares it so far. `--klt-runner-version-check
+optional `scale` per measurement; see the module docstring). The
+differential receiver and both single-ended receivers declare it. `--klt-runner-version-check
 warn` is needed while the fleet image's klt is older than the client; the
 request then uses only features the older runner has. `--backend klt:local` /
 `klt:batch` force one klt backend. The klt backend does not need a local
@@ -207,7 +207,7 @@ distinct claim under test, kebab-case.
 {
   "name": "my-experiment",
   "description": "one line, shows up in --list and in the record",
-  "claim": "spec/usb2-device-phy.md#driver-characteristics",
+  "claim": "spec/usb2-device-phy.md#6-driver-characteristics",
   "netlist": "my_tb.spice",
   "nominal_supply_v": 3.3,
   "supply_tolerance": 0.1,
