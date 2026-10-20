@@ -9,6 +9,7 @@ Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a h
 - **#190**: feat(signoff): cite artifact-anchored evidence for T1 items 1, 2.digital, 9, 10
 - **#192**: docs: classify analog statistical rows and state digital item-6 N/A
 - **#193**: feat(analog): cite five 45-corner klt sim envelopes as item 5.analog
+- **#210**: chore: retire the bootstrap harness counter with explicit record supersession
 
 ## Very Important
 
@@ -36,6 +37,7 @@ Human-approved issues ready for implementation (`loom:issue`).
 Issues currently being built (`loom:building`).
 
 - **#188**: T1 item 5.analog: re-emit the 45-corner analog PVT suite as klt sim envelopes
+- **#207**: Remove harness_counter.v smoke vehicle: redundant with real PHY tests
 
 ## PRs Awaiting Review
 
@@ -51,6 +53,7 @@ PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 - **#190**: feat(signoff): cite artifact-anchored evidence for T1 items 1, 2.digital, 9, 10
 - **#192**: docs: classify analog statistical rows and state digital item-6 N/A
 - **#193**: feat(analog): cite five 45-corner klt sim envelopes as item 5.analog
+- **#210**: chore: retire the bootstrap harness counter with explicit record supersession
 
 ## Proposed
 
@@ -69,7 +72,6 @@ Issues carrying `loom:curated`.
 
 - **#119**: Verify shared-pad analog bus ownership and receiver transients *(architect)*
 - **#126**: Resolve DR-0003: transition-resynchronized RX oversampling for independent host clocks *(architect)*
-- **#207**: Remove harness_counter.v smoke vehicle: redundant with real PHY tests *(hermit)*
 
 ## Epics
 
@@ -79,14 +81,14 @@ Issues carrying `loom:curated`.
 
 | Bucket | Count |
 |------|-------|
-| Operator merge-risk holds | 4 |
+| Operator merge-risk holds | 5 |
 | Very important | 0 |
 | Important | 3 |
 | Ready (`loom:issue`) | 2 |
-| In Progress (`loom:building`) | 1 |
+| In Progress (`loom:building`) | 2 |
 | PRs awaiting review | 0 |
-| Approved PRs awaiting merge | 4 |
+| Approved PRs awaiting merge | 5 |
 | Curated | 8 |
-| Architect / Hermit proposals | 3 |
+| Architect / Hermit proposals | 2 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
