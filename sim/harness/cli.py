@@ -57,10 +57,10 @@ def build_parser() -> argparse.ArgumentParser:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=(
             "Examples:\n"
-            "  python3 sim/run_corners.py smoke-bias\n"
-            "  python3 sim/run_corners.py smoke-bias --corners tt --temps 27 \\\n"
+            "  python3 sim/run_corners.py smoke-inverter\n"
+            "  python3 sim/run_corners.py smoke-inverter --corners tt --temps 27 \\\n"
             "      --subset-reason 'debugging convergence, not evidence'\n"
-            "  python3 sim/run_corners.py smoke-bias --backend klt:batch\n"
+            "  python3 sim/run_corners.py smoke-inverter --backend klt:batch\n"
             "  python3 sim/run_corners.py --list\n"
             "  python3 sim/run_corners.py --check-env\n"
         ),
@@ -137,7 +137,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--claim",
         default="",
-        help="spec line this run substantiates, e.g. 'spec/bandgap.md#output-voltage-tc' "
+        help="spec line this run substantiates, e.g. 'spec/usb2-device-phy.md#6-driver-characteristics' "
         "(overrides the manifest's 'claim')",
     )
     parser.add_argument(
