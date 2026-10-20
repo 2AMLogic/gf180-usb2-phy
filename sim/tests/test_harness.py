@@ -15,7 +15,9 @@ yet.
 from __future__ import annotations
 
 import datetime
+import hashlib
 import json
+import os
 import sys
 import io
 import subprocess
@@ -496,6 +498,17 @@ class _KltFixture(unittest.TestCase):
             corners.resolve_corners(["tt", "ff"]), (-40, 27), [2.97, 3.3]
         )
         self.workdir = self.root / "work"
+        # Host-independent: the dispatch workers export KLT_SIM_BACKEND=batch.
+        env = mock.patch.dict(os.environ)
+        env.start()
+        self.addCleanup(env.stop)
+        os.environ["KLT_SIM_BACKEND"] = "batch"  # the dispatch-worker default
+
+    def set_fleet_env(self, value="batch"):
+        os.environ["KLT_SIM_BACKEND"] = value
+
+    def clear_fleet_env(self):
+        os.environ.pop("KLT_SIM_BACKEND", None)
 
     def _write_manifest(self, **overrides):
         manifest = dict(self.manifest, **overrides)
@@ -658,10 +671,34 @@ class KltRunGridTests(_KltFixture):
         self.assertEqual(info["remote"], {"job_id": "job-1"})
         self.assertTrue((self.workdir / "klt-report.json").is_file())
 
-    def test_default_backend_passes_no_backend_flag(self):
+    def test_env_backend_is_pinned_onto_the_command_line(self):
+        self.set_fleet_env("batch")
         _, info = self.run_stubbed(self.full_report())
-        self.assertNotIn("--backend", self.last_cmd)
-        self.assertEqual(info["backend"], "request-default")
+        self.assertEqual(self.last_cmd[-2:], ["--backend", "batch"])
+        self.assertEqual(info["backend"], "batch")
+
+    def test_multi_unit_grid_with_no_backend_is_refused_not_run_locally(self):
+        self.clear_fleet_env()
+        with mock.patch.object(klt_backend.subprocess, "run") as run:
+            with self.assertRaisesRegex(klt_backend.KltError, "must go to the fleet"):
+                klt_backend.run_grid_klt(
+                    self.tb, self.pdk, self.points, self.workdir, self.manifest
+                )
+        run.assert_not_called()
+
+    def test_explicit_local_backend_is_refused_for_a_multi_unit_grid(self):
+        for name in ("local", "local-parallel"):
+            with self.subTest(backend=name), mock.patch.object(klt_backend.subprocess, "run") as run:
+                with self.assertRaises(klt_backend.KltError):
+                    klt_backend.run_grid_klt(
+                        self.tb, self.pdk, self.points, self.workdir, self.manifest, backend=name
+                    )
+                run.assert_not_called()
+
+    def test_single_unit_may_stay_local(self):
+        self.clear_fleet_env()
+        self.assertIsNone(klt_backend.effective_klt_backend(None, 1))
+        self.assertEqual(klt_backend.effective_klt_backend("local", 1), "local")
 
     def test_results_come_back_in_grid_order_with_scaling(self):
         def values(p):
@@ -835,6 +872,7 @@ class KltCliTests(_KltFixture):
         return code, out.getvalue(), err.getvalue()
 
     def test_backend_klt_dispatches_to_klt_backend(self):
+        self.set_fleet_env("batch")
         with mock.patch.object(cli.klt_backend, "run_grid_klt", side_effect=self.fake_run_grid_klt), \
              mock.patch.object(cli.runner, "run_grid") as local:
             code, out, _ = self.main("--backend", "klt")
@@ -854,6 +892,7 @@ class KltCliTests(_KltFixture):
         self.assertEqual(self.calls[0]["runner_version_check"], "warn")
 
     def test_default_backend_is_the_local_runner(self):
+        self.clear_fleet_env()  # off a fleet host the in-process runner is still the default
         def local(tb, pdk, points, workdir, **kwargs):
             return self.fake_run_grid_klt(tb, pdk, points, workdir, {})[0]
 
@@ -864,7 +903,68 @@ class KltCliTests(_KltFixture):
         klt.assert_not_called()
         run_local.assert_called_once()
 
+    def test_klt_without_a_fleet_backend_is_refused_for_a_grid(self):
+        self.clear_fleet_env()
+        with mock.patch.object(cli.klt_backend, "run_grid_klt") as klt, \
+             mock.patch.object(cli.klt_backend, "run_decks_klt") as decks:
+            code, _, err = self.main("--backend", "klt")
+        self.assertEqual(code, cli.EXIT_ENVIRONMENT)
+        self.assertIn("must go to the fleet", err)
+        klt.assert_not_called()
+        decks.assert_not_called()
+
+    def test_local_grid_is_refused_on_a_fleet_host(self):
+        self.set_fleet_env("batch")
+        with mock.patch.object(cli.runner, "run_grid") as local:
+            code, _, err = self.main()
+        self.assertEqual(code, cli.EXIT_ENVIRONMENT)
+        self.assertIn("must not run SPICE grids itself", err)
+        local.assert_not_called()
+
+    def test_single_point_probe_still_runs_locally_on_a_fleet_host(self):
+        self.set_fleet_env("batch")
+        def local(tb, pdk, points, workdir, **kwargs):
+            return self.fake_run_grid_klt(tb, pdk, points, workdir, {})[0]
+        with mock.patch.object(cli.runner, "run_grid", side_effect=local) as run_local:
+            code, _, _ = self.main("--corners", "tt", "--temps", "27", "--supply-tol", "0")
+        self.assertEqual(code, cli.EXIT_OK)
+        run_local.assert_called_once()
+
+    def test_jobs_above_the_shared_host_limit_are_refused(self):
+        self.clear_fleet_env()
+        with mock.patch.object(cli.runner, "run_grid") as local:
+            code, _, err = self.main("-j", "3")
+        self.assertEqual(code, cli.EXIT_ENVIRONMENT)
+        self.assertIn("shared-host limit", err)
+        local.assert_not_called()
+
+    def test_default_jobs_never_exceed_the_shared_host_limit(self):
+        self.clear_fleet_env()
+        with mock.patch.object(cli.runner, "run_grid", return_value=[]) as run_local, \
+             mock.patch.object(cli.os, "cpu_count", return_value=64), \
+             mock.patch.object(cli.report, "build_record", side_effect=RuntimeError("stop")):
+            with self.assertRaises(RuntimeError):
+                self.main()
+        self.assertLessEqual(run_local.call_args.kwargs["jobs"], cli.MAX_LOCAL_JOBS)
+
+    def test_auto_transport_picks_decks_when_no_klt_measure(self):
+        self.set_fleet_env("batch")
+        manifest = {k: v for k, v in self.manifest.items() if k != "klt_measure"}
+        self._write_manifest(klt_measure=None)
+        info = {"backend": "batch", "transport": "decks", "engine_version": "45",
+                "klt_version": "9.9.9", "klt_status": "pass", "remote": None,
+                "klt_exit_code": 0, "wall_seconds": 0.0, "units": 0, "decks_sha256": ""}
+        with mock.patch.object(cli.klt_backend, "run_decks_klt",
+                               side_effect=lambda tb, pdk, pts, wd, **kw:
+                               (self.fake_run_grid_klt(tb, pdk, pts, wd, {})[0], info)) as decks, \
+             mock.patch.object(cli.klt_backend, "run_grid_klt") as req:
+            code, _, _ = self.main("--backend", "klt")
+        self.assertEqual(code, cli.EXIT_OK)
+        decks.assert_called_once()
+        req.assert_not_called()
+
     def test_klt_error_maps_to_the_environment_exit_code(self):
+        self.set_fleet_env("batch")
         boom = klt_backend.KltError("klt sim produced no JSON report")
         with mock.patch.object(cli.klt_backend, "run_grid_klt", side_effect=boom):
             code, _, err = self.main("--backend", "klt")
@@ -891,6 +991,303 @@ class KltCliTests(_KltFixture):
         self.assertEqual(code, cli.EXIT_ENVIRONMENT)
         self.assertIn("no ngspice", err)
         local.assert_not_called()
+
+
+# A bench in the shape of the six unmapped manifests: `.control`-only derived
+# vectors (no klt_measure), a DUT fragment, a params block, an option.
+DECK_DERIVE = ["let rvec = (v(a) - v(b))*2", "print rvec"]
+DECK_MEASURE = {"r0": "rvec[0]", "rmax": "maximum(rvec)"}
+
+
+class KltDeckTests(_KltFixture):
+    """The deck-list transport must ship the harness's own deck, unchanged."""
+
+    def setUp(self):
+        super().setUp()
+        self.manifest = {
+            "name": "deckx", "netlist": "x.spice", "dut": "dut.spice",
+            "measure": DECK_MEASURE, "derive": DECK_DERIVE,
+            "analyses": ["dc vsw 0 1 0.1"], "corners": ["tt", "ff"],
+            "temperatures_c": [-40, 27], "supply_tolerance": 0.1,
+            "params": {"tbit": "83.33n"}, "options": ["reltol=1e-5"],
+        }
+        (self.tb_dir / "dut.spice").write_text(".subckt d a b\nr1 a b 1k\n.ends\n")
+        self._write_manifest()
+        self.tb = testbench.load(self.tb_dir, dut=self.tb_dir / "dut.spice")
+
+    def build(self, points=None, **kw):
+        path = klt_backend.build_deck_request(
+            self.tb, self.pdk, points or self.points, self.workdir, 123, kw.pop("backend", "batch"), **kw
+        )
+        return json.loads(path.read_text())
+
+    def deck_text(self, point):
+        return (self.workdir / f"{point.corner_id}.spice").read_text()
+
+    @staticmethod
+    def normalize(text, pairs):
+        for old, new in pairs:
+            text = text.replace(old, new)
+        return text
+
+    def test_request_is_a_deck_list_without_corner_fields(self):
+        req = self.build()
+        self.assertEqual(req["engine"], "ngspice")
+        self.assertEqual(req["backend"], "batch")
+        self.assertEqual(req["options"], {"timeout_s": 123})
+        for forbidden in ("netlist", "corners", "analysis", "measurements", "monte_carlo"):
+            self.assertNotIn(forbidden, req)
+        self.assertEqual([d["id"] for d in req["decks"]], [p.corner_id for p in self.points])
+        self.assertEqual(len({d["id"] for d in req["decks"]}), len(self.points))
+
+    def test_every_grid_point_gets_a_deck_in_seed_and_corner_order(self):
+        req = self.build()
+        self.assertEqual(len(req["decks"]), len(self.points))  # none silently dropped
+        for deck, point in zip(req["decks"], self.points):
+            self.assertEqual(deck["deck"], f"{point.corner_id}.spice")
+            text = self.deck_text(point)
+            self.assertIn(f".temp {point.temp_c!r}", text)
+            self.assertIn(f".param vdd_val={point.vdd!r}", text)
+            for section in point.corner.sections:
+                self.assertIn(f"typical" if section == "typical" else section, text)
+
+    def test_deck_equals_the_local_deck_except_file_references(self):
+        self.build()
+        refs_pairs = lambda: [
+            (str(self.pdk.design_include), "$PDK_ROOT/gf180mcuD/libs.tech/ngspice/design.ngspice"),
+            (str(self.pdk.model_lib), "$PDK_ROOT/gf180mcuD/libs.tech/ngspice/sm141064.ngspice"),
+            (str(self.tb.dut), klt_backend.DECK_DUT_NAME),
+            (str(self.tb.netlist), klt_backend.DECK_NETLIST_NAME),
+        ]
+        for point in self.points:
+            with self.subTest(point=point.corner_id):
+                local = runner.compose_deck(self.tb, self.pdk, point)
+                self.assertEqual(self.normalize(local, refs_pairs()), self.deck_text(point))
+
+    def test_control_block_derive_and_measure_are_preserved_verbatim(self):
+        self.build()
+        text = self.deck_text(self.points[0])
+        for statement in DECK_DERIVE:
+            self.assertIn(f"  {statement}\n", text)
+        for name, expr in DECK_MEASURE.items():
+            self.assertIn(f"  let m_{name} = {expr}\n", text)
+            self.assertIn(f"  print m_{name}\n", text)
+        self.assertIn(".options reltol=1e-5", text)
+        self.assertIn(".param tbit=83.33n", text)
+
+    def test_fragments_are_staged_byte_for_byte(self):
+        self.build()
+        for src, name in ((self.tb.netlist, klt_backend.DECK_NETLIST_NAME),
+                          (self.tb.dut, klt_backend.DECK_DUT_NAME)):
+            self.assertEqual((self.workdir / name).read_bytes(), src.read_bytes())
+
+    def test_default_compose_deck_is_unchanged_by_the_refs_hook(self):
+        text = runner.compose_deck(self.tb, self.pdk, self.points[0])
+        self.assertIn(f'.include "{self.pdk.design_include}"', text)
+        self.assertIn(f'.include "{self.tb.dut}"', text)
+        self.assertIn(f'.include "{self.tb.netlist}"', text)
+
+    def test_nested_includes_in_a_fragment_are_rejected_explicitly(self):
+        (self.tb_dir / "dut.spice").write_text(".include other.spice\n.subckt d a b\n.ends\n")
+        self.tb = testbench.load(self.tb_dir, dut=self.tb_dir / "dut.spice")
+        with self.assertRaisesRegex(klt_backend.KltError, "unsupported, not dropped"):
+            self.build()
+
+    def test_pdk_outside_its_root_is_rejected(self):
+        other = fake_pdk(self.root / "elsewhere" / "gf180mcuD")
+        pdk = Pdk(path=self.pdk.path, variant="gf180mcuD", source="t")
+        with mock.patch.object(Pdk, "model_lib", new_callable=mock.PropertyMock,
+                               return_value=other.model_lib):
+            with self.assertRaisesRegex(klt_backend.KltError, "not under the PDK root"):
+                klt_backend.build_deck_request(self.tb, pdk, self.points, self.workdir, 5, "batch")
+
+    def test_default_pdk_reference_is_the_pdk_root_literal(self):
+        req = self.build()
+        self.assertEqual(req["models"], {"pdk": "gf180mcuD"})
+        text = self.deck_text(self.points[0])
+        self.assertIn('.include "$PDK_ROOT/gf180mcuD/libs.tech/ngspice/design.ngspice"', text)
+        self.assertIn('.lib "$PDK_ROOT/gf180mcuD/libs.tech/ngspice/sm141064.ngspice" ', text)
+
+    def test_explicit_executor_pdk_root_is_named_verbatim(self):
+        req = self.build(pdk_root="/opt/pdk/")
+        self.assertEqual(req["models"]["pdk_root"], "/opt/pdk/")
+        text = self.deck_text(self.points[0])
+        self.assertIn('.include "/opt/pdk/gf180mcuD/libs.tech/ngspice/design.ngspice"', text)
+        self.assertNotIn("$PDK_ROOT", text)
+
+    def test_runner_version_check_is_forwarded(self):
+        self.assertEqual(self.build(runner_version_check="warn")["batch"],
+                         {"runner_version_check": "warn"})
+
+    # ---- result mapping ------------------------------------------------
+
+    def unit(self, point, out, err="", *, status="pass", exit_code=0, timed_out=False, write=True):
+        rel = f"{point.corner_id}/stdout.bin"
+        if write:
+            d = self.workdir / "klt-out" / point.corner_id
+            d.mkdir(parents=True, exist_ok=True)
+            (d / "stdout.bin").write_bytes(out.encode())
+            (d / "stderr.bin").write_bytes(err.encode())
+        return {"id": point.corner_id, "status": status, "exit_code": exit_code,
+                "timed_out": timed_out, "duration_s": 0.25, "deck_sha256": "ab" * 32,
+                "stdout": rel, "stderr": f"{point.corner_id}/stderr.bin", "diagnostics": []}
+
+    GOOD = "r0 = 1.0e+03\nm_r0 = 1.5e+03\nm_rmax = 2.5e+03\n"
+
+    def report(self, units):
+        return {"mode": "decks", "status": "pass", "units": units,
+                "environment": {"klt_version": "9.9.9", "engine_version": "45",
+                                "remote": {"job_id": "job-7"}}}
+
+    def run_decks(self, build_report, log_dir=None, **kw):
+        def fake_run(cmd, **kwargs):
+            self.last_cmd = cmd
+            return subprocess.CompletedProcess(cmd, 0, stdout=json.dumps(build_report()), stderr="")
+        with mock.patch.object(klt_backend.subprocess, "run", side_effect=fake_run):
+            return klt_backend.run_decks_klt(
+                self.tb, self.pdk, self.points, self.workdir, backend="batch", log_dir=log_dir, **kw
+            )
+
+    def test_results_parse_like_the_local_runner_and_keep_grid_order(self):
+        results, info = self.run_decks(
+            lambda: self.report([self.unit(p, self.GOOD) for p in reversed(self.points)]))
+        self.assertEqual([r.point for r in results], self.points)
+        for r in results:
+            self.assertEqual(r.status, "ok")
+            self.assertEqual(r.measurements, {"r0": 1500.0, "rmax": 2500.0})  # no re-scaling
+        self.assertEqual(self.last_cmd[-2:], ["--backend", "batch"])
+        self.assertEqual(info["transport"], "decks")
+        self.assertEqual(info["remote"], {"job_id": "job-7"})
+        self.assertEqual(info["units"], len(self.points))
+        self.assertEqual(len(info["decks_sha256"]), 64)
+
+    def test_same_output_classifies_identically_to_run_point(self):
+        for out in (self.GOOD, "m_r0 = 1.0e+00\n", "Error: no such vector rvec\n", ""):
+            with self.subTest(out=out[:20]):
+                results, _ = self.run_decks(
+                    lambda: self.report([self.unit(p, out) for p in self.points]))
+                expect = runner.classify_output(self.tb, self.points[0], out + "\n", 0, 0.25)
+                got = results[0]
+                self.assertEqual((got.status, got.measurements, got.missing, got.message),
+                                 (expect.status, expect.measurements, expect.missing, expect.message))
+
+    def test_partial_measurements_are_failed_with_the_missing_names(self):
+        results, _ = self.run_decks(
+            lambda: self.report([self.unit(p, "m_r0 = 1.0\n") for p in self.points]))
+        self.assertEqual(results[0].status, "failed")
+        self.assertEqual(results[0].missing, ["rmax"])
+
+    def test_missing_unit_is_an_error_not_dropped(self):
+        results, _ = self.run_decks(
+            lambda: self.report([self.unit(p, self.GOOD) for p in self.points[1:]]))
+        self.assertEqual(len(results), len(self.points))
+        self.assertEqual(results[0].status, "error")
+        self.assertEqual(results[0].missing, list(DECK_MEASURE))
+        self.assertIn("missing from klt deck report", results[0].message)
+
+    def test_timeout_is_an_error_with_all_measurements_missing(self):
+        results, _ = self.run_decks(lambda: self.report(
+            [self.unit(p, "", status="timeout", exit_code=None, timed_out=True) for p in self.points]),
+            timeout_s=77)
+        self.assertEqual(results[0].status, "error")
+        self.assertEqual(results[0].missing, list(DECK_MEASURE))
+        self.assertIn("timed out after 77s", results[0].message)
+
+    def test_process_failure_without_streams_is_an_error(self):
+        results, _ = self.run_decks(lambda: self.report(
+            [self.unit(p, "", status="error", exit_code=None, write=False) for p in self.points]))
+        self.assertEqual(results[0].status, "error")
+        self.assertIn("no captured streams", results[0].message)
+
+    def test_exit_zero_with_no_measurements_is_not_a_pass(self):
+        results, _ = self.run_decks(
+            lambda: self.report([self.unit(p, "ngspice finished\n") for p in self.points]))
+        self.assertEqual(results[0].status, "failed")
+
+    def test_raw_logs_use_the_local_log_layout(self):
+        log_dir = self.root / "logs"
+        results, _ = self.run_decks(
+            lambda: self.report([self.unit(p, self.GOOD, "warn\n") for p in self.points]),
+            log_dir=log_dir)
+        self.assertEqual(results[0].log, f"{self.points[0].corner_id}.log")
+        self.assertEqual((log_dir / results[0].log).read_text(), self.GOOD + "\nwarn\n")
+        self.assertEqual(results[0].deck, f"{self.points[0].corner_id}.spice")
+
+    def test_a_corner_report_is_not_accepted_as_a_deck_report(self):
+        with self.assertRaisesRegex(klt_backend.KltError, "deck-list report"):
+            self.run_decks(lambda: {"status": "pass", "units": [], "corners": []})
+
+    def test_deck_transport_refuses_local_fanout_before_launch(self):
+        with mock.patch.object(klt_backend.subprocess, "run") as run:
+            with self.assertRaisesRegex(klt_backend.KltError, "must go to the fleet"):
+                klt_backend.run_decks_klt(self.tb, self.pdk, self.points, self.workdir,
+                                          backend="local")
+        run.assert_not_called()
+
+    def test_transport_selection(self):
+        with_measure = {"klt_measure": {"a": "x"}}
+        self.assertEqual(klt_backend.select_transport("auto", with_measure), "request")
+        self.assertEqual(klt_backend.select_transport("auto", {}), "decks")
+        self.assertEqual(klt_backend.select_transport("decks", with_measure), "decks")
+        with self.assertRaises(klt_backend.KltError):
+            klt_backend.select_transport("bogus", {})
+
+
+class RepoManifestContractTests(unittest.TestCase):
+    """Audit of the repo's real benches: every one must have a supported klt route."""
+
+    SIM = Path(__file__).resolve().parents[1]
+
+    def manifests(self):
+        return sorted(self.SIM.glob("*/testbench/tb.json"))
+
+    def test_all_seven_benches_are_audited(self):
+        self.assertEqual(len(self.manifests()), 7)
+
+    def test_every_bench_has_exactly_one_resolved_transport(self):
+        # Benches that declare klt_measure resolve to the request transport
+        # (their 45-corner envelopes are cited as item 5.analog, issue #188).
+        expected = {
+            "diff-receiver-sensitivity": "request",
+            "se-receiver-dp-thresholds": "request",
+            "se-receiver-dm-thresholds": "request",
+            "dplus-pullup-tolerance": "request",
+        }
+        for path in self.manifests():
+            manifest = json.loads(path.read_text())
+            slug = path.parent.parent.name
+            with self.subTest(bench=slug):
+                self.assertEqual(klt_backend.select_transport("auto", manifest),
+                                 expected.get(slug, "decks"))
+
+    def test_klt_measure_keys_match_measure_keys_where_declared(self):
+        for path in self.manifests():
+            manifest = json.loads(path.read_text())
+            if "klt_measure" in manifest:
+                self.assertEqual(set(manifest["klt_measure"]), set(manifest["measure"]))
+
+    def test_decks_transport_covers_every_bench_without_nested_includes(self):
+        for path in self.manifests():
+            tb = testbench.load(path.parent)
+            with self.subTest(bench=tb.experiment):
+                klt_backend._check_fragment("netlist", tb.netlist)
+                if tb.dut is not None:
+                    klt_backend._check_fragment("dut", tb.dut)
+
+    def test_decks_transport_leaves_measure_derive_checks_untouched(self):
+        pdk = Pdk(path=Path("/pdk/gf180mcuD"), variant="gf180mcuD", source="t")
+        refs = runner.DeckRefs("$PDK_ROOT/a", "$PDK_ROOT/b", "dut.spice", "tb.spice")
+        point = corners.build_grid(corners.resolve_corners(["tt"]), (27,), [3.3])[0]
+        for path in self.manifests():
+            tb = testbench.load(path.parent)
+            with self.subTest(bench=tb.experiment):
+                text = runner.compose_deck(tb, pdk, point, refs)
+                for statement in tb.derive:
+                    self.assertIn(f"  {statement}\n", text)
+                for name, expr in tb.measure.items():
+                    self.assertIn(f"  let m_{name} = {expr}\n", text)
+                for analysis in tb.analyses:
+                    self.assertIn(f"  {analysis}\n", text)
 
 
 if __name__ == "__main__":

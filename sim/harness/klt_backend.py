@@ -23,7 +23,10 @@ The supply is driven through the voltage source named by ``klt_supply_source``
 
 from __future__ import annotations
 
+import hashlib
 import json
+import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -32,15 +35,73 @@ from pathlib import Path
 
 from .corners import PvtPoint
 from .pdk import Pdk
-from .runner import PointResult
+from .runner import DeckRefs, PointResult, classify_output, compose_deck
 from .testbench import Testbench
 
 KLT = "klt"
 DEFAULT_SUPPLY_SOURCE = "vsup"
 
+#: Transports: ``request`` re-expresses the bench as a `klt sim` corners
+#: request (needs ``klt_measure``); ``decks`` ships the harness's own composed
+#: per-point decks verbatim as a deck-list request, so ``.control`` / derived
+#: vector measurements and the output parser are unchanged.
+TRANSPORTS = ("auto", "request", "decks")
+
+#: ``$KLT_SIM_BACKEND`` values that mean "this host must not run SPICE grids
+#: itself" (the shared dispatch workers); also the only backends a multi-unit
+#: klt grid may resolve to.
+FLEET_BACKENDS = ("batch", "remote")
+BACKEND_ENV = "KLT_SIM_BACKEND"
+
+#: The executing host resolves its own PDK; the deck names it by this literal.
+PDK_ROOT_LITERAL = "$PDK_ROOT"
+
+_INCLUDE_RE = re.compile(r"^\s*\.(include|inc|lib|read)\b", re.IGNORECASE | re.MULTILINE)
+
 
 class KltError(RuntimeError):
     pass
+
+
+def fleet_env_backend() -> str | None:
+    """The host's ``$KLT_SIM_BACKEND`` when it marks a no-local-grid host."""
+    value = os.environ.get(BACKEND_ENV, "").strip()
+    return value if value in FLEET_BACKENDS else None
+
+
+def check_local_fanout(n_points: int) -> None:
+    """Refuse an in-process multi-point ngspice grid on a no-local-grid host.
+
+    ``run_point``-style single-point probes stay allowed; there is no exception
+    for a grid -- express it as a klt request instead.
+    """
+    if n_points > 1 and fleet_env_backend():
+        raise KltError(
+            f"refusing to run {n_points} points in-process: ${BACKEND_ENV}="
+            f"{fleet_env_backend()} marks this host as one that must not run SPICE "
+            "grids itself. Use --backend klt (or klt:batch); a single point "
+            "(--corners X --temps T --supply-tol 0) may still run locally."
+        )
+
+
+def effective_klt_backend(backend: str | None, n_points: int) -> str | None:
+    """Pin the backend a klt run will use, refusing implicit/local multi-unit fan-out.
+
+    ``backend`` is the explicit ``klt:<name>`` part (or ``None``). Precedence
+    mirrors klt (flag > ``$KLT_SIM_BACKEND``); the result is always passed to
+    ``klt sim --backend`` so nothing is decided later by a default. For more
+    than one unit it must be a fleet backend: an unset environment (klt would
+    silently pick ``local``) or an explicit local backend is an error here, not
+    a quiet local grid.
+    """
+    name = backend or os.environ.get(BACKEND_ENV, "").strip() or None
+    if n_points > 1 and name not in FLEET_BACKENDS:
+        raise KltError(
+            f"refusing to run {n_points} units on klt backend {name or 'local (default)'!r}: "
+            f"a multi-unit grid must go to the fleet. Name it explicitly (--backend "
+            f"klt:batch) or export {BACKEND_ENV}=batch."
+        )
+    return name
 
 
 def klt_version() -> str:
@@ -179,24 +240,15 @@ def _key(process: str, temp_c: float, vdd: float) -> tuple:
     return (process, round(float(temp_c), 6), round(float(vdd), 6))
 
 
-def run_grid_klt(
-    tb: Testbench,
-    pdk: Pdk,
-    points: list[PvtPoint],
+def _invoke_klt(
+    request: Path,
+    outdir: Path,
+    backend: str | None,
     workdir: Path,
-    manifest: dict,
-    backend: str | None = None,
-    runner_version_check: str | None = None,
+    list_key: str,
     hosts: int | None = None,
-    timeout_s: int = 300,
-    on_result=None,
-    log_dir: Path | None = None,
-) -> tuple[list[PointResult], dict]:
-    """Run the grid via ``klt sim``; return (results in grid order, backend info)."""
-    request = build_request(
-        tb, pdk, points, workdir, timeout_s, backend, manifest, runner_version_check
-    )
-    outdir = workdir / "klt-out"
+) -> tuple[subprocess.CompletedProcess, dict, float]:
+    """Run ``klt sim`` on ``request``; return (process, parsed report, wall seconds)."""
     cmd = [KLT, "sim", str(request), "--format", "json", "-o", str(outdir)]
     if backend:
         cmd += ["--backend", backend]
@@ -217,13 +269,36 @@ def run_grid_klt(
             f"klt sim produced no JSON report (exit {proc.returncode}); "
             f"stderr tail:\n{(proc.stderr or '')[-2000:]}"
         ) from exc
-    if not isinstance(report, dict) or not isinstance(report.get("corners", []), list):
+    if not isinstance(report, dict) or not isinstance(report.get(list_key, []), list):
         (workdir / "klt-stdout.txt").write_text(proc.stdout)
         raise KltError(
             f"klt sim report is not a report object (exit {proc.returncode}); "
             f"got {type(report).__name__}"
         )
     (workdir / "klt-report.json").write_text(json.dumps(report, indent=2) + "\n")
+    return proc, report, wall
+
+
+def run_grid_klt(
+    tb: Testbench,
+    pdk: Pdk,
+    points: list[PvtPoint],
+    workdir: Path,
+    manifest: dict,
+    backend: str | None = None,
+    runner_version_check: str | None = None,
+    hosts: int | None = None,
+    timeout_s: int = 300,
+    on_result=None,
+    log_dir: Path | None = None,
+) -> tuple[list[PointResult], dict]:
+    """Run the grid via ``klt sim``; return (results in grid order, backend info)."""
+    backend = effective_klt_backend(backend, len(points))
+    request = build_request(
+        tb, pdk, points, workdir, timeout_s, backend, manifest, runner_version_check
+    )
+    outdir = workdir / "klt-out"
+    proc, report, wall = _invoke_klt(request, outdir, backend, workdir, "corners", hosts)
 
     by_key = {}
     for c in report.get("corners", []):
@@ -293,6 +368,212 @@ def run_grid_klt(
         "klt_version": (report.get("provenance") or {}).get("klt_version"),
         "engine_version": (report.get("environment") or {}).get("engine_version"),
         "remote": (report.get("environment") or {}).get("remote"),
+        "wall_seconds": round(wall, 2),
+    }
+    return results, info
+
+
+# --------------------------------------------------------------------------
+# Deck-list transport: ship the harness's own composed decks, unchanged.
+# --------------------------------------------------------------------------
+
+DECK_NETLIST_NAME = "tb_netlist.spice"
+DECK_DUT_NAME = "dut.spice"
+
+
+def select_transport(requested: str, manifest: dict) -> str:
+    """``auto`` -> ``request`` when the bench declares ``klt_measure``, else ``decks``."""
+    if requested not in TRANSPORTS:
+        raise KltError(f"unknown klt transport {requested!r} (expected one of {TRANSPORTS})")
+    if requested == "auto":
+        return "request" if manifest.get("klt_measure") else "decks"
+    return requested
+
+
+def _pdk_root_ref(pdk: Pdk, path: Path, pdk_root: str | None = None) -> str:
+    """The deck's reference to a PDK file, resolved by the *executing* host.
+
+    Default: the literal ``$PDK_ROOT/<rel>`` (klt's convention; the executor
+    must expand it -- local ngspice 42 does not, so this is a named executor
+    prerequisite). With ``pdk_root`` (the executor's own PDK root): the
+    absolute ``<pdk_root>/<rel>``, which needs no environment expansion.
+    """
+    try:
+        rel = Path(path).relative_to(pdk.path.parent)
+    except ValueError as exc:
+        raise KltError(
+            f"{path} is not under the PDK root {pdk.path.parent}; the deck-list "
+            "transport cannot reference it portably"
+        ) from exc
+    return f"{pdk_root.rstrip('/')}/{rel.as_posix()}" if pdk_root else f"{PDK_ROOT_LITERAL}/{rel.as_posix()}"
+
+
+def _check_fragment(label: str, path: Path) -> None:
+    if _INCLUDE_RE.search(path.read_text()):
+        raise KltError(
+            f"{label} {path} has .include/.lib/.read directives; the deck-list "
+            "transport stages only the deck's two netlist fragments by name and "
+            "cannot ship a nested include closure -- unsupported, not dropped"
+        )
+
+
+def build_deck_request(
+    tb: Testbench,
+    pdk: Pdk,
+    points: list[PvtPoint],
+    workdir: Path,
+    timeout_s: int,
+    backend: str | None,
+    runner_version_check: str | None = None,
+    pdk_root: str | None = None,
+) -> Path:
+    """Write one composed deck per point + ``request.json``; return the request path.
+
+    Each deck is :func:`compose_deck`'s output with only the file references
+    changed (staged relative names; ``$PDK_ROOT/...`` for the PDK). Analyses,
+    ``derive``, ``measure``, ``.control`` and ``.temp`` are byte-identical to
+    the local deck, so the printed ``m_<name>`` vectors parse the same way.
+    """
+    ids = [p.corner_id for p in points]
+    if len(set(ids)) != len(ids):
+        raise KltError(f"{tb.name}: duplicate corner ids in the grid; deck ids must be unique")
+    workdir.mkdir(parents=True, exist_ok=True)
+    _check_fragment("testbench netlist", tb.netlist)
+    shutil.copyfile(tb.netlist, workdir / DECK_NETLIST_NAME)
+    refs = DeckRefs(
+        design_include=_pdk_root_ref(pdk, pdk.design_include, pdk_root),
+        model_lib=_pdk_root_ref(pdk, pdk.model_lib, pdk_root),
+        netlist=DECK_NETLIST_NAME,
+    )
+    if tb.dut is not None:
+        _check_fragment("DUT netlist", tb.dut)
+        shutil.copyfile(tb.dut, workdir / DECK_DUT_NAME)
+        refs = DeckRefs(refs.design_include, refs.model_lib, DECK_DUT_NAME, DECK_NETLIST_NAME)
+
+    decks = []
+    for point in points:
+        name = f"{point.corner_id}.spice"
+        (workdir / name).write_text(compose_deck(tb, pdk, point, refs))
+        decks.append({"id": point.corner_id, "deck": name})
+    request = {
+        "engine": "ngspice",
+        "models": {"pdk": pdk.variant, **({"pdk_root": pdk_root} if pdk_root else {})},
+        "decks": decks,
+        "options": {"timeout_s": timeout_s},
+    }
+    if backend:
+        request["backend"] = backend
+    if runner_version_check:
+        request["batch"] = {"runner_version_check": runner_version_check}
+    path = workdir / "request.json"
+    path.write_text(json.dumps(request, indent=2) + "\n")
+    return path
+
+
+def _read_stream(outdir: Path, unit: dict, key: str) -> str | None:
+    rel = unit.get(key)
+    if not isinstance(rel, str):
+        return None
+    try:
+        return (outdir / rel).read_bytes().decode("utf-8", errors="replace")
+    except OSError:
+        return None
+
+
+def run_decks_klt(
+    tb: Testbench,
+    pdk: Pdk,
+    points: list[PvtPoint],
+    workdir: Path,
+    backend: str | None = None,
+    runner_version_check: str | None = None,
+    hosts: int | None = None,
+    timeout_s: int = 300,
+    on_result=None,
+    log_dir: Path | None = None,
+    pdk_root: str | None = None,
+) -> tuple[list[PointResult], dict]:
+    """Run the grid as a `klt sim` deck-list request; classify output like the local runner.
+
+    klt only transports: grading is :func:`classify_output` on the unit's raw
+    stdout+stderr, exactly what ``run_point`` applies to a local ngspice run.
+    A unit that is missing, timed out, or has no captured stream is an
+    explicit ``error`` result -- never dropped, never retried locally.
+    """
+    backend = effective_klt_backend(backend, len(points))
+    request = build_deck_request(
+        tb, pdk, points, workdir, timeout_s, backend, runner_version_check, pdk_root
+    )
+    outdir = workdir / "klt-out"
+    proc, report, wall = _invoke_klt(request, outdir, backend, workdir, "units", hosts)
+    if report.get("mode") != "decks":
+        raise KltError(
+            "klt sim did not return a deck-list report (mode "
+            f"{report.get('mode')!r}); is the installed klt/runner image new enough "
+            "for deck-list requests?"
+        )
+
+    by_id = {u.get("id"): u for u in report.get("units", []) if isinstance(u, dict)}
+    if log_dir is not None:
+        log_dir.mkdir(parents=True, exist_ok=True)
+    results: list[PointResult] = []
+    for point in points:
+        unit = by_id.get(point.corner_id)
+        deck_name = f"{point.corner_id}.spice"
+        log_name = f"{point.corner_id}.log"
+        if unit is None:
+            res = PointResult(
+                point=point, status="error", missing=list(tb.measure), deck=deck_name,
+                message=f"unit missing from klt deck report (klt status {report.get('status')})",
+            )
+            text = f"unit {point.corner_id} missing from klt deck report\n"
+        elif unit.get("timed_out") or unit.get("status") == "timeout":
+            text = f"TIMEOUT after {timeout_s}s\n"
+            res = PointResult(
+                point=point, status="error", missing=list(tb.measure), deck=deck_name,
+                seconds=unit.get("duration_s") or 0.0,
+                message=f"ngspice timed out after {timeout_s}s",
+            )
+        else:
+            out = _read_stream(outdir, unit, "stdout")
+            err = _read_stream(outdir, unit, "stderr")
+            if out is None and err is None:
+                text = f"no captured streams for unit {point.corner_id}\n"
+                diags = "; ".join(str(d.get("message")) for d in unit.get("diagnostics") or []
+                                  if isinstance(d, dict))
+                res = PointResult(
+                    point=point, status="error", missing=list(tb.measure), deck=deck_name,
+                    seconds=unit.get("duration_s") or 0.0,
+                    message=diags or "klt deck unit produced no captured streams",
+                )
+            else:
+                # Same composition as run_point's log: stdout, newline, stderr.
+                text = (out or "") + "\n" + (err or "")
+                res = classify_output(
+                    tb, point, text, unit.get("exit_code"),
+                    unit.get("duration_s") or 0.0, deck=deck_name, log=log_name,
+                )
+        if log_dir is not None:
+            (log_dir / log_name).write_text(text)
+            res.log = log_name
+        results.append(res)
+        if on_result is not None:
+            on_result(res)
+
+    digest = hashlib.sha256()
+    for u in sorted(by_id.values(), key=lambda x: str(x.get("id"))):
+        digest.update(f"{u.get('id')} {u.get('deck_sha256')}\n".encode())
+    info = {
+        "backend": backend or "request-default",
+        "transport": "decks",
+        "klt_exit_code": proc.returncode,
+        "klt_status": report.get("status"),
+        "klt_version": (report.get("environment") or {}).get("klt_version"),
+        "engine_version": (report.get("environment") or {}).get("engine_version"),
+        "remote": (report.get("environment") or {}).get("remote"),
+        "pdk_ref": pdk_root or PDK_ROOT_LITERAL,
+        "units": len(by_id),
+        "decks_sha256": digest.hexdigest(),
         "wall_seconds": round(wall, 2),
     }
     return results, info

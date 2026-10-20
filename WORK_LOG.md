@@ -2,8 +2,21 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-10-20
+
+- **PR #206**: test: fail instead of skipping when DUT lacks trim[4:0]
+- **Issue #204** (closed): Remove dead legacy no-trim fallback from test_usb_utmi_phy.py (can silently skip the trim test)
+- **PR #208**: feat(sim): klt deck-list transport for all benches; refuse implicit local grid fan-out
+
+### 2026-10-18
+
+- **PR #171**: ci: cancel in-progress runs only for pull_request events
+- **Issue #138** (closed): CI: preserve started main verification runs with event-aware concurrency
+
 ### 2026-10-17
 
+- **PR #198**: chore(verification): remove superseded gate-sdf request
+- **Issue #196** (closed): Remove verification/request-usb-utmi-phy-gate-sdf.json: request for a superseded layout that README says must not be run
 - **PR #184**: refactor(layout): remove inert BLOCKED_BLOCKS path from gen_analog_layout.py
 - **PR #178**: test: use shared start_clock in four remaining cocotb testbenches
 - **PR #181**: refactor: route design netlisting through klt netlist

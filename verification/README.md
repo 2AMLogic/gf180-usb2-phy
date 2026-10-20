@@ -330,9 +330,9 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   assertions; an annotation or elaboration error is not a detection.
 - `request-usb-utmi-phy-gate-sdf-tt.json` — the nominal-corner request on
   the unfiltered nominal SDF of the #131 layout; it is refused by the same
-  one-entry gate and was not re-run. `request-usb-utmi-phy-gate-sdf.json`
-  names the slow-corner SDF of a superseded layout
-  (`20261008-211700-2875d57`) and must not be run; use `-ss`.
+  one-entry gate and was not re-run. The pre-#131 request
+  `request-usb-utmi-phy-gate-sdf.json` (superseded layout
+  `20261008-211700-2875d57`) was removed; its records are frozen history.
 - Cell models are not vendored. Stage them first (gitignored dir):
   ```
   mkdir -p verification/.pdk-models
