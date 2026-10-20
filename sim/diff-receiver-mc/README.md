@@ -33,11 +33,24 @@ it into the host tool; use a throwaway environment
 
 ## Status: no result recorded yet
 
-The `--dry-run` of both requests validates (n=2: 90 units). The first fleet
-submission (n=2, `mismatch` variant, job `klt-sim-7272c1a5d04f`) was **not
-completed**: the job went `interrupted` (Spot reclaim) about 200 s in and
-stayed there for over 25 min; the client was then terminated while waiting
-(`batch_client_interrupted`). No local fallback grid was run. No samples,
-`klt yield` report or record exist, so **`6.analog` is not claimed**. The
-campaign (N ≥ 100 per corner point, both variants, `klt yield`) is the
-remaining work of issue #189.
+**`6.analog` is not claimed.** No samples, `klt yield` report or evidence record
+exist. No local fallback grid was run. Fleet attempts so far (N=100, 4500 units
+per variant), newest first:
+
+| date | submission | outcome |
+|---|---|---|
+| 2026-10-20 | `mismatch` + `control` at once, `--max-units-per-job 150 --max-concurrent-jobs 8`, `options.timeout_s` 20 (jobs `klt-sim-859a5a27c9fe` and `klt-sim-b0e86edf3f53` among 30 shards each) | `status: error`: 30 / 21 units passed. `timeout` (ngspice killed at 20 s on the fleet, although one unit takes 0.57 s locally), `measurement ... produced no value` (follows the timeouts), and `lost_shard`: the two concurrent client invocations each allowed 8 jobs and went over `BATCH_MAX_CONCURRENT_INSTANCES=8`, and some pools had no capacity. `options.timeout_s` was put back to 300. |
+| 2026-10-20 | `mismatch` and `control` as one job each (`klt-sim-a6b680424799`, `klt-sim-c7bb42741f01`) | client `timeout` at 3412 s; submit warned the 4500-unit job exceeds the fleet's 3600 s whole-job ceiling. |
+| 2026-10-17 | `mismatch`, n=2 (`klt-sim-7272c1a5d04f`) | `interrupted` (Spot reclaim) about 200 s in; the client was terminated while waiting. |
+
+What the next attempt has to respect:
+
+- `klt sim` refuses `--max-units-per-job` above `(3600 - 120) / options.timeout_s`
+  (11 units at the 300 s in `build_requests.py`, so about 410 jobs per variant).
+  Lowering `timeout_s` to fit more units per job needs a measured per-unit time
+  on the fleet; the 20 s guess was too low.
+- The fleet cap is 8 instances in total, so submit one variant at a time, not
+  two concurrent `klt sim` invocations.
+
+The campaign (N >= 100 per corner point, both variants, `klt yield`) remains the
+work of issue #189.
