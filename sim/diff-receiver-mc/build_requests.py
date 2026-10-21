@@ -44,6 +44,7 @@ MODELS_LIB = "libs.tech/ngspice/sm141064.ngspice"
 VARY = "mismatch"
 DEFAULT_N = 100
 DEFAULT_SEED = 20261017
+DEFAULT_TIMEOUT_S = 300
 VARIANTS = {"mismatch": 1, "control": 0}
 
 
@@ -76,7 +77,8 @@ def build_deck(tb, pdk, sw_stat_mismatch: int) -> str:
     ])
 
 
-def build_request(tb, pdk, manifest: dict, n: int, seed: int) -> dict:
+def build_request(tb, pdk, manifest: dict, n: int, seed: int,
+                  timeout_s: int = DEFAULT_TIMEOUT_S) -> dict:
     cl = corners_mod.resolve_corners(list(tb.corners))
     supplies = corners_mod.supply_points(tb.nominal_supply_v, tb.supply_tolerance)
     process = [{"name": c.name, "sections": list(c.sections)} for c in cl]
@@ -103,7 +105,7 @@ def build_request(tb, pdk, manifest: dict, n: int, seed: int) -> dict:
         "analysis": {"kind": analysis[0], "args": analysis[1] if len(analysis) > 1 else ""},
         "measurements": measurements,
         "monte_carlo": {"n": n, "seed": seed, "vary": VARY},
-        "options": {"timeout_s": 300, "keep_artifacts": False},
+        "options": {"timeout_s": timeout_s, "keep_artifacts": False},
     }
 
 
@@ -112,17 +114,23 @@ def main(argv=None) -> int:
     ap.add_argument("workdir", type=Path)
     ap.add_argument("--n", type=int, default=DEFAULT_N, help="samples per corner point")
     ap.add_argument("--seed", type=int, default=DEFAULT_SEED)
+    ap.add_argument("--timeout-s", type=int, default=DEFAULT_TIMEOUT_S,
+                    help="options.timeout_s per unit (size from a measured fleet pilot)")
+    ap.add_argument("--variant", choices=sorted(VARIANTS), action="append",
+                    help="write only this variant (repeatable); default both")
     args = ap.parse_args(argv)
 
     tb = tb_mod.load(SOURCE_TB)
     pdk = find_pdk()
     manifest = json.loads((SOURCE_TB / "testbench" / "tb.json").read_text())
     for variant, switch in VARIANTS.items():
+        if args.variant and variant not in args.variant:
+            continue
         d = args.workdir / variant
         d.mkdir(parents=True, exist_ok=True)
         (d / "body.spice").write_text(build_deck(tb, pdk, switch))
         (d / "request.json").write_text(
-            json.dumps(build_request(tb, pdk, manifest, args.n, args.seed), indent=2) + "\n"
+            json.dumps(build_request(tb, pdk, manifest, args.n, args.seed, args.timeout_s), indent=2) + "\n"
         )
         print(f"wrote {d}/request.json (sw_stat_mismatch={switch}, n={args.n}, seed={args.seed})")
     return 0
