@@ -4,6 +4,7 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-10-21
 
+- **PR #226**: Bump Repo Skills 0.24.3 -> 0.24.7
 - **PR #224**: sim: record diff-receiver-mc campaign not run; no klt release has the capacity-wait fix
 - **PR #222**: sim: record failed batch attempt for driver-disabled-leakage grid (#114)
 - **PR #154**: feat(analog): TXOE high-Z enable for differential_driver (#114)
