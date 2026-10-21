@@ -5,7 +5,9 @@ Every per-module testbench in this directory drives its DUT off the same
 place that pattern is defined so the testbenches that need it
 (`test_usb_bit_stuffer.py`, `test_usb_bit_destuffer.py`,
 `test_usb_nrzi_encoder.py`, `test_usb_nrzi_decoder.py`,
-`test_usb_bit_codec_loopback.py`) import it rather than redefine it. Mirrors
+`test_usb_bit_codec_loopback.py`, `test_usb_eop_detector.py`,
+`test_usb_line_state_decode.py`, `test_usb_sync_detector.py`,
+`test_usb_rx_clock_tolerance.py`) import it rather than redefine it. Mirrors
 the consolidations in `sim/` (#37, shared `_fmt`/`_repo_relative`) and
 `verification/check_records.py` (#39, shared `_git`).
 

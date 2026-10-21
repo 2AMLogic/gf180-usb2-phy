@@ -1,0 +1,689 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_utmi_phy",
+  "testbench": "test_usb_utmi_phy",
+  "status": "pass",
+  "test_count": 111,
+  "passed_count": 111,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_reset_state",
+      "status": "passed",
+      "sim_time_ns": 208.335,
+      "real_time_s": 0.0010912418365478516
+    },
+    {
+      "name": "test_tx_sync_pattern_is_kjkjkjkk",
+      "status": "passed",
+      "sim_time_ns": 3541.6949999999997,
+      "real_time_s": 0.003302335739135742
+    },
+    {
+      "name": "test_tx_eop_tail_is_se0_se0_j",
+      "status": "passed",
+      "sim_time_ns": 5208.374999999999,
+      "real_time_s": 0.004451751708984375
+    },
+    {
+      "name": "test_loopback_single_byte",
+      "status": "passed",
+      "sim_time_ns": 5208.375,
+      "real_time_s": 0.005120754241943359
+    },
+    {
+      "name": "test_loopback_multi_byte_with_stuffing",
+      "status": "passed",
+      "sim_time_ns": 11875.095000000001,
+      "real_time_s": 0.011059045791625977
+    },
+    {
+      "name": "test_loopback_leading_ones_payload_canonical_stuff_scope",
+      "status": "passed",
+      "sim_time_ns": 6875.054999999997,
+      "real_time_s": 0.0065386295318603516
+    },
+    {
+      "name": "test_loopback_trailing_run_of_six_ones_is_flushed",
+      "status": "passed",
+      "sim_time_ns": 6875.055,
+      "real_time_s": 0.006383657455444336
+    },
+    {
+      "name": "test_loopback_back_to_back_packets_minimal_gap",
+      "status": "passed",
+      "sim_time_ns": 13541.775000000001,
+      "real_time_s": 0.01290583610534668
+    },
+    {
+      "name": "test_raw_mode_puts_payload_on_the_wire_unencoded",
+      "status": "passed",
+      "sim_time_ns": 5208.375,
+      "real_time_s": 0.0043528079986572266
+    },
+    {
+      "name": "test_malformed_sync_never_activates_rx",
+      "status": "passed",
+      "sim_time_ns": 2041.6829999999973,
+      "real_time_s": 0.0016002655029296875
+    },
+    {
+      "name": "test_rx_clean_wire_packet_has_no_error",
+      "status": "passed",
+      "sim_time_ns": 8875.071000000004,
+      "real_time_s": 0.007503986358642578
+    },
+    {
+      "name": "test_rx_missing_stuff_bit_mid_byte_reaches_rxerror",
+      "status": "passed",
+      "sim_time_ns": 9458.409,
+      "real_time_s": 0.007965564727783203
+    },
+    {
+      "name": "test_rx_missing_trailing_stuff_bit_near_eop_reaches_rxerror",
+      "status": "passed",
+      "sim_time_ns": 8875.070999999996,
+      "real_time_s": 0.007428884506225586
+    },
+    {
+      "name": "test_rx_error_not_raised_after_reception_ends",
+      "status": "passed",
+      "sim_time_ns": 3541.695000000007,
+      "real_time_s": 0.0026564598083496094
+    },
+    {
+      "name": "test_rx_utmi_reset_mid_packet_clears_pipeline",
+      "status": "passed",
+      "sim_time_ns": 10791.753000000012,
+      "real_time_s": 0.008941411972045898
+    },
+    {
+      "name": "test_rx_utmi_reset_after_stuffing_error_mid_packet",
+      "status": "passed",
+      "sim_time_ns": 9541.743000000002,
+      "real_time_s": 0.007900714874267578
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999993,
+      "real_time_s": 0.010369300842285156
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.010078907012939453
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.01712965965270996
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.015482425689697266
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.01069021224975586
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.010295867919921875
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.011121749877929688
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.010805606842041016
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.010225534439086914
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.010147571563720703
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.01101541519165039
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.010920524597167969
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.010575294494628906
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.010313749313354492
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.01114201545715332
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.011072635650634766
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.010410070419311523
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.010403156280517578
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.011234283447265625
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.011374711990356445
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.010201692581176758
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.010058403015136719
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.010949134826660156
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.011127233505249023
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.010323524475097656
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.010232210159301758
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.010900259017944336
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.011022806167602539
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.01030874252319336
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.010330915451049805
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.010910511016845703
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.010664701461791992
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.010418415069580078
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.010249614715576172
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.010888338088989258
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.01093745231628418
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.010202884674072266
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.010358572006225586
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11208.422999999952,
+      "real_time_s": 0.011254072189331055
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11208.422999999952,
+      "real_time_s": 0.01096796989440918
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=0",
+      "status": "passed",
+      "sim_time_ns": 10458.417000000016,
+      "real_time_s": 0.008708953857421875
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=1",
+      "status": "passed",
+      "sim_time_ns": 10625.08500000008,
+      "real_time_s": 0.008821487426757812
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=0",
+      "status": "passed",
+      "sim_time_ns": 10791.753000000026,
+      "real_time_s": 0.008985042572021484
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=1",
+      "status": "passed",
+      "sim_time_ns": 10958.420999999973,
+      "real_time_s": 0.009232044219970703
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=0",
+      "status": "passed",
+      "sim_time_ns": 10625.08500000008,
+      "real_time_s": 0.009171009063720703
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=1",
+      "status": "passed",
+      "sim_time_ns": 10791.753000000026,
+      "real_time_s": 0.008943319320678711
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=0",
+      "status": "passed",
+      "sim_time_ns": 10958.420999999973,
+      "real_time_s": 0.009066104888916016
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=1",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.009254693984985352
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=0",
+      "status": "passed",
+      "sim_time_ns": 5625.0449999999255,
+      "real_time_s": 0.005135059356689453
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=1",
+      "status": "passed",
+      "sim_time_ns": 5625.045000000042,
+      "real_time_s": 0.005108833312988281
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=2",
+      "status": "passed",
+      "sim_time_ns": 5625.045000000042,
+      "real_time_s": 0.005103588104248047
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=3",
+      "status": "passed",
+      "sim_time_ns": 5625.045000000042,
+      "real_time_s": 0.005005598068237305
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 5958.380999999936,
+      "real_time_s": 0.0064716339111328125
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 5791.712999999989,
+      "real_time_s": 0.0060007572174072266
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 6125.048999999999,
+      "real_time_s": 0.006467580795288086
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 5958.381000000052,
+      "real_time_s": 0.006161212921142578
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 6208.383000000031,
+      "real_time_s": 0.0065038204193115234
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 6041.714999999967,
+      "real_time_s": 0.006435871124267578
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 6375.051000000094,
+      "real_time_s": 0.0065991878509521484
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 6208.383000000031,
+      "real_time_s": 0.006413936614990234
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 6541.718999999925,
+      "real_time_s": 0.006868839263916016
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 6375.050999999978,
+      "real_time_s": 0.006706953048706055
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 6708.386999999988,
+      "real_time_s": 0.007028341293334961
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 6541.719000000041,
+      "real_time_s": 0.006883382797241211
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 7458.392999999924,
+      "real_time_s": 0.007951021194458008
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 7291.724999999977,
+      "real_time_s": 0.007793426513671875
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 7625.060999999987,
+      "real_time_s": 0.008061885833740234
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 7458.39300000004,
+      "real_time_s": 0.007901191711425781
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9041.738999999943,
+      "real_time_s": 0.009526491165161133
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 8875.070999999996,
+      "real_time_s": 0.009417057037353516
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9208.407000000007,
+      "real_time_s": 0.009845972061157227
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9041.738999999943,
+      "real_time_s": 0.009535551071166992
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9125.072999999975,
+      "real_time_s": 0.010100603103637695
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 8958.404999999912,
+      "real_time_s": 0.01006770133972168
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9291.741000000038,
+      "real_time_s": 0.009810686111450195
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9125.072999999975,
+      "real_time_s": 0.00973820686340332
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9208.407000000007,
+      "real_time_s": 0.009896993637084961
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9041.738999999943,
+      "real_time_s": 0.009756326675415039
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9375.074999999953,
+      "real_time_s": 0.010017871856689453
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9208.407000000007,
+      "real_time_s": 0.00964665412902832
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9291.741000000038,
+      "real_time_s": 0.009735345840454102
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9125.073000000091,
+      "real_time_s": 0.009694099426269531
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9458.408999999985,
+      "real_time_s": 0.00999903678894043
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9291.741000000038,
+      "real_time_s": 0.010162830352783203
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9375.07500000007,
+      "real_time_s": 0.010416507720947266
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9208.407000000007,
+      "real_time_s": 0.010429859161376953
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9541.743000000017,
+      "real_time_s": 0.010812520980834961
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9375.07500000007,
+      "real_time_s": 0.010736703872680664
+    },
+    {
+      "name": "test_pu_en_follows_termselect_gated_by_rst_n",
+      "status": "passed",
+      "sim_time_ns": 708.3390000000363,
+      "real_time_s": 0.001435995101928711
+    },
+    {
+      "name": "test_trim_static_codes_do_not_affect_framing",
+      "status": "passed",
+      "sim_time_ns": 41541.99899999995,
+      "real_time_s": 0.04422140121459961
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=xcvr0",
+      "status": "passed",
+      "sim_time_ns": 23375.186999999918,
+      "real_time_s": 0.02479839324951172
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=suspend0",
+      "status": "passed",
+      "sim_time_ns": 23375.187000000034,
+      "real_time_s": 0.024715662002563477
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=opmode01",
+      "status": "passed",
+      "sim_time_ns": 23375.186999999918,
+      "real_time_s": 0.025286436080932617
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=opmode11",
+      "status": "passed",
+      "sim_time_ns": 23375.186999999918,
+      "real_time_s": 0.02490544319152832
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=all",
+      "status": "passed",
+      "sim_time_ns": 23375.18700000015,
+      "real_time_s": 0.025078535079956055
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "<worktree>/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1,
+    "sdf": null
+  }
+}

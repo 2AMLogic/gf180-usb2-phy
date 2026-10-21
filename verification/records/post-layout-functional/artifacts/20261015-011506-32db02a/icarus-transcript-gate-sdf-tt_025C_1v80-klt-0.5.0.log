@@ -1,0 +1,663 @@
+     -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.12.4 interpreter at .venv/bin/python
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+     0.00ns INFO     cocotb                             Running on Icarus Verilog version 13.0 (stable)
+     0.00ns INFO     cocotb                             Seeding Python random module with supplied seed 1
+     0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from .venv/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.regression                  pytest not found, install it to enable better AssertionError messages
+     0.00ns INFO     cocotb                             Running tests
+     0.00ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_reset_state (1/111)
+                                                            Out of reset: TxReady high (idle, ready for a packet), RX quiescent,
+VPI error: Could not insert intermodpath!
+	port1 = Q, port1_has_index = 0, port1_bit_index = 0
+	port2 = RxActive, port2_has_index = 0, port2_bit_index = 0
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:558: Could not find intermodpath!
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:1938: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._237_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:1939: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._237_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2049: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._242_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2050: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._242_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2620: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut._285_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2621: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut._285_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2622: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut._285_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2623: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut._285_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2860: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._301_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2861: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._301_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2880: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._302_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2881: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._302_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2900: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._303_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2901: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._303_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2920: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._304_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2921: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._304_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2940: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._305_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2941: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._305_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2960: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._306_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2961: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._306_
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3425: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3443: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3461: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3479: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3497: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3515: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3533: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3551: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3569: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3587: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3605: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3623: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3641: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3659: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3677: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3695: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3713: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3731: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3749: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3767: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3785: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3803: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3821: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3839: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3857: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3875: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3893: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3911: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3929: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3947: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3965: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:3983: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4001: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4019: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4037: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4055: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4073: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4091: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4109: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4127: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4145: TIMINGCHECK not supported.
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4189: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_07_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4190: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_07_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4199: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_08_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4200: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_08_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4201: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_08_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4202: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_08_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4221: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_09_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4222: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_decoder/_09_
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4243: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4273: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4303: TIMINGCHECK not supported.
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4433: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_destuffer/_25_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4434: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_destuffer/_25_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4435: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_destuffer/_25_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4436: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_destuffer/_25_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4465: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_destuffer/_27_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4466: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_destuffer/_27_
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4541: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4571: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4601: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4631: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4661: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4691: TIMINGCHECK not supported.
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4720: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_encoder/_4_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4721: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_encoder/_4_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4722: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_encoder/_4_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4723: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_encoder/_4_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4742: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_encoder/_5_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4743: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_encoder/_5_
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:4764: TIMINGCHECK not supported.
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4881: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_eop_detector/_36_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4882: Unable to match ModPath A1 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_eop_detector/_36_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4883: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_eop_detector/_36_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:4884: Unable to match ModPath A2 -> ZN in klt_sdf_dut_wrapper.klt_sdf_dut.u_eop_detector/_36_
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5112: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5130: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5148: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5166: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5184: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5202: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5220: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5238: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5285: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5303: TIMINGCHECK not supported.
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:5475: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_26_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:5476: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_26_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:5477: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_26_
+SDF ERROR: /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrVPI error: Could not insert intermodpath!
+	port1 = OpMode, port1_has_index = 1, port1_bit_index = 0
+	port2 = A2, port2_has_index = 0, port2_bit_index = 0
+   208.34ns INFO     cocotb.regression                  test_usb_utmi_phy.test_reset_state passed
+   208.34ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_sync_pattern_is_kjkjkjkk (2/111)
+                                                            The first 8 wire samples of any packet are exactly J/K's SYNC shape:
+  3750.03ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_sync_pattern_is_kjkjkjkk passed
+  3750.03ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_eop_tail_is_se0_se0_j (3/111)
+                                                            A packet's tail is exactly two SE0 clocks then one J clock (spec #2/#4).
+  8958.41ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_eop_tail_is_se0_se0_j passed
+  8958.41ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_loopback_single_byte (4/111)
+                                                            One TX byte, self-looped back, is received bit-exactly as one RX byte.
+ 14166.78ns INFO     cocotb.regression                  test_usb_utmi_phy.test_loopback_single_byte passed
+ 14166.78ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_loopback_multi_byte_with_stuffing (5/111)
+                                                            Several bytes, including runs long enough to force bit stuffing,
+ 26041.88ns INFO     cocotb.regression                  test_usb_utmi_phy.test_loopback_multi_byte_with_stuffing passed
+ 26041.88ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_loopback_leading_ones_payload_canonical_stuff_scope (6/111)
+                                                            The canonical stuffing scope, exercised where it is observable: a
+ 32916.93ns INFO     cocotb.regression                  test_usb_utmi_phy.test_loopback_leading_ones_payload_canonical_stuff_scope passed
+ 32916.93ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_loopback_trailing_run_of_six_ones_is_flushed (7/111)
+                                                            A packet whose payload bit stream ends on exactly six 1s (USB 2.0
+ 39791.99ns INFO     cocotb.regression                  test_usb_utmi_phy.test_loopback_trailing_run_of_six_ones_is_flushed passed
+ 39791.99ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_loopback_back_to_back_packets_minimal_gap (8/111)
+                                                            Two packets sent back to back, TxValid reasserted the instant
+ 53333.77ns INFO     cocotb.regression                  test_usb_utmi_phy.test_loopback_back_to_back_packets_minimal_gap passed
+ 53333.77ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_raw_mode_puts_payload_on_the_wire_unencoded (9/111)
+                                                            OpMode 2'b10 (raw/transparent test mode) drives the vendored modules'
+ 58542.14ns INFO     cocotb.regression                  test_usb_utmi_phy.test_raw_mode_puts_payload_on_the_wire_unencoded passed
+ 58542.14ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_malformed_sync_never_activates_rx (10/111)
+                                                            A line pattern that starts like SYNC but breaks partway through never
+ 60583.83ns INFO     cocotb.regression                  test_usb_utmi_phy.test_malformed_sync_never_activates_rx passed
+ 60583.83ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_clean_wire_packet_has_no_error (11/111)
+                                                            Control: the independent wire driver, with correct stuffing (including
+ 69458.90ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_clean_wire_packet_has_no_error passed
+ 69458.90ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_missing_stuff_bit_mid_byte_reaches_rxerror (12/111)
+                                                            Delete the stuffed 0 from inside a byte (0xFF: six 1s, [0], 1, 1): the
+ 74250.60ns INFO     cocotb.klt_sdf_dut_wrapper         RxError latency from violating wire cell: 3 clocks
+ 78917.31ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_missing_stuff_bit_mid_byte_reaches_rxerror passed
+ 78917.31ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_missing_trailing_stuff_bit_near_eop_reaches_rxerror (13/111)
+                                                            The packet ends on six 1s, and the mandatory trailing stuffed 0 is
+ 87792.38ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_missing_trailing_stuff_bit_near_eop_reaches_rxerror passed
+ 87792.38ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_error_not_raised_after_reception_ends (14/111)
+                                                            A run of 1s on the wire while no packet is active (no SYNC) must not
+ 91334.08ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_error_not_raised_after_reception_ends passed
+ 91334.08ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_mid_packet_clears_pipeline (15/111)
+                                                            Assert UTMI Reset while a packet is partway through reception (a
+102125.83ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_mid_packet_clears_pipeline passed
+102125.83ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_after_stuffing_error_mid_packet (16/111)
+                                                            Reset arriving after a stuffing error, still inside the active packet,
+111667.57ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_after_stuffing_error_mid_packet passed
+111667.57ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=J (17/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+112709.25ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync hold=1 release=J: reset edge at cell 10 of 51; 0 byte(s) delivered; destuffer run n/a (not exposed)
+122792.66ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=J passed
+122792.66ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=K (18/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+123834.34ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync hold=1 release=K: reset edge at cell 10 of 51; 0 byte(s) delivered; destuffer run n/a (not exposed)
+133917.76ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=K passed
+133917.76ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=J (19/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+134959.43ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync hold=3 release=J: reset edge at cell 10 of 51; 0 byte(s) delivered; destuffer run n/a (not exposed)
+145042.85ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=J passed
+145042.85ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=K (20/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+146084.52ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync hold=3 release=K: reset edge at cell 10 of 51; 0 byte(s) delivered; destuffer run n/a (not exposed)
+156167.93ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=K passed
+156167.93ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=J (21/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+157626.28ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync_final hold=1 release=J: reset edge at cell 15 of 51; 0 byte(s) delivered; destuffer run n/a (not exposed)
+167293.02ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=J passed
+167293.02ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=K (22/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+168751.37ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync_final hold=1 release=K: reset edge at cell 15 of 51; 0 byte(s) delivered; destuffer run n/a (not exposed)
+178418.11ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=K passed
+178418.11ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=J (23/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+179876.46ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync_final hold=3 release=J: reset edge at cell 15 of 51; 0 byte(s) delivered; destuffer run n/a (not exposed)
+189543.20ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=J passed
+189543.20ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=K (24/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+191001.55ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync_final hold=3 release=K: reset edge at cell 15 of 51; 0 byte(s) delivered; destuffer run n/a (not exposed)
+200668.30ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=K passed
+200668.30ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=J (25/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+202209.98ns INFO     cocotb.klt_sdf_dut_wrapper         phase=first_bit hold=1 release=J: reset edge at cell 16 of 51; 0 byte(s) delivered; destuffer run n/a (not exposed)
+211793.39ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=J passed
+211793.39ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=K (26/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+213335.07ns INFO     cocotb.klt_sdf_dut_wrapper         phase=first_bit hold=1 release=K: reset edge at cell 16 of 51; 0 byte(s) delivered; destuffer run n/a (not exposed)
+222918.48ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=K passed
+222918.48ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=J (27/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+224460.15ns INFO     cocotb.klt_sdf_dut_wrapper         phase=first_bit hold=3 release=J: reset edge at cell 16 of 51; 0 byte(s) delivered; destuffer run n/a (not exposed)
+234043.57ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=J passed
+234043.57ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=K (28/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+235585.24ns INFO     cocotb.klt_sdf_dut_wrapper         phase=first_bit hold=3 release=K: reset edge at cell 16 of 51; 0 byte(s) delivered; destuffer run n/a (not exposed)
+245168.65ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=K passed
+245168.65ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=J (29/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+248377.02ns INFO     cocotb.klt_sdf_dut_wrapper         phase=partial_byte hold=1 release=J: reset edge at cell 36 of 51; 2 byte(s) delivered; destuffer run n/a (not exposed)
+256293.74ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=J passed
+256293.74ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=K (30/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+259502.11ns INFO     cocotb.klt_sdf_dut_wrapper         phase=partial_byte hold=1 release=K: reset edge at cell 36 of 51; 2 byte(s) delivered; destuffer run n/a (not exposed)
+267418.84ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=K passed
+267418.84ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=J (31/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+270627.20ns INFO     cocotb.klt_sdf_dut_wrapper         phase=partial_byte hold=3 release=J: reset edge at cell 36 of 51; 2 byte(s) delivered; destuffer run n/a (not exposed)
+278543.92ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=J passed
+278543.92ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=K (32/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+281752.28ns INFO     cocotb.klt_sdf_dut_wrapper         phase=partial_byte hold=3 release=K: reset edge at cell 36 of 51; 2 byte(s) delivered; destuffer run n/a (not exposed)
+289669.02ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=K passed
+289669.02ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=J (33/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+292627.37ns INFO     cocotb.klt_sdf_dut_wrapper         phase=byte_complete hold=1 release=J: reset edge at cell 33 of 51; 1 byte(s) delivered; destuffer run n/a (not exposed)
+300794.10ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=J passed
+300794.10ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=K (34/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+303752.46ns INFO     cocotb.klt_sdf_dut_wrapper         phase=byte_complete hold=1 release=K: reset edge at cell 33 of 51; 1 byte(s) delivered; destuffer run n/a (not exposed)
+311919.20ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=K passed
+311919.20ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=J (35/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+314877.55ns INFO     cocotb.klt_sdf_dut_wrapper         phase=byte_complete hold=3 release=J: reset edge at cell 33 of 51; 1 byte(s) delivered; destuffer run n/a (not exposed)
+323044.28ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=J passed
+323044.28ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=K (36/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+326002.64ns INFO     cocotb.klt_sdf_dut_wrapper         phase=byte_complete hold=3 release=K: reset edge at cell 33 of 51; 1 byte(s) delivered; destuffer run n/a (not exposed)
+334169.38ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=K passed
+334169.38ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=J (37/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+336794.40ns INFO     cocotb.klt_sdf_dut_wrapper         phase=six_ones hold=1 release=J: reset edge at cell 29 of 51; 1 byte(s) delivered; destuffer run n/a (not exposed)
+345294.47ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=J passed
+345294.47ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=K (38/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+347919.49ns INFO     cocotb.klt_sdf_dut_wrapper         phase=six_ones hold=1 release=K: reset edge at cell 29 of 51; 1 byte(s) delivered; destuffer run n/a (not exposed)
+356419.55ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=K passed
+356419.55ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=J (39/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+359044.58ns INFO     cocotb.klt_sdf_dut_wrapper         phase=six_ones hold=3 release=J: reset edge at cell 29 of 51; 1 byte(s) delivered; destuffer run n/a (not exposed)
+367544.65ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=J passed
+367544.65ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=K (40/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+370169.67ns INFO     cocotb.klt_sdf_dut_wrapper         phase=six_ones hold=3 release=K: reset edge at cell 29 of 51; 1 byte(s) delivered; destuffer run n/a (not exposed)
+378669.73ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=K passed
+378669.73ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=J (41/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+381378.09ns INFO     cocotb.klt_sdf_dut_wrapper         phase=stuff_bit hold=1 release=J: reset edge at cell 30 of 51; 1 byte(s) delivered; destuffer run n/a (not exposed)
+389794.83ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=J passed
+389794.83ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=K (42/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+392503.18ns INFO     cocotb.klt_sdf_dut_wrapper         phase=stuff_bit hold=1 release=K: reset edge at cell 30 of 51; 1 byte(s) delivered; destuffer run n/a (not exposed)
+400919.91ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=K passed
+400919.91ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=J (43/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+403628.27ns INFO     cocotb.klt_sdf_dut_wrapper         phase=stuff_bit hold=3 release=J: reset edge at cell 30 of 51; 1 byte(s) delivered; destuffer run n/a (not exposed)
+412045.01ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=J passed
+412045.01ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=K (44/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+414753.36ns INFO     cocotb.klt_sdf_dut_wrapper         phase=stuff_bit hold=3 release=K: reset edge at cell 30 of 51; 1 byte(s) delivered; destuffer run n/a (not exposed)
+423170.09ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=K passed
+423170.09ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J (45/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+425878.45ns INFO     cocotb.klt_sdf_dut_wrapper         phase=error hold=1 release=J: reset edge at cell 30 of 50; 1 byte(s) delivered; destuffer run n/a (not exposed)
+434211.85ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J passed
+434211.85ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K (46/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+436920.21ns INFO     cocotb.klt_sdf_dut_wrapper         phase=error hold=1 release=K: reset edge at cell 30 of 50; 1 byte(s) delivered; destuffer run n/a (not exposed)
+445253.61ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K passed
+445253.61ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J (47/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+447961.96ns INFO     cocotb.klt_sdf_dut_wrapper         phase=error hold=3 release=J: reset edge at cell 30 of 50; 1 byte(s) delivered; destuffer run n/a (not exposed)
+456295.36ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J passed
+456295.36ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K (48/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+459003.72ns INFO     cocotb.klt_sdf_dut_wrapper         phase=error hold=3 release=K: reset edge at cell 30 of 50; 1 byte(s) delivered; destuffer run n/a (not exposed)
+467337.12ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K passed
+467337.12ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=J (49/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+470128.81ns INFO     cocotb.klt_sdf_dut_wrapper         phase=error_out hold=1 release=J: reset edge at cell 31 of 50; 1 byte(s) delivered; destuffer run n/a (not exposed)
+478378.88ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=J passed
+478378.88ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=K (50/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+481170.57ns INFO     cocotb.klt_sdf_dut_wrapper         phase=error_out hold=1 release=K: reset edge at cell 31 of 50; 1 byte(s) delivered; destuffer run n/a (not exposed)
+489420.63ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=K passed
+489420.63ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=J (51/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+492212.32ns INFO     cocotb.klt_sdf_dut_wrapper         phase=error_out hold=3 release=J: reset edge at cell 31 of 50; 1 byte(s) delivered; destuffer run n/a (not exposed)
+500462.39ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=J passed
+500462.39ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=K (52/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+503254.08ns INFO     cocotb.klt_sdf_dut_wrapper         phase=error_out hold=3 release=K: reset edge at cell 31 of 50; 1 byte(s) delivered; destuffer run n/a (not exposed)
+511504.14ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=K passed
+511504.14ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J (53/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+515712.51ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop hold=1 release=J: reset edge at cell 48 of 51; 3 byte(s) delivered; destuffer run n/a (not exposed)
+522629.23ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J passed
+522629.23ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K (54/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+526837.60ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop hold=1 release=K: reset edge at cell 48 of 51; 3 byte(s) delivered; destuffer run n/a (not exposed)
+533754.32ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K passed
+533754.32ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J (55/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+537962.69ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop hold=3 release=J: reset edge at cell 48 of 51; 3 byte(s) delivered; destuffer run n/a (not exposed)
+544962.75ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J passed
+544962.75ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K (56/111)
+                                                            UTMI Reset raised between edges during reception (SYNC, the arming
+549171.11ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop hold=3 release=K: reset edge at cell 48 of 51; 3 byte(s) delivered; destuffer run n/a (not exposed)
+556171.17ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K passed
+556171.17ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=0 (57/111)
+                                                            Reset raised with J or K as the last cell before it (so the first
+566629.59ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=0 passed
+566629.59ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=1 (58/111)
+                                                            Reset raised with J or K as the last cell before it (so the first
+577254.68ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=1 passed
+577254.68ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=0 (59/111)
+                                                            Reset raised with J or K as the last cell before it (so the first
+588046.43ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=0 passed
+588046.43ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=1 (60/111)
+                                                            Reset raised with J or K as the last cell before it (so the first
+599004.85ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=1 passed
+599004.85ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=0 (61/111)
+                                                            Reset raised with J or K as the last cell before it (so the first
+609629.94ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=0 passed
+609629.94ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=1 (62/111)
+                                                            Reset raised with J or K as the last cell before it (so the first
+620421.69ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=1 passed
+620421.69ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=0 (63/111)
+                                                            Reset raised with J or K as the last cell before it (so the first
+631380.11ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=0 passed
+631380.11ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=1 (64/111)
+                                                            Reset raised with J or K as the last cell before it (so the first
+642505.20ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=1 passed
+642505.20ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=0 (65/111)
+                                                            Structural probe, not a UTMI-legal stimulus: a `Reset` pulse that rises
+648130.25ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=0 passed
+648130.25ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=1 (66/111)
+                                                            Structural probe, not a UTMI-legal stimulus: a `Reset` pulse that rises
+653755.30ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=1 passed
+653755.30ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=2 (67/111)
+                                                            Structural probe, not a UTMI-legal stimulus: a `Reset` pulse that rises
+659380.34ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=2 passed
+659380.34ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=3 (68/111)
+                                                            Structural probe, not a UTMI-legal stimulus: a `Reset` pulse that rises
+665005.39ns INFO     cocotb.regression                  test_usb_utmi_phy.test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=3 passed
+665005.39ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=False (69/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+665548.06ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync hold=1 txvalid_held=False: reset preempts model cell 4 of 45; in-flight RTL state n/a (not exposed)
+670963.77ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=False passed
+670963.77ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=True (70/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+671506.44ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync hold=1 txvalid_held=True: reset preempts model cell 4 of 45; in-flight RTL state n/a (not exposed)
+676755.48ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=True passed
+676755.48ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=False (71/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+677298.16ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync hold=3 txvalid_held=False: reset preempts model cell 4 of 45; in-flight RTL state n/a (not exposed)
+682880.53ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=False passed
+682880.53ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=True (72/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+683423.20ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync hold=3 txvalid_held=True: reset preempts model cell 4 of 45; in-flight RTL state n/a (not exposed)
+688838.92ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=True passed
+688838.92ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=False (73/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+689631.59ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync_last hold=1 txvalid_held=False: reset preempts model cell 7 of 45; in-flight RTL state n/a (not exposed)
+695047.30ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=False passed
+695047.30ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=True (74/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+695839.97ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync_last hold=1 txvalid_held=True: reset preempts model cell 7 of 45; in-flight RTL state n/a (not exposed)
+701089.02ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=True passed
+701089.02ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=False (75/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+701881.69ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync_last hold=3 txvalid_held=False: reset preempts model cell 7 of 45; in-flight RTL state n/a (not exposed)
+707464.07ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=False passed
+707464.07ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=True (76/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+708256.74ns INFO     cocotb.klt_sdf_dut_wrapper         phase=sync_last hold=3 txvalid_held=True: reset preempts model cell 7 of 45; in-flight RTL state n/a (not exposed)
+713672.45ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=True passed
+713672.45ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=False (77/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+714798.46ns INFO     cocotb.klt_sdf_dut_wrapper         phase=payload hold=1 txvalid_held=False: reset preempts model cell 11 of 45; in-flight RTL state n/a (not exposed)
+720214.17ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=False passed
+720214.17ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=True (78/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+721340.18ns INFO     cocotb.klt_sdf_dut_wrapper         phase=payload hold=1 txvalid_held=True: reset preempts model cell 11 of 45; in-flight RTL state n/a (not exposed)
+726589.22ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=True passed
+726589.22ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=False (79/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+727715.23ns INFO     cocotb.klt_sdf_dut_wrapper         phase=payload hold=3 txvalid_held=False: reset preempts model cell 11 of 45; in-flight RTL state n/a (not exposed)
+733297.61ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=False passed
+733297.61ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=True (80/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+734423.62ns INFO     cocotb.klt_sdf_dut_wrapper         phase=payload hold=3 txvalid_held=True: reset preempts model cell 11 of 45; in-flight RTL state n/a (not exposed)
+739839.33ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=True passed
+739839.33ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=False (81/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+741882.02ns INFO     cocotb.klt_sdf_dut_wrapper         phase=stuff hold=1 txvalid_held=False: reset preempts model cell 22 of 45; in-flight RTL state n/a (not exposed)
+747297.72ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=False passed
+747297.72ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=True (82/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+749340.41ns INFO     cocotb.klt_sdf_dut_wrapper         phase=stuff hold=1 txvalid_held=True: reset preempts model cell 22 of 45; in-flight RTL state n/a (not exposed)
+754589.45ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=True passed
+754589.45ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=False (83/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+756632.14ns INFO     cocotb.klt_sdf_dut_wrapper         phase=stuff hold=3 txvalid_held=False: reset preempts model cell 22 of 45; in-flight RTL state n/a (not exposed)
+762214.51ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=False passed
+762214.51ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=True (84/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+764257.20ns INFO     cocotb.klt_sdf_dut_wrapper         phase=stuff hold=3 txvalid_held=True: reset preempts model cell 22 of 45; in-flight RTL state n/a (not exposed)
+769672.91ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=True passed
+769672.91ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=False (85/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+773298.94ns INFO     cocotb.klt_sdf_dut_wrapper         phase=flush hold=1 txvalid_held=False: reset preempts model cell 41 of 45; in-flight RTL state n/a (not exposed)
+778714.65ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=False passed
+778714.65ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=True (86/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+782340.68ns INFO     cocotb.klt_sdf_dut_wrapper         phase=flush hold=1 txvalid_held=True: reset preempts model cell 41 of 45; in-flight RTL state n/a (not exposed)
+787589.72ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=True passed
+787589.72ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=False (87/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+791215.75ns INFO     cocotb.klt_sdf_dut_wrapper         phase=flush hold=3 txvalid_held=False: reset preempts model cell 41 of 45; in-flight RTL state n/a (not exposed)
+796798.13ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=False passed
+796798.13ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=True (88/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+800424.16ns INFO     cocotb.klt_sdf_dut_wrapper         phase=flush hold=3 txvalid_held=True: reset preempts model cell 41 of 45; in-flight RTL state n/a (not exposed)
+805839.87ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=True passed
+805839.87ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=False (89/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+809549.23ns INFO     cocotb.klt_sdf_dut_wrapper         phase=hold hold=1 txvalid_held=False: reset preempts model cell 42 of 45; in-flight RTL state n/a (not exposed)
+814964.94ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=False passed
+814964.94ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=True (90/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+818674.31ns INFO     cocotb.klt_sdf_dut_wrapper         phase=hold hold=1 txvalid_held=True: reset preempts model cell 42 of 45; in-flight RTL state n/a (not exposed)
+823923.35ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=True passed
+823923.35ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=False (91/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+827632.71ns INFO     cocotb.klt_sdf_dut_wrapper         phase=hold hold=3 txvalid_held=False: reset preempts model cell 42 of 45; in-flight RTL state n/a (not exposed)
+833215.09ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=False passed
+833215.09ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=True (92/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+836924.45ns INFO     cocotb.klt_sdf_dut_wrapper         phase=hold hold=3 txvalid_held=True: reset preempts model cell 42 of 45; in-flight RTL state n/a (not exposed)
+842340.16ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=True passed
+842340.16ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=False (93/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+846132.86ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop_se0 hold=1 txvalid_held=False: reset preempts model cell 43 of 45; in-flight RTL state n/a (not exposed)
+851548.57ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=False passed
+851548.57ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=True (94/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+855341.27ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop_se0 hold=1 txvalid_held=True: reset preempts model cell 43 of 45; in-flight RTL state n/a (not exposed)
+860590.31ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=True passed
+860590.31ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=False (95/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+864383.01ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop_se0 hold=3 txvalid_held=False: reset preempts model cell 43 of 45; in-flight RTL state n/a (not exposed)
+869965.39ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=False passed
+869965.39ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=True (96/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+873758.08ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop_se0 hold=3 txvalid_held=True: reset preempts model cell 43 of 45; in-flight RTL state n/a (not exposed)
+879173.80ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=True passed
+879173.80ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=False (97/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+883049.83ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop_j hold=1 txvalid_held=False: reset preempts model cell 44 of 45; in-flight RTL state n/a (not exposed)
+888465.54ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=False passed
+888465.54ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=True (98/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+892341.57ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop_j hold=1 txvalid_held=True: reset preempts model cell 44 of 45; in-flight RTL state n/a (not exposed)
+897590.61ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=True passed
+897590.61ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=False (99/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+901466.64ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop_j hold=3 txvalid_held=False: reset preempts model cell 44 of 45; in-flight RTL state n/a (not exposed)
+907049.02ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=False passed
+907049.02ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=True (100/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+910925.05ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop_j hold=3 txvalid_held=True: reset preempts model cell 44 of 45; in-flight RTL state n/a (not exposed)
+916340.76ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=True passed
+916340.76ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=False (101/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+920300.13ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop_idle hold=1 txvalid_held=False: reset preempts model cell 45 of 45; in-flight RTL state n/a (not exposed)
+925715.84ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=False passed
+925715.84ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=True (102/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+929675.20ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop_idle hold=1 txvalid_held=True: reset preempts model cell 45 of 45; in-flight RTL state n/a (not exposed)
+934924.25ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=True passed
+934924.25ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=False (103/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+938883.61ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop_idle hold=3 txvalid_held=False: reset preempts model cell 45 of 45; in-flight RTL state n/a (not exposed)
+944465.99ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=False passed
+944465.99ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=True (104/111)
+                                                            UTMI Reset during transmission (SYNC, ordinary payload bit, inserted
+948425.36ns INFO     cocotb.klt_sdf_dut_wrapper         phase=eop_idle hold=3 txvalid_held=True: reset preempts model cell 45 of 45; in-flight RTL state n/a (not exposed)
+953841.07ns INFO     cocotb.regression                  test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=True passed
+953841.07ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_pu_en_follows_termselect_gated_by_rst_n (105/111)
+                                                            pu_en == TermSelect & rst_n for every rst_n/TermSelect/Reset/SuspendM
+954382.74ns INFO     cocotb.regression                  test_usb_utmi_phy.test_pu_en_follows_termselect_gated_by_rst_n passed
+954382.74ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_trim_static_codes_do_not_affect_framing (106/111)
+                                                            `trim[4:0]` (DR-0004 decision 3, #115) is a five-bit integration
+995924.74ns INFO     cocotb.regression                  test_usb_utmi_phy.test_trim_static_codes_do_not_affect_framing passed
+995924.74ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=xcvr0 (107/111)
+                                                            Pins `XcvrSelect`, `SuspendM` and non-raw `OpMode` (00/01/11) have no
+1019299.93ns INFO     cocotb.regression                  test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=xcvr0 passed
+1019299.93ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=suspend0 (108/111)
+                                                             Pins `XcvrSelect`, `SuspendM` and non-raw `OpMode` (00/01/11) have no
+1042675.11ns INFO     cocotb.regression                  test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=suspend0 passed
+1042675.11ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=opmode01 (109/111)
+                                                             Pins `XcvrSelect`, `SuspendM` and non-raw `OpMode` (00/01/11) have no
+1066050.30ns INFO     cocotb.regression                  test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=opmode01 passed
+1066050.30ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=opmode11 (110/111)
+                                                             Pins `XcvrSelect`, `SuspendM` and non-raw `OpMode` (00/01/11) have no
+1089425.49ns INFO     cocotb.regression                  test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=opmode11 passed
+1089425.49ns INFO     cocotb.regression                  running test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=all (111/111)
+                                                             Pins `XcvrSelect`, `SuspendM` and non-raw `OpMode` (00/01/11) have no
+1112800.68ns INFO     cocotb.regression                  test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=all passed
+1112800.68ns INFO     cocotb.regression                  ************************************************************************************************************************************************************
+                                                         ** TEST                                                                                                STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                         ************************************************************************************************************************************************************
+                                                         ** test_usb_utmi_phy.test_reset_state                                                                   PASS         208.34           0.03       6682.12  **
+                                                         ** test_usb_utmi_phy.test_tx_sync_pattern_is_kjkjkjkk                                                   PASS        3541.69           0.01     695944.98  **
+                                                         ** test_usb_utmi_phy.test_tx_eop_tail_is_se0_se0_j                                                      PASS        5208.37           0.01     701638.29  **
+                                                         ** test_usb_utmi_phy.test_loopback_single_byte                                                          PASS        5208.38           0.01     562970.52  **
+                                                         ** test_usb_utmi_phy.test_loopback_multi_byte_with_stuffing                                             PASS       11875.10           0.02     521875.09  **
+                                                         ** test_usb_utmi_phy.test_loopback_leading_ones_payload_canonical_stuff_scope                           PASS        6875.05           0.01     544518.58  **
+                                                         ** test_usb_utmi_phy.test_loopback_trailing_run_of_six_ones_is_flushed                                  PASS        6875.06           0.01     627307.49  **
+                                                         ** test_usb_utmi_phy.test_loopback_back_to_back_packets_minimal_gap                                     PASS       13541.78           0.02     649918.43  **
+                                                         ** test_usb_utmi_phy.test_raw_mode_puts_payload_on_the_wire_unencoded                                   PASS        5208.38           0.01     756973.84  **
+                                                         ** test_usb_utmi_phy.test_malformed_sync_never_activates_rx                                             PASS        2041.68           0.00     801745.08  **
+                                                         ** test_usb_utmi_phy.test_rx_clean_wire_packet_has_no_error                                             PASS        8875.07           0.02     575174.92  **
+                                                         ** test_usb_utmi_phy.test_rx_missing_stuff_bit_mid_byte_reaches_rxerror                                 PASS        9458.41           0.01     739145.97  **
+                                                         ** test_usb_utmi_phy.test_rx_missing_trailing_stuff_bit_near_eop_reaches_rxerror                        PASS        8875.07           0.01     762755.28  **
+                                                         ** test_usb_utmi_phy.test_rx_error_not_raised_after_reception_ends                                      PASS        3541.70           0.00     882227.43  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_mid_packet_clears_pipeline                                      PASS       10791.75           0.01     753255.77  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_after_stuffing_error_mid_packet                                 PASS        9541.74           0.01     673504.27  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=J           PASS       11125.09           0.01     775373.97  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=K           PASS       11125.09           0.01     758916.90  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=J           PASS       11125.09           0.01     773561.53  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=K           PASS       11125.09           0.02     671135.03  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=J           PASS       11125.09           0.02     709386.20  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=K           PASS       11125.09           0.02     738498.15  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=J           PASS       11125.09           0.01     742658.96  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=K           PASS       11125.09           0.02     735935.74  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=J           PASS       11125.09           0.01     752358.16  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=K           PASS       11125.09           0.02     689980.56  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=J           PASS       11125.09           0.02     666466.78  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=K           PASS       11125.09           0.01     748880.66  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=J           PASS       11125.09           0.02     496663.21  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=K           PASS       11125.09           0.02     599614.56  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=J           PASS       11125.09           0.02     715049.81  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=K           PASS       11125.09           0.02     730429.15  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=J           PASS       11125.09           0.02     644164.74  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=K           PASS       11125.09           0.02     725128.29  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=J           PASS       11125.09           0.02     716521.13  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=K           PASS       11125.09           0.02     641481.49  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=J           PASS       11125.09           0.01     770788.68  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=K           PASS       11125.09           0.01     756211.09  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=J           PASS       11125.09           0.02     688809.25  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=K           PASS       11125.09           0.02     642993.05  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=J           PASS       11125.09           0.02     727593.17  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=K           PASS       11125.09           0.01     747189.84  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=J           PASS       11125.09           0.02     652414.72  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=K           PASS       11125.09           0.02     702307.39  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J           PASS       11041.76           0.02     734372.66  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K           PASS       11041.76           0.01     758574.28  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J           PASS       11041.76           0.02     670592.76  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K           PASS       11041.76           0.01     749866.05  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=J           PASS       11041.76           0.01     736392.76  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=K           PASS       11041.76           0.02     726196.84  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=J           PASS       11041.76           0.02     715118.08  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=K           PASS       11041.76           0.02     696156.05  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J           PASS       11125.09           0.02     650840.44  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K           PASS       11125.09           0.02     652688.49  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J           PASS       11208.42           0.02     658074.60  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K           PASS       11208.42           0.02     598857.78  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=0                PASS       10458.42           0.01     701179.35  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=1                PASS       10625.09           0.01     755720.48  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=0                PASS       10791.75           0.02     682137.15  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=1                PASS       10958.42           0.02     723791.77  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=0                PASS       10625.09           0.01     728850.53  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=1                PASS       10791.75           0.01     745489.61  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=0                PASS       10958.42           0.01     775458.04  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=1                PASS       11125.09           0.01     747788.55  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=0                      PASS        5625.04           0.01     723516.48  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=1                      PASS        5625.05           0.01     732115.33  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=2                      PASS        5625.05           0.01     751541.70  **
+                                                         ** test_usb_utmi_phy.test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=3                      PASS        5625.05           0.01     745086.02  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=False        PASS        5958.38           0.01     546006.45  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=True         PASS        5791.71           0.01     548109.32  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=False        PASS        6125.05           0.01     553634.84  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=True         PASS        5958.38           0.01     540398.33  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=False   PASS        6208.38           0.01     468426.80  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=True    PASS        6041.71           0.01     533726.27  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=False   PASS        6375.05           0.01     535957.14  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=True    PASS        6208.38           0.01     522447.85  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=False     PASS        6541.72           0.01     494787.72  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=True      PASS        6375.05           0.01     518025.11  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=False     PASS        6708.39           0.01     505134.72  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=True      PASS        6541.72           0.01     475799.99  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=False       PASS        7458.39           0.02     454394.18  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=True        PASS        7291.72           0.02     405942.54  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=False       PASS        7625.06           0.02     413666.83  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=True        PASS        7458.39           0.02     463009.41  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=False       PASS        9041.74           0.02     497191.80  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=True        PASS        8875.07           0.02     510781.66  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=False       PASS        9208.41           0.02     463932.67  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=True        PASS        9041.74           0.02     517138.05  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=False        PASS        9125.07           0.02     528556.85  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=True         PASS        8958.40           0.02     466176.27  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=False        PASS        9291.74           0.02     502869.50  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=True         PASS        9125.07           0.02     549967.38  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=False     PASS        9208.41           0.02     499713.52  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=True      PASS        9041.74           0.02     534793.37  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=False     PASS        9375.07           0.02     511112.31  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=True      PASS        9208.41           0.02     477952.43  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=False       PASS        9291.74           0.02     529588.08  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=True        PASS        9125.07           0.02     525400.57  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=False       PASS        9458.41           0.02     432343.89  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=True        PASS        9291.74           0.02     466321.90  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=False    PASS        9375.08           0.02     538996.01  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=True     PASS        9208.41           0.02     453927.30  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=False    PASS        9541.74           0.02     508739.00  **
+                                                         ** test_usb_utmi_phy.test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=True     PASS        9375.08           0.02     463871.40  **
+                                                         ** test_usb_utmi_phy.test_pu_en_follows_termselect_gated_by_rst_n                                       PASS         541.67           0.00     292812.58  **
+                                                         ** test_usb_utmi_phy.test_trim_static_codes_do_not_affect_framing                                       PASS       41542.00           0.07     564752.73  **
+                                                         ** test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=xcvr0                                       PASS       23375.19           0.04     550779.69  **
+                                                         ** test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=suspend0                                    PASS       23375.19           0.04     539309.22  **
+                                                         ** test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=opmode01                                    PASS       23375.19           0.04     550776.60  **
+                                                         ** test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=opmode11                                    PASS       23375.19           0.04     560051.64  **
+                                                         ** test_usb_utmi_phy.test_unconsumed_pins_are_inert/variant=all                                         PASS       23375.19           0.04     554539.82  **
+                                                         ************************************************************************************************************************************************************
+                                                         ** TESTS=111 PASS=111 FAIL=0 SKIP=0                                                                              1112800.68           1.99     558486.66  **
+                                                         ************************************************************************************************************************************************************
+ees/issue-131/verification/.klt/functional-verification/klt_sdf_safe.sdf:5478: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_26_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:5515: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_29_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:5516: Unable to match ModPath A1 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_29_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:5517: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_29_
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:5518: Unable to match ModPath A2 -> Z in klt_sdf_dut_wrapper.klt_sdf_dut.u_stuffer/_29_
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5556: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5586: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5616: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5827: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5845: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5863: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5881: TIMINGCHECK not supported.
+SDF WARNING: verification/.klt/functional-verification/klt_sdf_safe.sdf:5899: TIMINGCHECK not supported.
+SDF ERROR: verification/.klt/functional-verification/klt_sdf_deferred_bus_ports.sdf:6017: Could not find intermodpath!

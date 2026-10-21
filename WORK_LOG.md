@@ -2,6 +2,85 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-10-20
+
+- **PR #217**: docs(sim): point run_corners --help examples at real bench and spec anchor
+- **Issue #216** (closed): Fix run_corners.py --help: examples cite smoke-bias and a bandgap spec left over from the harness port
+- **PR #215**: docs: record failed fleet attempts and limits for diff-receiver MC campaign
+- **PR #213**: feat(sim): klt_measure hooks and MC request builder for single-ended receivers
+- **PR #192**: docs: classify analog statistical rows and state digital item-6 N/A
+- **PR #206**: test: fail instead of skipping when DUT lacks trim[4:0]
+- **Issue #204** (closed): Remove dead legacy no-trim fallback from test_usb_utmi_phy.py (can silently skip the trim test)
+- **PR #208**: feat(sim): klt deck-list transport for all benches; refuse implicit local grid fan-out
+
+### 2026-10-18
+
+- **PR #171**: ci: cancel in-progress runs only for pull_request events
+- **Issue #138** (closed): CI: preserve started main verification runs with event-aware concurrency
+
+### 2026-10-17
+
+- **PR #198**: chore(verification): remove superseded gate-sdf request
+- **Issue #196** (closed): Remove verification/request-usb-utmi-phy-gate-sdf.json: request for a superseded layout that README says must not be run
+- **PR #184**: refactor(layout): remove inert BLOCKED_BLOCKS path from gen_analog_layout.py
+- **PR #178**: test: use shared start_clock in four remaining cocotb testbenches
+- **PR #181**: refactor: route design netlisting through klt netlist
+- **Issue #179** (closed): Simplify design/netlist.py: replace raw xschem call with klt netlist
+- **Issue #177** (closed): Remove inert BLOCKED_BLOCKS path from gen_analog_layout.py: empty since #72
+- **Issue #176** (closed): Finish #44: four cocotb testbenches still redefine the shared 12 MHz clock helper
+
+### 2026-10-16
+
+- **PR #173**: chore(sim): remove unused mk_dut.py and fix stale DUT references
+- **PR #172**: Bump Repo Skills 0.24.1 -> 0.24.3
+- **Issue #107** (closed): Remove sim/tools/mk_dut.py: unused, superseded by design/netlist.py
+
+### 2026-10-15
+
+- **PR #170**: docs(records): equivalence-sim attempts on flattened driver incomplete; raise signal-quality timeout
+- **PR #169**: feat(analog): flatten driver output m=4 into parallel m=1 devices
+- **PR #168**: docs(records): driver layout-plan re-run on post-resize netlist fails on m=4
+- **PR #165**: feat(analog): re-size differential driver to meet §6 rise/fall, matching and crossover at 45/45
+- **PR #163**: Bump Repo Skills 0.19.5 -> 0.24.1
+- **PR #164**: feat(digital): SDF-annotated gate-level regression for T1 item 7.digital (#93)
+- **PR #162**: Regenerate digital physical/evidence chain from current RTL (#131)
+- **PR #149**: feat(rtl): add trim[4:0] integration input to usb_utmi_phy (#115)
+- **Issue #96** (closed): Analog: re-size differential_driver output stage to meet spec §6 rise/fall, matching, and crossover rows
+- **Issue #93** (closed): T1 item 7 (digital): run the gate-level regression with SDF back-annotation and cite it
+- **Issue #131** (closed): Re-run synthesis, P&R, signoff and post-layout records for the #130 synchronous TX reset RTL
+- **Issue #115** (closed): RTL: add trim[4:0] pass-through input port (pin contract, #109)
+
+### 2026-10-14
+
+- **Issue #90** (closed): README: embed the fleet burndown chart (one line)
+
+### 2026-10-12
+
+- **Issue #161** (closed): Auditor guard decision: keep untracked-file deletion confirmation
+
+### 2026-10-11
+
+- **PR #158**: test(utmi): pin inertness of XcvrSelect, SuspendM and non-raw OpMode
+- **PR #157**: Lint: run scripts/test_setup_env.sh from npm run lint
+- **PR #151**: docs(spec): fix evidence link in decision 0005
+- **Issue #160** (closed): Auditor guard decision: keep literal-at API body protection
+- **Issue #159** (closed): Auditor guard decision: keep detached force-push guard
+- **Issue #155** (closed): Pin the documented inertness of XcvrSelect, SuspendM and non-raw OpMode with a UTMI testbench
+- **Issue #156** (closed): Lint: run scripts/test_setup_env.sh from npm run lint so setup-env.sh regressions reach CI
+- **Issue #135** (closed): Fix broken evidence link in DR-0005
+
+### 2026-10-10
+
+- **PR #150**: feat(rtl): UTMI Reset reaches the vendored RX transforms synchronously (#132)
+- **PR #153**: fix(verification): current-source records superseding stale #112/#113 carry-forwards (#147)
+- **Issue #132** (closed): Decide whether UTMI Reset should reach the vendored RX transforms synchronously
+- **Issue #152** (closed): Build failure on main: pin-contract planned TXOE test is stale
+- **Issue #147** (closed): Build failure on main: nine stale provenance errors block check:ci
+- **PR #146**: RTL: add txoe driver-enable output (pin contract, #109)
+- **PR #145**: RTL: add pu_en output derived from TermSelect (#112)
+- **Issue #113** (closed): RTL: add txoe driver-enable output (pin contract, #109)
+- **Issue #112** (closed): RTL: add pu_en output derived from TermSelect (pin contract, #109)
+
 ### 2026-10-09
 
 - **Issue #106** (closed): Post-layout STA: SPEF parasitics not applied despite 342/342 net-name annotation (follow-up to #92)

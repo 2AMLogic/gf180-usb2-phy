@@ -1,0 +1,19 @@
+{
+  "rows": [
+    {
+      "id": "utmi-interface",
+      "class": "functional",
+      "reason": "Pass/fail is a deterministic cocotb result against the RTL and the gate-level netlist; no input to it is a random variable."
+    },
+    {
+      "id": "rx-clock-tolerance",
+      "class": "parametric-sweep",
+      "reason": "Decided by a deterministic sweep of the receive clock ratio (DR-0003); the margin is a function of the swept ratio, not of a distribution."
+    },
+    {
+      "id": "digital-timing-closure",
+      "class": "timing-corner",
+      "reason": "Static timing analysis at each of the 45 fixed PVT points is corner-bounded; slack is computed, not sampled."
+    }
+  ]
+}

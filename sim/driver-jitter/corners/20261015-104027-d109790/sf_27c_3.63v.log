@@ -1,0 +1,36 @@
+klt sim per-corner result (batch backend), corner sf/3.630V/27C -> sf_27c_3.63v
+status: pass  runtime_s: 9.683
+
+             tx1 = 2.87198e-07 s  [pass]
+             tx2 = 3.70531e-07 s  [pass]
+             tx3 = 5.37198e-07 s  [pass]
+             tx4 = 6.20531e-07 s  [pass]
+             tx5 = 8.70531e-07 s  [pass]
+             tx6 = 9.53865e-07 s  [pass]
+             tx7 = 1.45386e-06 s  [pass]
+             tx8 = 1.5372e-06 s  [pass]
+             tx9 = 1.5372e-06 s  [pass]
+            dev0 = 0.0   [pass]
+            dev1 = 7.56725e-14   [pass]
+            dev2 = -3.40845e-14   [pass]
+            dev3 = 7.64861e-14   [pass]
+            dev4 = 6.12644e-14   [pass]
+            dev5 = 4.43749e-14   [pass]
+            dev6 = -5.09365e-14   [pass]
+            dev7 = 9.4847e-15   [pass]
+           cons0 = 7.56725e-14   [pass]
+           cons1 = -1.09757e-13   [pass]
+           cons2 = 1.10571e-13   [pass]
+           cons3 = -1.52217e-14   [pass]
+           cons4 = -1.68895e-14   [pass]
+           cons5 = -9.53113e-14   [pass]
+           cons6 = 6.04212e-14   [pass]
+        tprop_ns = 3.8645 ns  [pass]
+  jit_grid_pp_ps = 0.127423 ps  [pass]
+ jit_grid_max_ps = 0.0764861 ps  [pass]
+  jit_cons_pp_ps = 0.220328 ps  [pass]
+ jit_cons_max_ps = 0.110571 ps  [pass]
+  xings_extra_ps = 0.0 ps  [pass]
+
+verdict: PASS
+full report: klt-sim-report.json

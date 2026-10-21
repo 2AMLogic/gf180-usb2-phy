@@ -71,11 +71,48 @@ class PinContractTests(unittest.TestCase):
                   ".subckt differential_driver VDD", ".subckt differential_driver NEWPIN VDD")
         self.assertTrue(any("not covered" in e or "NEWPIN" in e for e in cpc.check(self.root)))
 
-    # Uses trim[4:0] (planned-dig, #115); PU_EN (#112) and the digital txoe
-    # port (#113) have landed and their rows are current / planned-ana.
+    # Every digital side has now landed (PU_EN #112, txoe #113, trim #115),
+    # so no real row is planned-dig any more. Revert one landed row to its
+    # former planned status and assert the existing port trips the check:
+    # landing a follow-up without flipping its row must still fail.
     def test_planned_pin_landing_without_table_update_fails(self):
-        self.edit(cpc.RTL, "output wire txdm,", "output wire txdm,\n    input  wire [4:0] trim,")
+        self.edit(cpc.RECORD, "| I | current | integrator | test-time code |",
+                  "| I | planned-dig #115 | integrator | test-time code |")
         self.assertTrue(any("planned" in e and "trim" in e for e in cpc.check(self.root)))
+
+    # TXOE's analog side has landed (#114): reverting its row to the former
+    # planned-ana status while the netlist pin exists must fail with a
+    # "planned" error, i.e. landing a follow-up without flipping the row
+    # is still caught.
+    def test_planned_analog_landing_without_table_update_fails(self):
+        self.edit(cpc.RECORD, "| I | current | RTL | `tx_state != TX_IDLE`",
+                  "| I | planned-ana #114 | RTL | `tx_state != TX_IDLE`")
+        self.assertTrue(any("planned" in e and "TXOE" in e for e in cpc.check(self.root)))
+
+    # --- trim[4:0] (#115): the current TRIM rows pin a five-bit input.
+    def test_trim_rows_are_current_five_bit_input(self):
+        rows = cpc.parse_table((self.root / cpc.RECORD).read_text())
+        trim = [r for r in rows if r["pin"].startswith("TRIM")]
+        self.assertEqual([r["dport"] for r in trim], [f"trim[{i}]" for i in range(5)])
+        self.assertTrue(all(r["status"] == "current" and r["ddir"] == "input" for r in trim))
+        self.assertEqual([r["apin"] for r in trim], [f"dplus_pullup.TRIM{i}" for i in range(5)])
+        ports = cpc.parse_verilog_ports((self.root / cpc.RTL).read_text())
+        self.assertEqual(ports["trim"], ("input", 5))
+
+    def test_missing_trim_port_fails(self):
+        self.edit(cpc.RTL, "input  wire [4:0] trim,\n", "")
+        errs = cpc.check(self.root)
+        self.assertTrue(any("'trim' missing" in e for e in errs), errs)
+        self.assertEqual(cpc.main(["--root", str(self.root)]), 1)
+
+    def test_too_narrow_trim_bus_fails(self):
+        self.edit(cpc.RTL, "input  wire [4:0] trim,", "input  wire [3:0] trim,")
+        errs = cpc.check(self.root)
+        self.assertTrue(any("TRIM4" in e and "outside trim width 4" in e for e in errs), errs)
+
+    def test_trim_direction_flip_fails(self):
+        self.edit(cpc.RTL, "input  wire [4:0] trim,", "output wire [4:0] trim,")
+        self.assertTrue(any("port trim is output" in e for e in cpc.check(self.root)))
 
     def test_bad_table_is_parse_error(self):
         self.edit(cpc.RECORD, cpc.BEGIN, "")

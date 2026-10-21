@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_utmi_phy",
+  "testbench": "test_usb_utmi_txoe",
+  "status": "pass",
+  "test_count": 5,
+  "passed_count": 5,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_txoe_idle_and_rx_low",
+      "status": "passed",
+      "sim_time_ns": 4291.701,
+      "real_time_s": 0.0041294097900390625
+    },
+    {
+      "name": "test_txoe_spans_packet_sync_through_final_j",
+      "status": "passed",
+      "sim_time_ns": 6875.054999999999,
+      "real_time_s": 0.0067691802978515625
+    },
+    {
+      "name": "test_txoe_high_through_flush_path",
+      "status": "passed",
+      "sim_time_ns": 6875.0549999999985,
+      "real_time_s": 0.0064160823822021484
+    },
+    {
+      "name": "test_txoe_raw_mode",
+      "status": "passed",
+      "sim_time_ns": 5208.375,
+      "real_time_s": 0.0042536258697509766
+    },
+    {
+      "name": "test_txoe_back_to_back_packets",
+      "status": "passed",
+      "sim_time_ns": 13541.774999999998,
+      "real_time_s": 0.011594533920288086
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "<worktree>/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1,
+    "sdf": null
+  }
+}

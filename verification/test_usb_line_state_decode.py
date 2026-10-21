@@ -14,21 +14,14 @@ This file is *input* to `klt functional-verification` (see
 """
 
 import cocotb
-from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge
 
-# spec/usb2-device-phy.md #3 ratifies a 12 MHz interface clock. See
-# test_usb_nrzi_encoder.py for why 83334 ps rather than 83333 ps.
-CLK_PERIOD_PS = 83334
+from cocotb_helpers import start_clock as _start_clock
 
 LS_SE0 = 0b00
 LS_J = 0b01
 LS_K = 0b10
 LS_SE1 = 0b11
-
-
-async def _start_clock(dut):
-    cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_PS, unit="ps").start())
 
 
 async def _reset(dut, rxdp=1, rxdm=0):

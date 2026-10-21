@@ -6,8 +6,10 @@
     python3 design/netlist.py --cell differential_driver
 
 Every ``design/*.sch`` cell is netlisted **as a ``.subckt``** into
-``design/netlist/<cell>.spice`` via a real, headless `xschem -x -q -n` run
-(no X11/DISPLAY required -- confirmed working in this repo's environment).
+``design/netlist/<cell>.spice`` via ``klt netlist`` (klayout-tools), which owns
+the headless xschem invocation: forced ``-n -s -q -x -r`` flags, a bounded
+``--timeout-s`` (SIGTERM -> SIGKILL), and success judged by a freshly written
+output. Never invoke raw ``xschem`` here -- it can hang in the Tk loop.
 There is no designated top-level/hierarchy cell yet (issue #30's two cells,
 the differential driver and the D+ pull-up, are each flat leaf blocks with
 no sub-instances of one another or of anything else in ``design/``) -- so,
@@ -20,14 +22,17 @@ that machinery, not reinvent it.
 The export is deterministic: absolute paths that xschem records in
 ``sch_path`` comments are rewritten repo-relative, so the same sources
 produce byte-identical netlists on any machine. ``--check`` re-runs the
-export into a temporary directory and diffs it against what is committed;
+export into a temporary directory and diffs it against what is committed
+(not ``klt netlist --check``: the committed files carry a header this script
+adds after the export);
 it fails if the committed netlists are stale or the export is not
 reproducible.
 
 PDK discovery is delegated to ``sim/harness/pdk.py`` so the repo has exactly
 one implementation of "where is gf180mcu". Ported from gf180-temp-por's
 ``design/netlist.py`` (CLAUDE.md's harness-bootstrap instruction), simplified
-for this repo's flat (non-hierarchical) cell set.
+for this repo's flat (non-hierarchical) cell set, then moved onto
+``klt netlist``.
 """
 
 from __future__ import annotations
@@ -61,8 +66,8 @@ def cells() -> list[str]:
     return names
 
 
-def xschem_env() -> dict[str, str]:
-    """Environment for xschem: the PDK the sim harness would use."""
+def xschem_env() -> tuple[dict[str, str], str, str]:
+    """Environment for klt/xschem plus the (pdk variant, pdk root) to pass to klt."""
     pdk = find_pdk()
     env = dict(os.environ)
     env["PDK_ROOT"] = str(pdk.path.parent)
@@ -70,7 +75,7 @@ def xschem_env() -> dict[str, str]:
     env["GF180_PDK_PATH"] = str(pdk.path)
     # Keep batch runs off the user's ~/.xschem state.
     env.setdefault("XSCHEM_USER_LIBRARY_PATH", str(DESIGN_DIR))
-    return env
+    return env, pdk.variant, str(pdk.path.parent)
 
 
 def normalize(text: str) -> str:
@@ -81,27 +86,25 @@ def normalize(text: str) -> str:
     return text.rstrip("\n") + "\n"
 
 
-def export_cell(cell: str, outdir: Path, env: dict[str, str]) -> str:
-    """Run xschem headless on one cell and return its normalized netlist."""
+def export_cell(cell: str, outdir: Path, env: dict[str, str], pdk: str, pdk_root: str) -> str:
+    """Run ``klt netlist`` on one cell and return its normalized netlist."""
     sch = DESIGN_DIR / f"{cell}.sch"
     if not sch.is_file():
         raise ExportError(f"no such cell: {sch}")
+    produced = outdir / f"{cell}.spice"
     cmd = [
-        "xschem",
-        "-x",  # no X11: batch
-        "-q",  # quit when done
-        "-n",  # netlist
-        "-s",  # spice
-        "-r",  # no tclreadline (stdin/stdout may be redirected)
+        "klt", "netlist",
         "--rcfile", str(XSCHEMRC),
-        "-o", str(outdir),
+        "--pdk", pdk,
+        "--pdk-root", pdk_root,
+        "--backend", "local",
+        "-o", str(produced),
         str(sch),
     ]
     proc = subprocess.run(cmd, env=env, capture_output=True, text=True)
-    produced = outdir / f"{cell}.spice"
     if proc.returncode != 0 or not produced.is_file():
         raise ExportError(
-            f"xschem failed for {cell} (exit {proc.returncode})\n"
+            f"klt netlist failed for {cell} (exit {proc.returncode})\n"
             f"--- stdout ---\n{proc.stdout}\n--- stderr ---\n{proc.stderr}"
         )
     text = normalize(produced.read_text())
@@ -112,19 +115,31 @@ def export_cell(cell: str, outdir: Path, env: dict[str, str]) -> str:
     return header + text
 
 
+def klt_version() -> str:
+    """The ``klt --version`` line, or ``unknown`` (the netlist text is klt-version sensitive)."""
+    try:
+        proc = subprocess.run(["klt", "--version"], capture_output=True, text=True, timeout=60, check=False)
+    except (OSError, subprocess.TimeoutExpired):
+        return "unknown"
+    return (proc.stdout or proc.stderr).strip() or "unknown"
+
+
 def run(check: bool, only: str | None, verbose: bool) -> int:
     try:
-        env = xschem_env()
+        env, pdk, pdk_root = xschem_env()
     except PdkNotFound as exc:
         print(f"design/netlist.py: {exc}", file=sys.stderr)
         return 2
 
+    version = klt_version()
+    if verbose:
+        print(f"  {version}")
     wanted = [only] if only else cells()
     netlists: dict[str, str] = {}
     with tempfile.TemporaryDirectory(prefix="gf180-netlist-") as tmp:
         outdir = Path(tmp)
         for cell in wanted:
-            netlists[cell] = export_cell(cell, outdir, env)
+            netlists[cell] = export_cell(cell, outdir, env, pdk, pdk_root)
             if verbose:
                 print(f"  netlisted {cell}")
 
@@ -160,7 +175,13 @@ def run(check: bool, only: str | None, verbose: bool) -> int:
 
     status = 0
     if failures:
-        print("\nFAIL:", file=sys.stderr)
+        print(f"\nFAIL (with {version}):", file=sys.stderr)
+        if check:
+            print(
+                "  note: the exported text (pin-comment style, line wrapping) differs "
+                "between klt builds; see design/README.md for the verified klt.",
+                file=sys.stderr,
+            )
         for failure in failures:
             print(f"  - {failure}", file=sys.stderr)
         status = 1
@@ -171,7 +192,7 @@ def run(check: bool, only: str | None, verbose: bool) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Export ngspice netlists from design/*.sch via xschem.",
+        description="Export ngspice netlists from design/*.sch via klt netlist.",
     )
     parser.add_argument(
         "--check",

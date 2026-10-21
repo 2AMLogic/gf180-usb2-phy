@@ -52,8 +52,8 @@ these records, because none of them is a subset.
   same extraction recipe reported full name annotation while OpenSTA applied
   no wire parasitics (`delay_changed: false`); the 364/366 figure was not
   re-checked for attachment. The current digital STA evidence is
-  `verification/records/post-layout-pvt/records/20261008-195826-74ccfac.md`
-  (three liberty corners, parasitics attached with `--def-pins`, 7 unannotated
+  `verification/records/post-layout-pvt/records/20261015-011505-32db02a.md`
+  (regenerated layout of #131; three liberty corners, parasitics attached with `--def-pins`, 7 unannotated
   and 3 partially unannotated drivers, lumped capacitance with no wire RC
   delay, ideal clock, no lateral coupling; not RC signoff and not the §8.1
   45-corner matrix — see `manifests/README.md` item 5.digital).
@@ -75,54 +75,65 @@ experiment directory, and read its newest record.
 
 | §8.2 row | Verified against | Experiment | Record | Verdict |
 |---|---|---|---|---|
-| Rise/fall time | §6 (4–20 ns into 50 pF) | `sim/driver-signal-quality/` | `20260817-203552-a408cb6` | **FAIL** — 3/45 corners exceed 20 ns |
-| Crossover voltage | §6 (1.3–2.0 V) | `sim/driver-signal-quality/` | `20260817-203552-a408cb6` | **FAIL** — 2/45 corners below 1.3 V |
-| Rise/fall matching | §6 (within 10 % of each other) | `sim/driver-signal-quality/` | `20260817-203552-a408cb6` | **FAIL** — 36/45 corners outside ±10 % |
-| Full-speed signal quality | §6 rows as a set + monotonic single-zero-crossing transition | `sim/driver-signal-quality/` | `20260817-203552-a408cb6` | **FAIL** on the §6 numeric rows above; the monotonicity/single-crossing half **passes** at 45/45 |
-| Driver-output timing jitter | §8.2's own note: no confirmed numeric limit ⇒ engineering data, no spec citation | `sim/driver-jitter/` | `20260817-203915-5a963e7` | **No pass/fail claimed** (see below) — data recorded at 45/45 |
+| Rise/fall time | §6 (4–20 ns into 50 pF) | `sim/driver-signal-quality/` | `20261015-104027-d109790` (supersedes `20260817-203552-a408cb6`) | **PASS** 45/45 — rise 4.09–8.78 ns (fast corner only 2.3 % above the 4 ns floor) |
+| Crossover voltage | §6 (1.3–2.0 V) | `sim/driver-signal-quality/` | `20261015-104027-d109790` | **PASS** 45/45 — 1.405–1.883 V |
+| Rise/fall matching | §6 (within 10 % of each other) | `sim/driver-signal-quality/` | `20261015-104027-d109790` | **PASS** 45/45 — ratio 0.944–1.086 |
+| Full-speed signal quality | §6 rows as a set + monotonic single-zero-crossing transition | `sim/driver-signal-quality/` | `20261015-104027-d109790` | **PASS** 45/45 on the §6 numeric rows; the monotonicity/single-crossing half also passes at 45/45 (`xing_extra_ps` = 0 everywhere) |
+| Driver-output timing jitter | §8.2's own note: no confirmed numeric limit ⇒ engineering data, no spec citation | `sim/driver-jitter/` | `20261015-104027-d109790` (supersedes `20260817-203915-5a963e7`) | **No pass/fail claimed** (see below) — data recorded at 45/45 |
 | D+ pull-up tolerance | §5 (1.5 kΩ ±5 %) | `sim/dplus-pullup-tolerance/` | `20260905-185112-6bfe679` (supersedes `20260817-203609-a408cb6`) | **PASS** 45/45 — re-run against the flattened `dplus_pullup` netlist (issue #56 / DR-0001); same verdict, same trim code at every corner, ≤ 0.01 Ω from the superseded result |
 | Receiver thresholds — differential | §4 (\|D+ − D−\| > 200 mV over 0.8–2.5 V common mode) | `sim/diff-receiver-sensitivity/` | `20261008-193113-2e9f63e` (supersedes `20260817-203852-5a963e7`) | **PASS** — 45/45 corners at each of the 0.8 V, 1.65 V and 2.5 V common-mode points; worst input-referred threshold −81 mV (`fs_125c_2.97v`, 2.5 V common mode). Sizing fix in issue #97; the previous record's 30/45 failure at 2.5 V is retained as history in the section below |
 | Receiver thresholds — single-ended D+ | §4 (VIH > 2.0 V, VIL < 0.8 V) | `sim/se-receiver-dp-thresholds/` | `20260817-203631-a408cb6` | **PASS** 45/45 |
 | Receiver thresholds — single-ended D− | §4 (VIH > 2.0 V, VIL < 0.8 V) | `sim/se-receiver-dm-thresholds/` | `20260817-203654-a408cb6` | **PASS** 45/45 |
-| DRC / LVS | §8.2 marks this "N/A — layout hygiene, not an electrical spec row" | `layout/digital/`; `layout/analog/` | `verification/records/digital-drc/records/20260825-224815-6a83263.md`; `verification/records/digital-lvs/records/20260825-224930-6a83263.md`; `verification/records/analog-layout/records/20260905-200628-80cb14c.md`; `verification/records/analog-layout/records/20260905-190024-525c67c.md` | **PASS for the digital half. Analog half not delivered.** `klt drc` on `layout/digital/usb_utmi_phy.gds` is `clean` / 0 violations; gate-level `klt lvs` against the as-built netlist is `match` / 0 mismatches, with a passing negative control (the digital rows are cited at their original records; later re-runs are in `verification/records/digital-drc/` and `digital-lvs/`). For analog, the current state is in `layout/README.md` § "Analog" ("Current state in one paragraph") and `verification/records/analog-layout/records/20260921-130120-223bae5.md`: all five blocks have committed layout *plans* and every executed placement is DRC-clean, but routing is incomplete (`dplus_pullup` 6/21 nets, the three receiver plans 1 of 8/9/9, `differential_driver` 0/10), no signoff-quality analog GDS is committed and no analog LVS match is claimed (the only committed analog GDS and LVS result are the `differential_receiver` evidence artifacts below, and that LVS is a mismatch), and `differential_receiver` was re-measured after issue #97's resize (`20261009-203500-7a8e831`): geometry carries the new 32u/2u devices and DRC is clean, but `klt lvs` is a mismatch and only 1 of 8 nets is routed. The earlier DRC-violating receivers (klayout-tools#1424) were cleared by the legal-width plan fix (issue #65), and the `differential_driver` ingestion error (`rm1`) and `dplus_pullup` blocker are both cleared (issues #56/#70/#72); those statements in the superseded records `20260905-200628-80cb14c` and `20260905-190024-525c67c` are history. No analog row is substantiated by layout. **The driver rows above remain unmet in simulation.** §11 requires both halves before signoff. |
+| DRC / LVS | §8.2 marks this "N/A — layout hygiene, not an electrical spec row" | `layout/digital/`; `layout/analog/` | `verification/records/digital-drc/records/20260825-224815-6a83263.md`; `verification/records/digital-lvs/records/20260825-224930-6a83263.md`; `verification/records/analog-layout/records/20260905-200628-80cb14c.md`; `verification/records/analog-layout/records/20260905-190024-525c67c.md` | **PASS for the digital half. Analog half not delivered.** `klt drc` on `layout/digital/usb_utmi_phy.gds` is `clean` / 0 violations; gate-level `klt lvs` against the as-built netlist is `match` / 0 mismatches, with a passing negative control (the digital rows are cited at their original records; later re-runs are in `verification/records/digital-drc/` and `digital-lvs/`). For analog, the current state is in `layout/README.md` § "Analog" ("Current state in one paragraph") and `verification/records/analog-layout/records/20260921-130120-223bae5.md`: all five blocks have committed layout *plans* and every executed placement is DRC-clean, but routing is incomplete (`dplus_pullup` 6/21 nets, the three receiver plans 1 of 8/9/9, `differential_driver` 0/10), no signoff-quality analog GDS is committed and no analog LVS match is claimed (the only committed analog GDS and LVS result are the `differential_receiver` evidence artifacts below, and that LVS is a mismatch), and `differential_receiver` was re-measured after issue #97's resize (`20261009-203500-7a8e831`): geometry carries the new 32u/2u devices and DRC is clean, but `klt lvs` is a mismatch and only 1 of 8 nets is routed. The earlier DRC-violating receivers (klayout-tools#1424) were cleared by the legal-width plan fix (issue #65), and the `differential_driver` ingestion error (`rm1`) and `dplus_pullup` blocker are both cleared (issues #56/#70/#72); those statements in the superseded records `20260905-200628-80cb14c` and `20260905-190024-525c67c` are history. No analog row is substantiated by layout. **The driver rows above now pass in simulation (issue #96); no driver layout is committed.** §11 requires both halves before signoff. |
 
-**No spec limit was relaxed to produce this table.** Four index rows fail at
-some corners, all of them driver rows (§6: rise/fall time, crossover, rise/fall
-matching, and the full-speed signal-quality row that aggregates them; the
-differential receiver row formerly in this set now passes — see its section
-below); those are recorded as failures with the offending corner-ids and
-measured values, per `CLAUDE.md` ("Agents do not relax the ratified spec to
-make a result pass"). The design changes that would fix them are *not* in
-scope here — this issue's product is the measurement.
+**No spec limit was relaxed to produce this table.** The four driver index
+rows (§6: rise/fall time, crossover, rise/fall matching, and the full-speed
+signal-quality row that aggregates them) failed in the first record,
+`20260817-203552-a408cb6`, and pass at 45/45 in `20261015-104027-d109790`
+(issue #96). The ratified §6 limits are unchanged; the fix is a re-size of the
+output stage and predriver in `design/differential_driver.sch`. The old
+record stays as the evidence of the 60/30 µm design.
 
-## What each failure actually says
+## Driver §6 rows — failure history and the fix (issue #96)
 
-### Rise/fall matching (36/45 corners) — the dominant failure
+**Current result** (`20261015-104027-d109790`, supersedes
+`20260817-203552-a408cb6`): 45/45 corners pass every §6 row, taken through
+`klt sim` on the Spot batch fleet (ngspice-46). Rise 4.09–8.78 ns, fall
+4.13–8.76 ns, `t_rise/t_fall` 0.944–1.086, crossover 1.405–1.883 V, overshoot
+and undershoot ≤ 1.4 mV in magnitude, no extra zero crossings. Nominal
+(`tt`/27 °C/3.30 V): rise 5.90 ns, fall 5.86 ns, ratio 1.006, crossover
+1.633 V.
 
-`t_rise / t_fall` ranges from 0.979 (`sf_125c_3.63v`) to 1.402
-(`fs_-40c_2.97v`) against a ratified window of [0.90, 1.10]. The driver's
-output stage is a 60 µm PMOS / 30 µm NMOS pair into a fixed ~36 Ω `rm1` series
-termination, so its pull-up is systematically weaker than its pull-down once
-carrier mobility is accounted for, and the imbalance is amplified by the
-skewed process corners (`fs` — fast NMOS, slow PMOS — is the worst, exactly as
-the topology predicts; `sf` is the only corner family that lands inside the
-window). This is a device-sizing result, not a measurement artifact.
+**Re-size**: output PMOS `W=60u` → `W=80u m=4`, output NMOS `W=30u` →
+`W=30u m=4` (an effective 320u/120u, P:N ≈ 2.7:1 rather than 2:1), predriver
+PMOS/NMOS `4u/2u` → `8u/2.5u`. The `rm1` ~36 Ω series termination and the poly
+slew resistor are unchanged, so the §6 output resistance is untouched. The
+larger output stage cuts the RC at the gate and lets the P:N ratio be tuned
+for equal rise and fall.
 
-### Rise time > 20 ns (3/45 corners)
+**Residual risk, not a failure**: the fast corner (`ff`, −40 °C, 3.63 V) has
+rise 4.094 ns and fall 4.132 ns, 2.3 % and 3.3 % above the 4 ns floor. That
+is a pass, and it is also the thinnest margin in the table; layout parasitics
+(none committed) will slow edges, which helps this end and costs margin at
+the 20 ns end, where there is a factor of 2.3.
 
-`ss_125c_2.97v` (22.33 ns), `fs_125c_2.97v` (20.92 ns) and `ss_125c_3.30v`
-(20.79 ns) — slow process, hot, low supply, i.e. the weakest-drive corner of
-the matrix. The nominal-corner value is 15.1 ns, so the design has margin at
-`tt` and loses it at the corner. The floor of the range (4 ns) is never
-approached: the fastest corner is 10.8 ns.
+### What was wrong (history, from `20260817-203552-a408cb6`)
 
-### Crossover voltage < 1.3 V (2/45 corners)
+**Rise/fall matching, 36/45 corners.** `t_rise / t_fall` ranged from 0.979
+(`sf_125c_3.63v`) to 1.402 (`fs_-40c_2.97v`) against a ratified window of
+[0.90, 1.10]. The output stage was a 60 µm PMOS / 30 µm NMOS pair into a fixed
+~36 Ω `rm1` series termination, so its pull-up was systematically weaker than
+its pull-down once carrier mobility is accounted for, and the imbalance was
+amplified by the skewed process corners (`fs` was worst, `sf` the only family
+inside the window).
 
-`fs_27c_2.97v` (1.2935 V) and `fs_-40c_2.97v` (1.2968 V), both a few
-millivolts under the 1.3 V limit and both on the fast-NMOS/slow-PMOS corner at
-the low supply — the same asymmetry the matching failure comes from, seen as a
-crossing that sits below mid-rail. Every other corner is comfortably inside
-1.3–2.0 V (grid maximum 1.941 V at `sf_-40c_3.63v`).
+**Rise time > 20 ns, 3/45 corners:** `ss_125c_2.97v` (22.33 ns),
+`fs_125c_2.97v` (20.92 ns) and `ss_125c_3.30v` (20.79 ns), the weakest-drive
+corners of the matrix.
+
+**Crossover < 1.3 V, 2/45 corners:** `fs_27c_2.97v` (1.2935 V) and
+`fs_-40c_2.97v` (1.2968 V), the same asymmetry seen as a crossing below
+mid-rail.
 
 ### Differential receiver at 2.5 V common mode (was 30/45 corners; now 45/45)
 
@@ -170,12 +181,15 @@ actually moved. What the record contains:
 
 - **Edge-to-edge timing variation across the corner set** (which is what the
   §8.2 method column asks for): driver propagation delay to the first
-  differential crossing spans **5.36 ns** (`ff_-40c_3.63v` end) to **10.10 ns**
-  (`ss_125c_2.97v` end) — a 4.74 ns spread across the 45 corners.
+  differential crossing spans **3.02 ns** (`ff_-40c_3.63v` end) to **5.50 ns**
+  (`ss_125c_2.97v` end) — a 2.48 ns spread across the 45 corners
+  (`20261015-104027-d109790`, the re-sized driver; the superseded record had
+  5.36–10.10 ns).
 - **Data-dependent jitter within one corner**, over an 18-bit 12 Mbps pattern
-  with run lengths 1, 1, 2, 1, 3, 1, 6, 1, 2: peak-to-peak ≤ **2.53 ps**
-  consecutive-transition and ≤ **1.33 ps** against the ideal bit grid. At an
-  83.33 ns bit time that is ~3 × 10⁻⁵ UI, i.e. negligible — and small enough
+  with run lengths 1, 1, 2, 1, 3, 1, 6, 1, 2: peak-to-peak ≤ **0.26 ps**
+  consecutive-transition and ≤ **0.16 ps** against the ideal bit grid (the
+  superseded record: 2.53 ps and 1.33 ps). At an
+  83.33 ns bit time that is ~3 × 10⁻⁶ UI, i.e. negligible — and small enough
   to be at the resolution floor of the transient solver, so it should be read
   as "below the noise of this measurement", not as a precise figure.
 
@@ -200,7 +214,7 @@ Gate-level PVT timing closure of that logic across the same §8.1 grid is
 **not** covered: STA exists at three liberty corners only (see the
 netlist-provenance note above), and the SDF-annotated gate-level replay was
 attempted and blocked (`verification/records/post-layout-functional/` record
-`20261008-211700-2875d57`, klayout-tools#2885). §8.2 does
+`20261015-011506-32db02a`; zero-delay replay 111/111, SDF annotation still rejected, klayout-tools#2885/#2886). §8.2 does
 not require it, so it is noted here as a known gap rather than claimed.
 
 ## Reproducing any row

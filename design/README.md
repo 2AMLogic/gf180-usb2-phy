@@ -15,13 +15,26 @@ Do not restructure or remove another issue's section from this file.
   `design/netlist/<cell>.spice` for every `design/*.sch`).
   `python3 design/netlist.py --check` verifies the committed netlists are
   current and reproduce byte-for-byte. Both need `source sim/env.sh` first
-  (PDK discovery) and a real `xschem`/`ngspice` on `PATH`.
-- **Headless xschem, no DISPLAY/X11 needed**: `xschem -x -q -n -s -r
-  --rcfile design/xschemrc -o <outdir> <cell>.sch` runs and netlists
-  correctly with no X server at all (`-x` disables the Tk GUI) -- confirmed
-  working in this repo's CI-equivalent environment. `design/netlist.py`
-  uses exactly this invocation, ported from the equivalent script in
-  `gf180-temp-por`/`gf180-bandgap` (CLAUDE.md's harness-bootstrap
+  (PDK discovery) and `klt` (klayout-tools) plus `ngspice` on `PATH`.
+- **klt version.** `klt netlist` does not exist in the CI/repo pin
+  (`e8ca621a`, `klt 0.5.0+ge8ca621a6961`), so `netlist.py` runs on a newer
+  host klt than that pin. The committed netlists reproduce byte-for-byte
+  (`python3 design/netlist.py --check -v`: `OK: 5 netlist(s)`) with
+  `klt 0.7.1.dev1624+gdfc7323c0839`. A reviewer's run on
+  `klt 0.7.1.dev1614+gdb1192cb3a0b` did not (`*.iopin`/`*.ipin` pin comments
+  instead of `*.PININFO`, commented `.subckt`, re-wrapped device lines), so
+  the export is klt-build sensitive; `--check` prints the klt version on
+  failure. The committed netlists are deliberately not regenerated or
+  normalized around that difference.
+- **Headless xschem via `klt netlist`, never raw `xschem`**:
+  `design/netlist.py` calls `klt netlist --rcfile design/xschemrc --pdk ...
+  --pdk-root ... -o <out> <cell>.sch` per cell. `klt netlist` forces
+  `-n -s -q -x -r` (no X server needed), bounds the run with `--timeout-s`
+  (a raw `xschem` can hang in the Tk loop), and judges success by a freshly
+  written output. The script then rewrites absolute `sch_path` comments
+  repo-relative and prepends the two-line header, so it does its own
+  `--check` diff rather than using `klt netlist --check`. Originally ported
+  from `gf180-temp-por`/`gf180-bandgap` (CLAUDE.md's harness-bootstrap
   instruction).
 - **No cross-cell hierarchy yet.** Every cell currently in `design/` is a
   flat leaf block (no cell instantiates another). A future PHY-level
@@ -55,8 +68,8 @@ Targets (spec Sec.6), by design intent:
 | Parameter | Target | This cell's approach |
 |---|---|---|
 | Rise/fall time (10-90%) into 50pF | 4-20ns | `R_series` (36ohm nominal) x 50pF alone gives a ~4ns floor; `R_slew` (poly, ~4kohm) into the big output FET's gate cap adds a second RC stage so the edge lands mid-window instead of at the floor |
-| Rise/fall matching | within 10% | Output stage `Wp:Wn = 2:1` (gf180mcu 3.3V mobility ratio), both edges driven from the *same* shared gate node so they see correlated RC delay |
-| Crossover voltage | 1.3-2.0V | Balanced `Wp:Wn` centers the crossover near VDD/2 = 1.65V |
+| Rise/fall matching | within 10% | Output stage `Wp:Wn = 80u*4 : 30u*4` (P:N ~2.7:1, issue #96: the originally assumed 2:1 mobility ratio left the pull-up weak, worst at `fs`), both edges driven from the *same* shared gate node so they see correlated RC delay |
+| Crossover voltage | 1.3-2.0V | Balanced rise/fall drive centers the crossover near VDD/2 = 1.65V |
 | Output resistance | 28-44ohm | `RSER*` = `rm1`, W=2u L=800u -> 36ohm nominal (L/W=400, rsh_rm1=0.09ohm/sq) |
 
 No output-enable/tri-state in this cell. `DP`/`DM` are physically shared
@@ -73,8 +86,16 @@ comfortably inside the spec's +/-22%-wide 28-44ohm band around a 36ohm
 center -- so a plain untrimmed metal resistor is sufficient here, unlike
 the pull-up's much tighter +/-5% target.
 
-**Spot-check (informal, not a `sim/` evidence record -- #26 owns
-verification):** `ngspice -b`, tt corner, 27 degC, ideal 3.3V rail,
+**Re-size (issue #96):** output PMOS `W=80u m=4` / NMOS `W=30u m=4`,
+predriver `8u`/`2.5u` (was `60u`/`30u`, `4u`/`2u`); `rm1` termination and
+`R_slew` unchanged. All 45 PVT corners pass the Sec.6 rows (rise 4.09-8.78ns,
+fall 4.13-8.76ns, ratio 0.944-1.086, crossover 1.405-1.883V): record
+`sim/driver-signal-quality/records/20261015-104027-d109790.md`, which supersedes
+`20260817-203552-a408cb6`. The fast-corner rise time is 2.3% above the
+4ns floor, the thinnest margin.
+
+**Original spot-check of the 60u/30u design (informal, not a `sim/` evidence record -- #26 owns
+verification; superseded by the re-size above):** `ngspice -b`, tt corner, 27 degC, ideal 3.3V rail,
 `TXDP`/`TXDM` driven by a matched pulse pair into two 50pF loads, measured
 via `.meas`:
 - rise (10-90%) ~15.1ns, fall (10-90%) ~13.0ns -- both inside [4,20]ns.
@@ -369,13 +390,16 @@ net) cannot turn both devices off from one net, so each half now has two
 gated predrivers feeding the same two output devices:
 
 - `NAND(TXDx, TXOE)` -> `RSLEWP*` -> PMOS gate (`*_GATEP`); held at VDD when
-  disabled (PMOS off). `NAND` input pair sized 4u PMOS / 4u NMOS (stack).
+  disabled (PMOS off). `NAND` sized to the #96 predriver per path: PMOS 8u
+  (parallel pair), NMOS 2 x 5u (series stack, = 2.5u equivalent).
 - `NOR(TXDx, !TXOE)` -> `RSLEWN*` -> NMOS gate (`*_GATEN`); held at VSS when
   disabled (NMOS off). `!TXOE` comes from one shared inverter (`MPOEB`/`MNOEB`).
-  `NOR` pair sized 8u PMOS (stack) / 2u NMOS.
+  `NOR` sized likewise: PMOS 2 x 16u (series stack, = 8u equivalent), NMOS 2.5u
+  (parallel pair).
 
-With `TXOE=1` each predriver reduces to the old inverter, the output
-devices (60u/30u), the slew resistor value (`ppolyf_u` 1u x 2u) and the
+With `TXOE=1` each predriver reduces to the #96 predriver inverter
+(P 8u / N 2.5u), the output
+devices (4 x 80u / 4 x 30u), the slew resistor value (`ppolyf_u` 1u x 2u) and the
 `rm1` series resistor are unchanged, but the gate load is now split across
 two identical slew resistors (each sees one gate instead of both) and the
 two predrivers are slightly different stacks, so P and N gate edges are no
@@ -383,6 +407,13 @@ longer perfectly correlated as they were on the shared node. That is the
 only intended effect on the existing slew path; whether it moves any
 Sec.6 number is a measurement, see the evidence list below. `TXDP`/`TXDM`
 input capacitance roughly doubles (two gates per input per half).
+
+Re-integration (2026-10-21): this cell was rebased onto the issue #96
+re-size (output 4 x 80u / 4 x 30u, predriver 8u/2.5u). The gated predrivers
+were re-sized to those predriver strengths per path so `TXOE=1` matches the
+#96 inverter; this sizing has not been simulated across PVT -- the evidence
+below is still owed. The single-corner probe numbers quoted in the pull
+request predate the re-size.
 
 Evidence (append-only; ids in `sim/*/records/`):
 

@@ -232,10 +232,12 @@ differential-receiver FAIL row above; the "four FAIL rows" wording in the
 exactly the driver rows.
 
 **Digital timing.** The "gate-level PVT timing ... not covered" note above
-is refined by `verification/records/post-layout-pvt/records/20261008-195826-74ccfac.md`:
-three liberty corners with extracted capacitance attached (not the §8.1
+is refined by `verification/records/post-layout-pvt/records/20261015-011505-32db02a.md` (regenerated
+after the #131 physical re-run; method first established in
+`20261008-195826-74ccfac`): three liberty corners with extracted capacitance attached (not the §8.1
 45-corner matrix), lumped capacitance with no wire RC delay, ideal clock,
 7 unannotated and 3 partially unannotated drivers. Name-matched SPEF
 annotation in earlier records was not evidence of attached parasitics.
 SDF-annotated gate-level verification remains blocked (`post-layout-functional`
-record `20261008-211700-2875d57`).
+record `20261015-011506-32db02a`; the zero-delay gate replay of the regenerated
+routed netlist passes 111/111).

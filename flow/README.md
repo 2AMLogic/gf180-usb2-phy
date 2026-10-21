@@ -202,7 +202,7 @@ after step 1 above, from the repo root:
 PDK_ROOT=~/.volare PDK=gf180mcuD klt sta flow/request-usb-utmi-phy-sta-corners.json --format json
 ```
 
-Caveat: record `20261008-200000-8139bb6`'s envelope (`delay_changed: false`, 307 partially unannotated drivers) is wire-parasitic-free timing: its SPEF was extracted without `--def-pins` and did not attach. The cited envelope is now `20261008-195826-74ccfac`'s; see below.
+Caveat: record `20261008-200000-8139bb6`'s envelope (`delay_changed: false`, 307 partially unannotated drivers) is wire-parasitic-free timing: its SPEF was extracted without `--def-pins` and did not attach. The cited envelope is now the #131 regeneration's, record `20261015-011505-32db02a` (same method as `20261008-195826-74ccfac`, which measured the previous layout); see below.
 
 Scope: these three corners are the whole claim; spec §8.1's 45-corner
 matrix is not covered by the digital liberty library's corner set here.
@@ -221,9 +221,11 @@ and `partially_unannotated_driver_count`. Record
 `20261008-200000-8139bb6` had 342/342 nets matched, `delay_changed:
 false` and 307 partially unannotated drivers, so its timing had no wire
 parasitics. Its successor `20261008-195826-74ccfac` (`--def-pins`) has
-`delay_changed: true`. Its remaining 7 + 3 drivers are identified and
+`delay_changed: true`, and so does the current `20261015-011505-32db02a`
+(regenerated layout, 359/359 design nets matched). The remaining 7 + 3
+drivers (the same ones in both) are identified and
 measured there: CTS dummy-load outputs, and three nets whose DEF PIN name
-differs from their NET name, which do not move worst slack. The
+differs from their NET name. On the previous layout they were shown not to move worst slack; that cross-check was not repeated for the regenerated one. The
 extractor's wire resistance never sits between two pins: every pin has a
 0 Ω leg to its net's hub, so each net is timed as a lumped capacitance.
 `annotation-probe/run.sh` in that record re-derives all of this.
@@ -244,6 +246,6 @@ unrouted single-pin nets with no wire to extract, not a correlation miss)
 `verification/records/post-layout-pvt/records/20260905-182000-80d4593.md`,
 which supersedes the record above. ("Annotated" there means name-matched: the
 caveat at the top of this section applies, and the current evidence is
-`20261008-195826-74ccfac`.) Every reported timing/power/skew number
+`20261015-011505-32db02a`.) Every reported timing/power/skew number
 is unchanged between the two runs. Read the newer record's "Result" section
 before citing numbers from either.

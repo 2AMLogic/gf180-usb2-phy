@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "error": {
+    "command": "functional-verification",
+    "message": "SDF back-annotation of 'verification/records/post-layout-functional/artifacts/20261015-011505-32db02a/usb_utmi_phy_route_tt_025C_1v80.sdf' did not fully apply: 53 diagnostic(s) in the icarus transcript -- SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:558: Could not find intermodpath! | SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:1938: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._237_ | SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:1939: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._237_ | SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2049: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._242_ | SDF ERROR: verification/.klt/functional-verification/klt_sdf_safe.sdf:2050: Unable to match ModPath S -> Z in klt_sdf_dut_wrapper.klt_sdf_dut._242_ (+48 more). The simulator exits 0 after skipping an annotation it cannot apply, so this run's verdict would have been a zero-delay one reported as if it were annotated."
+  }
+}
