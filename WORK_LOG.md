@@ -2,6 +2,11 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-10-21
+
+- **PR #154**: feat(analog): TXOE high-Z enable for differential_driver (#114)
+- **PR #219**: sim: add --timeout-s to diff-receiver-mc builder; record fleet pilot and failed campaign attempts
+
 ### 2026-10-20
 
 - **PR #217**: docs(sim): point run_corners --help examples at real bench and spec anchor
