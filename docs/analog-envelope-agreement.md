@@ -62,16 +62,20 @@ bench:
   but the numbers are not the record's. What was checked:
   * The bench netlist change made for `klt sim` (the pull-up supply, enable
     and trim bits follow `v(vdd)` instead of being separate sources at
-    `{vdd_val}`) is neutral: the **unmodified** bench run through the local
-    harness on this host reproduces the envelope, e.g. `fs_125c_3.63v`
-    `r_best_ohm` 1523.14, `best_code` 18, `best_err_pct` 1.54284, both ways.
+    `{vdd_val}`) is neutral: the bench's netlist, run through the local
+    harness on this host (netlists compared, not the `measure` spelling),
+    reproduces the envelope, e.g. `fs_125c_3.63v` `r_best_ohm` 1523.14,
+    `best_code` 18, `best_err_pct` 1.54284, both ways. The local `measure`
+    is not the pre-#188 one: #188 changed its comparison from `>` to `gt`
+    (ngspice-46 parses `>` as I/O redirection), so the pre-#188 bench
+    would not run on ngspice-46.
   * The envelope matches the local harness on the same ngspice-46 and the same
     PDK build (`open_pdks c6d73a35`, the fleet's PDK stamp matches).
   * The record was taken with **ngspice-47** (its own text says so), and its
     `r_best_ohm`/`best_code` expressions spell the comparison with `>`, which
-    ngspice-46's control language parses as I/O redirection (the committed
-    bench's local `measure` fails outright on ngspice-46 for that reason; the
-    `klt_measure` spells it `gt`). `r_code31_ohm` has no comparison in it and
+    ngspice-46's control language parses as I/O redirection (the pre-#188
+    local `measure` failed outright on ngspice-46 for that reason; both the
+    local `measure` and the `klt_measure` now spell it `gt`). `r_code31_ohm` has no comparison in it and
     still differs (1070.37 vs 1067.75 at that corner), so the `>` spelling does
     not explain everything.
   * Not established: whether ngspice-47 vs 46 accounts for the remaining
