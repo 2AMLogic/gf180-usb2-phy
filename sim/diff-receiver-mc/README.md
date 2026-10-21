@@ -40,6 +40,7 @@ Monte Carlo. No local fallback grid was run. Fleet attempts, newest first
 
 | date | submission | outcome |
 |---|---|---|
+| 2026-10-21 | none submitted (issue #189 Revision 3 step 1) | Not run, outcome C. The klayout-tools#4018 fix landed as PR #4019 (merge commit `e345e690cab3`, 2026-10-21T01:51:46Z), but the latest release is v0.7.0 (PyPI upload 2026-10-08, 2396 commits behind that merge); no released `klayout-tools` carries it. Running the campaign on an unfixed tool would repeat the `lost_shard` / stalled-resume attempts above, so no fleet job was submitted and no local grid was run. Resubmit with a release that contains #4019. |
 | 2026-10-20/21 | `mismatch`, `--resume --wait-for-capacity 3000 --max-units-per-job 46 --max-concurrent-jobs 8`, re-attaching to the attempt below | Stalled: shards sat at `no status.json yet` for over an hour with no further shard completing; killed by hand, so no report was written. Filed as klayout-tools#4018. `control` was not submitted. |
 | 2026-10-20 | `mismatch`, `options.timeout_s` 75, `--max-units-per-job 46 --max-concurrent-jobs 8` (98 jobs) | `status: error`: 1971 / 4500 units passed, 2529 `lost_shard`. Refusals: `8 or 9 instance(s) already running + 1 requested exceeds BATCH_MAX_CONCURRENT_INSTANCES=8` (1425 units) and `224 vCPU already running ... exceeds BATCH_MAX_VCPU=224` (1104 units). The caps are fleet-wide and shared with other clients. Not usable as evidence (incomplete per point). Passing units took 16-44 s each on the fleet. |
 | 2026-10-20 | **pilot**: `mismatch`, `--n 2` (90 units), `--max-units-per-job 11`, `options.timeout_s` 300; 9 jobs including `klt-sim-e3b87a8cfb4b`, `klt-sim-a62ee60389af`, `klt-sim-776f33a63c73`, `klt-sim-c0afa192932d`, `klt-sim-05ff85faed98`, `klt-sim-b12b8bdbc411`, `klt-sim-afd11d6bfc84`, `klt-sim-aa114b0ebc35`, `klt-sim-85ad9dc677aa` | 80 / 90 units passed (per-unit fleet time 16.4-23.2 s, median 21.0 s; 2 units per instance in parallel); the 9th job was `lost_shard` (9 jobs exceeded the 8-instance cap, `--max-concurrent-jobs` was not passed). A measurement, not evidence for `6.analog`. |
@@ -59,7 +60,8 @@ What the next attempt has to respect:
 - Submit one variant at a time (`mismatch`, wait, then `control`).
 - Pass `--max-concurrent-jobs 8` and `--wait-for-capacity`, and expect the
   shared fleet to refuse launches while other clients hold instances; run it
-  when the fleet is quiet or after klayout-tools#4018 is addressed.
+  when the fleet is quiet and with a released `klayout-tools` that contains the
+  klayout-tools#4018 fix (PR #4019; not in v0.7.0).
 - Do not lower N or drop PVT points to get a result; a reduced run is a pilot
   and is never cited as `6.analog`.
 
