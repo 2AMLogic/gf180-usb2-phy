@@ -30,13 +30,6 @@
 .csparam vmid={0.5*vdd_val}
 
 vsup VDD 0 dc {vdd_val}
-
-* Measurement-only nodes, loading nothing, so the `klt sim` request can state
-* the same measurements as `.meas` cards (klt_measure in tb.json): `mid` is the
-* per-corner logic midpoint the local deck passes as .csparam vmid, `n1` the
-* receiver output normalised to the rail (the local deck divides by maximum(v(vdd))).
-bmid mid 0 v = 0.5*v(vdd)
-bn1  n1  0 v = v(rxdp)/v(vdd)
 vin  IN  0 dc 0
 
 * Reference nodes for the `klt sim` backend (tb.json "klt_measure"), which can
