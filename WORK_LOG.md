@@ -4,6 +4,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-10-21
 
+- **PR #193**: feat(analog): cite five 45-corner klt sim envelopes as item 5.analog
+- **Issue #188** (closed): T1 item 5.analog: re-emit the 45-corner analog PVT suite as klt sim envelopes
 - **PR #226**: Bump Repo Skills 0.24.3 -> 0.24.7
 - **PR #224**: sim: record diff-receiver-mc campaign not run; no klt release has the capacity-wait fix
 - **PR #222**: sim: record failed batch attempt for driver-disabled-leakage grid (#114)
