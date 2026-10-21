@@ -158,8 +158,10 @@ grades in both partitions:
   not require one, and this citation does not claim it:
   `klt functional-verification` envelopes record no `provenance` and
   cannot be freshness-pinned, and SDF gate-level verification is tracked
-  separately by #93 (cited as item 7.digital, see item 7 below). **Item 5.analog stays `unmet`/`no_evidence`**
-  (parked on klayout-tools#1962).
+  separately by #93 (cited as item 7.digital, see item 7 below). **Item 5.analog is cited, and renders `unmet`/`partial_coverage`** (see
+  the 5.analog bullet below). **Item 5.digital rendered `met` at the previous
+  pin and renders `unmet`/`partial_coverage` since issue #188**, for the reason
+  given there.
 - **Item 11.digital, power delivery (structural) — cited, `met`** — the
   first T1 item no single artifact proves, so its manifest entry is a
   **list**: the digital partition's `klt erc` supply report
@@ -211,11 +213,40 @@ repo's rule that an envelope must actually support the item to be cited:
   the claim — not a statement that the repo lacks sources, layout,
   testbenches, or hygiene.
 - **Item 5.analog** (corner verification vs ratified spec, analog
-  partition) — the analog evidence (`sim/`, all 45 corners, per-row
-  verdicts) exists as this repo's *own* Markdown evidence-record
-  convention, which no `klt sim` envelope represents. Re-minting it as a
-  gradeable envelope waits on klayout-tools#1962 (tracked in #53);
-  `unmet`/`no_evidence`. (5.digital is cited above.)
+  partition) — **cited (issue #188), renders `unmet`/`partial_coverage`**.
+  Five `klt sim` envelopes, one per row-grading bench, each over the full
+  45-corner grid (`sim/<bench>/corners/<record-id>/klt-sim-report.json`,
+  run on the Spot batch fleet), each measurement carrying the spec bound as
+  `limits` so a corner's `pass` means "inside the bound":
+  `diff-receiver-sensitivity`, `se-receiver-dp-thresholds`,
+  `se-receiver-dm-thresholds` (row `receiver-thresholds`),
+  `driver-signal-quality` (rows `rise-fall-time`, `crossover-voltage`,
+  `full-speed-signal-quality`) and `dplus-pullup-tolerance` (row
+  `dplus-pullup-tolerance`). All five pass at all 45 corners, and the
+  grader lists no failed and no uncovered row. **The one reason the item is
+  not `met`** is the declared gap `driver-output-timing-jitter`: spec §8.2
+  ratifies no jitter limit and mandates that the row be recorded as
+  engineering data with no pass/fail (`sim/driver-jitter`, record
+  `20261015-104027-d109790`), so no envelope can grade it. Its `klt sim`
+  envelope is committed but deliberately **not** cited: it has no limited
+  measurement, and an envelope with none grades `pass` vacuously
+  (klayout-tools#3769). The rows are the §8.2 table's, in the manifest's
+  `spec_rows` block. The per-row agreement between the envelopes and the
+  older Markdown records is `docs/analog-envelope-agreement.md` (every
+  comparison in the `.csv` beside it).
+  **Side effect on 5.digital.** `spec_rows` is keyed by item id, not by
+  partition (klayout-tools#3768), so declaring the analog rows also asks
+  the digital partition's item 5 to cover them, and `5.digital` (one passing
+  `klt sta` envelope, unchanged) drops from `met` to `unmet`/`partial_coverage`
+  with every analog row listed as uncovered. Nothing about the digital
+  evidence changed; the alternative was to omit `spec_rows` and let 5.analog
+  render `met` with the jitter gap recorded nowhere the grader reads. Removing
+  the `spec_rows` block restores `5.digital: met` at the price of that
+  overclaim; the tool fix is #3768.
+  History: this item was recorded here as waiting on klayout-tools#1962
+  (tracked in #53). That was a mis-attribution: #1962 is a `gen-compose`
+  routing gap and #53 is post-layout re-verification, and item 5 is a
+  schematic-level claim that needs no layout. (5.digital is cited above.)
 - **Item 6** (Monte Carlo) — **digital partition: no statistical row,
   stated explicitly** in `verification/statistical-claims-na.md`, pinned to
   the SHA-256 of the ratified spec and re-checked by
@@ -256,9 +287,10 @@ repo's rule that an envelope must actually support the item to be cited:
   SDF and the refused run are archived next to it). The negative control
   (same suite, 30 ns clock) fails 48/111 on functional assertions while the
   zero-delay replay at 30 ns passes. The replay needs klt at or after
-  klayout-tools `bc386fb` (the #2885 fix); the repo pin `e8ca621a` still
-  renders the signoff report correctly but cannot replay the SDF (53
-  diagnostics), and CI does not run the replay, so the pin was not bumped.
+  klayout-tools `bc386fb` (the #2885 fix); the pin
+  at the time (`e8ca621a`) rendered the signoff report correctly but could not
+  replay the SDF (53 diagnostics). Issue #188 moved the pin to `7ee09483`,
+  which is past `bc386fb`; the replay was not re-run against it.
   The slow-corner SDF was produced outside klt from klt's generated
   OpenSTA script (klayout-tools#2886, open). **Item 7.analog stays
   `unmet`/`no_evidence`** (no analog layout; parked on klayout-tools#1962,
@@ -281,9 +313,10 @@ diff /tmp/fresh.json manifests/t1-signoff-report.json   # regeneration = update 
 
 Exit `0` means every T1 item met (this repo is **not** there:
 exit `3`, `tier: null`, `6/22` item-rows met at the time of freezing —
-item 8 in both partitions, plus 3.digital, 4.digital, 5.digital and
-11.digital; it was `8/22` before issue #95 stopped items 3 and 4 from
-grading the analog partition off digital evidence). Exit codes `0` and `3` are
+item 8 in both partitions, plus 3.digital, 4.digital, 7.digital and
+11.digital; it was `7/22` before issue #188, when 5.digital was also met
+(see the 5.analog bullet), and `8/22` before issue #95 stopped items 3 and 4
+from grading the analog partition off digital evidence). Exit codes `0` and `3` are
 both "clean runs"; exit `1` is an error and must be fixed, not committed
 around.
 

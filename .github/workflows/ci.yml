@@ -70,7 +70,7 @@ jobs:
       - name: Install klayout-tools (klt) + cocotb -- pinned, see docs/environment-setup.md
         run: |
           python3 -m pip install --disable-pip-version-check \
-            "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@e8ca621a6961879cec1af60cc932c3b3d58ddcaa" \
+            "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@7ee09483b74867a47a05eb353015c2cf5ca33ef3" \
             "cocotb==2.0.1"
           klt --version
 

@@ -16,15 +16,9 @@
   ],
   "klt_supply_source": "vsup",
   "klt_measure": {
-    "vth_v": {
-      "spice": ".meas dc vth_v WHEN v(rxdp)=v(mid) CROSS=1"
-    },
-    "out_at_vil": {
-      "spice": ".meas dc out_at_vil FIND v(n1) AT=0.8"
-    },
-    "out_at_vih": {
-      "spice": ".meas dc out_at_vih FIND v(n1) AT=2.0"
-    }
+    "vth_v": {"spice": ".meas dc vth_v WHEN v(rxdp)=v(mid) CROSS=1"},
+    "out_at_vil": {"spice": ".meas dc out_at_vil FIND v(n1) AT=0.8"},
+    "out_at_vih": {"spice": ".meas dc out_at_vih FIND v(n1) AT=2.0"}
   },
   "measure": {
     "vth_v": "vth",
