@@ -68,8 +68,8 @@ class PinContractTests(unittest.TestCase):
 
     def test_new_uncovered_pin_fails(self):
         self.edit("design/netlist/differential_driver.spice",
-                  ".subckt differential_driver VDD", ".subckt differential_driver TXOE VDD")
-        self.assertTrue(any("not covered" in e or "TXOE" in e for e in cpc.check(self.root)))
+                  ".subckt differential_driver VDD", ".subckt differential_driver NEWPIN VDD")
+        self.assertTrue(any("not covered" in e or "NEWPIN" in e for e in cpc.check(self.root)))
 
     # Every digital side has now landed (PU_EN #112, txoe #113, trim #115),
     # so no real row is planned-dig any more. Revert one landed row to its
@@ -80,11 +80,13 @@ class PinContractTests(unittest.TestCase):
                   "| I | planned-dig #115 | integrator | test-time code |")
         self.assertTrue(any("planned" in e and "trim" in e for e in cpc.check(self.root)))
 
-    # TXOE's analog side is still planned-ana #114: adding the netlist pin
-    # without flipping the row must fail with a "planned" error.
+    # TXOE's analog side has landed (#114): reverting its row to the former
+    # planned-ana status while the netlist pin exists must fail with a
+    # "planned" error, i.e. landing a follow-up without flipping the row
+    # is still caught.
     def test_planned_analog_landing_without_table_update_fails(self):
-        self.edit("design/netlist/differential_driver.spice",
-                  ".subckt differential_driver VDD", ".subckt differential_driver TXOE VDD")
+        self.edit(cpc.RECORD, "| I | current | RTL | `tx_state != TX_IDLE`",
+                  "| I | planned-ana #114 | RTL | `tx_state != TX_IDLE`")
         self.assertTrue(any("planned" in e and "TXOE" in e for e in cpc.check(self.root)))
 
     # --- trim[4:0] (#115): the current TRIM rows pin a five-bit input.

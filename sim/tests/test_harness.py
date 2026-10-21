@@ -1232,8 +1232,8 @@ class RepoManifestContractTests(unittest.TestCase):
     def manifests(self):
         return sorted(self.SIM.glob("*/testbench/tb.json"))
 
-    def test_all_seven_benches_are_audited(self):
-        self.assertEqual(len(self.manifests()), 7)
+    def test_all_eight_benches_are_audited(self):
+        self.assertEqual(len(self.manifests()), 8)
 
     def test_every_bench_has_exactly_one_resolved_transport(self):
         expected = {"diff-receiver-sensitivity": "request",
