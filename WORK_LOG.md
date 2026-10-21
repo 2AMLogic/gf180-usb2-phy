@@ -4,6 +4,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-10-20
 
+- **PR #217**: docs(sim): point run_corners --help examples at real bench and spec anchor
+- **Issue #216** (closed): Fix run_corners.py --help: examples cite smoke-bias and a bandgap spec left over from the harness port
 - **PR #215**: docs: record failed fleet attempts and limits for diff-receiver MC campaign
 - **PR #213**: feat(sim): klt_measure hooks and MC request builder for single-ended receivers
 - **PR #192**: docs: classify analog statistical rows and state digital item-6 N/A
