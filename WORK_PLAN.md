@@ -33,6 +33,7 @@ _None._
 
 Issues currently being built (`loom:building`).
 
+- **#187**: T1 items 1, 2 (digital), 9 and 10: cite artifact-anchored evidence now that klt signoff binds it
 - **#207**: Remove harness_counter.v smoke vehicle: redundant with real PHY tests
 
 ## PRs Awaiting Review
@@ -78,7 +79,7 @@ Issues carrying `loom:curated`.
 | Very important | 0 |
 | Important | 4 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 1 |
+| In Progress (`loom:building`) | 2 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 2 |
 | Curated | 8 |
