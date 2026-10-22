@@ -21,6 +21,7 @@ _None._
 - **#114**: Analog: add TXOE high-Z enable to differential_driver (pin contract, #109)
 - **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size
 - **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout
+- **#187**: T1 items 1, 2 (digital), 9 and 10: cite artifact-anchored evidence now that klt signoff binds it
 
 ## Ready
 
@@ -75,7 +76,7 @@ Issues carrying `loom:curated`.
 |------|-------|
 | Operator merge-risk holds | 2 |
 | Very important | 0 |
-| Important | 3 |
+| Important | 4 |
 | Ready (`loom:issue`) | 1 |
 | In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
