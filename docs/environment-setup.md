@@ -165,10 +165,10 @@ reused.
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
 
-The `klt` pin was a git revision everywhere until move 7 below. Move 7 moved
-only CI and the signoff grader to a released version; the `scripts/setup-env.sh`
-venv keeps the revision pin on purpose (see move 7). Moves 1-6 are the history
-of the revision pin and are kept verbatim; the pin has moved seven times so far:
+The `klt` revision is pinned by commit everywhere (CI, the signoff grader and
+the `scripts/setup-env.sh` venv), not by release tag: move 7 below explains why
+no release carries the needed capabilities yet. The pin has moved seven times
+so far (move 8 records a decision not to move it):
 
 1. `af5791b5` → `b3e284fff4243cdc5ab59a684d9c0582444b485d` by issue #25,
    specifically to pick up the netlist-driven layout-plan compiler/executor
