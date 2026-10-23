@@ -32,4 +32,11 @@
 vsup VDD 0 dc {vdd_val}
 vin  IN  0 dc 0
 
+* Reference nodes for the `klt sim` backend (tb.json "klt_measure"), which can
+* only express measurements as `.meas` cards: the logic midpoint and the
+* output normalised to the supply, both tracking whatever VDD `klt sim` alters
+* the supply source to. The local-ngspice path ignores them.
+bmid mid 0 v = 0.5*v(vdd)
+bn1  n1  0 v = v(rxdp)/v(vdd)
+
 Xrxdp VDD 0 IN RXDP se_receiver_dp

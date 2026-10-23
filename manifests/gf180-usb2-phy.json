@@ -10,6 +10,40 @@
       "file": "verification/records/digital-lvs/artifacts/20261015-011503-32db02a/lvs-report.json",
       "content_hash": "sha256:0c9650223a0698571b32ef8e6576712051bddd8e4c3d809fa64427834bbf4b28"
     },
+    "5.analog": [
+      {
+        "file": "sim/diff-receiver-sensitivity/corners/20261017-194653-49d005c/klt-sim-report.json",
+        "rows": [
+          "receiver-thresholds"
+        ]
+      },
+      {
+        "file": "sim/se-receiver-dp-thresholds/corners/20261017-194832-49d005c/klt-sim-report.json",
+        "rows": [
+          "receiver-thresholds"
+        ]
+      },
+      {
+        "file": "sim/se-receiver-dm-thresholds/corners/20261017-195101-49d005c/klt-sim-report.json",
+        "rows": [
+          "receiver-thresholds"
+        ]
+      },
+      {
+        "file": "sim/driver-signal-quality/corners/20261015-104027-d109790/klt-sim-report.json",
+        "rows": [
+          "rise-fall-time",
+          "crossover-voltage",
+          "full-speed-signal-quality"
+        ]
+      },
+      {
+        "file": "sim/dplus-pullup-tolerance/corners/20261017-195431-49d005c/klt-sim-report.json",
+        "rows": [
+          "dplus-pullup-tolerance"
+        ]
+      }
+    ],
     "5.digital": {
       "file": "verification/records/post-layout-pvt/artifacts/20261015-011505-32db02a/sta-corners.json",
       "content_hash": "sha256:2bccf4bdddabd953f297d0d113253e802c3ad3750e0d56b5b3c87493c708964f"
@@ -32,6 +66,29 @@
       },
       {
         "file": "verification/records/place-and-route/artifacts/20261015-011501-32db02a/place-and-route-output.json"
+      }
+    ]
+  },
+  "spec_rows": {
+    "5": [
+      {
+        "id": "rise-fall-time"
+      },
+      {
+        "id": "crossover-voltage"
+      },
+      {
+        "id": "full-speed-signal-quality"
+      },
+      {
+        "id": "dplus-pullup-tolerance"
+      },
+      {
+        "id": "receiver-thresholds"
+      },
+      {
+        "id": "driver-output-timing-jitter",
+        "gap": "spec section 8.2 ratifies no numeric jitter limit: the row is recorded as engineering data with no pass/fail attached (sim/driver-jitter, record 20261015-104027-d109790), so no envelope can grade it"
       }
     ]
   }

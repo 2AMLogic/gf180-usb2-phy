@@ -484,6 +484,11 @@ class _KltFixture(unittest.TestCase):
             "supply_tolerance": 0.1,
             "klt_supply_source": "vsup",
             "klt_measure": KLT_MEASURE,
+            "checks": {
+                "vth_mv": {"min": -200.0, "max": 200.0},
+                "vhi": {"min": 2.9},
+                "vlo": {"max": 0.1},
+            },
         }
         self.tb_dir = self.root / "kltx-exp" / "testbench"
         self.tb_dir.mkdir(parents=True)
@@ -575,9 +580,12 @@ class KltRequestTests(_KltFixture):
         self.assertEqual(
             req["measurements"],
             [
-                {"name": "vth_mv", "spice": KLT_MEASURE["vth_mv"]["spice"]},
-                {"name": "vhi", "spice": KLT_MEASURE["vhi"]["spice"]},
-                {"name": "vlo", "expr": "v(out)[0]"},
+                # limits ride along in klt's units: the spec bound / scale
+                {"name": "vth_mv", "spice": KLT_MEASURE["vth_mv"]["spice"],
+                 "limits": {"min": -0.2, "max": 0.2}},
+                {"name": "vhi", "spice": KLT_MEASURE["vhi"]["spice"],
+                 "limits": {"min": 2.9}},
+                {"name": "vlo", "expr": "v(out)[0]", "limits": {"max": 0.1}},
             ],
         )
         self.assertEqual(req["options"], {"timeout_s": 123, "keep_artifacts": True})
@@ -585,7 +593,8 @@ class KltRequestTests(_KltFixture):
     def test_body_includes_pdk_design_file_and_testbench(self):
         self._request()
         body = (self.workdir / "body.spice").read_text()
-        self.assertIn(f'.include "{self.pdk.design_include}"', body)
+        self.assertIn(f'.include "{self.pdk.design_include.name}"', body)
+        self.assertTrue((self.workdir / self.pdk.design_include.name).is_file())
         self.assertIn(f'.include "{self.tb.netlist}"', body)
         self.assertIn(".param vdd_nom=3.3", body)
 
@@ -1232,11 +1241,18 @@ class RepoManifestContractTests(unittest.TestCase):
     def manifests(self):
         return sorted(self.SIM.glob("*/testbench/tb.json"))
 
-    def test_all_seven_benches_are_audited(self):
-        self.assertEqual(len(self.manifests()), 7)
+    def test_all_eight_benches_are_audited(self):
+        self.assertEqual(len(self.manifests()), 8)
 
     def test_every_bench_has_exactly_one_resolved_transport(self):
-        expected = {"diff-receiver-sensitivity": "request"}
+        # Benches that declare klt_measure resolve to the request transport
+        # (their 45-corner envelopes are cited as item 5.analog, issue #188).
+        expected = {
+            "diff-receiver-sensitivity": "request",
+            "se-receiver-dp-thresholds": "request",
+            "se-receiver-dm-thresholds": "request",
+            "dplus-pullup-tolerance": "request",
+        }
         for path in self.manifests():
             manifest = json.loads(path.read_text())
             slug = path.parent.parent.name

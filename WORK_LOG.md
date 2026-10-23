@@ -2,6 +2,31 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-10-21
+
+- **PR #230**: docs: correct envelope-agreement note on dplus-pullup measure spelling
+- **Issue #194** (closed): analog-envelope-agreement: pull-up findings text says the local measure still uses '>' after #188 changed it to 'gt'
+- **PR #231**: chore: add source-only analog-layout records superseding stale-hash chain heads
+- **Issue #229** (closed): main CI red: analog-layout records have stale provenance hashes after #193
+- **PR #193**: feat(analog): cite five 45-corner klt sim envelopes as item 5.analog
+- **Issue #188** (closed): T1 item 5.analog: re-emit the 45-corner analog PVT suite as klt sim envelopes
+- **PR #226**: Bump Repo Skills 0.24.3 -> 0.24.7
+- **PR #224**: sim: record diff-receiver-mc campaign not run; no klt release has the capacity-wait fix
+- **PR #222**: sim: record failed batch attempt for driver-disabled-leakage grid (#114)
+- **PR #154**: feat(analog): TXOE high-Z enable for differential_driver (#114)
+- **PR #219**: sim: add --timeout-s to diff-receiver-mc builder; record fleet pilot and failed campaign attempts
+
+### 2026-10-20
+
+- **PR #217**: docs(sim): point run_corners --help examples at real bench and spec anchor
+- **Issue #216** (closed): Fix run_corners.py --help: examples cite smoke-bias and a bandgap spec left over from the harness port
+- **PR #215**: docs: record failed fleet attempts and limits for diff-receiver MC campaign
+- **PR #213**: feat(sim): klt_measure hooks and MC request builder for single-ended receivers
+- **PR #192**: docs: classify analog statistical rows and state digital item-6 N/A
+- **PR #206**: test: fail instead of skipping when DUT lacks trim[4:0]
+- **Issue #204** (closed): Remove dead legacy no-trim fallback from test_usb_utmi_phy.py (can silently skip the trim test)
+- **PR #208**: feat(sim): klt deck-list transport for all benches; refuse implicit local grid fan-out
+
 ### 2026-10-18
 
 - **PR #171**: ci: cancel in-progress runs only for pull_request events

@@ -57,10 +57,10 @@ def build_parser() -> argparse.ArgumentParser:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=(
             "Examples:\n"
-            "  python3 sim/run_corners.py smoke-bias\n"
-            "  python3 sim/run_corners.py smoke-bias --corners tt --temps 27 \\\n"
+            "  python3 sim/run_corners.py smoke-inverter\n"
+            "  python3 sim/run_corners.py smoke-inverter --corners tt --temps 27 \\\n"
             "      --subset-reason 'debugging convergence, not evidence'\n"
-            "  python3 sim/run_corners.py smoke-bias --backend klt:batch\n"
+            "  python3 sim/run_corners.py smoke-inverter --backend klt:batch\n"
             "  python3 sim/run_corners.py --list\n"
             "  python3 sim/run_corners.py --check-env\n"
         ),
@@ -137,7 +137,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--claim",
         default="",
-        help="spec line this run substantiates, e.g. 'spec/bandgap.md#output-voltage-tc' "
+        help="spec line this run substantiates, e.g. 'spec/usb2-device-phy.md#6-driver-characteristics' "
         "(overrides the manifest's 'claim')",
     )
     parser.add_argument(
@@ -201,6 +201,13 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="klt batch backend: how to treat a fleet-runner/client klt version "
         "skew (sets request batch.runner_version_check; default enforce)",
+    )
+    parser.add_argument(
+        "--klt-hosts",
+        type=int,
+        default=None,
+        help="klt batch backend: shard the grid across N fleet hosts (`klt sim --hosts`); "
+        "needed when the serial job bound exceeds the fleet's whole-job ceiling",
     )
     parser.add_argument("--quiet", action="store_true", help="only print the summary")
     parser.add_argument("--version", action="version", version=f"gf180-usb2-phy harness {HARNESS_VERSION}")
@@ -395,6 +402,7 @@ def run(args: argparse.Namespace) -> int:
             kwargs = dict(
                 backend=klt_name,
                 runner_version_check=args.klt_runner_version_check,
+                hosts=args.klt_hosts,
                 timeout_s=args.timeout,
                 on_result=progress,
                 log_dir=log_dir,
