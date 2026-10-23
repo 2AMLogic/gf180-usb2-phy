@@ -1,0 +1,10 @@
+{
+  "status": "ratified",
+  "source": "spec/usb2-device-phy.md",
+  "scope": "digital partition (usb_utmi_phy, rtl/*.v)",
+  "rows": [
+    {"id": "utmi-interface", "section": "3", "title": "UTMI digital interface behaviour"},
+    {"id": "rx-clock-tolerance", "section": "7", "title": "Receive bit sampling against reference-clock tolerance"},
+    {"id": "digital-timing-closure", "section": "8.1", "title": "Post-layout timing over the 45-corner PVT list"}
+  ]
+}

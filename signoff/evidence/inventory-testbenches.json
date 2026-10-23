@@ -2,8 +2,8 @@
   "inventory": "testbenches",
   "t1_item": 9,
   "pins": {
-    "klayout_tools_ci_and_grader": "0.7.0",
-    "klayout_tools_setup_env_revision": "e8ca621a6961879cec1af60cc932c3b3d58ddcaa",
+    "klayout_tools_ci_and_grader": "7ee09483b74867a47a05eb353015c2cf5ca33ef3",
+    "klayout_tools_setup_env_revision": "7ee09483b74867a47a05eb353015c2cf5ca33ef3",
     "cocotb": "2.0.1",
     "gf180mcu_open_pdks": "c6d73a35f524070e85faff4a6a9eef49553ebc2b",
     "gf180mcu_variant": "gf180mcuD",
@@ -107,11 +107,6 @@
       "toplevel": "usb_utmi_phy",
       "level": "gate"
     },
-    "verification/request-usb-utmi-phy-gate-sdf.json": {
-      "module": "test_usb_utmi_phy",
-      "toplevel": "usb_utmi_phy",
-      "level": "gate"
-    },
     "verification/request-usb-utmi-phy-gate-zero-delay.json": {
       "module": "test_usb_utmi_phy",
       "toplevel": "usb_utmi_phy",
@@ -180,7 +175,7 @@
     },
     {
       "path": "verification/test_usb_utmi_phy.py",
-      "sha256": "sha256:54063726ee8d681e7e94cbb09669446fc75908f3473f11ba6af152beaed2e5fd"
+      "sha256": "sha256:19f9f6f58f808bdf18b329a16687a07dcf4f83947c470e36121100be564962c7"
     },
     {
       "path": "verification/test_usb_utmi_txoe.py",
@@ -249,10 +244,6 @@
       "sha256": "sha256:a134a0c8e1d4cd52803560aa5999e58e7e1e21520d5bc68e6aef4e9379c59eff"
     },
     {
-      "path": "verification/request-usb-utmi-phy-gate-sdf.json",
-      "sha256": "sha256:cc3f1443dc70722dcbe8d65319c029778c3192b50076b0376d371abc4a86ef12"
-    },
-    {
       "path": "verification/request-usb-utmi-phy-gate-zero-delay.json",
       "sha256": "sha256:baa267dc5ad167005dc0b2431b0fe65cbb71f521bdf1d269fbffe11e8205dd84"
     },
@@ -283,6 +274,10 @@
     {
       "path": "verification/test_check_records.py",
       "sha256": "sha256:fca2256d076069d9e2d0944e80206dcb853264f333fb1cf6f4547d9ede8ae222"
+    },
+    {
+      "path": "verification/test_check_statistical_na.py",
+      "sha256": "sha256:4c3cb3d7edf325271d40ae199f40652aa120aa00cd30014dc32644657f707ba4"
     },
     {
       "path": "verification/usb_bit_model.py",
@@ -320,11 +315,26 @@
         },
         {
           "path": "sim/dplus-pullup-tolerance/testbench/pullup_tb.spice",
-          "sha256": "sha256:0028edf13f12c9b423df0488368feb66b148ee822d271e767ff04f30e37cea5f"
+          "sha256": "sha256:ef7ab6c6b85957fd263b7d07518c14947bad049669d103987bb583da173e274c"
         },
         {
           "path": "sim/dplus-pullup-tolerance/testbench/tb.json",
-          "sha256": "sha256:fea97b33bbfa2239af5cc53fa692b17d5ae710f12a73faa2b9a52c88ecbada58"
+          "sha256": "sha256:e6277119afb0c1ae9e2a8d2892ce3c67d1d2d45d4fa8705907430bccc171406f"
+        }
+      ]
+    },
+    "driver-disabled-leakage": {
+      "testbench_dirs": [
+        "testbench"
+      ],
+      "files": [
+        {
+          "path": "sim/driver-disabled-leakage/testbench/driver_disabled_tb.spice",
+          "sha256": "sha256:7aadb681fa272ea8658d92d506cfbc281ba34264461681841b1e6749865eaf91"
+        },
+        {
+          "path": "sim/driver-disabled-leakage/testbench/tb.json",
+          "sha256": "sha256:7c1e4bb9cf034ba0c9b09a587a30c63c92270a5fc5ed9395097d2d521cc6ada2"
         }
       ]
     },
@@ -335,7 +345,7 @@
       "files": [
         {
           "path": "sim/driver-jitter/testbench/driver_jitter_tb.spice",
-          "sha256": "sha256:03824c2118246d4cee86743b4ccd2d35c58782904d6ea13c31a0741ac38fe17e"
+          "sha256": "sha256:33ecff4d9452dd90dcc489c765a8e23fb83df03b1e390e5177292555abd6e13f"
         },
         {
           "path": "sim/driver-jitter/testbench/driver_jitter_tb_klt.spice",
@@ -358,7 +368,7 @@
       "files": [
         {
           "path": "sim/driver-signal-quality/testbench/driver_tb.spice",
-          "sha256": "sha256:19ed8ac619b40f5bd235105ef83212f78a4b911893a27204af0c3b574e02f658"
+          "sha256": "sha256:782b3fddae62244a3dc4a620b73e4cd147f12ed8c5b7e05eea4ed24701e1b729"
         },
         {
           "path": "sim/driver-signal-quality/testbench/driver_tb_klt.spice",
@@ -381,11 +391,11 @@
       "files": [
         {
           "path": "sim/se-receiver-dm-thresholds/testbench/se_rx_dm_tb.spice",
-          "sha256": "sha256:ee49ea5fd004fa16a594af9d26c8feafbbebf5e4ebe6ef18ad42bcbf8e9e91f4"
+          "sha256": "sha256:494c24b25b3e261c3fd88a3c2894fa7f1950db6166135a0e9329633c2b84448a"
         },
         {
           "path": "sim/se-receiver-dm-thresholds/testbench/tb.json",
-          "sha256": "sha256:5035cd54fcee6c34c07c9a8bd2a5d4963843a71444da1c127145bf0bc114ce51"
+          "sha256": "sha256:e17398fe7045b3d0dd9ec1951f95cb2548e5aa724921c7ca75931ec47ef6594a"
         }
       ]
     },
@@ -396,11 +406,11 @@
       "files": [
         {
           "path": "sim/se-receiver-dp-thresholds/testbench/se_rx_dp_tb.spice",
-          "sha256": "sha256:bcacba3cc4a12b6335896577c12c2380c0acaa9e060f30e58f0288c94a244347"
+          "sha256": "sha256:b08262ba2337612342e14ac075f11733a0579203a06693287be503b173b03f1d"
         },
         {
           "path": "sim/se-receiver-dp-thresholds/testbench/tb.json",
-          "sha256": "sha256:6d03782586098d4c3276fe92bac7e83e6dc93f20dce911bdbd5043c046634600"
+          "sha256": "sha256:cecaa33b0d29ae3fb0ec3e30fb619bdc7799e46a839b441ad69a59210aff9394"
         }
       ]
     },
@@ -427,7 +437,7 @@
     },
     {
       "path": "sim/harness/README.md",
-      "sha256": "sha256:37e37abb0940f2e7f3a19ec47fec98168d90a28e5594e842883763279db43cd8"
+      "sha256": "sha256:bff8feaed91d0a6908d3447a5850671fcc60cc91fd96778f7854721cfbc3ee15"
     },
     {
       "path": "sim/harness/__init__.py",
@@ -435,7 +445,7 @@
     },
     {
       "path": "sim/harness/cli.py",
-      "sha256": "sha256:38c567baa2e84e81f0c62557499c514a212ac8994fe81fe2760ac5aef73a7162"
+      "sha256": "sha256:8131f690cf5b461714e29a3e38c9b7215b32006fcaba6fe4454e4807bb7d82ac"
     },
     {
       "path": "sim/harness/corners.py",
@@ -447,7 +457,7 @@
     },
     {
       "path": "sim/harness/klt_backend.py",
-      "sha256": "sha256:8f335a9492097277f2f70503027aa1a0111727b0513900e181a1e3e095f86e1a"
+      "sha256": "sha256:f8ca43ef7278942048e105698045b3744d7a2c78b5e582ba0c5e3af3b811dd0c"
     },
     {
       "path": "sim/harness/pdk.py",
@@ -459,7 +469,7 @@
     },
     {
       "path": "sim/harness/runner.py",
-      "sha256": "sha256:2f1c6bcf5bbc89fedb734a62b35f1fb64f2b7e2c823edfd2ffa5422e69997a08"
+      "sha256": "sha256:563ca8451ca7ae6295ab12159adac9b3b275ba638b99f381ca048479bc770669"
     },
     {
       "path": "sim/harness/testbench.py",
@@ -491,11 +501,13 @@
     },
     {
       "path": "sim/tests/test_harness.py",
-      "sha256": "sha256:a5026a17743e5ea30dc2f8f144b224f2c8f760d21c4362caf2b1f0c4d6209c2c"
+      "sha256": "sha256:99c44d568832c81f5a939247bcff1a7d5d4138b4e7b3fdd9ab43382b751dae6a"
     }
   ],
   "dirs_without_testbench": {
+    "diff-receiver-mc": "Monte Carlo request builder (build_requests.py) for the fleet; ships no testbench of its own, reuses sim/diff-receiver-sensitivity/",
     "harness": "shared corner-runner support code, not an experiment",
+    "se-receiver-mc": "Monte Carlo request builder (build_requests.py) for the fleet; ships no testbench of its own, reuses the single-ended receiver deck",
     "tests": "harness unit tests, not an experiment"
   }
 }

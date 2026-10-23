@@ -3,7 +3,7 @@
   "kind": "generic",
   "t1_item": 9,
   "status": "pass",
-  "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 13 cocotb tests mapped to 19 klt functional-verification requests, 7 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
+  "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 13 cocotb tests mapped to 18 klt functional-verification requests, 8 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
   "source": "signoff/evidence/inventory-testbenches.json",
   "provenance": {
     "klt_version": null,
@@ -15,7 +15,7 @@
         "path": "signoff/evidence/inventory-testbenches.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:28eedb41f2bc28dd3f0c5c5b9676de0bd21f54b56217c7639b9f86ceeb25eb8a"
+      "content_hash": "sha256:28e459508dfc8798c5f142643326f65a5efea8d75306f5d8e5d1cba757e2800f"
     }
   }
 }

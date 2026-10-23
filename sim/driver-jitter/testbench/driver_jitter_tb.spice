@@ -54,7 +54,10 @@ vtxdm TXDM 0 pwl(0.0000n 0 283.3333n 0 284.3333n {vdd_val} 366.6667n {vdd_val}
 + 951.0000n 0 1450.0000n 0 1451.0000n {vdd_val} 1533.3333n {vdd_val}
 + 1534.3333n 0 1700.0000n 0)
 
-Xdrv VDD 0 TXDP TXDM DP DM differential_driver
+* TXOE (issue #114): driver permanently enabled.
+vtxoe TXOE 0 dc {vdd_val}
+
+Xdrv VDD 0 TXDP TXDM TXOE DP DM differential_driver
 
 cdp DP 0 50p
 cdm DM 0 50p

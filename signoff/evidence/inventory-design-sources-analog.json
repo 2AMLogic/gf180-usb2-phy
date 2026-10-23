@@ -9,7 +9,7 @@
   "schematics": [
     {
       "path": "design/differential_driver.sch",
-      "sha256": "sha256:9d4c172c282c732c96d8319eccd82be39b14e5d2e92d25ea02044fd42fc47162"
+      "sha256": "sha256:2e49ce3bcce01b6d694890ec6df7d8b7465e83cdebb6d5ecd24fa9c6a8614eec"
     },
     {
       "path": "design/differential_receiver.sch",
@@ -31,7 +31,7 @@
   "netlists": [
     {
       "path": "design/netlist/differential_driver.spice",
-      "sha256": "sha256:5062c8aed3ab19b80cc135f0219ee23ec4a271464e0e4255e529877dd9816ce0"
+      "sha256": "sha256:50dcbc20ca353357ffeaf63b347f5b76e218625921035e0c6c1692413b9a8930"
     },
     {
       "path": "design/netlist/differential_receiver.spice",

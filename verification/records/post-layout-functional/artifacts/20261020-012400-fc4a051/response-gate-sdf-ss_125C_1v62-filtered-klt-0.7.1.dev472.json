@@ -1,0 +1,761 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_utmi_phy",
+  "testbench": "test_usb_utmi_phy",
+  "status": "pass",
+  "test_count": 111,
+  "passed_count": 111,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_reset_state",
+      "status": "passed",
+      "sim_time_ns": 208.335,
+      "real_time_s": 0.06163787841796875
+    },
+    {
+      "name": "test_tx_sync_pattern_is_kjkjkjkk",
+      "status": "passed",
+      "sim_time_ns": 3541.6949999999997,
+      "real_time_s": 0.008978843688964844
+    },
+    {
+      "name": "test_tx_eop_tail_is_se0_se0_j",
+      "status": "passed",
+      "sim_time_ns": 5208.374999999999,
+      "real_time_s": 0.015921831130981445
+    },
+    {
+      "name": "test_loopback_single_byte",
+      "status": "passed",
+      "sim_time_ns": 5208.375,
+      "real_time_s": 0.013929128646850586
+    },
+    {
+      "name": "test_loopback_multi_byte_with_stuffing",
+      "status": "passed",
+      "sim_time_ns": 11875.095000000001,
+      "real_time_s": 0.03274106979370117
+    },
+    {
+      "name": "test_loopback_leading_ones_payload_canonical_stuff_scope",
+      "status": "passed",
+      "sim_time_ns": 6875.054999999997,
+      "real_time_s": 0.019383907318115234
+    },
+    {
+      "name": "test_loopback_trailing_run_of_six_ones_is_flushed",
+      "status": "passed",
+      "sim_time_ns": 6875.055,
+      "real_time_s": 0.019106149673461914
+    },
+    {
+      "name": "test_loopback_back_to_back_packets_minimal_gap",
+      "status": "passed",
+      "sim_time_ns": 13541.775000000001,
+      "real_time_s": 0.037964820861816406
+    },
+    {
+      "name": "test_raw_mode_puts_payload_on_the_wire_unencoded",
+      "status": "passed",
+      "sim_time_ns": 5208.375,
+      "real_time_s": 0.012113094329833984
+    },
+    {
+      "name": "test_malformed_sync_never_activates_rx",
+      "status": "passed",
+      "sim_time_ns": 2041.6829999999973,
+      "real_time_s": 0.0045320987701416016
+    },
+    {
+      "name": "test_rx_clean_wire_packet_has_no_error",
+      "status": "passed",
+      "sim_time_ns": 8875.071000000004,
+      "real_time_s": 0.020391225814819336
+    },
+    {
+      "name": "test_rx_missing_stuff_bit_mid_byte_reaches_rxerror",
+      "status": "passed",
+      "sim_time_ns": 9458.409,
+      "real_time_s": 0.021823883056640625
+    },
+    {
+      "name": "test_rx_missing_trailing_stuff_bit_near_eop_reaches_rxerror",
+      "status": "passed",
+      "sim_time_ns": 8875.070999999996,
+      "real_time_s": 0.02147817611694336
+    },
+    {
+      "name": "test_rx_error_not_raised_after_reception_ends",
+      "status": "passed",
+      "sim_time_ns": 3541.695000000007,
+      "real_time_s": 0.007360935211181641
+    },
+    {
+      "name": "test_rx_utmi_reset_mid_packet_clears_pipeline",
+      "status": "passed",
+      "sim_time_ns": 10791.753000000012,
+      "real_time_s": 0.02646493911743164
+    },
+    {
+      "name": "test_rx_utmi_reset_after_stuffing_error_mid_packet",
+      "status": "passed",
+      "sim_time_ns": 9541.743000000002,
+      "real_time_s": 0.022874832153320312
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999993,
+      "real_time_s": 0.02670574188232422
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.027441024780273438
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.02696084976196289
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.027060270309448242
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.027081012725830078
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.0309140682220459
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.021045923233032227
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.02633380889892578
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.027887821197509766
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.027306079864501953
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.02696394920349121
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.02701401710510254
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.027888059616088867
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000007,
+      "real_time_s": 0.027467966079711914
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.02754688262939453
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.02801680564880371
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.02988576889038086
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.028975963592529297
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.0277712345123291
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.02720785140991211
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.028306245803833008
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.028629064559936523
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.02837085723876953
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.028074979782104492
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.028293132781982422
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.03246903419494629
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.024358034133911133
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.02809286117553711
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.026648998260498047
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.02661609649658203
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.027144908905029297
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.02971792221069336
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.029666900634765625
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.029425859451293945
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.027403831481933594
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11041.755000000005,
+      "real_time_s": 0.027935028076171875
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.025413990020751953
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 11125.088999999978,
+      "real_time_s": 0.02753901481628418
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 11208.422999999952,
+      "real_time_s": 0.027207136154174805
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 11208.422999999952,
+      "real_time_s": 0.02671980857849121
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=0",
+      "status": "passed",
+      "sim_time_ns": 10458.417000000016,
+      "real_time_s": 0.024912118911743164
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=1",
+      "status": "passed",
+      "sim_time_ns": 10625.08500000008,
+      "real_time_s": 0.025421142578125
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=0",
+      "status": "passed",
+      "sim_time_ns": 10791.753000000026,
+      "real_time_s": 0.019461870193481445
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=1",
+      "status": "passed",
+      "sim_time_ns": 10958.420999999973,
+      "real_time_s": 0.0260622501373291
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=0",
+      "status": "passed",
+      "sim_time_ns": 10625.08500000008,
+      "real_time_s": 0.027467012405395508
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=1",
+      "status": "passed",
+      "sim_time_ns": 10791.753000000026,
+      "real_time_s": 0.02785778045654297
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=0",
+      "status": "passed",
+      "sim_time_ns": 10958.420999999973,
+      "real_time_s": 0.029601097106933594
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=1",
+      "status": "passed",
+      "sim_time_ns": 11125.089000000036,
+      "real_time_s": 0.03140401840209961
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=0",
+      "status": "passed",
+      "sim_time_ns": 5625.0449999999255,
+      "real_time_s": 0.01566910743713379
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=1",
+      "status": "passed",
+      "sim_time_ns": 5625.045000000042,
+      "real_time_s": 0.018388986587524414
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=2",
+      "status": "passed",
+      "sim_time_ns": 5625.045000000042,
+      "real_time_s": 0.018419981002807617
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=3",
+      "status": "passed",
+      "sim_time_ns": 5625.045000000042,
+      "real_time_s": 0.01566910743713379
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 5958.380999999936,
+      "real_time_s": 0.022211790084838867
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 5791.712999999989,
+      "real_time_s": 0.020449161529541016
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 6125.048999999999,
+      "real_time_s": 0.0222017765045166
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 5958.381000000052,
+      "real_time_s": 0.02015209197998047
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 6208.383000000031,
+      "real_time_s": 0.02337193489074707
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 6041.714999999967,
+      "real_time_s": 0.021657228469848633
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 6375.051000000094,
+      "real_time_s": 0.021277904510498047
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 6208.383000000031,
+      "real_time_s": 0.020775318145751953
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 6541.718999999925,
+      "real_time_s": 0.01948070526123047
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 6375.050999999978,
+      "real_time_s": 0.01648998260498047
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 6708.386999999988,
+      "real_time_s": 0.0215299129486084
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 6541.719000000041,
+      "real_time_s": 0.020792007446289062
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 7458.392999999924,
+      "real_time_s": 0.02362799644470215
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 7291.724999999977,
+      "real_time_s": 0.025820255279541016
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 7625.060999999987,
+      "real_time_s": 0.021170854568481445
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 7458.39300000004,
+      "real_time_s": 0.02348494529724121
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9041.738999999943,
+      "real_time_s": 0.02924180030822754
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 8875.070999999996,
+      "real_time_s": 0.029367923736572266
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9208.407000000007,
+      "real_time_s": 0.03030705451965332
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9041.738999999943,
+      "real_time_s": 0.03425717353820801
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9125.072999999975,
+      "real_time_s": 0.030846834182739258
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 8958.404999999912,
+      "real_time_s": 0.029961824417114258
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9291.741000000038,
+      "real_time_s": 0.023982763290405273
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9125.072999999975,
+      "real_time_s": 0.026666879653930664
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9208.407000000007,
+      "real_time_s": 0.03132224082946777
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9041.738999999943,
+      "real_time_s": 0.03232407569885254
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9375.074999999953,
+      "real_time_s": 0.03490781784057617
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9208.407000000007,
+      "real_time_s": 0.034006595611572266
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9291.741000000038,
+      "real_time_s": 0.036004066467285156
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9125.073000000091,
+      "real_time_s": 0.03334236145019531
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9458.408999999985,
+      "real_time_s": 0.03262519836425781
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9291.741000000038,
+      "real_time_s": 0.032089948654174805
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9375.07500000007,
+      "real_time_s": 0.032479286193847656
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9208.407000000007,
+      "real_time_s": 0.03256106376647949
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=False",
+      "status": "passed",
+      "sim_time_ns": 9541.743000000017,
+      "real_time_s": 0.033905982971191406
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=True",
+      "status": "passed",
+      "sim_time_ns": 9375.07500000007,
+      "real_time_s": 0.03739190101623535
+    },
+    {
+      "name": "test_pu_en_follows_termselect_gated_by_rst_n",
+      "status": "passed",
+      "sim_time_ns": 708.3390000000363,
+      "real_time_s": 0.0018808841705322266
+    },
+    {
+      "name": "test_trim_static_codes_do_not_affect_framing",
+      "status": "passed",
+      "sim_time_ns": 41541.99899999995,
+      "real_time_s": 0.12723493576049805
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=xcvr0",
+      "status": "passed",
+      "sim_time_ns": 23375.186999999918,
+      "real_time_s": 0.06297969818115234
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=suspend0",
+      "status": "passed",
+      "sim_time_ns": 23375.187000000034,
+      "real_time_s": 0.07650113105773926
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=opmode01",
+      "status": "passed",
+      "sim_time_ns": 23375.186999999918,
+      "real_time_s": 0.07715511322021484
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=opmode11",
+      "status": "passed",
+      "sim_time_ns": 23375.186999999918,
+      "real_time_s": 0.07664608955383301
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=all",
+      "status": "passed",
+      "sim_time_ns": 23375.18700000015,
+      "real_time_s": 0.07182002067565918
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "<worktree>/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1,
+    "sdf": {
+      "file": "<worktree>/verification/records/post-layout-functional/artifacts/20261015-040000-963c79c/usb_utmi_phy_route_ss_125C_1v62.filtered.sdf",
+      "corner": "max",
+      "entries": "all",
+      "annotated": true,
+      "partial": true,
+      "dropped": {
+        "iopath_ifnone_edge_modpath": {
+          "count": 52,
+          "reason": "The cell's own Verilog model declares this arc only through 'ifnone' edge-sensitive module paths (e.g. 'ifnone (posedge A1 => (Z:A1))', the shape gf180mcu models give XOR/XNOR inputs and MUX selects), which Icarus Verilog does not support: it discards every such path at elaboration ('sorry: ifnone with an edge-sensitive path is not supported'), so no IOPATH entry -- unqualified or edge-qualified -- can match it ('Unable to match ModPath'). Those IOPATH entries were removed before annotation and counted here, and 'arcs' names every affected cell arc. Removing them cannot change simulated timing relative to annotating them, but the listed arcs simulate with NO module-path delay at all (neither the SDF's nor the model's placeholder): their characterised cell delay is not represented in this run. An IOPATH that fails to match any other arc is left in place and still fails loudly",
+          "arcs": [
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+              "from": "S",
+              "to": "Z"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__mux2_2",
+              "from": "S",
+              "to": "Z"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xnor2_1",
+              "from": "A1",
+              "to": "ZN"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xnor2_1",
+              "from": "A2",
+              "to": "ZN"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xnor2_4",
+              "from": "A1",
+              "to": "ZN"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xnor2_4",
+              "from": "A2",
+              "to": "ZN"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xor2_1",
+              "from": "A1",
+              "to": "Z"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xor2_1",
+              "from": "A2",
+              "to": "Z"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xor2_2",
+              "from": "A1",
+              "to": "Z"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xor2_2",
+              "from": "A2",
+              "to": "Z"
+            }
+          ]
+        },
+        "timingcheck": {
+          "count": 68,
+          "reason": "Icarus Verilog implements SDF delay annotation (IOPATH/INTERCONNECT) but not SDF TIMINGCHECK -- every TIMINGCHECK section in the SDF is dropped, so $setup/$hold/$width checks run against the cell library's own placeholder timing, not the characterised limits in the SDF"
+        },
+        "zero_delay_alias_port_interconnect": {
+          "count": 3,
+          "reason": "Icarus Verilog cannot insert an intermodpath onto a top-level port bit the gate-level netlist drives through a Verilog 'assign' alias (the shape a P&R backend produces for a constant/tie-cell-driven output: 'assign uio_oe[0] = net0;'), so every INTERCONNECT entry with such a destination fails with 'Could not find intermodpath!'. Entries whose every min:typ:max delay value is zero model no delay at any corner, so they are removed before annotation and counted here instead of failing the run -- a non-zero-delay entry on the same destination is left in place and still fails loudly"
+        }
+      }
+    }
+  }
+}

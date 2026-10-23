@@ -26,9 +26,15 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Event-aware concurrency (decision on issue #138). Groups are per workflow and
+# per event, so a cancelling PR run can never share a group with a push to main
+# or a manual run. Only pull_request runs cancel an in-progress run (an obsolete
+# PR revision has no value); started push/workflow_dispatch runs always finish
+# so every started main-branch verification keeps its verdict. Native
+# concurrency still lets a newer *pending* run supersede an older pending one.
 concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -64,7 +70,7 @@ jobs:
       - name: Install klayout-tools (klt) + cocotb -- pinned, see docs/environment-setup.md
         run: |
           python3 -m pip install --disable-pip-version-check \
-            "klayout-tools==0.7.0" \
+            "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@7ee09483b74867a47a05eb353015c2cf5ca33ef3" \
             "cocotb==2.0.1"
           klt --version
 

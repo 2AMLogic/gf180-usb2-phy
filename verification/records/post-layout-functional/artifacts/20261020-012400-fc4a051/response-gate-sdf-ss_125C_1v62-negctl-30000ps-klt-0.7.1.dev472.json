@@ -1,0 +1,857 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_utmi_phy",
+  "testbench": "test_usb_utmi_phy",
+  "status": "fail",
+  "test_count": 111,
+  "passed_count": 63,
+  "failed_count": 48,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_reset_state",
+      "status": "passed",
+      "sim_time_ns": 75.0,
+      "real_time_s": 0.03751707077026367
+    },
+    {
+      "name": "test_tx_sync_pattern_is_kjkjkjkk",
+      "status": "failed",
+      "sim_time_ns": 1275.0,
+      "real_time_s": 0.006583213806152344,
+      "error_type": "AssertionError",
+      "error_message": "SYNC wire pattern mismatch: [(0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0)]"
+    },
+    {
+      "name": "test_tx_eop_tail_is_se0_se0_j",
+      "status": "passed",
+      "sim_time_ns": 1875.0,
+      "real_time_s": 0.008344173431396484
+    },
+    {
+      "name": "test_loopback_single_byte",
+      "status": "failed",
+      "sim_time_ns": 1874.9999999999995,
+      "real_time_s": 0.008880853652954102,
+      "error_type": "AssertionError",
+      "error_message": "round trip mismatch: []"
+    },
+    {
+      "name": "test_loopback_multi_byte_with_stuffing",
+      "status": "failed",
+      "sim_time_ns": 4275.000000000001,
+      "real_time_s": 0.019253969192504883,
+      "error_type": "AssertionError",
+      "error_message": "round trip mismatch: []"
+    },
+    {
+      "name": "test_loopback_leading_ones_payload_canonical_stuff_scope",
+      "status": "failed",
+      "sim_time_ns": 2475.0,
+      "real_time_s": 0.010824918746948242,
+      "error_type": "AssertionError",
+      "error_message": "round trip mismatch: []"
+    },
+    {
+      "name": "test_loopback_trailing_run_of_six_ones_is_flushed",
+      "status": "failed",
+      "sim_time_ns": 2475.0,
+      "real_time_s": 0.011137008666992188,
+      "error_type": "AssertionError",
+      "error_message": "round trip mismatch: []"
+    },
+    {
+      "name": "test_loopback_back_to_back_packets_minimal_gap",
+      "status": "failed",
+      "sim_time_ns": 4875.000000000002,
+      "real_time_s": 0.022090911865234375,
+      "error_type": "AssertionError",
+      "error_message": "back-to-back round trip mismatch: []"
+    },
+    {
+      "name": "test_raw_mode_puts_payload_on_the_wire_unencoded",
+      "status": "failed",
+      "sim_time_ns": 1875.0,
+      "real_time_s": 0.008085012435913086,
+      "error_type": "AssertionError",
+      "error_message": "SYNC must stay NRZI-encoded: [(0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1)]"
+    },
+    {
+      "name": "test_malformed_sync_never_activates_rx",
+      "status": "passed",
+      "sim_time_ns": 735.0,
+      "real_time_s": 0.002850055694580078
+    },
+    {
+      "name": "test_rx_clean_wire_packet_has_no_error",
+      "status": "passed",
+      "sim_time_ns": 3195.0,
+      "real_time_s": 0.013464927673339844
+    },
+    {
+      "name": "test_rx_missing_stuff_bit_mid_byte_reaches_rxerror",
+      "status": "passed",
+      "sim_time_ns": 3405.0,
+      "real_time_s": 0.013772010803222656
+    },
+    {
+      "name": "test_rx_missing_trailing_stuff_bit_near_eop_reaches_rxerror",
+      "status": "passed",
+      "sim_time_ns": 3195.0,
+      "real_time_s": 0.013041257858276367
+    },
+    {
+      "name": "test_rx_error_not_raised_after_reception_ends",
+      "status": "passed",
+      "sim_time_ns": 1275.0,
+      "real_time_s": 0.0043582916259765625
+    },
+    {
+      "name": "test_rx_utmi_reset_mid_packet_clears_pipeline",
+      "status": "passed",
+      "sim_time_ns": 3885.0,
+      "real_time_s": 0.016777992248535156
+    },
+    {
+      "name": "test_rx_utmi_reset_after_stuffing_error_mid_packet",
+      "status": "passed",
+      "sim_time_ns": 3435.0,
+      "real_time_s": 0.014034748077392578
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.0162961483001709
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.016335248947143555
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.016840219497680664
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=0/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.016528844833374023
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.015708208084106445
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.016123056411743164
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.015850067138671875
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=1/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.015996932983398438
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.016119718551635742
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.015396833419799805
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.015406131744384766
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=2/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.015583992004394531
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.016705989837646484
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.016923904418945312
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.01667308807373047
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=3/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.02109217643737793
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.02326512336730957
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.02091526985168457
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.027595043182373047
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=4/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.027910947799682617
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.025022029876708984
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.01632094383239746
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.01875591278076172
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=5/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.03134584426879883
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.026068925857543945
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.02907109260559082
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.02119612693786621
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=6/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.020879745483398438
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.019149065017700195
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.019349098205566406
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.01984095573425293
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=7/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.020884037017822266
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.0213320255279541
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.019395112991333008
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.01802992820739746
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=8/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 3975.0,
+      "real_time_s": 0.0176699161529541
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=J",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.029072284698486328
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=1/release=K",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.029104232788085938
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=J",
+      "status": "passed",
+      "sim_time_ns": 4035.0,
+      "real_time_s": 0.030874967575073242
+    },
+    {
+      "name": "test_rx_utmi_reset_edge_timed_abort_and_release/phase=9/hold=3/release=K",
+      "status": "passed",
+      "sim_time_ns": 4035.0,
+      "real_time_s": 0.03032207489013672
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=0",
+      "status": "passed",
+      "sim_time_ns": 3765.0,
+      "real_time_s": 0.02669692039489746
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=1/gap=1",
+      "status": "passed",
+      "sim_time_ns": 3825.0,
+      "real_time_s": 0.014915704727172852
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=0",
+      "status": "passed",
+      "sim_time_ns": 3885.0,
+      "real_time_s": 0.019935131072998047
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=J/hold=3/gap=1",
+      "status": "passed",
+      "sim_time_ns": 3945.0,
+      "real_time_s": 0.024470090866088867
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=0",
+      "status": "passed",
+      "sim_time_ns": 3825.0,
+      "real_time_s": 0.02906322479248047
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=1/gap=1",
+      "status": "passed",
+      "sim_time_ns": 3885.0,
+      "real_time_s": 0.028898000717163086
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=0",
+      "status": "passed",
+      "sim_time_ns": 3945.0,
+      "real_time_s": 0.021065235137939453
+    },
+    {
+      "name": "test_rx_utmi_reset_release_straight_into_sync/before=K/hold=3/gap=1",
+      "status": "passed",
+      "sim_time_ns": 4005.0,
+      "real_time_s": 0.029868125915527344
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=0",
+      "status": "failed",
+      "sim_time_ns": 2025.0,
+      "real_time_s": 0.015254020690917969,
+      "error_type": "AssertionError",
+      "error_message": "sync: unsampled Reset pulse corrupted reception: [] != [90, 255, 60, 252]"
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=1",
+      "status": "failed",
+      "sim_time_ns": 2025.0,
+      "real_time_s": 0.016350984573364258,
+      "error_type": "AssertionError",
+      "error_message": "partial_byte: unsampled Reset pulse corrupted reception: [90, 255, 134] != [90, 255, 60, 252]"
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=2",
+      "status": "failed",
+      "sim_time_ns": 2025.0,
+      "real_time_s": 0.01702713966369629,
+      "error_type": "AssertionError",
+      "error_message": "six_ones: unsampled Reset pulse corrupted reception: [90, 96, 30] != [90, 255, 60, 252]"
+    },
+    {
+      "name": "test_rx_utmi_reset_pulse_between_edges_is_not_sampled/phase=3",
+      "status": "failed",
+      "sim_time_ns": 2025.0,
+      "real_time_s": 0.017921924591064453,
+      "error_type": "AssertionError",
+      "error_message": "stuff_bit: unsampled Reset pulse corrupted reception: [90, 48, 15] != [90, 255, 60, 252]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 195.0,
+      "real_time_s": 0.002623319625854492,
+      "error_type": "AssertionError",
+      "error_message": "sync: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=1/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 195.0,
+      "real_time_s": 0.0026230812072753906,
+      "error_type": "AssertionError",
+      "error_message": "sync: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 195.0,
+      "real_time_s": 0.003101825714111328,
+      "error_type": "AssertionError",
+      "error_message": "sync: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync/hold=3/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 195.0,
+      "real_time_s": 0.003297090530395508,
+      "error_type": "AssertionError",
+      "error_message": "sync: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 285.0,
+      "real_time_s": 0.003351926803588867,
+      "error_type": "AssertionError",
+      "error_message": "sync_last: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=1/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 285.0,
+      "real_time_s": 0.0038268566131591797,
+      "error_type": "AssertionError",
+      "error_message": "sync_last: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 285.0,
+      "real_time_s": 0.003843069076538086,
+      "error_type": "AssertionError",
+      "error_message": "sync_last: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=sync_last/hold=3/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 285.0,
+      "real_time_s": 0.003966808319091797,
+      "error_type": "AssertionError",
+      "error_message": "sync_last: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 405.0,
+      "real_time_s": 0.004899024963378906,
+      "error_type": "AssertionError",
+      "error_message": "payload: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=1/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 405.0,
+      "real_time_s": 0.004514932632446289,
+      "error_type": "AssertionError",
+      "error_message": "payload: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 405.0,
+      "real_time_s": 0.005528688430786133,
+      "error_type": "AssertionError",
+      "error_message": "payload: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=payload/hold=3/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 405.0,
+      "real_time_s": 0.004992008209228516,
+      "error_type": "AssertionError",
+      "error_message": "payload: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 735.0,
+      "real_time_s": 0.008516073226928711,
+      "error_type": "AssertionError",
+      "error_message": "stuff: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=1/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 735.0,
+      "real_time_s": 0.009866952896118164,
+      "error_type": "AssertionError",
+      "error_message": "stuff: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 735.0,
+      "real_time_s": 0.007570981979370117,
+      "error_type": "AssertionError",
+      "error_message": "stuff: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=stuff/hold=3/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 735.0,
+      "real_time_s": 0.008666753768920898,
+      "error_type": "AssertionError",
+      "error_message": "stuff: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 1305.0,
+      "real_time_s": 0.013334989547729492,
+      "error_type": "AssertionError",
+      "error_message": "flush: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=1/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 1305.0,
+      "real_time_s": 0.012659072875976562,
+      "error_type": "AssertionError",
+      "error_message": "flush: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 1305.0,
+      "real_time_s": 0.011106014251708984,
+      "error_type": "AssertionError",
+      "error_message": "flush: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=flush/hold=3/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 1305.0,
+      "real_time_s": 0.013336181640625,
+      "error_type": "AssertionError",
+      "error_message": "flush: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 1335.0,
+      "real_time_s": 0.015554189682006836,
+      "error_type": "AssertionError",
+      "error_message": "hold: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=1/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 1335.0,
+      "real_time_s": 0.014327049255371094,
+      "error_type": "AssertionError",
+      "error_message": "hold: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 1335.0,
+      "real_time_s": 0.013811349868774414,
+      "error_type": "AssertionError",
+      "error_message": "hold: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=hold/hold=3/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 1335.0,
+      "real_time_s": 0.012694597244262695,
+      "error_type": "AssertionError",
+      "error_message": "hold: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 1365.0,
+      "real_time_s": 0.014153003692626953,
+      "error_type": "AssertionError",
+      "error_message": "eop_se0: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (0, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=1/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 1365.0,
+      "real_time_s": 0.014161825180053711,
+      "error_type": "AssertionError",
+      "error_message": "eop_se0: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (0, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 1365.0,
+      "real_time_s": 0.013514995574951172,
+      "error_type": "AssertionError",
+      "error_message": "eop_se0: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (0, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_se0/hold=3/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 1365.0,
+      "real_time_s": 0.013018131256103516,
+      "error_type": "AssertionError",
+      "error_message": "eop_se0: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (0, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 1395.000000000029,
+      "real_time_s": 0.013659000396728516,
+      "error_type": "AssertionError",
+      "error_message": "eop_j: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (0, 0), (0, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=1/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 1395.0,
+      "real_time_s": 0.012836217880249023,
+      "error_type": "AssertionError",
+      "error_message": "eop_j: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (0, 0), (0, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 1395.0,
+      "real_time_s": 0.012930870056152344,
+      "error_type": "AssertionError",
+      "error_message": "eop_j: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (0, 0), (0, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_j/hold=3/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 1395.0,
+      "real_time_s": 0.014220952987670898,
+      "error_type": "AssertionError",
+      "error_message": "eop_j: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (0, 0), (0, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 1425.0,
+      "real_time_s": 0.013507843017578125,
+      "error_type": "AssertionError",
+      "error_message": "eop_idle: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (0, 0), (0, 0), (1, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=1/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 1425.0,
+      "real_time_s": 0.014661073684692383,
+      "error_type": "AssertionError",
+      "error_message": "eop_idle: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (0, 0), (0, 0), (1, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=False",
+      "status": "failed",
+      "sim_time_ns": 1425.0,
+      "real_time_s": 0.013913869857788086,
+      "error_type": "AssertionError",
+      "error_message": "eop_idle: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (0, 0), (0, 0), (1, 0)]"
+    },
+    {
+      "name": "test_tx_utmi_reset_aborts_and_recovers/phase=eop_idle/hold=3/txvalid_held=True",
+      "status": "failed",
+      "sim_time_ns": 1425.0,
+      "real_time_s": 0.013247966766357422,
+      "error_type": "AssertionError",
+      "error_message": "eop_idle: wire before injection disagrees with the model: [(1, 0), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 1), (0, 1), (0, 1), (0, 0), (1, 1), (0, 0), (1, 1), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 1), (0, 1), (0, 0), (0, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0)] != [(0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (1, 0), (0, 1), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (1, 0), (0, 1), (0, 0), (0, 0), (1, 0)]"
+    },
+    {
+      "name": "test_pu_en_follows_termselect_gated_by_rst_n",
+      "status": "passed",
+      "sim_time_ns": 405.0,
+      "real_time_s": 0.0029311180114746094
+    },
+    {
+      "name": "test_trim_static_codes_do_not_affect_framing",
+      "status": "failed",
+      "sim_time_ns": 3705.0,
+      "real_time_s": 0.02110576629638672,
+      "error_type": "AssertionError",
+      "error_message": "trim=0: round trip mismatch: []"
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=xcvr0",
+      "status": "passed",
+      "sim_time_ns": 8415.0,
+      "real_time_s": 0.06110811233520508
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=suspend0",
+      "status": "passed",
+      "sim_time_ns": 8415.0,
+      "real_time_s": 0.06467890739440918
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=opmode01",
+      "status": "passed",
+      "sim_time_ns": 8415.0,
+      "real_time_s": 0.06436705589294434
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=opmode11",
+      "status": "passed",
+      "sim_time_ns": 8415.0,
+      "real_time_s": 0.06765890121459961
+    },
+    {
+      "name": "test_unconsumed_pins_are_inert/variant=all",
+      "status": "passed",
+      "sim_time_ns": 8415.0,
+      "real_time_s": 0.06617093086242676
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "<worktree>/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1,
+    "sdf": {
+      "file": "<worktree>/verification/records/post-layout-functional/artifacts/20261015-040000-963c79c/usb_utmi_phy_route_ss_125C_1v62.filtered.sdf",
+      "corner": "max",
+      "entries": "all",
+      "annotated": true,
+      "partial": true,
+      "dropped": {
+        "iopath_ifnone_edge_modpath": {
+          "count": 52,
+          "reason": "The cell's own Verilog model declares this arc only through 'ifnone' edge-sensitive module paths (e.g. 'ifnone (posedge A1 => (Z:A1))', the shape gf180mcu models give XOR/XNOR inputs and MUX selects), which Icarus Verilog does not support: it discards every such path at elaboration ('sorry: ifnone with an edge-sensitive path is not supported'), so no IOPATH entry -- unqualified or edge-qualified -- can match it ('Unable to match ModPath'). Those IOPATH entries were removed before annotation and counted here, and 'arcs' names every affected cell arc. Removing them cannot change simulated timing relative to annotating them, but the listed arcs simulate with NO module-path delay at all (neither the SDF's nor the model's placeholder): their characterised cell delay is not represented in this run. An IOPATH that fails to match any other arc is left in place and still fails loudly",
+          "arcs": [
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__mux2_1",
+              "from": "S",
+              "to": "Z"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__mux2_2",
+              "from": "S",
+              "to": "Z"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xnor2_1",
+              "from": "A1",
+              "to": "ZN"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xnor2_1",
+              "from": "A2",
+              "to": "ZN"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xnor2_4",
+              "from": "A1",
+              "to": "ZN"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xnor2_4",
+              "from": "A2",
+              "to": "ZN"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xor2_1",
+              "from": "A1",
+              "to": "Z"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xor2_1",
+              "from": "A2",
+              "to": "Z"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xor2_2",
+              "from": "A1",
+              "to": "Z"
+            },
+            {
+              "celltype": "gf180mcu_fd_sc_mcu9t5v0__xor2_2",
+              "from": "A2",
+              "to": "Z"
+            }
+          ]
+        },
+        "timingcheck": {
+          "count": 68,
+          "reason": "Icarus Verilog implements SDF delay annotation (IOPATH/INTERCONNECT) but not SDF TIMINGCHECK -- every TIMINGCHECK section in the SDF is dropped, so $setup/$hold/$width checks run against the cell library's own placeholder timing, not the characterised limits in the SDF"
+        },
+        "zero_delay_alias_port_interconnect": {
+          "count": 3,
+          "reason": "Icarus Verilog cannot insert an intermodpath onto a top-level port bit the gate-level netlist drives through a Verilog 'assign' alias (the shape a P&R backend produces for a constant/tie-cell-driven output: 'assign uio_oe[0] = net0;'), so every INTERCONNECT entry with such a destination fails with 'Could not find intermodpath!'. Entries whose every min:typ:max delay value is zero model no delay at any corner, so they are removed before annotation and counted here instead of failing the run -- a non-zero-delay entry on the same destination is left in place and still fails loudly"
+        }
+      }
+    }
+  }
+}

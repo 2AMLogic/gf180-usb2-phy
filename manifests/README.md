@@ -158,8 +158,10 @@ grades in both partitions:
   not require one, and this citation does not claim it:
   `klt functional-verification` envelopes record no `provenance` and
   cannot be freshness-pinned, and SDF gate-level verification is tracked
-  separately by #93 (cited as item 7.digital, see item 7 below). **Item 5.analog stays `unmet`/`no_evidence`**
-  (parked on klayout-tools#1962).
+  separately by #93 (cited as item 7.digital, see item 7 below). **Item 5.analog is cited, and renders `unmet`/`partial_coverage`** (see
+  the 5.analog bullet below). **Item 5.digital rendered `met` at the previous
+  pin and renders `unmet`/`partial_coverage` since issue #188**, for the reason
+  given there.
 - **Item 11.digital, power delivery (structural) — cited, `met`** — the
   first T1 item no single artifact proves, so its manifest entry is a
   **list**: the digital partition's `klt erc` supply report
@@ -202,8 +204,8 @@ been "borrowing a pass" and they were left uncited. klayout-tools#2843
 (released in 0.7.0) closed that gap: the envelope must declare `"t1_item"`
 and bind the audited artifact by path and content hash, and the row is
 `met` only while the artifact still re-hashes to the pinned value
-(`input_verified: true`). The repo pin moved to `klayout-tools==0.7.0` for
-this (`docs/environment-setup.md`, move 7). The unreleased
+(`input_verified: true`). The repo pin (a git revision descending from 0.7.0, so it carries that
+grader; `docs/environment-setup.md`, moves 7 and 8) serves this. The unreleased
 `klt signoff --attest` (klayout-tools#2844) is **not** used: the envelopes
 are written by `signoff/inventories.py`.
 
@@ -256,16 +258,58 @@ repo's rule that an envelope must actually support the item to be cited:
 - **Item 2.analog** (layout, analog partition) — no analog GDS exists
   (#166, #167, #53), so there is nothing to bind: `unmet`/`no_evidence`.
 - **Item 5.analog** (corner verification vs ratified spec, analog
-  partition) — the analog evidence (`sim/`, all 45 corners, per-row
-  verdicts) exists as this repo's *own* Markdown evidence-record
-  convention, which no `klt sim` envelope represents. Re-minting it as a
-  gradeable envelope waits on klayout-tools#1962 (tracked in #53);
-  `unmet`/`no_evidence`. (5.digital is cited above.)
-- **Item 6** (Monte Carlo) — the ratified §8.2 spec table contains no
-  statistical (accuracy/offset/matching-distribution) row: every receiver
-  threshold and the pull-up tolerance row are corner-matrix claims.
-  Stated here explicitly per the item's own requirement that a spec with
-  no statistical row must say so rather than silently omit the item.
+  partition) — **cited (issue #188), renders `unmet`/`partial_coverage`**.
+  Five `klt sim` envelopes, one per row-grading bench, each over the full
+  45-corner grid (`sim/<bench>/corners/<record-id>/klt-sim-report.json`,
+  run on the Spot batch fleet), each measurement carrying the spec bound as
+  `limits` so a corner's `pass` means "inside the bound":
+  `diff-receiver-sensitivity`, `se-receiver-dp-thresholds`,
+  `se-receiver-dm-thresholds` (row `receiver-thresholds`),
+  `driver-signal-quality` (rows `rise-fall-time`, `crossover-voltage`,
+  `full-speed-signal-quality`) and `dplus-pullup-tolerance` (row
+  `dplus-pullup-tolerance`). All five pass at all 45 corners, and the
+  grader lists no failed and no uncovered row. **The one reason the item is
+  not `met`** is the declared gap `driver-output-timing-jitter`: spec §8.2
+  ratifies no jitter limit and mandates that the row be recorded as
+  engineering data with no pass/fail (`sim/driver-jitter`, record
+  `20261015-104027-d109790`), so no envelope can grade it. Its `klt sim`
+  envelope is committed but deliberately **not** cited: it has no limited
+  measurement, and an envelope with none grades `pass` vacuously
+  (klayout-tools#3769). The rows are the §8.2 table's, in the manifest's
+  `spec_rows` block. The per-row agreement between the envelopes and the
+  older Markdown records is `docs/analog-envelope-agreement.md` (every
+  comparison in the `.csv` beside it).
+  **Side effect on 5.digital.** `spec_rows` is keyed by item id, not by
+  partition (klayout-tools#3768), so declaring the analog rows also asks
+  the digital partition's item 5 to cover them, and `5.digital` (one passing
+  `klt sta` envelope, unchanged) drops from `met` to `unmet`/`partial_coverage`
+  with every analog row listed as uncovered. Nothing about the digital
+  evidence changed; the alternative was to omit `spec_rows` and let 5.analog
+  render `met` with the jitter gap recorded nowhere the grader reads. Removing
+  the `spec_rows` block restores `5.digital: met` at the price of that
+  overclaim; the tool fix is #3768.
+  History: this item was recorded here as waiting on klayout-tools#1962
+  (tracked in #53). That was a mis-attribution: #1962 is a `gen-compose`
+  routing gap and #53 is post-layout re-verification, and item 5 is a
+  schematic-level claim that needs no layout. (5.digital is cited above.)
+- **Item 6** (Monte Carlo) — **digital partition: no statistical row,
+  stated explicitly** in `verification/statistical-claims-na.md`, pinned to
+  the SHA-256 of the ratified spec and re-checked by
+  `verification/check_statistical_na.py`. `klt signoff` can grade this as a
+  `not_applicable` outcome from `verification/statistical-na/*.json`, but the
+  `klt` pinned in CI (`e8ca621`) predates that form and renders it
+  `unmet` / `invalid_evidence`, so `6.digital` stays uncited (`unmet` /
+  `no_evidence`) until the pin is bumped (cite block in
+  `verification/statistical-claims-na.md`).
+  **Analog partition: statistical rows exist.** An earlier version of this
+  paragraph said the whole block has none; that was wrong for the analog
+  partition. `spec/decisions/0007-analog-statistical-rows.md` classifies them:
+  the differential and single-ended receiver thresholds (input-referred
+  offset is a MOS matching quantity) and the D+ pull-up tolerance (resistor
+  ladder matching; not measurable with the gf180mcuD resistor model, whose
+  mismatch hook ships disabled). A corner matrix cannot validate those, so
+  `6.analog` stays `unmet` until a `klt yield` report backs it (campaign:
+  `sim/diff-receiver-mc/`).
 - **Item 7.digital, post-layout verification — cited, `met`** — the
   gate-level `test_usb_utmi_phy.py` suite (all 111 tests, none skipped)
   replayed through `klt functional-verification` against the routed netlist,
@@ -288,9 +332,10 @@ repo's rule that an envelope must actually support the item to be cited:
   SDF and the refused run are archived next to it). The negative control
   (same suite, 30 ns clock) fails 48/111 on functional assertions while the
   zero-delay replay at 30 ns passes. The replay needs klt at or after
-  klayout-tools `bc386fb` (the #2885 fix); the repo pin `e8ca621a` still
-  renders the signoff report correctly but cannot replay the SDF (53
-  diagnostics), and CI does not run the replay, so the pin was not bumped.
+  klayout-tools `bc386fb` (the #2885 fix); the pin
+  at the time (`e8ca621a`) rendered the signoff report correctly but could not
+  replay the SDF (53 diagnostics). Issue #188 moved the pin to `7ee09483`,
+  which is past `bc386fb`; the replay was not re-run against it.
   The slow-corner SDF was produced outside klt from klt's generated
   OpenSTA script (klayout-tools#2886, open). **Item 7.analog stays
   `unmet`/`no_evidence`** (no analog layout; parked on klayout-tools#1962,
@@ -304,10 +349,10 @@ repo's rule that an envelope must actually support the item to be cited:
 ## Regeneration and freshness
 
 ```bash
-# the grader pin is klayout-tools==0.7.0 (CI installs it; `scripts/setup-env.sh`'s venv
-# keeps an older revision, see docs/environment-setup.md move 7), e.g.:
-python3 -m venv /tmp/klt070 && /tmp/klt070/bin/pip install "klayout-tools==0.7.0" cocotb==2.0.1
-export PATH=/tmp/klt070/bin:$PATH
+# the grader pin is the klayout-tools git revision in .github/workflows/ci.yml
+# (`scripts/setup-env.sh` uses the same one, see docs/environment-setup.md), e.g.:
+python3 -m venv /tmp/klt-pin && /tmp/klt-pin/bin/pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@7ee09483b74867a47a05eb353015c2cf5ca33ef3" cocotb==2.0.1
+export PATH=/tmp/klt-pin/bin:$PATH
 python3 signoff/check.py --regen   # only if an inventoried file changed on purpose
 klt signoff --manifest manifests/gf180-usb2-phy.json --format json > /tmp/fresh.json
 klt signoff --manifest manifests/gf180-usb2-phy.json --format text
@@ -315,12 +360,13 @@ diff /tmp/fresh.json manifests/t1-signoff-report.json   # regeneration = update 
 ```
 
 Exit `0` means every T1 item met (this repo is **not** there:
-exit `3`, `tier: null`, `14/22` item-rows met at the time of freezing —
-item 8 in both partitions, 3.digital, 4.digital, 5.digital, 7.digital and
-11.digital, plus the artifact-anchored rows 1.analog, 1.digital, 2.digital
-and items 9 and 10 in both partitions; it was `8/22` before issue #95
-stopped items 3 and 4 from grading the analog partition off digital
-evidence). Exit codes `0` and `3` are
+exit `3`, `tier: null`, `13/22` item-rows met at the time of freezing —
+item 8 in both partitions, 3.digital, 4.digital, 7.digital and 11.digital,
+plus the artifact-anchored rows 1.analog, 1.digital, 2.digital and items 9
+and 10 in both partitions; it was `6/22` before issue #187, `7/22` before
+issue #188 (when 5.digital was also met, see the 5.analog bullet), and `8/22`
+before issue #95 stopped items 3 and 4 from grading the analog
+partition off digital evidence). Exit codes `0` and `3` are
 both "clean runs"; exit `1` is an error and must be fixed, not committed
 around.
 

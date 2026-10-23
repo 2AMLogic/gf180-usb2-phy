@@ -1,0 +1,63 @@
+* driver-disabled-leakage -- differential driver with TXOE low on an externally driven bus
+*
+* Netlist FRAGMENT. The harness supplies the title, the .include of the
+* gf180mcu models, the corner .lib sections, .temp, the .control block and
+* .end. Parameters provided by the harness: vdd_val, vdd_nom, temp_c.
+*
+* DUT: design/netlist/differential_driver.spice (tb.json "dut").
+*
+* What this measures (issue #114; DR-0004 pin TXOE). The driver cell has an
+* active-high TXOE; TXOE=0 must make DP and DM high-Z. Here an IDEAL voltage
+* source on each pad plays "the host owns the bus" and the current into that
+* source is the leakage. The 50 pF §6 test load of driver-signal-quality is
+* NOT present: this setup is separate on purpose.
+*
+* Spec context: spec/usb2-device-phy.md has no numeric leakage or high-Z
+* current row, and this repo has not adopted a bound, so NO limit is attached
+* to any leakage number. They are engineering data. The one check present is
+* a harness-integrity check on the deliberately-enabled contention control
+* (the current meter must be able to see a fight).
+*
+* Timeline (ns). Pad sources drive 3.3 V (fixed, NOT vdd_val: at the 2.97 V
+* supply corner a 3.3 V host exceeds the PHY supply, the stressful case; at
+* 3.63 V it is below it).
+*   blocks 0..3, 200 ns each, TXOE=0: pad state SE0 (0,0 V), J (DP 3.3, DM 0),
+*     K (DP 0, DM 3.3), SE1 (3.3, 3.3). Pad edge at each block start. Within a
+*     block the 50 ns slots drive TXDP/TXDM through 00, 01, 10, 11, so all four
+*     input-data combinations meet every pad state and the inputs toggle while
+*     disabled. Settled leakage = last 20 ns of each slot.
+*   800-1000   CONTENTION CONTROL: TXOE=1, TXDP=1, TXDM=0 against sources
+*     holding DP=0 V, DM=3.3 V. Tail = last 40 ns.
+*   1000-1100  TXOE=0 with the pad sources at DP=3.3, DM=0 (disable release).
+*   1100-1200, 1300-1350  TXOE=1, TXDP=1, TXDM=0 matching the bus (no fight):
+*     enable transitions; 1200-1300 and 1350-1400 disabled again.
+
+vsup VDD 0 dc {vdd_val}
+vdp DP 0 pwl(0n 0 200n 0 200.5n 3.3 400n 3.3 400.5n 0 600n 0 600.5n 3.3 800n 3.3 800.5n 0 1000n 0 1000.5n 3.3)
+vdm DM 0 pwl(0n 0 400n 0 400.5n 3.3 1000n 3.3 1000.5n 0)
+vtxdp TXDP 0 pwl(0n 0 100n 0 100.5n {vdd_val} 200n {vdd_val} 200.5n 0 300n 0 300.5n {vdd_val} 400n {vdd_val} 400.5n 0 500n 0 500.5n {vdd_val} 600n {vdd_val} 600.5n 0 700n 0 700.5n {vdd_val})
+vtxdm TXDM 0 pwl(0n 0 50n 0 50.5n {vdd_val} 100n {vdd_val} 100.5n 0 150n 0 150.5n {vdd_val} 200n {vdd_val} 200.5n 0 250n 0 250.5n {vdd_val} 300n {vdd_val} 300.5n 0 350n 0 350.5n {vdd_val} 400n {vdd_val} 400.5n 0 450n 0 450.5n {vdd_val} 500n {vdd_val} 500.5n 0 550n 0 550.5n {vdd_val} 600n {vdd_val} 600.5n 0 650n 0 650.5n {vdd_val} 700n {vdd_val} 700.5n 0 750n 0 750.5n {vdd_val} 800n {vdd_val} 800.5n 0)
+vtxoe TXOE 0 pwl(0n 0 800n 0 800.5n {vdd_val} 1000n {vdd_val} 1000.5n 0 1100n 0 1100.5n {vdd_val} 1200n {vdd_val} 1200.5n 0 1300n 0 1300.5n {vdd_val} 1350n {vdd_val} 1350.5n 0)
+
+Xdrv VDD 0 TXDP TXDM TXOE DP DM differential_driver
+
+* Windowing signals for the .meas cards (gt: settled tail of a 50 ns slot).
+bgt gt 0 v=(time-50n*floor(time/50n)>=30n)
+* slot index within a 200 ns block: 0 has the pad edge, 1..3 are pure data toggles
+bgs gs 0 v=(time-200n*floor(time/200n)>=50n)
+bw_se0_dp w_se0_dp 0 v=abs(i(vdp))*v(gt)*(time>=0n)*(time<200n)
+bw_se0_dm w_se0_dm 0 v=abs(i(vdm))*v(gt)*(time>=0n)*(time<200n)
+bw_j_dp w_j_dp 0 v=abs(i(vdp))*v(gt)*(time>=200n)*(time<400n)
+bw_j_dm w_j_dm 0 v=abs(i(vdm))*v(gt)*(time>=200n)*(time<400n)
+bw_k_dp w_k_dp 0 v=abs(i(vdp))*v(gt)*(time>=400n)*(time<600n)
+bw_k_dm w_k_dm 0 v=abs(i(vdm))*v(gt)*(time>=400n)*(time<600n)
+bw_se1_dp w_se1_dp 0 v=abs(i(vdp))*v(gt)*(time>=600n)*(time<800n)
+bw_se1_dm w_se1_dm 0 v=abs(i(vdm))*v(gt)*(time>=600n)*(time<800n)
+bw_all w_all 0 v=max(abs(i(vdp)),abs(i(vdm)))*v(gt)*(time<800n)
+bw_tog_dp w_tog_dp 0 v=abs(i(vdp))*v(gs)*(time<800n)
+bw_con_dp w_con_dp 0 v=abs(i(vdp))*(time>=960n)*(time<1000n)
+bw_tog_dm w_tog_dm 0 v=abs(i(vdm))*v(gs)*(time<800n)
+bw_con_dm w_con_dm 0 v=abs(i(vdm))*(time>=960n)*(time<1000n)
+bw_rel w_rel 0 v=max(abs(i(vdp)),abs(i(vdm)))*((time>=1070n)*(time<1100n)+(time>=1270n)*(time<1300n)+(time>=1370n)*(time<1400n))
+bw_en w_en 0 v=max(abs(i(vdp)),abs(i(vdm)))*((time>=1160n)*(time<1200n)+(time>=1335n)*(time<1350n))
+bw_trn w_trn 0 v=max(abs(i(vdp)),abs(i(vdm)))*((time>=1100n)*(time<1160n)+(time>=1200n)*(time<1260n)+(time>=1300n)*(time<1335n)+(time>=1350n)*(time<1360n))

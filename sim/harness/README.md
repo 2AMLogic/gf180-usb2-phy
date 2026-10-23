@@ -63,9 +63,44 @@ python3 sim/run_corners.py diff-receiver-sensitivity --backend klt \
     --klt-runner-version-check warn --supersedes <record-id>
 ```
 
-A testbench opts in with `klt_measure` in `tb.json` (a `.meas` card plus an
-optional `scale` per measurement; see the module docstring). Only
-`diff-receiver-sensitivity` declares it so far. `--klt-runner-version-check
+### Transports: `request` vs `decks` (`--klt-transport`)
+
+`--backend klt` carries the grid one of two ways; `auto` (default) picks
+`request` when the bench declares `klt_measure`, else `decks`:
+
+| transport | what ships | measurement semantics |
+|---|---|---|
+| `request` | a `klt sim` corners request built from `klt_measure` | re-expressed as `.meas` cards (`diff-receiver-sensitivity` and the two `se-receiver-*-thresholds` benches) |
+| `decks` | this harness's own `compose_deck` output, one per PVT point, as a `klt sim` deck-list request (`decks[]`) | **identical**: the same `.control` block, `derive`, `measure`, `print m_<name>` and the same stdout parser/`checks` as a local run |
+
+`decks` changes only the deck's file-reference strings (`dut.spice` /
+`tb_netlist.spice` staged beside the deck; the PDK as `$PDK_ROOT/<rel>`, or
+`<--klt-pdk-root>/<rel>` verbatim). Unsupported shapes are errors, not drops: a
+netlist fragment with its own `.include/.lib/.read`, a PDK file outside the PDK
+root, duplicate corner ids, a report that is not a deck report, a unit missing
+from the report (`error`, all measurements missing), a timeout (`error`), a
+unit with no captured streams (`error`), exit 0 with no `m_<name>` lines
+(`failed`). The record's `klt sim` environment line gains `transport`,
+`pdk_ref`, `units` and `decks_sha256` (digest of klt's per-unit deck hashes).
+
+**No local fan-out.** A multi-unit klt grid must resolve to `batch`/`remote`
+(`--backend klt:batch`, or `KLT_SIM_BACKEND=batch`); an unset environment
+(klt would pick `local`) or an explicit `klt:local` is refused for more than one
+point. The in-process runner is refused for more than one point on a host whose
+`KLT_SIM_BACKEND` is `batch`/`remote`, and `-j` is capped at 2 (the shared-host
+limit) everywhere. Single-point probes are unaffected.
+
+**Cutover prerequisites (not yet demonstrated; nothing here ran on the fleet):**
+(1) the executor image's `klt sim` accepts deck-list requests (`mode: decks`);
+(2) it resolves the deck's PDK reference -- ngspice 42 does *not* expand
+`$PDK_ROOT` in `.include`/`.lib`, so either the executor expands it or run with
+`--klt-pdk-root <executor PDK root>`; (3) a parity receipt: one bench's deck run
+on the executor reproduces a committed record's per-corner measurements. Until
+then `run_grid` and the local branch stay.
+
+A testbench opts in to the `request` transport with `klt_measure` in `tb.json` (a `.meas` card plus an
+optional `scale` per measurement; see the module docstring). The
+differential receiver and both single-ended receivers declare it. `--klt-runner-version-check
 warn` is needed while the fleet image's klt is older than the client; the
 request then uses only features the older runner has. `--backend klt:local` /
 `klt:batch` force one klt backend. The klt backend does not need a local
@@ -172,7 +207,7 @@ distinct claim under test, kebab-case.
 {
   "name": "my-experiment",
   "description": "one line, shows up in --list and in the record",
-  "claim": "spec/usb2-device-phy.md#driver-characteristics",
+  "claim": "spec/usb2-device-phy.md#6-driver-characteristics",
   "netlist": "my_tb.spice",
   "nominal_supply_v": 3.3,
   "supply_tolerance": 0.1,

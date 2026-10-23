@@ -79,6 +79,8 @@ ITEM_TITLES = {
 NO_TESTBENCH_DIRS = {
     "harness": "shared corner-runner support code, not an experiment",
     "tests": "harness unit tests, not an experiment",
+    "diff-receiver-mc": "Monte Carlo request builder (build_requests.py) for the fleet; ships no testbench of its own, reuses sim/diff-receiver-sensitivity/",
+    "se-receiver-mc": "Monte Carlo request builder (build_requests.py) for the fleet; ships no testbench of its own, reuses the single-ended receiver deck",
 }
 
 # Commands a reader needs to reproduce a record from a cold checkout, each
@@ -94,11 +96,15 @@ COLD_START = [
 # Experiments that substantiate no spec row; every other experiment must be
 # indexed by sim/spec-coverage.md, and every experiment that index names must
 # ship a committed testbench.
-NO_SPEC_ROW = {"smoke-inverter": "harness smoke test, claims no spec number"}
+NO_SPEC_ROW = {"smoke-inverter": "harness smoke test, claims no spec number",
+    "driver-disabled-leakage": "engineering data; spec/usb2-device-phy.md has no numeric leakage row (tb.json: no limit adopted)",
+}
 SPEC_COVERAGE = "sim/spec-coverage.md"
 
 # verification/test_*.py files that are plain unit tests, not cocotb testbenches.
-NOT_COCOTB = {"test_check_records": "unit test of verification/check_records.py (run by `npm run lint`)"}
+NOT_COCOTB = {"test_check_records": "unit test of verification/check_records.py (run by `npm run lint`)",
+    "test_check_statistical_na": "unit test of verification/check_statistical_na.py (run by `npm run lint`)",
+}
 
 _COLD_START_NEEDLE = {"<experiment>": "smoke-inverter"}
 
@@ -234,10 +240,12 @@ def build_digital_design_inventory(root: Path = REPO_ROOT) -> dict:
 
 def _pins(root: Path) -> dict:
     ci = _read(root, CI_WORKFLOW)
-    klt = re.search(r'"klayout-tools==([0-9][0-9A-Za-z.+!-]*)"', ci)
+    # a released `klayout-tools==X` or a git revision `klayout-tools @ git+...@<40-hex>`
+    klt = re.search(r'"klayout-tools(?:==([0-9][0-9A-Za-z.+!-]*)| @ git\+[^"@]+@([0-9a-f]{40}))"', ci)
     cocotb = re.search(r'"cocotb==([0-9][0-9A-Za-z.]*)"', ci)
     if not klt or not cocotb:
-        raise AuditError(f"{CI_WORKFLOW}: no pinned `klayout-tools==X` / `cocotb==X` install")
+        raise AuditError(f"{CI_WORKFLOW}: no pinned `klayout-tools` (==X or git revision) / `cocotb==X` install")
+    klt_pin = klt.group(1) or klt.group(2)
     setup = _read(root, SETUP_ENV)
     rev = re.search(r'KLT_REV="([0-9a-f]{40})"', setup)
     if not rev:
@@ -250,10 +258,10 @@ def _pins(root: Path) -> dict:
     if volare.group(1) not in _read(root, ENV_DOC):
         raise AuditError(f"{ENV_DOC} does not record the PDK pin {volare.group(1)}")
     env_doc = _read(root, ENV_DOC)
-    if klt.group(1) not in env_doc or rev.group(1) not in env_doc:
-        raise AuditError(f"{ENV_DOC} does not record both klt pins ({klt.group(1)}, {rev.group(1)[:8]})")
+    if klt_pin not in env_doc or rev.group(1) not in env_doc:
+        raise AuditError(f"{ENV_DOC} does not record both klt pins ({klt_pin}, {rev.group(1)[:8]})")
     return {
-        "klayout_tools_ci_and_grader": klt.group(1),
+        "klayout_tools_ci_and_grader": klt_pin,
         "klayout_tools_setup_env_revision": rev.group(1),
         "cocotb": cocotb.group(1),
         "gf180mcu_open_pdks": volare.group(1),

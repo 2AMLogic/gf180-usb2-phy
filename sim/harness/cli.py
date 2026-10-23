@@ -23,6 +23,10 @@ EXIT_CHECK_FAILED = 1
 EXIT_SIM_ERROR = 2
 EXIT_ENVIRONMENT = 3
 
+#: Shared-host limit on in-process ngspice parallelism (host rules: never
+#: above 2). Not derived from the CPU count and not overridable.
+MAX_LOCAL_JOBS = 2
+
 
 def _has_manifest(candidate: Path) -> bool:
     if candidate.is_file() and candidate.name == tb_mod.MANIFEST_NAME:
@@ -53,10 +57,10 @@ def build_parser() -> argparse.ArgumentParser:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=(
             "Examples:\n"
-            "  python3 sim/run_corners.py smoke-bias\n"
-            "  python3 sim/run_corners.py smoke-bias --corners tt --temps 27 \\\n"
+            "  python3 sim/run_corners.py smoke-inverter\n"
+            "  python3 sim/run_corners.py smoke-inverter --corners tt --temps 27 \\\n"
             "      --subset-reason 'debugging convergence, not evidence'\n"
-            "  python3 sim/run_corners.py smoke-bias --corner-set full -j 8\n"
+            "  python3 sim/run_corners.py smoke-inverter --backend klt:batch\n"
             "  python3 sim/run_corners.py --list\n"
             "  python3 sim/run_corners.py --check-env\n"
         ),
@@ -108,7 +112,15 @@ def build_parser() -> argparse.ArgumentParser:
         metavar="FRAC",
         help="supply tolerance as a fraction, e.g. 0.10 (0 disables the V axis)",
     )
-    parser.add_argument("-j", "--jobs", type=int, default=0, help="parallel ngspice runs")
+    parser.add_argument(
+        "-j",
+        "--jobs",
+        type=int,
+        default=0,
+        help=f"parallel in-process ngspice runs (default and maximum "
+        f"{MAX_LOCAL_JOBS}: the shared-host limit; a larger grid goes through "
+        "--backend klt)",
+    )
     parser.add_argument(
         "--timeout",
         type=int,
@@ -125,7 +137,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--claim",
         default="",
-        help="spec line this run substantiates, e.g. 'spec/bandgap.md#output-voltage-tc' "
+        help="spec line this run substantiates, e.g. 'spec/usb2-device-phy.md#6-driver-characteristics' "
         "(overrides the manifest's 'claim')",
     )
     parser.add_argument(
@@ -159,9 +171,29 @@ def build_parser() -> argparse.ArgumentParser:
         metavar="NAME",
         help="run the grid through `klt sim` instead of hand-launching ngspice: "
         "'klt' (honours $KLT_SIM_BACKEND, e.g. batch on a shared host), or "
-        "'klt:local' / 'klt:batch' to force one. Needs 'klt_measure' in tb.json. "
-        "Default: the in-process ngspice runner (single-point probes only on a "
-        "shared host).",
+        "'klt:local' / 'klt:batch' to force one. A multi-point grid must resolve "
+        "to a fleet backend (batch/remote); klt:local or an unset "
+        "$KLT_SIM_BACKEND is refused for more than one point. Default: the "
+        "in-process ngspice runner (single-point probes only on a shared host).",
+    )
+    parser.add_argument(
+        "--klt-pdk-root",
+        default=None,
+        metavar="PATH",
+        help="decks transport: the executing host's PDK root. Decks then name "
+        "PATH/<variant>/... verbatim (request models.pdk_root) instead of the "
+        "literal $PDK_ROOT/..., for an executor whose ngspice does not expand "
+        "environment variables in .include/.lib",
+    )
+    parser.add_argument(
+        "--klt-transport",
+        choices=klt_backend.TRANSPORTS,
+        default="auto",
+        help="how --backend klt carries the grid: 'request' (klt corners request "
+        "from tb.json klt_measure), 'decks' (this harness's own composed decks "
+        "shipped unchanged as a deck-list request; .control/derive/measure "
+        "semantics identical to the local run), or 'auto' (request if the bench "
+        "declares klt_measure, else decks)",
     )
     parser.add_argument(
         "--klt-runner-version-check",
@@ -169,6 +201,13 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="klt batch backend: how to treat a fleet-runner/client klt version "
         "skew (sets request batch.runner_version_check; default enforce)",
+    )
+    parser.add_argument(
+        "--klt-hosts",
+        type=int,
+        default=None,
+        help="klt batch backend: shard the grid across N fleet hosts (`klt sim --hosts`); "
+        "needed when the serial job bound exceeds the fleet's whole-job ceiling",
     )
     parser.add_argument("--quiet", action="store_true", help="only print the summary")
     parser.add_argument("--version", action="version", version=f"gf180-usb2-phy harness {HARNESS_VERSION}")
@@ -296,7 +335,22 @@ def run(args: argparse.Namespace) -> int:
     experiment_dir = tb.experiment_dir
     records_dir = experiment_dir / report.RECORDS_DIR
 
-    jobs = args.jobs or min(8, (os.cpu_count() or 2))
+    if args.jobs > MAX_LOCAL_JOBS:
+        print(
+            f"error: -j/--jobs {args.jobs} exceeds the shared-host limit of "
+            f"{MAX_LOCAL_JOBS}; route a larger grid through --backend klt.",
+            file=sys.stderr,
+        )
+        return EXIT_ENVIRONMENT
+    jobs = args.jobs or min(MAX_LOCAL_JOBS, (os.cpu_count() or 1))
+    try:
+        if use_klt:
+            klt_backend.effective_klt_backend(klt_name, len(points))
+        else:
+            klt_backend.check_local_fanout(len(points))
+    except klt_backend.KltError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return EXIT_ENVIRONMENT
     started = _dt.datetime.now(_dt.timezone.utc)
     # Sample git state *before* the run: the harness writes its own per-corner
     # logs into the tracked evidence tree, so sampling afterwards would mark
@@ -343,18 +397,25 @@ def run(args: argparse.Namespace) -> int:
     backend_info = None
     try:
         if use_klt:
-            results, backend_info = klt_backend.run_grid_klt(
-                tb,
-                pdk,
-                points,
-                workdir,
-                json.loads((tb.directory / tb_mod.MANIFEST_NAME).read_text()),
+            manifest = json.loads((tb.directory / tb_mod.MANIFEST_NAME).read_text())
+            transport = klt_backend.select_transport(args.klt_transport, manifest)
+            kwargs = dict(
                 backend=klt_name,
                 runner_version_check=args.klt_runner_version_check,
+                hosts=args.klt_hosts,
                 timeout_s=args.timeout,
                 on_result=progress,
                 log_dir=log_dir,
             )
+            if transport == "decks":
+                results, backend_info = klt_backend.run_decks_klt(
+                    tb, pdk, points, workdir, pdk_root=args.klt_pdk_root, **kwargs
+                )
+            else:
+                results, backend_info = klt_backend.run_grid_klt(
+                    tb, pdk, points, workdir, manifest, **kwargs
+                )
+                backend_info["transport"] = "request"
             ngspice = (
                 f"ngspice-{backend_info['engine_version']} via `klt sim` "
                 f"(backend {backend_info['backend']}; submitting host had {ngspice})"
