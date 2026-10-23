@@ -980,6 +980,91 @@ class KltCliTests(_KltFixture):
         klt.assert_not_called()
         local.assert_not_called()
 
+    # --- stored evidence (issue #237): bytes go to the artifact store, not git
+
+    def main_write(self, *extra):
+        """A recording run (no --no-write) against the temp tree as the repo."""
+        argv = [str(self.tb_dir), "--quiet", "--subset-reason", "unit test",
+                "--backend", "klt:batch", *extra]
+        out, err = io.StringIO(), io.StringIO()
+        with mock.patch.object(cli, "REPO_ROOT", self.root), \
+             mock.patch.object(cli.runner, "ngspice_version", return_value="ngspice-44"), \
+             redirect_stdout(out), redirect_stderr(err):
+            code = cli.main(argv)
+        return code, out.getvalue(), err.getvalue()
+
+    def grid_with_log(self, tb, pdk, points, workdir, manifest, **kwargs):
+        results, info = self.fake_run_grid_klt(tb, pdk, points, workdir, manifest, **kwargs)
+        log_dir = kwargs["log_dir"]
+        log_dir.mkdir(parents=True)
+        (log_dir / "tt_27c_3.30v.log").write_text("log\n")
+        return results, info
+
+    @staticmethod
+    def fake_put(files, repo_root):
+        import hashlib
+        entries = [
+            {"name": name, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+             "size": path.stat().st_size}
+            for path, name in files
+        ]
+        return {"schema_version": 1, "entries": sorted(entries, key=lambda e: e["name"])}, []
+
+    def test_recording_run_is_refused_before_simulating_when_store_unavailable(self):
+        exp = self.root / "kltx-exp"
+        with mock.patch.object(cli.evidence_store, "preflight",
+                               side_effect=cli.evidence_store.StoreError("no broker")), \
+             mock.patch.object(cli.klt_backend, "run_grid_klt") as klt, \
+             mock.patch.object(cli.runner, "run_grid") as local:
+            code, _, err = self.main_write()
+        self.assertEqual(code, cli.EXIT_STORE)
+        self.assertIn("no broker", err)
+        klt.assert_not_called()
+        local.assert_not_called()
+        self.assertFalse((exp / "records").exists())
+        self.assertFalse((self.root / "manifests").exists())
+
+    def test_put_failure_after_the_grid_commits_nothing_and_keeps_staged_bytes(self):
+        exp = self.root / "kltx-exp"
+        with mock.patch.object(cli.evidence_store, "preflight"), \
+             mock.patch.object(cli.evidence_store, "refuse_tracked_stage"), \
+             mock.patch.object(cli.klt_backend, "run_grid_klt", side_effect=self.grid_with_log), \
+             mock.patch.object(cli.evidence_store, "put_files",
+                               side_effect=cli.evidence_store.StoreError("broker_unreachable")):
+            code, _, err = self.main_write()
+        self.assertEqual(code, cli.EXIT_STORE)
+        self.assertIn("broker_unreachable", err)
+        self.assertFalse((exp / "records").exists())
+        self.assertFalse((exp / "corners").exists())
+        self.assertFalse((exp / "netlist-snapshots").exists())
+        self.assertFalse((self.root / "manifests").exists())
+        staged = list((self.root / ".work" / ".stage" / "kltx-exp").rglob("*.log"))
+        self.assertEqual(len(staged), 1)
+
+    def test_stored_run_commits_only_the_manifest_and_record(self):
+        exp = self.root / "kltx-exp"
+        with mock.patch.object(cli.evidence_store, "preflight"), \
+             mock.patch.object(cli.evidence_store, "refuse_tracked_stage"), \
+             mock.patch.object(cli.klt_backend, "run_grid_klt", side_effect=self.grid_with_log), \
+             mock.patch.object(cli.evidence_store, "put_files", side_effect=self.fake_put):
+            code, out, err = self.main_write()
+        self.assertEqual(code, cli.EXIT_OK, err)
+        (record,) = (exp / "records").glob("*.md")
+        rid = record.stem
+        self.assertFalse((exp / "corners").exists())
+        self.assertFalse((exp / "netlist-snapshots").exists())
+        manifest = json.loads(
+            (self.root / "manifests" / "artifacts" / f"kltx-exp-{rid}.manifest.json").read_text()
+        )
+        self.assertEqual(
+            [e["name"] for e in manifest["entries"]],
+            [f"sim/kltx-exp/corners/{rid}/tt_27c_3.30v.log",
+             f"sim/kltx-exp/netlist-snapshots/{rid}.spice"],
+        )
+        text = record.read_text()
+        self.assertIn("## Stored evidence", text)
+        self.assertIn(manifest["entries"][0]["sha256"], text)
+
     def test_klt_backend_does_not_need_local_ngspice(self):
         with mock.patch.object(cli.klt_backend, "run_grid_klt", side_effect=self.fake_run_grid_klt):
             code, _, _ = self.main("--backend", "klt", ngspice=None)

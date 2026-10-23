@@ -29,6 +29,7 @@ directories to run the packaged CLI at all.
 
 from __future__ import annotations
 
+import json
 import subprocess
 import sys
 import tempfile
@@ -126,8 +127,9 @@ def check(root: Path) -> list:
     """Run the non-git checks (record/experiment validation) and return the
     problem list -- what ``main()`` prints, minus the append-only stage."""
     paths, _source = lint.list_evidence_paths(root)
-    experiments = lint.collect_experiments(paths)
-    return lint.check_experiments(root, experiments)
+    stored, manifest_problems = lint.load_stored_manifests(root)
+    experiments = lint.collect_experiments(paths, stored)
+    return manifest_problems + lint.check_experiments(root, experiments)
 
 
 def problem_paths(problems) -> list[str]:
@@ -299,6 +301,86 @@ class CheckRecordTests(unittest.TestCase):
             self.assertTrue(any("orphan: no summary record" in p for p in problems), problems)
 
 
+def write_manifest(root: Path, slug: str, record_id: str, names: list[str]) -> Path:
+    """A stored-evidence manifest naming ``names`` (schema is not this
+    linter's job -- only the entry names are read)."""
+    path = root / lint.MANIFEST_DIR / f"{slug}-{record_id}.manifest.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    entries = [{"name": name} for name in names]
+    path.write_text(json.dumps({"schema_version": 1, "entries": entries}), encoding="utf-8")
+    return path
+
+
+class StoredEvidenceTests(unittest.TestCase):
+    """Issue #237: a store-format record has a manifest, not committed bytes."""
+
+    RID = "20261023-120000-abc1234"
+
+    def names(self, *corner_ids):
+        base = f"sim/demo/{lint.CORNERS_DIR}/{self.RID}"
+        return [f"sim/demo/{lint.SNAPSHOT_DIR}/{self.RID}.spice"] + [
+            f"{base}/{c}.log" for c in corner_ids
+        ]
+
+    def test_manifest_backed_record_lints_clean(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            write_record(root, "demo", self.RID)
+            write_manifest(root, "demo", self.RID, self.names("tt_27c_3.30v"))
+            self.assertEqual([], problem_paths(check(root)))
+
+    def test_manifest_without_snapshot_name_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            write_record(root, "demo", self.RID)
+            write_manifest(root, "demo", self.RID, self.names("tt_27c_3.30v")[1:])
+            self.assertTrue(any("no frozen netlist" in p for p in problem_paths(check(root))))
+
+    def test_manifest_without_logs_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            write_record(root, "demo", self.RID)
+            write_manifest(root, "demo", self.RID, self.names())
+            self.assertTrue(any("no raw per-corner logs" in p for p in problem_paths(check(root))))
+
+    def test_bad_corner_id_in_manifest_name_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            write_record(root, "demo", self.RID)
+            write_manifest(root, "demo", self.RID, self.names("not_a_corner"))
+            self.assertTrue(any("temperature field" in p for p in problem_paths(check(root))))
+
+    def test_record_without_manifest_or_files_still_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            write_record(root, "demo", self.RID)
+            problems = problem_paths(check(root))
+            self.assertTrue(any("no frozen netlist" in p for p in problems))
+            self.assertTrue(any("no raw per-corner logs" in p for p in problems))
+
+    def test_manifest_with_no_record_is_an_orphan(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            write_manifest(root, "demo", self.RID, self.names("tt_27c_3.30v"))
+            self.assertTrue(any("orphan" in p for p in problem_paths(check(root))))
+
+    def test_unreadable_manifest_is_reported(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            path = write_manifest(root, "demo", self.RID, [])
+            path.write_text("{not json", encoding="utf-8")
+            self.assertTrue(any("unreadable" in p for p in problem_paths(check(root))))
+
+    def test_head_with_fewer_stored_logs_than_predecessor_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            old = "20261022-120000-abc1234"
+            full_fixture(root, "demo", old, n_logs=3)
+            write_record(root, "demo", self.RID, supersedes=old)
+            write_manifest(root, "demo", self.RID, self.names("tt_27c_3.30v"))
+            self.assertTrue(any("fewer than its" in p for p in problem_paths(check(root))))
+
+
 class LogCountVsPredecessorTests(unittest.TestCase):
     """The 'current head must carry >= its predecessor's logs' rule, and the
     exemption for a record that is itself superseded -- entirely uncovered
@@ -383,6 +465,20 @@ class AppendOnlyTests(unittest.TestCase):
             problems, skip_reason = lint.check_append_only(root, "refs/heads/fixture-base")
             self.assertIsNone(skip_reason)
             self.assertTrue(any("deleted" in str(p) for p in problems), problems)
+
+    def test_editing_a_committed_manifest_fails(self):
+        rid = "20261023-120000-abc1234"
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            write_manifest(root, "demo", rid, ["sim/demo/corners/x"])
+            _git(root, "init", "--quiet")
+            _git(root, "add", "-A")
+            _git(root, "commit", "--quiet", "-m", "fixture: manifest")
+            _git(root, "update-ref", "refs/heads/fixture-base", "HEAD")
+            write_manifest(root, "demo", rid, ["sim/demo/corners/y"])
+            problems, skip_reason = lint.check_append_only(root, "refs/heads/fixture-base")
+            self.assertIsNone(skip_reason)
+            self.assertTrue(any("modified" in str(p) and "manifest" in str(p) for p in problems), problems)
 
     def test_adding_a_new_record_is_not_a_violation(self):
         with tempfile.TemporaryDirectory() as tmp:

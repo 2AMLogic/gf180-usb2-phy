@@ -122,6 +122,54 @@ fields:
   for corrections or for a post-layout extracted re-run that reports a
   schematic-vs-extracted delta against the schematic-level record.
 
+## Stored evidence
+
+From issue #237, the bytes of a new `sim/run_corners.py` record — the frozen
+netlist snapshot and the per-corner logs — are not committed. They go to the
+fleet artifact store through `klt artifact put`, and git keeps only:
+
+- `manifests/artifacts/<experiment-slug>-<record-id>.manifest.json`, one entry
+  per stored file (sha256, size, `artifact:<key>` uri, and a `name` that is
+  the path the file would have had under `sim/<experiment-slug>/`);
+- `sim/<experiment-slug>/records/<record-id>.md`, as before, plus a
+  "Stored evidence" table (name, size, sha256).
+
+The directory layout above still describes the *names*; for a stored record
+`netlist-snapshots/<record-id>.spice` and `corners/<record-id>/*.log` exist in
+the store rather than the tree, and `sim/check_records.py` takes them from the
+manifest's entry names (same corner-id grammar, same log-count rule). Records
+committed before this change keep their bytes in the tree; nothing is moved,
+rewritten or deleted (manifest-forward only).
+
+**Fail closed.** A recording run needs `KLT_ARTIFACT_BROKER` set (no default;
+the URL is never written in the repo), a `klt` with `artifact put` at or after
+klayout-tools `7e3561f` (it writes logical `artifact:<key>` uris), and a broker
+that answers a `stat`. `run_corners.py` checks all of that **before
+simulating** and exits 10 if any is missing. A put that fails after the grid
+also exits 10: nothing is written under `manifests/` or `sim/`, and the staged
+bytes stay in the git-ignored `sim/.work/.stage/<experiment>/<record-id>/`.
+There is no flag that commits the bytes instead. `--no-write` runs are
+unaffected. The staging directory must be git-ignored or outside the checkout;
+one inside the tracked tree is refused.
+
+The artifact client is a separate `klt` from the signoff/layout pin in
+`.github/workflows/ci.yml`: the pin may predate `klt artifact put`, and moving
+it would re-freeze `manifests/t1-signoff-report.json`. The writer checks for
+the verb instead of bumping the pin.
+
+Check and verify:
+
+```bash
+python3 scripts/check_artifact_manifests.py check --tree HEAD   # offline, in CI
+klt artifact verify manifests/artifacts/<bench>-<record-id>.manifest.json  # needs the broker
+```
+
+Not covered by the corner runner (so not automated here): `verification/records/`
+and `layout/digital/` produce evidence through `klt` requests and scripts. To
+store such a file today, run `klt artifact put <file> --name sim/<...> --manifest
+manifests/artifacts/<name>.manifest.json` yourself; the CI check applies to the
+resulting manifest.
+
 ## Append-only rule
 
 `records/*.md` files are never edited or deleted after creation. A re-run or
@@ -141,14 +189,16 @@ This convention is checked, not merely documented. `sim/check_records.py`
 - a filename that is not a well-formed `<record-id>`, or a **Record ID**
   field that disagrees with its filename;
 - a record with no `netlist-snapshots/<record-id>.spice` or no
-  `corners/<record-id>/` logs — and, symmetrically, a snapshot or corner
-  directory with no summary record to cite it;
+  `corners/<record-id>/` logs (or, for a stored record, no such entry names in
+  its manifest) — and, symmetrically, a snapshot, corner directory or manifest
+  with no summary record to cite it;
 - a `<corner-id>.log` name that does not parse under the grammar above;
 - a **Supersedes** value that names a `<record-id>` with no record in the
   same experiment directory (write `(none)` when a record supersedes
   nothing);
 - **append-only violations**: any file under `records/`,
-  `netlist-snapshots/` or `corners/` modified, renamed, or deleted relative
+  `netlist-snapshots/` or `corners/`, or any
+  `manifests/artifacts/*.manifest.json`, modified, renamed, or deleted relative
   to the merge base with `origin/main`. Only additions are allowed.
 
 The record-id grammar, the `- **Field**: value` block parser, and the git
