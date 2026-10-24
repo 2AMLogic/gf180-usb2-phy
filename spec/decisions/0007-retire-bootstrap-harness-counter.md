@@ -64,6 +64,24 @@ continuity both being established in the same PR. Both were.
    cross-reference because live records pin their content hashes; the README
    paragraph explains this.
 
+### Signoff inventories (added when this PR was updated onto `main`'s signoff gate)
+
+`main` gained `signoff/check.py` (part of `npm run check:ci`), which fails when
+an inventoried file is removed or changed. This PR removes the counter's RTL,
+testbench and request and rewords four testbench docstrings, so the
+inventories were regenerated with `python3 signoff/check.py --regen` and the
+report re-rendered with `klt` at the repo's pinned revision
+(`7ee09483b748`). The regeneration is an evidence decision, stated here:
+
+- **Claim removed**: the counter is retired from the T1 item 1 (digital
+  design sources) and item 9 (testbenches) inventories: 5 to 4 RTL sources,
+  13 to 12 cocotb tests, 18 to 17 requests.
+- **No other claim changed**: the remaining entries only re-hash the files
+  this PR changed (four docstrings, `package.json`, `ci.yml`,
+  `docs/environment-setup.md`). The T1 met count is unchanged at 13/22.
+- No evidence record was edited or deleted; `check_records.py
+  --require-append-only` still passes against `origin/main`.
+
 ## Coverage mapping (an argument, not a measurement)
 
 | Counter test | What it checked | Surviving coverage |
