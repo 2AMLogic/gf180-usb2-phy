@@ -2,6 +2,18 @@
   "block": "gf180-usb2-phy",
   "kind": "mixed-signal",
   "evidence": {
+    "1.analog": {
+      "file": "signoff/evidence/t1-item-1-analog-design-sources.json",
+      "content_hash": "sha256:c9cfe0db521be0a635977edec139e26c9382be78f7f61dc2827a8010a937c7c2"
+    },
+    "1.digital": {
+      "file": "signoff/evidence/t1-item-1-digital-design-sources.json",
+      "content_hash": "sha256:b504b72043273896ba425b0ed9286c47dd00f0beea74bd079eab4273393f8656"
+    },
+    "2.digital": {
+      "file": "signoff/evidence/t1-item-2-digital-layout.json",
+      "content_hash": "sha256:4491a5483d685c101f4a323511c8cea97d082873f1539d6fb2709e11d5fe5971"
+    },
     "3.digital": {
       "file": "verification/records/digital-drc/artifacts/20261015-011502-32db02a/drc-report.json",
       "content_hash": "sha256:4491a5483d685c101f4a323511c8cea97d082873f1539d6fb2709e11d5fe5971"
@@ -54,6 +66,14 @@
     "8": {
       "file": "manifests/item8-characterization.json",
       "content_hash": "sha256:b2502c53b9536bbe94e33289a55d4a1d3740156568ada4ed77923aab90e7439d"
+    },
+    "9": {
+      "file": "signoff/evidence/t1-item-9-testbenches.json",
+      "content_hash": "sha256:28e459508dfc8798c5f142643326f65a5efea8d75306f5d8e5d1cba757e2800f"
+    },
+    "10": {
+      "file": "signoff/evidence/t1-item-10-repo-hygiene.json",
+      "content_hash": "sha256:bbe9349228e4192528e3d0890e11dd6a11a509b8af90d121fc62e2b2bfa7eda4"
     },
     "11.digital": [
       {
