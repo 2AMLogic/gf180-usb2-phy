@@ -372,14 +372,21 @@ class RecordExists(RuntimeError):
     """Refused to overwrite an existing append-only record."""
 
 
-def write_netlist_snapshot(tb: Testbench, experiment_dir: Path, record_id: str) -> Path:
+def write_netlist_snapshot(
+    tb: Testbench, experiment_dir: Path, record_id: str, out_root: Path | None = None
+) -> Path:
     """Freeze the DUT netlist for this record.
+
+    ``out_root`` redirects the ``netlist-snapshots/`` directory (the stored
+    evidence flow stages it in git-ignored scratch rather than the tracked
+    experiment tree); the header still names the testbench relative to
+    ``experiment_dir``.
 
     ``sim/README.md``: ``netlist-snapshots/<record-id>.spice`` is "the frozen
     DUT netlist used for this record", so later edits to ``testbench/`` never
     change what an existing record refers to.
     """
-    out_dir = experiment_dir / SNAPSHOT_DIR
+    out_dir = (out_root or experiment_dir) / SNAPSHOT_DIR
     out_dir.mkdir(parents=True, exist_ok=True)
     path = out_dir / f"{record_id}.spice"
     if path.exists():

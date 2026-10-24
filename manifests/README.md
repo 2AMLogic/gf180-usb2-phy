@@ -398,8 +398,19 @@ script, P&R request — to the working tree on every run).
 | `gf180-usb2-phy.json` | the block manifest — `block`, `kind`, per-item pinned evidence citations. **The stable path a fleet roll-up points at.** |
 | `t1-signoff-report.json` | `klt signoff --manifest gf180-usb2-phy.json --format json` output, frozen at the pinned `klt`; CI diff-checks a fresh render against it |
 | `item8-characterization.json` | the T1-item-8 `generic` evidence envelope wrapping `docs/characterization-report.md`, pinned to its content hash |
+| `artifacts/` | stored-evidence manifests for new corner-run records — bytes in the artifact store, hashes here; see `artifacts/README.md` (not part of the signoff manifest) |
 | `../signoff/` | `inventories.py` (the only writer of the items 1/2.digital/9/10 inventories and envelopes), `check.py` (the drift gate), `evidence/` (inventories and envelopes) |
 | `README.md` | this claim document — kind/partition basis, citation rationale, disclosure of the uncited rows, the regeneration contract |
+
+## Stored-evidence manifests are a different thing
+
+`manifests/artifacts/` (issue #237) holds `klt artifact` manifests naming
+simulation evidence kept in the artifact store. They are unrelated to the
+`klt signoff` block manifest above, and adding one never changes
+`t1-signoff-report.json`. The artifact client is a separate `klt` install from
+the signoff pin in `.github/workflows/ci.yml` (the pin may predate
+`klt artifact put`; bumping it would re-freeze the signoff report), so the
+writer checks for the verb and fails closed rather than moving the pin.
 
 [#78]: https://github.com/2AMLogic/gf180-usb2-phy/issues/78
 [#3]: https://github.com/2AMLogic/gf180-usb2-phy/issues/3

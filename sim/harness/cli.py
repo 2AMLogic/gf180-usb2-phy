@@ -10,7 +10,15 @@ import sys
 import time
 from pathlib import Path
 
-from . import HARNESS_VERSION, corners as corners_mod, klt_backend, report, runner, testbench as tb_mod
+from . import (
+    HARNESS_VERSION,
+    corners as corners_mod,
+    evidence_store,
+    klt_backend,
+    report,
+    runner,
+    testbench as tb_mod,
+)
 from .pdk import PdkNotFound, find_pdk
 from .runner import NgspiceMissing
 
@@ -22,6 +30,9 @@ EXIT_OK = 0
 EXIT_CHECK_FAILED = 1
 EXIT_SIM_ERROR = 2
 EXIT_ENVIRONMENT = 3
+#: Evidence could not be stored (no broker, no `klt artifact put`, put failed).
+#: Nothing is committed and, when raised before the grid, nothing is simulated.
+EXIT_STORE = 10
 
 #: Shared-host limit on in-process ngspice parallelism (host rules: never
 #: above 2). Not derived from the CPU count and not overridable.
@@ -351,6 +362,17 @@ def run(args: argparse.Namespace) -> int:
     except klt_backend.KltError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return EXIT_ENVIRONMENT
+    if not args.no_write:
+        # Evidence bytes go to the artifact store, never to git (issue #237):
+        # prove a run could be stored before spending any simulation time.
+        try:
+            evidence_store.preflight(REPO_ROOT)
+            evidence_store.refuse_tracked_stage(WORK_DIR / ".stage", REPO_ROOT)
+        except evidence_store.StoreError as exc:
+            print(f"error: evidence cannot be stored: {exc}\nnothing was simulated; "
+                  "no flag commits the bytes instead (sim/README.md, 'Stored evidence').",
+                  file=sys.stderr)
+            return EXIT_STORE
     started = _dt.datetime.now(_dt.timezone.utc)
     # Sample git state *before* the run: the harness writes its own per-corner
     # logs into the tracked evidence tree, so sampling afterwards would mark
@@ -358,7 +380,8 @@ def run(args: argparse.Namespace) -> int:
     git = report.git_provenance(REPO_ROOT)
     record_id = report.allocate_record_id(REPO_ROOT, records_dir, started, git=git)
     workdir = WORK_DIR / tb.experiment / record_id
-    log_dir = None if args.no_write else experiment_dir / report.CORNERS_DIR / record_id
+    stage_dir = WORK_DIR / ".stage" / tb.experiment / record_id
+    log_dir = None if args.no_write else stage_dir / report.CORNERS_DIR / record_id
 
     if not args.quiet:
         print(f"experiment: {tb.experiment}"
@@ -479,12 +502,26 @@ def run(args: argparse.Namespace) -> int:
         )
 
     if not args.no_write:
-        snapshot = report.write_netlist_snapshot(tb, experiment_dir, record_id)
-        record_path = report.write_record(record, experiment_dir)
+        report.write_netlist_snapshot(tb, experiment_dir, record_id, out_root=stage_dir)
+        record_path = records_dir / f"{record_id}.md"
+        try:
+            manifest_path = evidence_store.store_files(
+                evidence_store.stage_files(stage_dir, f"sim/{tb.experiment}"),
+                repo_root=REPO_ROOT,
+                bench=tb.experiment,
+                rid=record_id,
+                summary_text=report.render_record(record, tb.experiment),
+                summary_path=record_path,
+            )
+        except evidence_store.StoreError as exc:
+            print(f"\nerror: evidence could not be stored: {exc}\n"
+                  f"nothing was written under manifests/ or sim/; staged bytes kept in {stage_dir}",
+                  file=sys.stderr)
+            return EXIT_STORE
         print()
         print(f"record    : {record_path}")
-        print(f"snapshot  : {snapshot}")
-        print(f"raw logs  : {log_dir}")
+        print(f"manifest  : {manifest_path}")
+        print(f"staged    : {stage_dir} (git-ignored; bytes are in the artifact store)")
     else:
         print()
         print("evidence  : not recorded (--no-write)")

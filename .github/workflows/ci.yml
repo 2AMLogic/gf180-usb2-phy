@@ -88,3 +88,9 @@ jobs:
         run: |
           python3 verification/check_records.py --require-append-only --base-ref origin/main
           python3 sim/check_records.py --require-append-only --base-ref origin/main
+
+      # Stored evidence (issue #237): new corner-run bytes live in the artifact
+      # store, git keeps only manifests. Offline schema check -- no broker in CI;
+      # hash verification is `klt artifact verify` from a fleet worker.
+      - name: Stored-evidence manifests (schema, no committed bytes)
+        run: python3 scripts/check_artifact_manifests.py check --tree HEAD

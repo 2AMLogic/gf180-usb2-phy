@@ -24,7 +24,12 @@ What is checked, per ``sim/<slug>/records/<record-id>.md``:
 - the filename is a well-formed ``<YYYYMMDD>-<HHMMSS>-<short-sha>`` and the
   **Record ID** field repeats it exactly;
 - ``netlist-snapshots/<record-id>.spice`` and ``corners/<record-id>/`` exist,
-  the latter holding at least one log;
+  the latter holding at least one log. A record whose bytes were stored through
+  the artifact store (issue #237) has a committed manifest,
+  ``manifests/artifacts/<slug>-<record-id>.manifest.json``, instead of those
+  files: the manifest's entry ``name``s (``sim/<slug>/netlist-snapshots/...``,
+  ``sim/<slug>/corners/<record-id>/...``) then satisfy this check and the
+  corner-id grammar below, without the bytes being in the tree;
 - every ``corners/<record-id>/<corner-id>.log`` name parses under the
   corner-id grammar documented in ``sim/README.md`` (see ``parse_corner_id``);
 - a **Supersedes** value that is not a "(none)" form names a record that
@@ -40,8 +45,9 @@ What is checked, per ``sim/<slug>/records/<record-id>.md``:
   self-supporting evidence, and evidence is append-only (a defect in an
   already-committed, already-superseded record is fixed by minting a new
   head, not by editing the old one);
-- nothing under ``records/``, ``netlist-snapshots/`` or ``corners/`` has been
-  modified or deleted relative to the merge base -- evidence is append-only.
+- nothing under ``records/``, ``netlist-snapshots/`` or ``corners/`` (nor any
+  ``manifests/artifacts/*.manifest.json``) has been modified or deleted
+  relative to the merge base -- evidence is append-only.
 
 What is deliberately *not* checked: the prose inside a field (a record is a
 human/agent-written argument, not a form), and files under ``corners/<id>/``
@@ -64,6 +70,7 @@ file.
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import re
 import sys
@@ -130,6 +137,13 @@ _SUPPLY_RE = re.compile(r"^(?P<node>[a-z]+)?(?P<volts>\d+(?:[.p]\d+)?)v$")
 #: from an ideal source). The record's Corner matrix run field must say why.
 NO_SUPPLY = "nosupply"
 
+#: Stored-evidence manifests (issue #237): ``<slug>-<record-id>.manifest.json``.
+MANIFEST_DIR = "manifests/artifacts"
+MANIFEST_PATH_RE = re.compile(
+    r"^manifests/artifacts/(?P<slug>[A-Za-z0-9][A-Za-z0-9._-]*)-"
+    r"(?P<rid>\d{8}-\d{6}-[0-9a-f]{7,40})\.manifest\.json$"
+)
+
 #: ``sim/<slug>/<evidence-dir>/<rest>``.
 EVIDENCE_PATH_RE = re.compile(
     r"^sim/(?P<slug>[^/]+)/(?P<kind>%s)/(?P<rest>.+)$"
@@ -157,6 +171,8 @@ class Experiment:
     snapshots: dict = field(default_factory=dict)    # record-id -> repo path
     corner_files: dict = field(default_factory=dict)  # record-id -> [basename]
     strays: list = field(default_factory=list)       # [Problem]
+    #: record-id -> manifest entry names (stored, not committed, evidence)
+    stored: dict = field(default_factory=dict)
 
 
 # --- parsing ----------------------------------------------------------------
@@ -217,9 +233,15 @@ def parse_corner_id(corner_id: str) -> str | None:
 # --- collection -------------------------------------------------------------
 
 
-def collect_experiments(paths) -> dict:
-    """Group repo-relative paths into per-experiment evidence trees."""
+def collect_experiments(paths, stored=None) -> dict:
+    """Group repo-relative paths into per-experiment evidence trees.
+
+    ``stored`` maps ``(slug, record-id)`` to the entry names of that run's
+    stored-evidence manifest (see :func:`load_stored_manifests`).
+    """
     experiments: dict = {}
+    for (slug, record_id), names in sorted((stored or {}).items()):
+        experiments.setdefault(slug, Experiment(slug)).stored[record_id] = names
     for path in sorted(paths):
         match = EVIDENCE_PATH_RE.match(path)
         if not match:
@@ -288,6 +310,38 @@ def list_evidence_paths(root: Path) -> tuple[list, str]:
     return paths, "filesystem walk (not a git checkout)"
 
 
+def load_stored_manifests(root: Path) -> tuple[dict, list]:
+    """``({(slug, record-id): [entry names]}, problems)`` for every tracked
+    ``manifests/artifacts/<slug>-<record-id>.manifest.json``.
+
+    Only the names are read here; schema validation is
+    ``scripts/check_artifact_manifests.py``'s job. An unreadable manifest is
+    reported so a record cannot lean on one.
+    """
+    completed = _git(root, "ls-files", "-z", "--", MANIFEST_DIR)
+    if completed is not None and completed.returncode == 0:
+        paths = [p for p in completed.stdout.split("\0") if p]
+    else:
+        paths = [
+            str(p.relative_to(root)).replace(os.sep, "/")
+            for p in sorted((root / MANIFEST_DIR).glob("*.manifest.json"))
+        ]
+    stored: dict = {}
+    problems: list = []
+    for path in sorted(paths):
+        match = MANIFEST_PATH_RE.match(path)
+        if not match:
+            continue
+        try:
+            data = json.loads((root / path).read_text(encoding="utf-8"))
+            names = [e["name"] for e in data["entries"]]
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            problems.append(Problem(path, f"unreadable stored-evidence manifest: {exc}"))
+            continue
+        stored[(match.group("slug"), match.group("rid"))] = names
+    return stored, problems
+
+
 # --- record checks ----------------------------------------------------------
 
 
@@ -331,6 +385,17 @@ def _superseded_record_ids(root: Path, experiment: Experiment) -> set[str]:
         if target:
             superseded.add(target)
     return superseded
+
+
+def _corner_basenames(experiment: Experiment, record_id: str) -> list:
+    """Log basenames of ``corners/<record-id>/``: committed files plus the
+    entries of the run's stored-evidence manifest."""
+    names = list(experiment.corner_files.get(record_id, []))
+    prefix = f"sim/{experiment.slug}/{CORNERS_DIR}/{record_id}/"
+    for stored in experiment.stored.get(record_id, []):
+        if stored.startswith(prefix) and "/" not in stored[len(prefix):]:
+            names.append(stored[len(prefix):])
+    return names
 
 
 def check_record(
@@ -379,7 +444,9 @@ def check_record(
     if supersedes is not None and supersedes.value:
         problems += _check_supersedes(path, experiment, record_id, supersedes.value)
 
-    if record_id not in experiment.snapshots:
+    stored_names = experiment.stored.get(record_id, [])
+    snapshot_name = f"sim/{experiment.slug}/{SNAPSHOT_DIR}/{record_id}{SNAPSHOT_SUFFIX}"
+    if record_id not in experiment.snapshots and snapshot_name not in stored_names:
         problems.append(
             Problem(
                 path,
@@ -389,7 +456,7 @@ def check_record(
         )
 
     corner_dir = f"sim/{experiment.slug}/{CORNERS_DIR}/{record_id}/"
-    names = experiment.corner_files.get(record_id, [])
+    names = _corner_basenames(experiment, record_id)
     logs = [name for name in names if name.endswith(LOG_SUFFIX)]
     if not names:
         problems.append(Problem(path, f"no raw per-corner logs at {corner_dir}"))
@@ -407,7 +474,7 @@ def check_record(
         if predecessor is not None:
             predecessor_logs = [
                 name
-                for name in experiment.corner_files.get(predecessor, [])
+                for name in _corner_basenames(experiment, predecessor)
                 if name.endswith(LOG_SUFFIX)
             ]
             if len(logs) < len(predecessor_logs):
@@ -476,6 +543,15 @@ def check_experiments(root: Path, experiments: dict) -> list:
                         f"{record_id}{RECORD_SUFFIX}",
                     )
                 )
+        for record_id in sorted(experiment.stored):
+            if record_id not in experiment.records:
+                problems.append(
+                    Problem(
+                        f"{MANIFEST_DIR}/{slug}-{record_id}.manifest.json",
+                        f"orphan: no summary record at sim/{slug}/{RECORDS_DIR}/"
+                        f"{record_id}{RECORD_SUFFIX}",
+                    )
+                )
         for record_id in sorted(experiment.corner_files):
             if record_id not in experiment.records:
                 problems.append(
@@ -520,6 +596,11 @@ def check_append_only(root: Path, base_ref: str) -> tuple[list, str | None]:
     )
     if diff_text is None:
         return [], "git diff against the merge base failed"
+    manifest_diff = git_diff_name_status(
+        root, base_sha, MANIFEST_DIR, "--no-renames", "--diff-filter=MD"
+    )
+    if manifest_diff is None:
+        return [], "git diff against the merge base failed"
 
     verb = {"M": "modified", "D": "deleted"}
     problems = []
@@ -534,6 +615,19 @@ def check_append_only(root: Path, base_ref: str) -> tuple[list, str | None]:
                 f"{verb.get(status[:1], status)} since {base_sha[:7]} -- sim/ evidence "
                 "is append-only: mint a new <record-id> and reference the old one "
                 "via **Supersedes** (sim/README.md)",
+            )
+        )
+    for line in manifest_diff.splitlines():
+        status, _, path = line.partition("\t")
+        path = path.strip()
+        if not MANIFEST_PATH_RE.match(path):
+            continue
+        problems.append(
+            Problem(
+                path,
+                f"{verb.get(status[:1], status)} since {base_sha[:7]} -- stored-evidence "
+                "manifests are append-only: mint a new run and point back via "
+                "**Supersedes** (sim/README.md)",
             )
         )
     return problems, None
@@ -572,7 +666,8 @@ def main(argv=None) -> int:
 
     root = Path(args.root).resolve() if args.root else default_root()
     paths, source = list_evidence_paths(root)
-    experiments = collect_experiments(paths)
+    stored, manifest_problems = load_stored_manifests(root)
+    experiments = collect_experiments(paths, stored)
     record_count = sum(len(e.records) for e in experiments.values())
     print(
         f"{record_count} record(s) across {len(experiments)} experiment(s) "
@@ -583,7 +678,7 @@ def main(argv=None) -> int:
             for record_id in sorted(experiments[slug].records):
                 print(f"  {experiments[slug].records[record_id]}")
 
-    problems = check_experiments(root, experiments)
+    problems = manifest_problems + check_experiments(root, experiments)
 
     base_ref = args.base_ref or default_base_ref()
     append_only_problems, skip_reason = check_append_only(root, base_ref)
