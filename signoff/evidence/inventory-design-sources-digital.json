@@ -22,10 +22,6 @@
   },
   "rtl": [
     {
-      "path": "rtl/harness_counter.v",
-      "sha256": "sha256:fb4559ab74baf24b26fb27463ac30f57efe00a89e9108e4e86e108a9398c0025"
-    },
-    {
       "path": "rtl/usb_eop_detector.v",
       "sha256": "sha256:163b950b3dcf939a2810f03b63dbea6f361f3261d47a75ea980cdf60d67e8e28"
     },

@@ -6,7 +6,7 @@ Verilog sources.
 
 The four modules below are the core bit-level encode/decode path that
 spec §2 places **inside** this block's UTMI boundary. They are real PHY
-logic, unlike `harness_counter.v` further down.
+logic.
 
 **Vendored from the rule-9 master (issue #84).** The four files live under
 `rtl/common/` as byte-exact stamped copies of
@@ -140,20 +140,3 @@ wire-level SYNC/NRZI/stuffed/EOP output, checked against
 the canonical fresh-at-PID stuffing scope, raw-mode (`OpMode 2'b10`) wire
 output, back-to-back packets with a minimal inter-packet gap, and a
 malformed SYNC never activating `RxActive`. See `verification/README.md`.
-
-## Harness smoke-test vehicle
-
-- `harness_counter.v` — a plain, parameterized (`WIDTH`, default 8) up
-  counter with a synchronous active-low reset and a count-enable. **This is
-  a throwaway smoke-test vehicle for the digital cocotb + `klt` harness
-  bootstrapped by issue #7 — it has zero USB semantics** (no NRZI, no bit
-  stuffing, no SYNC/EOP, nothing UTMI-boundary-shaped) and is not part of
-  the PHY. It exists only to prove that `verification/` (cocotb + Icarus)
-  and `flow/` (`klt synthesize` against gf180mcu) elaborate, simulate, and
-  synthesize a real design end-to-end. Real PHY digital logic — NRZI
-  encode/decode and bit stuffing/destuffing, SYNC/EOP handling, line-state
-  decode, and the top-level UTMI wrapper (all above), per
-  `spec/usb2-device-phy.md` §2/§3 — lives in its own files and does not
-  belong in this one; see `CLAUDE.md`'s scope-discipline rule. Dispositioned
-  as harness mechanics (not PHY logic, not vendorable) in
-  `spec/decisions/0002`.

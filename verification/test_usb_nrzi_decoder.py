@@ -17,7 +17,7 @@ SE0 bit times, a bus reset, illegal SE1) must produce no `data_strobe`, no
 `data_bit` update, and no `prev_level` update -- the decode resumes
 correctly from the true reference on the next genuine J/K cell.
 
-Sampling discipline follows `test_harness_counter.py`: inputs are driven on
+Sampling discipline: inputs are driven on
 a `FallingEdge` and outputs are read on the `FallingEdge` after the
 `RisingEdge` under test.
 

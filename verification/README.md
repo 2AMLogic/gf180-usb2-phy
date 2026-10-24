@@ -28,17 +28,25 @@ need a concrete schema to be checkable rather than aspirational:
 
 ## Scope of this harness (read before adding a "real" testbench here)
 
-`test_harness_counter.py` verifies `rtl/harness_counter.v` — a throwaway
-smoke-test vehicle with **zero USB semantics**, not any part of the PHY.
-Its only job is to prove the cocotb + Icarus + `klt` digital harness
-(issue #7, the digital half of #2) elaborates, simulates, and reports a
-real result end-to-end. Everything else here verifies real PHY digital
-logic: the bit-level codec of `spec/usb2-device-phy.md` §2 (NRZI
-encode/decode, bit stuffing/destuffing), SYNC/EOP framing and
-`LineState[1:0]` decode (§2/§4), and the top-level UTMI wrapper (§3).
+The bootstrap smoke vehicle (`rtl/harness_counter.v`, a counter with zero
+USB semantics) was retired by DR-0007; its evidence records remain as
+frozen history. Everything here verifies real PHY digital logic: the
+bit-level codec of `spec/usb2-device-phy.md` §2 (NRZI encode/decode, bit
+stuffing/destuffing), SYNC/EOP framing and `LineState[1:0]` decode
+(§2/§4), and the top-level UTMI wrapper (§3).
 
-Do not extend `test_harness_counter.py` itself to grow USB semantics, and
-do not extend a bit-level codec testbench to grow framing or
+Sampling discipline for these testbenches (recorded here because it was
+first written in the retired counter's testbench): drive inputs on a
+`FallingEdge`, and read registered outputs on the `FallingEdge` that follows
+the `RisingEdge` under test, so the sampled value is the settled one. The
+docstrings of `test_usb_sync_detector.py`, `test_usb_eop_detector.py` and
+`test_usb_line_state_decode.py` still say "follows `test_harness_counter.py`";
+that file is gone, and those three are left unedited on purpose, since the
+live `utmi-framing-functional` records pin their content hashes (a
+docstring edit would stale six records for no behavioural change). Read the
+sentence as pointing at this paragraph.
+
+Do not extend a bit-level codec testbench to grow framing or
 serial-interface-engine semantics: write a new testbench against the real
 module instead, per `CLAUDE.md`'s scope-discipline rule.
 
@@ -345,15 +353,6 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   above. The one combinational-settle wait in the suite
   (`PU_EN_SETTLE_NS`, 10 ns) is sized for annotated gate delays.
 
-### Harness smoke test
-
-- `test_harness_counter.py` — cocotb testbench for `rtl/harness_counter.v`,
-  covering reset, hold-when-disabled, and a 500-case randomized
-  cross-check (with wraparound) against a plain Python model. Driven by
-  `klt functional-verification` (see `request-harness-counter.json`).
-- `request-harness-counter.json` — `klt functional-verification` request
-  driving `test_harness_counter.py` against `harness_counter.v` via Icarus.
-
 ### Evidence-record tooling
 
 - `check_records.py` — the evidence-record linter (see "Enforcement"),
@@ -379,7 +378,6 @@ npm run test
 invocation per request file, and each of them is runnable on its own:
 
 ```bash
-klt functional-verification verification/request-harness-counter.json --format json
 klt functional-verification verification/request-usb-nrzi-encoder.json --format json
 klt functional-verification verification/request-usb-nrzi-decoder.json --format json
 klt functional-verification verification/request-usb-bit-stuffer.json --format json
@@ -414,11 +412,8 @@ functional-verification`'s request schema has no field to override a
 Verilog `parameter` (see that repo's own README for the friction-protocol
 issue this gap is filed under,
 [`2AMLogic/klayout-tools#610`](https://github.com/2AMLogic/klayout-tools/issues/610)).
-`harness_counter.v` is verified only at its default `WIDTH=8` — this
-bootstrap issue does not make a multi-width correctness claim, so porting
-that extra driver would be machinery the trivial smoke test does not need
-(per issue #7's own guidance: "use judgment on how much of that machinery a
-smoke test actually needs"). If a future testbench in this directory does
+No testbench here makes a swept-parameter claim, so porting that extra
+driver would be machinery nothing needs. If a future testbench in this directory does
 need a swept-parameter claim, port `cross_check.py`'s pattern then, against
 the design that actually requires it.
 
@@ -441,11 +436,13 @@ verification/records/
 
 - **`<experiment-slug>`** — short, descriptive, kebab-case name for the
   claim being verified. This repo currently has eleven:
-  - `functional-smoke` — the harness-counter cocotb suite passes end-to-end
-    via `klt functional-verification` (Icarus, no PDK dependency). A
-    harness claim, not a PHY claim.
-  - `synthesis-smoke` — the same design synthesizes cleanly via
-    `klt synthesize` against gf180mcu.
+  - `functional-smoke` — the cocotb + Icarus + `klt functional-verification`
+    harness runs end-to-end (no PDK dependency). A harness claim, not a PHY
+    claim. Originally carried by the bootstrap counter; retired by DR-0007
+    and now carried by the real-PHY requests (see the bookkeeping record).
+  - `synthesis-smoke` — a design synthesizes cleanly via `klt synthesize`
+    against gf180mcu. Originally the bootstrap counter; the live heads now
+    cite `usb_utmi_phy` (see DR-0007 for the counter's retirement).
   - `bit-codec-functional` — `spec/usb2-device-phy.md` §11's digital
     signoff line, for the bit-level half of §2 (NRZI encode/decode, bit
     stuffing/destuffing).
@@ -639,15 +636,17 @@ gets fixed.
 
 The records under `verification/records/` illustrate the format:
 
-- `verification/records/functional-smoke/records/<record-id>.md` — all 3
-  `test_harness_counter.py` cocotb tests pass via
-  `klt functional-verification`. `provenance.pdk` is `"n/a"` — an
-  Icarus/cocotb-only run has no PDK dependency.
-- `verification/records/synthesis-smoke/records/<record-id>.md` —
-  `harness_counter.v` synthesizes to 34 gf180mcu standard cells via
-  `klt synthesize` against `gf180mcu_fd_sc_mcu9t5v0` / `tt_025C_1v80`.
-  `provenance.pdk` names the resolved gf180mcu variant and `deck` carries
-  the liberty content hash klt reports.
+- `verification/records/functional-smoke/records/<record-id>.md` — the
+  harness smoke claim; `provenance.pdk` is `"n/a"` — an Icarus/cocotb-only
+  run has no PDK dependency. The first record (2026-08-10) verified the
+  since-retired bootstrap counter; a later bookkeeping record supersedes it
+  (DR-0007).
+- `verification/records/synthesis-smoke/records/<record-id>.md` — the
+  synthesis smoke claim via `klt synthesize` against
+  `gf180mcu_fd_sc_mcu9t5v0` / `tt_025C_1v80`. `provenance.pdk` names the
+  resolved gf180mcu variant and `deck` carries the liberty content hash klt
+  reports. The first record (2026-08-10, 34 cells) covered the retired
+  counter and is superseded by bookkeeping (DR-0007).
 - `verification/records/bit-codec-functional/records/<record-id>.md` — the
   first record substantiating a real spec claim rather than a harness one:
   35 cocotb tests across five `klt functional-verification` invocations,

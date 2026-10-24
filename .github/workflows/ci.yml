@@ -3,8 +3,8 @@
 # Scope is deliberate and documented, not accidental: this workflow runs the
 # **tool-light** leg only -- `npm run check:ci` (the evidence-record
 # linters under verification/ and sim/, the no-network `scripts/test_setup_env.sh`
-# regression test for `setup-env.sh`, plus `klt functional-verification`
-# against the harness-counter request). None of that needs the gf180mcu PDK,
+# regression test for `setup-env.sh`, plus the `klt functional-verification`
+# requests for the real PHY modules). None of that needs the gf180mcu PDK,
 # only Icarus Verilog + cocotb + klt.
 #
 # `check:all`'s extra leg (`PDK=gf180mcuD klt synthesize`) is NOT run here:

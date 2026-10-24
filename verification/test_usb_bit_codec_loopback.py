@@ -17,7 +17,7 @@ the destuffer's `enable` tracks the session through a 2-clock pipeline
 delay. There is no `init` port any more -- a fresh session re-arms
 everything through the canonical `sof`/`enable` mechanisms.
 
-Sampling discipline follows `test_harness_counter.py`: drive on a
+Sampling discipline: drive on a
 `FallingEdge` (with `await ReadWrite()` so the combinational `tx_ready`
 settles before it is read), read the registered observables on the
 `FallingEdge` after the `RisingEdge` under test.
