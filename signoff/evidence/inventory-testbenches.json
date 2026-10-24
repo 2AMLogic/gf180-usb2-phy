@@ -37,11 +37,6 @@
     }
   ],
   "cocotb_requests": {
-    "verification/request-harness-counter.json": {
-      "module": "test_harness_counter",
-      "toplevel": "harness_counter",
-      "level": "rtl"
-    },
     "verification/request-usb-bit-codec-loopback.json": {
       "module": "test_usb_bit_codec_loopback",
       "toplevel": "tb_usb_bit_codec_loopback",
@@ -130,16 +125,12 @@
   },
   "cocotb_tests": [
     {
-      "path": "verification/test_harness_counter.py",
-      "sha256": "sha256:ab281fa664002ded875dd9615f86cce3f6f5792f104c3edfa93e16bfe07b4a1f"
-    },
-    {
       "path": "verification/test_usb_bit_codec_loopback.py",
-      "sha256": "sha256:805f98f8e9822fbf51d9950da4a396b2f46ce8292e8713527eaecd236eacfa2f"
+      "sha256": "sha256:9da9b3f0a5606b7d0e956f890afcddda0757db66057f055fa9d4abdecea59a26"
     },
     {
       "path": "verification/test_usb_bit_destuffer.py",
-      "sha256": "sha256:70c37c5abee2dbcef5ec39958ec71c772887d2bf0ffcaf039d6f4365f7072d90"
+      "sha256": "sha256:16d7199caf485ba5087b3786c714170909f8cb6db587f4044a315241d88c67d1"
     },
     {
       "path": "verification/test_usb_bit_stuffer.py",
@@ -155,11 +146,11 @@
     },
     {
       "path": "verification/test_usb_nrzi_decoder.py",
-      "sha256": "sha256:f764bc54a294cf953d41229a365f826bfe05c993e0090b36d77713745be986d9"
+      "sha256": "sha256:864d2733ce6338fcd89465d1e244a55e267d9546a0ec0437544f8f6f926264c1"
     },
     {
       "path": "verification/test_usb_nrzi_encoder.py",
-      "sha256": "sha256:0a31790706af0b6193e11e6d7d90bf430ee9bb658db0bcb04593f3abb4a4e66b"
+      "sha256": "sha256:fa1cf42823a5b88e06029323bbe627d93360f2fc209f89d0dd36ca7543f2a2c1"
     },
     {
       "path": "verification/test_usb_rx_clock_tolerance.py",
@@ -186,10 +177,6 @@
     {
       "path": "verification/cocotb_helpers.py",
       "sha256": "sha256:f0dee5683c7171b84da3b9ba17a911b3b5dcca28579086c7421adf3236c6ccc1"
-    },
-    {
-      "path": "verification/request-harness-counter.json",
-      "sha256": "sha256:7946eaca1d986a669a9cc4a150d13139ff647c50a4199e53f82fc231a3a20b72"
     },
     {
       "path": "verification/request-usb-bit-codec-loopback.json",

@@ -12,7 +12,7 @@ the freshly encoded level for the whole clock after that edge. There is no
 valid output -- the level is always meaningful -- so the model comparison
 is level-per-strobed-bit.
 
-Sampling discipline follows `test_harness_counter.py`: inputs are driven on
+Sampling discipline: inputs are driven on
 a `FallingEdge` and outputs are read on the `FallingEdge` after the
 `RisingEdge` under test, so a cocotb callback never races the DUT's own
 non-blocking update at the same simulation event.

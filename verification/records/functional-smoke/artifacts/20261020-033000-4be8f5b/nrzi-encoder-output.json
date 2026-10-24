@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "engine": "icarus",
+  "hdl_toplevel": "usb_nrzi_encoder",
+  "testbench": "test_usb_nrzi_encoder",
+  "status": "pass",
+  "test_count": 6,
+  "passed_count": 6,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_reset_idles_j",
+      "status": "passed",
+      "sim_time_ns": 291.669,
+      "real_time_s": 0.0005810260772705078
+    },
+    {
+      "name": "test_all_ones_hold_the_line",
+      "status": "passed",
+      "sim_time_ns": 2875.023,
+      "real_time_s": 0.0022385120391845703
+    },
+    {
+      "name": "test_all_zeros_transition_every_bit",
+      "status": "passed",
+      "sim_time_ns": 2875.0229999999997,
+      "real_time_s": 0.0021533966064453125
+    },
+    {
+      "name": "test_random_stream_matches_model",
+      "status": "passed",
+      "sim_time_ns": 42875.343,
+      "real_time_s": 0.03123950958251953
+    },
+    {
+      "name": "test_sof_rederives_reference_from_j",
+      "status": "passed",
+      "sim_time_ns": 375.00300000000425,
+      "real_time_s": 0.00038433074951171875
+    },
+    {
+      "name": "test_bypass_passes_the_bit_through_raw",
+      "status": "passed",
+      "sim_time_ns": 958.3410000000003,
+      "real_time_s": 0.0007107257843017578
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "cocotb_version": "2.0.1",
+    "results_xml": "<worktree>/verification/.klt/functional-verification/results_icarus.xml",
+    "random_seed": 1,
+    "sdf": null
+  }
+}
