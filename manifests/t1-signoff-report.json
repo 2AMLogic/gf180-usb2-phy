@@ -5,7 +5,7 @@
   "tier": null,
   "t1_item_count": 22,
   "build_t1_item_count": 22,
-  "t1_met_count": 6,
+  "t1_met_count": 13,
   "source_doc": "docs/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:a26b90262320d0fbd32b3f549a02b6300832706041797a559d8bf6bdb62efdc7",
   "build": {
@@ -25,10 +25,29 @@
       "partition": "analog",
       "text": "committed schematic sources (or generator) plus the netlist derived from them, regenerated on design change.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "signoff/evidence/t1-item-1-analog-design-sources.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:c9cfe0db521be0a635977edec139e26c9382be78f7f61dc2827a8010a937c7c2",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 1,
+          "path": {
+            "path": "signoff/evidence/inventory-design-sources-analog.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:c9cfe0db521be0a635977edec139e26c9382be78f7f61dc2827a8010a937c7c2",
+          "input_verified": true,
+          "summary": "Audited inventory for T1 item 1 (Design sources (analog partition)): 5 xschem schematics and 5 derived netlists, regeneration gate 'python3 design/netlist.py --check' (needs xschem and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
+          "source": "signoff/evidence/inventory-design-sources-analog.json"
+        }
+      }
     },
     {
       "tier": "T1",
@@ -37,10 +56,29 @@
       "partition": "digital",
       "text": "committed RTL sources plus the synthesized gate-level netlist derived from them, regenerated on design change. For a hand-captured full-custom digital partition (no RTL, no synthesis step \u2014 see \"Full-custom digital sub-case\" above), this item is satisfied instead by the Analog column's artifact: committed schematic sources (or generator) plus the netlist derived from them, regenerated on design change, with every logic gate captured as a schematic exactly like an analog partition's.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "signoff/evidence/t1-item-1-digital-design-sources.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:b504b72043273896ba425b0ed9286c47dd00f0beea74bd079eab4273393f8656",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 1,
+          "path": {
+            "path": "signoff/evidence/inventory-design-sources-digital.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:b504b72043273896ba425b0ed9286c47dd00f0beea74bd079eab4273393f8656",
+          "input_verified": true,
+          "summary": "Audited inventory for T1 item 1 (Design sources (digital partition)): 5 RTL sources, 5 vendored files under rtl/common/, the synthesis request and the routed gate-level netlist item 4.digital LVS compares against (synthesis needs yosys and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
+          "source": "signoff/evidence/inventory-design-sources-digital.json"
+        }
+      }
     },
     {
       "tier": "T1",
@@ -61,10 +99,29 @@
       "partition": "digital",
       "text": "committed routed GDS/OASIS from place-and-route, reproducibly generated from the gate-level netlist (P&R script/flow committed, not a one-off hand edit). For the same full-custom sub-case, this item is satisfied instead by the Analog column's artifact: committed GDS/OASIS, reproducibly generated or with documented provenance \u2014 hand-drawn layout, not P&R output.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "signoff/evidence/t1-item-2-digital-layout.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:4491a5483d685c101f4a323511c8cea97d082873f1539d6fb2709e11d5fe5971",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 2,
+          "path": {
+            "path": "layout/digital/usb_utmi_phy.gds",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:4491a5483d685c101f4a323511c8cea97d082873f1539d6fb2709e11d5fe5971",
+          "input_verified": true,
+          "summary": "Routed layout of the digital partition: layout/digital/usb_utmi_phy.gds, bound by hash (the same GDS the item 3.digital DRC and item 11.digital supply-ERC citations were run on). Its committed P&R flow is flow/request-usb-utmi-phy-par.json (klt place-and-route; the pinned grader binds a single input path, so the flow request is named here and is not itself hash-bound; the item 11.digital place-and-route citation records the run). This asserts the routed layout artifact exists and is the one the committed DRC and ERC reports describe. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run. It does not assert area, timing or any analog layout (item 2.analog stays unmet: no analog GDS exists).",
+          "source": "layout/digital/usb_utmi_phy.gds"
+        }
+      }
     },
     {
       "tier": "T1",
@@ -380,10 +437,29 @@
       "partition": "analog",
       "text": "every claimed measurement's testbench committed, with a documented cold-start invocation a third party can run; pinned PDK revision.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "signoff/evidence/t1-item-9-testbenches.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:28e459508dfc8798c5f142643326f65a5efea8d75306f5d8e5d1cba757e2800f",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 9,
+          "path": {
+            "path": "signoff/evidence/inventory-testbenches.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:28e459508dfc8798c5f142643326f65a5efea8d75306f5d8e5d1cba757e2800f",
+          "input_verified": true,
+          "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 13 cocotb tests mapped to 18 klt functional-verification requests, 8 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
+          "source": "signoff/evidence/inventory-testbenches.json"
+        }
+      }
     },
     {
       "tier": "T1",
@@ -392,10 +468,29 @@
       "partition": "digital",
       "text": "every claimed measurement's testbench committed, with a documented cold-start invocation a third party can run; pinned PDK revision.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "signoff/evidence/t1-item-9-testbenches.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:28e459508dfc8798c5f142643326f65a5efea8d75306f5d8e5d1cba757e2800f",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 9,
+          "path": {
+            "path": "signoff/evidence/inventory-testbenches.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:28e459508dfc8798c5f142643326f65a5efea8d75306f5d8e5d1cba757e2800f",
+          "input_verified": true,
+          "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 13 cocotb tests mapped to 18 klt functional-verification requests, 8 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
+          "source": "signoff/evidence/inventory-testbenches.json"
+        }
+      }
     },
     {
       "tier": "T1",
@@ -404,10 +499,29 @@
       "partition": "analog",
       "text": "a README stating what the block is, its spec table, and how to reproduce every result; a license; CI that at minimum keeps the harness and evidence formats valid.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "signoff/evidence/t1-item-10-repo-hygiene.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:bbe9349228e4192528e3d0890e11dd6a11a509b8af90d121fc62e2b2bfa7eda4",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 10,
+          "path": {
+            "path": "signoff/evidence/inventory-repo-hygiene.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:bbe9349228e4192528e3d0890e11dd6a11a509b8af90d121fc62e2b2bfa7eda4",
+          "input_verified": true,
+          "summary": "Audited inventory for T1 item 10 (Repo hygiene): .github/workflows/ci.yml, LICENSE, README.md, docs/environment-setup.md, package.json, spec/usb2-device-phy.md with the stated assertions. Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
+          "source": "signoff/evidence/inventory-repo-hygiene.json"
+        }
+      }
     },
     {
       "tier": "T1",
@@ -416,10 +530,29 @@
       "partition": "digital",
       "text": "a README stating what the block is, its spec table, and how to reproduce every result; a license; CI that at minimum keeps the harness and evidence formats valid.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "signoff/evidence/t1-item-10-repo-hygiene.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:bbe9349228e4192528e3d0890e11dd6a11a509b8af90d121fc62e2b2bfa7eda4",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 10,
+          "path": {
+            "path": "signoff/evidence/inventory-repo-hygiene.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:bbe9349228e4192528e3d0890e11dd6a11a509b8af90d121fc62e2b2bfa7eda4",
+          "input_verified": true,
+          "summary": "Audited inventory for T1 item 10 (Repo hygiene): .github/workflows/ci.yml, LICENSE, README.md, docs/environment-setup.md, package.json, spec/usb2-device-phy.md with the stated assertions. Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
+          "source": "signoff/evidence/inventory-repo-hygiene.json"
+        }
+      }
     },
     {
       "tier": "T1",

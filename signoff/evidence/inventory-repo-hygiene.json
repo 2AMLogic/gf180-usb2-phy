@@ -1,0 +1,37 @@
+{
+  "inventory": "repo-hygiene",
+  "t1_item": 10,
+  "assertions": [
+    "LICENSE contains the Apache License text and README.md links it",
+    "README.md links the ratified spec and has a repo-layout and a License section",
+    "spec/usb2-device-phy.md is present with sections",
+    ".github/workflows/ci.yml runs `npm run check:ci`, and package.json's check:ci runs signoff/check.py (the inventory drift check)",
+    "docs/environment-setup.md documents the reproduction commands"
+  ],
+  "files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "sha256:2cf5f00df2c9d295c0e1aa322cbbccbf00d210ec81f5bb07a227644cda24c9bb"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "sha256:cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "README.md",
+      "sha256": "sha256:d532d64e6207fd93c956d5eb278c91c3569ddc79946107fb25da2eeb8c91807e"
+    },
+    {
+      "path": "docs/environment-setup.md",
+      "sha256": "sha256:62c6201b7fc0aeb59a86ba254f9f3288d596a6039b99bf7327353d2f8f96d841"
+    },
+    {
+      "path": "package.json",
+      "sha256": "sha256:b32752b4cf0663879c031838a9ecc9d4d64a3146397fc960c93d4ef3cc3e3938"
+    },
+    {
+      "path": "spec/usb2-device-phy.md",
+      "sha256": "sha256:dbe8aac42457097138c4d11d7d6ef21f2f7488d205525a1f021cb738e533e6fd"
+    }
+  ]
+}

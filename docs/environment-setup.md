@@ -165,9 +165,10 @@ reused.
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
 
-The `klt` revision is pinned by commit, not by version: klayout-tools has
-not cut a PyPI release past `0.2.0`, so a version pin cannot express which
-capabilities are present. The pin has moved forward four times so far:
+The `klt` revision is pinned by commit everywhere (CI, the signoff grader and
+the `scripts/setup-env.sh` venv), not by release tag: move 7 below explains why
+no release carries the needed capabilities yet. The pin has moved seven times
+so far (move 8 records a decision not to move it):
 
 1. `af5791b5` → `b3e284fff4243cdc5ab59a684d9c0582444b485d` by issue #25,
    specifically to pick up the netlist-driven layout-plan compiler/executor
@@ -358,6 +359,13 @@ capabilities are present. The pin has moved forward four times so far:
    half (`npm run test`) was left to CI. The re-pin made two live
    `analog-layout` records' `setup-env.sh` provenance hash stale; they are
    superseded by source-only records, not re-run.
+
+8. #187 (artifact-anchored generic envelopes for T1 items 1, 2, 9 and 10,
+   klayout-tools#2843, first released in 0.7.0) needs no further pin move: the
+   `7ee09483` pin above descends from 0.7.0, so it already carries that grader.
+   The old `e8ca621a` revision predates it and renders those items
+   `unmet`/`no_evidence` whatever is cited. The unreleased `klt signoff --attest`
+   (klayout-tools#2844) is not used. No evidence record was re-minted.
 
 `npm run check:ci` was re-run against each new pin before it was committed.
 
