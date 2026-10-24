@@ -5,7 +5,7 @@
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
 
-- **#210**: chore: retire the bootstrap harness counter with explicit record supersession
+_None._
 
 ## Very Important
 
@@ -27,6 +27,7 @@ _None._
 Human-approved issues ready for implementation (`loom:issue`).
 
 - **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief
+- **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition
 
 ## In Progress
 
@@ -40,14 +41,13 @@ Issues currently being built (`loom:building`).
 
 PRs waiting on Judge (`loom:review-requested`).
 
-_None._
+- **#210**: chore: retire the bootstrap harness counter with explicit record supersession
 
 ## Approved (Awaiting Merge)
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
 - **#190**: feat(signoff): cite artifact-anchored evidence for T1 items 1, 2.digital, 9, 10
-- **#210**: chore: retire the bootstrap harness counter with explicit record supersession
 - **#238**: feat(sim): store corner-run evidence in the artifact store, commit manifests only
 
 ## Proposed
@@ -77,13 +77,13 @@ Issues carrying `loom:curated`.
 
 | Bucket | Count |
 |------|-------|
-| Operator merge-risk holds | 1 |
+| Operator merge-risk holds | 0 |
 | Very important | 0 |
 | Important | 4 |
-| Ready (`loom:issue`) | 1 |
+| Ready (`loom:issue`) | 2 |
 | In Progress (`loom:building`) | 3 |
-| PRs awaiting review | 0 |
-| Approved PRs awaiting merge | 3 |
+| PRs awaiting review | 1 |
+| Approved PRs awaiting merge | 2 |
 | Curated | 9 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 1 |
