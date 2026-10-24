@@ -445,7 +445,7 @@
     },
     {
       "path": "sim/harness/cli.py",
-      "sha256": "sha256:8131f690cf5b461714e29a3e38c9b7215b32006fcaba6fe4454e4807bb7d82ac"
+      "sha256": "sha256:750f604f10d51b509c847284031a45034376a960f5116a7416e989178940627e"
     },
     {
       "path": "sim/harness/corners.py",
@@ -453,7 +453,11 @@
     },
     {
       "path": "sim/harness/evidence_lint.py",
-      "sha256": "sha256:1b758f13822e0bc08d5c02219b2f042bcc5ab8ec50f106c8ec453f03c31e3b85"
+      "sha256": "sha256:2201ea4824e8856b173b76fd8d8c54b752ace61fc5391c1603b7c5772eb0fbd8"
+    },
+    {
+      "path": "sim/harness/evidence_store.py",
+      "sha256": "sha256:d80e6d2638672ad5b969c7004dc7cbe06bbf2d947442504d7c0a46568d867600"
     },
     {
       "path": "sim/harness/klt_backend.py",
@@ -465,7 +469,7 @@
     },
     {
       "path": "sim/harness/report.py",
-      "sha256": "sha256:33828597172b2146c4b82e66489b4b267dcb551b26c90258d94af35fab566002"
+      "sha256": "sha256:edb647fdb8883f0b4555d885afcc0f2424fff03a1cf6fb01163ea86756513b92"
     },
     {
       "path": "sim/harness/runner.py",
@@ -493,7 +497,11 @@
     },
     {
       "path": "sim/tests/test_evidence_lint.py",
-      "sha256": "sha256:5098859ce6eb623d4def79dd7584371bd13732a961723bc068740f22e919dd4d"
+      "sha256": "sha256:4362044b0a6e317d55cfc26a4b4fe758582a97c8a31155486fdafb685eba0fb9"
+    },
+    {
+      "path": "sim/tests/test_evidence_store.py",
+      "sha256": "sha256:270f0f440149a2ff98b173faa957ede7a68103d542695b80c9e1b2b560b8c352"
     },
     {
       "path": "sim/tests/test_fixed_trim.py",
@@ -501,7 +509,7 @@
     },
     {
       "path": "sim/tests/test_harness.py",
-      "sha256": "sha256:99c44d568832c81f5a939247bcff1a7d5d4138b4e7b3fdd9ab43382b751dae6a"
+      "sha256": "sha256:6408d3a713c49c379db4ae6f1a27c8ca49b3cc1159d9251f0c582a8e20672cf5"
     }
   ],
   "dirs_without_testbench": {

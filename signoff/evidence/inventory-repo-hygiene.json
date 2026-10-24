@@ -11,7 +11,7 @@
   "files": [
     {
       "path": ".github/workflows/ci.yml",
-      "sha256": "sha256:2cf5f00df2c9d295c0e1aa322cbbccbf00d210ec81f5bb07a227644cda24c9bb"
+      "sha256": "sha256:fa5995c19e20a84bfad4251751df152bf75e033b3ae833c809d746f775ccefc2"
     },
     {
       "path": "LICENSE",
@@ -27,7 +27,7 @@
     },
     {
       "path": "package.json",
-      "sha256": "sha256:b32752b4cf0663879c031838a9ecc9d4d64a3146397fc960c93d4ef3cc3e3938"
+      "sha256": "sha256:4d1dae6b0a0b990050971e43003cc615b588f705f59b4c87953b1d0fc729c1ab"
     },
     {
       "path": "spec/usb2-device-phy.md",
