@@ -20,35 +20,31 @@ _None._
 - **#114**: Analog: add TXOE high-Z enable to differential_driver (pin contract, #109)
 - **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size
 - **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout
-- **#187**: T1 items 1, 2 (digital), 9 and 10: cite artifact-anchored evidence now that klt signoff binds it
+- **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition
 
 ## Ready
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-- **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief
 - **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
-- **#187**: T1 items 1, 2 (digital), 9 and 10: cite artifact-anchored evidence now that klt signoff binds it
-- **#207**: Remove harness_counter.v smoke vehicle: redundant with real PHY tests
-- **#237**: Adopt the common artifact store for sim evidence (manifests in git, bytes via klt artifact)
+_None._
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-- **#210**: chore: retire the bootstrap harness counter with explicit record supersession
+_None._
 
 ## Approved (Awaiting Merge)
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-- **#190**: feat(signoff): cite artifact-anchored evidence for T1 items 1, 2.digital, 9, 10
-- **#238**: feat(sim): store corner-run evidence in the artifact store, commit manifests only
+_None._
 
 ## Proposed
 
@@ -59,10 +55,8 @@ Issues carrying `loom:curated`.
 - **#114**: Analog: add TXOE high-Z enable to differential_driver (pin contract, #109) *(curated)*
 - **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size *(curated)*
 - **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout *(curated)*
-- **#187**: T1 items 1, 2 (digital), 9 and 10: cite artifact-anchored evidence now that klt signoff binds it *(curated)*
 - **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition *(curated)*
 - **#212**: T1 item 6: single-ended receiver Monte Carlo request (klt_measure hooks + MC builder) *(curated)*
-- **#237**: Adopt the common artifact store for sim evidence (manifests in git, bytes via klt artifact) *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -80,11 +74,11 @@ Issues carrying `loom:curated`.
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
 | Important | 4 |
-| Ready (`loom:issue`) | 2 |
-| In Progress (`loom:building`) | 3 |
-| PRs awaiting review | 1 |
-| Approved PRs awaiting merge | 2 |
-| Curated | 9 |
+| Ready (`loom:issue`) | 1 |
+| In Progress (`loom:building`) | 0 |
+| PRs awaiting review | 0 |
+| Approved PRs awaiting merge | 0 |
+| Curated | 7 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
