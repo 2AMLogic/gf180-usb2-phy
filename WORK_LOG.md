@@ -2,6 +2,17 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-10-24
+
+- **PR #242**: test(sim): record first stored-evidence campaign and live-verify manifest
+- **Issue #241** (closed): Confirm sim evidence store against a live broker: run klt artifact verify on first recorded campaign
+- **PR #238**: feat(sim): store corner-run evidence in the artifact store, commit manifests only
+- **Issue #237** (closed): Adopt the common artifact store for sim evidence (manifests in git, bytes via klt artifact)
+- **PR #210**: chore: retire the bootstrap harness counter with explicit record supersession
+- **Issue #207** (closed): Remove harness_counter.v smoke vehicle: redundant with real PHY tests
+- **PR #190**: feat(signoff): cite artifact-anchored evidence for T1 items 1, 2.digital, 9, 10
+- **Issue #187** (closed): T1 items 1, 2 (digital), 9 and 10: cite artifact-anchored evidence now that klt signoff binds it
+
 ### 2026-10-21
 
 - **PR #230**: docs: correct envelope-agreement note on dplus-pullup measure spelling
