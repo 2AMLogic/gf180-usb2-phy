@@ -247,9 +247,13 @@ def _pins(root: Path) -> dict:
         raise AuditError(f"{CI_WORKFLOW}: no pinned `klayout-tools` (==X or git revision) / `cocotb==X` install")
     klt_pin = klt.group(1) or klt.group(2)
     setup = _read(root, SETUP_ENV)
-    rev = re.search(r'KLT_REV="([0-9a-f]{40})"', setup)
+    # `KLT_VERSION="X"` (a PyPI release) or the older `KLT_REV="<40-hex>"` (a git revision)
+    rev = re.search(r'KLT_(?:VERSION="([0-9][0-9A-Za-z.+!-]*)"|REV="([0-9a-f]{40})")', setup)
     if not rev:
-        raise AuditError(f"{SETUP_ENV}: no KLT_REV pin")
+        raise AuditError(f"{SETUP_ENV}: no KLT_VERSION (or KLT_REV) pin")
+    setup_klt = rev.group(1) or rev.group(2)
+    if setup_klt != klt_pin:
+        raise AuditError(f"{SETUP_ENV} pins klt {setup_klt}, but {CI_WORKFLOW} pins {klt_pin}")
     if f'COCOTB_PIN="{cocotb.group(1)}"' not in setup:
         raise AuditError(f"{SETUP_ENV} does not pin the same cocotb as {CI_WORKFLOW}")
     volare = re.search(r'VOLARE_GF180MCU_VERSION="([0-9a-f]{40})"', setup)
@@ -258,11 +262,11 @@ def _pins(root: Path) -> dict:
     if volare.group(1) not in _read(root, ENV_DOC):
         raise AuditError(f"{ENV_DOC} does not record the PDK pin {volare.group(1)}")
     env_doc = _read(root, ENV_DOC)
-    if klt_pin not in env_doc or rev.group(1) not in env_doc:
-        raise AuditError(f"{ENV_DOC} does not record both klt pins ({klt_pin}, {rev.group(1)[:8]})")
+    if klt_pin not in env_doc:
+        raise AuditError(f"{ENV_DOC} does not record the klt pin {klt_pin}")
     return {
         "klayout_tools_ci_and_grader": klt_pin,
-        "klayout_tools_setup_env_revision": rev.group(1),
+        "klayout_tools_setup_env": setup_klt,
         "cocotb": cocotb.group(1),
         "gf180mcu_open_pdks": volare.group(1),
     }

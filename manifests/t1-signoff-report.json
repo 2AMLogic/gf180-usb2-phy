@@ -9,13 +9,13 @@
   "source_doc": "docs/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:a26b90262320d0fbd32b3f549a02b6300832706041797a559d8bf6bdb62efdc7",
   "build": {
-    "version": "0.7.1.dev1743+g7ee09483b748",
-    "package_version": "0.7.1.dev1743+g7ee09483b748",
-    "git_commit": "7ee09483b74867a47a05eb353015c2cf5ca33ef3",
-    "git_tag": null,
+    "version": "0.8.0",
+    "package_version": "0.8.0",
+    "git_commit": "c572046be644e0407f693f2410f3abb799d68a3a",
+    "git_tag": "v0.8.0",
     "dirty": false,
-    "is_release": false,
-    "grading_ruleset_id": "sha256:903c436514f2e51dbe8562080f3b36537e26ca088571e457d38d57e78da9056b"
+    "is_release": true,
+    "grading_ruleset_id": "sha256:46c446d84423b7399ee1cf957b3d49801ae4f42a0bda53da92f435776cf977c4"
   },
   "items": [
     {
@@ -289,7 +289,14 @@
             "gap": "spec section 8.2 ratifies no numeric jitter limit: the row is recorded as engineering data with no pass/fail attached (sim/driver-jitter, record 20261015-104027-d109790), so no envelope can grade it"
           }
         ],
-        "unratified_rows": []
+        "unratified_rows": [],
+        "row_sources": {
+          "crossover-voltage": "asserted",
+          "dplus-pullup-tolerance": "asserted",
+          "full-speed-signal-quality": "asserted",
+          "receiver-thresholds": "asserted",
+          "rise-fall-time": "asserted"
+        }
       }
     },
     {
@@ -327,7 +334,8 @@
             "gap": "spec section 8.2 ratifies no numeric jitter limit: the row is recorded as engineering data with no pass/fail attached (sim/driver-jitter, record 20261015-104027-d109790), so no envelope can grade it"
           }
         ],
-        "unratified_rows": []
+        "unratified_rows": [],
+        "row_sources": {}
       }
     },
     {
@@ -445,7 +453,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:7f00e3210f92614b2a015d9b2214895da862d4cb3e9b9c52be4d6df1d4ee632d",
+        "content_hash": "sha256:8740ad9c107f2c83d35ff019cbcb3f102d5b7f4a441995e37057a92b1fe8b3e2",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -454,7 +462,7 @@
             "path": "signoff/evidence/inventory-testbenches.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:7f00e3210f92614b2a015d9b2214895da862d4cb3e9b9c52be4d6df1d4ee632d",
+          "content_hash": "sha256:8740ad9c107f2c83d35ff019cbcb3f102d5b7f4a441995e37057a92b1fe8b3e2",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 12 cocotb tests mapped to 17 klt functional-verification requests, 8 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-testbenches.json"
@@ -476,7 +484,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:7f00e3210f92614b2a015d9b2214895da862d4cb3e9b9c52be4d6df1d4ee632d",
+        "content_hash": "sha256:8740ad9c107f2c83d35ff019cbcb3f102d5b7f4a441995e37057a92b1fe8b3e2",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -485,7 +493,7 @@
             "path": "signoff/evidence/inventory-testbenches.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:7f00e3210f92614b2a015d9b2214895da862d4cb3e9b9c52be4d6df1d4ee632d",
+          "content_hash": "sha256:8740ad9c107f2c83d35ff019cbcb3f102d5b7f4a441995e37057a92b1fe8b3e2",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 12 cocotb tests mapped to 17 klt functional-verification requests, 8 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-testbenches.json"
@@ -507,7 +515,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:d62c8f006fa3f843c1bfc3a02ac70433136ba61c97d52e69a21ec61a8b3023f0",
+        "content_hash": "sha256:a468bdbd12bb42b789ddf6925518fec6f736fa73d2c7109239de1f302bee6d72",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -516,7 +524,7 @@
             "path": "signoff/evidence/inventory-repo-hygiene.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:d62c8f006fa3f843c1bfc3a02ac70433136ba61c97d52e69a21ec61a8b3023f0",
+          "content_hash": "sha256:a468bdbd12bb42b789ddf6925518fec6f736fa73d2c7109239de1f302bee6d72",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 10 (Repo hygiene): .github/workflows/ci.yml, LICENSE, README.md, docs/environment-setup.md, package.json, spec/usb2-device-phy.md with the stated assertions. Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-repo-hygiene.json"
@@ -538,7 +546,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:d62c8f006fa3f843c1bfc3a02ac70433136ba61c97d52e69a21ec61a8b3023f0",
+        "content_hash": "sha256:a468bdbd12bb42b789ddf6925518fec6f736fa73d2c7109239de1f302bee6d72",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -547,7 +555,7 @@
             "path": "signoff/evidence/inventory-repo-hygiene.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:d62c8f006fa3f843c1bfc3a02ac70433136ba61c97d52e69a21ec61a8b3023f0",
+          "content_hash": "sha256:a468bdbd12bb42b789ddf6925518fec6f736fa73d2c7109239de1f302bee6d72",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 10 (Repo hygiene): .github/workflows/ci.yml, LICENSE, README.md, docs/environment-setup.md, package.json, spec/usb2-device-phy.md with the stated assertions. Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-repo-hygiene.json"

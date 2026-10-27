@@ -160,15 +160,18 @@ reused.
 
 | Component | Pinned to | Resolved via |
 |---|---|---|
-| `klayout-tools` (`klt`) | git revision [`7ee09483b74867a47a05eb353015c2cf5ca33ef3`](https://github.com/2AMLogic/klayout-tools/commit/7ee09483b74867a47a05eb353015c2cf5ca33ef3) (reports as `klt 0.7.1.dev1743+g7ee09483b748`) | `pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@7ee09483b74867a47a05eb353015c2cf5ca33ef3"` (what `scripts/setup-env.sh` runs) |
+| `klayout-tools` (`klt`) | release [`0.8.0`](https://pypi.org/project/klayout-tools/0.8.0/) (reports as `klt 0.8.0`) | `pip install "klayout-tools==0.8.0"` (what `scripts/setup-env.sh` runs) |
 | `gf180mcu` PDK | `open_pdks` commit `c6d73a35f524070e85faff4a6a9eef49553ebc2b` (variants `gf180mcuA`/`B`/`C`/`D`; the digital harness uses `gf180mcuD`, whose standard-cell libraries are `gf180mcu_fd_sc_mcu7t5v0` / `gf180mcu_fd_sc_mcu9t5v0`) | `volare enable --pdk-root ~/.volare --pdk gf180mcu c6d73a35f524070e85faff4a6a9eef49553ebc2b` |
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
 
-The `klt` revision is pinned by commit everywhere (CI, the signoff grader and
-the `scripts/setup-env.sh` venv), not by release tag: move 7 below explains why
-no release carries the needed capabilities yet. The pin has moved seven times
-so far (move 8 records a decision not to move it):
+As of 2026-10-27 (issue #257) `klt` is pinned by PyPI release, `klayout-tools==0.8.0`,
+everywhere (CI, the signoff grader and the `scripts/setup-env.sh` venv); move 9
+below supersedes the git-revision pin described in moves 7 and 8. A git build
+now reports a dev version and no longer satisfies an `==0.8.0` pin
+(klayout-tools#2823), so do not go back to a `git+...@<sha>` install. The
+history below is kept as recorded. Before move 9 the pin moved seven times
+(move 8 records a decision not to move it):
 
 1. `af5791b5` → `b3e284fff4243cdc5ab59a684d9c0582444b485d` by issue #25,
    specifically to pick up the netlist-driven layout-plan compiler/executor
@@ -366,6 +369,11 @@ so far (move 8 records a decision not to move it):
    The old `e8ca621a` revision predates it and renders those items
    `unmet`/`no_evidence` whatever is cited. The unreleased `klt signoff --attest`
    (klayout-tools#2844) is not used. No evidence record was re-minted.
+
+9. `7ee09483b74867a47a05eb353015c2cf5ca33ef3` (`0.7.1.dev1743+g7ee09483b748`) →
+   release `0.8.0` by issue #257, on the operator's approval to move chip repos to
+   the current klayout-tools release. It supersedes the "re-pin to a release once
+   one carries #2959" note in move 7: 0.8.0 contains #2959, #3768 and #3769.
 
 `npm run check:ci` was re-run against each new pin before it was committed.
 

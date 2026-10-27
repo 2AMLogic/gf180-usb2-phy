@@ -349,9 +349,9 @@ repo's rule that an envelope must actually support the item to be cited:
 ## Regeneration and freshness
 
 ```bash
-# the grader pin is the klayout-tools git revision in .github/workflows/ci.yml
+# the grader pin is the klayout-tools release in .github/workflows/ci.yml
 # (`scripts/setup-env.sh` uses the same one, see docs/environment-setup.md), e.g.:
-python3 -m venv /tmp/klt-pin && /tmp/klt-pin/bin/pip install "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@7ee09483b74867a47a05eb353015c2cf5ca33ef3" cocotb==2.0.1
+python3 -m venv /tmp/klt-pin && /tmp/klt-pin/bin/pip install "klayout-tools==0.8.0" cocotb==2.0.1
 export PATH=/tmp/klt-pin/bin:$PATH
 python3 signoff/check.py --regen   # only if an inventoried file changed on purpose
 klt signoff --manifest manifests/gf180-usb2-phy.json --format json > /tmp/fresh.json
