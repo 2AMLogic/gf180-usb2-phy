@@ -21,6 +21,9 @@ _None._
 - **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size
 - **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout
 - **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition
+- **#245**: T1 item 2 (Layout, analog partition): route the five analog front-end blocks and commit their GDS
+- **#251**: T1 item 2 (analog) A: route and commit GDS for dplus_pullup, se_receiver_dp/dm, differential_receiver
+- **#252**: T1 item 2 (analog) B: route differential_driver GDS and attest 2.analog
 
 ## Ready
 
@@ -57,7 +60,7 @@ Issues carrying `loom:curated`.
 - **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout *(curated)*
 - **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition *(curated)*
 - **#212**: T1 item 6: single-ended receiver Monte Carlo request (klt_measure hooks + MC builder) *(curated)*
-- **#249**: T1 item 5 (Full corner verification): propose a spec 8.2 driver-jitter decision record so 5.analog's declared gap can close *(curated)*
+- **#251**: T1 item 2 (analog) A: route and commit GDS for dplus_pullup, se_receiver_dp/dm, differential_receiver *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -74,7 +77,7 @@ Issues carrying `loom:curated`.
 |------|-------|
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
-| Important | 4 |
+| Important | 7 |
 | Ready (`loom:issue`) | 1 |
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
