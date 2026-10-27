@@ -57,6 +57,7 @@ Issues carrying `loom:curated`.
 - **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout *(curated)*
 - **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition *(curated)*
 - **#212**: T1 item 6: single-ended receiver Monte Carlo request (klt_measure hooks + MC builder) *(curated)*
+- **#249**: T1 item 5 (Full corner verification): propose a spec 8.2 driver-jitter decision record so 5.analog's declared gap can close *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -78,7 +79,7 @@ Issues carrying `loom:curated`.
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 7 |
+| Curated | 8 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
