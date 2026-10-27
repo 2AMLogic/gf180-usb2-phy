@@ -1,0 +1,1935 @@
+{
+  "schema_version": 2,
+  "file": "layout/analog/dplus_pullup.gds",
+  "deck": "gf180mcu",
+  "dbu_um": 0.0005,
+  "status": "violations",
+  "violation_count": 75,
+  "rule_counts": {
+    "metal1.ongrid.1": 30,
+    "poly2.ongrid.1": 10,
+    "pplus.ongrid.1": 10,
+    "pplus.width.1": 1,
+    "res_mk.ongrid.1": 10,
+    "sab.ongrid.1": 10,
+    "sab.separation.contact.1": 3,
+    "sab.width.1": 1
+  },
+  "metrics": {
+    "drc__error__count": 75
+  },
+  "violations": [
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 230826,
+        "bottom": 440,
+        "right": 230826,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 230826,
+        "bottom": 8440,
+        "right": 230826,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 231866,
+        "bottom": 440,
+        "right": 231866,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 231866,
+        "bottom": 4160,
+        "right": 231866,
+        "top": 4160
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 231866,
+        "bottom": 4720,
+        "right": 231866,
+        "top": 4720
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 231866,
+        "bottom": 8440,
+        "right": 231866,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 284002,
+        "bottom": 440,
+        "right": 284002,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 284002,
+        "bottom": 8440,
+        "right": 284002,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 285042,
+        "bottom": 440,
+        "right": 285042,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 285042,
+        "bottom": 4160,
+        "right": 285042,
+        "top": 4160
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 285042,
+        "bottom": 4720,
+        "right": 285042,
+        "top": 4720
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 285042,
+        "bottom": 8440,
+        "right": 285042,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 338542,
+        "bottom": 440,
+        "right": 338542,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 338542,
+        "bottom": 8440,
+        "right": 338542,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 339582,
+        "bottom": 440,
+        "right": 339582,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 339582,
+        "bottom": 4160,
+        "right": 339582,
+        "top": 4160
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 339582,
+        "bottom": 4720,
+        "right": 339582,
+        "top": 4720
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 339582,
+        "bottom": 8440,
+        "right": 339582,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 395826,
+        "bottom": 440,
+        "right": 395826,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 395826,
+        "bottom": 8440,
+        "right": 395826,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 396866,
+        "bottom": 440,
+        "right": 396866,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 396866,
+        "bottom": 4160,
+        "right": 396866,
+        "top": 4160
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 396866,
+        "bottom": 4720,
+        "right": 396866,
+        "top": 4720
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 396866,
+        "bottom": 8440,
+        "right": 396866,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 458602,
+        "bottom": 440,
+        "right": 458602,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 458602,
+        "bottom": 8440,
+        "right": 458602,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 459642,
+        "bottom": 440,
+        "right": 459642,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 459642,
+        "bottom": 4160,
+        "right": 459642,
+        "top": 4160
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 459642,
+        "bottom": 4720,
+        "right": 459642,
+        "top": 4720
+      },
+      "polygon": null
+    },
+    {
+      "rule": "metal1.ongrid.1",
+      "description": "metal1 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Metal1",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 459642,
+        "bottom": 8440,
+        "right": 459642,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "poly2.ongrid.1",
+      "description": "poly2 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Poly2",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 231866,
+        "bottom": 440,
+        "right": 231866,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "poly2.ongrid.1",
+      "description": "poly2 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Poly2",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 231866,
+        "bottom": 8440,
+        "right": 231866,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "poly2.ongrid.1",
+      "description": "poly2 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Poly2",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 285042,
+        "bottom": 440,
+        "right": 285042,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "poly2.ongrid.1",
+      "description": "poly2 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Poly2",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 285042,
+        "bottom": 8440,
+        "right": 285042,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "poly2.ongrid.1",
+      "description": "poly2 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Poly2",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 339582,
+        "bottom": 440,
+        "right": 339582,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "poly2.ongrid.1",
+      "description": "poly2 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Poly2",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 339582,
+        "bottom": 8440,
+        "right": 339582,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "poly2.ongrid.1",
+      "description": "poly2 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Poly2",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 396866,
+        "bottom": 440,
+        "right": 396866,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "poly2.ongrid.1",
+      "description": "poly2 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Poly2",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 396866,
+        "bottom": 8440,
+        "right": 396866,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "poly2.ongrid.1",
+      "description": "poly2 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Poly2",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 459642,
+        "bottom": 440,
+        "right": 459642,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "poly2.ongrid.1",
+      "description": "poly2 vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Poly2",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 459642,
+        "bottom": 8440,
+        "right": 459642,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "pplus.ongrid.1",
+      "description": "pplus vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Pplus",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 230826,
+        "bottom": 440,
+        "right": 230826,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "pplus.ongrid.1",
+      "description": "pplus vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Pplus",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 230826,
+        "bottom": 8440,
+        "right": 230826,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "pplus.ongrid.1",
+      "description": "pplus vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Pplus",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 284002,
+        "bottom": 440,
+        "right": 284002,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "pplus.ongrid.1",
+      "description": "pplus vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Pplus",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 284002,
+        "bottom": 8440,
+        "right": 284002,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "pplus.ongrid.1",
+      "description": "pplus vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Pplus",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 338542,
+        "bottom": 440,
+        "right": 338542,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "pplus.ongrid.1",
+      "description": "pplus vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Pplus",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 338542,
+        "bottom": 8440,
+        "right": 338542,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "pplus.ongrid.1",
+      "description": "pplus vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Pplus",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 395826,
+        "bottom": 440,
+        "right": 395826,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "pplus.ongrid.1",
+      "description": "pplus vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Pplus",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 395826,
+        "bottom": 8440,
+        "right": 395826,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "pplus.ongrid.1",
+      "description": "pplus vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Pplus",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 458602,
+        "bottom": 440,
+        "right": 458602,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "pplus.ongrid.1",
+      "description": "pplus vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "Pplus",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 458602,
+        "bottom": 8440,
+        "right": 458602,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "pplus.width.1",
+      "description": "minimum Pplus implant width",
+      "check": "width",
+      "layer": "Pplus",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 230140,
+        "bottom": 440,
+        "right": 230826,
+        "top": 8440
+      },
+      "polygon": [
+        [
+          230140,
+          440
+        ],
+        [
+          230140,
+          8440
+        ],
+        [
+          230826,
+          8440
+        ],
+        [
+          230826,
+          440
+        ]
+      ]
+    },
+    {
+      "rule": "res_mk.ongrid.1",
+      "description": "res_mk vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "RES_MK",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 230826,
+        "bottom": 440,
+        "right": 230826,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "res_mk.ongrid.1",
+      "description": "res_mk vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "RES_MK",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 230826,
+        "bottom": 8440,
+        "right": 230826,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "res_mk.ongrid.1",
+      "description": "res_mk vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "RES_MK",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 284002,
+        "bottom": 440,
+        "right": 284002,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "res_mk.ongrid.1",
+      "description": "res_mk vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "RES_MK",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 284002,
+        "bottom": 8440,
+        "right": 284002,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "res_mk.ongrid.1",
+      "description": "res_mk vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "RES_MK",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 338542,
+        "bottom": 440,
+        "right": 338542,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "res_mk.ongrid.1",
+      "description": "res_mk vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "RES_MK",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 338542,
+        "bottom": 8440,
+        "right": 338542,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "res_mk.ongrid.1",
+      "description": "res_mk vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "RES_MK",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 395826,
+        "bottom": 440,
+        "right": 395826,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "res_mk.ongrid.1",
+      "description": "res_mk vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "RES_MK",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 395826,
+        "bottom": 8440,
+        "right": 395826,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "res_mk.ongrid.1",
+      "description": "res_mk vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "RES_MK",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 458602,
+        "bottom": 440,
+        "right": 458602,
+        "top": 440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "res_mk.ongrid.1",
+      "description": "res_mk vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "RES_MK",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 458602,
+        "bottom": 8440,
+        "right": 458602,
+        "top": 8440
+      },
+      "polygon": null
+    },
+    {
+      "rule": "sab.ongrid.1",
+      "description": "sab vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 230826,
+        "bottom": 0,
+        "right": 230826,
+        "top": 0
+      },
+      "polygon": null
+    },
+    {
+      "rule": "sab.ongrid.1",
+      "description": "sab vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 230826,
+        "bottom": 8880,
+        "right": 230826,
+        "top": 8880
+      },
+      "polygon": null
+    },
+    {
+      "rule": "sab.ongrid.1",
+      "description": "sab vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 284002,
+        "bottom": 0,
+        "right": 284002,
+        "top": 0
+      },
+      "polygon": null
+    },
+    {
+      "rule": "sab.ongrid.1",
+      "description": "sab vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 284002,
+        "bottom": 8880,
+        "right": 284002,
+        "top": 8880
+      },
+      "polygon": null
+    },
+    {
+      "rule": "sab.ongrid.1",
+      "description": "sab vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 338542,
+        "bottom": 0,
+        "right": 338542,
+        "top": 0
+      },
+      "polygon": null
+    },
+    {
+      "rule": "sab.ongrid.1",
+      "description": "sab vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 338542,
+        "bottom": 8880,
+        "right": 338542,
+        "top": 8880
+      },
+      "polygon": null
+    },
+    {
+      "rule": "sab.ongrid.1",
+      "description": "sab vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 395826,
+        "bottom": 0,
+        "right": 395826,
+        "top": 0
+      },
+      "polygon": null
+    },
+    {
+      "rule": "sab.ongrid.1",
+      "description": "sab vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$4",
+      "source_path": [
+        "r_seg3__r_seg3_0",
+        "res_array$4"
+      ],
+      "bbox": {
+        "left": 395826,
+        "bottom": 8880,
+        "right": 395826,
+        "top": 8880
+      },
+      "polygon": null
+    },
+    {
+      "rule": "sab.ongrid.1",
+      "description": "sab vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 458602,
+        "bottom": 0,
+        "right": 458602,
+        "top": 0
+      },
+      "polygon": null
+    },
+    {
+      "rule": "sab.ongrid.1",
+      "description": "sab vertices must be on the 0.005um manufacturing grid",
+      "check": "ongrid",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 458602,
+        "bottom": 8880,
+        "right": 458602,
+        "top": 8880
+      },
+      "polygon": null
+    },
+    {
+      "rule": "sab.separation.contact.1",
+      "description": "minimum SAB spacing to contact",
+      "check": "separation",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$2",
+      "source_path": [
+        "r_seg1__r_seg1_0",
+        "res_array$2"
+      ],
+      "bbox": {
+        "left": 284002,
+        "bottom": 4185,
+        "right": 284300,
+        "top": 4695
+      },
+      "polygon": [
+        [
+          284002,
+          4185
+        ],
+        [
+          284002,
+          4695
+        ],
+        [
+          284300,
+          4660
+        ],
+        [
+          284300,
+          4220
+        ]
+      ]
+    },
+    {
+      "rule": "sab.separation.contact.1",
+      "description": "minimum SAB spacing to contact",
+      "check": "separation",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$3",
+      "source_path": [
+        "r_seg2__r_seg2_0",
+        "res_array$3"
+      ],
+      "bbox": {
+        "left": 338542,
+        "bottom": 4185,
+        "right": 338840,
+        "top": 4695
+      },
+      "polygon": [
+        [
+          338542,
+          4185
+        ],
+        [
+          338542,
+          4695
+        ],
+        [
+          338840,
+          4660
+        ],
+        [
+          338840,
+          4220
+        ]
+      ]
+    },
+    {
+      "rule": "sab.separation.contact.1",
+      "description": "minimum SAB spacing to contact",
+      "check": "separation",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$5",
+      "source_path": [
+        "r_seg4__r_seg4_0",
+        "res_array$5"
+      ],
+      "bbox": {
+        "left": 458602,
+        "bottom": 4185,
+        "right": 458900,
+        "top": 4695
+      },
+      "polygon": [
+        [
+          458602,
+          4185
+        ],
+        [
+          458602,
+          4695
+        ],
+        [
+          458900,
+          4660
+        ],
+        [
+          458900,
+          4220
+        ]
+      ]
+    },
+    {
+      "rule": "sab.width.1",
+      "description": "minimum SAB width",
+      "check": "width",
+      "layer": "SAB",
+      "cell": "dplus_pullup",
+      "source_cell": "res_array$1",
+      "source_path": [
+        "r_seg0__r_seg0_0",
+        "res_array$1"
+      ],
+      "bbox": {
+        "left": 230140,
+        "bottom": 0,
+        "right": 230826,
+        "top": 8880
+      },
+      "polygon": [
+        [
+          230140,
+          0
+        ],
+        [
+          230140,
+          8880
+        ],
+        [
+          230826,
+          8880
+        ],
+        [
+          230826,
+          0
+        ]
+      ]
+    }
+  ],
+  "coverage": {
+    "deck_layers": [
+      "12/0",
+      "21/0",
+      "22/0",
+      "30/0",
+      "31/0",
+      "32/0",
+      "33/0",
+      "34/0",
+      "35/0",
+      "36/0",
+      "37/0",
+      "38/0",
+      "40/0",
+      "41/0",
+      "42/0",
+      "46/0",
+      "49/0",
+      "53/0",
+      "55/0",
+      "62/0",
+      "75/0",
+      "80/5",
+      "81/0",
+      "110/5",
+      "112/1",
+      "115/5",
+      "117/5",
+      "117/10",
+      "125/5",
+      "127/5",
+      "204/0",
+      "241/0"
+    ],
+    "layers_checked": [
+      "21/0",
+      "22/0",
+      "30/0",
+      "31/0",
+      "32/0",
+      "33/0",
+      "34/0",
+      "35/0",
+      "36/0",
+      "38/0",
+      "42/0",
+      "49/0",
+      "110/5"
+    ],
+    "layers_in_stream_without_rules": [
+      "34/10",
+      "36/10"
+    ],
+    "rules_checked": [
+      "comp.coverage.1",
+      "comp.enclosing.contact.1",
+      "comp.ongrid.1",
+      "comp.space.1",
+      "comp.tap_distance.nwell.lv.1",
+      "comp.tap_distance.psub.lv.1",
+      "comp.width.1",
+      "contact.ongrid.1",
+      "contact.space.1",
+      "contact.width.1",
+      "metal1.enclosing.contact.1",
+      "metal1.enclosing.via1.1",
+      "metal1.ongrid.1",
+      "metal1.space.1",
+      "metal1.width.1",
+      "metal2.enclosing.via1.1",
+      "metal2.enclosing.via2.1",
+      "metal2.ongrid.1",
+      "metal2.space.1",
+      "metal2.width.1",
+      "metal3.enclosing.via2.1",
+      "metal3.ongrid.1",
+      "metal3.space.1",
+      "metal3.width.1",
+      "nplus.enclosing.comp.1",
+      "nplus.enclosing.poly2.1",
+      "nplus.ongrid.1",
+      "nplus.space.1",
+      "nplus.space.pcomp.1",
+      "nplus.space.pcomp.far.1",
+      "nplus.width.1",
+      "nwell.enclosing.comp.1",
+      "nwell.ongrid.1",
+      "nwell.space.1",
+      "poly2.enclosing.contact.1",
+      "poly2.enclosing.sab.1",
+      "poly2.ongrid.1",
+      "poly2.space.1",
+      "poly2.width.1",
+      "pplus.enclosing.comp.1",
+      "pplus.enclosing.comp.far.1",
+      "pplus.enclosing.poly2.1",
+      "pplus.ongrid.1",
+      "pplus.space.1",
+      "pplus.space.ncomp.1",
+      "pplus.width.1",
+      "res_mk.ongrid.1",
+      "sab.ongrid.1",
+      "sab.separation.contact.1",
+      "sab.space.1",
+      "sab.width.1",
+      "via1.ongrid.1",
+      "via1.space.1",
+      "via1.width.1",
+      "via2.ongrid.1",
+      "via2.space.1",
+      "via2.width.1"
+    ],
+    "rules_skipped": [
+      "bjt.separation.comp.1",
+      "cap_mk.ongrid.1",
+      "comp.space.mv.1",
+      "comp.width.mv.1",
+      "diode_mk.ongrid.1",
+      "dnwell.ongrid.1",
+      "drc_bjt.ongrid.1",
+      "dualgate.ongrid.1",
+      "efuse_mk.ongrid.1",
+      "fusetop.ongrid.1",
+      "metal3.enclosing.via3.1",
+      "metal4.enclosing.via3.1",
+      "metal4.enclosing.via4.1",
+      "metal4.ongrid.1",
+      "metal4.space.1",
+      "metal4.width.1",
+      "metal5.enclosing.via4.1",
+      "metal5.ongrid.1",
+      "metal5.space.1",
+      "metal5.width.1",
+      "metaltop.ongrid.1",
+      "metaltop.space.1",
+      "metaltop.width.1",
+      "mim.enclosing.fusetop.1",
+      "mim.enclosing.via4.1",
+      "mim.space.1",
+      "mim_l_mk.ongrid.1",
+      "pad.enclosing.metal5.1",
+      "pad.ongrid.1",
+      "plfuse.ongrid.1",
+      "resistor.ongrid.1",
+      "via3.ongrid.1",
+      "via3.space.1",
+      "via3.width.1",
+      "via4.ongrid.1",
+      "via4.space.1",
+      "via4.width.1"
+    ],
+    "voltage_domain_warnings": [],
+    "unchecked_rules": [],
+    "deck_scope": [
+      "10.4.2 MIM Option B",
+      "10.7 DRC_BJT Mark Layer",
+      "7.12 Contact",
+      "7.13 Metaln",
+      "7.14 Vian",
+      "7.15 MetalTop",
+      "7.4 Nwell",
+      "7.5 Comp",
+      "7.7 Poly2",
+      "7.8 Nplus",
+      "7.9 Pplus",
+      "9.1 Bond Pad",
+      "OFFGRID",
+      "SB"
+    ],
+    "unmodeled_rules": [],
+    "schema_version": 1,
+    "known": true,
+    "checked": [
+      "comp.coverage.1",
+      "comp.enclosing.contact.1",
+      "comp.ongrid.1",
+      "comp.space.1",
+      "comp.tap_distance.nwell.lv.1",
+      "comp.tap_distance.psub.lv.1",
+      "comp.width.1",
+      "contact.ongrid.1",
+      "contact.space.1",
+      "contact.width.1",
+      "metal1.enclosing.contact.1",
+      "metal1.enclosing.via1.1",
+      "metal1.ongrid.1",
+      "metal1.space.1",
+      "metal1.width.1",
+      "metal2.enclosing.via1.1",
+      "metal2.enclosing.via2.1",
+      "metal2.ongrid.1",
+      "metal2.space.1",
+      "metal2.width.1",
+      "metal3.enclosing.via2.1",
+      "metal3.ongrid.1",
+      "metal3.space.1",
+      "metal3.width.1",
+      "nplus.enclosing.comp.1",
+      "nplus.enclosing.poly2.1",
+      "nplus.ongrid.1",
+      "nplus.space.1",
+      "nplus.space.pcomp.1",
+      "nplus.space.pcomp.far.1",
+      "nplus.width.1",
+      "nwell.enclosing.comp.1",
+      "nwell.ongrid.1",
+      "nwell.space.1",
+      "poly2.enclosing.contact.1",
+      "poly2.enclosing.sab.1",
+      "poly2.ongrid.1",
+      "poly2.space.1",
+      "poly2.width.1",
+      "pplus.enclosing.comp.1",
+      "pplus.enclosing.comp.far.1",
+      "pplus.enclosing.poly2.1",
+      "pplus.ongrid.1",
+      "pplus.space.1",
+      "pplus.space.ncomp.1",
+      "pplus.width.1",
+      "res_mk.ongrid.1",
+      "sab.ongrid.1",
+      "sab.separation.contact.1",
+      "sab.space.1",
+      "sab.width.1",
+      "via1.ongrid.1",
+      "via1.space.1",
+      "via1.width.1",
+      "via2.ongrid.1",
+      "via2.space.1",
+      "via2.width.1"
+    ],
+    "skipped": [],
+    "inapplicable": [
+      {
+        "id": "bjt.separation.comp.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "cap_mk.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "comp.space.mv.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "comp.width.mv.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "diode_mk.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "dnwell.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "drc_bjt.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "dualgate.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "efuse_mk.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "fusetop.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "metal3.enclosing.via3.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "metal4.enclosing.via3.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "metal4.enclosing.via4.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "metal4.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "metal4.space.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "metal4.width.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "metal5.enclosing.via4.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "metal5.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "metal5.space.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "metal5.width.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "metaltop.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "metaltop.space.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "metaltop.width.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "mim.enclosing.fusetop.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "mim.enclosing.via4.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "mim.space.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "mim_l_mk.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "pad.enclosing.metal5.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "pad.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "plfuse.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "resistor.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "via3.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "via3.space.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "via3.width.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "via4.ongrid.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "via4.space.1",
+        "reason": "no_applicable_geometry"
+      },
+      {
+        "id": "via4.width.1",
+        "reason": "no_applicable_geometry"
+      }
+    ],
+    "unknown": [],
+    "nothing_checked": false,
+    "nothing_checked_reasons": []
+  },
+  "provenance": {
+    "klt_version": "0.7.1.dev1743+g7ee09483b748",
+    "klayout_version": "0.30.12",
+    "pdk": null,
+    "deck": {
+      "name": "gf180mcu",
+      "content_hash": "sha256:612a48b497a015b1e92d6eb93c98a4dc35e00c954dd7ba93a924d8ea6c49d1e7",
+      "released": false
+    },
+    "input": {
+      "content_hash": "sha256:a205280f9dfb7fadb4fe10aec6192951dbb362fc8a27dfb10e784c3d394a81dc",
+      "role": "layout"
+    },
+    "klayout_version_mismatch": false
+  }
+}

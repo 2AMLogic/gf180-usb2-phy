@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "blocks": [
+    {
+      "block": "differential_receiver",
+      "gds": "layout/analog/differential_receiver.gds",
+      "gds_sha256": "e40bc6ccf374d3053f7c1b88bffb36cd8fa01c2c560fd9477b28c5b6b0888c3e",
+      "netlist_sha256": "76a1e6f9263a115f9103461a03d1f796ec92644e15398a463659c25cce78b13d",
+      "plan_sha256": "77c62e64b32eeb81732dedd2ec841a6e584aa64bcebbd598cd0586081694abdf",
+      "klt_version": "0.7.1.dev1743+g7ee09483b748",
+      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver",
+      "routing_method": {
+        "klt-plan": 1,
+        "scripted": 7
+      },
+      "net_count": 8,
+      "drc": {
+        "status": "clean",
+        "violation_count": 0,
+        "by_rule": {}
+      }
+    },
+    {
+      "block": "dplus_pullup",
+      "gds": "layout/analog/dplus_pullup.gds",
+      "gds_sha256": "a205280f9dfb7fadb4fe10aec6192951dbb362fc8a27dfb10e784c3d394a81dc",
+      "netlist_sha256": "9c645ecf0da6d80fb05d85c33d2941cc48bc328a00cd427f0c11bdf980b2cceb",
+      "plan_sha256": "0f7dac6b6c74df0a171b57d8c7df20faf943eb9a8be12d9a2fc6d88e8c68fa31",
+      "klt_version": "0.7.1.dev1743+g7ee09483b748",
+      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver",
+      "routing_method": {
+        "klt-plan": 6,
+        "scripted": 15
+      },
+      "net_count": 21,
+      "drc": {
+        "status": "violations",
+        "violation_count": 75,
+        "by_rule": {
+          "metal1.ongrid.1": 30,
+          "poly2.ongrid.1": 10,
+          "pplus.ongrid.1": 10,
+          "res_mk.ongrid.1": 10,
+          "sab.ongrid.1": 10,
+          "sab.separation.contact.1": 3,
+          "pplus.width.1": 1,
+          "sab.width.1": 1
+        }
+      }
+    },
+    {
+      "block": "se_receiver_dm",
+      "gds": "layout/analog/se_receiver_dm.gds",
+      "gds_sha256": "75cbccbcf18bb74a3d6bed1bfe0e4a4b3ff63222a51197e4a3483780d041d14b",
+      "netlist_sha256": "ebfc91ac1306060dfa0ffce7d91e048b4fc8b50cfebbd5804c3aaf9b58a20554",
+      "plan_sha256": "90b3ec9e6b22ce691540746afc85731e3d9692c94a63028167049b9afbf5a687",
+      "klt_version": "0.7.1.dev1743+g7ee09483b748",
+      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver",
+      "routing_method": {
+        "klt-plan": 1,
+        "scripted": 8
+      },
+      "net_count": 9,
+      "drc": {
+        "status": "clean",
+        "violation_count": 0,
+        "by_rule": {}
+      }
+    },
+    {
+      "block": "se_receiver_dp",
+      "gds": "layout/analog/se_receiver_dp.gds",
+      "gds_sha256": "6b5c32033ae89054583a5b1efe0e8effc2b46aa0a8fc96057b11d81b4afc75a3",
+      "netlist_sha256": "1f854210680331a1df73b96b317479cad4af325192fec68b0b61fb1421fac0b3",
+      "plan_sha256": "4806a6fa835c72f6205d1aef2a77732703f109205bac472a76bfb6b1b961a81a",
+      "klt_version": "0.7.1.dev1743+g7ee09483b748",
+      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver",
+      "routing_method": {
+        "klt-plan": 1,
+        "scripted": 8
+      },
+      "net_count": 9,
+      "drc": {
+        "status": "clean",
+        "violation_count": 0,
+        "by_rule": {}
+      }
+    }
+  ]
+}
