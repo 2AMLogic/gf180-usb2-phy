@@ -1,6 +1,34 @@
 # Statistical claims (T1 item 6) — digital partition: not applicable
 
-<!-- statistical-na: spec_sha256=dbe8aac42457097138c4d11d7d6ef21f2f7488d205525a1f021cb738e533e6fd -->
+<!-- statistical-na: spec_sha256=2ef223023a76972c5afa853104a7a280521c966cf8c37dd8a3f5d3f390472555 -->
+
+## Current statement (2026-10-27) — supersedes the statement of record below
+
+**Why superseded.** The proposal of DR-0009 (issue #249) added one row to the
+§12.1 decision-record index of `spec/usb2-device-phy.md`, which changed the
+spec's SHA-256 from `dbe8aac4…` to `2ef22302…`. The binding check
+(`verification/check_statistical_na.py`) correctly refuses a pin that no
+longer matches, so the statement is re-read and re-pinned here rather than
+the old pin being edited in place.
+
+**Re-read result.** The statement below still holds against the changed spec.
+The only difference is the new §12.1 index row for DR-0009. That row is a
+pointer to a decision record, marked "PROPOSED, not in force"; §8.2 text is
+unchanged, and it adds no digital row and no row whose pass/fail depends on a
+random device parameter. The digital partition therefore still has no
+statistical row. (DR-0009 itself concerns the analog driver-output jitter
+row; analog statistical rows remain classified by
+`spec/decisions/0007-analog-statistical-rows.md`.)
+
+**Binding.** The marker on line 3 now pins the SHA-256 of the spec as
+changed by DR-0009's proposal. If DR-0009 is ratified or the spec otherwise
+changes again, this statement must be re-read and superseded the same way.
+
+## Superseded statement (original, pinned to spec_sha256 dbe8aac4…)
+
+The text below is the original statement, kept unchanged apart from its
+marker, which is shown as plain text (`spec_sha256=dbe8aac42457097138c4d11d7d6ef21f2f7488d205525a1f021cb738e533e6fd`)
+so the checker sees exactly one live marker.
 
 T1 item 6 requires Monte Carlo evidence for "any accuracy, offset, or
 matching spec row" and says a block whose spec has no statistical row must

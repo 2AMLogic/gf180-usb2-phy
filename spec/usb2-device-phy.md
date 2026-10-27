@@ -387,6 +387,7 @@ amendment to the relevant section, not a decision record.
 | Record | Decision | Affects |
 |---|---|---|
 | [DR-0001](decisions/0001-dplus-pullup-switch-device-flattening.md) | **FLATTEN** `dplus_pullup`'s six `nf=10` pull-up switch devices to one device per drawn gate, so `klt`'s subckt-call → plain-element ingestion (`klt layout-plan` / `klt lvs`) can represent the block. Design-source representation only; §5's 1.5 kΩ ±5 % values are untouched, and the change is backed by a re-run of the full 45-corner §5 evidence proving electrical equivalence. Operator ruling on issue #56, 2026-09-05. Upstream tool gap: klayout-tools#1487. | §5 evidence trail (`sim/dplus-pullup-tolerance/`), `design/dplus_pullup.sch` |
+| [DR-0009](decisions/0009-driver-output-jitter-limit.md) | **PROPOSED, not in force.** Grade the §8.2 driver-output timing-jitter row against the USB 2.0 §7.1.13.1.1 full-speed source-jitter limits (±2.0 ns consecutive, ±1.0 ns paired), quoted from the specification text with the Table 7-4 derivation. Awaiting ratification; §8.2 text is unchanged. Issue #249. | §8.2 driver-output timing-jitter row (`sim/driver-jitter/`), T1 item 5 |
 
 ## 13. References
 
