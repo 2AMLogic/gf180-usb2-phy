@@ -44,8 +44,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${REPO_ROOT}" || exit 1
 
 # --- pinned versions -- keep in sync with docs/environment-setup.md -------
-KLT_REPO="https://github.com/2AMLogic/klayout-tools"
-KLT_REV="7ee09483b74867a47a05eb353015c2cf5ca33ef3"
+KLT_VERSION="0.8.0"
 VOLARE_PDK_FAMILY="gf180mcu"
 VOLARE_GF180MCU_VERSION="c6d73a35f524070e85faff4a6a9eef49553ebc2b"
 # ----------------------------------------------------------------------------
@@ -140,7 +139,7 @@ if [ ! -x "${VENV_PY}" ]; then
 fi
 
 echo
-echo "== 2/${TOTAL} klayout-tools (klt) @ ${KLT_REV:0:12} =="
+echo "== 2/${TOTAL} klayout-tools (klt) ${KLT_VERSION} =="
 if ! "${VENV_PY}" -m pip --version >/dev/null 2>&1; then
   echo "FATAL: pip is not available inside ${VENV_DIR}."
   echo "  -> remove ${VENV_DIR} and re-run this script (venv bootstrap likely"
@@ -154,13 +153,13 @@ if ! "${VENV_PIP}" install --quiet --upgrade pip; then
 fi
 
 if [ "${TOOL_LIGHT}" = "1" ]; then
-  PKGS=("klayout-tools @ git+${KLT_REPO}@${KLT_REV}" "cocotb==${COCOTB_PIN}")
+  PKGS=("klayout-tools==${KLT_VERSION}" "cocotb==${COCOTB_PIN}")
 else
-  PKGS=("klayout-tools @ git+${KLT_REPO}@${KLT_REV}" cocotb volare)
+  PKGS=("klayout-tools==${KLT_VERSION}" cocotb volare)
 fi
 if ! "${VENV_PIP}" install --quiet "${PKGS[@]}"; then
   echo "FATAL: failed to install ${PKGS[*]} into ${VENV_DIR}."
-  echo "  -> common causes: no network access to ${KLT_REPO}, or no C/C++"
+  echo "  -> common causes: no network access to PyPI, or no C/C++"
   echo "     toolchain for a dependency's native build (install Xcode CLI"
   echo "     tools on macOS: 'xcode-select --install'; build-essential on"
   echo "     Debian/Ubuntu)."
@@ -170,7 +169,7 @@ if ! "${VENV_PIP}" install --quiet "${PKGS[@]}"; then
 fi
 INSTALLED_KLT_VERSION="$("${VENV_PY}" -m klayout_tools.cli --version 2>/dev/null || true)"
 INSTALLED_KLT_VERSION="${INSTALLED_KLT_VERSION#klt }"
-echo "installed: klt ${INSTALLED_KLT_VERSION:-(version unknown)} from ${KLT_REPO}@${KLT_REV:0:12}"
+echo "installed: klt ${INSTALLED_KLT_VERSION:-(version unknown)} (pinned klayout-tools==${KLT_VERSION})"
 echo "activate with: source ${VENV_DIR}/bin/activate"
 
 if [ "${TOOL_LIGHT}" = "1" ]; then
