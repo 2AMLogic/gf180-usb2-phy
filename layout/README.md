@@ -87,14 +87,84 @@ place-and-route produces. The fix was upstream: `klt` 0.3.0 added the optional
 `request.power` block (tapcell + `pdngen` + `filler_placement`), which
 `flow/request-usb-utmi-phy-par.json` now uses.
 
-## Analog — attempted against klt's layout-plan path, **not delivered**
+## Analog — four of five blocks routed (scripted completion), `differential_driver` and signoff pending
 
-No GDS/OASIS is committed for the five analog blocks
-(`differential_driver`, `differential_receiver`, `dplus_pullup`,
+Four of the five analog blocks (`differential_receiver`, `dplus_pullup`,
 `se_receiver_dm`, `se_receiver_dp` — `design/*.sch` /
-`design/netlist/*.spice`). This is a measured tooling result, not an untried
-assumption: the attempt is committed and re-runnable, and its raw output is
-recorded under `verification/records/analog-layout/`.
+`design/netlist/*.spice`) now have a committed, fully routed GDS under
+`layout/analog/` (issue #251, child A of #245); see "Outcome for the four
+child-A blocks" immediately below. `differential_driver` still has no GDS: it
+follows the driver re-size (issue #252). Nothing here is signed off — DRC/LVS/ERC
+of these streams are issues #246/#247/#248. Everything after that subsection
+is the dated history of the klt-only attempt that led here; where it says
+"not delivered" or lists 6/21 and 1/8/9/9 routed nets, it describes
+that run, not the committed GDS.
+
+### Outcome for the four child-A blocks (issue #251)
+
+| Block | GDS | Nets routed | By klt-plan / scripted | DRC (`klt drc --deck gf180mcu`) |
+|---|---|---|---|---|
+| `differential_receiver` | `layout/analog/differential_receiver.gds` | 8/8 | 1 / 7 | **clean** (0) |
+| `se_receiver_dm` | `layout/analog/se_receiver_dm.gds` | 9/9 | 1 / 8 | **clean** (0) |
+| `se_receiver_dp` | `layout/analog/se_receiver_dp.gds` | 9/9 | 1 / 8 | **clean** (0) |
+| `dplus_pullup` | `layout/analog/dplus_pullup.gds` | 21/21 | 6 / 15 | **75 violations**, all inside the five `r_seg0`–`r_seg4` resistor cells (see below) |
+
+`layout/analog/provenance.json` carries, per block, `gds_sha256`,
+`netlist_sha256`, `plan_sha256`, `klt_version`, `regeneration_command`,
+`routing_method` (with per-method net counts: every block is mixed) and the DRC
+result. `scripts/gen_analog_layout.py --check` regenerates every block into a
+scratch directory and compares each `gds_sha256` (and the netlist and plan
+hashes) against that sidecar; GDS output is written without timestamps so the
+hashes reproduce. A net counts as routed only when a flat conductivity
+extraction over metal1/via1/metal2/via2/metal3 puts all of its pins in one
+component that no other net's pin shares, and as a cross-check KLayout's own
+`LayoutToNetlist` finds exactly one wired net per plan net (8/9/9/21). Negative controls
+(one track's vias deleted; an extra metal-2 bridge) were seen to be reported as an open and a
+short respectively.
+
+**klt limit hit, with the run.** With the pinned klt (`7ee09483`, 0.7.1.dev1743)
+the plan path routes `dplus_pullup` 6/21 and the three receivers 1/8, 1/9, 1/9 —
+the same counts as the 2026-09-21 run — and rejects every other leg with
+"backbone ... crosses N um of block 'X''s interior on the side *away* from its own
+pin" (issue #1895 protection), even with `routing.cross_block_layer_role`
+set to `metal2` (tried on `differential_receiver`: IBIASN and LOADDIODE then route, the
+other five still do not). This is the multi-net layer/track-assignment gap
+recorded as `2AMLogic/klayout-tools#1962` (open). The remaining nets are
+completed by scripted routes in `scripts/gen_analog_layout.py`:
+
+- every plan places one row of tall vertical devices, so gate pins (a metal-1 pad
+  on top) escape **up** and everything else (full-height source/drain strips,
+  resistor heads) escapes **down**; each pin gets a via1 on its own metal-1 and a
+  0.28 um metal-2 stub, and each net a metal-3 track (0.70 um pitch, never shared)
+  above or below the row;
+- a net with both kinds is joined by one metal-2 corridor in a gap between two
+  devices (gate and source/drain stubs of one device are 0.43 um apart, closer
+  than metal-2 spacing, so they never share a side);
+- no device is moved or re-sized. The one geometry-adjacent change is that
+  top-level instance origins are snapped to the 0.005 um manufacturing grid
+  (only `dplus_pullup` is affected: 7 instances).
+
+**Why `dplus_pullup` is not DRC-clean.** At the pinned klt a bare `dplus_pullup`
+plan run has **2583** violations, almost all `*.ongrid.1` on every device placed
+to the right of the first fractional-width resistor (resolved origins such as
+x = 120.163). The origin snap removes all of those; the 75 that remain are
+*inside* the five `res_array` cells for `r_seg0`–`r_seg4`, whose netlist lengths
+(0.343, 0.686, 1.371, 2.743, 5.486 um) are not on the grid: 30 `metal1.ongrid.1`,
+10 each `poly2`/`pplus`/`res_mk`/`sab` `.ongrid.1`, 3 `sab.separation.contact.1`
+(`r_seg1`, `r_seg2`, `r_seg4`), `pplus.width.1` and `sab.width.1` (`r_seg0`).
+Clearing them needs those resistors re-drawn, i.e. re-sized, which this issue
+forbids, so they are recorded rather than fixed. Both gaps reproduce on klt
+0.8.1.dev55 and are filed as `2AMLogic/klayout-tools#4202` (group origins not
+snapped) and `#4203` (`res_array` sub-grid lengths). No violation is in the routing
+or in the placement of any other device.
+
+**Not claimed.** The plan's pins are device terminals only: the guard-ring /
+body-tie metal-1 pads each generator draws are not in any plan net, so they are
+left unconnected, and the earlier `differential_receiver` LVS mismatch
+(`20261009-203500-7a8e831`) is not expected to be cleared by this. No LVS, ERC or
+extracted re-simulation was run on these streams (issues #246, #247, #248, #53).
+Metal-3 is used for the first time in this repo; nothing yet checks it beyond the
+deck's `metal3.*` and `via2.*` rules.
 
 ### Current state in one paragraph
 
@@ -761,19 +831,24 @@ PDK=gf180mcuD python3 scripts/digital_lvs.py --negative-control
 klt erc layout/digital/usb_utmi_phy.gds layout/digital/erc-supply-spec.json \
     --top usb_utmi_phy --format json   # T1 item 11; exit 4 = antenna half not_checked, expected
 
-# --- analog: execute the committed layout plans, then DRC each result
-PDK_ROOT=$HOME/.volare python3 scripts/gen_analog_layout.py            # text report
-PDK_ROOT=$HOME/.volare python3 scripts/gen_analog_layout.py --format json
+# --- analog: execute the committed layout plans, complete the routing, DRC each result
+PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py            # text report
+PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --format json
+PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver   # rewrite layout/analog/*.gds + provenance.json
+PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --check     # reproduce every gds_sha256 in a scratch dir
 ```
 
-`scripts/gen_analog_layout.py` writes each block's GDS, its raw Phase C
-response JSON, and a combined `analog-layout-report.json` under
-`layout/analog/out/` (gitignored scratch), and prints one verdict line per
-block. Its exit code is about *the run*, never about the quality of the
-layout: `0` means every plan executed,
-`1` means the run itself failed (no klt, no PDK, unexpected exception). Read
-the report for the verdict — as of this writing it ends `analog layout NOT
-delivered`.
+`scripts/gen_analog_layout.py` writes each block's klt result
+(`<block>.klt.gds`), the routed GDS, its raw Phase C response JSON, and a
+combined `analog-layout-report.json` under `layout/analog/out/` (gitignored
+scratch), and prints one verdict line per block; `--deliver` copies the routed
+GDS of the four child-A blocks to `layout/analog/` and merges their entries into
+`provenance.json`. Its exit code is about *the run*, never about the quality of the
+layout: `0` means every plan executed (with `--check`: and every hash
+reproduced), `1` means the run itself failed (no klt, no PDK, unexpected
+exception), `3` means `--check` found a mismatch. Read the report for the
+verdict — as of this writing it ends `analog layout NOT delivered` because
+`differential_driver` does not execute (its plan predates the #114 netlist; issue #252).
 
 As of issue #72 every one of the five analog blocks executes from a
 committed plan (`differential_driver.json` was the last to be authored, once

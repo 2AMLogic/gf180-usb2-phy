@@ -1,0 +1,173 @@
+{
+  "schema_version": 2,
+  "klt_version": "0.7.1.dev1743+g7ee09483b748",
+  "plan_dir": "layout/analog/plans",
+  "out_dir": "/tmp/i251-out5",
+  "blocks": [
+    {
+      "block": "differential_driver",
+      "plan": "layout/analog/plans/differential_driver.json",
+      "status": "execute-failed",
+      "message": "request.device_groups (id 'mn_n1dm').devices references netlist device 'N1DM', which does not resolve against the ingested netlist digest"
+    },
+    {
+      "block": "differential_receiver",
+      "plan": "layout/analog/plans/differential_receiver.json",
+      "status": "executed",
+      "klt_exit_code": 3,
+      "gds_path": "../../../../../../../tmp/i251-out5/differential_receiver.gds",
+      "device_group_count": 11,
+      "net_count": 8,
+      "routed_net_count": 8,
+      "klt_routed_net_count": 1,
+      "unrouted_nets": [],
+      "unmapped_netlist_nets": [],
+      "bbox_um": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 457.18,
+        "y1": 43.879999999999995
+      },
+      "warning_count": 0,
+      "drc": {
+        "status": "clean",
+        "violation_count": 0,
+        "by_rule": {}
+      },
+      "routing": {
+        "snapped_instances": 0,
+        "l2n_net_count": 8,
+        "shorts": [],
+        "problems": [],
+        "methods": {
+          "klt-plan": 1,
+          "scripted": 7
+        }
+      }
+    },
+    {
+      "block": "dplus_pullup",
+      "plan": "layout/analog/plans/dplus_pullup.json",
+      "status": "executed",
+      "klt_exit_code": 3,
+      "gds_path": "../../../../../../../tmp/i251-out5/dplus_pullup.gds",
+      "device_group_count": 24,
+      "net_count": 21,
+      "routed_net_count": 21,
+      "klt_routed_net_count": 6,
+      "unrouted_nets": [],
+      "unmapped_netlist_nets": [],
+      "bbox_um": {
+        "x0": -1.02,
+        "y0": 0.0,
+        "x1": 251.67899999999995,
+        "y1": 103.88000000000001
+      },
+      "warning_count": 0,
+      "drc": {
+        "status": "violations",
+        "violation_count": 75,
+        "by_rule": {
+          "metal1.ongrid.1": 30,
+          "poly2.ongrid.1": 10,
+          "pplus.ongrid.1": 10,
+          "res_mk.ongrid.1": 10,
+          "sab.ongrid.1": 10,
+          "sab.separation.contact.1": 3,
+          "pplus.width.1": 1,
+          "sab.width.1": 1
+        }
+      },
+      "routing": {
+        "snapped_instances": 7,
+        "l2n_net_count": 21,
+        "shorts": [],
+        "problems": [],
+        "methods": {
+          "klt-plan": 6,
+          "scripted": 15
+        }
+      }
+    },
+    {
+      "block": "se_receiver_dm",
+      "plan": "layout/analog/plans/se_receiver_dm.json",
+      "status": "executed",
+      "klt_exit_code": 3,
+      "gds_path": "../../../../../../../tmp/i251-out5/se_receiver_dm.gds",
+      "device_group_count": 13,
+      "net_count": 9,
+      "routed_net_count": 9,
+      "klt_routed_net_count": 1,
+      "unrouted_nets": [],
+      "unmapped_netlist_nets": [],
+      "bbox_um": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 469.84000000000003,
+        "y1": 43.879999999999995
+      },
+      "warning_count": 0,
+      "drc": {
+        "status": "clean",
+        "violation_count": 0,
+        "by_rule": {}
+      },
+      "routing": {
+        "snapped_instances": 0,
+        "l2n_net_count": 9,
+        "shorts": [],
+        "problems": [],
+        "methods": {
+          "klt-plan": 1,
+          "scripted": 8
+        }
+      }
+    },
+    {
+      "block": "se_receiver_dp",
+      "plan": "layout/analog/plans/se_receiver_dp.json",
+      "status": "executed",
+      "klt_exit_code": 3,
+      "gds_path": "../../../../../../../tmp/i251-out5/se_receiver_dp.gds",
+      "device_group_count": 13,
+      "net_count": 9,
+      "routed_net_count": 9,
+      "klt_routed_net_count": 1,
+      "unrouted_nets": [],
+      "unmapped_netlist_nets": [],
+      "bbox_um": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 469.84000000000003,
+        "y1": 43.879999999999995
+      },
+      "warning_count": 0,
+      "drc": {
+        "status": "clean",
+        "violation_count": 0,
+        "by_rule": {}
+      },
+      "routing": {
+        "snapped_instances": 0,
+        "l2n_net_count": 9,
+        "shorts": [],
+        "problems": [],
+        "methods": {
+          "klt-plan": 1,
+          "scripted": 8
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "executed": 4,
+    "fully_routed": 4,
+    "drc_clean": 3,
+    "deliverable_total": 4,
+    "deliverable_routed": 4,
+    "deliverable_ok": 3,
+    "verdict": "analog layout NOT delivered -- see layout/README.md"
+  }
+}
