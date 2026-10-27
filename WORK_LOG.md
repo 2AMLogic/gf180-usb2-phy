@@ -2,6 +2,11 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-10-27
+
+- **PR #254**: feat: route and commit analog GDS for four blocks with scripted completion
+- **PR #253**: docs(spec): propose DR-0009 numeric limit for driver-output jitter row
+
 ### 2026-10-24
 
 - **PR #242**: test(sim): record first stored-evidence campaign and live-verify manifest
