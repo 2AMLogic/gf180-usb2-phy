@@ -320,22 +320,9 @@
         }
       ],
       "detail": {
-        "failed_rows": [],
-        "uncovered_rows": [
-          "rise-fall-time",
-          "crossover-voltage",
-          "full-speed-signal-quality",
-          "dplus-pullup-tolerance",
-          "receiver-thresholds"
-        ],
-        "declared_gaps": [
-          {
-            "id": "driver-output-timing-jitter",
-            "gap": "spec section 8.2 ratifies no numeric jitter limit: the row is recorded as engineering data with no pass/fail attached (sim/driver-jitter, record 20261015-104027-d109790), so no envelope can grade it"
-          }
-        ],
-        "unratified_rows": [],
-        "row_sources": {}
+        "missing_kinds": [
+          "functional-verification"
+        ]
       }
     },
     {

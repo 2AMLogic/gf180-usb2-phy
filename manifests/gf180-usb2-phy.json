@@ -90,7 +90,7 @@
     ]
   },
   "spec_rows": {
-    "5": [
+    "5.analog": [
       {
         "id": "rise-fall-time"
       },

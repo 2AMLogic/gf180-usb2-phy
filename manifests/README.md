@@ -108,7 +108,7 @@ grades in both partitions:
   layout exists to run DRC or LVS on. Re-keying the citations to the
   digital partition dropped the frozen count from `8/22` to `6/22`. That
   is a correction of an overstated count, not a regression.
-- **Item 5.digital, corner verification (digital STA): cited, `met`**.
+- **Item 5.digital, corner verification (digital STA): cited, `unmet`/`partial_coverage` since #260 (no `functional-verification` citation; was `met` before #188)**.
   Cites one multi-corner `klt sta` envelope,
   `verification/records/post-layout-pvt/artifacts/20261015-011505-32db02a/sta-corners.json`
   (record `20261015-011505-32db02a`, issue #131; the method is that of
@@ -160,8 +160,9 @@ grades in both partitions:
   cannot be freshness-pinned, and SDF gate-level verification is tracked
   separately by #93 (cited as item 7.digital, see item 7 below). **Item 5.analog is cited, and renders `unmet`/`partial_coverage`** (see
   the 5.analog bullet below). **Item 5.digital rendered `met` at the previous
-  pin and renders `unmet`/`partial_coverage` since issue #188**, for the reason
-  given there.
+  pin and renders `unmet`/`partial_coverage` since issue #188**; since issue
+  #260 the reason is no longer the analog rows but a missing
+  `functional-verification` citation (see the 5.analog bullet's update note).
 - **Item 11.digital, power delivery (structural) — cited, `met`** — the
   first T1 item no single artifact proves, so its manifest entry is a
   **list**: the digital partition's `klt erc` supply report
@@ -288,6 +289,17 @@ repo's rule that an envelope must actually support the item to be cited:
   render `met` with the jitter gap recorded nowhere the grader reads. Removing
   the `spec_rows` block restores `5.digital: met` at the price of that
   overclaim; the tool fix is #3768.
+  **Update, issue #260 (2026-10-28, klt 0.8.0).** The side effect above is
+  retired. klayout-tools#3768 shipped partition-qualified `spec_rows` keys
+  in 0.8.0, and the manifest now declares the rows under `"5.analog"`
+  (rows and the `driver-output-timing-jitter` gap unchanged). **No
+  `5.digital` rows are declared**: spec §8.2 lists only analog quantities,
+  so a digital row set would be invented. `5.digital` is therefore no longer
+  charged with analog rows (`uncovered_rows` is gone). It still renders
+  `unmet`/`partial_coverage`, now for a digital-partition reason that the
+  analog rows had been masking: klt 0.8.0 grades item 5 digital as `sta`
+  *and* `functional-verification`, and only the `sta` envelope is cited
+  (`detail.missing_kinds: ["functional-verification"]`).
   History: this item was recorded here as waiting on klayout-tools#1962
   (tracked in #53). That was a mis-attribution: #1962 is a `gen-compose`
   routing gap and #53 is post-layout re-verification, and item 5 is a
