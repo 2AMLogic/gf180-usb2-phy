@@ -4,6 +4,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-10-27
 
+- **PR #258**: build: pin klayout-tools to release 0.8.0 and re-render signoff evidence
+- **Issue #257** (closed): Bump klayout-tools pin 7ee09483b748 → 0.8.0
 - **PR #254**: feat: route and commit analog GDS for four blocks with scripted completion
 - **PR #253**: docs(spec): propose DR-0009 numeric limit for driver-output jitter row
 
