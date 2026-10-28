@@ -375,6 +375,12 @@ history below is kept as recorded. Before move 9 the pin moved seven times
    the current klayout-tools release. It supersedes the "re-pin to a release once
    one carries #2959" note in move 7: 0.8.0 contains #2959, #3768 and #3769.
 
+   Issue #260 (2026-10-28) then used #3768: `manifests/gf180-usb2-phy.json`
+   declares its item-5 rows under `spec_rows."5.analog"`, so 5.digital is no
+   longer charged with the analog rows (no `5.digital` rows are declared;
+   spec §8.2 ratifies none). It still renders `unmet`: klt 0.8.0 wants a
+   `functional-verification` citation beside the `sta` one.
+
 `npm run check:ci` was re-run against each new pin before it was committed.
 
 `klt` in turn resolves `iverilog`/`yosys`/`openroad` and the PDK itself from
