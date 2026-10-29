@@ -2,6 +2,11 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-10-28
+
+- **PR #261**: fix(signoff): key item-5 spec_rows to 5.analog so 5.digital is not charged analog rows
+- **Issue #260** (closed): T1 item 5 (corner verification, digital): re-key spec_rows to "5.analog" so 5.digital stops being charged with analog rows
+
 ### 2026-10-27
 
 - **PR #258**: build: pin klayout-tools to release 0.8.0 and re-render signoff evidence
