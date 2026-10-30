@@ -31,7 +31,7 @@
     },
     {
       "path": "spec/usb2-device-phy.md",
-      "sha256": "sha256:2ef223023a76972c5afa853104a7a280521c966cf8c37dd8a3f5d3f390472555"
+      "sha256": "sha256:a7f5fd1c62fc17dcc008d45580eea7440b74b58e8fa8d2717c3bee052f2a19e9"
     }
   ]
 }
