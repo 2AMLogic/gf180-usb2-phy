@@ -1,8 +1,34 @@
 # Statistical claims (T1 item 6) — digital partition: not applicable
 
-<!-- statistical-na: spec_sha256=2ef223023a76972c5afa853104a7a280521c966cf8c37dd8a3f5d3f390472555 -->
+<!-- statistical-na: spec_sha256=a7f5fd1c62fc17dcc008d45580eea7440b74b58e8fa8d2717c3bee052f2a19e9 -->
 
-## Current statement (2026-10-27) — supersedes the statement of record below
+## Current statement (2026-10-30) — supersedes the statements of record below
+
+**Why superseded.** DR-0010 (issue #251) added one row to the §12.1
+decision-record index of `spec/usb2-device-phy.md`, which changed the spec's
+SHA-256 from `2ef22302…` to `a7f5fd1c…`. The binding check
+(`verification/check_statistical_na.py`) correctly refuses a pin that no
+longer matches, so the statement is re-read and re-pinned here rather than
+the old pin being edited in place.
+
+**Re-read result.** The statement below still holds against the changed spec.
+The only difference is the new §12.1 index row for DR-0010. That row records
+a layout-only grid-snap of the `dplus_pullup` trim resistors; §5's
+1.5 kΩ ±5 % value is unchanged and no spec section other than the §12.1 index
+changed. It adds no digital row and no row whose pass/fail depends on a
+random device parameter. The digital partition therefore still has no
+statistical row. (Analog statistical rows remain classified by
+`spec/decisions/0007-analog-statistical-rows.md`.)
+
+**Binding.** The marker on line 3 now pins the SHA-256 of the spec as
+changed by DR-0010. If the spec changes again, this statement must be re-read
+and superseded the same way.
+
+## Superseded statement (2026-10-27, pinned to spec_sha256 2ef22302…) — kept as history
+
+Its marker is shown as plain text (`spec_sha256=2ef223023a76972c5afa853104a7a280521c966cf8c37dd8a3f5d3f390472555`) so the checker sees exactly one live marker. Its body follows unchanged.
+
+### (2026-10-27 statement body)
 
 **Why superseded.** The proposal of DR-0009 (issue #249) added one row to the
 §12.1 decision-record index of `spec/usb2-device-phy.md`, which changed the

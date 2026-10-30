@@ -292,7 +292,8 @@
       "generator": "res_array",
       "params": {
         "num": 1,
-        "dummy": 0
+        "dummy": 0,
+        "length_um": 0.42
       }
     },
     {
@@ -359,7 +360,8 @@
       "generator": "res_array",
       "params": {
         "num": 1,
-        "dummy": 0
+        "dummy": 0,
+        "length_um": 0.685
       }
     },
     {
@@ -426,7 +428,8 @@
       "generator": "res_array",
       "params": {
         "num": 1,
-        "dummy": 0
+        "dummy": 0,
+        "length_um": 1.37
       }
     },
     {
@@ -493,7 +496,8 @@
       "generator": "res_array",
       "params": {
         "num": 1,
-        "dummy": 0
+        "dummy": 0,
+        "length_um": 2.745
       }
     },
     {
@@ -560,7 +564,8 @@
       "generator": "res_array",
       "params": {
         "num": 1,
-        "dummy": 0
+        "dummy": 0,
+        "length_um": 5.485
       }
     },
     {

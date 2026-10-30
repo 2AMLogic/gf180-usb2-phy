@@ -107,7 +107,7 @@ that run, not the committed GDS.
 | `differential_receiver` | `layout/analog/differential_receiver.gds` | 8/8 | 1 / 7 | **clean** (0) |
 | `se_receiver_dm` | `layout/analog/se_receiver_dm.gds` | 9/9 | 1 / 8 | **clean** (0) |
 | `se_receiver_dp` | `layout/analog/se_receiver_dp.gds` | 9/9 | 1 / 8 | **clean** (0) |
-| `dplus_pullup` | `layout/analog/dplus_pullup.gds` | 21/21 | 6 / 15 | **75 violations**, all inside the five `r_seg0`–`r_seg4` resistor cells (see below) |
+| `dplus_pullup` | `layout/analog/dplus_pullup.gds` | 21/21 | 6 / 15 | **clean** (0), after the grid-snap of `r_seg0`–`r_seg4` in DR-0010 (was 75 violations) |
 
 `layout/analog/provenance.json` carries, per block, `gds_sha256`,
 `netlist_sha256`, `plan_sha256`, `klt_version`, `regeneration_command`,
@@ -122,7 +122,7 @@ component that no other net's pin shares, and as a cross-check KLayout's own
 (one track's vias deleted; an extra metal-2 bridge) were seen to be reported as an open and a
 short respectively.
 
-**klt limit hit, with the run.** With the pinned klt (`7ee09483`, 0.7.1.dev1743)
+**klt limit hit, with the run.** With the klt of the first delivery (`7ee09483`, 0.7.1.dev1743; the repo now pins 0.8.0 and all four GDS reproduce under it)
 the plan path routes `dplus_pullup` 6/21 and the three receivers 1/8, 1/9, 1/9 —
 the same counts as the 2026-09-21 run — and rejects every other leg with
 "backbone ... crosses N um of block 'X''s interior on the side *away* from its own
@@ -144,19 +144,24 @@ completed by scripted routes in `scripts/gen_analog_layout.py`:
   top-level instance origins are snapped to the 0.005 um manufacturing grid
   (only `dplus_pullup` is affected: 7 instances).
 
-**Why `dplus_pullup` is not DRC-clean.** At the pinned klt a bare `dplus_pullup`
-plan run has **2583** violations, almost all `*.ongrid.1` on every device placed
-to the right of the first fractional-width resistor (resolved origins such as
-x = 120.163). The origin snap removes all of those; the 75 that remain are
-*inside* the five `res_array` cells for `r_seg0`–`r_seg4`, whose netlist lengths
-(0.343, 0.686, 1.371, 2.743, 5.486 um) are not on the grid: 30 `metal1.ongrid.1`,
-10 each `poly2`/`pplus`/`res_mk`/`sab` `.ongrid.1`, 3 `sab.separation.contact.1`
-(`r_seg1`, `r_seg2`, `r_seg4`), `pplus.width.1` and `sab.width.1` (`r_seg0`).
-Clearing them needs those resistors re-drawn, i.e. re-sized, which this issue
-forbids, so they are recorded rather than fixed. Both gaps reproduce on klt
-0.8.1.dev55 and are filed as `2AMLogic/klayout-tools#4202` (group origins not
-snapped) and `#4203` (`res_array` sub-grid lengths). No violation is in the routing
-or in the placement of any other device.
+**How `dplus_pullup` became DRC-clean (DR-0010).** At the pinned klt a bare
+`dplus_pullup` plan run has **2583** violations, almost all `*.ongrid.1` on every
+device placed to the right of the first fractional-width resistor. The origin snap
+removes all of those; 75 remained *inside* the five `res_array` cells for
+`r_seg0`–`r_seg4`, whose netlist lengths (0.343, 0.686, 1.371, 2.743, 5.486 um)
+are not on the grid. Both gaps are filed as `2AMLogic/klayout-tools#4202` (group
+origins not snapped) and `#4203` (`res_array` sub-grid lengths). The operator
+ruled on 2026-10-30 (issue #251) to set the no-re-sizing rule aside for these five
+resistors only: `spec/decisions/0010-dplus-pullup-trim-resistor-grid-snap.md`
+gives each an on-grid drawn length (0.420, 0.685, 1.370, 2.745, 5.485 um; XR0 is
+lengthened because 0.345 um fails `pplus.width.1`/`sab.width.1`), set as
+`params.length_um` in `layout/analog/plans/dplus_pullup.json`. The layout now
+differs from `design/netlist/dplus_pullup.spice` on those five lengths; the
+pull-up was re-simulated on the snapped lengths over the 45-corner matrix (PASS,
+worst per-corner error 2.44 %, fixed-trim 2.55 %, limit 5 %). The `res_array`
+snapping gap is `2AMLogic/klayout-tools#4666`; issue #263 regenerates from the
+netlist once it ships. No violation was ever in the routing or in the placement of
+any other device. Run record: `verification/records/analog-layout/records/20261030-213500-7134cc091abf.md`.
 
 **Not claimed.** The plan's pins are device terminals only: the guard-ring /
 body-tie metal-1 pads each generator draws are not in any plan net, so they are
