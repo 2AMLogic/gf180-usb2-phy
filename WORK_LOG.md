@@ -2,6 +2,11 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-10-30
+
+- **PR #264**: feat(layout): grid-snap dplus_pullup trim resistors for a DRC-clean stream
+- **Issue #251** (closed): T1 item 2 (analog) A: route and commit GDS for dplus_pullup, se_receiver_dp/dm, differential_receiver
+
 ### 2026-10-28
 
 - **PR #261**: fix(signoff): key item-5 spec_rows to 5.analog so 5.digital is not charged analog rows

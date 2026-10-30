@@ -22,13 +22,13 @@ _None._
 - **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout
 - **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition
 - **#245**: T1 item 2 (Layout, analog partition): route the five analog front-end blocks and commit their GDS
-- **#251**: T1 item 2 (analog) A: route and commit GDS for dplus_pullup, se_receiver_dp/dm, differential_receiver
 - **#252**: T1 item 2 (analog) B: route differential_driver GDS and attest 2.analog
 
 ## Ready
 
 Human-approved issues ready for implementation (`loom:issue`).
 
+- **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief
 - **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition
 
 ## In Progress
@@ -60,7 +60,6 @@ Issues carrying `loom:curated`.
 - **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout *(curated)*
 - **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition *(curated)*
 - **#212**: T1 item 6: single-ended receiver Monte Carlo request (klt_measure hooks + MC builder) *(curated)*
-- **#251**: T1 item 2 (analog) A: route and commit GDS for dplus_pullup, se_receiver_dp/dm, differential_receiver *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -77,12 +76,12 @@ Issues carrying `loom:curated`.
 |------|-------|
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
-| Important | 7 |
-| Ready (`loom:issue`) | 1 |
+| Important | 6 |
+| Ready (`loom:issue`) | 2 |
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 8 |
+| Curated | 7 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
