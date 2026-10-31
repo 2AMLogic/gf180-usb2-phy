@@ -336,7 +336,7 @@
         },
         {
           "path": "sim/driver-jitter/testbench/driver_jitter_tb_klt.spice",
-          "sha256": "sha256:cdce08059f5633c000437cf92f394358ea4f3ab01aa67ac89e1884079b6a99be"
+          "sha256": "sha256:3eeaa35cb3fa7d3dc3c8563462a9c478080d912e6b7db68e6773b33ecd709bb8"
         },
         {
           "path": "sim/driver-jitter/testbench/klt-sim-request.json",
@@ -359,7 +359,7 @@
         },
         {
           "path": "sim/driver-signal-quality/testbench/driver_tb_klt.spice",
-          "sha256": "sha256:c161b5ca6660d1af9b26ec2c490aeca2250f85a85609b14030fb3d493c35158a"
+          "sha256": "sha256:f626e723e5fa7f2f4d50936e3fc6fca219db77b660c9df9528fb65caab06a6d1"
         },
         {
           "path": "sim/driver-signal-quality/testbench/klt-sim-request.json",
@@ -440,7 +440,7 @@
     },
     {
       "path": "sim/harness/evidence_lint.py",
-      "sha256": "sha256:2201ea4824e8856b173b76fd8d8c54b752ace61fc5391c1603b7c5772eb0fbd8"
+      "sha256": "sha256:0218b9f841883c5126fb99cdd26d0683b1c154cc9cc67844cff905fd98c1197d"
     },
     {
       "path": "sim/harness/evidence_store.py",
@@ -453,6 +453,10 @@
     {
       "path": "sim/harness/pdk.py",
       "sha256": "sha256:02331aa9cae6d0a71877e8fc7998bd47f93cffd56f07500938519676fa803763"
+    },
+    {
+      "path": "sim/harness/port_lint.py",
+      "sha256": "sha256:d12a88a07cf190d8b8192cc2d1573720e2abb84111233b443f5c174f2cfc7c56"
     },
     {
       "path": "sim/harness/report.py",
@@ -497,6 +501,10 @@
     {
       "path": "sim/tests/test_harness.py",
       "sha256": "sha256:6408d3a713c49c379db4ae6f1a27c8ca49b3cc1159d9251f0c582a8e20672cf5"
+    },
+    {
+      "path": "sim/tests/test_port_lint.py",
+      "sha256": "sha256:77e0d1e521c4341f3141f0b0352eedf83bbebda47b7ac9e0683658e0497d1b97"
     }
   ],
   "dirs_without_testbench": {
