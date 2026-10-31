@@ -30,7 +30,9 @@ vpu PU 0 pulse(0 1 100n 0.5n 0.5n 100n 200n)
 btxdp TXDP 0 V='v(vdd)*v(pu)'
 btxdm TXDM 0 V='v(vdd)*(1-v(pu))'
 
-Xdrv VDD 0 TXDP TXDM DP DM differential_driver
+* TXOE (issue #267): driver permanently enabled, as in the harness copy.
+vtxoe TXOE 0 dc 3.3
+Xdrv VDD 0 TXDP TXDM TXOE DP DM differential_driver
 
 cdp DP 0 50p
 cdm DM 0 50p
