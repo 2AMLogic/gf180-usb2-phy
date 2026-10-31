@@ -89,6 +89,8 @@ from verification.check_records import (  # noqa: E402
 
 import datetime as _dt  # noqa: E402
 
+from harness import port_lint  # noqa: E402
+
 # Layout constants -- kept in step with sim/harness/report.py, which writes
 # into these directories, and with the layout diagram in sim/README.md.
 RECORDS_DIR = "records"
@@ -679,6 +681,7 @@ def main(argv=None) -> int:
                 print(f"  {experiments[slug].records[record_id]}")
 
     problems = manifest_problems + check_experiments(root, experiments)
+    problems += [Problem("", m) for m in port_lint.check_repo(root)]
 
     base_ref = args.base_ref or default_base_ref()
     append_only_problems, skip_reason = check_append_only(root, base_ref)
