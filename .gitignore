@@ -123,3 +123,6 @@ layout/digital/lvs/
 
 # gate-level replay: staged PDK Verilog cell models (symlinks, see verification/README.md)
 verification/.pdk-models/
+
+# Repo Skills Codex-side machine-local install metadata (never committed)
+.agents/skills/repo/.install-local.json
