@@ -28,14 +28,13 @@ _None._
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-- **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition
 - **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition
 
 ## PRs Awaiting Review
 
@@ -78,8 +77,8 @@ Issues carrying `loom:curated`.
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
 | Important | 6 |
-| Ready (`loom:issue`) | 2 |
-| In Progress (`loom:building`) | 0 |
+| Ready (`loom:issue`) | 1 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
 | Curated | 8 |
