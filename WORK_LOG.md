@@ -2,6 +2,10 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-11-02
+
+- **PR #274**: docs(sim): record incomplete 2026-11-02 differential-receiver MC fleet attempt
+
 ### 2026-11-01
 
 - **PR #269**: Bump Repo Skills 0.24.7 -> 0.25.1

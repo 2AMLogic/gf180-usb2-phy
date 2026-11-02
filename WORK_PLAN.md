@@ -34,7 +34,7 @@ Human-approved issues ready for implementation (`loom:issue`).
 
 Issues currently being built (`loom:building`).
 
-- **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition
+_None._
 
 ## PRs Awaiting Review
 
@@ -57,7 +57,6 @@ Issues carrying `loom:curated`.
 - **#114**: Analog: add TXOE high-Z enable to differential_driver (pin contract, #109) *(curated)*
 - **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size *(curated)*
 - **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout *(curated)*
-- **#189**: T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition *(curated)*
 - **#212**: T1 item 6: single-ended receiver Monte Carlo request (klt_measure hooks + MC builder) *(curated)*
 - **#263**: Revisit dplus_pullup resistor lengths when klt res_array snaps to grid (klayout-tools#4666) *(curated)*
 
@@ -78,10 +77,10 @@ Issues carrying `loom:curated`.
 | Very important | 0 |
 | Important | 6 |
 | Ready (`loom:issue`) | 1 |
-| In Progress (`loom:building`) | 1 |
+| In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 8 |
+| Curated | 7 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
