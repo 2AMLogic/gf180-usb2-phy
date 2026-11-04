@@ -4,6 +4,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-04
 
+- **PR #281**: design: lengthen TXOE NMOS-path slew resistor to fix fs rise/fall matching
+- **Issue #277** (closed): Analog: driver rise/fall matching fails 1.1 limit at fs/-40C/2.97V with TXOE cell
 - **PR #278**: sim: mint 45-corner TXOE leakage, signal-quality and jitter records
 - **Issue #114** (closed): Analog: add TXOE high-Z enable to differential_driver (pin contract, #109)
 
