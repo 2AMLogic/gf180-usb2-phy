@@ -2,6 +2,11 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-11-04
+
+- **PR #278**: sim: mint 45-corner TXOE leakage, signal-quality and jitter records
+- **Issue #114** (closed): Analog: add TXOE high-Z enable to differential_driver (pin contract, #109)
+
 ### 2026-11-02
 
 - **PR #274**: docs(sim): record incomplete 2026-11-02 differential-receiver MC fleet attempt
