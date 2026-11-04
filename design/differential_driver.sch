@@ -226,7 +226,7 @@ N -1280 300 -1340 300 {}
 C {devices/lab_pin.sym} -1340 300 0 0 {name=ql46 lab=VSS}
 C {symbols/ppolyf_u.sym} -1260 300 0 0 {name=RSLEWNDP
 W=1u
-L=2u
+L=10u
 model=ppolyf_u
 spiceprefix=X
 m=1
@@ -519,7 +519,7 @@ N 3520 300 3460 300 {}
 C {devices/lab_pin.sym} 3460 300 0 0 {name=ql94 lab=VSS}
 C {symbols/ppolyf_u.sym} 3540 300 0 0 {name=RSLEWNDM
 W=1u
-L=2u
+L=10u
 model=ppolyf_u
 spiceprefix=X
 m=1
