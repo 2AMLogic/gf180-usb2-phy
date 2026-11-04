@@ -4,6 +4,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-04
 
+- **PR #282**: ci: run port_lint self-test in the lint script
+- **Issue #279** (closed): Wire orphaned sim/tests/test_port_lint.py into npm run lint
 - **PR #281**: design: lengthen TXOE NMOS-path slew resistor to fix fs rise/fall matching
 - **Issue #277** (closed): Analog: driver rise/fall matching fails 1.1 limit at fs/-40C/2.97V with TXOE cell
 - **PR #278**: sim: mint 45-corner TXOE leakage, signal-quality and jitter records
