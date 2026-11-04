@@ -428,6 +428,14 @@ Evidence (append-only; ids in `sim/*/records/`):
   re-runs of the Sec.6 edge parameters. The existing failures recorded in
   `sim/spec-coverage.md` (#96) are not addressed here.
 
+Update (#277): `RSLEWNDP`/`RSLEWNDM` (the NMOS-path slew resistors) are now
+`ppolyf_u` 1u x 10u, up from 1u x 2u, to bring `fs_-40c_2.97v` rise/fall
+matching inside the 1.1 limit (`sim/notes/20261104-txoe-trf-fix-comparison.md`;
+records `20261104-204550-2d31f87` signal quality, `20261104-204926-2d31f87`
+jitter, `20261104-205341-2d31f87` disabled leakage). The "slew resistor value
+unchanged" statement above describes the original #114 cell. The evidence
+status paragraph below is historical.
+
 Status of the evidence at the time of writing: the batch Spot fleet refused
 every full-grid submit (`batch_no_capacity`, no capacity in any of 30 pools,
 four attempts) and one earlier submit failed on a harness include-path bug
