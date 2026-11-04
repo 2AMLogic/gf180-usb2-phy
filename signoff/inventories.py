@@ -81,6 +81,7 @@ NO_TESTBENCH_DIRS = {
     "tests": "harness unit tests, not an experiment",
     "diff-receiver-mc": "Monte Carlo request builder (build_requests.py) for the fleet; ships no testbench of its own, reuses sim/diff-receiver-sensitivity/",
     "se-receiver-mc": "Monte Carlo request builder (build_requests.py) for the fleet; ships no testbench of its own, reuses the single-ended receiver deck",
+    "notes": "dated comparison notes between evidence records (prose only), not an experiment",
 }
 
 # Commands a reader needs to reproduce a record from a cold checkout, each
