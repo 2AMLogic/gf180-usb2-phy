@@ -484,7 +484,7 @@
     },
     {
       "path": "sim/spec-coverage.md",
-      "sha256": "sha256:ebcb6c6b12244f493d02314662a3d313822bfb377733ad2f34e41ac30d4644af"
+      "sha256": "sha256:30694c48ab24f0ba21dbb5f78913b6f8205a65ba7b60a6b190ff54adc38c3015"
     },
     {
       "path": "sim/tests/test_evidence_lint.py",
@@ -510,6 +510,7 @@
   "dirs_without_testbench": {
     "diff-receiver-mc": "Monte Carlo request builder (build_requests.py) for the fleet; ships no testbench of its own, reuses sim/diff-receiver-sensitivity/",
     "harness": "shared corner-runner support code, not an experiment",
+    "notes": "dated comparison notes between evidence records (prose only), not an experiment",
     "se-receiver-mc": "Monte Carlo request builder (build_requests.py) for the fleet; ships no testbench of its own, reuses the single-ended receiver deck",
     "tests": "harness unit tests, not an experiment"
   }
