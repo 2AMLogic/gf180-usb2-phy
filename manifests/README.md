@@ -307,12 +307,10 @@ repo's rule that an envelope must actually support the item to be cited:
 - **Item 6** (Monte Carlo) — **digital partition: no statistical row,
   stated explicitly** in `verification/statistical-claims-na.md`, pinned to
   the SHA-256 of the ratified spec and re-checked by
-  `verification/check_statistical_na.py`. `klt signoff` can grade this as a
-  `not_applicable` outcome from `verification/statistical-na/*.json`, but the
-  `klt` pinned in CI (`e8ca621`) predates that form and renders it
-  `unmet` / `invalid_evidence`, so `6.digital` stays uncited (`unmet` /
-  `no_evidence`) until the pin is bumped (cite block in
-  `verification/statistical-claims-na.md`).
+  `verification/check_statistical_na.py`. `6.digital` is cited from
+  `verification/statistical-na/*.json` and `klt` 0.8.0 (the CI pin) renders it
+  `not_applicable` (cite block in `verification/statistical-claims-na.md`;
+  it was held `unmet` / `no_evidence` while the pin predated that form).
   **Analog partition: statistical rows exist.** An earlier version of this
   paragraph said the whole block has none; that was wrong for the analog
   partition. `spec/decisions/0007-analog-statistical-rows.md` classifies them:
