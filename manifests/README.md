@@ -318,13 +318,13 @@ repo's rule that an envelope must actually support the item to be cited:
   offset is a MOS matching quantity) and the D+ pull-up tolerance (resistor
   ladder matching; not measurable with the gf180mcuD resistor model, whose
   mismatch hook ships disabled). A corner matrix cannot validate those, so
-  `6.analog` is cited and renders `met` from two `klt yield` reports of the
+  `6.analog` is cited and renders `met` from `klt yield` reports of the
   differential-receiver Monte Carlo campaign
-  (`sim/diff-receiver-mc/results/20261105-n100-regrade/`; seed, N=4500 and the
-  known-bad controls are in `sim/diff-receiver-mc/README.md`). That covers the
-  differential-receiver rows only: the single-ended receiver (#212) and D+
-  pull-up rows have no Monte Carlo evidence yet, so `6.analog` is not a claim
-  about them.
+  (`sim/diff-receiver-mc/results/20261105-n100-regrade/`) and of the
+  single-ended D+/D- receiver campaigns
+  (`sim/se-receiver-mc/results/20261105-n100/{dp,dm}/`); seed, N=4500 and the
+  known-bad controls are in each campaign's README. The D+ pull-up row has no
+  Monte Carlo evidence yet (PDK-blocked), so `6.analog` is not a claim about it.
 - **Item 7.digital, post-layout verification — cited, `met`** — the
   gate-level `test_usb_utmi_phy.py` suite (all 111 tests, none skipped)
   replayed through `klt functional-verification` against the routed netlist,

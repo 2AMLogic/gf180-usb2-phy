@@ -1,0 +1,365 @@
+{
+  "samples": "samples-pos.json",
+  "limits": null,
+  "source": {
+    "kind": "sample-set",
+    "netlist": null,
+    "monte_carlo": null,
+    "provenance": {
+      "seed": 20261017,
+      "draws_per_population": 100
+    },
+    "sample_count": 9000
+  },
+  "schema_version": 1,
+  "confidence": 0.95,
+  "target_ci_halfwidth": 0.01,
+  "min_samples": 2,
+  "status": "reported",
+  "measurement_count": 2,
+  "measurements": [
+    {
+      "name": "vth_v",
+      "unit": null,
+      "n": 4500,
+      "errored": 0,
+      "failed_unmeasurable": 0,
+      "censored": 0,
+      "inconclusive": 0,
+      "limits": {
+        "min": 0.8,
+        "max": 2.0
+      },
+      "source_corners": [
+        "tt/2.970V/-40C",
+        "tt/2.970V/27C",
+        "tt/2.970V/125C",
+        "tt/3.300V/-40C",
+        "tt/3.300V/27C",
+        "tt/3.300V/125C",
+        "tt/3.630V/-40C",
+        "tt/3.630V/27C",
+        "tt/3.630V/125C",
+        "ff/2.970V/-40C",
+        "ff/2.970V/27C",
+        "ff/2.970V/125C",
+        "ff/3.300V/-40C",
+        "ff/3.300V/27C",
+        "ff/3.300V/125C",
+        "ff/3.630V/-40C",
+        "ff/3.630V/27C",
+        "ff/3.630V/125C",
+        "ss/2.970V/-40C",
+        "ss/2.970V/27C",
+        "ss/2.970V/125C",
+        "ss/3.300V/-40C",
+        "ss/3.300V/27C",
+        "ss/3.300V/125C",
+        "ss/3.630V/-40C",
+        "ss/3.630V/27C",
+        "ss/3.630V/125C",
+        "fs/2.970V/-40C",
+        "fs/2.970V/27C",
+        "fs/2.970V/125C",
+        "fs/3.300V/-40C",
+        "fs/3.300V/27C",
+        "fs/3.300V/125C",
+        "fs/3.630V/-40C",
+        "fs/3.630V/27C",
+        "fs/3.630V/125C",
+        "sf/2.970V/-40C",
+        "sf/2.970V/27C",
+        "sf/2.970V/125C",
+        "sf/3.300V/-40C",
+        "sf/3.300V/27C",
+        "sf/3.300V/125C",
+        "sf/3.630V/-40C",
+        "sf/3.630V/27C",
+        "sf/3.630V/125C"
+      ],
+      "distribution": {
+        "model": "normal",
+        "mean": 1.3544820288888844,
+        "stddev": 0.10842688056587095,
+        "min": 1.19051,
+        "max": 1.51671,
+        "median": 1.35544,
+        "skewness": 1.2899400692429023e-05,
+        "excess_kurtosis": -1.4622156405068396,
+        "normality": {
+          "test": "anderson-darling",
+          "statistic": 216.92055972523193,
+          "critical_value": 0.787,
+          "significance": 0.05,
+          "verdict": "rejected"
+        }
+      },
+      "yield": {
+        "empirical": {
+          "method": "clopper-pearson",
+          "estimate": 1.0,
+          "confidence": 0.95,
+          "confidence_interval": {
+            "low": 0.999180584914247,
+            "high": 1.0
+          },
+          "n": 4500
+        },
+        "normal": {
+          "method": "normal-delta",
+          "estimate": 0.9999998408833953,
+          "confidence": 0.95,
+          "confidence_interval": {
+            "low": 0.9999997483701688,
+            "high": 0.9999999333966219
+          },
+          "n": 4500
+        },
+        "variance_reduced": null
+      },
+      "capability": {
+        "cp": 1.8445610438686098,
+        "cpk": 1.7046265833561085,
+        "cpk_confidence_interval": {
+          "low": 1.668083664261949,
+          "high": 1.741169502450268
+        },
+        "sigma_to_spec": 5.1138797500683255,
+        "sigma_to_spec_confidence_interval": {
+          "low": 5.004250992785847,
+          "high": 5.223508507350804
+        },
+        "limiting_side": "lower"
+      },
+      "sample_size": {
+        "n": 4500,
+        "observed_ci_halfwidth": 0.0004097075428765029,
+        "target_ci_halfwidth": 0.01,
+        "required_n": 183,
+        "required_n_for_target": null,
+        "verdict": "sufficient",
+        "method": "clopper-pearson-zero-failures",
+        "variance_reduced": null
+      },
+      "negative_control": {
+        "description": null,
+        "n": 4500,
+        "errored": 0,
+        "failed_unmeasurable": 0,
+        "censored": 0,
+        "yield": {
+          "empirical": {
+            "method": "clopper-pearson",
+            "estimate": 0.0,
+            "confidence": 0.95,
+            "confidence_interval": {
+              "low": 0.0,
+              "high": 0.0008194150857529503
+            },
+            "n": 4500
+          },
+          "normal": {
+            "method": "normal-delta",
+            "estimate": 0.0007196656717642913,
+            "confidence": 0.95,
+            "confidence_interval": {
+              "low": 0.0005404639428264241,
+              "high": 0.0008988674007021585
+            },
+            "n": 4500
+          },
+          "variance_reduced": null
+        },
+        "nominal_empirical_estimate": 1.0,
+        "degradation_detected": true,
+        "verdict": "detected"
+      },
+      "analytic_cross_check": null,
+      "sampling": {
+        "strategy": "plain_random",
+        "replicates": null,
+        "effective_sample_size": null
+      },
+      "status": "reported",
+      "warnings": [
+        "measurement 'vth_v': the sample set is not consistent with a normal distribution (Anderson-Darling A2* = 216.9206 > 0.787); treat the parametric yield estimate and Cpk as indicative only and prefer the empirical estimate",
+        "measurement 'vth_v': no sample fell outside the limits, so the empirical yield is bounded only from below -- \"at least 99.9181% at 95% confidence, N = 4500\" is the honest statement, not \"100% yield\"",
+        "measurement 'vth_v': samples were pooled across 45 originating corners; each corner is its own population, so the pooled estimate is a worst-case envelope rather than a distribution anyone sampled"
+      ],
+      "spec_row": null
+    },
+    {
+      "name": "out_at_vil",
+      "unit": null,
+      "n": 4500,
+      "errored": 0,
+      "failed_unmeasurable": 0,
+      "censored": 0,
+      "inconclusive": 0,
+      "limits": {
+        "min": -0.05,
+        "max": 0.1
+      },
+      "source_corners": [
+        "tt/2.970V/-40C",
+        "tt/2.970V/27C",
+        "tt/2.970V/125C",
+        "tt/3.300V/-40C",
+        "tt/3.300V/27C",
+        "tt/3.300V/125C",
+        "tt/3.630V/-40C",
+        "tt/3.630V/27C",
+        "tt/3.630V/125C",
+        "ff/2.970V/-40C",
+        "ff/2.970V/27C",
+        "ff/2.970V/125C",
+        "ff/3.300V/-40C",
+        "ff/3.300V/27C",
+        "ff/3.300V/125C",
+        "ff/3.630V/-40C",
+        "ff/3.630V/27C",
+        "ff/3.630V/125C",
+        "ss/2.970V/-40C",
+        "ss/2.970V/27C",
+        "ss/2.970V/125C",
+        "ss/3.300V/-40C",
+        "ss/3.300V/27C",
+        "ss/3.300V/125C",
+        "ss/3.630V/-40C",
+        "ss/3.630V/27C",
+        "ss/3.630V/125C",
+        "fs/2.970V/-40C",
+        "fs/2.970V/27C",
+        "fs/2.970V/125C",
+        "fs/3.300V/-40C",
+        "fs/3.300V/27C",
+        "fs/3.300V/125C",
+        "fs/3.630V/-40C",
+        "fs/3.630V/27C",
+        "fs/3.630V/125C",
+        "sf/2.970V/-40C",
+        "sf/2.970V/27C",
+        "sf/2.970V/125C",
+        "sf/3.300V/-40C",
+        "sf/3.300V/27C",
+        "sf/3.300V/125C",
+        "sf/3.630V/-40C",
+        "sf/3.630V/27C",
+        "sf/3.630V/125C"
+      ],
+      "distribution": {
+        "model": "normal",
+        "mean": 1.387873845600001e-08,
+        "stddev": 3.431770602427952e-08,
+        "min": 1.67739e-10,
+        "max": 1.6291e-07,
+        "median": 3.332365e-10,
+        "skewness": 2.601960660610897,
+        "excess_kurtosis": 5.48333255379344,
+        "normality": {
+          "test": "anderson-darling",
+          "statistic": 1151.5723216556912,
+          "critical_value": 0.787,
+          "significance": 0.05,
+          "verdict": "rejected"
+        }
+      },
+      "yield": {
+        "empirical": {
+          "method": "clopper-pearson",
+          "estimate": 1.0,
+          "confidence": 0.95,
+          "confidence_interval": {
+            "low": 0.999180584914247,
+            "high": 1.0
+          },
+          "n": 4500
+        },
+        "normal": {
+          "method": "normal-delta",
+          "estimate": 1.0,
+          "confidence": 0.95,
+          "confidence_interval": {
+            "low": 1.0,
+            "high": 1.0
+          },
+          "n": 4500
+        },
+        "variance_reduced": null
+      },
+      "capability": {
+        "cp": 728486.9210754556,
+        "cpk": 485658.0821900297,
+        "cpk_confidence_interval": {
+          "low": 475623.3516000117,
+          "high": 495692.81278004765
+        },
+        "sigma_to_spec": 1456974.246570089,
+        "sigma_to_spec_confidence_interval": {
+          "low": 1426870.054800035,
+          "high": 1487078.4383401428
+        },
+        "limiting_side": "lower"
+      },
+      "sample_size": {
+        "n": 4500,
+        "observed_ci_halfwidth": 0.0004097075428765029,
+        "target_ci_halfwidth": 0.01,
+        "required_n": 183,
+        "required_n_for_target": null,
+        "verdict": "sufficient",
+        "method": "clopper-pearson-zero-failures",
+        "variance_reduced": null
+      },
+      "negative_control": {
+        "description": null,
+        "n": 4500,
+        "errored": 0,
+        "failed_unmeasurable": 0,
+        "censored": 0,
+        "yield": {
+          "empirical": {
+            "method": "clopper-pearson",
+            "estimate": 0.0,
+            "confidence": 0.95,
+            "confidence_interval": {
+              "low": 0.0,
+              "high": 0.0008194150857529503
+            },
+            "n": 4500
+          },
+          "normal": {
+            "method": "normal-delta",
+            "estimate": 0.0,
+            "confidence": 0.95,
+            "confidence_interval": {
+              "low": 0.0,
+              "high": 0.0
+            },
+            "n": 4500
+          },
+          "variance_reduced": null
+        },
+        "nominal_empirical_estimate": 1.0,
+        "degradation_detected": true,
+        "verdict": "detected"
+      },
+      "analytic_cross_check": null,
+      "sampling": {
+        "strategy": "plain_random",
+        "replicates": null,
+        "effective_sample_size": null
+      },
+      "status": "reported",
+      "warnings": [
+        "measurement 'out_at_vil': the sample set is not consistent with a normal distribution (Anderson-Darling A2* = 1151.5723 > 0.787); treat the parametric yield estimate and Cpk as indicative only and prefer the empirical estimate",
+        "measurement 'out_at_vil': no sample fell outside the limits, so the empirical yield is bounded only from below -- \"at least 99.9181% at 95% confidence, N = 4500\" is the honest statement, not \"100% yield\"",
+        "measurement 'out_at_vil': samples were pooled across 45 originating corners; each corner is its own population, so the pooled estimate is a worst-case envelope rather than a distribution anyone sampled"
+      ],
+      "spec_row": null
+    }
+  ],
+  "warnings": [
+    "no measurement declared a target_yield, so no yield claim was checked -- the estimates below are reported, never failed"
+  ]
+}

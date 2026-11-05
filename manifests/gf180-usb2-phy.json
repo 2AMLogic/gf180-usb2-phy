@@ -106,6 +106,18 @@
       },
       {
         "file": "sim/diff-receiver-mc/results/20261105-n100-regrade/yield-degraded-neg.json"
+      },
+      {
+        "file": "sim/se-receiver-mc/results/20261105-n100/dp/yield-degraded-pos.json"
+      },
+      {
+        "file": "sim/se-receiver-mc/results/20261105-n100/dp/yield-degraded-neg.json"
+      },
+      {
+        "file": "sim/se-receiver-mc/results/20261105-n100/dm/yield-degraded-pos.json"
+      },
+      {
+        "file": "sim/se-receiver-mc/results/20261105-n100/dm/yield-degraded-neg.json"
       }
     ]
   },
