@@ -88,6 +88,18 @@
         "file": "verification/records/place-and-route/artifacts/20261015-011501-32db02a/place-and-route-output.json"
       }
     ],
+    "6.digital": {
+      "not_applicable": {
+        "spec": {
+          "file": "verification/statistical-na/spec-rows.json",
+          "content_hash": "sha256:d91aac2a449eeaf6cba822e63931a5a409b7839734c8b61ce15f117622ce7388"
+        },
+        "statement": {
+          "file": "verification/statistical-na/na-statement.json",
+          "content_hash": "sha256:f4caf405678cb28a39ef0b828216c49a78adedca39d4edd0fc0800ea2b495ebc"
+        }
+      }
+    },
     "6.analog": [
       {
         "file": "sim/diff-receiver-mc/results/20261105-n100-regrade/yield-degraded-pos.json"

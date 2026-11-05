@@ -82,12 +82,10 @@ edited to hide history — supersede it by a new dated statement).
 documents in `verification/statistical-na/`: `spec-rows.json` (the digital
 rows of the ratified spec) and `na-statement.json` (one entry per row saying
 why it is not statistical). They are the machine-readable form of the
-statement above. Rendered with a current `klt` (0.7.1.dev1743) as
-`6.digital` they grade `not_applicable`; rendered with the `klt` this repo's
-CI pins (`e8ca621`, 0.5.0) the form is unknown and the item renders
-`unmet` / `invalid_evidence`. `manifests/gf180-usb2-phy.json` therefore does
-not cite them yet: the citation lands with the next `klt` pin bump, which
-re-renders `manifests/t1-signoff-report.json` in the same change.
+statement above. As of 2026-11-05 `manifests/gf180-usb2-phy.json` cites them
+as `6.digital` and `klt` 0.8.0 (the CI pin) renders `not_applicable`
+(issue #189; the earlier `invalid_evidence` rendering was under the
+pre-0.8.0 pin `e8ca621`, and the citation was held until the pin moved).
 
 ```json
 "6.digital": {"not_applicable": {
