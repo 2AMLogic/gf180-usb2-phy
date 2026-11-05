@@ -87,6 +87,14 @@
       {
         "file": "verification/records/place-and-route/artifacts/20261015-011501-32db02a/place-and-route-output.json"
       }
+    ],
+    "6.analog": [
+      {
+        "file": "sim/diff-receiver-mc/results/20261105-n100-regrade/yield-degraded-pos.json"
+      },
+      {
+        "file": "sim/diff-receiver-mc/results/20261105-n100-regrade/yield-degraded-neg.json"
+      }
     ]
   },
   "spec_rows": {
