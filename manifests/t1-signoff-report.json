@@ -369,6 +369,26 @@
           "citation": "sim/diff-receiver-mc/results/20261105-n100-regrade/yield-degraded-neg.json",
           "status": "met",
           "reason": null
+        },
+        {
+          "citation": "sim/se-receiver-mc/results/20261105-n100/dp/yield-degraded-pos.json",
+          "status": "met",
+          "reason": null
+        },
+        {
+          "citation": "sim/se-receiver-mc/results/20261105-n100/dp/yield-degraded-neg.json",
+          "status": "met",
+          "reason": null
+        },
+        {
+          "citation": "sim/se-receiver-mc/results/20261105-n100/dm/yield-degraded-pos.json",
+          "status": "met",
+          "reason": null
+        },
+        {
+          "citation": "sim/se-receiver-mc/results/20261105-n100/dm/yield-degraded-neg.json",
+          "status": "met",
+          "reason": null
         }
       ],
       "citations": [
@@ -408,6 +428,98 @@
             "searched": [
               "sim/diff-receiver-mc/results/20261105-n100-regrade/samples_neg.json",
               "samples_neg.json"
+            ]
+          },
+          "yield_campaign": {
+            "sample_size": "sufficient",
+            "undersized_measurements": [],
+            "negative_control": "detected",
+            "measurements_without_negative_control": [],
+            "undetected_negative_controls": []
+          }
+        },
+        {
+          "file": "sim/se-receiver-mc/results/20261105-n100/dp/yield-degraded-pos.json",
+          "command": null,
+          "kind": "yield",
+          "check_status": "reported",
+          "content_hash": null,
+          "input_verified": null,
+          "exit_status": 0,
+          "content_hash_unresolved": {
+            "samples": "samples-pos.json",
+            "searched": [
+              "sim/se-receiver-mc/results/20261105-n100/dp/samples-pos.json",
+              "samples-pos.json"
+            ]
+          },
+          "yield_campaign": {
+            "sample_size": "sufficient",
+            "undersized_measurements": [],
+            "negative_control": "detected",
+            "measurements_without_negative_control": [],
+            "undetected_negative_controls": []
+          }
+        },
+        {
+          "file": "sim/se-receiver-mc/results/20261105-n100/dp/yield-degraded-neg.json",
+          "command": null,
+          "kind": "yield",
+          "check_status": "reported",
+          "content_hash": null,
+          "input_verified": null,
+          "exit_status": 0,
+          "content_hash_unresolved": {
+            "samples": "samples-neg.json",
+            "searched": [
+              "sim/se-receiver-mc/results/20261105-n100/dp/samples-neg.json",
+              "samples-neg.json"
+            ]
+          },
+          "yield_campaign": {
+            "sample_size": "sufficient",
+            "undersized_measurements": [],
+            "negative_control": "detected",
+            "measurements_without_negative_control": [],
+            "undetected_negative_controls": []
+          }
+        },
+        {
+          "file": "sim/se-receiver-mc/results/20261105-n100/dm/yield-degraded-pos.json",
+          "command": null,
+          "kind": "yield",
+          "check_status": "reported",
+          "content_hash": null,
+          "input_verified": null,
+          "exit_status": 0,
+          "content_hash_unresolved": {
+            "samples": "samples-pos.json",
+            "searched": [
+              "sim/se-receiver-mc/results/20261105-n100/dm/samples-pos.json",
+              "samples-pos.json"
+            ]
+          },
+          "yield_campaign": {
+            "sample_size": "sufficient",
+            "undersized_measurements": [],
+            "negative_control": "detected",
+            "measurements_without_negative_control": [],
+            "undetected_negative_controls": []
+          }
+        },
+        {
+          "file": "sim/se-receiver-mc/results/20261105-n100/dm/yield-degraded-neg.json",
+          "command": null,
+          "kind": "yield",
+          "check_status": "reported",
+          "content_hash": null,
+          "input_verified": null,
+          "exit_status": 0,
+          "content_hash_unresolved": {
+            "samples": "samples-neg.json",
+            "searched": [
+              "sim/se-receiver-mc/results/20261105-n100/dm/samples-neg.json",
+              "samples-neg.json"
             ]
           },
           "yield_campaign": {
