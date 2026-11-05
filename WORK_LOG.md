@@ -2,6 +2,10 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-11-05
+
+- **PR #286**: docs(sim): record complete N=100 diff-receiver MC campaign, graded unmet
+
 ### 2026-11-04
 
 - **PR #282**: ci: run port_lint self-test in the lint script
