@@ -4,6 +4,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-05
 
+- **PR #291**: feat(sim): single-ended receiver MC campaign graded on the fleet, cited in 6.analog
+- **Issue #212** (closed): T1 item 6: single-ended receiver Monte Carlo request (klt_measure hooks + MC builder)
 - **PR #289**: feat(manifests): cite 6.digital not-applicable outcome under klt 0.8.0
 - **Issue #189** (closed): T1 item 6: the analog partition needs Monte Carlo evidence; record "not applicable" only for the digital partition
 - **PR #288**: feat(sim): regrade differential-receiver MC with known-bad controls, cite 6.analog

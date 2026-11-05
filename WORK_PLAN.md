@@ -19,7 +19,6 @@ _None._
 
 - **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size
 - **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout
-- **#212**: T1 item 6: single-ended receiver Monte Carlo request (klt_measure hooks + MC builder)
 - **#245**: T1 item 2 (Layout, analog partition): route the five analog front-end blocks and commit their GDS
 - **#252**: T1 item 2 (analog) B: route differential_driver GDS and attest 2.analog
 
@@ -33,7 +32,7 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-- **#212**: T1 item 6: single-ended receiver Monte Carlo request (klt_measure hooks + MC builder)
+_None._
 
 ## PRs Awaiting Review
 
@@ -55,7 +54,6 @@ Issues carrying `loom:curated`.
 - **#53**: Post-layout (extracted-parasitic) re-verification: digital STA now, analog PVT after #52 *(curated)*
 - **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size *(curated)*
 - **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout *(curated)*
-- **#212**: T1 item 6: single-ended receiver Monte Carlo request (klt_measure hooks + MC builder) *(curated)*
 - **#263**: Revisit dplus_pullup resistor lengths when klt res_array snaps to grid (klayout-tools#4666) *(curated)*
 
 ## Proposed (Architect / Hermit)
@@ -73,12 +71,12 @@ Issues carrying `loom:curated`.
 |------|-------|
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
-| Important | 5 |
+| Important | 4 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 1 |
+| In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 6 |
+| Curated | 5 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
