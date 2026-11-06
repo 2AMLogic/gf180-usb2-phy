@@ -56,10 +56,48 @@
         ]
       }
     ],
-    "5.digital": {
-      "file": "verification/records/post-layout-pvt/artifacts/20261015-011505-32db02a/sta-corners.json",
-      "content_hash": "sha256:2bccf4bdddabd953f297d0d113253e802c3ad3750e0d56b5b3c87493c708964f"
-    },
+    "5.digital": [
+      {
+        "file": "verification/records/post-layout-pvt/artifacts/20261015-011505-32db02a/sta-corners.json",
+        "content_hash": "sha256:2bccf4bdddabd953f297d0d113253e802c3ad3750e0d56b5b3c87493c708964f"
+      },
+      {
+        "file": "verification/records/functional-smoke/artifacts/20261020-033000-4be8f5b/utmi-phy-output.json"
+      },
+      {
+        "file": "verification/records/functional-smoke/artifacts/20261020-033000-4be8f5b/bit-codec-loopback-output.json"
+      },
+      {
+        "file": "verification/records/functional-smoke/artifacts/20261020-033000-4be8f5b/bit-destuffer-output.json"
+      },
+      {
+        "file": "verification/records/functional-smoke/artifacts/20261020-033000-4be8f5b/bit-stuffer-output.json"
+      },
+      {
+        "file": "verification/records/functional-smoke/artifacts/20261020-033000-4be8f5b/eop-detector-output.json"
+      },
+      {
+        "file": "verification/records/functional-smoke/artifacts/20261020-033000-4be8f5b/line-state-decode-output.json"
+      },
+      {
+        "file": "verification/records/functional-smoke/artifacts/20261020-033000-4be8f5b/nrzi-decoder-output.json"
+      },
+      {
+        "file": "verification/records/functional-smoke/artifacts/20261020-033000-4be8f5b/nrzi-encoder-output.json"
+      },
+      {
+        "file": "verification/records/functional-smoke/artifacts/20261020-033000-4be8f5b/rx-clock-tolerance-output.json"
+      },
+      {
+        "file": "verification/records/functional-smoke/artifacts/20261020-033000-4be8f5b/rx-sync-candidate-output.json"
+      },
+      {
+        "file": "verification/records/functional-smoke/artifacts/20261020-033000-4be8f5b/sync-detector-output.json"
+      },
+      {
+        "file": "verification/records/functional-smoke/artifacts/20261020-033000-4be8f5b/utmi-txoe-output.json"
+      }
+    ],
     "6.analog": [
       {
         "file": "sim/diff-receiver-mc/results/20261105-n100-regrade/yield-degraded-pos.json"
@@ -105,7 +143,7 @@
     },
     "10": {
       "file": "signoff/evidence/t1-item-10-repo-hygiene.json",
-      "content_hash": "sha256:b6bdf6f8bbec4c230731df0954419906d4c8b4ae0edea56e320918a37ffc8061"
+      "content_hash": "sha256:aef3fa840f230baf4b9b0096d71237941c15212adf9f3e47ac42040c8e2749ec"
     },
     "11.digital": [
       {
