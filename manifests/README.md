@@ -108,8 +108,18 @@ grades in both partitions:
   layout exists to run DRC or LVS on. Re-keying the citations to the
   digital partition dropped the frozen count from `8/22` to `6/22`. That
   is a correction of an overstated count, not a regression.
-- **Item 5.digital, corner verification (digital STA): cited, `unmet`/`partial_coverage` since #260 (no `functional-verification` citation; was `met` before #188)**.
-  Cites one multi-corner `klt sta` envelope,
+- **Item 5.digital, corner verification (digital STA + functional verification): cited, `met` since #295 (was `unmet`/`partial_coverage` from #260 to #295 for want of a `functional-verification` citation; `met` before #188)**.
+  Cites a list: one multi-corner `klt sta` envelope (below) followed by the
+  12 `klt functional-verification` responses of record
+  `verification/records/functional-smoke/artifacts/20261020-033000-4be8f5b/`
+  (`utmi-phy-output.json`, the full top-level `usb_utmi_phy` suite, 111/111,
+  first; then the 11 block-level suites). All 12 are `status: pass` with 0
+  failures and grade `met`; the shape is that of `7.digital` (`file` only, no
+  `content_hash`). Issue #295 checked that no `rtl/usb_*` file or exercised
+  `verification/test_*.py` assertion changed after that record (only
+  `harness_counter`, which none of the 12 suites exercise, was removed, plus
+  docstring edits); the record was not re-run or edited.
+  The STA part cites one multi-corner `klt sta` envelope,
   `verification/records/post-layout-pvt/artifacts/20261015-011505-32db02a/sta-corners.json`
   (record `20261015-011505-32db02a`, issue #131; the method is that of
   `20261008-195826-74ccfac`, issue #92, which measured the previous layout). It was run once with
@@ -295,11 +305,14 @@ repo's rule that an envelope must actually support the item to be cited:
   (rows and the `driver-output-timing-jitter` gap unchanged). **No
   `5.digital` rows are declared**: spec §8.2 lists only analog quantities,
   so a digital row set would be invented. `5.digital` is therefore no longer
-  charged with analog rows (`uncovered_rows` is gone). It still renders
-  `unmet`/`partial_coverage`, now for a digital-partition reason that the
+  charged with analog rows (`uncovered_rows` is gone). It then rendered
+  `unmet`/`partial_coverage`, for a digital-partition reason that the
   analog rows had been masking: klt 0.8.0 grades item 5 digital as `sta`
-  *and* `functional-verification`, and only the `sta` envelope is cited
+  *and* `functional-verification`, and only the `sta` envelope was cited
   (`detail.missing_kinds: ["functional-verification"]`).
+  **Update, issue #295 (2026-11-06).** The functional-verification
+  responses are now cited beside the STA envelope and `5.digital` is `met`
+  with no `missing_kinds` (frozen report `t1_met_count` 14 → 15 of 22).
   History: this item was recorded here as waiting on klayout-tools#1962
   (tracked in #53). That was a mis-attribution: #1962 is a `gen-compose`
   routing gap and #53 is post-layout re-verification, and item 5 is a
