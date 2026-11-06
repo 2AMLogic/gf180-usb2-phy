@@ -1326,8 +1326,8 @@ class RepoManifestContractTests(unittest.TestCase):
     def manifests(self):
         return sorted(self.SIM.glob("*/testbench/tb.json"))
 
-    def test_all_eight_benches_are_audited(self):
-        self.assertEqual(len(self.manifests()), 8)
+    def test_all_nine_benches_are_audited(self):
+        self.assertEqual(len(self.manifests()), 9)
 
     def test_every_bench_has_exactly_one_resolved_transport(self):
         # Benches that declare klt_measure resolve to the request transport

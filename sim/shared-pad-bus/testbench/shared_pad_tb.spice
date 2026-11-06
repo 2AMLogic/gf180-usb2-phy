@@ -1,0 +1,89 @@
+* shared-pad-bus -- the real exported front-end cells on one shared DP/DM pad pair
+*
+* Netlist FRAGMENT. The harness supplies the title, the .include of the
+* gf180mcu models, the corner .lib sections, .temp, the .control block and
+* .end. Parameters provided by the harness: vdd_val, vdd_nom, temp_c.
+*
+* DUT: sim/shared-pad-bus/testbench/shared_pad_dut.spice -- the five cells of
+* design/netlist/ concatenated verbatim (a unit test pins that); this bench
+* instantiates them, it does not copy or edit them.
+*
+* What this is (issue #119). The existing experiments each look at one cell:
+* driver-signal-quality drives 50 pF with the driver alone, the se-receiver-*
+* and diff-receiver-* benches sweep an isolated DC source, driver-disabled-
+* leakage puts ideal sources on the driver's pads with no receiver attached.
+* Here the driver, both single-ended receivers, the differential receiver and
+* the D+ pull-up all hang on the SAME DP/DM nets, and the bus changes owner.
+*
+* Host model (engineering choice, NOT a ratified value). Per pad an ideal
+* voltage source behind a series resistance (36 ohm, the middle of the 28-44
+* ohm driver-output-resistance range quoted in spec section 6 as context) that
+* a switch connects while the host owns the bus. While the host has released
+* the bus a 15 kohm pull-down (the host's downstream-port termination, USB 2.0
+* 7.1.5, as in dplus-pullup-tolerance) is connected instead. Host levels are
+* 3.3 V fixed and NOT vdd_val, so at the 2.97 V corner the host exceeds the
+* PHY rail. Host edges ramp over 10 ns; the PHY's TX* controls over 1 ns. No
+* limit on any value measured here is adopted.
+*
+* PHY configuration. VPU_REG is tied to vdd_val (no regulator exists yet --
+* same choice as dplus-pullup-tolerance). TRIM[4:0] = 00000, the unprogrammed
+* default of spec/decisions/0004-digital-analog-pin-contract.md section 3.
+* PU_EN is 1 until 1400 ns, then 0 (the leakage cross-check windows).
+*
+* Timeline (ns) -- state name, [start,end):
+
+*       0-100   host_se0_a  host drives SE0
+*     100-200   host_j_a    host J
+*     200-300   host_k_a    host K
+*     300-400   host_se0_b  host SE0
+*     400-500   host_j_b    host J
+*     500-540   idle_a      host releases the bus, TXOE=0 (bus idle: pull-up vs 15k)
+*     540-640   dev_j_a     TXOE=1: device drives J
+*     640-740   dev_k       device K
+*     740-840   dev_se0     device SE0
+*     840-940   dev_j_b     device J
+*     940-980   idle_b      TXOE=0, host still released
+*     980-1080  host_k_b    ownership returns: host drives K
+*    1080-1180  host_j_c    host J
+*    1180-1280  host_se0_c  host SE0
+*    1280-1300  prep_k      host K, TXOE=0
+*    1300-1400  contention  CONTENTION CONTROL: TXOE=1 device J against host K
+*    1400-1500  pu_off_j    PU_EN=0, TXOE=0, host J (leakage cross-check)
+*    1500-1600  pu_off_k    PU_EN=0, TXOE=0, host K (leakage cross-check)
+* While TXOE=0 the TXDP/TXDM inputs are held to the complement of the host state
+* (SE0 -> 11, J -> 01, K -> 10) so the disabled driver is always asked to fight.
+* Measurement window of each state: its last 20 ns.
+
+vsup VDD 0 dc {vdd_val}
+vpu VPU_REG 0 dc {vdd_val}
+vpuen PU_EN 0 pwl(0n {vdd_val} 1400n {vdd_val} 1401n 0)
+vt0 TRIM0 0 dc 0
+vt1 TRIM1 0 dc 0
+vt2 TRIM2 0 dc 0
+vt3 TRIM3 0 dc 0
+vt4 TRIM4 0 dc 0
+vtxoe TXOE 0 pwl(0n 0 540n 0 541n {vdd_val} 940n {vdd_val} 941n 0 1300n 0 1301n {vdd_val} 1400n {vdd_val} 1401n 0)
+vtxdp TXDP 0 pwl(0n {vdd_val} 100n {vdd_val} 101n 0 200n 0 201n {vdd_val} 400n {vdd_val} 401n 0 540n 0 541n {vdd_val} 640n {vdd_val} 641n 0 840n 0 841n {vdd_val} 1080n {vdd_val} 1081n 0 1180n 0 1181n {vdd_val} 1400n {vdd_val} 1401n 0 1500n 0 1501n {vdd_val})
+vtxdm TXDM 0 pwl(0n {vdd_val} 200n {vdd_val} 201n 0 300n 0 301n {vdd_val} 540n {vdd_val} 541n 0 640n 0 641n {vdd_val} 740n {vdd_val} 741n 0 1080n 0 1081n {vdd_val} 1280n {vdd_val} 1281n 0 1400n 0 1401n {vdd_val} 1500n {vdd_val} 1501n 0)
+vhen HEN 0 pwl(0n 1 500n 1 501n 0 980n 0 981n 1)
+ehenb HENB 0 vol='1-v(HEN)'
+vhdp HSDP 0 pwl(0n 0 100n 0 110n 3.3 200n 3.3 210n 0 400n 0 410n 3.3 980n 3.3 990n 0 1080n 0 1090n 3.3 1180n 3.3 1190n 0 1400n 0 1410n 3.3 1500n 3.3 1510n 0)
+vhdm HSDM 0 pwl(0n 0 200n 0 210n 3.3 300n 3.3 310n 0 980n 0 990n 3.3 1080n 3.3 1090n 0 1280n 0 1290n 3.3 1400n 3.3 1410n 0 1500n 0 1510n 3.3)
+* current meters: zero-volt sources in series with each pad's host connection
+vmdp HSDP HSDPI dc 0
+vmdm HSDM HSDMI dc 0
+baidp aidp 0 v=abs(i(vmdp))
+baidm aidm 0 v=abs(i(vmdm))
+.model swh sw vt=0.5 vh=0.05 ron=36 roff=1e12
+.model swp sw vt=0.5 vh=0.05 ron=15k roff=1e12
+shdp HSDPI DP HEN 0 swh
+shdm HSDMI DM HEN 0 swh
+spdp DP 0 HENB 0 swp
+spdm DM 0 HENB 0 swp
+
+Xdrv VDD 0 TXDP TXDM TXOE DP DM differential_driver
+Xrxp VDD 0 DP RXDP se_receiver_dp
+Xrxm VDD 0 DM RXDM se_receiver_dm
+Xrxd VDD 0 DP DM RXD differential_receiver
+Xpu DP VPU_REG 0 PU_EN TRIM0 TRIM1 TRIM2 TRIM3 TRIM4 dplus_pullup
+.csparam vmid={0.5*vdd_val}
