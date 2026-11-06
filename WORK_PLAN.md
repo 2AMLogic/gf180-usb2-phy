@@ -54,7 +54,6 @@ Issues carrying `loom:curated`.
 - **#53**: Post-layout (extracted-parasitic) re-verification: digital STA now, analog PVT after #52 *(curated)*
 - **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size *(curated)*
 - **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout *(curated)*
-- **#263**: Revisit dplus_pullup resistor lengths when klt res_array snaps to grid (klayout-tools#4666) *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -76,7 +75,7 @@ Issues carrying `loom:curated`.
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 5 |
+| Curated | 4 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
