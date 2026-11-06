@@ -2,6 +2,11 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-11-06
+
+- **PR #293**: feat(layout): draw dplus_pullup resistors from netlist lengths via klt 0.9.0
+- **Issue #263** (closed): Revisit dplus_pullup resistor lengths when klt res_array snaps to grid (klayout-tools#4666)
+
 ### 2026-11-05
 
 - **PR #291**: feat(sim): single-ended receiver MC campaign graded on the fleet, cited in 6.analog
