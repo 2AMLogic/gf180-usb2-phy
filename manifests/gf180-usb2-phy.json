@@ -60,46 +60,6 @@
       "file": "verification/records/post-layout-pvt/artifacts/20261015-011505-32db02a/sta-corners.json",
       "content_hash": "sha256:2bccf4bdddabd953f297d0d113253e802c3ad3750e0d56b5b3c87493c708964f"
     },
-    "7.digital": {
-      "file": "verification/records/post-layout-functional/artifacts/20261015-040000-963c79c/response-gate-sdf-ss_125C_1v62-filtered-klt-0.7.1.dev472.json"
-    },
-    "8": {
-      "file": "manifests/item8-characterization.json",
-      "content_hash": "sha256:b2502c53b9536bbe94e33289a55d4a1d3740156568ada4ed77923aab90e7439d"
-    },
-    "9": {
-      "file": "signoff/evidence/t1-item-9-testbenches.json",
-      "content_hash": "sha256:aad310eedec26cece9a41ee16ffb87e70f9afdabe0a33d47b75de79232eb13b5"
-    },
-    "10": {
-      "file": "signoff/evidence/t1-item-10-repo-hygiene.json",
-      "content_hash": "sha256:76f945d1384a92d54fa9401b5bfcd7bf126452d767d4a03fe8e5a0b518a5920f"
-    },
-    "11.digital": [
-      {
-        "file": "verification/records/digital-erc/artifacts/20261015-011504-32db02a/erc-supply-report.json",
-        "content_hash": "sha256:4491a5483d685c101f4a323511c8cea97d082873f1539d6fb2709e11d5fe5971"
-      },
-      {
-        "file": "verification/records/digital-lvs/artifacts/20261015-011503-32db02a/lvs-report.json",
-        "content_hash": "sha256:0c9650223a0698571b32ef8e6576712051bddd8e4c3d809fa64427834bbf4b28"
-      },
-      {
-        "file": "verification/records/place-and-route/artifacts/20261015-011501-32db02a/place-and-route-output.json"
-      }
-    ],
-    "6.digital": {
-      "not_applicable": {
-        "spec": {
-          "file": "verification/statistical-na/spec-rows.json",
-          "content_hash": "sha256:d91aac2a449eeaf6cba822e63931a5a409b7839734c8b61ce15f117622ce7388"
-        },
-        "statement": {
-          "file": "verification/statistical-na/na-statement.json",
-          "content_hash": "sha256:f4caf405678cb28a39ef0b828216c49a78adedca39d4edd0fc0800ea2b495ebc"
-        }
-      }
-    },
     "6.analog": [
       {
         "file": "sim/diff-receiver-mc/results/20261105-n100-regrade/yield-degraded-pos.json"
@@ -118,6 +78,46 @@
       },
       {
         "file": "sim/se-receiver-mc/results/20261105-n100/dm/yield-degraded-neg.json"
+      }
+    ],
+    "6.digital": {
+      "not_applicable": {
+        "spec": {
+          "file": "verification/statistical-na/spec-rows.json",
+          "content_hash": "sha256:d91aac2a449eeaf6cba822e63931a5a409b7839734c8b61ce15f117622ce7388"
+        },
+        "statement": {
+          "file": "verification/statistical-na/na-statement.json",
+          "content_hash": "sha256:f4caf405678cb28a39ef0b828216c49a78adedca39d4edd0fc0800ea2b495ebc"
+        }
+      }
+    },
+    "7.digital": {
+      "file": "verification/records/post-layout-functional/artifacts/20261015-040000-963c79c/response-gate-sdf-ss_125C_1v62-filtered-klt-0.7.1.dev472.json"
+    },
+    "8": {
+      "file": "manifests/item8-characterization.json",
+      "content_hash": "sha256:b2502c53b9536bbe94e33289a55d4a1d3740156568ada4ed77923aab90e7439d"
+    },
+    "9": {
+      "file": "signoff/evidence/t1-item-9-testbenches.json",
+      "content_hash": "sha256:f3511557b764cd2d3323d9c8c2744315d68342a25ae3d728fd6869bc432f2c6d"
+    },
+    "10": {
+      "file": "signoff/evidence/t1-item-10-repo-hygiene.json",
+      "content_hash": "sha256:b6bdf6f8bbec4c230731df0954419906d4c8b4ae0edea56e320918a37ffc8061"
+    },
+    "11.digital": [
+      {
+        "file": "verification/records/digital-erc/artifacts/20261015-011504-32db02a/erc-supply-report.json",
+        "content_hash": "sha256:4491a5483d685c101f4a323511c8cea97d082873f1539d6fb2709e11d5fe5971"
+      },
+      {
+        "file": "verification/records/digital-lvs/artifacts/20261015-011503-32db02a/lvs-report.json",
+        "content_hash": "sha256:0c9650223a0698571b32ef8e6576712051bddd8e4c3d809fa64427834bbf4b28"
+      },
+      {
+        "file": "verification/records/place-and-route/artifacts/20261015-011501-32db02a/place-and-route-output.json"
       }
     ]
   },

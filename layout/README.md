@@ -107,7 +107,7 @@ that run, not the committed GDS.
 | `differential_receiver` | `layout/analog/differential_receiver.gds` | 8/8 | 1 / 7 | **clean** (0) |
 | `se_receiver_dm` | `layout/analog/se_receiver_dm.gds` | 9/9 | 1 / 8 | **clean** (0) |
 | `se_receiver_dp` | `layout/analog/se_receiver_dp.gds` | 9/9 | 1 / 8 | **clean** (0) |
-| `dplus_pullup` | `layout/analog/dplus_pullup.gds` | 21/21 | 6 / 15 | **clean** (0), after the grid-snap of `r_seg0`–`r_seg4` in DR-0010 (was 75 violations) |
+| `dplus_pullup` | `layout/analog/dplus_pullup.gds` | 21/21 | 6 / 15 | **clean** (0), lengths snapped by klt 0.9.0 `res_array` and equal to DR-0010 (was 75 violations) |
 
 `layout/analog/provenance.json` carries, per block, `gds_sha256`,
 `netlist_sha256`, `plan_sha256`, `klt_version`, `regeneration_command`,
@@ -155,13 +155,17 @@ ruled on 2026-10-30 (issue #251) to set the no-re-sizing rule aside for these fi
 resistors only: `spec/decisions/0010-dplus-pullup-trim-resistor-grid-snap.md`
 gives each an on-grid drawn length (0.420, 0.685, 1.370, 2.745, 5.485 um; XR0 is
 lengthened because 0.345 um fails `pplus.width.1`/`sab.width.1`), set as
-`params.length_um` in `layout/analog/plans/dplus_pullup.json`. The layout now
-differs from `design/netlist/dplus_pullup.spice` on those five lengths; the
+`params.length_um` in `layout/analog/plans/dplus_pullup.json`. **Update, issue
+#263 (2026-11-06):** klt 0.9.0 ships klayout-tools#4666, so the plan no longer
+carries any `length_um`: the generator snaps the netlist lengths itself
+(`r_seg0` also sets `short_length: "lengthen"`) and its realised lengths equal the
+DR-0010 table. The layout still differs from `design/netlist/dplus_pullup.spice` on
+those five lengths (the generator reports each as a deviation); the
 pull-up was re-simulated on the snapped lengths over the 45-corner matrix (PASS,
 worst per-corner error 2.44 %, fixed-trim 2.55 %, limit 5 %). The `res_array`
-snapping gap is `2AMLogic/klayout-tools#4666`; issue #263 regenerates from the
-netlist once it ships. No violation was ever in the routing or in the placement of
-any other device. Run record: `verification/records/analog-layout/records/20261030-213500-7134cc091abf.md`.
+snapping gap was `2AMLogic/klayout-tools#4666`. No violation was ever in the routing or in the placement of
+any other device. Run record: `verification/records/analog-layout/records/20261106-120000-ef841f90e933.md`
+(previous: `20261030-213500-7134cc091abf.md`).
 
 **Not claimed.** The plan's pins are device terminals only: the guard-ring /
 body-tie metal-1 pads each generator draws are not in any plan net, so they are
