@@ -589,6 +589,52 @@ creation. A re-run or correction always mints a new record with a new
 to typo fixes — the append-only guarantee is what makes `verification/`
 usable as an evidence trail.
 
+## Claim replay before freezing a record
+
+Append-only means a wrong claim in a record can only be corrected by a
+superseding record, so mechanically checkable claims are verified *before*
+the record is committed, not inferred from the substantive conclusion.
+
+Before committing a record (or documentation that cites one), the producing
+role re-runs every mechanically checkable claim in the **Result** / **Claim**
+prose from the exact command that supports it, and pastes this table into the
+PR body:
+
+| Claim text (quoted from record) | Command run now | Output | Match? |
+|---|---|---|---|
+
+Mechanically checkable claims are:
+
+- **Byte or hash identity / inequality** — `sha256sum` or `cmp` on the named
+  files.
+- **Commit distance / ancestry** — `git rev-list --count A..B`, or the forge
+  compare `ahead_by`.
+- **Tool-output counts** — violation counts, test counts, net counts, taken
+  from the tool's own output.
+
+A claim that cannot be replayed, or does not match, is reworded to what *was*
+measured (e.g. "geometry-equivalent per XOR; not byte-identical per `cmp`")
+before the record is frozen. A "Match?" of no blocks the commit.
+
+### Worked replay of the defects that motivated this section
+
+These were found by Judge review, each after the record had been written:
+
+- **PR #54** — a DRC record said two decks were byte-identical while
+  recording different hashes. Caught by `sha256sum <deck-a> <deck-b>`:
+  differing digests contradict the claim. Not replayed here (the decks are
+  not retained in this checkout).
+- **PR #71** — pin ancestry was claimed as one commit, but the forge compare
+  showed 70. Caught by
+  `gh api repos/<owner>/<repo>/compare/<old>...<new> --jq .ahead_by` (or
+  `git rev-list --count <old>..<new>`), which returns 70. Not replayed here
+  (the pins have since moved).
+- **PR #74** — records claimed byte-identical GDS via `cmp`, but `cmp`
+  differs on all four files (the geometry is equivalent). Caught by
+  `cmp <old>.gds <new>.gds`, which exits non-zero. The outcome is as reported
+  in PR #74; not re-run here. The correct wording is the reworded form above:
+  geometry-equivalent, not byte-identical.
+
 ## Provenance staleness (the point of the klt hash block)
 
 A record's `provenance.inputs[].content_hash` pins the exact source content
