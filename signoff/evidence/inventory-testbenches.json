@@ -401,6 +401,25 @@
         }
       ]
     },
+    "shared-pad-bus": {
+      "testbench_dirs": [
+        "testbench"
+      ],
+      "files": [
+        {
+          "path": "sim/shared-pad-bus/testbench/shared_pad_dut.spice",
+          "sha256": "sha256:1b7aadac5c9b2dfde3e24b112be99637c5ee8849e0fc416dcbd6a3f6e6967612"
+        },
+        {
+          "path": "sim/shared-pad-bus/testbench/shared_pad_tb.spice",
+          "sha256": "sha256:db033733ab619e80300f7c6d4fc2d528028fa34aa8fb401e226cc4184a38e9af"
+        },
+        {
+          "path": "sim/shared-pad-bus/testbench/tb.json",
+          "sha256": "sha256:0ecf00a9f1a96219652e307996c7e65b6277a705fa4d12624445aa55e066b856"
+        }
+      ]
+    },
     "smoke-inverter": {
       "testbench_dirs": [
         "testbench"
@@ -484,7 +503,7 @@
     },
     {
       "path": "sim/spec-coverage.md",
-      "sha256": "sha256:b4cd6777f8bd133f714fa2ecbcc59f570dad148ec18fdd0574105ee6ee064e26"
+      "sha256": "sha256:2689d91b64c451dddbf2b5517228f15cca7f447584962f7b8cfbbcf8452905a4"
     },
     {
       "path": "sim/tests/test_evidence_lint.py",
@@ -500,11 +519,15 @@
     },
     {
       "path": "sim/tests/test_harness.py",
-      "sha256": "sha256:6408d3a713c49c379db4ae6f1a27c8ca49b3cc1159d9251f0c582a8e20672cf5"
+      "sha256": "sha256:a2c7d263a5e7ecd9beb16c2973d9ae68f9044cd474afa68ba3c545c831bebc5d"
     },
     {
       "path": "sim/tests/test_port_lint.py",
       "sha256": "sha256:77e0d1e521c4341f3141f0b0352eedf83bbebda47b7ac9e0683658e0497d1b97"
+    },
+    {
+      "path": "sim/tests/test_shared_pad_dut.py",
+      "sha256": "sha256:e1e3b47bf5b10fed66c9b20bbce91975b2f8378054c7bf7c28ec446e099d20c0"
     }
   ],
   "dirs_without_testbench": {
