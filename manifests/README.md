@@ -366,7 +366,7 @@ repo's rule that an envelope must actually support the item to be cited:
 ```bash
 # the grader pin is the klayout-tools release in .github/workflows/ci.yml
 # (`scripts/setup-env.sh` uses the same one, see docs/environment-setup.md), e.g.:
-python3 -m venv /tmp/klt-pin && /tmp/klt-pin/bin/pip install "klayout-tools==0.8.0" cocotb==2.0.1
+python3 -m venv /tmp/klt-pin && /tmp/klt-pin/bin/pip install "klayout-tools==0.9.0" cocotb==2.0.1
 export PATH=/tmp/klt-pin/bin:$PATH
 python3 signoff/check.py --regen   # only if an inventoried file changed on purpose
 klt signoff --manifest manifests/gf180-usb2-phy.json --format json > /tmp/fresh.json

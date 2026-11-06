@@ -160,12 +160,13 @@ reused.
 
 | Component | Pinned to | Resolved via |
 |---|---|---|
-| `klayout-tools` (`klt`) | release [`0.8.0`](https://pypi.org/project/klayout-tools/0.8.0/) (reports as `klt 0.8.0`) | `pip install "klayout-tools==0.8.0"` (what `scripts/setup-env.sh` runs) |
+| `klayout-tools` (`klt`) | release [`0.9.0`](https://pypi.org/project/klayout-tools/0.9.0/) (reports as `klt 0.9.0`) | `pip install "klayout-tools==0.9.0"` (what `scripts/setup-env.sh` runs) |
 | `gf180mcu` PDK | `open_pdks` commit `c6d73a35f524070e85faff4a6a9eef49553ebc2b` (variants `gf180mcuA`/`B`/`C`/`D`; the digital harness uses `gf180mcuD`, whose standard-cell libraries are `gf180mcu_fd_sc_mcu7t5v0` / `gf180mcu_fd_sc_mcu9t5v0`) | `volare enable --pdk-root ~/.volare --pdk gf180mcu c6d73a35f524070e85faff4a6a9eef49553ebc2b` |
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
 
-As of 2026-10-27 (issue #257) `klt` is pinned by PyPI release, `klayout-tools==0.8.0`,
+As of 2026-11-06 (issue #263) `klt` is pinned by PyPI release, `klayout-tools==0.9.0`
+(move 10; issue #257's move 9 set the release-pin scheme at `0.8.0`),
 everywhere (CI, the signoff grader and the `scripts/setup-env.sh` venv); move 9
 below supersedes the git-revision pin described in moves 7 and 8. A git build
 now reports a dev version and no longer satisfies an `==0.8.0` pin
@@ -380,6 +381,18 @@ history below is kept as recorded. Before move 9 the pin moved seven times
    longer charged with the analog rows (no `5.digital` rows are declared;
    spec §8.2 ratifies none). It still renders `unmet`: klt 0.8.0 wants a
    `functional-verification` citation beside the `sta` one.
+
+10. Release `0.8.0` → release `0.9.0` by issue #263, once 0.9.0 (on PyPI; 0.9.1 is
+   also out) carried klayout-tools#4666: `klt gen res_array` snaps `length_um`
+   to the manufacturing grid and refuses a length below the deck's `sab.width.1`
+   floor unless `params.short_length` is `lengthen`, reporting the realised
+   length in `drc_hints.length_snap`. `dplus_pullup` is now regenerated from the
+   netlist lengths with no `length_um` override (only `short_length: "lengthen"`
+   on `r_seg0`), and the realised lengths equal those hand-set by DR-0010. The
+   other three child-A blocks are geometrically identical to their 0.8.0 GDS
+   (per-layer XOR, zero area difference) but not byte-identical, so their
+   `gds_sha256` values in `layout/analog/provenance.json` moved. See
+   `verification/records/analog-layout/` for the record.
 
 `npm run check:ci` was re-run against each new pin before it was committed.
 

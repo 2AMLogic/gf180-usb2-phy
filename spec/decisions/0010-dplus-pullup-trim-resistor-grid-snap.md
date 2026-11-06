@@ -95,3 +95,21 @@ netlist run and the snapped run (+6.74 Ω for ΔL_total = +0.076 µm).
   would restate the ratified design source for a layout-tool limitation; #263
   keeps the netlist as the source of truth and removes the override once klt
   snaps.
+
+## Update 2026-11-06 (issue #263) -- generator is now the source of the drawn lengths
+
+klayout-tools#4666 shipped in klt 0.9.0. `layout/analog/plans/dplus_pullup.json`
+no longer carries `params.length_um` on `r_seg0`..`r_seg4`; the lengths come
+from `design/netlist/dplus_pullup.spice` and `klt gen res_array` snaps them
+(`r_seg0` sets `short_length: "lengthen"`, the generator's name for the XR0
+floor handling above). The generator report (`drc_hints.length_snap`, frozen
+beside the run record) gives realised lengths XR0..XR4 = 0.420, 0.685, 1.370,
+2.745, 5.485 um with resistance deltas +22.45 %, -0.146 %, -0.073 %, +0.073 %,
+-0.018 %. They agree with the Drawn L column above, so the decision stands
+unchanged, the hand-snapped values are retired, and the pull-up simulation was
+not re-run (no length changed). The generator report is now the source of the
+drawn lengths: `verification/records/analog-layout/artifacts/20261106-120000-ef841f90e933/`
+(`dplus_pullup-layout-plan.json`, `dplus_pullup-drc-full.json`), record
+`verification/records/analog-layout/records/20261106-120000-ef841f90e933.md`.
+The LVS parameter difference noted above remains until the netlist or the LVS
+comparison accounts for it.
