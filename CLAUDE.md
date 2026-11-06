@@ -13,7 +13,8 @@ designed and verified by AI agents — a **mixed-signal** block.
   content) out of it and describe the gap, not the design.
 - **Verification is the product**: no claim without a testbench. Recorded
   results are append-only evidence; a result is not superseded by deletion, it
-  is superseded by a later record that says why.
+  is superseded by a later record that says why. Replay checkable claims
+  before freezing a record (`verification/README.md`).
 - Spec changes go through `spec/` with a decision record. Agents do not relax
   the ratified spec to make a result pass.
 

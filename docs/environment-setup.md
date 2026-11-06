@@ -379,8 +379,9 @@ history below is kept as recorded. Before move 9 the pin moved seven times
    Issue #260 (2026-10-28) then used #3768: `manifests/gf180-usb2-phy.json`
    declares its item-5 rows under `spec_rows."5.analog"`, so 5.digital is no
    longer charged with the analog rows (no `5.digital` rows are declared;
-   spec §8.2 ratifies none). It still renders `unmet`: klt 0.8.0 wants a
-   `functional-verification` citation beside the `sta` one.
+   spec §8.2 ratifies none). It then rendered `unmet`: klt 0.8.0 wants a
+   `functional-verification` citation beside the `sta` one. Issue #295 added
+   those citations (record `20261020-033000-4be8f5b`) and 5.digital is `met`.
 
 10. Release `0.8.0` → release `0.9.0` by issue #263, once 0.9.0 (on PyPI; 0.9.1 is
    also out) carried klayout-tools#4666: `klt gen res_array` snaps `length_um`

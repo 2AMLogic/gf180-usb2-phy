@@ -179,6 +179,10 @@ corrects or replaces a prior result, it references that prior record via
 the append-only guarantee is what makes `sim/` usable as an evidence trail;
 "fixing" an existing record in place would defeat that.
 
+Before freezing a record, replay its mechanically checkable claims (byte/hash
+identity, commit distance, tool-output counts) from the exact cited command; see
+"Claim replay before freezing a record" in `verification/README.md`.
+
 ## Enforcement
 
 This convention is checked, not merely documented. `sim/check_records.py`
