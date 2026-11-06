@@ -4,12 +4,12 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-06
 
-- **PR #298**: docs: require claim replay before freezing evidence records
 - **PR #297**: feat(sim): shared-pad-bus experiment for host/device ownership on shared DP/DM
+- **Issue #119** (closed): Verify shared-pad analog bus ownership and receiver transients
+- **PR #298**: docs: require claim replay before freezing evidence records
+- **Issue #101** (closed): Auditor proposal: pre-verify factual claims in append-only evidence records
 - **PR #296**: feat(signoff): cite functional-verification suites for T1 item 5.digital
 - **Issue #295** (closed): T1 item 5.digital: cite the RTL klt functional-verification suite beside the STA envelope
-- **Issue #119** (closed): Verify shared-pad analog bus ownership and receiver transients
-- **Issue #101** (closed): Auditor proposal: pre-verify factual claims in append-only evidence records
 - **PR #293**: feat(layout): draw dplus_pullup resistors from netlist lengths via klt 0.9.0
 - **Issue #263** (closed): Revisit dplus_pullup resistor lengths when klt res_array snaps to grid (klayout-tools#4666)
 
