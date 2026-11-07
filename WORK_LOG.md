@@ -2,6 +2,10 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-11-07
+
+- **PR #301**: Bump Repo Skills 0.25.1 -> 0.25.10
+
 ### 2026-11-06
 
 - **PR #297**: feat(sim): shared-pad-bus experiment for host/device ownership on shared DP/DM
