@@ -115,7 +115,7 @@ that run, not the committed GDS.
 result. `scripts/gen_analog_layout.py --check` regenerates every block into a
 scratch directory and compares each `gds_sha256` (and the netlist and plan
 hashes) against that sidecar; GDS output is written without timestamps so the
-hashes reproduce. A net counts as routed only when a flat conductivity
+hashes reproduce. CI (`scripts/check_analog_provenance.py`, via `npm run lint`) re-hashes the committed GDS, netlist and plan against the sidecar offline, with no PDK; `--check` stays the full regeneration test. A net counts as routed only when a flat conductivity
 extraction over metal1/via1/metal2/via2/metal3 puts all of its pins in one
 component that no other net's pin shares, and as a cross-check KLayout's own
 `LayoutToNetlist` finds exactly one wired net per plan net (8/9/9/21). Negative controls
