@@ -4,6 +4,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-07
 
+- **PR #306**: ci: check analog provenance sidecar hashes offline
+- **Issue #305** (closed): CI: check layout/analog/provenance.json hashes against committed GDS, netlists and plans
 - **PR #301**: Bump Repo Skills 0.25.1 -> 0.25.10
 
 ### 2026-11-06
