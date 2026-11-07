@@ -27,7 +27,7 @@
     },
     {
       "path": "package.json",
-      "sha256": "sha256:ca362d23cb9b99ddaab829ec9f23d4050e9da3da7415e46ceb81c5b2e457b395"
+      "sha256": "sha256:6def0dc29519282248c290e7089c55354b6e8b988bf968631dc4d2c24ecc0cba"
     },
     {
       "path": "spec/usb2-device-phy.md",
