@@ -2,6 +2,10 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-11-12
+
+- **PR #308**: Bump Repo Skills 0.25.10 -> 0.26.1
+
 ### 2026-11-07
 
 - **PR #306**: ci: check analog provenance sidecar hashes offline
