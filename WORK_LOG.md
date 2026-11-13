@@ -8,6 +8,10 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-13
 
+- **PR #348**: feat(verification): add analog LVS harness and record the five-block mismatch
+- **Issue #345** (closed): Analog LVS harness and first record: scripts/analog_lvs.py over the five committed streams (all five mismatch today)
+- **PR #340**: refactor(sim): build Monte Carlo measurements with the harness's own mapper
+- **Issue #333** (closed): Reuse harness klt_measure limits logic in sim/diff-receiver-mc/build_requests.py: second copy already drifted once
 - **PR #342**: docs(verification): replace per-test case lists in README Contents with file/DUT/caveat entries
 - **Issue #334** (closed): Trim per-test prose in verification/README.md Contents: restates testbench docstrings, omits 9 of 23 usb_utmi_phy tests
 - **PR #341**: chore(sim): drop the hand-written klt sim decks from both driver benches
