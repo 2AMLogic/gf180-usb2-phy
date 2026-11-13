@@ -217,8 +217,13 @@ any other device. Run record: `verification/records/analog-layout/records/202611
 **Not claimed.** The plan's pins are device terminals only: the guard-ring /
 body-tie metal-1 pads each generator draws are not in any plan net, so they are
 left unconnected, and the earlier `differential_receiver` LVS mismatch
-(`20261009-203500-7a8e831`) is not expected to be cleared by this. No LVS, ERC or
-extracted re-simulation was run on these streams (issues #246, #247, #248, #53).
+(`20261009-203500-7a8e831`) is not expected to be cleared by this. **LVS has
+now been run on all five committed streams and all five mismatch** — record
+`verification/records/analog-lvs/records/20261113-151132-45afbeea4868.md`
+(issue #345), which measures the cause and confirms the unconnected-pad
+expectation above for the bulk/well half. No ERC or extracted re-simulation
+was run on these streams (issues #248, #53); the layout fault LVS found is
+#346.
 Metal-3 is used for the first time in this repo; nothing yet checks it beyond the
 deck's `metal3.*` and `via2.*` rules.
 
@@ -245,15 +250,25 @@ which supersedes the 2-of-20 measurement of
 source-only provenance-hash refreshes, not measurements). The driver does
 ingest now — the "cannot be ingested" wording in the early columns of the
 per-run table in `analog/HISTORY.md` is history. There is still **no
-signoff-ready analog layout**: no LVS match is claimed for any committed
-stream, the only recorded
-analog LVS result is the **mismatch** of
+signoff-ready analog layout**, but the LVS gap is now measured rather than
+open: `scripts/analog_lvs.py` runs transistor-level LVS on **all five**
+committed streams against `design/netlist/<block>.spice`, and **all five
+mismatch** — record
+`verification/records/analog-lvs/records/20261113-151132-45afbeea4868.md`
+(issue #345, klt 0.9.0). Device counts agree on every block (40/40, 11/11,
+78/78, 13/13, 13/13), so nothing is missing or extra; the fault is
+connectivity and naming, and it is the same on all five: PMOS bodies sit on
+floating unnamed wells, the p-substrate is not tied to a labelled `VSS`
+(no block has a `VSS` net at all), and the labelled port set is not the
+schematic's. Fixing that is #346. The earlier
 `verification/records/analog-layout/records/20261009-203500-7a8e831.md`
-(issue #103) against the then-current, plan-path-only `differential_receiver`
-geometry, whose 1-of-8 routing and 31-vs-10 net counts describe that 2026-10-09
-run and not the committed stream; no extracted re-simulation exists; and the
-guard-ring / body-tie pads each generator draws are left unconnected. DRC, LVS
-and ERC signoff of the committed streams are issues #246, #247 and #248. The
+(issue #103) is superseded: its verdict still holds for the stream it pinned,
+but its 1-of-8 routing and 31-vs-10 net counts describe that 2026-10-09
+plan-path-only `differential_receiver` geometry, not the committed stream
+(which is fully routed and extracts to 15 nets). No extracted re-simulation
+exists, and the guard-ring / body-tie pads each generator draws are left
+unconnected. DRC and ERC signoff of the committed streams are issues #246 and
+#248; the T1 item `4.analog` is #247. The
 per-run table in `analog/HISTORY.md` is dated history.
 
 ### Dated history
@@ -295,7 +310,23 @@ PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py            
 PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --format json
 PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver   # rewrite layout/analog/*.gds + provenance.json
 PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --check     # reproduce every gds_sha256 in a scratch dir
+
+# --- analog signoff: transistor-level LVS of every committed stream (all five
+#     mismatch today -- exit 1 is the current, recorded result, not a failure
+#     of the harness; see verification/records/analog-lvs/)
+PDK=gf180mcuD python3 scripts/analog_lvs.py
+PDK=gf180mcuD python3 scripts/analog_lvs.py --blocks differential_receiver   # one block
 ```
+
+`scripts/analog_lvs.py` discovers its blocks from `layout/analog/*.gds` (never
+a hard-coded list), compares each against `design/netlist/<block>.spice` with
+`klt lvs` (inline extraction, `form: "subckt-call"`, `keep_extracted` so the
+compare's own layout-side netlist is written out), and writes its artifacts to
+`layout/analog/lvs/` (gitignored scratch). It **exits 0 only when every block
+reads `status: "match"`**; a block whose reference netlist is missing fails
+loudly rather than being skipped. Frozen evidence lives under
+`verification/records/analog-lvs/`. `scripts/test_analog_lvs.py` is its
+self-test and needs neither klt nor the PDK.
 
 `scripts/gen_analog_layout.py` writes each block's klt result
 (`<block>.klt.gds`), the routed GDS, its raw Phase C response JSON, and a

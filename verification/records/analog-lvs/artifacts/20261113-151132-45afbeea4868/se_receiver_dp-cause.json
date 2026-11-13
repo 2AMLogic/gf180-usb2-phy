@@ -1,0 +1,78 @@
+{
+  "block": "se_receiver_dp",
+  "ports": {
+    "layout": [
+      "AMPOUT",
+      "IBIASN",
+      "VDD",
+      "vsubs"
+    ],
+    "reference": [
+      "VDD",
+      "VSS",
+      "DP",
+      "RXDP"
+    ],
+    "only_in_layout": [
+      "AMPOUT",
+      "IBIASN",
+      "vsubs"
+    ],
+    "only_in_reference": [
+      "DP",
+      "RXDP",
+      "VSS"
+    ],
+    "common": [
+      "VDD"
+    ]
+  },
+  "layout_nets": {
+    "total": 15,
+    "unnamed_count": 11,
+    "unnamed": [
+      "\\$1",
+      "\\$10",
+      "\\$11",
+      "\\$12",
+      "\\$15",
+      "\\$2",
+      "\\$3",
+      "\\$4",
+      "\\$5",
+      "\\$8",
+      "\\$9"
+    ],
+    "named": [
+      "AMPOUT",
+      "IBIASN",
+      "VDD",
+      "vsubs"
+    ]
+  },
+  "bulk_nets": {
+    "layout": {
+      "nfet": [
+        "vsubs"
+      ],
+      "pfet": [
+        "\\$10",
+        "\\$11",
+        "\\$12",
+        "\\$9"
+      ]
+    },
+    "reference": {
+      "nfet": [
+        "VSS"
+      ],
+      "pfet": [
+        "VDD"
+      ]
+    }
+  },
+  "device_counts": {
+    "layout": 13,
+    "reference": 13
+  }
+}

@@ -388,6 +388,18 @@ verification/records/
     harness re-run against a deliberately broken reference must report a
     mismatch, and does. A record that only ever reports "match" is not
     evidence, so the control is part of the claim rather than a nicety.
+  - `analog-lvs` (issue #345) — transistor-level LVS of the five committed
+    analog streams (`layout/analog/*.gds`) against their schematic netlists
+    (`design/netlist/<block>.spice`, `form: "subckt-call"`), via
+    `scripts/analog_lvs.py`. **All five mismatch**, and the record says so:
+    device counts agree on every block, so the fault is connectivity and
+    naming, not missing devices. The record names the cause per block —
+    untied PMOS n-wells, an untied p-substrate, and a labelled port set that
+    is not the schematic's — each measured off the compare's own extracted
+    netlist rather than inferred, with what could *not* be established marked
+    as such. No LVS option that would hide the mismatch is set. Caveat: this
+    is a structural compare only; with near-zero device pairing it says
+    nothing about drawn device sizes. Follow-up on the layout fault is #346.
   - `analog-layout` (issue #25) — what klt's netlist-driven layout-plan
     path (`klt.layout_plan.request/1` +
     `klayout_tools.layout_plan_execute`) actually produces for the five

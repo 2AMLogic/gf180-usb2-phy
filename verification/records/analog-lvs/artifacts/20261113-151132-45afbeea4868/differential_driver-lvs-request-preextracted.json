@@ -1,0 +1,12 @@
+{
+  "schema": "klt.lvs.request/1",
+  "layout": {
+    "netlist": "differential_driver_extract.spice",
+    "top": "differential_driver"
+  },
+  "reference": {
+    "netlist": "differential_driver_reference.spice",
+    "top": "differential_driver",
+    "form": "subckt-call"
+  }
+}

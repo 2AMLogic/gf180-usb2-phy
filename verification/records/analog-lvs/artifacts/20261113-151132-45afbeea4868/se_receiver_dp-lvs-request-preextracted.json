@@ -1,0 +1,12 @@
+{
+  "schema": "klt.lvs.request/1",
+  "layout": {
+    "netlist": "se_receiver_dp_extract.spice",
+    "top": "se_receiver_dp"
+  },
+  "reference": {
+    "netlist": "se_receiver_dp_reference.spice",
+    "top": "se_receiver_dp",
+    "form": "subckt-call"
+  }
+}
