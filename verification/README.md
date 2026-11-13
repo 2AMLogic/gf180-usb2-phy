@@ -474,7 +474,7 @@ verification/records/
     analog blocks: two cannot be ingested, three place DRC-clean and route
     **zero** nets. A negative result, measured rather than assumed, with
     klt's own per-net failure reasons frozen as artifacts — see
-    `layout/README.md` § "Analog" for the diagnosis and the friction issues
+    `layout/analog/HISTORY.md` for the diagnosis and the friction issues
     filed upstream.
   - `post-layout-functional` (issue #93) — the gate-level, SDF-annotated
     regression behind T1 item `7.digital`. The early records are **negative
