@@ -8,6 +8,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-13
 
+- **PR #351**: fix(layout): tie every device body and label the schematic's ports
+- **Issue #346** (closed): Analog LVS: all five committed streams mismatch — untied n-wells, untied substrate, and a wrong labelled port set
 - **PR #348**: feat(verification): add analog LVS harness and record the five-block mismatch
 - **Issue #345** (closed): Analog LVS harness and first record: scripts/analog_lvs.py over the five committed streams (all five mismatch today)
 - **PR #340**: refactor(sim): build Monte Carlo measurements with the harness's own mapper
