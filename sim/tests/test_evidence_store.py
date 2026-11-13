@@ -134,12 +134,24 @@ class Writer(Base):
                     self.store_files(uri=uri)
                 self.assert_nothing_committed()
 
-    def test_existing_manifest_or_summary_is_never_overwritten(self):
+    def test_existing_manifest_is_never_overwritten(self):
         self.mpath.parent.mkdir(parents=True)
         self.mpath.write_text("{}")
         with self.assertRaises(es.StoreError):
             self.store_files()
         self.assertEqual(self.mpath.read_text(), "{}")
+        self.assertEqual(self.store, {})  # refused before any put
+
+    def test_existing_summary_record_is_never_overwritten(self):
+        # The other leg of the append-only refusal: a record `.md` already
+        # exists while the manifest does not. Append-only evidence is never
+        # rewritten -- a re-run mints a new record-id instead.
+        self.summary.parent.mkdir(parents=True)
+        self.summary.write_text("keep\n")
+        with self.assertRaisesRegex(es.StoreError, r"sim/b/records/r1\.md already exists"):
+            self.store_files()
+        self.assertEqual(self.summary.read_text(), "keep\n")
+        self.assertFalse(self.mpath.exists())  # no partial landing
         self.assertEqual(self.store, {})  # refused before any put
 
     def test_nothing_but_empty_files_is_refused(self):

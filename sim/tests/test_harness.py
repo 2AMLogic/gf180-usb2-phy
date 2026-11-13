@@ -311,16 +311,6 @@ class RecordIdTests(unittest.TestCase):
             # the existing record was not touched
             self.assertEqual((records / f"{first}.md").read_text(), "# first\n")
 
-    def test_write_record_refuses_to_overwrite(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            experiment = Path(tmp) / "an-experiment"
-            (experiment / report.RECORDS_DIR).mkdir(parents=True)
-            (experiment / report.RECORDS_DIR / "20260729-153000-abc1234.md").write_text("keep\n")
-            with self.assertRaises(report.RecordExists):
-                report.write_record(
-                    {"record_id": "20260729-153000-abc1234"}, experiment
-                )
-
 
 class MatrixConformanceTests(unittest.TestCase):
     """sim/README.md requires the full mandated matrix, or a stated reason."""
