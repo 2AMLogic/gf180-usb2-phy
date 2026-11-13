@@ -368,27 +368,24 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   below, run against a throwaway fixture repo.
 - `records/` — the append-only evidence records this convention produces.
 
-Run every klt-driven functional-verification suite in this directory with:
+Run the RTL klt-driven functional-verification suites in this directory with:
 
 ```bash
 npm run test
 ```
+
+The gate-level and SDF replays are not in it; they are run by hand (see
+"Gate-level / SDF replay of the top-level wrapper" above).
 
 `package.json`'s `test` script chains one `klt functional-verification`
 invocation per request file, and each of them is runnable on its own:
 
 ```bash
 klt functional-verification verification/request-usb-nrzi-encoder.json --format json
-klt functional-verification verification/request-usb-nrzi-decoder.json --format json
-klt functional-verification verification/request-usb-bit-stuffer.json --format json
-klt functional-verification verification/request-usb-bit-destuffer.json --format json
-klt functional-verification verification/request-usb-bit-codec-loopback.json --format json
-klt functional-verification verification/request-usb-line-state-decode.json --format json
-klt functional-verification verification/request-usb-sync-detector.json --format json
-klt functional-verification verification/request-usb-eop-detector.json --format json
-klt functional-verification verification/request-usb-utmi-phy.json --format json
-klt functional-verification verification/request-usb-rx-clock-tolerance.json --format json
 ```
+
+The full list is the `test` script in `package.json` — it is not restated
+here, so there is nothing to keep in step with it.
 
 A request needs one invocation each because `klt
 functional-verification`'s request schema names a single `hdl_toplevel` —
