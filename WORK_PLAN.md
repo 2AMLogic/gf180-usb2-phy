@@ -17,8 +17,8 @@ _None._
 
 `loom:important`; taken before unlabelled work.
 
-- **#245**: T1 item 2 (Layout, analog partition): route the five analog front-end blocks and commit their GDS
-- **#252**: T1 item 2 (analog) B: route differential_driver GDS and attest 2.analog
+- **#246**: T1 item 3 (DRC clean, analog partition): klt drc on the committed analog GDS with coverage disclosed
+- **#247**: T1 item 4 (LVS clean, analog partition): klt lvs of each analog block against its schematic netlist
 
 ## Ready
 
@@ -30,7 +30,7 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#333**: Reuse harness klt_measure limits logic in sim/diff-receiver-mc/build_requests.py: second copy already drifted once
 
 ## PRs Awaiting Review
 
@@ -58,6 +58,7 @@ Issues carrying `loom:curated`.
 - **#319**: Remove klt uri-scheme preflight probe from sim/harness/evidence_store.py: release pin makes it always pass *(hermit)*
 - **#320**: Fold flow/request-usb-utmi-phy-par-sdf.json into request-usb-utmi-phy-par.json: 71-line unguarded duplicate *(hermit)*
 - **#331**: Remove filtered-SDF workaround request from verification/: pinned klt 0.9.0 annotates the exported SDF (111/111) *(hermit)*
+- **#339**: Merge se_receiver_dp and se_receiver_dm into one se_receiver cell: same circuit, byte-identical layout, identical PVT results *(hermit)*
 
 ## Epics
 
@@ -71,10 +72,10 @@ Issues carrying `loom:curated`.
 | Very important | 0 |
 | Important | 2 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 0 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
 | Curated | 3 |
-| Architect / Hermit proposals | 4 |
+| Architect / Hermit proposals | 5 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->

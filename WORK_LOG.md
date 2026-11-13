@@ -8,6 +8,15 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-13
 
+- **PR #342**: docs(verification): replace per-test case lists in README Contents with file/DUT/caveat entries
+- **Issue #334** (closed): Trim per-test prose in verification/README.md Contents: restates testbench docstrings, omits 9 of 23 usb_utmi_phy tests
+- **PR #341**: chore(sim): drop the hand-written klt sim decks from both driver benches
+- **Issue #337** (closed): Remove hand-written klt sim decks from the two driver benches: superseded by the harness decks transport, no live consumer
+- **PR #338**: fix(layout): run each analog layout plan in its own process
+- **Issue #335** (closed): bug(layout): dplus_pullup.gds does not reproduce from its recorded regeneration command (geometrically identical, byte order differs)
+- **PR #336**: feat(layout): route and commit differential_driver GDS, cite T1 item 2.analog
+- **Issue #252** (closed): T1 item 2 (analog) B: route differential_driver GDS and attest 2.analog
+- **Issue #245** (closed): T1 item 2 (Layout, analog partition): route the five analog front-end blocks and commit their GDS
 - **PR #330**: docs(env): move the klt pin-move history to docs/klt-pin-history.md
 - **Issue #327** (closed): Split docs/environment-setup.md: move 220 lines of klt pin-move history into a sibling history file
 - **PR #329**: docs(verification): replace per-request command list with one example
