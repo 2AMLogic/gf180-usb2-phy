@@ -61,14 +61,20 @@ draws it exactly.
 
 ## Citations — what is cited, and why
 
-Five manifest entries carry citations, each pinned to the cited envelope's
-recorded input revision (`content_hash`); the four single-envelope ones
-were verified fresh by the grader at freeze time (`input_verified: true`
-in the frozen report), and the fifth (item 11.digital) is the compound
-citing set the item's own text requires. Items 3, 4, 5 and 11 are keyed
-to the **digital partition only** (`"3.digital"`, `"4.digital"`,
-`"5.digital"`, `"11.digital"`); only item 8 uses a bare key and so
-grades in both partitions:
+Several manifest entries carry citations, each pinned to the cited
+envelope's recorded input revision (`content_hash`). Of the
+single-envelope ones below, 3.digital and 4.digital were verified fresh
+by the grader at freeze time (`input_verified: true` in the frozen
+report), while 7.digital and item 8 read `null`: 7.digital carries no
+`content_hash` for the grader to re-hash, and item 8's pin is a `role:
+"document"` hash with no path it can resolve. The list-form ones (items
+4.analog, 5.analog, 5.digital, 6.analog and 11.digital) are the compound
+citing sets those items' own text requires. Items 3, 7 and 11 are keyed
+to the **digital partition only** (`"3.digital"`, `"7.digital"`,
+`"11.digital"`), and item 5 is keyed in both; item 4 became
+partition-complete when `"4.analog"` was added (issue #247), so the T1
+rows still graded from digital evidence alone are 3, 7 and 11. Only item
+8 uses a bare key and so grades in both partitions:
 
 - **Item 3.digital, DRC clean** — cites the digital routed GDS's `klt drc`
   envelope (`verification/records/digital-drc/artifacts/20261015-011502-32db02a/drc-report.json`),
@@ -88,7 +94,8 @@ grades in both partitions:
   top-level layout to run DRC on; its five blocks are individually routed and
   individually DRC-clean at the same deck (`layout/analog/`, cited by
   2.analog), which is a per-block probe and not a partition-level DRC
-  signoff. Analog DRC/LVS/ERC remain issues #246/#247/#248.
+  signoff. Analog LVS is now cited per block (item 4.analog, below);
+  analog DRC and ERC remain issues #246 and #248.
 - **Item 4.digital, LVS clean** — cites the gate-level LVS envelope minted against
   the `gate-level-verilog` reference form
   (`verification/records/digital-lvs/artifacts/20261015-011503-32db02a/lvs-report.json`,
@@ -102,14 +109,73 @@ grades in both partitions:
   reads `"unchecked"` by construction — see record
   `20260921-145814-5bee855.md`).
 
-  **Items 3.analog and 4.analog are `unmet`/`no_evidence`.** Until issue
-  #95 these two citations sat under the bare keys `"3"` and `"4"`. On a
-  `mixed-signal` manifest `klt signoff` looks up the partition-qualified
-  key first and falls back to the bare key. So the analog rows also
-  graded `met` from the *digital* DRC and LVS reports, although no analog
-  layout exists to run DRC or LVS on. Re-keying the citations to the
-  digital partition dropped the frozen count from `8/22` to `6/22`. That
-  is a correction of an overstated count, not a regression.
+  **Item 3.analog is still `unmet`/`no_evidence`** (item 4.analog is
+  cited, below). Until issue #95 these two citations sat under the bare
+  keys `"3"` and `"4"`. On a `mixed-signal` manifest `klt signoff` looks
+  up the partition-qualified key first and falls back to the bare key. So
+  the analog rows also graded `met` from the *digital* DRC and LVS
+  reports, although no analog layout existed to run DRC or LVS on.
+  Re-keying the citations to the digital partition dropped the frozen
+  count from `8/22` to `6/22`. That is a correction of an overstated
+  count, not a regression — and 4.analog has since been earned on its own
+  analog evidence rather than restored by un-keying.
+- **Item 4.analog, LVS clean — cited, `met` since #247** — cites a list of
+  five `klt lvs` envelopes, one per committed analog block, from record
+  `verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/`
+  (`<block>-lvs-report.json`). All five read `status: "match"` with
+  `error_count: 0`, against the schematic netlist
+  (`design/netlist/<block>.spice`, `reference.form: "subckt-call"`,
+  `reference_top` upper-cased) that item 1.analog cites — the reference is
+  a byte copy of the committed netlist, not a hand-edited one. Each
+  citation is pinned to the GDS revision its envelope was minted against
+  (`provenance.input`, `role: "layout"`). Minted at the repo pin
+  (`klt 0.9.0`, KLayout `0.30.13`, deck `gf180mcu`
+  `sha256:cf44de63…`, `released: true`).
+
+  | block | GDS (`content_hash`) | reference netlist | devices | nets | pins | `device.geometry_not_compared` | `device.placeholder_value` | `topology` |
+  |---|---|---|---|---|---|---|---|---|
+  | `differential_driver` | `4a1c1ddf…` | `b5dda530…` | 40 | 22 | 7 | 2 | 2 | 1 |
+  | `differential_receiver` | `8546baa5…` | `76a1e6f9…` | 11 | 10 | 5 | 1 | 1 | 1 |
+  | `dplus_pullup` | `61811cc5…` | `9c645ecf…` | 78 | 21 | 9 | 1 | 1 | 1 |
+  | `se_receiver_dm` | `31601e63…` | `ebfc91ac…` | 13 | 10 | 4 | 1 | 1 | 1 |
+  | `se_receiver_dp` | `10131291…` | `1f854210…` | 13 | 10 | 4 | 1 | 1 | 1 |
+
+  Device, net and pin columns are *matched* counts, and layout equals
+  reference equals matched on every block. **What this claim does not
+  cover**, in the envelopes' own words:
+
+  - **`power_connectivity.status` reads `"unchecked"` on all five**, which
+    satisfies the checklist (it requires "not `mismatch`") but verifies
+    nothing about the supplies. The envelopes give the reason: the
+    `subckt-call` reference form carries its own power/ground pins and
+    nets, so they take part in the ordinary compare and the separate
+    power check — which exists to cover the signal-only
+    `gate-level-verilog` form — does not apply. The supplies' own check is
+    item 11.analog (issue #248), not this item.
+  - **No resistor dimension is compared.** The `ppolyf_u` / `ppolyf_u_1k`
+    / `rm1` devices pair on topology alone: `R` is `not_compared`
+    (`placeholder_value`) and `L`/`W`/`A`/`P` are `not_compared`
+    (`secondary`) — that is what the `device.geometry_not_compared` and
+    `device.placeholder_value` categories above count. A resistor of the
+    wrong size would still read `match`. Trim-resistor *values* are a
+    simulation claim (item 5.analog), not an LVS one.
+  - **`body_verification.status` reads `"verified"` on all five** (it read
+    `"unverified"` before issue #346 tied every device body), so the
+    bodies are a checked part of this match rather than a disclosure.
+  - **`input_verified` reads `null`, not `true`, for all five citations**
+    — unlike 4.digital. The grader cannot re-hash the input itself because
+    each envelope's `layout.path` names the harness's scratch copy
+    (`layout/analog/lvs/<block>/<block>.gds`, gitignored), not
+    `layout/analog/<block>.gds`. The pins above are still the GDS hashes:
+    each `content_hash` was confirmed by hand to equal the sha256 of the
+    committed `layout/analog/<block>.gds` at the commit that added this
+    citation. Note the consequence for the freshness contract below: a
+    re-run GDS does **not** automatically flip 4.analog to
+    `unmet`/`stale_evidence` the way it would for 4.digital; what catches
+    it instead is `signoff/check.py`, which refuses when a committed GDS
+    stops hashing to the `gds_sha256` in `layout/analog/provenance.json`.
+    Re-mint these envelopes through `scripts/analog_lvs.py` whenever an
+    analog GDS or netlist moves.
 - **Item 5.digital, corner verification (digital STA + functional verification): cited, `met` since #295 (was `unmet`/`partial_coverage` from #260 to #295 for want of a `functional-verification` citation; `met` before #188)**.
   Cites a list: one multi-corner `klt sta` envelope (below) followed by the
   12 `klt functional-verification` responses of record
@@ -403,13 +469,20 @@ diff /tmp/fresh.json manifests/t1-signoff-report.json   # regeneration = update 
 ```
 
 Exit `0` means every T1 item met (this repo is **not** there:
-exit `3`, `tier: null`, `16/22` item-rows met at the time of freezing —
-item 8 in both partitions, 3.digital, 4.digital, 7.digital and 11.digital,
-plus the artifact-anchored rows 1.analog, 1.digital, 2.analog, 2.digital and
-items 9 and 10 in both partitions; it was `6/22` before issue #187, `7/22` before
-issue #188 (when 5.digital was also met, see the 5.analog bullet), and `8/22`
-before issue #95 stopped items 3 and 4 from grading the analog
-partition off digital evidence). Exit codes `0` and `3` are
+exit `3`, `tier: null`, `17/22` item-rows met at the time of freezing —
+3.digital, 4.analog, 4.digital, 5.digital, 6.analog, 7.digital and
+11.digital, plus item 8 in both partitions and the artifact-anchored rows
+1.analog, 1.digital, 2.analog, 2.digital and items 9 and 10 in both
+partitions. The four still unmet are 3.analog (`no_evidence`), 5.analog
+(`partial_coverage`), 7.analog (`no_evidence`) and 11.analog
+(`no_evidence`); the twenty-second row, 6.digital, grades
+`not_applicable` rather than unmet (`t1_not_applicable_count: 1`, as the
+item 6 bullet above records), so the rows are 17 `met` + 1
+`not_applicable` + 4 `unmet`. The count was
+`16/22` before issue #247 added the 4.analog citation, `6/22` before issue
+#187, `7/22` before issue #188 (when 5.digital was also met, see the
+5.analog bullet), and `8/22` before issue #95 stopped items 3 and 4 from
+grading the analog partition off digital evidence. Exit codes `0` and `3` are
 both "clean runs"; exit `1` is an error and must be fixed, not committed
 around.
 
