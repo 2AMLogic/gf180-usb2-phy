@@ -62,16 +62,19 @@ draws it exactly.
 ## Citations — what is cited, and why
 
 Several manifest entries carry citations, each pinned to the cited
-envelope's recorded input revision (`content_hash`); the single-envelope
-ones were verified fresh by the grader at freeze time
-(`input_verified: true` in the frozen report), while the list-form ones
-(items 4.analog, 5.analog, 5.digital, 6.analog and 11.digital) are the
-compound citing sets those items' own text requires. Items 3 and 11 are
-keyed to the **digital partition only** (`"3.digital"`,
+envelope's recorded input revision (`content_hash`). Of the
+single-envelope ones below, 3.digital and 4.digital were verified fresh
+by the grader at freeze time (`input_verified: true` in the frozen
+report), while 7.digital and item 8 read `null`: 7.digital carries no
+`content_hash` for the grader to re-hash, and item 8's pin is a `role:
+"document"` hash with no path it can resolve. The list-form ones (items
+4.analog, 5.analog, 5.digital, 6.analog and 11.digital) are the compound
+citing sets those items' own text requires. Items 3, 7 and 11 are keyed
+to the **digital partition only** (`"3.digital"`, `"7.digital"`,
 `"11.digital"`), and item 5 is keyed in both; item 4 became
-partition-complete when `"4.analog"` was added (issue #247), so the only
-T1 row still graded from digital evidence alone is 3. Only item 8 uses a
-bare key and so grades in both partitions:
+partition-complete when `"4.analog"` was added (issue #247), so the T1
+rows still graded from digital evidence alone are 3, 7 and 11. Only item
+8 uses a bare key and so grades in both partitions:
 
 - **Item 3.digital, DRC clean** — cites the digital routed GDS's `klt drc`
   envelope (`verification/records/digital-drc/artifacts/20261015-011502-32db02a/drc-report.json`),
@@ -470,8 +473,12 @@ exit `3`, `tier: null`, `17/22` item-rows met at the time of freezing —
 3.digital, 4.analog, 4.digital, 5.digital, 6.analog, 7.digital and
 11.digital, plus item 8 in both partitions and the artifact-anchored rows
 1.analog, 1.digital, 2.analog, 2.digital and items 9 and 10 in both
-partitions. The five still unmet are 3.analog, 5.analog
-(`partial_coverage`), 6.digital, 7.analog and 11.analog. The count was
+partitions. The four still unmet are 3.analog (`no_evidence`), 5.analog
+(`partial_coverage`), 7.analog (`no_evidence`) and 11.analog
+(`no_evidence`); the twenty-second row, 6.digital, grades
+`not_applicable` rather than unmet (`t1_not_applicable_count: 1`, as the
+item 6 bullet above records), so the rows are 17 `met` + 1
+`not_applicable` + 4 `unmet`. The count was
 `16/22` before issue #247 added the 4.analog citation, `6/22` before issue
 #187, `7/22` before issue #188 (when 5.digital was also met, see the
 5.analog bullet), and `8/22` before issue #95 stopped items 3 and 4 from
