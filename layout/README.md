@@ -177,27 +177,35 @@ deck's `metal3.*` and `via2.*` rules.
 
 ### Current state in one paragraph
 
-Plans, incomplete routing, and layout are three different things here. All
-five blocks have a committed **plan** (`layout/analog/plans/*.json`) and every
-executed placement is DRC-clean, but **routing is incomplete**: `dplus_pullup`
-routes 6 of 21 nets, the three receiver plans 1 of 8/9/9, and
-`differential_driver` 0 of 10 (latest run:
-`verification/records/analog-layout/records/20260921-130120-223bae5.md`;
-`differential_driver` now ingests — the "cannot be ingested" wording in the
-early columns of the per-run table below is history). There is **no
-signoff-ready analog layout**: nothing under `layout/analog/` is committed
-(only plans), the only committed analog GDS is the incompletely routed
-`differential_receiver` evidence artifact frozen with the record below,
-the only analog LVS result recorded is that record's **mismatch** (no LVS
-match is claimed), and no extracted re-simulation exists. `differential_receiver` was resized by issue
-#97 (PR #102) after that run and has since been re-measured
-(`verification/records/analog-layout/records/20261009-203500-7a8e831.md`,
-issue #103): the regenerated geometry carries the new `MP_B1` 32u / `MN_B1`
-2u devices (single unfolded fingers), full DRC is **clean**, `klt extract`
-recovers all 11 devices at the netlist sizes, but `klt lvs` reports
-**mismatch** (11 devices unmatched, 31 layout nets vs 10 reference) and
-routing is still 1 of 8 nets. The other four blocks were not re-verified by
-that record. The per-run table below is dated history.
+Plans, routing, and signed-off layout are three different things here. All
+five blocks have a committed **plan** (`layout/analog/plans/*.json`), and four
+of them — `differential_receiver`, `se_receiver_dm`, `se_receiver_dp` and
+`dplus_pullup` — now also have a **committed GDS** under `layout/analog/`
+(issue #251): each is fully routed (8/8, 9/9, 9/9 and 21/21 nets) and
+DRC-clean (0 violations) at the `gf180mcu` deck under the pinned klt 0.9.0.
+Those nets are completed by two paths, as the table under "Outcome for the
+four child-A blocks" above and `layout/analog/provenance.json` record per
+block: the klt plan path routes 1, 1, 1 and 6 of them, and scripted routes in
+`scripts/gen_analog_layout.py` complete the remaining 7, 8, 8 and 15.
+`differential_driver` has **no committed stream**: its plan now executes (40
+device groups for the 40 netlist devices, placed, DRC-clean on the placed
+GDS), but only **2 of its 20** nets are routed — the plan path routes those
+two and the generator does not script-route the driver — leaving 18 unrouted;
+latest run
+`verification/records/analog-layout/records/20261113-090000-4f79d854e7b4.md`
+(the three sibling records of that date are source-only provenance-hash
+refreshes, not measurements), and routing it is issue #252. The driver does
+ingest now — the "cannot be ingested" wording in the early columns of the
+per-run table below is history. There is still **no signoff-ready analog
+layout**: no LVS match is claimed for any committed stream, the only recorded
+analog LVS result is the **mismatch** of
+`verification/records/analog-layout/records/20261009-203500-7a8e831.md`
+(issue #103) against the then-current, plan-path-only `differential_receiver`
+geometry, whose 1-of-8 routing and 31-vs-10 net counts describe that 2026-10-09
+run and not the committed stream; no extracted re-simulation exists; and the
+guard-ring / body-tie pads each generator draws are left unconnected. DRC, LVS
+and ERC signoff of the committed streams are issues #246, #247 and #248. The
+per-run table below is dated history.
 
 ### What was attempted
 
