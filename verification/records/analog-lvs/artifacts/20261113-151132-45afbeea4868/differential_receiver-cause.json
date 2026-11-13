@@ -1,0 +1,80 @@
+{
+  "block": "differential_receiver",
+  "ports": {
+    "layout": [
+      "AMPOUT",
+      "IBIASN",
+      "VDD",
+      "vsubs"
+    ],
+    "reference": [
+      "VDD",
+      "VSS",
+      "DP",
+      "DM",
+      "RXD"
+    ],
+    "only_in_layout": [
+      "AMPOUT",
+      "IBIASN",
+      "vsubs"
+    ],
+    "only_in_reference": [
+      "DM",
+      "DP",
+      "RXD",
+      "VSS"
+    ],
+    "common": [
+      "VDD"
+    ]
+  },
+  "layout_nets": {
+    "total": 15,
+    "unnamed_count": 11,
+    "unnamed": [
+      "\\$1",
+      "\\$10",
+      "\\$11",
+      "\\$12",
+      "\\$13",
+      "\\$15",
+      "\\$2",
+      "\\$3",
+      "\\$5",
+      "\\$7",
+      "\\$9"
+    ],
+    "named": [
+      "AMPOUT",
+      "IBIASN",
+      "VDD",
+      "vsubs"
+    ]
+  },
+  "bulk_nets": {
+    "layout": {
+      "nfet": [
+        "vsubs"
+      ],
+      "pfet": [
+        "\\$10",
+        "\\$11",
+        "\\$12",
+        "\\$9"
+      ]
+    },
+    "reference": {
+      "nfet": [
+        "VSS"
+      ],
+      "pfet": [
+        "VDD"
+      ]
+    }
+  },
+  "device_counts": {
+    "layout": 11,
+    "reference": 11
+  }
+}

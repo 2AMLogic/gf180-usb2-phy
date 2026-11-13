@@ -1,0 +1,2993 @@
+{
+  "schema_version": 4,
+  "file": {
+    "path": "layout/analog/lvs/dplus_pullup/dplus_pullup.gds",
+    "scope": "repo"
+  },
+  "deck": "gf180mcu",
+  "top": "dplus_pullup",
+  "dbu_um": 0.0005,
+  "netlist_path": "dplus_pullup_extract.spice",
+  "netlist_sha256": "b11273a6984d60477764a5a3522fdd2f8029c8b8573e7d3e03b68b1f65eaf1a3",
+  "netlist_normalized_sha256": "18a4d33a80f8aa16b2827d20036f9d9342f1bead69290a75662e52426b3facd2",
+  "status": "extracted",
+  "device_count": 78,
+  "net_count": 34,
+  "pin_count": 20,
+  "device_counts": {
+    "nfet": 6,
+    "pfet": 66,
+    "ppolyf_u": 6
+  },
+  "dummy_devices_dropped": 0,
+  "ignored_layers": [],
+  "device_recognition_only_layers": [
+    {
+      "layer": 49,
+      "datatype": 0,
+      "shapes": 6
+    },
+    {
+      "layer": 110,
+      "datatype": 5,
+      "shapes": 6
+    }
+  ],
+  "device_classes": [
+    "nfet",
+    "pfet",
+    "bjt",
+    "cap_mim_2f0_m4m5_noshield",
+    "cap_nmos_03v3",
+    "cap_nmos_03v3_dn",
+    "cap_pmos_03v3",
+    "cap_pmos_03v3_dn",
+    "cap_nmos_06v0",
+    "cap_nmos_06v0_dn",
+    "cap_pmos_06v0",
+    "cap_pmos_06v0_dn",
+    "cap_nmos_03v3_b",
+    "cap_pmos_03v3_b",
+    "cap_nmos_06v0_b",
+    "cap_pmos_06v0_b",
+    "resistor",
+    "diode_nd2ps_06v0",
+    "diode_pd2nw_06v0"
+  ],
+  "devices": [
+    {
+      "name": "$1",
+      "class": "nfet",
+      "nets": {
+        "s": "\\$1",
+        "g": "PU_EN",
+        "d": "PU_ENB",
+        "b": "vsubs"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 1.0,
+        "as_um2": 0.5,
+        "ad_um2": 0.5,
+        "ps_um": 3.0,
+        "pd_um": 3.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_drv_en__mn_drv_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_drv_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$10",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "TRIM2",
+        "d": "TRIM2B",
+        "b": "\\$9"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.0,
+        "as_um2": 1.0,
+        "ad_um2": 1.0,
+        "ps_um": 5.0,
+        "pd_um": 5.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_drv_t2__mp_drv_t2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_drv_t2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$11",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "TRIM3",
+        "d": "TRIM3B",
+        "b": "\\$10"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.0,
+        "as_um2": 1.0,
+        "ad_um2": 1.0,
+        "ps_um": 5.0,
+        "pd_um": 5.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_drv_t3__mp_drv_t3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_drv_t3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$12",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "TRIM4",
+        "d": "TRIM4B",
+        "b": "\\$11"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.0,
+        "as_um2": 1.0,
+        "ad_um2": 1.0,
+        "ps_um": 5.0,
+        "pd_um": 5.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_drv_t4__mp_drv_t4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_drv_t4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$13",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "PU_ENB",
+        "d": "NODE0",
+        "b": "\\$12"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$14",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "PU_ENB",
+        "d": "NODE0",
+        "b": "\\$12"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$15",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "PU_ENB",
+        "d": "NODE0",
+        "b": "\\$12"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$16",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "PU_ENB",
+        "d": "NODE0",
+        "b": "\\$12"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$17",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "PU_ENB",
+        "d": "NODE0",
+        "b": "\\$12"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$18",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "PU_ENB",
+        "d": "NODE0",
+        "b": "\\$12"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$19",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "PU_ENB",
+        "d": "NODE0",
+        "b": "\\$12"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$2",
+      "class": "nfet",
+      "nets": {
+        "s": "\\$1",
+        "g": "TRIM0",
+        "d": "TRIM0B",
+        "b": "vsubs"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 1.0,
+        "as_um2": 0.5,
+        "ad_um2": 0.5,
+        "ps_um": 3.0,
+        "pd_um": 3.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_drv_t0__mn_drv_t0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_drv_t0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$20",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "PU_ENB",
+        "d": "NODE0",
+        "b": "\\$12"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$21",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "PU_ENB",
+        "d": "NODE0",
+        "b": "\\$12"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$22",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "PU_ENB",
+        "d": "NODE0",
+        "b": "\\$12"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$23",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE1",
+        "g": "TRIM0B",
+        "d": "NODE2",
+        "b": "\\$16"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$24",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE1",
+        "g": "TRIM0B",
+        "d": "NODE2",
+        "b": "\\$16"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$25",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE1",
+        "g": "TRIM0B",
+        "d": "NODE2",
+        "b": "\\$16"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$26",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE1",
+        "g": "TRIM0B",
+        "d": "NODE2",
+        "b": "\\$16"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$27",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE1",
+        "g": "TRIM0B",
+        "d": "NODE2",
+        "b": "\\$16"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$28",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE1",
+        "g": "TRIM0B",
+        "d": "NODE2",
+        "b": "\\$16"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$29",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE1",
+        "g": "TRIM0B",
+        "d": "NODE2",
+        "b": "\\$16"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$3",
+      "class": "nfet",
+      "nets": {
+        "s": "\\$1",
+        "g": "TRIM1",
+        "d": "TRIM1B",
+        "b": "vsubs"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 1.0,
+        "as_um2": 0.5,
+        "ad_um2": 0.5,
+        "ps_um": 3.0,
+        "pd_um": 3.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_drv_t1__mn_drv_t1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_drv_t1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$30",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE1",
+        "g": "TRIM0B",
+        "d": "NODE2",
+        "b": "\\$16"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$31",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE1",
+        "g": "TRIM0B",
+        "d": "NODE2",
+        "b": "\\$16"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$32",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE1",
+        "g": "TRIM0B",
+        "d": "NODE2",
+        "b": "\\$16"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$33",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE2",
+        "g": "TRIM1B",
+        "d": "NODE3",
+        "b": "\\$17"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$34",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE2",
+        "g": "TRIM1B",
+        "d": "NODE3",
+        "b": "\\$17"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$35",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE2",
+        "g": "TRIM1B",
+        "d": "NODE3",
+        "b": "\\$17"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$36",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE2",
+        "g": "TRIM1B",
+        "d": "NODE3",
+        "b": "\\$17"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$37",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE2",
+        "g": "TRIM1B",
+        "d": "NODE3",
+        "b": "\\$17"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$38",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE2",
+        "g": "TRIM1B",
+        "d": "NODE3",
+        "b": "\\$17"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$39",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE2",
+        "g": "TRIM1B",
+        "d": "NODE3",
+        "b": "\\$17"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$4",
+      "class": "nfet",
+      "nets": {
+        "s": "\\$1",
+        "g": "TRIM2",
+        "d": "TRIM2B",
+        "b": "vsubs"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 1.0,
+        "as_um2": 0.5,
+        "ad_um2": 0.5,
+        "ps_um": 3.0,
+        "pd_um": 3.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_drv_t2__mn_drv_t2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_drv_t2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$40",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE2",
+        "g": "TRIM1B",
+        "d": "NODE3",
+        "b": "\\$17"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$41",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE2",
+        "g": "TRIM1B",
+        "d": "NODE3",
+        "b": "\\$17"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$42",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE2",
+        "g": "TRIM1B",
+        "d": "NODE3",
+        "b": "\\$17"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$43",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE3",
+        "g": "TRIM2B",
+        "d": "NODE4",
+        "b": "\\$18"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$44",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE3",
+        "g": "TRIM2B",
+        "d": "NODE4",
+        "b": "\\$18"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$45",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE3",
+        "g": "TRIM2B",
+        "d": "NODE4",
+        "b": "\\$18"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$46",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE3",
+        "g": "TRIM2B",
+        "d": "NODE4",
+        "b": "\\$18"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$47",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE3",
+        "g": "TRIM2B",
+        "d": "NODE4",
+        "b": "\\$18"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$48",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE3",
+        "g": "TRIM2B",
+        "d": "NODE4",
+        "b": "\\$18"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$49",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE3",
+        "g": "TRIM2B",
+        "d": "NODE4",
+        "b": "\\$18"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$5",
+      "class": "nfet",
+      "nets": {
+        "s": "\\$1",
+        "g": "TRIM3",
+        "d": "TRIM3B",
+        "b": "vsubs"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 1.0,
+        "as_um2": 0.5,
+        "ad_um2": 0.5,
+        "ps_um": 3.0,
+        "pd_um": 3.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_drv_t3__mn_drv_t3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_drv_t3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$50",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE3",
+        "g": "TRIM2B",
+        "d": "NODE4",
+        "b": "\\$18"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$51",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE3",
+        "g": "TRIM2B",
+        "d": "NODE4",
+        "b": "\\$18"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$52",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE3",
+        "g": "TRIM2B",
+        "d": "NODE4",
+        "b": "\\$18"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$53",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE4",
+        "g": "TRIM3B",
+        "d": "NODE5",
+        "b": "\\$19"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$54",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE4",
+        "g": "TRIM3B",
+        "d": "NODE5",
+        "b": "\\$19"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$55",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE4",
+        "g": "TRIM3B",
+        "d": "NODE5",
+        "b": "\\$19"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$56",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE4",
+        "g": "TRIM3B",
+        "d": "NODE5",
+        "b": "\\$19"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$57",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE4",
+        "g": "TRIM3B",
+        "d": "NODE5",
+        "b": "\\$19"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$58",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE4",
+        "g": "TRIM3B",
+        "d": "NODE5",
+        "b": "\\$19"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$59",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE4",
+        "g": "TRIM3B",
+        "d": "NODE5",
+        "b": "\\$19"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$6",
+      "class": "nfet",
+      "nets": {
+        "s": "\\$1",
+        "g": "TRIM4",
+        "d": "TRIM4B",
+        "b": "vsubs"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 1.0,
+        "as_um2": 0.5,
+        "ad_um2": 0.5,
+        "ps_um": 3.0,
+        "pd_um": 3.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_drv_t4__mn_drv_t4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_drv_t4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$60",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE4",
+        "g": "TRIM3B",
+        "d": "NODE5",
+        "b": "\\$19"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$61",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE4",
+        "g": "TRIM3B",
+        "d": "NODE5",
+        "b": "\\$19"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$62",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE4",
+        "g": "TRIM3B",
+        "d": "NODE5",
+        "b": "\\$19"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$63",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE5",
+        "g": "TRIM4B",
+        "d": "DP",
+        "b": "\\$21"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$64",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE5",
+        "g": "TRIM4B",
+        "d": "DP",
+        "b": "\\$21"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$65",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE5",
+        "g": "TRIM4B",
+        "d": "DP",
+        "b": "\\$21"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$66",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE5",
+        "g": "TRIM4B",
+        "d": "DP",
+        "b": "\\$21"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$67",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE5",
+        "g": "TRIM4B",
+        "d": "DP",
+        "b": "\\$21"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$68",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE5",
+        "g": "TRIM4B",
+        "d": "DP",
+        "b": "\\$21"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$69",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE5",
+        "g": "TRIM4B",
+        "d": "DP",
+        "b": "\\$21"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$7",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "PU_EN",
+        "d": "PU_ENB",
+        "b": "\\$6"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.0,
+        "as_um2": 1.0,
+        "ad_um2": 1.0,
+        "ps_um": 5.0,
+        "pd_um": 5.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_drv_en__mp_drv_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_drv_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$70",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE5",
+        "g": "TRIM4B",
+        "d": "DP",
+        "b": "\\$21"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$71",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE5",
+        "g": "TRIM4B",
+        "d": "DP",
+        "b": "\\$21"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$72",
+      "class": "pfet",
+      "nets": {
+        "s": "NODE5",
+        "g": "TRIM4B",
+        "d": "DP",
+        "b": "\\$21"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$73",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "NODE1",
+        "b": "NODE0",
+        "w": "vsubs"
+      },
+      "params": {
+        "r_ohm": 1000.125,
+        "l_um": 11.43,
+        "w_um": 4.0,
+        "area_um2": 45.72,
+        "perimeter_um": 30.86
+      },
+      "instance_path": [
+        {
+          "cell": "r_base__r_base_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_base_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$74",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "NODE2",
+        "b": "NODE1",
+        "w": "vsubs"
+      },
+      "params": {
+        "r_ohm": 36.75,
+        "l_um": 0.42,
+        "w_um": 4.0,
+        "area_um2": 1.68,
+        "perimeter_um": 8.84
+      },
+      "instance_path": [
+        {
+          "cell": "r_seg0__r_seg0_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_seg0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$75",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "NODE3",
+        "b": "NODE2",
+        "w": "vsubs"
+      },
+      "params": {
+        "r_ohm": 59.9375,
+        "l_um": 0.685,
+        "w_um": 4.0,
+        "area_um2": 2.74,
+        "perimeter_um": 9.37
+      },
+      "instance_path": [
+        {
+          "cell": "r_seg1__r_seg1_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_seg1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$76",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "NODE4",
+        "b": "NODE3",
+        "w": "vsubs"
+      },
+      "params": {
+        "r_ohm": 119.875,
+        "l_um": 1.37,
+        "w_um": 4.0,
+        "area_um2": 5.48,
+        "perimeter_um": 10.74
+      },
+      "instance_path": [
+        {
+          "cell": "r_seg2__r_seg2_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_seg2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$77",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "NODE5",
+        "b": "NODE4",
+        "w": "vsubs"
+      },
+      "params": {
+        "r_ohm": 240.1875,
+        "l_um": 2.745,
+        "w_um": 4.0,
+        "area_um2": 10.98,
+        "perimeter_um": 13.49
+      },
+      "instance_path": [
+        {
+          "cell": "r_seg3__r_seg3_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_seg3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$78",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "DP",
+        "b": "NODE5",
+        "w": "vsubs"
+      },
+      "params": {
+        "r_ohm": 479.9375,
+        "l_um": 5.485,
+        "w_um": 4.0,
+        "area_um2": 21.94,
+        "perimeter_um": 18.97
+      },
+      "instance_path": [
+        {
+          "cell": "r_seg4__r_seg4_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_seg4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$8",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "TRIM0",
+        "d": "TRIM0B",
+        "b": "\\$7"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.0,
+        "as_um2": 1.0,
+        "ad_um2": 1.0,
+        "ps_um": 5.0,
+        "pd_um": 5.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_drv_t0__mp_drv_t0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_drv_t0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$9",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$2",
+        "g": "TRIM1",
+        "d": "TRIM1B",
+        "b": "\\$8"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.0,
+        "as_um2": 1.0,
+        "ad_um2": 1.0,
+        "ps_um": 5.0,
+        "pd_um": 5.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_drv_t1__mp_drv_t1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_drv_t1_0__core",
+          "array_index": null
+        }
+      ]
+    }
+  ],
+  "nets": [
+    {
+      "name": "DP",
+      "pin": true,
+      "device_count": 11,
+      "net_id": 20,
+      "pin_index": 0,
+      "label_positions_um": [
+        {
+          "text": "DP",
+          "x_um": 241.075,
+          "y_um": 51.23
+        }
+      ]
+    },
+    {
+      "name": "NODE0",
+      "pin": true,
+      "device_count": 11,
+      "net_id": 13,
+      "pin_index": 1,
+      "label_positions_um": [
+        {
+          "text": "NODE0",
+          "x_um": 87.08,
+          "y_um": 51.23
+        }
+      ]
+    },
+    {
+      "name": "NODE1",
+      "pin": true,
+      "device_count": 12,
+      "net_id": 14,
+      "pin_index": 2,
+      "label_positions_um": [
+        {
+          "text": "NODE1",
+          "x_um": 133.05,
+          "y_um": 51.23
+        }
+      ]
+    },
+    {
+      "name": "NODE2",
+      "pin": true,
+      "device_count": 22,
+      "net_id": 15,
+      "pin_index": 3,
+      "label_positions_um": [
+        {
+          "text": "NODE2",
+          "x_um": 156.275,
+          "y_um": 51.23
+        }
+      ]
+    },
+    {
+      "name": "NODE3",
+      "pin": true,
+      "device_count": 22,
+      "net_id": 4,
+      "pin_index": 4,
+      "label_positions_um": [
+        {
+          "text": "NODE3",
+          "x_um": 183.545,
+          "y_um": 51.23
+        }
+      ]
+    },
+    {
+      "name": "NODE4",
+      "pin": true,
+      "device_count": 22,
+      "net_id": 5,
+      "pin_index": 5,
+      "label_positions_um": [
+        {
+          "text": "NODE4",
+          "x_um": 212.19,
+          "y_um": 51.23
+        }
+      ]
+    },
+    {
+      "name": "NODE5",
+      "pin": true,
+      "device_count": 22,
+      "net_id": 3,
+      "pin_index": 6,
+      "label_positions_um": [
+        {
+          "text": "NODE5",
+          "x_um": 226.6325,
+          "y_um": 51.23
+        }
+      ]
+    },
+    {
+      "name": "PU_EN",
+      "pin": true,
+      "device_count": 2,
+      "net_id": 23,
+      "pin_index": 7,
+      "label_positions_um": [
+        {
+          "text": "PU_EN",
+          "x_um": 3.4,
+          "y_um": 6.16
+        }
+      ]
+    },
+    {
+      "name": "PU_ENB",
+      "pin": true,
+      "device_count": 12,
+      "net_id": 29,
+      "pin_index": 8,
+      "label_positions_um": [
+        {
+          "text": "PU_ENB",
+          "x_um": 84.97,
+          "y_um": 102.47
+        }
+      ]
+    },
+    {
+      "name": "TRIM0",
+      "pin": true,
+      "device_count": 2,
+      "net_id": 24,
+      "pin_index": 9,
+      "label_positions_um": [
+        {
+          "text": "TRIM0",
+          "x_um": 16.44,
+          "y_um": 6.16
+        }
+      ]
+    },
+    {
+      "name": "TRIM0B",
+      "pin": true,
+      "device_count": 12,
+      "net_id": 30,
+      "pin_index": 10,
+      "label_positions_um": [
+        {
+          "text": "TRIM0B",
+          "x_um": 131.8,
+          "y_um": 102.47
+        }
+      ]
+    },
+    {
+      "name": "TRIM1",
+      "pin": true,
+      "device_count": 2,
+      "net_id": 25,
+      "pin_index": 11,
+      "label_positions_um": [
+        {
+          "text": "TRIM1",
+          "x_um": 29.48,
+          "y_um": 6.16
+        }
+      ]
+    },
+    {
+      "name": "TRIM1B",
+      "pin": true,
+      "device_count": 12,
+      "net_id": 31,
+      "pin_index": 12,
+      "label_positions_um": [
+        {
+          "text": "TRIM1B",
+          "x_um": 155.025,
+          "y_um": 102.47
+        }
+      ]
+    },
+    {
+      "name": "TRIM2",
+      "pin": true,
+      "device_count": 2,
+      "net_id": 26,
+      "pin_index": 13,
+      "label_positions_um": [
+        {
+          "text": "TRIM2",
+          "x_um": 42.52,
+          "y_um": 6.16
+        }
+      ]
+    },
+    {
+      "name": "TRIM2B",
+      "pin": true,
+      "device_count": 12,
+      "net_id": 32,
+      "pin_index": 14,
+      "label_positions_um": [
+        {
+          "text": "TRIM2B",
+          "x_um": 182.295,
+          "y_um": 102.47
+        }
+      ]
+    },
+    {
+      "name": "TRIM3",
+      "pin": true,
+      "device_count": 2,
+      "net_id": 27,
+      "pin_index": 15,
+      "label_positions_um": [
+        {
+          "text": "TRIM3",
+          "x_um": 55.56,
+          "y_um": 6.16
+        }
+      ]
+    },
+    {
+      "name": "TRIM3B",
+      "pin": true,
+      "device_count": 12,
+      "net_id": 33,
+      "pin_index": 16,
+      "label_positions_um": [
+        {
+          "text": "TRIM3B",
+          "x_um": 210.94,
+          "y_um": 102.47
+        }
+      ]
+    },
+    {
+      "name": "TRIM4",
+      "pin": true,
+      "device_count": 2,
+      "net_id": 28,
+      "pin_index": 17,
+      "label_positions_um": [
+        {
+          "text": "TRIM4",
+          "x_um": 68.6,
+          "y_um": 6.16
+        }
+      ]
+    },
+    {
+      "name": "TRIM4B",
+      "pin": true,
+      "device_count": 12,
+      "net_id": 34,
+      "pin_index": 18,
+      "label_positions_um": [
+        {
+          "text": "TRIM4B",
+          "x_um": 242.325,
+          "y_um": 102.47
+        }
+      ]
+    },
+    {
+      "name": "\\$1",
+      "pin": false,
+      "device_count": 6,
+      "net_id": 1,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$10",
+      "pin": false,
+      "device_count": 1,
+      "net_id": 10,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$11",
+      "pin": false,
+      "device_count": 1,
+      "net_id": 11,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$12",
+      "pin": false,
+      "device_count": 10,
+      "net_id": 12,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$16",
+      "pin": false,
+      "device_count": 10,
+      "net_id": 16,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$17",
+      "pin": false,
+      "device_count": 10,
+      "net_id": 17,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$18",
+      "pin": false,
+      "device_count": 10,
+      "net_id": 18,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$19",
+      "pin": false,
+      "device_count": 10,
+      "net_id": 19,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$2",
+      "pin": false,
+      "device_count": 16,
+      "net_id": 2,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$21",
+      "pin": false,
+      "device_count": 10,
+      "net_id": 21,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$6",
+      "pin": false,
+      "device_count": 1,
+      "net_id": 6,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$7",
+      "pin": false,
+      "device_count": 1,
+      "net_id": 7,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$8",
+      "pin": false,
+      "device_count": 1,
+      "net_id": 8,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$9",
+      "pin": false,
+      "device_count": 1,
+      "net_id": 9,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "vsubs",
+      "pin": true,
+      "device_count": 12,
+      "net_id": 35,
+      "pin_index": 19,
+      "label_positions_um": []
+    }
+  ],
+  "warnings": [
+    "66 PMOS devices tie their body to an anonymous net with no DC bias path -- no drawn (or derivable) well tie connects this PMOS body to a real supply rail on this layout, so it is left floating rather than tied to a real supply rail; resimulating this netlist directly will not reproduce the schematic-level PMOS body bias -- see unbiased_pmos_body_nets[] for the full list. See docs/cli/extract.md's 'Parasitic (RC) extraction' section.",
+    "6 nets connect to exactly one device terminal -- source/drain/body/resistor-equivalent, not a gate -- and are not a declared pin; this can be a legitimate single-terminal tie (e.g. an intentionally unterminated dummy's diffusion tie), but confirm these nets have no other intended connectivity -- see single_terminal_nets[] for the full list."
+  ],
+  "black_box_regions": [],
+  "abstracted_cells": [],
+  "unmodelled_poly": [],
+  "merged_net_labels": [],
+  "split_net_labels": [],
+  "voltage_domain_warnings": [],
+  "missing_flavour_markers": [],
+  "unsupported_devices": [],
+  "unbiased_pmos_body_nets": [
+    {
+      "device": "$10",
+      "net": "\\$9"
+    },
+    {
+      "device": "$11",
+      "net": "\\$10"
+    },
+    {
+      "device": "$12",
+      "net": "\\$11"
+    },
+    {
+      "device": "$13",
+      "net": "\\$12"
+    },
+    {
+      "device": "$14",
+      "net": "\\$12"
+    },
+    {
+      "device": "$15",
+      "net": "\\$12"
+    },
+    {
+      "device": "$16",
+      "net": "\\$12"
+    },
+    {
+      "device": "$17",
+      "net": "\\$12"
+    },
+    {
+      "device": "$18",
+      "net": "\\$12"
+    },
+    {
+      "device": "$19",
+      "net": "\\$12"
+    },
+    {
+      "device": "$20",
+      "net": "\\$12"
+    },
+    {
+      "device": "$21",
+      "net": "\\$12"
+    },
+    {
+      "device": "$22",
+      "net": "\\$12"
+    },
+    {
+      "device": "$23",
+      "net": "\\$16"
+    },
+    {
+      "device": "$24",
+      "net": "\\$16"
+    },
+    {
+      "device": "$25",
+      "net": "\\$16"
+    },
+    {
+      "device": "$26",
+      "net": "\\$16"
+    },
+    {
+      "device": "$27",
+      "net": "\\$16"
+    },
+    {
+      "device": "$28",
+      "net": "\\$16"
+    },
+    {
+      "device": "$29",
+      "net": "\\$16"
+    },
+    {
+      "device": "$30",
+      "net": "\\$16"
+    },
+    {
+      "device": "$31",
+      "net": "\\$16"
+    },
+    {
+      "device": "$32",
+      "net": "\\$16"
+    },
+    {
+      "device": "$33",
+      "net": "\\$17"
+    },
+    {
+      "device": "$34",
+      "net": "\\$17"
+    },
+    {
+      "device": "$35",
+      "net": "\\$17"
+    },
+    {
+      "device": "$36",
+      "net": "\\$17"
+    },
+    {
+      "device": "$37",
+      "net": "\\$17"
+    },
+    {
+      "device": "$38",
+      "net": "\\$17"
+    },
+    {
+      "device": "$39",
+      "net": "\\$17"
+    },
+    {
+      "device": "$40",
+      "net": "\\$17"
+    },
+    {
+      "device": "$41",
+      "net": "\\$17"
+    },
+    {
+      "device": "$42",
+      "net": "\\$17"
+    },
+    {
+      "device": "$43",
+      "net": "\\$18"
+    },
+    {
+      "device": "$44",
+      "net": "\\$18"
+    },
+    {
+      "device": "$45",
+      "net": "\\$18"
+    },
+    {
+      "device": "$46",
+      "net": "\\$18"
+    },
+    {
+      "device": "$47",
+      "net": "\\$18"
+    },
+    {
+      "device": "$48",
+      "net": "\\$18"
+    },
+    {
+      "device": "$49",
+      "net": "\\$18"
+    },
+    {
+      "device": "$50",
+      "net": "\\$18"
+    },
+    {
+      "device": "$51",
+      "net": "\\$18"
+    },
+    {
+      "device": "$52",
+      "net": "\\$18"
+    },
+    {
+      "device": "$53",
+      "net": "\\$19"
+    },
+    {
+      "device": "$54",
+      "net": "\\$19"
+    },
+    {
+      "device": "$55",
+      "net": "\\$19"
+    },
+    {
+      "device": "$56",
+      "net": "\\$19"
+    },
+    {
+      "device": "$57",
+      "net": "\\$19"
+    },
+    {
+      "device": "$58",
+      "net": "\\$19"
+    },
+    {
+      "device": "$59",
+      "net": "\\$19"
+    },
+    {
+      "device": "$60",
+      "net": "\\$19"
+    },
+    {
+      "device": "$61",
+      "net": "\\$19"
+    },
+    {
+      "device": "$62",
+      "net": "\\$19"
+    },
+    {
+      "device": "$63",
+      "net": "\\$21"
+    },
+    {
+      "device": "$64",
+      "net": "\\$21"
+    },
+    {
+      "device": "$65",
+      "net": "\\$21"
+    },
+    {
+      "device": "$66",
+      "net": "\\$21"
+    },
+    {
+      "device": "$67",
+      "net": "\\$21"
+    },
+    {
+      "device": "$68",
+      "net": "\\$21"
+    },
+    {
+      "device": "$69",
+      "net": "\\$21"
+    },
+    {
+      "device": "$7",
+      "net": "\\$6"
+    },
+    {
+      "device": "$70",
+      "net": "\\$21"
+    },
+    {
+      "device": "$71",
+      "net": "\\$21"
+    },
+    {
+      "device": "$72",
+      "net": "\\$21"
+    },
+    {
+      "device": "$8",
+      "net": "\\$7"
+    },
+    {
+      "device": "$9",
+      "net": "\\$8"
+    }
+  ],
+  "single_terminal_nets": [
+    {
+      "net": "\\$10",
+      "device": "$11",
+      "terminal": "b",
+      "terminal_kind": "body"
+    },
+    {
+      "net": "\\$11",
+      "device": "$12",
+      "terminal": "b",
+      "terminal_kind": "body"
+    },
+    {
+      "net": "\\$6",
+      "device": "$7",
+      "terminal": "b",
+      "terminal_kind": "body"
+    },
+    {
+      "net": "\\$7",
+      "device": "$8",
+      "terminal": "b",
+      "terminal_kind": "body"
+    },
+    {
+      "net": "\\$8",
+      "device": "$9",
+      "terminal": "b",
+      "terminal_kind": "body"
+    },
+    {
+      "net": "\\$9",
+      "device": "$10",
+      "terminal": "b",
+      "terminal_kind": "body"
+    }
+  ],
+  "dead_metal": [],
+  "matched_device_groups": [],
+  "def_pin_promotion": null,
+  "pin_renames": null,
+  "rename_declared_pins": false,
+  "declared_pins": null,
+  "def_pins": null,
+  "label_layers": null,
+  "device_models": null,
+  "probes": [],
+  "pdk": null,
+  "provenance": {
+    "klt_version": "0.9.0",
+    "klt_git_commit": "5dbbad05ff42265c92a6f3d2f20d1bbcd2957d49",
+    "klt_reinstall_spec": "klayout-tools==0.9.0",
+    "klayout_version": "0.30.13",
+    "pdk": null,
+    "deck": {
+      "name": "gf180mcu",
+      "content_hash": "sha256:cf44de63f0a5b01c1d09c4d58e0535e990aa4b070bcaae17fd3a94a67a1d97e1",
+      "released": true,
+      "options": {
+        "metal_top": "9K",
+        "mim_cap": "cap_mim_2f0_m4m5_noshield",
+        "poly_res": "1k"
+      },
+      "options_explicit": {
+        "metal_top": false,
+        "mim_cap": false,
+        "poly_res": false
+      },
+      "options_hash": "sha256:6a7dc7660a470994263c5ca8ace6d8ac8c605d77e6876a9c5490949de6e7cb05"
+    },
+    "input": {
+      "content_hash": "sha256:3729bd19545640ac1361174b05fcbbbdfdd9b496aa01118cc70ad876e756245c",
+      "role": "layout"
+    }
+  },
+  "parasitics": null,
+  "spef_path": null,
+  "subcircuit": null,
+  "metrics": {
+    "extract__device__count": 78,
+    "extract__net__count": 34,
+    "extract__pin__count": 20
+  },
+  "timing": {
+    "stages": {
+      "read_layout": 0.001,
+      "device_extraction": 0.063,
+      "diagnostics": 0.0,
+      "netlist_write": 0.001,
+      "netlist_hash": 0.0,
+      "netlist_normalized_hash": 0.001
+    },
+    "total_seconds": 0.23,
+    "unattributed_seconds": 0.164
+  }
+}

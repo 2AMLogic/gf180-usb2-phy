@@ -1,0 +1,131 @@
+{
+  "block": "differential_driver",
+  "ports": {
+    "layout": [
+      "DM_GATEN",
+      "DM_GATEP",
+      "DM_PX",
+      "DP_GATEN",
+      "DP_GATEP",
+      "DP_PX",
+      "TXDM",
+      "TXDP",
+      "vsubs"
+    ],
+    "reference": [
+      "VDD",
+      "VSS",
+      "TXDP",
+      "TXDM",
+      "TXOE",
+      "DP",
+      "DM"
+    ],
+    "only_in_layout": [
+      "DM_GATEN",
+      "DM_GATEP",
+      "DM_PX",
+      "DP_GATEN",
+      "DP_GATEP",
+      "DP_PX",
+      "vsubs"
+    ],
+    "only_in_reference": [
+      "DM",
+      "DP",
+      "TXOE",
+      "VDD",
+      "VSS"
+    ],
+    "common": [
+      "TXDM",
+      "TXDP"
+    ]
+  },
+  "layout_nets": {
+    "total": 40,
+    "unnamed_count": 31,
+    "unnamed": [
+      "\\$1",
+      "\\$10",
+      "\\$11",
+      "\\$12",
+      "\\$13",
+      "\\$14",
+      "\\$15",
+      "\\$16",
+      "\\$17",
+      "\\$18",
+      "\\$19",
+      "\\$2",
+      "\\$20",
+      "\\$21",
+      "\\$22",
+      "\\$23",
+      "\\$24",
+      "\\$25",
+      "\\$26",
+      "\\$27",
+      "\\$28",
+      "\\$3",
+      "\\$31",
+      "\\$36",
+      "\\$37",
+      "\\$4",
+      "\\$5",
+      "\\$6",
+      "\\$7",
+      "\\$8",
+      "\\$9"
+    ],
+    "named": [
+      "DM_GATEN",
+      "DM_GATEP",
+      "DM_PX",
+      "DP_GATEN",
+      "DP_GATEP",
+      "DP_PX",
+      "TXDM",
+      "TXDP",
+      "vsubs"
+    ]
+  },
+  "bulk_nets": {
+    "layout": {
+      "nfet": [
+        "vsubs"
+      ],
+      "pfet": [
+        "\\$11",
+        "\\$12",
+        "\\$13",
+        "\\$14",
+        "\\$15",
+        "\\$16",
+        "\\$17",
+        "\\$18",
+        "\\$19",
+        "\\$20",
+        "\\$21",
+        "\\$22",
+        "\\$23",
+        "\\$24",
+        "\\$25",
+        "\\$26",
+        "\\$27"
+      ]
+    },
+    "reference": {
+      "nfet": [
+        "VSS"
+      ],
+      "pfet": [
+        "VDD"
+      ]
+    }
+  },
+  "device_counts": {
+    "layout": 40,
+    "reference": 40
+  }
+}

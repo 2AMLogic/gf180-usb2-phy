@@ -1,0 +1,141 @@
+{
+  "block": "dplus_pullup",
+  "ports": {
+    "layout": [
+      "DP",
+      "NODE0",
+      "NODE1",
+      "NODE2",
+      "NODE3",
+      "NODE4",
+      "NODE5",
+      "PU_EN",
+      "PU_ENB",
+      "TRIM0",
+      "TRIM0B",
+      "TRIM1",
+      "TRIM1B",
+      "TRIM2",
+      "TRIM2B",
+      "TRIM3",
+      "TRIM3B",
+      "TRIM4",
+      "TRIM4B",
+      "vsubs"
+    ],
+    "reference": [
+      "DP",
+      "VPU_REG",
+      "VSS",
+      "PU_EN",
+      "TRIM0",
+      "TRIM1",
+      "TRIM2",
+      "TRIM3",
+      "TRIM4"
+    ],
+    "only_in_layout": [
+      "NODE0",
+      "NODE1",
+      "NODE2",
+      "NODE3",
+      "NODE4",
+      "NODE5",
+      "PU_ENB",
+      "TRIM0B",
+      "TRIM1B",
+      "TRIM2B",
+      "TRIM3B",
+      "TRIM4B",
+      "vsubs"
+    ],
+    "only_in_reference": [
+      "VPU_REG",
+      "VSS"
+    ],
+    "common": [
+      "DP",
+      "PU_EN",
+      "TRIM0",
+      "TRIM1",
+      "TRIM2",
+      "TRIM3",
+      "TRIM4"
+    ]
+  },
+  "layout_nets": {
+    "total": 34,
+    "unnamed_count": 14,
+    "unnamed": [
+      "\\$1",
+      "\\$10",
+      "\\$11",
+      "\\$12",
+      "\\$16",
+      "\\$17",
+      "\\$18",
+      "\\$19",
+      "\\$2",
+      "\\$21",
+      "\\$6",
+      "\\$7",
+      "\\$8",
+      "\\$9"
+    ],
+    "named": [
+      "DP",
+      "NODE0",
+      "NODE1",
+      "NODE2",
+      "NODE3",
+      "NODE4",
+      "NODE5",
+      "PU_EN",
+      "PU_ENB",
+      "TRIM0",
+      "TRIM0B",
+      "TRIM1",
+      "TRIM1B",
+      "TRIM2",
+      "TRIM2B",
+      "TRIM3",
+      "TRIM3B",
+      "TRIM4",
+      "TRIM4B",
+      "vsubs"
+    ]
+  },
+  "bulk_nets": {
+    "layout": {
+      "nfet": [
+        "vsubs"
+      ],
+      "pfet": [
+        "\\$10",
+        "\\$11",
+        "\\$12",
+        "\\$16",
+        "\\$17",
+        "\\$18",
+        "\\$19",
+        "\\$21",
+        "\\$6",
+        "\\$7",
+        "\\$8",
+        "\\$9"
+      ]
+    },
+    "reference": {
+      "nfet": [
+        "VSS"
+      ],
+      "pfet": [
+        "VPU_REG"
+      ]
+    }
+  },
+  "device_counts": {
+    "layout": 78,
+    "reference": 78
+  }
+}

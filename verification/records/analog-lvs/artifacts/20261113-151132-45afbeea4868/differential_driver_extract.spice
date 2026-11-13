@@ -1,0 +1,95 @@
+* extracted by klt extract --deck gf180mcu
+
+* cell differential_driver
+* pin DM_GATEN
+* pin DM_GATEP
+* pin DM_PX
+* pin DP_GATEN
+* pin DP_GATEP
+* pin DP_PX
+* pin TXDM
+* pin TXDP
+* pin vsubs
+.SUBCKT differential_driver DM_GATEN DM_GATEP DM_PX DP_GATEN DP_GATEP DP_PX
++ TXDM TXDP vsubs
+* device instance $1 r0 *1 0.64,2.23 nfet
+M$1 \$31 \$28 \$1 vsubs nfet L=0.28U W=2U AS=1P AD=1P PS=5U PD=5U
+* device instance $2 r0 *1 16.6,2.48 nfet
+M$2 \$5 TXDP \$1 vsubs nfet L=0.28U W=2.5U AS=1.25P AD=1.25P PS=6U PD=6U
+* device instance $3 r0 *1 21.92,2.48 nfet
+M$3 \$5 \$31 \$1 vsubs nfet L=0.28U W=2.5U AS=1.25P AD=1.25P PS=6U PD=6U
+* device instance $4 r0 *1 60.84,2.48 nfet
+M$4 \$9 TXDM \$1 vsubs nfet L=0.28U W=2.5U AS=1.25P AD=1.25P PS=6U PD=6U
+* device instance $5 r0 *1 66.16,2.48 nfet
+M$5 \$9 \$31 \$1 vsubs nfet L=0.28U W=2.5U AS=1.25P AD=1.25P PS=6U PD=6U
+* device instance $6 r0 *1 5.96,3.73 nfet
+M$6 \$2 TXDP \$4 vsubs nfet L=0.28U W=5U AS=2.5P AD=2.5P PS=11U PD=11U
+* device instance $7 r0 *1 11.28,3.73 nfet
+M$7 \$4 \$28 \$1 vsubs nfet L=0.28U W=5U AS=2.5P AD=2.5P PS=11U PD=11U
+* device instance $8 r0 *1 50.2,3.73 nfet
+M$8 \$8 TXDM \$7 vsubs nfet L=0.28U W=5U AS=2.5P AD=2.5P PS=11U PD=11U
+* device instance $9 r0 *1 55.52,3.73 nfet
+M$9 \$7 \$28 \$1 vsubs nfet L=0.28U W=5U AS=2.5P AD=2.5P PS=11U PD=11U
+* device instance $10 r0 *1 27.45,16.23 nfet
+M$10 \$6 DP_GATEN \$1 vsubs nfet L=0.28U W=30U AS=15P AD=15P PS=61U PD=61U
+* device instance $11 r0 *1 33.19,16.23 nfet
+M$11 \$6 DP_GATEN \$1 vsubs nfet L=0.28U W=30U AS=15P AD=15P PS=61U PD=61U
+* device instance $12 r0 *1 38.93,16.23 nfet
+M$12 \$6 DP_GATEN \$1 vsubs nfet L=0.28U W=30U AS=15P AD=15P PS=61U PD=61U
+* device instance $13 r0 *1 44.67,16.23 nfet
+M$13 \$6 DP_GATEN \$1 vsubs nfet L=0.28U W=30U AS=15P AD=15P PS=61U PD=61U
+* device instance $14 r0 *1 71.69,16.23 nfet
+M$14 \$10 DM_GATEN \$1 vsubs nfet L=0.28U W=30U AS=15P AD=15P PS=61U PD=61U
+* device instance $15 r0 *1 77.43,16.23 nfet
+M$15 \$10 DM_GATEN \$1 vsubs nfet L=0.28U W=30U AS=15P AD=15P PS=61U PD=61U
+* device instance $16 r0 *1 83.17,16.23 nfet
+M$16 \$10 DM_GATEN \$1 vsubs nfet L=0.28U W=30U AS=15P AD=15P PS=61U PD=61U
+* device instance $17 r0 *1 88.91,16.23 nfet
+M$17 \$10 DM_GATEN \$1 vsubs nfet L=0.28U W=30U AS=15P AD=15P PS=61U PD=61U
+* device instance $18 r0 *1 94.64,3.23 pfet
+M$18 \$31 \$28 \$3 \$11 pfet L=0.28U W=4U AS=2P AD=2P PS=9U PD=9U
+* device instance $19 r0 *1 100.36,5.23 pfet
+M$19 \$2 TXDP \$3 \$12 pfet L=0.28U W=8U AS=4P AD=4P PS=17U PD=17U
+* device instance $20 r0 *1 106.08,5.23 pfet
+M$20 \$2 \$28 \$3 \$13 pfet L=0.28U W=8U AS=4P AD=4P PS=17U PD=17U
+* device instance $21 r0 *1 146.2,5.23 pfet
+M$21 \$8 TXDM \$3 \$20 pfet L=0.28U W=8U AS=4P AD=4P PS=17U PD=17U
+* device instance $22 r0 *1 151.92,5.23 pfet
+M$22 \$8 \$28 \$3 \$21 pfet L=0.28U W=8U AS=4P AD=4P PS=17U PD=17U
+* device instance $23 r0 *1 111.8,9.23 pfet
+M$23 DP_PX TXDP \$3 \$14 pfet L=0.28U W=16U AS=8P AD=8P PS=33U PD=33U
+* device instance $24 r0 *1 117.52,9.23 pfet
+M$24 \$5 \$31 DP_PX \$15 pfet L=0.28U W=16U AS=8P AD=8P PS=33U PD=33U
+* device instance $25 r0 *1 157.64,9.23 pfet
+M$25 DM_PX TXDM \$3 \$22 pfet L=0.28U W=16U AS=8P AD=8P PS=33U PD=33U
+* device instance $26 r0 *1 163.36,9.23 pfet
+M$26 \$9 \$31 DM_PX \$23 pfet L=0.28U W=16U AS=8P AD=8P PS=33U PD=33U
+* device instance $27 r0 *1 123.25,41.23 pfet
+M$27 \$6 DP_GATEP \$3 \$16 pfet L=0.28U W=80U AS=40P AD=40P PS=161U PD=161U
+* device instance $28 r0 *1 128.99,41.23 pfet
+M$28 \$6 DP_GATEP \$3 \$17 pfet L=0.28U W=80U AS=40P AD=40P PS=161U PD=161U
+* device instance $29 r0 *1 134.73,41.23 pfet
+M$29 \$6 DP_GATEP \$3 \$18 pfet L=0.28U W=80U AS=40P AD=40P PS=161U PD=161U
+* device instance $30 r0 *1 140.47,41.23 pfet
+M$30 \$6 DP_GATEP \$3 \$19 pfet L=0.28U W=80U AS=40P AD=40P PS=161U PD=161U
+* device instance $31 r0 *1 169.09,41.23 pfet
+M$31 \$10 DM_GATEP \$3 \$24 pfet L=0.28U W=80U AS=40P AD=40P PS=161U PD=161U
+* device instance $32 r0 *1 174.83,41.23 pfet
+M$32 \$10 DM_GATEP \$3 \$25 pfet L=0.28U W=80U AS=40P AD=40P PS=161U PD=161U
+* device instance $33 r0 *1 180.57,41.23 pfet
+M$33 \$10 DM_GATEP \$3 \$26 pfet L=0.28U W=80U AS=40P AD=40P PS=161U PD=161U
+* device instance $34 r0 *1 186.31,41.23 pfet
+M$34 \$10 DM_GATEP \$3 \$27 pfet L=0.28U W=80U AS=40P AD=40P PS=161U PD=161U
+* device instance $35 r0 *1 191.7,0.72 ppolyf_u
+X$35 DP_GATEP \$2 vsubs ppolyf_u r=700 L=2U W=1U
+* device instance $36 r0 *1 200.74,0.72 ppolyf_u
+X$36 DP_GATEN \$5 vsubs ppolyf_u r=3500 L=10U W=1U
+* device instance $37 r0 *1 1012.7,0.72 ppolyf_u
+X$37 DM_GATEP \$8 vsubs ppolyf_u r=700 L=2U W=1U
+* device instance $38 r0 *1 1021.74,0.72 ppolyf_u
+X$38 DM_GATEN \$9 vsubs ppolyf_u r=3500 L=10U W=1U
+* device instance $39 r0 *1 608.72,1 rm1
+R$39 \$36 \$6 36 rm1 L=800U W=2U
+* device instance $40 r0 *1 1429.72,1 rm1
+R$40 \$37 \$10 36 rm1 L=800U W=2U
+.ENDS differential_driver

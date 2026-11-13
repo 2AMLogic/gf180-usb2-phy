@@ -1,0 +1,12 @@
+{
+  "schema": "klt.lvs.request/1",
+  "layout": {
+    "netlist": "dplus_pullup_extract.spice",
+    "top": "dplus_pullup"
+  },
+  "reference": {
+    "netlist": "dplus_pullup_reference.spice",
+    "top": "dplus_pullup",
+    "form": "subckt-call"
+  }
+}
