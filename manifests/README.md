@@ -216,7 +216,7 @@ been "borrowing a pass" and they were left uncited. klayout-tools#2843
 and bind the audited artifact by path and content hash, and the row is
 `met` only while the artifact still re-hashes to the pinned value
 (`input_verified: true`). The repo pin (a git revision descending from 0.7.0, so it carries that
-grader; `docs/environment-setup.md`, moves 7 and 8) serves this. The unreleased
+grader; `docs/klt-pin-history.md`, moves 7 and 8) serves this. The unreleased
 `klt signoff --attest` (klayout-tools#2844) is **not** used: the envelopes
 are written by `signoff/inventories.py`.
 
