@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audited inventories behind T1 items 1, 2.digital, 9 and 10.
+"""Audited inventories behind T1 items 1, 2.analog, 2.digital, 9 and 10.
 
 `klt signoff` (>= 0.7.0) accepts a `kind: generic` envelope for these items
 when it is bound to an audited artifact: the envelope declares
@@ -49,12 +49,15 @@ GDS_TOP = "layout/digital/usb_utmi_phy.gds"
 ROUTED_NETLIST = "layout/digital/usb_utmi_phy_routed.v"
 SYNTH_REQUEST = "flow/request-usb-utmi-phy-synth.json"
 PAR_REQUEST = "flow/request-usb-utmi-phy-par.json"
+ANALOG_PROVENANCE = "layout/analog/provenance.json"
+ANALOG_PLAN_GLOB = "layout/analog/plans/*.json"
 
 # manifest key -> T1 item number
-ITEM_NUMBER = {"1.analog": 1, "1.digital": 1, "2.digital": 2, "9": 9, "10": 10}
+ITEM_NUMBER = {"1.analog": 1, "1.digital": 1, "2.analog": 2, "2.digital": 2, "9": 9, "10": 10}
 ITEM_ARTIFACTS = {
     "1.analog": "signoff/evidence/inventory-design-sources-analog.json",
     "1.digital": "signoff/evidence/inventory-design-sources-digital.json",
+    "2.analog": "signoff/evidence/inventory-analog-layout.json",
     "2.digital": GDS_TOP,
     "9": "signoff/evidence/inventory-testbenches.json",
     "10": "signoff/evidence/inventory-repo-hygiene.json",
@@ -62,6 +65,7 @@ ITEM_ARTIFACTS = {
 ITEM_ENVELOPES = {
     "1.analog": "signoff/evidence/t1-item-1-analog-design-sources.json",
     "1.digital": "signoff/evidence/t1-item-1-digital-design-sources.json",
+    "2.analog": "signoff/evidence/t1-item-2-analog-layout.json",
     "2.digital": "signoff/evidence/t1-item-2-digital-layout.json",
     "9": "signoff/evidence/t1-item-9-testbenches.json",
     "10": "signoff/evidence/t1-item-10-repo-hygiene.json",
@@ -69,6 +73,7 @@ ITEM_ENVELOPES = {
 ITEM_TITLES = {
     "1.analog": "Design sources (analog partition)",
     "1.digital": "Design sources (digital partition)",
+    "2.analog": "Layout (analog partition)",
     "2.digital": "Layout (digital partition)",
     "9": "Testbenches shipped",
     "10": "Repo hygiene",
@@ -441,9 +446,94 @@ def build_hygiene_inventory(root: Path = REPO_ROOT) -> dict:
     }
 
 
+def build_analog_layout_inventory(root: Path = REPO_ROOT) -> dict:
+    """The routed analog GDS set behind T1 item 2.analog, with every hash.
+
+    The audit refuses a **partial** set, so `--regen` can never attest one:
+    every plan under `layout/analog/plans/` must have a delivered GDS in
+    `layout/analog/provenance.json`, that GDS must exist and still hash to the
+    `gds_sha256` the sidecar recorded, its `routing_method` must account for
+    all of its nets, and its recorded DRC must be clean. Any of those failing
+    raises `AuditError` and nothing is written.
+
+    This re-hashes files only. It does not re-run the layout generator, klt
+    drc, LVS, ERC or any extracted simulation; the sidecar's `drc` block is
+    quoted as the delivery-time result, not re-measured here.
+    """
+    sidecar = _read_json(root, ANALOG_PROVENANCE)
+    entries = {e["block"]: e for e in sidecar.get("blocks", [])}
+    planned = sorted(Path(rel).stem for rel in _glob(root, ANALOG_PLAN_GLOB))
+    if not planned:
+        raise AuditError(f"{ANALOG_PLAN_GLOB}: no analog layout plans found")
+    undelivered = [block for block in planned if block not in entries]
+    if undelivered:
+        raise AuditError(
+            f"{ANALOG_PROVENANCE}: no delivered GDS for {', '.join(undelivered)} -- "
+            f"{len(planned) - len(undelivered)} of {len(planned)} analog blocks is a "
+            "partial set and is not attested"
+        )
+    blocks = []
+    for block in planned:
+        entry = entries[block]
+        gds_rel = entry.get("gds") or f"layout/analog/{block}.gds"
+        gds = _member(root, gds_rel)
+        recorded = entry.get("gds_sha256")
+        if not recorded or gds["sha256"] != f"sha256:{recorded}":
+            raise AuditError(
+                f"{gds_rel}: does not hash to the gds_sha256 recorded in "
+                f"{ANALOG_PROVENANCE} (regenerate or re-deliver before attesting)"
+            )
+        drc = entry.get("drc") or {}
+        if drc.get("status") != "clean":
+            raise AuditError(
+                f"{block}: {ANALOG_PROVENANCE} records drc.status {drc.get('status')!r}, "
+                "not 'clean'"
+            )
+        routing = entry.get("routing_method") or {}
+        net_count = entry.get("net_count")
+        if not isinstance(net_count, int) or net_count <= 0:
+            raise AuditError(f"{block}: {ANALOG_PROVENANCE} records no net_count")
+        routed = sum(routing.values())
+        if routed != net_count:
+            raise AuditError(
+                f"{block}: routing_method accounts for {routed} of {net_count} nets; "
+                "a partially routed block is not attested"
+            )
+        blocks.append(
+            {
+                "block": block,
+                "gds": gds,
+                "plan": _member(root, f"layout/analog/plans/{block}.json"),
+                "netlist": _member(root, f"design/netlist/{block}.spice"),
+                "net_count": net_count,
+                "routing_method": dict(sorted(routing.items())),
+                "drc": {"status": "clean", "violation_count": drc.get("violation_count", 0)},
+                "klt_version": entry.get("klt_version"),
+                "regeneration_command": entry.get("regeneration_command"),
+            }
+        )
+    return {
+        "schema_version": 1,
+        "about": (
+            "The routed analog GDS set cited by T1 item 2.analog. Every block's stream, "
+            "layout plan and SPICE netlist is listed with its sha256, alongside the "
+            "generator sidecar that records how each was produced."
+        ),
+        "sidecar": _member(root, ANALOG_PROVENANCE),
+        "blocks": blocks,
+        "not_claimed": [
+            "no LVS: the streams are not compared against design/netlist/*.spice",
+            "no ERC: no supply or connectivity ERC was run on them",
+            "no extracted re-simulation: no post-layout parasitic extraction or re-sim",
+            "no area, matching or timing claim",
+        ],
+    }
+
+
 INVENTORY_BUILDERS = {
     "1.analog": build_analog_design_inventory,
     "1.digital": build_digital_design_inventory,
+    "2.analog": build_analog_layout_inventory,
     "9": build_testbench_inventory,
     "10": build_hygiene_inventory,
 }
@@ -462,9 +552,26 @@ def _layout_summary(root: Path) -> str:
         "binds a single input path, so the flow request is named here and is not itself "
         "hash-bound; the item 11.digital place-and-route citation records the run). "
         "This asserts the routed layout artifact exists and is the one the committed DRC "
-        "and ERC reports describe. " + _NOT_RERUN + " It does not assert area, timing or "
-        "any analog layout (item 2.analog stays unmet: no analog GDS exists)."
+        "and ERC reports describe. " + _NOT_RERUN + " It does not assert area or timing, "
+        "and says nothing about the analog partition: the routed analog streams are cited "
+        "separately by item 2.analog."
     )
+
+
+# Claims an envelope must explicitly disclaim, beyond the generic tail.
+_EXTRA_SUMMARY = {
+    "2.analog": (
+        "It asserts only that the routed analog streams exist, still hash to the values "
+        "layout/analog/provenance.json recorded for them, and were DRC-clean when "
+        "delivered. Byte-level regeneration is a separate gate "
+        "(scripts/gen_analog_layout.py --check) that needs klt and the PDK and is run "
+        "neither here nor in CI, so this envelope does not assert that regenerating a "
+        "stream reproduces its committed bytes -- see "
+        "verification/records/analog-layout/ for what that gate last measured. It does "
+        "NOT claim LVS, ERC or extracted re-simulation of the analog partition, and "
+        "makes no area, matching or timing claim."
+    ),
+}
 
 
 def build_envelope(root: Path, key: str) -> dict:
@@ -487,6 +594,15 @@ def build_envelope(root: Path, key: str) -> dict:
                 "item 4.digital LVS compares against (synthesis needs yosys and the PDK; not "
                 "run in CI)"
             )
+        elif key == "2.analog":
+            what = (
+                f"{len(inv['blocks'])} routed analog GDS "
+                f"({', '.join(b['block'] for b in inv['blocks'])}) and the generator "
+                f"sidecar {ANALOG_PROVENANCE}, each stream listed with its sha256 "
+                "alongside the layout plan and SPICE netlist it was built from. Every "
+                "block is fully routed (routing_method accounts for all of its nets) and "
+                "DRC-clean in the sidecar, which records the klt drc run made at delivery"
+            )
         elif key == "9":
             what = (
                 f"{len(inv['cocotb_tests'])} cocotb tests mapped to "
@@ -504,6 +620,8 @@ def build_envelope(root: Path, key: str) -> dict:
             "and the member hashes prove the files it describes are. It does not run a "
             "simulation, a synthesis or a flow, and re-derives no measured value. " + _NOT_RERUN
         )
+        if key in _EXTRA_SUMMARY:
+            summary += " " + _EXTRA_SUMMARY[key]
     return {
         "schema_version": 1,
         "kind": "generic",

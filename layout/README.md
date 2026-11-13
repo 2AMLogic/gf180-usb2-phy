@@ -87,24 +87,27 @@ place-and-route produces. The fix was upstream: `klt` 0.3.0 added the optional
 `request.power` block (tapcell + `pdngen` + `filler_placement`), which
 `flow/request-usb-utmi-phy-par.json` now uses.
 
-## Analog — four of five blocks routed (scripted completion), `differential_driver` and signoff pending
+## Analog — all five blocks routed (scripted completion), signoff pending
 
-Four of the five analog blocks (`differential_receiver`, `dplus_pullup`,
-`se_receiver_dm`, `se_receiver_dp` — `design/*.sch` /
+All five analog blocks (`differential_driver`, `differential_receiver`,
+`dplus_pullup`, `se_receiver_dm`, `se_receiver_dp` — `design/*.sch` /
 `design/netlist/*.spice`) now have a committed, fully routed GDS under
-`layout/analog/` (issue #251, child A of #245); see "Outcome for the four
-child-A blocks" immediately below. `differential_driver` still has no GDS: it
-follows the driver re-size (issue #252). Nothing here is signed off — DRC/LVS/ERC
-of these streams are issues #246/#247/#248. The dated history of the klt-only
+`layout/analog/`: the four receiver/pull-up blocks from issue #251 (child A of
+#245) and `differential_driver` from issue #252 (child B), delivered once the
+driver re-size (#166/#167) landed. See "Outcome per block" immediately below.
+The set is cited by T1 item `2.analog` through
+`signoff/evidence/inventory-analog-layout.json`. Nothing here is signed off —
+DRC/LVS/ERC of these streams are issues #246/#247/#248. The dated history of the klt-only
 attempt that led here is kept verbatim in
 [`analog/HISTORY.md`](analog/HISTORY.md); where it says "not delivered" or
 lists 6/21 and 1/8/9/9 routed nets, it describes that run, not the committed
 GDS.
 
-### Outcome for the four child-A blocks (issue #251)
+### Outcome per block (issues #251, #252)
 
 | Block | GDS | Nets routed | By klt-plan / scripted | DRC (`klt drc --deck gf180mcu`) |
 |---|---|---|---|---|
+| `differential_driver` | `layout/analog/differential_driver.gds` | 20/20 | 2 / 18 | **clean** (0) |
 | `differential_receiver` | `layout/analog/differential_receiver.gds` | 8/8 | 1 / 7 | **clean** (0) |
 | `se_receiver_dm` | `layout/analog/se_receiver_dm.gds` | 9/9 | 1 / 8 | **clean** (0) |
 | `se_receiver_dp` | `layout/analog/se_receiver_dp.gds` | 9/9 | 1 / 8 | **clean** (0) |
@@ -116,10 +119,30 @@ GDS.
 result. `scripts/gen_analog_layout.py --check` regenerates every block into a
 scratch directory and compares each `gds_sha256` (and the netlist and plan
 hashes) against that sidecar; GDS output is written without timestamps so the
-hashes reproduce. CI (`scripts/check_analog_provenance.py`, via `npm run lint`) re-hashes the committed GDS, netlist and plan against the sidecar offline, with no PDK; `--check` stays the full regeneration test. A net counts as routed only when a flat conductivity
+hashes reproduce.
+
+> **`--check` reproduces four of the five committed streams, not five
+> (measured 2026-11-13, issue #252).** `differential_driver`,
+> `differential_receiver`, `se_receiver_dm` and `se_receiver_dp` regenerate
+> byte-identically. `dplus_pullup` does **not**: it regenerates stably to
+> `3729bd19…` against the committed `c4080adb…`, under the pinned klt 0.9.0
+> and PDK `c6d73a35`, with every pinned input (plan, netlist) hashing as
+> recorded. The two streams are **geometrically identical** — same 49 cells,
+> same cell bounding boxes, same per-layer shape counts and areas; 18 cells
+> differ only in the order shapes are emitted. So this is a byte-stability
+> defect in the provenance scheme, not a layout defect, and it predates
+> issue #252 (the stream was last written by `102faa6`). It is tracked as
+> issue #335; klayout version (0.30.12 vs 0.30.13) and Python version
+> (3.12.3 vs 3.12.15) were each eliminated as the cause. CI is unaffected:
+> `scripts/check_analog_provenance.py` re-hashes committed files and does not
+> regenerate. Record:
+> `verification/records/analog-layout/records/20261113-133000-f26c7be72693.md`.
+> The missing tool capability behind the diagnosis — no `klt` verb compares two
+> streams for *geometric* equivalence, so the order-vs-content question needs
+> hand-written KLayout API code — is filed as `2AMLogic/klayout-tools#5489`. CI (`scripts/check_analog_provenance.py`, via `npm run lint`) re-hashes the committed GDS, netlist and plan against the sidecar offline, with no PDK; `--check` stays the full regeneration test. A net counts as routed only when a flat conductivity
 extraction over metal1/via1/metal2/via2/metal3 puts all of its pins in one
 component that no other net's pin shares, and as a cross-check KLayout's own
-`LayoutToNetlist` finds exactly one wired net per plan net (8/9/9/21). Negative controls
+`LayoutToNetlist` finds exactly one wired net per plan net (20/8/9/9/21). Negative controls
 (one track's vias deleted; an extra metal-2 bridge) were seen to be reported as an open and a
 short respectively.
 
@@ -195,14 +218,15 @@ Those nets are completed by two paths, as the table under "Outcome for the
 four child-A blocks" above and `layout/analog/provenance.json` record per
 block: the klt plan path routes 1, 1, 1 and 6 of them, and scripted routes in
 `scripts/gen_analog_layout.py` complete the remaining 7, 8, 8 and 15.
-`differential_driver` has **no committed stream**: its plan now executes (40
-device groups for the 40 netlist devices, placed, DRC-clean on the placed
-GDS), but only **2 of its 20** nets are routed — the plan path routes those
-two and the generator does not script-route the driver — leaving 18 unrouted;
-latest run
-`verification/records/analog-layout/records/20261113-090000-4f79d854e7b4.md`
-(the three sibling records of that date are source-only provenance-hash
-refreshes, not measurements), and routing it is issue #252. The driver does
+`differential_driver` now has a **committed stream** too (issue #252): its
+plan executes 40 device groups for the 40 netlist devices and all **20 of its
+20** nets are routed — the plan path routes 2 and scripted routes in
+`scripts/gen_analog_layout.py` complete the remaining 18 — DRC-clean at the
+`gf180mcu` deck, bbox 1831.2 x 83.88 um; run record
+`verification/records/analog-layout/records/20261113-133000-f26c7be72693.md`,
+which supersedes the 2-of-20 measurement of
+`20261113-090000-4f79d854e7b4.md` (the three sibling records of that date are
+source-only provenance-hash refreshes, not measurements). The driver does
 ingest now — the "cannot be ingested" wording in the early columns of the
 per-run table in `analog/HISTORY.md` is history. There is still **no
 signoff-ready analog layout**: no LVS match is claimed for any committed
@@ -261,13 +285,14 @@ PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --check    
 (`<block>.klt.gds`), the routed GDS, its raw Phase C response JSON, and a
 combined `analog-layout-report.json` under `layout/analog/out/` (gitignored
 scratch), and prints one verdict line per block; `--deliver` copies the routed
-GDS of the four child-A blocks to `layout/analog/` and merges their entries into
-`provenance.json`. Its exit code is about *the run*, never about the quality of the
+GDS of every block in `DELIVERABLE_BLOCKS` (now all five) to `layout/analog/`
+and merges their entries into `provenance.json`; `--blocks <name>` narrows a
+run, and the merge leaves the other blocks' entries untouched. Its exit code is about *the run*, never about the quality of the
 layout: `0` means every plan executed (with `--check`: and every hash
 reproduced), `1` means the run itself failed (no klt, no PDK, unexpected
 exception), `3` means `--check` found a mismatch. Read the report for the
-verdict — as of this writing it ends `analog layout NOT delivered` because
-`differential_driver` does not execute (its plan predates the #114 netlist; issue #252).
+verdict — a full run now ends `analog layout DELIVERED`, every plan having
+executed, routed fully and come back DRC-clean.
 
 As of issue #72 every one of the five analog blocks executes from a
 committed plan (`differential_driver.json` was the last to be authored, once

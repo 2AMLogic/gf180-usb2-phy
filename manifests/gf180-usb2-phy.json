@@ -10,6 +10,10 @@
       "file": "signoff/evidence/t1-item-1-digital-design-sources.json",
       "content_hash": "sha256:fd687ad8cde4f90ac8fa2ef3ad27444046a5a48da7fe0943e613b057e7e7fd5a"
     },
+    "2.analog": {
+      "file": "signoff/evidence/t1-item-2-analog-layout.json",
+      "content_hash": "sha256:4302dee2636b242149ca780aaa53200fdc35f4832698f5bca6a56157fb89fb8e"
+    },
     "2.digital": {
       "file": "signoff/evidence/t1-item-2-digital-layout.json",
       "content_hash": "sha256:4491a5483d685c101f4a323511c8cea97d082873f1539d6fb2709e11d5fe5971"
@@ -143,7 +147,7 @@
     },
     "10": {
       "file": "signoff/evidence/t1-item-10-repo-hygiene.json",
-      "content_hash": "sha256:00fec64128e40b7d746abd1cc3976c6c364b97f29f69defcbfb95b53aeae01f0"
+      "content_hash": "sha256:4cd015190838bcdfa983feb1e505c6b404289f27354cb805bac39e65898a9287"
     },
     "11.digital": [
       {

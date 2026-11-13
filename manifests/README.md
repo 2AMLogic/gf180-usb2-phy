@@ -83,10 +83,12 @@ grades in both partitions:
   `metaltop.width.1`, `mim.enclosing.fusetop.1`, `mim.enclosing.via4.1`,
   `mim.space.1`, `pad.enclosing.metal5.1`; `deck_scope`: chapters
   `7.4`–`7.15`, `9.1`, `10.4.2`, `10.7` of the foundry DRM. A "clean"
-  measured inside those disclosed gaps is what "clean" means here — the
-  analog partition has no full layout to run DRC on at all (its per-block
-  plan-execution DRC probes live under `verification/records/analog-layout/`,
-  incomplete by the routed-net gaps those records state).
+  measured inside those disclosed gaps is what "clean" means here — and it is
+  a *digital*-partition result. The analog partition has no assembled
+  top-level layout to run DRC on; its five blocks are individually routed and
+  individually DRC-clean at the same deck (`layout/analog/`, cited by
+  2.analog), which is a per-block probe and not a partition-level DRC
+  signoff. Analog DRC/LVS/ERC remain issues #246/#247/#248.
 - **Item 4.digital, LVS clean** — cites the gate-level LVS envelope minted against
   the `gate-level-verilog` reference form
   (`verification/records/digital-lvs/artifacts/20261015-011503-32db02a/lvs-report.json`,
@@ -207,9 +209,9 @@ grades in both partitions:
   records 4 of 9 electrical rows as FAIL at some corners and says so, and
   the envelope's `summary` states this explicitly.
 
-### Items 1, 2.digital, 9 and 10 — artifact-anchored citations (issue #187)
+### Items 1, 2, 9 and 10 — artifact-anchored citations (issue #187)
 
-These four items have no `klt` verb behind them. Until `klt` 0.7.0 the
+These items have no `klt` verb behind them. Until `klt` 0.7.0 the
 grader accepted *any* passing envelope for them, so citing one would have
 been "borrowing a pass" and they were left uncited. klayout-tools#2843
 (released in 0.7.0) closed that gap: the envelope must declare `"t1_item"`
@@ -224,6 +226,7 @@ are written by `signoff/inventories.py`.
 |---|---|---|---|
 | 1.analog | `t1-item-1-analog-design-sources.json` | `inventory-design-sources-analog.json` | `design/*.sch` (5), derived `design/netlist/*.spice` (5), `design/netlist.py`, `design/xschemrc` |
 | 1.digital | `t1-item-1-digital-design-sources.json` | `inventory-design-sources-digital.json` | `rtl/*.v`, vendored `rtl/common/*.v`, `reuse.lock.json`, the synthesis request, the routed gate-level netlist `layout/digital/usb_utmi_phy_routed.v` that item 4.digital LVS compares against |
+| 2.analog | `t1-item-2-analog-layout.json` | `inventory-analog-layout.json` | the 5 routed analog GDS under `layout/analog/`, each with the layout plan and SPICE netlist it was built from, plus the generator sidecar `layout/analog/provenance.json` (issue #252) |
 | 2.digital | `t1-item-2-digital-layout.json` | `layout/digital/usb_utmi_phy.gds` (bound directly; the same GDS items 3.digital and 11.digital pin) | — |
 | 9 (both partitions) | `t1-item-9-testbenches.json` | `inventory-testbenches.json` | every cocotb test and `verification/request-*.json`, the `sim/*/testbench/` files of the 7 analog experiments, `sim/harness/`, the cold-start commands and the klt / cocotb / PDK pins |
 | 10 (both partitions) | `t1-item-10-repo-hygiene.json` | `inventory-repo-hygiene.json` | `README.md`, `LICENSE`, `spec/usb2-device-phy.md`, `docs/environment-setup.md`, `.github/workflows/ci.yml`, `package.json` |
@@ -235,7 +238,11 @@ inventoried file without running `python3 signoff/check.py --regen` fails CI.
 `--regen` also refuses to write when an audit fails (a schematic without a
 derived netlist, a cocotb test no request runs, a `sim/` experiment
 `sim/spec-coverage.md` does not index, differing klt/cocotb pins between
-`ci.yml` and `scripts/setup-env.sh`).
+`ci.yml` and `scripts/setup-env.sh`, or — for 2.analog — a **partial** analog
+set: any plan under `layout/analog/plans/` with no delivered GDS, a GDS that
+is missing or no longer hashes to the sidecar, or a block the sidecar does
+not record as fully routed and DRC-clean. `signoff/test_inventories.py`
+covers each of those refusals, including that a failed audit writes nothing).
 
 **Limits — read before relying on these rows.** A `met` here says the
 audited files exist, are listed, and have not moved since the audit. It does
@@ -258,7 +265,15 @@ not say they are correct:
   are in the characterization report (item 8).
 - Items 9 and 10 render `met` for the analog and the digital partition
   alike, because one inventory covers the whole repo.
-- 2.analog stays `unmet` (below).
+- For 2.analog the bound artifact is the *inventory*, not a stream: it
+  asserts the five routed GDS exist and still hash to
+  `layout/analog/provenance.json`, and that each was fully routed and
+  DRC-clean at delivery. It does **not** assert that regenerating a stream
+  reproduces its bytes — that gate is `scripts/gen_analog_layout.py --check`,
+  which needs klt and the PDK, is run neither by `signoff/check.py` nor in
+  CI, and as of 2026-11-13 reproduces four of the five (`dplus_pullup`
+  regenerates to a geometrically identical but byte-different stream, issue
+  #335). It claims no LVS, ERC or extracted re-simulation.
 
 ### What is deliberately uncited, and why
 
@@ -266,8 +281,6 @@ Per `klt signoff`'s own guidance ("items 1, 2, 9, 10 have no `klt` verb
 behind them… the safest default is to leave them uncited"), and per this
 repo's rule that an envelope must actually support the item to be cited:
 
-- **Item 2.analog** (layout, analog partition) — no analog GDS exists
-  (#166, #167, #53), so there is nothing to bind: `unmet`/`no_evidence`.
 - **Item 5.analog** (corner verification vs ratified spec, analog
   partition) — **cited (issue #188), renders `unmet`/`partial_coverage`**.
   Five `klt sim` envelopes, one per row-grading bench, each over the full
@@ -388,10 +401,10 @@ diff /tmp/fresh.json manifests/t1-signoff-report.json   # regeneration = update 
 ```
 
 Exit `0` means every T1 item met (this repo is **not** there:
-exit `3`, `tier: null`, `13/22` item-rows met at the time of freezing —
+exit `3`, `tier: null`, `16/22` item-rows met at the time of freezing —
 item 8 in both partitions, 3.digital, 4.digital, 7.digital and 11.digital,
-plus the artifact-anchored rows 1.analog, 1.digital, 2.digital and items 9
-and 10 in both partitions; it was `6/22` before issue #187, `7/22` before
+plus the artifact-anchored rows 1.analog, 1.digital, 2.analog, 2.digital and
+items 9 and 10 in both partitions; it was `6/22` before issue #187, `7/22` before
 issue #188 (when 5.digital was also met, see the 5.analog bullet), and `8/22`
 before issue #95 stopped items 3 and 4 from grading the analog
 partition off digital evidence). Exit codes `0` and `3` are
