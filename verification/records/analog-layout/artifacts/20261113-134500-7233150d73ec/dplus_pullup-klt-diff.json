@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "top": null,
+  "status": "equivalent",
+  "equivalent": true,
+  "stream_identical": false,
+  "a": {
+    "file": "<previously committed layout/analog/dplus_pullup.gds (git 7233150d73ec)>",
+    "stream_sha256": "c4080adb60d7e6fab9933afea27ec3f15030cc391aa1a19142b521a7e326c196",
+    "canonical_hash": "812dee9c4d3489f370c9317f3299fe0da47bf6c8e4fa2a0f80d9b95b8cb6538e",
+    "dbu_um": 0.0005,
+    "cell_count": 49
+  },
+  "b": {
+    "file": "layout/analog/dplus_pullup.gds",
+    "stream_sha256": "3729bd19545640ac1361174b05fcbbbdfdd9b496aa01118cc70ad876e756245c",
+    "canonical_hash": "812dee9c4d3489f370c9317f3299fe0da47bf6c8e4fa2a0f80d9b95b8cb6538e",
+    "dbu_um": 0.0005,
+    "cell_count": 49
+  },
+  "dbu_equal": true,
+  "cells_only_in_a": [],
+  "cells_only_in_b": [],
+  "different_cell_count": 0,
+  "differences": [],
+  "truncated": false,
+  "max_items": 50
+}

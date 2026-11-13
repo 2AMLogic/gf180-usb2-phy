@@ -17,9 +17,17 @@ writes the routed GDS per block to ``layout/analog/<block>.gds`` plus
 leaves the other entries untouched); ``--check`` regenerates into a scratch
 directory and compares every ``gds_sha256`` against that sidecar.
 
-``--check`` reproduces four of the five committed streams as of 2026-11-13:
-``dplus_pullup`` regenerates stably to a byte-different but *geometrically
-identical* stream (issue #335, predating #252). See ``layout/README.md`` and
+One process per plan. The byte order of a stream depends on what ran earlier
+in the same interpreter: ``dplus_pullup``'s records changed order the day
+``differential_driver`` began executing ahead of it, so its recorded
+``gds_sha256`` stopped reproducing even though the geometry was unchanged
+(issue #335 -- the cause of the non-reproduction that record
+``20261113-133000-f26c7be72693`` reported as not yet explained). A plan
+therefore never shares a process with a sibling: a run with more than one
+plan executes each in a child interpreter (``_execute_plan_isolated``) and
+merges the per-block entries, so a block's GDS is a function of its own
+inputs and not of which blocks were selected or in what order. ``--check``
+reproduces all five committed streams. See ``layout/README.md`` and
 ``verification/records/analog-layout/`` for the measurement.
 
 Scripted routing. Every plan places one row of tall vertical devices: MOS
@@ -39,8 +47,8 @@ the report for that):
 
   0  every plan was executed; a report was written (``--check``: and every
      gds_sha256 reproduced).
-  1  the run itself failed (missing klt, unresolvable PDK, an unexpected
-     exception).
+  1  the run itself failed (missing klt, unresolvable PDK, an isolated
+     per-block run that reported nothing, an unexpected exception).
   2  CLI usage error (argparse).
   3  ``--check`` only: a regenerated GDS does not match provenance.json.
 
@@ -231,6 +239,46 @@ def _execute_plan(
             "methods": routing["methods"],
         }
     return result
+
+
+def _execute_plan_isolated(plan_path: str, out_dir: str, keep_work: bool) -> dict:
+    """Execute one plan in a child interpreter and return its block entry.
+
+    Shape-emission order leaks across ``execute_layout_plan_document()`` calls
+    in one process (issue #335), so no plan shares an interpreter with a
+    sibling. The child is this same script restricted to one block and asked
+    for a machine-readable entry; a block that fails to execute still comes
+    back as an entry (``status: execute-failed``) and does not stop the others.
+    Only an isolated run that reports *nothing* fails the whole run.
+    """
+    block = os.path.splitext(os.path.basename(plan_path))[0]
+    entry_path = os.path.join(out_dir, f"{block}-block-report.json")
+    # A stale entry from an earlier run must never be mistaken for this one's.
+    if os.path.exists(entry_path):
+        os.remove(entry_path)
+    argv = [
+        sys.executable,
+        os.path.abspath(__file__),
+        "--blocks",
+        block,
+        "--out-dir",
+        out_dir,
+        "--emit-block-report",
+        entry_path,
+    ]
+    if keep_work:
+        argv.append("--keep-work")
+    proc = subprocess.run(argv, capture_output=True, text=True)
+    if proc.stderr:
+        sys.stderr.write(proc.stderr)
+    if proc.returncode != 0 or not os.path.exists(entry_path):
+        detail = (proc.stderr or proc.stdout or "no output").strip()[-400:]
+        _fail(
+            f"{block}: the isolated run exited {proc.returncode} without "
+            f"writing {entry_path}: {detail}"
+        )
+    with open(entry_path, encoding="utf-8") as handle:
+        return json.load(handle)
 
 
 def _complete_routing(
@@ -818,6 +866,11 @@ def main(argv: list[str] | None = None) -> int:
         "(DRC status is recorded there, not gated on)",
     )
     parser.add_argument(
+        "--emit-block-report",
+        metavar="PATH",
+        help=argparse.SUPPRESS,  # internal: used by _execute_plan_isolated
+    )
+    parser.add_argument(
         "--check",
         action="store_true",
         help="regenerate into a scratch directory and compare every gds_sha256 "
@@ -827,6 +880,11 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.deliver and args.check:
         parser.error("--deliver and --check are mutually exclusive")
+    if args.emit_block_report is not None:
+        if args.deliver or args.check:
+            parser.error("--emit-block-report is incompatible with --deliver/--check")
+        if not args.blocks or len(args.blocks) != 1:
+            parser.error("--emit-block-report needs exactly one --blocks value")
 
     try:
         from klayout_tools import __version__ as klt_version
@@ -839,7 +897,11 @@ def main(argv: list[str] | None = None) -> int:
         import klayout.db  # noqa: F401
     except ImportError:
         _fail("the klayout python module is not importable (it ships with klt).")
-    if "PDK_ROOT" not in os.environ and "GF180_PDK_PATH" not in os.environ:
+    if (
+        args.emit_block_report is None
+        and "PDK_ROOT" not in os.environ
+        and "GF180_PDK_PATH" not in os.environ
+    ):
         print(
             "note: neither PDK_ROOT nor GF180_PDK_PATH is set -- klt will fall "
             "back to its own PDK search roots (see docs/environment-setup.md)",
@@ -858,8 +920,25 @@ def main(argv: list[str] | None = None) -> int:
             if wanted - known:
                 parser.error(f"unknown block(s): {', '.join(sorted(wanted - known))}")
             plans = [p for p in plans if os.path.splitext(os.path.basename(p))[0] in wanted]
-        blocks = [_execute_plan(plan, out_dir, args.keep_work, out_dir) for plan in plans]
+        # One process per plan (issue #335). A lone plan already has an
+        # interpreter to itself, so it runs here; a child never re-isolates.
+        if args.emit_block_report is None and len(plans) > 1:
+            blocks = [
+                _execute_plan_isolated(plan, out_dir, args.keep_work) for plan in plans
+            ]
+        else:
+            blocks = [
+                _execute_plan(plan, out_dir, args.keep_work, out_dir) for plan in plans
+            ]
         blocks.sort(key=lambda entry: entry["block"])
+
+        if args.emit_block_report is not None:
+            if not blocks:
+                _fail(f"no plan matched --blocks {' '.join(args.blocks)}")
+            with open(args.emit_block_report, "w", encoding="utf-8") as handle:
+                json.dump(blocks[0], handle, indent=2)
+                handle.write("\n")
+            return 0
 
         executed = [entry for entry in blocks if entry["status"] == "executed"]
         fully_routed = [

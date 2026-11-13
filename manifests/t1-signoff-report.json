@@ -96,7 +96,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:4302dee2636b242149ca780aaa53200fdc35f4832698f5bca6a56157fb89fb8e",
+        "content_hash": "sha256:a2736098b47652efd427b5db18d852d7b77a59ba4b02f81db46dc6e4c95a98ae",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -105,7 +105,7 @@
             "path": "signoff/evidence/inventory-analog-layout.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:4302dee2636b242149ca780aaa53200fdc35f4832698f5bca6a56157fb89fb8e",
+          "content_hash": "sha256:a2736098b47652efd427b5db18d852d7b77a59ba4b02f81db46dc6e4c95a98ae",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 2 (Layout (analog partition)): 5 routed analog GDS (differential_driver, differential_receiver, dplus_pullup, se_receiver_dm, se_receiver_dp) and the generator sidecar layout/analog/provenance.json, each stream listed with its sha256 alongside the layout plan and SPICE netlist it was built from. Every block is fully routed (routing_method accounts for all of its nets) and DRC-clean in the sidecar, which records the klt drc run made at delivery. Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run. It asserts only that the routed analog streams exist, still hash to the values layout/analog/provenance.json recorded for them, and were DRC-clean when delivered. Byte-level regeneration is a separate gate (scripts/gen_analog_layout.py --check) that needs klt and the PDK and is run neither here nor in CI, so this envelope does not assert that regenerating a stream reproduces its committed bytes -- see verification/records/analog-layout/ for what that gate last measured. It does NOT claim LVS, ERC or extracted re-simulation of the analog partition, and makes no area, matching or timing claim.",
           "source": "signoff/evidence/inventory-analog-layout.json"
@@ -946,7 +946,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:4cd015190838bcdfa983feb1e505c6b404289f27354cb805bac39e65898a9287",
+        "content_hash": "sha256:bf77610b265317eb63b8cf75e2bfa40d333bec273fb02966ef5c88123b4599ec",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -955,7 +955,7 @@
             "path": "signoff/evidence/inventory-repo-hygiene.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:4cd015190838bcdfa983feb1e505c6b404289f27354cb805bac39e65898a9287",
+          "content_hash": "sha256:bf77610b265317eb63b8cf75e2bfa40d333bec273fb02966ef5c88123b4599ec",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 10 (Repo hygiene): .github/workflows/ci.yml, LICENSE, README.md, docs/environment-setup.md, package.json, spec/usb2-device-phy.md with the stated assertions. Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-repo-hygiene.json"
@@ -977,7 +977,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:4cd015190838bcdfa983feb1e505c6b404289f27354cb805bac39e65898a9287",
+        "content_hash": "sha256:bf77610b265317eb63b8cf75e2bfa40d333bec273fb02966ef5c88123b4599ec",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -986,7 +986,7 @@
             "path": "signoff/evidence/inventory-repo-hygiene.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:4cd015190838bcdfa983feb1e505c6b404289f27354cb805bac39e65898a9287",
+          "content_hash": "sha256:bf77610b265317eb63b8cf75e2bfa40d333bec273fb02966ef5c88123b4599ec",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 10 (Repo hygiene): .github/workflows/ci.yml, LICENSE, README.md, docs/environment-setup.md, package.json, spec/usb2-device-phy.md with the stated assertions. Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-repo-hygiene.json"

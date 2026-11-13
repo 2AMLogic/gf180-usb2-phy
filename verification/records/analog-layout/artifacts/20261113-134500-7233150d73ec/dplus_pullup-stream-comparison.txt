@@ -1,0 +1,86 @@
+Stream comparison evidence for record 20261113-134500-7233150d73ec (issue #335)
+==========================================================================
+
+A = layout/analog/dplus_pullup.gds as committed at git 7233150d73ec
+    sha256 c4080adb60d7e6fab9933afea27ec3f15030cc391aa1a19142b521a7e326c196
+B = layout/analog/dplus_pullup.gds re-delivered from an isolated run
+    sha256 3729bd19545640ac1361174b05fcbbbdfdd9b496aa01118cc70ad876e756245c
+
+klt 0.9.0, klayout 0.30.13, Python 3.12.15, PDK gf180mcuD volare c6d73a35.
+
+--------------------------------------------------------------------------
+1. klt diff A B --format json  (klt's own order-insensitive comparison)
+--------------------------------------------------------------------------
+exit 0; status=equivalent; equivalent=true; stream_identical=false;
+canonical_hash identical on both sides (812dee9c4d3489f370c9317f3299fe0da47bf6c8e4fa2a0f80d9b95b8cb6538e);
+cells_only_in_a=[]; cells_only_in_b=[]; different_cell_count=0; differences=[].
+Full output: dplus_pullup-klt-diff.json
+
+--------------------------------------------------------------------------
+2. Per-cell and per-layer comparison via klayout.db (independent of klt)
+--------------------------------------------------------------------------
+cells: A=49  B=49
+cell name sets: EQUAL
+dbu: A=0.0005 B=0.0005  top: A=dplus_pullup B=dplus_pullup
+cells whose dbbox differs:               0 []
+cells whose shape/instance CONTENT differs: 0 []
+cells differing ONLY in emission order:  0
+
+flattened per-layer comparison over top cell (15 layers):
+       layer   shapes A  shapes B    area A (dbu^2)   area B (dbu^2)   XOR area
+      21/0           24        24       47484518400      47484518400          0
+      22/0          204       204       30905299200      30905299200          0
+      30/0          222       222        7341731200       7341731200          0
+      31/0           96        96       41276329600      41276329600          0
+      32/0          114       114         300643200        300643200          0
+      33/0          360       360          69696000         69696000          0
+      34/0          657       657       20992079200      20992079200          0
+      34/10           0         0                 0                0          0
+      35/0          324       324          74630400         74630400          0
+      36/0          384       384        2594524800       2594524800          0
+      36/10           0         0                 0                0          0
+      38/0          228       228          61651200         61651200          0
+      42/0           21        21        1458570400       1458570400          0
+      49/0            6         6         393117600        393117600          0
+     110/5            6         6         354160000        354160000          0
+
+  total XOR area over all layers: 0
+
+GEOMETRICALLY IDENTICAL: same cells, same per-cell bboxes, same shape and instance content, zero XOR area on every layer.
+The two streams differ only in the order records are emitted (0 cells).
+
+--------------------------------------------------------------------------
+3. Raw GDS record order (klayout.db normalises order on read, so this
+   walks the stream records themselves)
+--------------------------------------------------------------------------
+structures: A=49  B=49
+structure names and their order: IDENTICAL
+
+per-structure element blocks:
+  identical (same elements, same order):   31
+  SAME elements, DIFFERENT emission order: 18
+  DIFFERENT element content:               0
+
+  structures differing only in order (18):
+    mn_drv_en_0__core  (27 elements)
+    mn_drv_t0_0__core  (27 elements)
+    mn_drv_t1_0__core  (27 elements)
+    mn_drv_t2_0__core  (27 elements)
+    mn_drv_t3_0__core  (27 elements)
+    mn_drv_t4_0__core  (27 elements)
+    mp_drv_en_0__core  (29 elements)
+    mp_drv_t0_0__core  (29 elements)
+    mp_drv_t1_0__core  (29 elements)
+    mp_drv_t2_0__core  (29 elements)
+    mp_drv_t3_0__core  (29 elements)
+    mp_drv_t4_0__core  (29 elements)
+    mp_sw0_0__core  (168 elements)
+    mp_sw1_0__core  (168 elements)
+    mp_sw2_0__core  (168 elements)
+    mp_sw3_0__core  (168 elements)
+    mp_sw4_0__core  (168 elements)
+    mp_sw_en_0__core  (168 elements)
+
+total element blocks: A=2713 B=2713
+
+Every structure holds exactly the same element blocks in both files; the files differ only in the order those blocks are written.
