@@ -2,6 +2,10 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+### 2026-11-13
+
+- **Issue #167** (closed): driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout
+
 ### 2026-11-12
 
 - **PR #308**: Bump Repo Skills 0.25.10 -> 0.26.1

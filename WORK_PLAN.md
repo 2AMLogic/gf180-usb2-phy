@@ -18,7 +18,6 @@ _None._
 `loom:important`; taken before unlabelled work.
 
 - **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size
-- **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout
 - **#245**: T1 item 2 (Layout, analog partition): route the five analog front-end blocks and commit their GDS
 - **#252**: T1 item 2 (analog) B: route differential_driver GDS and attest 2.analog
 
@@ -26,7 +25,7 @@ _None._
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-_None._
+- **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size
 
 ## In Progress
 
@@ -50,11 +49,11 @@ _None._
 
 Issues carrying `loom:curated`.
 
+- **#50**: Champion: Merge-Risk Hold Digest *(curated)*
 - **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief *(curated)*
 - **#53**: Post-layout (extracted-parasitic) re-verification: digital STA now, analog PVT after #52 *(curated)*
 - **#126**: Resolve DR-0003: transition-resynchronized RX oversampling for independent host clocks *(curated)*
 - **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size *(curated)*
-- **#167**: driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -70,8 +69,8 @@ Issues carrying `loom:curated`.
 |------|-------|
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
-| Important | 4 |
-| Ready (`loom:issue`) | 0 |
+| Important | 3 |
+| Ready (`loom:issue`) | 1 |
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
