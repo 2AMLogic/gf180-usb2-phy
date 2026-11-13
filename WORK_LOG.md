@@ -2,8 +2,31 @@
 
 Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
+## Archives
+
+- [2026-09](work_log/WORK_LOG_2026-09.md)
+
 ### 2026-11-13
 
+- **PR #330**: docs(env): move the klt pin-move history to docs/klt-pin-history.md
+- **Issue #327** (closed): Split docs/environment-setup.md: move 220 lines of klt pin-move history into a sibling history file
+- **PR #329**: docs(verification): replace per-request command list with one example
+- **Issue #328** (closed): Remove hand-copied request list from verification/README.md: drifted from package.json test script (10 of 12)
+- **PR #325**: docs(layout): move the dated klt-only analog narrative to analog/HISTORY.md
+- **Issue #323** (closed): Split layout/README.md: move 615 lines of dated analog-routing history into a sibling history file
+- **PR #326**: refactor(sim): share one deck assembler between both receiver MC builders
+- **Issue #322** (closed): Remove copied build_deck() and dead DEGRADED_OFFSET_V from sim/se-receiver-mc/build_requests.py
+- **PR #316**: refactor(sim): drop unused write_record, test append-only on the live writer
+- **Issue #312** (closed): Remove dead write_record() from sim/harness/report.py: superseded by evidence_store.store_files
+- **PR #324**: docs(layout): date the klt pin in the two pin-relative README sentences
+- **Issue #321** (closed): docs(layout): README line 125 says the repo pins klt 0.8.0; the pin is 0.9.0
+- **PR #318**: docs(layout): state the committed analog streams in the current-state paragraph
+- **Issue #315** (closed): layout/README.md "Current state in one paragraph" contradicts the committed analog layout
+- **PR #317**: chore(lint): discover sim/tests self-tests instead of listing them by name
+- **Issue #313** (closed): Replace hand-listed sim/tests entries in npm run lint with unittest discovery
+- **PR #314**: docs(chipalooza): correct analog layout status in the Challenge #5 proposal
+- **PR #311**: fix(layout): regenerate driver layout plan against current netlist
+- **Issue #166** (closed): Re-check driver layout plan and regenerate netlist after #96 re-size
 - **Issue #167** (closed): driver layout plan cannot ingest m=4 netlist: decide how output-stage multiplicity reaches layout
 
 ### 2026-11-12
@@ -239,18 +262,3 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 - **PR #75**: fix(layout): set params.flavor:1k on 3 receiver plans' res_array groups
 - **Issue #73** (closed): Fix silent PPOLYF_U_1K/generic-flavor mismatch on 3 committed analog layout plans' res_array groups
 
-### 2026-09-13
-
-- **PR #74**: feat(env): re-pin klt past klayout-tools#1731 (res_array rm1 support)
-- **Issue #72** (closed): Re-pin klt past klayout-tools#1731 fix so a differential_driver plan can be authored
-
-### 2026-09-12
-
-- **PR #71**: feat(env): re-pin klt past klayout-tools#1662 (rm1/rm2/rm3 metal resistors)
-- **Issue #70** (closed): Re-pin klt past klayout-tools#1662 (rm1/rm2/rm3 metal-resistor support): retry differential_driver ingestion
-
-### 2026-09-09
-
-- **PR #69**: Re-pin klt past #1501/#1502 and spend cross_block_layer_role on dplus_pullup
-- **Issue #68** (closed): Re-pin klt past klayout-tools#1501/#1502 and spend `routing.cross_block_layer_role` on `dplus_pullup`: route the 15 unrouted nets, or record what still blocks them
-- **Issue #58** (closed): loom-daemon: noop cooldown (#6670) did not prevent issue #51 from being re-dispatched twice within minutes

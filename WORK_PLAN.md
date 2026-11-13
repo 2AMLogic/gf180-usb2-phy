@@ -17,7 +17,6 @@ _None._
 
 `loom:important`; taken before unlabelled work.
 
-- **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size
 - **#245**: T1 item 2 (Layout, analog partition): route the five analog front-end blocks and commit their GDS
 - **#252**: T1 item 2 (analog) B: route differential_driver GDS and attest 2.analog
 
@@ -25,7 +24,7 @@ _None._
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-- **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size
+_None._
 
 ## In Progress
 
@@ -49,15 +48,16 @@ _None._
 
 Issues carrying `loom:curated`.
 
-- **#50**: Champion: Merge-Risk Hold Digest *(curated)*
 - **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief *(curated)*
 - **#53**: Post-layout (extracted-parasitic) re-verification: digital STA now, analog PVT after #52 *(curated)*
 - **#126**: Resolve DR-0003: transition-resynchronized RX oversampling for independent host clocks *(curated)*
-- **#166**: Re-check driver layout plan and regenerate netlist after #96 re-size *(curated)*
 
 ## Proposed (Architect / Hermit)
 
 - **#126**: Resolve DR-0003: transition-resynchronized RX oversampling for independent host clocks *(architect)*
+- **#319**: Remove klt uri-scheme preflight probe from sim/harness/evidence_store.py: release pin makes it always pass *(hermit)*
+- **#320**: Fold flow/request-usb-utmi-phy-par-sdf.json into request-usb-utmi-phy-par.json: 71-line unguarded duplicate *(hermit)*
+- **#331**: Remove filtered-SDF workaround request from verification/: pinned klt 0.9.0 annotates the exported SDF (111/111) *(hermit)*
 
 ## Epics
 
@@ -69,12 +69,12 @@ Issues carrying `loom:curated`.
 |------|-------|
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
-| Important | 3 |
-| Ready (`loom:issue`) | 1 |
+| Important | 2 |
+| Ready (`loom:issue`) | 0 |
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 5 |
-| Architect / Hermit proposals | 1 |
+| Curated | 3 |
+| Architect / Hermit proposals | 4 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
