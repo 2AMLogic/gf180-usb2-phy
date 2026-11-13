@@ -335,14 +335,6 @@
           "sha256": "sha256:33ecff4d9452dd90dcc489c765a8e23fb83df03b1e390e5177292555abd6e13f"
         },
         {
-          "path": "sim/driver-jitter/testbench/driver_jitter_tb_klt.spice",
-          "sha256": "sha256:3eeaa35cb3fa7d3dc3c8563462a9c478080d912e6b7db68e6773b33ecd709bb8"
-        },
-        {
-          "path": "sim/driver-jitter/testbench/klt-sim-request.json",
-          "sha256": "sha256:f0a8b85247569e7d98509dfd7a5f19483a7a29533f934ac562caba5476fd4165"
-        },
-        {
           "path": "sim/driver-jitter/testbench/tb.json",
           "sha256": "sha256:38860a513bb18f5d9cadc39e81d5e8a2fab03c4362733145f3c3c06602a27175"
         }
@@ -356,14 +348,6 @@
         {
           "path": "sim/driver-signal-quality/testbench/driver_tb.spice",
           "sha256": "sha256:782b3fddae62244a3dc4a620b73e4cd147f12ed8c5b7e05eea4ed24701e1b729"
-        },
-        {
-          "path": "sim/driver-signal-quality/testbench/driver_tb_klt.spice",
-          "sha256": "sha256:f626e723e5fa7f2f4d50936e3fc6fca219db77b660c9df9528fb65caab06a6d1"
-        },
-        {
-          "path": "sim/driver-signal-quality/testbench/klt-sim-request.json",
-          "sha256": "sha256:1a5861f39142e55793329634f05a7aaad7ec91d32f8d619c02484b82b1ea1de3"
         },
         {
           "path": "sim/driver-signal-quality/testbench/tb.json",
