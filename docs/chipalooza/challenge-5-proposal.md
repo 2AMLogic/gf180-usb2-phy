@@ -437,9 +437,9 @@ those 20 nets is issue #252, whose stated prerequisites are all closed as of
 check (issue #248), a DRC coverage attestation (issue #246) or an
 extracted-netlist re-simulation (issue #53). The guard-ring and body-tie
 pads each generator draws are in no plan net and are left unconnected.
-`layout/README.md` § "Analog" gives the full per-block history, including the
-dated klt-only attempt — which produced no committed layout — that preceded
-this.
+`layout/README.md` § "Analog" gives the per-block outcome, and
+`layout/analog/HISTORY.md` the dated klt-only attempt — which produced no
+committed layout — that preceded it.
 
 **What that means for this proposal.** A Chipalooza submission is expected
 to reach DRC/LVS-clean GDS with post-layout PVT simulation. This block is
