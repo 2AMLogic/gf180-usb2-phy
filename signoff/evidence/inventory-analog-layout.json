@@ -3,7 +3,7 @@
   "about": "The routed analog GDS set cited by T1 item 2.analog. Every block's stream, layout plan and SPICE netlist is listed with its sha256, alongside the generator sidecar that records how each was produced.",
   "sidecar": {
     "path": "layout/analog/provenance.json",
-    "sha256": "sha256:fef730319a178fbe84b758a90ad33e9f642ebb055d0274b51bc7d8575c840fae"
+    "sha256": "sha256:f9c51cc4fe6ee979f330bb6a4a4a3b35a1ca29b67fbe88204dcb811626316a68"
   },
   "blocks": [
     {
@@ -62,7 +62,7 @@
       "block": "dplus_pullup",
       "gds": {
         "path": "layout/analog/dplus_pullup.gds",
-        "sha256": "sha256:c4080adb60d7e6fab9933afea27ec3f15030cc391aa1a19142b521a7e326c196"
+        "sha256": "sha256:3729bd19545640ac1361174b05fcbbbdfdd9b496aa01118cc70ad876e756245c"
       },
       "plan": {
         "path": "layout/analog/plans/dplus_pullup.json",
@@ -82,7 +82,7 @@
         "violation_count": 0
       },
       "klt_version": "0.9.0",
-      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver"
+      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver --blocks dplus_pullup"
     },
     {
       "block": "se_receiver_dm",

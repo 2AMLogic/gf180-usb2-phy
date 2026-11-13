@@ -42,11 +42,11 @@
     {
       "block": "dplus_pullup",
       "gds": "layout/analog/dplus_pullup.gds",
-      "gds_sha256": "c4080adb60d7e6fab9933afea27ec3f15030cc391aa1a19142b521a7e326c196",
+      "gds_sha256": "3729bd19545640ac1361174b05fcbbbdfdd9b496aa01118cc70ad876e756245c",
       "netlist_sha256": "9c645ecf0da6d80fb05d85c33d2941cc48bc328a00cd427f0c11bdf980b2cceb",
       "plan_sha256": "769f4bdfbf6d8ca2cba147fb354e2f929264f11b94de6e71ded4c9f2f10935aa",
       "klt_version": "0.9.0",
-      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver",
+      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver --blocks dplus_pullup",
       "routing_method": {
         "klt-plan": 6,
         "scripted": 15

@@ -270,10 +270,12 @@ not say they are correct:
   `layout/analog/provenance.json`, and that each was fully routed and
   DRC-clean at delivery. It does **not** assert that regenerating a stream
   reproduces its bytes — that gate is `scripts/gen_analog_layout.py --check`,
-  which needs klt and the PDK, is run neither by `signoff/check.py` nor in
-  CI, and as of 2026-11-13 reproduces four of the five (`dplus_pullup`
-  regenerates to a geometrically identical but byte-different stream, issue
-  #335). It claims no LVS, ERC or extracted re-simulation.
+  which needs klt and the PDK and is run neither by `signoff/check.py` nor in
+  CI. As of 2026-11-13 it reproduces all five: the one block that did not
+  (`dplus_pullup`, which regenerated to a geometrically identical but
+  byte-different stream) was fixed and re-delivered under issue #335, whose
+  cause was that the generator ran every plan in one process. It claims no
+  LVS, ERC or extracted re-simulation.
 
 ### What is deliberately uncited, and why
 

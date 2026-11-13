@@ -121,25 +121,41 @@ scratch directory and compares each `gds_sha256` (and the netlist and plan
 hashes) against that sidecar; GDS output is written without timestamps so the
 hashes reproduce.
 
-> **`--check` reproduces four of the five committed streams, not five
-> (measured 2026-11-13, issue #252).** `differential_driver`,
-> `differential_receiver`, `se_receiver_dm` and `se_receiver_dp` regenerate
-> byte-identically. `dplus_pullup` does **not**: it regenerates stably to
-> `3729bd19…` against the committed `c4080adb…`, under the pinned klt 0.9.0
-> and PDK `c6d73a35`, with every pinned input (plan, netlist) hashing as
-> recorded. The two streams are **geometrically identical** — same 49 cells,
-> same cell bounding boxes, same per-layer shape counts and areas; 18 cells
-> differ only in the order shapes are emitted. So this is a byte-stability
-> defect in the provenance scheme, not a layout defect, and it predates
-> issue #252 (the stream was last written by `102faa6`). It is tracked as
-> issue #335; klayout version (0.30.12 vs 0.30.13) and Python version
-> (3.12.3 vs 3.12.15) were each eliminated as the cause. CI is unaffected:
+> **`--check` reproduces all five committed streams (measured 2026-11-13,
+> issue #335).** It did not until then: `dplus_pullup` regenerated stably to
+> `3729bd19…` against the committed `c4080adb…` while every pinned input
+> (plan, netlist, klt 0.9.0, PDK `c6d73a35`) hashed as recorded, and klayout
+> version (0.30.12 vs 0.30.13) and Python version (3.12.3 vs 3.12.15) were
+> each eliminated. The cause was **process-shared state, not any pinned
+> input**: the generator executed all five plans in one Python process, and
+> klt's layout-plan executor emits a plan's device-cell records in an order
+> that depends on which plans ran *earlier in that process*. `dplus_pullup`
+> reproduced under exactly one block selection — the one that wrote it — and
+> stopped reproducing at `6b6483e`, when `differential_driver` began
+> executing ahead of it. Measured against klt's executor directly, with none
+> of this repo's generator involved, so the leaked state is klt's and not
+> this script's: filed as `2AMLogic/klayout-tools#5499`.
+>
+> The generator now runs **one process per plan**, so a block's stream is a
+> function of its own inputs and not of which blocks were selected or in what
+> order. `dplus_pullup` was re-delivered from an isolated run as
+> `3729bd19…`, which is **geometrically identical** to the `c4080adb…` it
+> supersedes — `klt diff` exits 0 with `equivalent: true`,
+> `stream_identical: false` and one shared `canonical_hash`; independently,
+> 49 cells in both, equal cell bounding boxes, zero XOR area on all 15
+> layers, the same 2713 element blocks, with 18 cells differing only in
+> emission order — and DRC-clean (0 violations). **No geometry changed**, and
+> no other committed stream was touched. CI was unaffected throughout:
 > `scripts/check_analog_provenance.py` re-hashes committed files and does not
-> regenerate. Record:
-> `verification/records/analog-layout/records/20261113-133000-f26c7be72693.md`.
-> The missing tool capability behind the diagnosis — no `klt` verb compares two
-> streams for *geometric* equivalence, so the order-vs-content question needs
-> hand-written KLayout API code — is filed as `2AMLogic/klayout-tools#5489`. CI (`scripts/check_analog_provenance.py`, via `npm run lint`) re-hashes the committed GDS, netlist and plan against the sidecar offline, with no PDK; `--check` stays the full regeneration test. A net counts as routed only when a flat conductivity
+> regenerate. Records:
+> `verification/records/analog-layout/records/20261113-134500-7233150d73ec.md`,
+> superseding `20261113-133000-f26c7be72693.md` (which reported the finding
+> with its cause still unknown) for the `dplus_pullup` hash. The earlier tool
+> gap filed from this diagnosis — no `klt` verb compares two streams for
+> *geometric* equivalence — was closed as already provided by `klt diff`
+> (`2AMLogic/klayout-tools#5489`).
+
+CI (`scripts/check_analog_provenance.py`, via `npm run lint`) re-hashes the committed GDS, netlist and plan against the sidecar offline, with no PDK; `--check` stays the full regeneration test. A net counts as routed only when a flat conductivity
 extraction over metal1/via1/metal2/via2/metal3 puts all of its pins in one
 component that no other net's pin shares, and as a cross-check KLayout's own
 `LayoutToNetlist` finds exactly one wired net per plan net (20/8/9/9/21). Negative controls
@@ -287,10 +303,15 @@ combined `analog-layout-report.json` under `layout/analog/out/` (gitignored
 scratch), and prints one verdict line per block; `--deliver` copies the routed
 GDS of every block in `DELIVERABLE_BLOCKS` (now all five) to `layout/analog/`
 and merges their entries into `provenance.json`; `--blocks <name>` narrows a
-run, and the merge leaves the other blocks' entries untouched. Its exit code is about *the run*, never about the quality of the
+run, and the merge leaves the other blocks' entries untouched. A run with more
+than one plan executes **each plan in its own child interpreter** and merges
+the per-block results (issue #335), so no block's stream can depend on a
+sibling; a lone plan already owns its interpreter and runs in-process. Its exit
+code is about *the run*, never about the quality of the
 layout: `0` means every plan executed (with `--check`: and every hash
-reproduced), `1` means the run itself failed (no klt, no PDK, unexpected
-exception), `3` means `--check` found a mismatch. Read the report for the
+reproduced), `1` means the run itself failed (no klt, no PDK, an isolated
+per-block run that reported nothing, an unexpected exception), `3` means
+`--check` found a mismatch. Read the report for the
 verdict — a full run now ends `analog layout DELIVERED`, every plan having
 executed, routed fully and come back DRC-clean.
 
