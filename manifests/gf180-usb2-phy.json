@@ -22,6 +22,28 @@
       "file": "verification/records/digital-drc/artifacts/20261015-011502-32db02a/drc-report.json",
       "content_hash": "sha256:4491a5483d685c101f4a323511c8cea97d082873f1539d6fb2709e11d5fe5971"
     },
+    "4.analog": [
+      {
+        "file": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/differential_driver-lvs-report.json",
+        "content_hash": "sha256:4a1c1ddfc5a1a984c2ecd156808cd20acbd881ef74d6f092e18ee377a2800fcb"
+      },
+      {
+        "file": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/differential_receiver-lvs-report.json",
+        "content_hash": "sha256:8546baa5d159f33bf741d55d367ab11a91aaf622da31b08dd1ded1872de22f5f"
+      },
+      {
+        "file": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/dplus_pullup-lvs-report.json",
+        "content_hash": "sha256:61811cc55de70c8645c98eaf6472913e631250970dbfa8cdd812bacd6c7789d8"
+      },
+      {
+        "file": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/se_receiver_dm-lvs-report.json",
+        "content_hash": "sha256:31601e6386711cba7a89dcd2f24716eff8568c2de098d5f1e1b27a1ff47cc06c"
+      },
+      {
+        "file": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/se_receiver_dp-lvs-report.json",
+        "content_hash": "sha256:101312916c6851df73af1f8977ec92f1db0f24c802bef3d5840ddc7bcc93c5d3"
+      }
+    ],
     "4.digital": {
       "file": "verification/records/digital-lvs/artifacts/20261015-011503-32db02a/lvs-report.json",
       "content_hash": "sha256:0c9650223a0698571b32ef8e6576712051bddd8e4c3d809fa64427834bbf4b28"
@@ -147,7 +169,7 @@
     },
     "10": {
       "file": "signoff/evidence/t1-item-10-repo-hygiene.json",
-      "content_hash": "sha256:c0800c15e6c429129d3b21f7a8b5eea2ab85ad4144a645ab6e68c1815a9e9f21"
+      "content_hash": "sha256:df15423aec915ddc4658b1310da8e4e0eee6ffea902aa4f3296b9fb8019fb52e"
     },
     "11.digital": [
       {

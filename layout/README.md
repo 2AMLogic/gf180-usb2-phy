@@ -96,8 +96,10 @@ All five analog blocks (`differential_driver`, `differential_receiver`,
 #245) and `differential_driver` from issue #252 (child B), delivered once the
 driver re-size (#166/#167) landed. See "Outcome per block" immediately below.
 The set is cited by T1 item `2.analog` through
-`signoff/evidence/inventory-analog-layout.json`. Nothing here is signed off —
-DRC/LVS/ERC of these streams are issues #246/#247/#248. The dated history of the klt-only
+`signoff/evidence/inventory-analog-layout.json`, and transistor-level LVS of
+all five is cited by T1 item `4.analog` (issue #247, record
+`20261113-163000-35e9b6e5ab87`). DRC and ERC of these streams are still
+unsigned — issues #246 and #248. The dated history of the klt-only
 attempt that led here is kept verbatim in
 [`analog/HISTORY.md`](analog/HISTORY.md); where it says "not delivered" or
 lists 6/21 and 1/8/9/9 routed nets, it describes that run, not the committed
@@ -301,7 +303,11 @@ plan-path-only `differential_receiver` geometry, not the committed stream.
 What is still missing is electrical: no ERC and no extracted re-simulation
 exists, and LVS compared no resistor dimension (see "What the match does not
 say" above). DRC and ERC signoff of the committed streams are issues #246 and
-#248; citing the match as T1 item `4.analog` is #247. The
+#248. The match is cited as T1 item `4.analog` (issue #247): all five
+envelopes of record `20261113-163000-35e9b6e5ab87` are pinned in
+`manifests/gf180-usb2-phy.json`, the frozen report grades the row `met`, and
+`manifests/README.md` carries the per-block counts and what the match does not
+cover. The
 per-run table in `analog/HISTORY.md` is dated history.
 
 ### Dated history
