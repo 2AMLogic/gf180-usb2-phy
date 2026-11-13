@@ -108,14 +108,19 @@ GDS.
 | Block | GDS | Nets routed | By klt-plan / scripted | DRC (`klt drc --deck gf180mcu`) |
 |---|---|---|---|---|
 | `differential_driver` | `layout/analog/differential_driver.gds` | 20/20 | 2 / 18 | **clean** (0) |
-| `differential_receiver` | `layout/analog/differential_receiver.gds` | 8/8 | 1 / 7 | **clean** (0) |
-| `se_receiver_dm` | `layout/analog/se_receiver_dm.gds` | 9/9 | 1 / 8 | **clean** (0) |
-| `se_receiver_dp` | `layout/analog/se_receiver_dp.gds` | 9/9 | 1 / 8 | **clean** (0) |
+| `differential_receiver` | `layout/analog/differential_receiver.gds` | 8/8 | 0 / 8 | **clean** (0) |
+| `se_receiver_dm` | `layout/analog/se_receiver_dm.gds` | 9/9 | 0 / 9 | **clean** (0) |
+| `se_receiver_dp` | `layout/analog/se_receiver_dp.gds` | 9/9 | 0 / 9 | **clean** (0) |
 | `dplus_pullup` | `layout/analog/dplus_pullup.gds` | 21/21 | 6 / 15 | **clean** (0), lengths snapped by klt 0.9.0 `res_array` and equal to DR-0010 (was 75 violations) |
+
+The three receivers read 0 by the klt plan path because issue #346 gave their
+`VDD` net a body tie, which moves it into the scripted pass; nothing else in
+this table moved.
 
 `layout/analog/provenance.json` carries, per block, `gds_sha256`,
 `netlist_sha256`, `plan_sha256`, `klt_version`, `regeneration_command`,
-`routing_method` (with per-method net counts: every block is mixed) and the DRC
+`routing_method` (per-method net counts, or the bare method name for a block
+routed by one path only), `body_tie_nets`, `pin_labels` and the DRC
 result. `scripts/gen_analog_layout.py --check` regenerates every block into a
 scratch directory and compares each `gds_sha256` (and the netlist and plan
 hashes) against that sidecar; GDS output is written without timestamps so the
@@ -214,16 +219,41 @@ snapping gap was `2AMLogic/klayout-tools#4666`. No violation was ever in the rou
 any other device. Run record: `verification/records/analog-layout/records/20261106-120000-ef841f90e933.md`
 (previous: `20261030-213500-7134cc091abf.md`).
 
-**Not claimed.** The plan's pins are device terminals only: the guard-ring /
-body-tie metal-1 pads each generator draws are not in any plan net, so they are
-left unconnected, and the earlier `differential_receiver` LVS mismatch
-(`20261009-203500-7a8e831`) is not expected to be cleared by this. **LVS has
-now been run on all five committed streams and all five mismatch** — record
-`verification/records/analog-lvs/records/20261113-151132-45afbeea4868.md`
-(issue #345), which measures the cause and confirms the unconnected-pad
-expectation above for the bulk/well half. No ERC or extracted re-simulation
-was run on these streams (issues #248, #53); the layout fault LVS found is
-#346.
+**Bodies are tied, and the pins are the schematic's (issue #346).** The two
+paragraphs above describe the plan path, and the plan path alone still wires
+device terminals only: `klt`'s layout-plan executor derives connectivity from
+source/drain/gate terminals and deliberately drops the bulk terminal, so the
+guard-ring / body-tie metal-1 pads each generator draws are in no plan net.
+That is a tool gap (`2AMLogic/klayout-tools#5546`), and until it closes
+`scripts/gen_analog_layout.py` completes the tie itself, in the same post-plan
+pass as the scripted routes: it reads the plan's own netlist digest, and for
+each device group ties the group's body — through one of the contacted
+`TAP_PAD` ports `mos_array` reports — to the net the schematic puts that body
+on. One pad per group is enough, because a group's pads contact the one well
+(pfet) or the one substrate (nfet) its devices sit in. The same pass re-labels
+the top cell so its named nets are **exactly** the reference `.subckt` ports;
+what klt leaves behind is one label per net its router drew a leg for, which is
+neither the port set nor a subset of it.
+
+**LVS has now been run on all five committed streams and all five match** —
+record `verification/records/analog-lvs/records/20261113-163000-35e9b6e5ab87.md`
+(issue #346), which supersedes the five-mismatch measurement of
+`20261113-151132-45afbeea4868.md` (issue #345). `body_verification.status`
+reads `verified` on every block, `vsubs` appears in none of the five extracted
+netlists, and the layout pin set equals the reference port set on every block.
+The layout measurement for those regenerated streams — 5/5 fully routed, 5/5
+DRC-clean, every device cell unchanged — is
+`verification/records/analog-layout/records/20261113-162700-35e9b6e5ab87.md`.
+The earlier `differential_receiver` LVS mismatch (`20261009-203500-7a8e831`)
+is history: that stream no longer exists in the tree.
+
+**What the match does not say.** The compare paired the poly resistors on
+topology alone — their `R` is a `subckt-call` placeholder and `L`/`W`/`A`/`P`
+are KLayout-secondary, so none was compared — so it verifies no resistor
+dimension, including the DR-0010 deviation above. MOS `L`/`W` *were* compared
+and agreed. No ERC or extracted re-simulation was run on these streams
+(issues #248, #53), and nothing here is an IR-drop or latch-up-margin claim
+about the tie geometry.
 Metal-3 is used for the first time in this repo; nothing yet checks it beyond the
 deck's `metal3.*` and `via2.*` rules.
 
@@ -237,38 +267,41 @@ of them — `differential_receiver`, `se_receiver_dm`, `se_receiver_dp` and
 DRC-clean (0 violations) at the `gf180mcu` deck under the pinned klt 0.9.0.
 Those nets are completed by two paths, as the table under "Outcome for the
 four child-A blocks" above and `layout/analog/provenance.json` record per
-block: the klt plan path routes 1, 1, 1 and 6 of them, and scripted routes in
-`scripts/gen_analog_layout.py` complete the remaining 7, 8, 8 and 15.
+block: the klt plan path routes 0, 0, 0 and 6 of them, and scripted routes in
+`scripts/gen_analog_layout.py` complete the remaining 8, 9, 9 and 15.
 `differential_driver` now has a **committed stream** too (issue #252): its
 plan executes 40 device groups for the 40 netlist devices and all **20 of its
 20** nets are routed — the plan path routes 2 and scripted routes in
 `scripts/gen_analog_layout.py` complete the remaining 18 — DRC-clean at the
 `gf180mcu` deck, bbox 1831.2 x 83.88 um; run record
-`verification/records/analog-layout/records/20261113-133000-f26c7be72693.md`,
-which supersedes the 2-of-20 measurement of
-`20261113-090000-4f79d854e7b4.md` (the three sibling records of that date are
-source-only provenance-hash refreshes, not measurements). The driver does
-ingest now — the "cannot be ingested" wording in the early columns of the
-per-run table in `analog/HISTORY.md` is history. There is still **no
-signoff-ready analog layout**, but the LVS gap is now measured rather than
-open: `scripts/analog_lvs.py` runs transistor-level LVS on **all five**
-committed streams against `design/netlist/<block>.spice`, and **all five
-mismatch** — record
-`verification/records/analog-lvs/records/20261113-151132-45afbeea4868.md`
-(issue #345, klt 0.9.0). Device counts agree on every block (40/40, 11/11,
-78/78, 13/13, 13/13), so nothing is missing or extra; the fault is
-connectivity and naming, and it is the same on all five: PMOS bodies sit on
-floating unnamed wells, the p-substrate is not tied to a labelled `VSS`
-(no block has a `VSS` net at all), and the labelled port set is not the
-schematic's. Fixing that is #346. The earlier
+`verification/records/analog-layout/records/20261113-162700-35e9b6e5ab87.md`,
+the current measurement of all five streams (its lineage runs back through
+`20261113-134500-7233150d73ec.md` and `20261113-133000-f26c7be72693.md` to the
+2-of-20 measurement of `20261113-090000-4f79d854e7b4.md`; each date's three
+sibling records are source-only provenance-hash refreshes, not measurements).
+The driver does ingest now — the "cannot be ingested" wording in the early
+columns of the per-run table in `analog/HISTORY.md` is history. There is still
+**no signoff-ready analog layout**, but the LVS gap is now closed rather than
+merely measured: `scripts/analog_lvs.py` runs transistor-level LVS on **all
+five** committed streams against `design/netlist/<block>.spice`, and **all
+five match** — record
+`verification/records/analog-lvs/records/20261113-163000-35e9b6e5ab87.md`
+(issue #346, klt 0.9.0), which supersedes the five-mismatch measurement of
+`20261113-151132-45afbeea4868.md` (issue #345). Every device, net and pin
+pairs on every block (40/40, 11/11, 78/78, 13/13, 13/13 devices), `error_count`
+is 0, and nothing was relaxed to get there — no `ignore_mos_bulk`, no
+parameter tolerance, no flattening. The three causes that record named are
+each gone: PMOS bodies sit on the supply the schematic names, the substrate is
+tied to a drawn `VSS` (`vsubs` appears in no extracted netlist), and the
+labelled port set is the schematic's. The earlier
 `verification/records/analog-layout/records/20261009-203500-7a8e831.md`
 (issue #103) is superseded: its verdict still holds for the stream it pinned,
 but its 1-of-8 routing and 31-vs-10 net counts describe that 2026-10-09
-plan-path-only `differential_receiver` geometry, not the committed stream
-(which is fully routed and extracts to 15 nets). No extracted re-simulation
-exists, and the guard-ring / body-tie pads each generator draws are left
-unconnected. DRC and ERC signoff of the committed streams are issues #246 and
-#248; the T1 item `4.analog` is #247. The
+plan-path-only `differential_receiver` geometry, not the committed stream.
+What is still missing is electrical: no ERC and no extracted re-simulation
+exists, and LVS compared no resistor dimension (see "What the match does not
+say" above). DRC and ERC signoff of the committed streams are issues #246 and
+#248; citing the match as T1 item `4.analog` is #247. The
 per-run table in `analog/HISTORY.md` is dated history.
 
 ### Dated history

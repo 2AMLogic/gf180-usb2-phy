@@ -1,0 +1,35 @@
+* extracted by klt extract --deck gf180mcu
+
+* cell se_receiver_dp
+* pin DP
+* pin RXDP
+* pin VDD
+* pin VSS
+.SUBCKT se_receiver_dp DP RXDP VDD VSS
+* device instance $1 r0 *1 417.49,3.23 nfet
+M$1 \$4 \$4 VSS VSS nfet L=0.5U W=4U AS=2P AD=2P PS=9U PD=9U
+* device instance $2 r0 *1 422.92,3.23 nfet
+M$2 \$5 \$9 VSS VSS nfet L=0.28U W=4U AS=2P AD=2P PS=9U PD=9U
+* device instance $3 r0 *1 428.24,5.23 nfet
+M$3 RXDP \$5 VSS VSS nfet L=0.28U W=8U AS=4P AD=4P PS=17U PD=17U
+* device instance $4 r0 *1 468.07,5.23 nfet
+M$4 \$7 \$4 VSS VSS nfet L=0.5U W=8U AS=4P AD=4P PS=17U PD=17U
+* device instance $5 r0 *1 433.77,11.23 nfet
+M$5 \$8 DP \$7 VSS nfet L=0.28U W=20U AS=10P AD=10P PS=41U PD=41U
+* device instance $6 r0 *1 439.51,11.23 nfet
+M$6 \$9 \$2 \$7 VSS nfet L=0.28U W=20U AS=10P AD=10P PS=41U PD=41U
+* device instance $7 r0 *1 445.24,5.23 pfet
+M$7 \$5 \$9 VDD VDD pfet L=0.28U W=8U AS=4P AD=4P PS=17U PD=17U
+* device instance $8 r0 *1 450.96,9.23 pfet
+M$8 RXDP \$5 VDD VDD pfet L=0.28U W=16U AS=8P AD=8P PS=33U PD=33U
+* device instance $9 r0 *1 456.69,21.23 pfet
+M$9 \$8 \$8 VDD VDD pfet L=0.28U W=40U AS=20P AD=20P PS=81U PD=81U
+* device instance $10 r0 *1 462.43,21.23 pfet
+M$10 \$9 \$8 VDD VDD pfet L=0.28U W=40U AS=20P AD=20P PS=81U PD=81U
+* device instance $11 r0 *1 2.42,1.22 ppolyf_u_1k
+X$11 \$2 VDD VSS ppolyf_u_1k r=1900 L=3.8U W=2U
+* device instance $12 r0 *1 8.76,1.22 ppolyf_u_1k
+X$12 VSS \$2 VSS ppolyf_u_1k r=1400 L=2.8U W=2U
+* device instance $13 r0 *1 213.2,1.22 ppolyf_u_1k
+X$13 \$4 VDD VSS ppolyf_u_1k r=200000 L=400U W=2U
+.ENDS se_receiver_dp

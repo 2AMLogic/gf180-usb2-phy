@@ -1,0 +1,360 @@
+{
+  "schema_version": 2,
+  "engine": "klayout",
+  "layout": {
+    "path": "layout/analog/lvs/dplus_pullup/dplus_pullup.gds",
+    "scope": "repo"
+  },
+  "reference": "dplus_pullup_reference.spice",
+  "top": "dplus_pullup",
+  "reference_top": "DPLUS_PULLUP",
+  "reference_conversion": {
+    "form": "subckt-call",
+    "deck": null,
+    "device_map": null
+  },
+  "parameter_tolerance": null,
+  "options": {
+    "combine_devices": false,
+    "combine_devices_per_circuit": null,
+    "combine_devices_max_attempts": 5,
+    "flatten_layout": false,
+    "flatten_reference": false,
+    "netgen_setup": null,
+    "parameter_tolerance": null,
+    "compare_parameters": null,
+    "power_connectivity": null,
+    "anchor_top_level_pins": null,
+    "strict_top_level_pin_count": false,
+    "compare_mos_flavour": false,
+    "supply_nets": [
+      "GND",
+      "VCC",
+      "VDD",
+      "VGND",
+      "VPWR",
+      "VSS"
+    ],
+    "finfet_bulk": null
+  },
+  "hints_applied": null,
+  "constant_nets_applied": null,
+  "status": "match",
+  "power_connectivity": {
+    "status": "unchecked",
+    "reason": "reference.form is 'subckt-call', whose reference netlist carries its own power/ground pins and nets -- they take part in the ordinary compare, so this check (which exists to cover the signal-only 'gate-level-verilog' form) does not apply",
+    "power_pins": [],
+    "power_pins_derivation": null,
+    "instance_count": 0,
+    "expected_nets": null,
+    "unchecked_expected_pins": [],
+    "excluded_pins": [],
+    "findings": [],
+    "finding_count": 0
+  },
+  "body_verification": {
+    "status": "verified",
+    "reason": null,
+    "device_classes": [],
+    "device_count": 0,
+    "findings": [],
+    "finding_count": 0
+  },
+  "device_parameter_coverage": [
+    {
+      "class": "ppolyf_u",
+      "device_kind": "resistor",
+      "layout_devices": 6,
+      "reference_devices": 6,
+      "compared": [],
+      "not_compared": [
+        {
+          "parameter": "R",
+          "reason": "placeholder_value"
+        },
+        {
+          "parameter": "L",
+          "reason": "secondary"
+        },
+        {
+          "parameter": "W",
+          "reason": "secondary"
+        },
+        {
+          "parameter": "A",
+          "reason": "secondary"
+        },
+        {
+          "parameter": "P",
+          "reason": "secondary"
+        }
+      ]
+    }
+  ],
+  "mismatch_count": 3,
+  "error_count": 0,
+  "category_counts": {
+    "device.geometry_not_compared": 1,
+    "device.placeholder_value": 1,
+    "topology": 1
+  },
+  "category_error_counts": {},
+  "counts": {
+    "nets": {
+      "layout": 21,
+      "reference": 21,
+      "matched": 21
+    },
+    "devices": {
+      "layout": 78,
+      "reference": 78,
+      "matched": 78
+    },
+    "pins": {
+      "layout": 9,
+      "reference": 9,
+      "matched": 9
+    }
+  },
+  "device_classes": [
+    "nfet",
+    "pfet",
+    "bjt",
+    "cap_mim_2f0_m4m5_noshield",
+    "cap_nmos_03v3",
+    "cap_nmos_03v3_dn",
+    "cap_pmos_03v3",
+    "cap_pmos_03v3_dn",
+    "cap_nmos_06v0",
+    "cap_nmos_06v0_dn",
+    "cap_pmos_06v0",
+    "cap_pmos_06v0_dn",
+    "cap_nmos_03v3_b",
+    "cap_pmos_03v3_b",
+    "cap_nmos_06v0_b",
+    "cap_pmos_06v0_b",
+    "resistor",
+    "diode_nd2ps_06v0",
+    "diode_pd2nw_06v0"
+  ],
+  "environment": {
+    "engine": "klayout",
+    "engine_version": "0.30.13",
+    "netgen_binary": null,
+    "layout_sha256": "61811cc55de70c8645c98eaf6472913e631250970dbfa8cdd812bacd6c7789d8",
+    "reference_sha256": "9c645ecf0da6d80fb05d85c33d2941cc48bc328a00cd427f0c11bdf980b2cceb",
+    "extracted_netlist": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-346/layout/analog/lvs/dplus_pullup/.klt/lvs/dplus_pullup.spice"
+  },
+  "provenance": {
+    "klt_version": "0.9.0",
+    "klt_git_commit": "5dbbad05ff42265c92a6f3d2f20d1bbcd2957d49",
+    "klt_reinstall_spec": "klayout-tools==0.9.0",
+    "klayout_version": "0.30.13",
+    "pdk": null,
+    "deck": {
+      "name": "gf180mcu",
+      "content_hash": "sha256:cf44de63f0a5b01c1d09c4d58e0535e990aa4b070bcaae17fd3a94a67a1d97e1",
+      "released": true,
+      "options": {
+        "metal_top": "9K",
+        "mim_cap": "cap_mim_2f0_m4m5_noshield",
+        "poly_res": "1k"
+      },
+      "options_explicit": {
+        "metal_top": false,
+        "mim_cap": false,
+        "poly_res": false
+      },
+      "options_hash": "sha256:6a7dc7660a470994263c5ca8ace6d8ac8c605d77e6876a9c5490949de6e7cb05"
+    },
+    "input": {
+      "content_hash": "sha256:61811cc55de70c8645c98eaf6472913e631250970dbfa8cdd812bacd6c7789d8",
+      "role": "layout"
+    },
+    "klayout_version_mismatch": true
+  },
+  "mismatches": [
+    {
+      "category": "device.geometry_not_compared",
+      "severity": "warning",
+      "description": "device class 'ppolyf_u' is a resistor class, whose ['A', 'L', 'P', 'W'] parameter(s) KLayout declares *secondary*: kdb.NetlistComparer compares primary parameters only, so none of them took part in this compare and each is NOT verified -- this resistor's geometry could differ between the two sides by any amount and this run would still report 'match'. No parameter of this class was compared at all: the remaining parameter(s) were separately excluded from this run (see the device.placeholder_value/device.parameter_excluded entries), so the two sides were paired on topology alone. Name them in options.compare_parameters to compare them (see docs/cli/lvs.md, 'device.geometry_not_compared')",
+      "side": "both",
+      "net": null,
+      "device": {
+        "layout": null,
+        "reference": null,
+        "class": "ppolyf_u"
+      },
+      "property": null,
+      "details": {
+        "device_kind": "resistor",
+        "compared_parameters": [],
+        "not_compared_parameters": [
+          "A",
+          "L",
+          "P",
+          "W"
+        ],
+        "layout_devices": 6,
+        "reference_devices": 6
+      },
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "device.placeholder_value",
+      "severity": "warning",
+      "description": "reference device class 'PPOLYF_U' was converted from a subcircuit call (request.reference.form: \"subckt-call\"), so its 'R' value is the literal 0 placeholder on all 6 reference instance(s) -- klt lvs has no PDK sheet-resistance/capacitance-per-area data to compute a real one. 'R' was therefore excluded from this compare on both sides (layout: 6 instance(s), R 36.75..1000.125) and the two sides were paired on topology alone -- that dimension of the compare is not independently verified. Supply a reference in the plain-element form carrying real 'R' values to compare it (see docs/cli/lvs.md, 'device.placeholder_value')",
+      "side": "reference",
+      "net": null,
+      "device": {
+        "layout": null,
+        "reference": null,
+        "class": "PPOLYF_U"
+      },
+      "property": null,
+      "details": {
+        "parameter": "R",
+        "device_kind": "resistor",
+        "reference_devices": 6,
+        "layout_devices": 6,
+        "layout_values": [
+          36.75,
+          59.9375,
+          119.875,
+          240.1875,
+          479.9375,
+          1000.125
+        ]
+      },
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "warning",
+      "description": "device class has no counterpart on the other side, but no devices of this class were extracted either -- not a real topology mismatch: 'bjt'",
+      "side": "layout",
+      "net": null,
+      "device": {
+        "layout": null,
+        "reference": null,
+        "class": "bjt"
+      },
+      "property": null,
+      "details": null,
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    }
+  ],
+  "net_correspondence": [
+    {
+      "layout": "DP",
+      "reference": "DP",
+      "pin": true
+    },
+    {
+      "layout": "\\$5",
+      "reference": "NODE0",
+      "pin": false
+    },
+    {
+      "layout": "\\$6",
+      "reference": "NODE1",
+      "pin": false
+    },
+    {
+      "layout": "\\$7",
+      "reference": "NODE2",
+      "pin": false
+    },
+    {
+      "layout": "\\$8",
+      "reference": "NODE3",
+      "pin": false
+    },
+    {
+      "layout": "\\$3",
+      "reference": "NODE4",
+      "pin": false
+    },
+    {
+      "layout": "\\$4",
+      "reference": "NODE5",
+      "pin": false
+    },
+    {
+      "layout": "PU_EN",
+      "reference": "PU_EN",
+      "pin": true
+    },
+    {
+      "layout": "\\$16",
+      "reference": "PU_ENB",
+      "pin": false
+    },
+    {
+      "layout": "TRIM0",
+      "reference": "TRIM0",
+      "pin": true
+    },
+    {
+      "layout": "\\$17",
+      "reference": "TRIM0B",
+      "pin": false
+    },
+    {
+      "layout": "TRIM1",
+      "reference": "TRIM1",
+      "pin": true
+    },
+    {
+      "layout": "\\$18",
+      "reference": "TRIM1B",
+      "pin": false
+    },
+    {
+      "layout": "TRIM2",
+      "reference": "TRIM2",
+      "pin": true
+    },
+    {
+      "layout": "\\$19",
+      "reference": "TRIM2B",
+      "pin": false
+    },
+    {
+      "layout": "TRIM3",
+      "reference": "TRIM3",
+      "pin": true
+    },
+    {
+      "layout": "\\$20",
+      "reference": "TRIM3B",
+      "pin": false
+    },
+    {
+      "layout": "TRIM4",
+      "reference": "TRIM4",
+      "pin": true
+    },
+    {
+      "layout": "\\$21",
+      "reference": "TRIM4B",
+      "pin": false
+    },
+    {
+      "layout": "VPU_REG",
+      "reference": "VPU_REG",
+      "pin": true
+    },
+    {
+      "layout": "VSS",
+      "reference": "VSS",
+      "pin": true
+    }
+  ]
+}

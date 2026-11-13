@@ -1,0 +1,86 @@
+{
+  "block": "differential_driver",
+  "ports": {
+    "layout": [
+      "DM",
+      "DP",
+      "TXDM",
+      "TXDP",
+      "TXOE",
+      "VDD",
+      "VSS"
+    ],
+    "reference": [
+      "VDD",
+      "VSS",
+      "TXDP",
+      "TXDM",
+      "TXOE",
+      "DP",
+      "DM"
+    ],
+    "only_in_layout": [],
+    "only_in_reference": [],
+    "common": [
+      "DM",
+      "DP",
+      "TXDM",
+      "TXDP",
+      "TXOE",
+      "VDD",
+      "VSS"
+    ]
+  },
+  "layout_nets": {
+    "total": 22,
+    "unnamed_count": 15,
+    "unnamed": [
+      "\\$10",
+      "\\$13",
+      "\\$14",
+      "\\$16",
+      "\\$17",
+      "\\$2",
+      "\\$20",
+      "\\$21",
+      "\\$22",
+      "\\$3",
+      "\\$5",
+      "\\$6",
+      "\\$7",
+      "\\$8",
+      "\\$9"
+    ],
+    "named": [
+      "DM",
+      "DP",
+      "TXDM",
+      "TXDP",
+      "TXOE",
+      "VDD",
+      "VSS"
+    ]
+  },
+  "bulk_nets": {
+    "layout": {
+      "nfet": [
+        "VSS"
+      ],
+      "pfet": [
+        "VDD"
+      ]
+    },
+    "reference": {
+      "nfet": [
+        "VSS"
+      ],
+      "pfet": [
+        "VDD"
+      ]
+    }
+  },
+  "device_counts": {
+    "layout": 40,
+    "reference": 40
+  }
+}

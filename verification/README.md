@@ -388,18 +388,21 @@ verification/records/
     harness re-run against a deliberately broken reference must report a
     mismatch, and does. A record that only ever reports "match" is not
     evidence, so the control is part of the claim rather than a nicety.
-  - `analog-lvs` (issue #345) — transistor-level LVS of the five committed
-    analog streams (`layout/analog/*.gds`) against their schematic netlists
-    (`design/netlist/<block>.spice`, `form: "subckt-call"`), via
-    `scripts/analog_lvs.py`. **All five mismatch**, and the record says so:
-    device counts agree on every block, so the fault is connectivity and
-    naming, not missing devices. The record names the cause per block —
-    untied PMOS n-wells, an untied p-substrate, and a labelled port set that
-    is not the schematic's — each measured off the compare's own extracted
-    netlist rather than inferred, with what could *not* be established marked
-    as such. No LVS option that would hide the mismatch is set. Caveat: this
-    is a structural compare only; with near-zero device pairing it says
-    nothing about drawn device sizes. Follow-up on the layout fault is #346.
+  - `analog-lvs` (issues #345, #346) — transistor-level LVS of the five
+    committed analog streams (`layout/analog/*.gds`) against their schematic
+    netlists (`design/netlist/<block>.spice`, `form: "subckt-call"`), via
+    `scripts/analog_lvs.py`. The first record (#345) measured **five
+    mismatches** and named the cause per block — untied PMOS n-wells, an
+    untied p-substrate, and a labelled port set that was not the schematic's
+    — each read off the compare's own extracted netlist rather than
+    inferred, with what could *not* be established marked as such. The
+    current record (#346) repairs all three in the layout generator and
+    measures **five matches**: every device, net and pin pairs, with no LVS
+    option that would hide a mismatch set — in particular no
+    `ignore_mos_bulk`. Caveat: this is a structural compare. MOS `L`/`W`
+    took part once the devices paired, but every poly-resistor parameter is
+    excluded by the engine (`R` is a `subckt-call` placeholder, the rest are
+    KLayout-secondary), so no resistor dimension is verified.
   - `analog-layout` (issue #25) — what klt's netlist-driven layout-plan
     path (`klt.layout_plan.request/1` +
     `klayout_tools.layout_plan_execute`) actually produces for the five

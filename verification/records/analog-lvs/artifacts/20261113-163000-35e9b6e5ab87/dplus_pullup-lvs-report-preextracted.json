@@ -1,0 +1,302 @@
+{
+  "schema_version": 2,
+  "engine": "klayout",
+  "layout": {
+    "path": "layout/analog/lvs/dplus_pullup/dplus_pullup_extract.spice",
+    "scope": "repo"
+  },
+  "reference": "dplus_pullup_reference.spice",
+  "top": "DPLUS_PULLUP",
+  "reference_top": "DPLUS_PULLUP",
+  "reference_conversion": {
+    "form": "subckt-call",
+    "deck": null,
+    "device_map": null
+  },
+  "parameter_tolerance": null,
+  "options": {
+    "combine_devices": false,
+    "combine_devices_per_circuit": null,
+    "combine_devices_max_attempts": 5,
+    "flatten_layout": false,
+    "flatten_reference": false,
+    "netgen_setup": null,
+    "parameter_tolerance": null,
+    "compare_parameters": null,
+    "power_connectivity": null,
+    "anchor_top_level_pins": null,
+    "strict_top_level_pin_count": false,
+    "compare_mos_flavour": false,
+    "supply_nets": [
+      "GND",
+      "VCC",
+      "VDD",
+      "VGND",
+      "VPWR",
+      "VSS"
+    ],
+    "finfet_bulk": null
+  },
+  "hints_applied": null,
+  "constant_nets_applied": null,
+  "status": "mismatch",
+  "power_connectivity": {
+    "status": "unchecked",
+    "reason": "reference.form is 'subckt-call', whose reference netlist carries its own power/ground pins and nets -- they take part in the ordinary compare. That includes the pin-only black-box cell(s) this layout instantiates (PPOLYF_U(L=0.42U,R=36.75,W=4U), PPOLYF_U(L=0.685U,R=59.9375,W=4U), PPOLYF_U(L=1.37U,R=0.119875K,W=4U), PPOLYF_U(L=11.43U,R=1.00012K,W=4U), PPOLYF_U(L=2.745U,R=0.240187K,W=4U), ... (6 total)): every stub pin, power/ground pins included, was compared as ordinary subcircuit-pin connectivity, paired by pin name (stub pin order does not matter), so a power pin wired to the wrong net is a compare mismatch, not a silent pass. No separate per-instance power-pin audit ran: that audit needs a library-derived power/ground pin universe, which only the 'gate-level-verilog' form has",
+    "power_pins": [],
+    "power_pins_derivation": null,
+    "instance_count": 0,
+    "expected_nets": null,
+    "unchecked_expected_pins": [],
+    "excluded_pins": [],
+    "findings": [],
+    "finding_count": 0
+  },
+  "body_verification": {
+    "status": "unchecked",
+    "reason": "no request.layout.deck was given (the pre-extracted request.layout.netlist form), so nothing establishes this layout's substrate/well-tap convention and no synthesized body net can be told apart from a real one -- this run verified nothing about the device bodies either way",
+    "device_classes": [],
+    "device_count": 0,
+    "findings": [],
+    "finding_count": 0
+  },
+  "device_parameter_coverage": [
+    {
+      "class": "PPOLYF_U",
+      "device_kind": "resistor",
+      "layout_devices": 0,
+      "reference_devices": 6,
+      "compared": [
+        "R"
+      ],
+      "not_compared": [
+        {
+          "parameter": "L",
+          "reason": "secondary"
+        },
+        {
+          "parameter": "W",
+          "reason": "secondary"
+        },
+        {
+          "parameter": "A",
+          "reason": "secondary"
+        },
+        {
+          "parameter": "P",
+          "reason": "secondary"
+        }
+      ]
+    }
+  ],
+  "mismatch_count": 9,
+  "error_count": 8,
+  "category_counts": {
+    "device.geometry_not_compared": 1,
+    "topology": 8
+  },
+  "category_error_counts": {
+    "topology": 8
+  },
+  "counts": {
+    "nets": {
+      "layout": 21,
+      "reference": 21,
+      "matched": 0
+    },
+    "devices": {
+      "layout": 72,
+      "reference": 78,
+      "matched": 0
+    },
+    "pins": {
+      "layout": 9,
+      "reference": 9,
+      "matched": 0
+    }
+  },
+  "device_classes": null,
+  "environment": {
+    "engine": "klayout",
+    "engine_version": "0.30.13",
+    "netgen_binary": null,
+    "layout_sha256": "15f6e2121a7ed4608a59c965c0a2d3a3832ab3a36c190f3623a77ec2ea00b8ab",
+    "reference_sha256": "9c645ecf0da6d80fb05d85c33d2941cc48bc328a00cd427f0c11bdf980b2cceb",
+    "extracted_netlist": null
+  },
+  "provenance": {
+    "klt_version": "0.9.0",
+    "klt_git_commit": "5dbbad05ff42265c92a6f3d2f20d1bbcd2957d49",
+    "klt_reinstall_spec": "klayout-tools==0.9.0",
+    "klayout_version": "0.30.13",
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "content_hash": "sha256:15f6e2121a7ed4608a59c965c0a2d3a3832ab3a36c190f3623a77ec2ea00b8ab",
+      "role": "netlist"
+    },
+    "klayout_version_mismatch": true
+  },
+  "mismatches": [
+    {
+      "category": "device.geometry_not_compared",
+      "severity": "warning",
+      "description": "device class 'PPOLYF_U' is a resistor class, whose ['A', 'L', 'P', 'W'] parameter(s) KLayout declares *secondary*: kdb.NetlistComparer compares primary parameters only, so none of them took part in this compare and each is NOT verified -- this resistor's geometry could differ between the two sides by any amount and this run would still report 'match'. The compared parameter(s) were ['R']. Name them in options.compare_parameters to compare them (see docs/cli/lvs.md, 'device.geometry_not_compared')",
+      "side": "both",
+      "net": null,
+      "device": {
+        "layout": null,
+        "reference": null,
+        "class": "PPOLYF_U"
+      },
+      "property": null,
+      "details": {
+        "device_kind": "resistor",
+        "compared_parameters": [
+          "R"
+        ],
+        "not_compared_parameters": [
+          "A",
+          "L",
+          "P",
+          "W"
+        ],
+        "layout_devices": 0,
+        "reference_devices": 6
+      },
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "both",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "DPLUS_PULLUP",
+        "reference": "DPLUS_PULLUP"
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "PPOLYF_U(L=11_43U|R=1_00012K|W=4U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "PPOLYF_U(L=0_42U|R=36_75|W=4U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "PPOLYF_U(L=0_685U|R=59_9375|W=4U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "PPOLYF_U(L=1_37U|R=0_119875K|W=4U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "PPOLYF_U(L=2_745U|R=0_240187K|W=4U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "circuit could not be matched to a counterpart",
+      "side": "layout",
+      "net": null,
+      "device": null,
+      "property": null,
+      "details": null,
+      "circuit": {
+        "layout": "PPOLYF_U(L=5_485U|R=0_479938K|W=4U)",
+        "reference": null
+      },
+      "instance": null,
+      "subcircuit": null
+    },
+    {
+      "category": "topology",
+      "severity": "error",
+      "description": "device class could not be mapped to a counterpart: 'PPOLYF_U'",
+      "side": "reference",
+      "net": null,
+      "device": {
+        "layout": null,
+        "reference": null,
+        "class": "PPOLYF_U"
+      },
+      "property": null,
+      "details": null,
+      "circuit": null,
+      "instance": null,
+      "subcircuit": null
+    }
+  ],
+  "net_correspondence": []
+}

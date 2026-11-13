@@ -4,16 +4,29 @@
     {
       "block": "differential_driver",
       "gds": "layout/analog/differential_driver.gds",
-      "gds_sha256": "f6293c3af17b568cb29f856482b1dee47319f9c99ac04ca616ded67bf3d8eb3d",
+      "gds_sha256": "4a1c1ddfc5a1a984c2ecd156808cd20acbd881ef74d6f092e18ee377a2800fcb",
       "netlist_sha256": "b5dda5306f4636451ffc047c3792151f0a5c49d87082e6304cc065831c9f0b72",
       "plan_sha256": "4a8b1ed420ff93de0f2847927a4a7337f46d4545f6690f7a6f7ccf912417ea4f",
       "klt_version": "0.9.0",
-      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver --blocks differential_driver",
+      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver",
       "routing_method": {
         "klt-plan": 2,
         "scripted": 18
       },
       "net_count": 20,
+      "body_tie_nets": {
+        "VDD": 17,
+        "VSS": 17
+      },
+      "pin_labels": [
+        "DM",
+        "DP",
+        "TXDM",
+        "TXDP",
+        "TXOE",
+        "VDD",
+        "VSS"
+      ],
       "drc": {
         "status": "clean",
         "violation_count": 0,
@@ -23,16 +36,24 @@
     {
       "block": "differential_receiver",
       "gds": "layout/analog/differential_receiver.gds",
-      "gds_sha256": "743d43ebdf5e26fea80903aecde6705839d746471bb9c256b86bb12e684e1fcf",
+      "gds_sha256": "8546baa5d159f33bf741d55d367ab11a91aaf622da31b08dd1ded1872de22f5f",
       "netlist_sha256": "76a1e6f9263a115f9103461a03d1f796ec92644e15398a463659c25cce78b13d",
       "plan_sha256": "77c62e64b32eeb81732dedd2ec841a6e584aa64bcebbd598cd0586081694abdf",
       "klt_version": "0.9.0",
       "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver",
-      "routing_method": {
-        "klt-plan": 1,
-        "scripted": 7
-      },
+      "routing_method": "scripted",
       "net_count": 8,
+      "body_tie_nets": {
+        "VDD": 4,
+        "VSS": 6
+      },
+      "pin_labels": [
+        "DM",
+        "DP",
+        "RXD",
+        "VDD",
+        "VSS"
+      ],
       "drc": {
         "status": "clean",
         "violation_count": 0,
@@ -42,16 +63,31 @@
     {
       "block": "dplus_pullup",
       "gds": "layout/analog/dplus_pullup.gds",
-      "gds_sha256": "3729bd19545640ac1361174b05fcbbbdfdd9b496aa01118cc70ad876e756245c",
+      "gds_sha256": "61811cc55de70c8645c98eaf6472913e631250970dbfa8cdd812bacd6c7789d8",
       "netlist_sha256": "9c645ecf0da6d80fb05d85c33d2941cc48bc328a00cd427f0c11bdf980b2cceb",
       "plan_sha256": "769f4bdfbf6d8ca2cba147fb354e2f929264f11b94de6e71ded4c9f2f10935aa",
       "klt_version": "0.9.0",
-      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver --blocks dplus_pullup",
+      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver",
       "routing_method": {
         "klt-plan": 6,
         "scripted": 15
       },
       "net_count": 21,
+      "body_tie_nets": {
+        "VPU_REG": 12,
+        "VSS": 6
+      },
+      "pin_labels": [
+        "DP",
+        "PU_EN",
+        "TRIM0",
+        "TRIM1",
+        "TRIM2",
+        "TRIM3",
+        "TRIM4",
+        "VPU_REG",
+        "VSS"
+      ],
       "drc": {
         "status": "clean",
         "violation_count": 0,
@@ -61,16 +97,23 @@
     {
       "block": "se_receiver_dm",
       "gds": "layout/analog/se_receiver_dm.gds",
-      "gds_sha256": "54088ae62673bde9dfbce946bb0fc7f7a20016b6084684ebe24505a39826afbb",
+      "gds_sha256": "31601e6386711cba7a89dcd2f24716eff8568c2de098d5f1e1b27a1ff47cc06c",
       "netlist_sha256": "ebfc91ac1306060dfa0ffce7d91e048b4fc8b50cfebbd5804c3aaf9b58a20554",
       "plan_sha256": "90b3ec9e6b22ce691540746afc85731e3d9692c94a63028167049b9afbf5a687",
       "klt_version": "0.9.0",
       "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver",
-      "routing_method": {
-        "klt-plan": 1,
-        "scripted": 8
-      },
+      "routing_method": "scripted",
       "net_count": 9,
+      "body_tie_nets": {
+        "VDD": 4,
+        "VSS": 6
+      },
+      "pin_labels": [
+        "DM",
+        "RXDM",
+        "VDD",
+        "VSS"
+      ],
       "drc": {
         "status": "clean",
         "violation_count": 0,
@@ -80,16 +123,23 @@
     {
       "block": "se_receiver_dp",
       "gds": "layout/analog/se_receiver_dp.gds",
-      "gds_sha256": "a3839bad60a4412b394a4c0d5f36116bfd2d582acf79412b241447c265df44a4",
+      "gds_sha256": "101312916c6851df73af1f8977ec92f1db0f24c802bef3d5840ddc7bcc93c5d3",
       "netlist_sha256": "1f854210680331a1df73b96b317479cad4af325192fec68b0b61fb1421fac0b3",
       "plan_sha256": "4806a6fa835c72f6205d1aef2a77732703f109205bac472a76bfb6b1b961a81a",
       "klt_version": "0.9.0",
       "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver",
-      "routing_method": {
-        "klt-plan": 1,
-        "scripted": 8
-      },
+      "routing_method": "scripted",
       "net_count": 9,
+      "body_tie_nets": {
+        "VDD": 4,
+        "VSS": 6
+      },
+      "pin_labels": [
+        "DP",
+        "RXDP",
+        "VDD",
+        "VSS"
+      ],
       "drc": {
         "status": "clean",
         "violation_count": 0,

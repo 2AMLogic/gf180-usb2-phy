@@ -1,0 +1,65 @@
+{
+  "block": "se_receiver_dm",
+  "ports": {
+    "layout": [
+      "DM",
+      "RXDM",
+      "VDD",
+      "VSS"
+    ],
+    "reference": [
+      "VDD",
+      "VSS",
+      "DM",
+      "RXDM"
+    ],
+    "only_in_layout": [],
+    "only_in_reference": [],
+    "common": [
+      "DM",
+      "RXDM",
+      "VDD",
+      "VSS"
+    ]
+  },
+  "layout_nets": {
+    "total": 10,
+    "unnamed_count": 6,
+    "unnamed": [
+      "\\$2",
+      "\\$4",
+      "\\$5",
+      "\\$7",
+      "\\$8",
+      "\\$9"
+    ],
+    "named": [
+      "DM",
+      "RXDM",
+      "VDD",
+      "VSS"
+    ]
+  },
+  "bulk_nets": {
+    "layout": {
+      "nfet": [
+        "VSS"
+      ],
+      "pfet": [
+        "VDD"
+      ]
+    },
+    "reference": {
+      "nfet": [
+        "VSS"
+      ],
+      "pfet": [
+        "VDD"
+      ]
+    }
+  },
+  "device_counts": {
+    "layout": 13,
+    "reference": 13
+  }
+}

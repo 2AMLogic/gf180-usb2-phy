@@ -1,0 +1,486 @@
+{
+  "blocks": [
+    {
+      "block": "differential_driver",
+      "gds_sha256": "4a1c1ddfc5a1a984c2ecd156808cd20acbd881ef74d6f092e18ee377a2800fcb",
+      "reference_sha256": "b5dda5306f4636451ffc047c3792151f0a5c49d87082e6304cc065831c9f0b72",
+      "extract": {
+        "note": "evidence only; the verdict comes from the klt lvs run",
+        "status": "extracted",
+        "devices": 40,
+        "nets": 22,
+        "pins": 7,
+        "netlist_sha256": "cf1fd6e33ecef5ccad2d5a32dcaa95ffb21be494818ee14468399af723fb0c5b"
+      },
+      "lvs": {
+        "status": "match",
+        "exit_code": 0,
+        "error_count": 0,
+        "category_error_counts": {},
+        "category_counts": {
+          "device.geometry_not_compared": 2,
+          "device.placeholder_value": 2,
+          "topology": 1
+        },
+        "counts": {
+          "nets": {
+            "layout": 22,
+            "reference": 22,
+            "matched": 22
+          },
+          "devices": {
+            "layout": 40,
+            "reference": 40,
+            "matched": 40
+          },
+          "pins": {
+            "layout": 7,
+            "reference": 7,
+            "matched": 7
+          }
+        },
+        "body_verification": "verified",
+        "power_connectivity": "unchecked"
+      },
+      "layout_netlist_sha256": "624346550bfd30b8c3aedbe1c80b8762b78dde7c042a54e16268fcec0ccd7ce3",
+      "netlist_cross_check": {
+        "identical_ignoring_comments": false,
+        "differing_lines": [
+          "R$35 \\$16 \\$2 VSS 700 ppolyf_u",
+          "R$36 \\$14 \\$3 VSS 3500 ppolyf_u",
+          "R$37 \\$17 \\$8 VSS 700 ppolyf_u",
+          "R$38 \\$22 \\$9 VSS 3500 ppolyf_u",
+          "R$39 DP \\$6 36 rm1",
+          "R$40 DM \\$10 36 rm1"
+        ]
+      },
+      "lvs_preextracted": {
+        "status": "mismatch",
+        "exit_code": 3,
+        "error_count": 4,
+        "counts": {
+          "nets": {
+            "layout": 22,
+            "reference": 22,
+            "matched": 0
+          },
+          "devices": {
+            "layout": 36,
+            "reference": 40,
+            "matched": 0
+          },
+          "pins": {
+            "layout": 7,
+            "reference": 7,
+            "matched": 0
+          }
+        }
+      },
+      "cause": {
+        "ports_only_in_layout": [],
+        "ports_only_in_reference": [],
+        "unnamed_layout_nets": 15,
+        "layout_bulk_nets": {
+          "nfet": [
+            "VSS"
+          ],
+          "pfet": [
+            "VDD"
+          ]
+        },
+        "reference_bulk_nets": {
+          "nfet": [
+            "VSS"
+          ],
+          "pfet": [
+            "VDD"
+          ]
+        }
+      }
+    },
+    {
+      "block": "differential_receiver",
+      "gds_sha256": "8546baa5d159f33bf741d55d367ab11a91aaf622da31b08dd1ded1872de22f5f",
+      "reference_sha256": "76a1e6f9263a115f9103461a03d1f796ec92644e15398a463659c25cce78b13d",
+      "extract": {
+        "note": "evidence only; the verdict comes from the klt lvs run",
+        "status": "extracted",
+        "devices": 11,
+        "nets": 10,
+        "pins": 5,
+        "netlist_sha256": "03735faf8300c2dda1d5fce3db0fc52499669a89b744af0fd0d0ef3c4890507b"
+      },
+      "lvs": {
+        "status": "match",
+        "exit_code": 0,
+        "error_count": 0,
+        "category_error_counts": {},
+        "category_counts": {
+          "device.geometry_not_compared": 1,
+          "device.placeholder_value": 1,
+          "topology": 1
+        },
+        "counts": {
+          "nets": {
+            "layout": 10,
+            "reference": 10,
+            "matched": 10
+          },
+          "devices": {
+            "layout": 11,
+            "reference": 11,
+            "matched": 11
+          },
+          "pins": {
+            "layout": 5,
+            "reference": 5,
+            "matched": 5
+          }
+        },
+        "body_verification": "verified",
+        "power_connectivity": "unchecked"
+      },
+      "layout_netlist_sha256": "dd612cdfd2aa040d2d310a59b3359c114afee5e93010766facfd6c3d2802e113",
+      "netlist_cross_check": {
+        "identical_ignoring_comments": false,
+        "differing_lines": [
+          "R$11 \\$5 VDD VSS 200000 ppolyf_u_1k"
+        ]
+      },
+      "lvs_preextracted": {
+        "status": "mismatch",
+        "exit_code": 3,
+        "error_count": 3,
+        "counts": {
+          "nets": {
+            "layout": 10,
+            "reference": 10,
+            "matched": 0
+          },
+          "devices": {
+            "layout": 10,
+            "reference": 11,
+            "matched": 0
+          },
+          "pins": {
+            "layout": 5,
+            "reference": 5,
+            "matched": 0
+          }
+        }
+      },
+      "cause": {
+        "ports_only_in_layout": [],
+        "ports_only_in_reference": [],
+        "unnamed_layout_nets": 5,
+        "layout_bulk_nets": {
+          "nfet": [
+            "VSS"
+          ],
+          "pfet": [
+            "VDD"
+          ]
+        },
+        "reference_bulk_nets": {
+          "nfet": [
+            "VSS"
+          ],
+          "pfet": [
+            "VDD"
+          ]
+        }
+      }
+    },
+    {
+      "block": "dplus_pullup",
+      "gds_sha256": "61811cc55de70c8645c98eaf6472913e631250970dbfa8cdd812bacd6c7789d8",
+      "reference_sha256": "9c645ecf0da6d80fb05d85c33d2941cc48bc328a00cd427f0c11bdf980b2cceb",
+      "extract": {
+        "note": "evidence only; the verdict comes from the klt lvs run",
+        "status": "extracted",
+        "devices": 78,
+        "nets": 21,
+        "pins": 9,
+        "netlist_sha256": "15f6e2121a7ed4608a59c965c0a2d3a3832ab3a36c190f3623a77ec2ea00b8ab"
+      },
+      "lvs": {
+        "status": "match",
+        "exit_code": 0,
+        "error_count": 0,
+        "category_error_counts": {},
+        "category_counts": {
+          "device.geometry_not_compared": 1,
+          "device.placeholder_value": 1,
+          "topology": 1
+        },
+        "counts": {
+          "nets": {
+            "layout": 21,
+            "reference": 21,
+            "matched": 21
+          },
+          "devices": {
+            "layout": 78,
+            "reference": 78,
+            "matched": 78
+          },
+          "pins": {
+            "layout": 9,
+            "reference": 9,
+            "matched": 9
+          }
+        },
+        "body_verification": "verified",
+        "power_connectivity": "unchecked"
+      },
+      "layout_netlist_sha256": "573dad398a15968513030856ea4db592c67b1bda0b845643361a8258eedef1ba",
+      "netlist_cross_check": {
+        "identical_ignoring_comments": false,
+        "differing_lines": [
+          "R$73 \\$6 \\$5 VSS 1000.125 ppolyf_u",
+          "R$74 \\$7 \\$6 VSS 36.75 ppolyf_u",
+          "R$75 \\$8 \\$7 VSS 59.9375 ppolyf_u",
+          "R$76 \\$3 \\$8 VSS 119.875 ppolyf_u",
+          "R$77 \\$4 \\$3 VSS 240.1875 ppolyf_u",
+          "R$78 DP \\$4 VSS 479.9375 ppolyf_u"
+        ]
+      },
+      "lvs_preextracted": {
+        "status": "mismatch",
+        "exit_code": 3,
+        "error_count": 8,
+        "counts": {
+          "nets": {
+            "layout": 21,
+            "reference": 21,
+            "matched": 0
+          },
+          "devices": {
+            "layout": 72,
+            "reference": 78,
+            "matched": 0
+          },
+          "pins": {
+            "layout": 9,
+            "reference": 9,
+            "matched": 0
+          }
+        }
+      },
+      "cause": {
+        "ports_only_in_layout": [],
+        "ports_only_in_reference": [],
+        "unnamed_layout_nets": 12,
+        "layout_bulk_nets": {
+          "nfet": [
+            "VSS"
+          ],
+          "pfet": [
+            "VPU_REG"
+          ]
+        },
+        "reference_bulk_nets": {
+          "nfet": [
+            "VSS"
+          ],
+          "pfet": [
+            "VPU_REG"
+          ]
+        }
+      }
+    },
+    {
+      "block": "se_receiver_dm",
+      "gds_sha256": "31601e6386711cba7a89dcd2f24716eff8568c2de098d5f1e1b27a1ff47cc06c",
+      "reference_sha256": "ebfc91ac1306060dfa0ffce7d91e048b4fc8b50cfebbd5804c3aaf9b58a20554",
+      "extract": {
+        "note": "evidence only; the verdict comes from the klt lvs run",
+        "status": "extracted",
+        "devices": 13,
+        "nets": 10,
+        "pins": 4,
+        "netlist_sha256": "092dea43f40eb9eb5723b39faf9d425c9f9fdd2f2cea7e5373c6873ba698f46f"
+      },
+      "lvs": {
+        "status": "match",
+        "exit_code": 0,
+        "error_count": 0,
+        "category_error_counts": {},
+        "category_counts": {
+          "device.geometry_not_compared": 1,
+          "device.placeholder_value": 1,
+          "topology": 1
+        },
+        "counts": {
+          "nets": {
+            "layout": 10,
+            "reference": 10,
+            "matched": 10
+          },
+          "devices": {
+            "layout": 13,
+            "reference": 13,
+            "matched": 13
+          },
+          "pins": {
+            "layout": 4,
+            "reference": 4,
+            "matched": 4
+          }
+        },
+        "body_verification": "verified",
+        "power_connectivity": "unchecked"
+      },
+      "layout_netlist_sha256": "40292ee0431fabfd1b939ab1ebdac1ab029ee93cfc39c8fbc825a577027e70ac",
+      "netlist_cross_check": {
+        "identical_ignoring_comments": false,
+        "differing_lines": [
+          "R$11 \\$2 VDD VSS 1900 ppolyf_u_1k",
+          "R$12 VSS \\$2 VSS 1400 ppolyf_u_1k",
+          "R$13 \\$4 VDD VSS 200000 ppolyf_u_1k"
+        ]
+      },
+      "lvs_preextracted": {
+        "status": "mismatch",
+        "exit_code": 3,
+        "error_count": 5,
+        "counts": {
+          "nets": {
+            "layout": 10,
+            "reference": 10,
+            "matched": 0
+          },
+          "devices": {
+            "layout": 10,
+            "reference": 13,
+            "matched": 0
+          },
+          "pins": {
+            "layout": 4,
+            "reference": 4,
+            "matched": 0
+          }
+        }
+      },
+      "cause": {
+        "ports_only_in_layout": [],
+        "ports_only_in_reference": [],
+        "unnamed_layout_nets": 6,
+        "layout_bulk_nets": {
+          "nfet": [
+            "VSS"
+          ],
+          "pfet": [
+            "VDD"
+          ]
+        },
+        "reference_bulk_nets": {
+          "nfet": [
+            "VSS"
+          ],
+          "pfet": [
+            "VDD"
+          ]
+        }
+      }
+    },
+    {
+      "block": "se_receiver_dp",
+      "gds_sha256": "101312916c6851df73af1f8977ec92f1db0f24c802bef3d5840ddc7bcc93c5d3",
+      "reference_sha256": "1f854210680331a1df73b96b317479cad4af325192fec68b0b61fb1421fac0b3",
+      "extract": {
+        "note": "evidence only; the verdict comes from the klt lvs run",
+        "status": "extracted",
+        "devices": 13,
+        "nets": 10,
+        "pins": 4,
+        "netlist_sha256": "b9d9a7a254d73f0cdc7c976b98c88434e8c932a3e8d2de20e00973963d15537e"
+      },
+      "lvs": {
+        "status": "match",
+        "exit_code": 0,
+        "error_count": 0,
+        "category_error_counts": {},
+        "category_counts": {
+          "device.geometry_not_compared": 1,
+          "device.placeholder_value": 1,
+          "topology": 1
+        },
+        "counts": {
+          "nets": {
+            "layout": 10,
+            "reference": 10,
+            "matched": 10
+          },
+          "devices": {
+            "layout": 13,
+            "reference": 13,
+            "matched": 13
+          },
+          "pins": {
+            "layout": 4,
+            "reference": 4,
+            "matched": 4
+          }
+        },
+        "body_verification": "verified",
+        "power_connectivity": "unchecked"
+      },
+      "layout_netlist_sha256": "8e8e75697916a605e9a9025b663d92adcd16c941f64e3eaf3e54101391930b00",
+      "netlist_cross_check": {
+        "identical_ignoring_comments": false,
+        "differing_lines": [
+          "R$11 \\$2 VDD VSS 1900 ppolyf_u_1k",
+          "R$12 VSS \\$2 VSS 1400 ppolyf_u_1k",
+          "R$13 \\$4 VDD VSS 200000 ppolyf_u_1k"
+        ]
+      },
+      "lvs_preextracted": {
+        "status": "mismatch",
+        "exit_code": 3,
+        "error_count": 5,
+        "counts": {
+          "nets": {
+            "layout": 10,
+            "reference": 10,
+            "matched": 0
+          },
+          "devices": {
+            "layout": 10,
+            "reference": 13,
+            "matched": 0
+          },
+          "pins": {
+            "layout": 4,
+            "reference": 4,
+            "matched": 0
+          }
+        }
+      },
+      "cause": {
+        "ports_only_in_layout": [],
+        "ports_only_in_reference": [],
+        "unnamed_layout_nets": 6,
+        "layout_bulk_nets": {
+          "nfet": [
+            "VSS"
+          ],
+          "pfet": [
+            "VDD"
+          ]
+        },
+        "reference_bulk_nets": {
+          "nfet": [
+            "VSS"
+          ],
+          "pfet": [
+            "VDD"
+          ]
+        }
+      }
+    }
+  ],
+  "matched": 5,
+  "total": 5,
+  "status": "match"
+}

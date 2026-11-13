@@ -112,6 +112,15 @@ class AnalogLayoutInventoryTests(_AnalogFixture):
         self.write_sidecar()
         self.assert_refuses("not 'clean'")
 
+    def test_accepts_the_bare_single_method_routing_form(self):
+        # The sidecar collapses a one-method block to that method's bare name
+        # (issue #346): it still accounts for every net.
+        self.entries["gamma"]["routing_method"] = "scripted"
+        self.write_sidecar()
+        inventory = self.build()
+        entry = next(b for b in inventory["blocks"] if b["block"] == "gamma")
+        self.assertEqual(entry["routing_method"], {"scripted": entry["net_count"]})
+
     def test_refuses_a_block_whose_routing_leaves_nets_unaccounted(self):
         self.entries["gamma"]["routing_method"] = {"klt-plan": 1, "scripted": 1}
         self.write_sidecar()

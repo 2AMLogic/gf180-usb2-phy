@@ -1,0 +1,2524 @@
+{
+  "schema_version": 4,
+  "file": {
+    "path": "layout/analog/lvs/dplus_pullup/dplus_pullup.gds",
+    "scope": "repo"
+  },
+  "deck": "gf180mcu",
+  "top": "dplus_pullup",
+  "dbu_um": 0.0005,
+  "netlist_path": "dplus_pullup_extract.spice",
+  "netlist_sha256": "15f6e2121a7ed4608a59c965c0a2d3a3832ab3a36c190f3623a77ec2ea00b8ab",
+  "netlist_normalized_sha256": "85e88bf458f94422a1f9bcb578955be55e1bb8a972eb6def8d262fd193c74e16",
+  "status": "extracted",
+  "device_count": 78,
+  "net_count": 21,
+  "pin_count": 9,
+  "device_counts": {
+    "nfet": 6,
+    "pfet": 66,
+    "ppolyf_u": 6
+  },
+  "dummy_devices_dropped": 0,
+  "ignored_layers": [],
+  "device_recognition_only_layers": [
+    {
+      "layer": 49,
+      "datatype": 0,
+      "shapes": 6
+    },
+    {
+      "layer": 110,
+      "datatype": 5,
+      "shapes": 6
+    }
+  ],
+  "device_classes": [
+    "nfet",
+    "pfet",
+    "bjt",
+    "cap_mim_2f0_m4m5_noshield",
+    "cap_nmos_03v3",
+    "cap_nmos_03v3_dn",
+    "cap_pmos_03v3",
+    "cap_pmos_03v3_dn",
+    "cap_nmos_06v0",
+    "cap_nmos_06v0_dn",
+    "cap_pmos_06v0",
+    "cap_pmos_06v0_dn",
+    "cap_nmos_03v3_b",
+    "cap_pmos_03v3_b",
+    "cap_nmos_06v0_b",
+    "cap_pmos_06v0_b",
+    "resistor",
+    "diode_nd2ps_06v0",
+    "diode_pd2nw_06v0"
+  ],
+  "devices": [
+    {
+      "name": "$1",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "PU_EN",
+        "d": "\\$16",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 1.0,
+        "as_um2": 0.5,
+        "ad_um2": 0.5,
+        "ps_um": 3.0,
+        "pd_um": 3.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_drv_en__mn_drv_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_drv_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$10",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "TRIM2",
+        "d": "\\$19",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.0,
+        "as_um2": 1.0,
+        "ad_um2": 1.0,
+        "ps_um": 5.0,
+        "pd_um": 5.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_drv_t2__mp_drv_t2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_drv_t2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$11",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "TRIM3",
+        "d": "\\$20",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.0,
+        "as_um2": 1.0,
+        "ad_um2": 1.0,
+        "ps_um": 5.0,
+        "pd_um": 5.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_drv_t3__mp_drv_t3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_drv_t3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$12",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "TRIM4",
+        "d": "\\$21",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.0,
+        "as_um2": 1.0,
+        "ad_um2": 1.0,
+        "ps_um": 5.0,
+        "pd_um": 5.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_drv_t4__mp_drv_t4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_drv_t4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$13",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "\\$16",
+        "d": "\\$5",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$14",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "\\$16",
+        "d": "\\$5",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$15",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "\\$16",
+        "d": "\\$5",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$16",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "\\$16",
+        "d": "\\$5",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$17",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "\\$16",
+        "d": "\\$5",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$18",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "\\$16",
+        "d": "\\$5",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$19",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "\\$16",
+        "d": "\\$5",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$2",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "TRIM0",
+        "d": "\\$17",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 1.0,
+        "as_um2": 0.5,
+        "ad_um2": 0.5,
+        "ps_um": 3.0,
+        "pd_um": 3.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_drv_t0__mn_drv_t0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_drv_t0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$20",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "\\$16",
+        "d": "\\$5",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$21",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "\\$16",
+        "d": "\\$5",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$22",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "\\$16",
+        "d": "\\$5",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw_en__mp_sw_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$23",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$6",
+        "g": "\\$17",
+        "d": "\\$7",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$24",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$6",
+        "g": "\\$17",
+        "d": "\\$7",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$25",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$6",
+        "g": "\\$17",
+        "d": "\\$7",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$26",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$6",
+        "g": "\\$17",
+        "d": "\\$7",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$27",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$6",
+        "g": "\\$17",
+        "d": "\\$7",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$28",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$6",
+        "g": "\\$17",
+        "d": "\\$7",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$29",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$6",
+        "g": "\\$17",
+        "d": "\\$7",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$3",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "TRIM1",
+        "d": "\\$18",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 1.0,
+        "as_um2": 0.5,
+        "ad_um2": 0.5,
+        "ps_um": 3.0,
+        "pd_um": 3.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_drv_t1__mn_drv_t1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_drv_t1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$30",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$6",
+        "g": "\\$17",
+        "d": "\\$7",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$31",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$6",
+        "g": "\\$17",
+        "d": "\\$7",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$32",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$6",
+        "g": "\\$17",
+        "d": "\\$7",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw0__mp_sw0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$33",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$7",
+        "g": "\\$18",
+        "d": "\\$8",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$34",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$7",
+        "g": "\\$18",
+        "d": "\\$8",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$35",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$7",
+        "g": "\\$18",
+        "d": "\\$8",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$36",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$7",
+        "g": "\\$18",
+        "d": "\\$8",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$37",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$7",
+        "g": "\\$18",
+        "d": "\\$8",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$38",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$7",
+        "g": "\\$18",
+        "d": "\\$8",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$39",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$7",
+        "g": "\\$18",
+        "d": "\\$8",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$4",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "TRIM2",
+        "d": "\\$19",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 1.0,
+        "as_um2": 0.5,
+        "ad_um2": 0.5,
+        "ps_um": 3.0,
+        "pd_um": 3.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_drv_t2__mn_drv_t2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_drv_t2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$40",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$7",
+        "g": "\\$18",
+        "d": "\\$8",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$41",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$7",
+        "g": "\\$18",
+        "d": "\\$8",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$42",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$7",
+        "g": "\\$18",
+        "d": "\\$8",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw1__mp_sw1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$43",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$8",
+        "g": "\\$19",
+        "d": "\\$3",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$44",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$8",
+        "g": "\\$19",
+        "d": "\\$3",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$45",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$8",
+        "g": "\\$19",
+        "d": "\\$3",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$46",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$8",
+        "g": "\\$19",
+        "d": "\\$3",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$47",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$8",
+        "g": "\\$19",
+        "d": "\\$3",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$48",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$8",
+        "g": "\\$19",
+        "d": "\\$3",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$49",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$8",
+        "g": "\\$19",
+        "d": "\\$3",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$5",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "TRIM3",
+        "d": "\\$20",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 1.0,
+        "as_um2": 0.5,
+        "ad_um2": 0.5,
+        "ps_um": 3.0,
+        "pd_um": 3.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_drv_t3__mn_drv_t3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_drv_t3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$50",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$8",
+        "g": "\\$19",
+        "d": "\\$3",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$51",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$8",
+        "g": "\\$19",
+        "d": "\\$3",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$52",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$8",
+        "g": "\\$19",
+        "d": "\\$3",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw2__mp_sw2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$53",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$3",
+        "g": "\\$20",
+        "d": "\\$4",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$54",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$3",
+        "g": "\\$20",
+        "d": "\\$4",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$55",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$3",
+        "g": "\\$20",
+        "d": "\\$4",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$56",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$3",
+        "g": "\\$20",
+        "d": "\\$4",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$57",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$3",
+        "g": "\\$20",
+        "d": "\\$4",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$58",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$3",
+        "g": "\\$20",
+        "d": "\\$4",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$59",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$3",
+        "g": "\\$20",
+        "d": "\\$4",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$6",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "TRIM4",
+        "d": "\\$21",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 1.0,
+        "as_um2": 0.5,
+        "ad_um2": 0.5,
+        "ps_um": 3.0,
+        "pd_um": 3.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_drv_t4__mn_drv_t4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_drv_t4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$60",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$3",
+        "g": "\\$20",
+        "d": "\\$4",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$61",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$3",
+        "g": "\\$20",
+        "d": "\\$4",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$62",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$3",
+        "g": "\\$20",
+        "d": "\\$4",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw3__mp_sw3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$63",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$4",
+        "g": "\\$21",
+        "d": "DP",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$64",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$4",
+        "g": "\\$21",
+        "d": "DP",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$65",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$4",
+        "g": "\\$21",
+        "d": "DP",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$66",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$4",
+        "g": "\\$21",
+        "d": "DP",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$67",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$4",
+        "g": "\\$21",
+        "d": "DP",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$68",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$4",
+        "g": "\\$21",
+        "d": "DP",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$69",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$4",
+        "g": "\\$21",
+        "d": "DP",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$7",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "PU_EN",
+        "d": "\\$16",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.0,
+        "as_um2": 1.0,
+        "ad_um2": 1.0,
+        "ps_um": 5.0,
+        "pd_um": 5.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_drv_en__mp_drv_en_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_drv_en_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$70",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$4",
+        "g": "\\$21",
+        "d": "DP",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$71",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$4",
+        "g": "\\$21",
+        "d": "DP",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$72",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$4",
+        "g": "\\$21",
+        "d": "DP",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 100.0,
+        "as_um2": 50.0,
+        "ad_um2": 50.0,
+        "ps_um": 201.0,
+        "pd_um": 201.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_sw4__mp_sw4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_sw4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$73",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "\\$6",
+        "b": "\\$5",
+        "w": "VSS"
+      },
+      "params": {
+        "r_ohm": 1000.125,
+        "l_um": 11.43,
+        "w_um": 4.0,
+        "area_um2": 45.72,
+        "perimeter_um": 30.86
+      },
+      "instance_path": [
+        {
+          "cell": "r_base__r_base_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_base_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$74",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "\\$7",
+        "b": "\\$6",
+        "w": "VSS"
+      },
+      "params": {
+        "r_ohm": 36.75,
+        "l_um": 0.42,
+        "w_um": 4.0,
+        "area_um2": 1.68,
+        "perimeter_um": 8.84
+      },
+      "instance_path": [
+        {
+          "cell": "r_seg0__r_seg0_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_seg0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$75",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "\\$8",
+        "b": "\\$7",
+        "w": "VSS"
+      },
+      "params": {
+        "r_ohm": 59.9375,
+        "l_um": 0.685,
+        "w_um": 4.0,
+        "area_um2": 2.74,
+        "perimeter_um": 9.37
+      },
+      "instance_path": [
+        {
+          "cell": "r_seg1__r_seg1_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_seg1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$76",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "\\$3",
+        "b": "\\$8",
+        "w": "VSS"
+      },
+      "params": {
+        "r_ohm": 119.875,
+        "l_um": 1.37,
+        "w_um": 4.0,
+        "area_um2": 5.48,
+        "perimeter_um": 10.74
+      },
+      "instance_path": [
+        {
+          "cell": "r_seg2__r_seg2_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_seg2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$77",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "\\$4",
+        "b": "\\$3",
+        "w": "VSS"
+      },
+      "params": {
+        "r_ohm": 240.1875,
+        "l_um": 2.745,
+        "w_um": 4.0,
+        "area_um2": 10.98,
+        "perimeter_um": 13.49
+      },
+      "instance_path": [
+        {
+          "cell": "r_seg3__r_seg3_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_seg3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$78",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "DP",
+        "b": "\\$4",
+        "w": "VSS"
+      },
+      "params": {
+        "r_ohm": 479.9375,
+        "l_um": 5.485,
+        "w_um": 4.0,
+        "area_um2": 21.94,
+        "perimeter_um": 18.97
+      },
+      "instance_path": [
+        {
+          "cell": "r_seg4__r_seg4_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_seg4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$8",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "TRIM0",
+        "d": "\\$17",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.0,
+        "as_um2": 1.0,
+        "ad_um2": 1.0,
+        "ps_um": 5.0,
+        "pd_um": 5.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_drv_t0__mp_drv_t0_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_drv_t0_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$9",
+      "class": "pfet",
+      "nets": {
+        "s": "VPU_REG",
+        "g": "TRIM1",
+        "d": "\\$18",
+        "b": "VPU_REG"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.0,
+        "as_um2": 1.0,
+        "ad_um2": 1.0,
+        "ps_um": 5.0,
+        "pd_um": 5.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_drv_t1__mp_drv_t1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_drv_t1_0__core",
+          "array_index": null
+        }
+      ]
+    }
+  ],
+  "nets": [
+    {
+      "name": "DP",
+      "pin": true,
+      "device_count": 11,
+      "net_id": 9,
+      "pin_index": 0,
+      "label_positions_um": [
+        {
+          "text": "DP",
+          "x_um": 223.63,
+          "y_um": 2.22
+        }
+      ]
+    },
+    {
+      "name": "PU_EN",
+      "pin": true,
+      "device_count": 2,
+      "net_id": 10,
+      "pin_index": 1,
+      "label_positions_um": [
+        {
+          "text": "PU_EN",
+          "x_um": 0.64,
+          "y_um": 3.19
+        }
+      ]
+    },
+    {
+      "name": "TRIM0",
+      "pin": true,
+      "device_count": 2,
+      "net_id": 11,
+      "pin_index": 2,
+      "label_positions_um": [
+        {
+          "text": "TRIM0",
+          "x_um": 13.68,
+          "y_um": 3.19
+        }
+      ]
+    },
+    {
+      "name": "TRIM1",
+      "pin": true,
+      "device_count": 2,
+      "net_id": 12,
+      "pin_index": 3,
+      "label_positions_um": [
+        {
+          "text": "TRIM1",
+          "x_um": 26.72,
+          "y_um": 3.19
+        }
+      ]
+    },
+    {
+      "name": "TRIM2",
+      "pin": true,
+      "device_count": 2,
+      "net_id": 13,
+      "pin_index": 4,
+      "label_positions_um": [
+        {
+          "text": "TRIM2",
+          "x_um": 39.76,
+          "y_um": 3.19
+        }
+      ]
+    },
+    {
+      "name": "TRIM3",
+      "pin": true,
+      "device_count": 2,
+      "net_id": 14,
+      "pin_index": 5,
+      "label_positions_um": [
+        {
+          "text": "TRIM3",
+          "x_um": 52.8,
+          "y_um": 3.19
+        }
+      ]
+    },
+    {
+      "name": "TRIM4",
+      "pin": true,
+      "device_count": 2,
+      "net_id": 15,
+      "pin_index": 6,
+      "label_positions_um": [
+        {
+          "text": "TRIM4",
+          "x_um": 65.84,
+          "y_um": 3.19
+        }
+      ]
+    },
+    {
+      "name": "VPU_REG",
+      "pin": true,
+      "device_count": 82,
+      "net_id": 2,
+      "pin_index": 7,
+      "label_positions_um": [
+        {
+          "text": "VPU_REG",
+          "x_um": 6.73,
+          "y_um": 2.23
+        }
+      ]
+    },
+    {
+      "name": "VSS",
+      "pin": true,
+      "device_count": 18,
+      "net_id": 22,
+      "pin_index": 8,
+      "label_positions_um": [
+        {
+          "text": "VSS",
+          "x_um": 0.21,
+          "y_um": 1.73
+        }
+      ]
+    },
+    {
+      "name": "\\$16",
+      "pin": false,
+      "device_count": 12,
+      "net_id": 16,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$17",
+      "pin": false,
+      "device_count": 12,
+      "net_id": 17,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$18",
+      "pin": false,
+      "device_count": 12,
+      "net_id": 18,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$19",
+      "pin": false,
+      "device_count": 12,
+      "net_id": 19,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$20",
+      "pin": false,
+      "device_count": 12,
+      "net_id": 20,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$21",
+      "pin": false,
+      "device_count": 12,
+      "net_id": 21,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$3",
+      "pin": false,
+      "device_count": 22,
+      "net_id": 3,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$4",
+      "pin": false,
+      "device_count": 22,
+      "net_id": 4,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$5",
+      "pin": false,
+      "device_count": 11,
+      "net_id": 5,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$6",
+      "pin": false,
+      "device_count": 12,
+      "net_id": 6,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$7",
+      "pin": false,
+      "device_count": 22,
+      "net_id": 7,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$8",
+      "pin": false,
+      "device_count": 22,
+      "net_id": 8,
+      "pin_index": null,
+      "label_positions_um": []
+    }
+  ],
+  "warnings": [],
+  "black_box_regions": [],
+  "abstracted_cells": [],
+  "unmodelled_poly": [],
+  "merged_net_labels": [],
+  "split_net_labels": [],
+  "voltage_domain_warnings": [],
+  "missing_flavour_markers": [],
+  "unsupported_devices": [],
+  "unbiased_pmos_body_nets": [],
+  "single_terminal_nets": [],
+  "dead_metal": [],
+  "matched_device_groups": [],
+  "def_pin_promotion": null,
+  "pin_renames": null,
+  "rename_declared_pins": false,
+  "declared_pins": null,
+  "def_pins": null,
+  "label_layers": null,
+  "device_models": null,
+  "probes": [],
+  "pdk": null,
+  "provenance": {
+    "klt_version": "0.9.0",
+    "klt_git_commit": "5dbbad05ff42265c92a6f3d2f20d1bbcd2957d49",
+    "klt_reinstall_spec": "klayout-tools==0.9.0",
+    "klayout_version": "0.30.13",
+    "pdk": null,
+    "deck": {
+      "name": "gf180mcu",
+      "content_hash": "sha256:cf44de63f0a5b01c1d09c4d58e0535e990aa4b070bcaae17fd3a94a67a1d97e1",
+      "released": true,
+      "options": {
+        "metal_top": "9K",
+        "mim_cap": "cap_mim_2f0_m4m5_noshield",
+        "poly_res": "1k"
+      },
+      "options_explicit": {
+        "metal_top": false,
+        "mim_cap": false,
+        "poly_res": false
+      },
+      "options_hash": "sha256:6a7dc7660a470994263c5ca8ace6d8ac8c605d77e6876a9c5490949de6e7cb05"
+    },
+    "input": {
+      "content_hash": "sha256:61811cc55de70c8645c98eaf6472913e631250970dbfa8cdd812bacd6c7789d8",
+      "role": "layout"
+    }
+  },
+  "parasitics": null,
+  "spef_path": null,
+  "subcircuit": null,
+  "metrics": {
+    "extract__device__count": 78,
+    "extract__net__count": 21,
+    "extract__pin__count": 9
+  },
+  "timing": {
+    "stages": {
+      "read_layout": 0.001,
+      "device_extraction": 0.066,
+      "diagnostics": 0.0,
+      "netlist_write": 0.001,
+      "netlist_hash": 0.0,
+      "netlist_normalized_hash": 0.001
+    },
+    "total_seconds": 0.204,
+    "unattributed_seconds": 0.134
+  }
+}
