@@ -479,7 +479,7 @@
     },
     {
       "path": "sim/harness/report.py",
-      "sha256": "sha256:edb647fdb8883f0b4555d885afcc0f2424fff03a1cf6fb01163ea86756513b92"
+      "sha256": "sha256:3c7d2a8f3ad55ffc4315d3245816f079ede7f7cb6a653eaf529e8dbd07c39e9a"
     },
     {
       "path": "sim/harness/runner.py",
@@ -511,7 +511,7 @@
     },
     {
       "path": "sim/tests/test_evidence_store.py",
-      "sha256": "sha256:270f0f440149a2ff98b173faa957ede7a68103d542695b80c9e1b2b560b8c352"
+      "sha256": "sha256:6a8183c832b3fb372353bc66cdec1a4e3d558766572f18c691f2a21508c53d66"
     },
     {
       "path": "sim/tests/test_fixed_trim.py",
@@ -519,7 +519,7 @@
     },
     {
       "path": "sim/tests/test_harness.py",
-      "sha256": "sha256:a2c7d263a5e7ecd9beb16c2973d9ae68f9044cd474afa68ba3c545c831bebc5d"
+      "sha256": "sha256:6be72df24729fa07c78ebd964afaae7b630a89c0caf353e192ffcf48305ec581"
     },
     {
       "path": "sim/tests/test_port_lint.py",

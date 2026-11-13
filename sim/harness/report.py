@@ -594,16 +594,3 @@ def render_record(record: dict, experiment: str) -> str:
         "",
     ]
     return "\n".join(lines)
-
-
-def write_record(record: dict, experiment_dir: Path) -> Path:
-    """Write ``records/<record-id>.md``; never overwrite an existing record."""
-    out_dir = experiment_dir / RECORDS_DIR
-    out_dir.mkdir(parents=True, exist_ok=True)
-    path = out_dir / f"{record['record_id']}.md"
-    if path.exists():
-        raise RecordExists(
-            f"{path} already exists; records are append-only -- mint a new record-id"
-        )
-    path.write_text(render_record(record, experiment_dir.name))
-    return path
