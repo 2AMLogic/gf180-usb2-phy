@@ -122,14 +122,20 @@ component that no other net's pin shares, and as a cross-check KLayout's own
 (one track's vias deleted; an extra metal-2 bridge) were seen to be reported as an open and a
 short respectively.
 
-**klt limit hit, with the run.** With the klt of the first delivery (`7ee09483`, 0.7.1.dev1743; the repo now pins 0.8.0 and all four GDS reproduce under it)
+**klt limit hit, with the run.** With the klt of the first delivery (`7ee09483`,
+0.7.1.dev1743 — the pin these counts were measured under, 2026-10-27)
 the plan path routes `dplus_pullup` 6/21 and the three receivers 1/8, 1/9, 1/9 —
 the same counts as the 2026-09-21 run — and rejects every other leg with
 "backbone ... crosses N um of block 'X''s interior on the side *away* from its own
 pin" (issue #1895 protection), even with `routing.cross_block_layer_role`
 set to `metal2` (tried on `differential_receiver`: IBIASN and LOADDIODE then route, the
 other five still do not). This is the multi-net layer/track-assignment gap
-recorded as `2AMLogic/klayout-tools#1962` (open). The remaining nets are
+recorded as `2AMLogic/klayout-tools#1962` (open). The pin has moved twice since
+that run: to klt 0.8.0 on 2026-10-27 (`f10baec`), under which all four GDS were
+recorded as reproducing (`fdff78c`), and to klt 0.9.0 on 2026-11-06 (issue #263,
+`102faa6`), which regenerated all four streams under new hashes — so the streams
+committed today are the 0.9.0 ones, and `layout/analog/provenance.json` records
+the klt each was written by. The remaining nets are
 completed by scripted routes in `scripts/gen_analog_layout.py`:
 
 - every plan places one row of tall vertical devices, so gate pins (a metal-1 pad
@@ -144,8 +150,9 @@ completed by scripted routes in `scripts/gen_analog_layout.py`:
   top-level instance origins are snapped to the 0.005 um manufacturing grid
   (only `dplus_pullup` is affected: 7 instances).
 
-**How `dplus_pullup` became DRC-clean (DR-0010).** At the pinned klt a bare
-`dplus_pullup` plan run has **2583** violations, almost all `*.ongrid.1` on every
+**How `dplus_pullup` became DRC-clean (DR-0010).** At klt `7ee09483`
+(0.7.1.dev1743), the pin at the 2026-10-27 run, a bare `dplus_pullup` plan run
+had **2583** violations, almost all `*.ongrid.1` on every
 device placed to the right of the first fractional-width resistor. The origin snap
 removes all of those; 75 remained *inside* the five `res_array` cells for
 `r_seg0`–`r_seg4`, whose netlist lengths (0.343, 0.686, 1.371, 2.743, 5.486 um)
