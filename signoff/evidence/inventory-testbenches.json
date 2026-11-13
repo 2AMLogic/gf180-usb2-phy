@@ -451,7 +451,7 @@
     },
     {
       "path": "sim/harness/klt_backend.py",
-      "sha256": "sha256:f8ca43ef7278942048e105698045b3744d7a2c78b5e582ba0c5e3af3b811dd0c"
+      "sha256": "sha256:7addce46b45abdb8b7e86c101940019572d7ac7650abf26e0989869ff687c0ea"
     },
     {
       "path": "sim/harness/pdk.py",
@@ -503,7 +503,7 @@
     },
     {
       "path": "sim/tests/test_harness.py",
-      "sha256": "sha256:6be72df24729fa07c78ebd964afaae7b630a89c0caf353e192ffcf48305ec581"
+      "sha256": "sha256:1b26634c779e338613974e79aad852026062cbb8f6240d742a5bb11305346e00"
     },
     {
       "path": "sim/tests/test_port_lint.py",

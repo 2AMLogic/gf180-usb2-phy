@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import datetime
 import hashlib
+import importlib.util
 import json
 import os
 import sys
@@ -642,6 +643,67 @@ class KltRequestTests(_KltFixture):
         self.assertEqual(len(tampered), len(self.points))
         with self.assertRaisesRegex(klt_backend.KltError, "full factorial"):
             self._request(points=tampered)
+
+
+class MonteCarloRequestSharesHarnessLimitsTests(_KltFixture):
+    """`sim/diff-receiver-mc/build_requests.py` must not re-derive `limits`.
+
+    Both Monte Carlo campaigns (`diff-receiver-mc` and `se-receiver-mc`, which
+    calls this same `build_request`) grade their samples against the `limits`
+    carried in the request. A second copy of that scaling drifted once already
+    (commit `3a6e489`): limits in the check's unit, mV, were shipped unscaled
+    and graded against volts, so no `vth` row could fail and the 2026-11-05
+    campaign had to be re-run. These tests fail if the copy comes back.
+    """
+
+    def setUp(self):
+        super().setUp()
+        spec = importlib.util.spec_from_file_location(
+            "diff_receiver_mc_build_requests",
+            SIM_DIR / "diff-receiver-mc" / "build_requests.py",
+        )
+        self.mc = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.mc)
+
+    def mc_request(self, manifest=None) -> dict:
+        return self.mc.build_request(
+            self.tb, self.pdk, self.manifest if manifest is None else manifest, 10, 7
+        )
+
+    def test_measurements_are_the_harness_measurement_entries(self):
+        measurements = self.mc_request()["measurements"]
+        self.assertEqual(
+            measurements,
+            [
+                klt_backend.measurement(name, entry, self.manifest["checks"].get(name))
+                for name, entry in KLT_MEASURE.items()
+            ],
+        )
+
+    def test_limits_are_divided_by_scale_not_shipped_in_the_check_unit(self):
+        by_name = {m["name"]: m for m in self.mc_request()["measurements"]}
+        # vth_mv's checks are +/-200 mV and its scale is 1000, so klt -- which
+        # reports the raw `.meas` volts -- must be handed +/-0.2.
+        self.assertEqual(by_name["vth_mv"]["limits"], {"min": -0.2, "max": 0.2})
+        self.assertEqual(by_name["vhi"]["limits"], {"min": 2.9})   # no scale, unchanged
+        self.assertEqual(by_name["vlo"]["limits"], {"max": 0.1})
+
+    def test_models_lib_is_the_harness_constant(self):
+        self.assertEqual(
+            self.mc_request()["models"],
+            {"pdk": self.pdk.variant, "lib": klt_backend.MODELS_LIB},
+        )
+
+    def test_bare_expression_entries_are_accepted_like_the_harness(self):
+        by_name = {m["name"]: m for m in self.mc_request()["measurements"]}
+        self.assertEqual(by_name["vlo"], {"name": "vlo", "expr": "v(out)[0]",
+                                          "limits": {"max": 0.1}})
+
+    def test_a_non_positive_scale_is_refused_rather_than_silently_inverting_limits(self):
+        manifest = dict(self.manifest, klt_measure=dict(
+            KLT_MEASURE, vth_mv={"spice": ".meas dc vth_mv x", "scale": 0.0}))
+        with self.assertRaisesRegex(klt_backend.KltError, "scale must be positive"):
+            self.mc_request(manifest=manifest)
 
 
 class KltRunGridTests(_KltFixture):
