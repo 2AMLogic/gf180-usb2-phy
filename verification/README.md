@@ -52,6 +52,13 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
 
 ## Contents
 
+Each testbench entry below gives the files, the DUT, the spec section, and
+anything a reader needs before running or citing it. **What a testbench
+actually checks is in that file's own module docstring and its test names**
+— it is not enumerated here, so there is nothing to keep in step with the
+suite (issue #334; the same reasoning that removed the hand-copied request
+list in issue #328).
+
 ### Bit-level codec (`spec/usb2-device-phy.md` §2)
 
 - `usb_bit_model.py` — the golden Python reference models (NRZI
@@ -71,43 +78,27 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   clock here; see `spec/decisions/0002`). `_reset(dut)` is
   deliberately *not* consolidated alongside it -- see its own docstring.
 - `test_usb_nrzi_encoder.py` / `request-usb-nrzi-encoder.json` — cocotb
-  testbench for `rtl/common/usb_nrzi_encoder.v` (vendored, canonical
-  `bit_stb`/`bypass`/`sof`/`bit_in` → `level_out` interface): reset-to-J,
-  all-1s (a static line), all-0s (a transition every bit), a 512-bit
-  randomized bit-exact cross-check against the model plus an NRZI round
-  trip, un-strobed clocks holding the level, `sof` re-deriving the
-  transition reference from idle J mid-stream, and `bypass` passing bits
-  through raw.
+  testbench for `rtl/common/usb_nrzi_encoder.v` (vendored; the canonical
+  `bit_stb`/`bypass`/`sof`/`bit_in` → `level_out` interface), checked bit
+  for bit against `usb_bit_model.py`.
 - `test_usb_nrzi_decoder.py` / `request-usb-nrzi-decoder.json` — cocotb
-  testbench for `rtl/common/usb_nrzi_decoder.v` (vendored, canonical
+  testbench for `rtl/common/usb_nrzi_decoder.v` (vendored; the canonical
   `bit_strobe`/`bit_level`/`bit_is_jk` → `data_strobe`/`data_bit`
-  interface, on the `clk_144`/`rst_144_n` port names): a line with no
-  transitions at all (the idle/hold case, which correctly decodes to 1s), a
-  transition every bit, a 512-bit randomized round trip, and — the
-  canonical `bit_is_jk` gating — SE0/SE1 cells producing no `data_strobe`
-  and leaving the transition reference untouched (the property EOP
-  correctness rests on).
+  interface, on the `clk_144`/`rst_144_n` port names), checked against
+  `usb_bit_model.py`. The `bit_is_jk` gating is the property EOP
+  correctness rests on.
 - `test_usb_bit_stuffer.py` / `request-usb-bit-stuffer.json` — cocotb
-  testbench for `rtl/common/usb_bit_stuffer.v` (vendored, canonical
+  testbench for `rtl/common/usb_bit_stuffer.v` (vendored; the canonical
   `bit_stb`/`bypass`/`sof`/`bit_in` → combinational `bit_out`/`consume`/
-  `stuff_pending_after` interface): all-0s (never stuffs), all-1s (maximal
-  stuffing density), a 512-bit 1-biased randomized cross-check exercising
-  the hold-and-represent protocol at every inserted bit, the
-  `stuff_pending_after` lookahead (high exactly on the consumed sixth 1,
-  the next strobe the forced stuff bit), `sof` resetting a carried run at
-  a fresh packet's first bit (no phantom stuff), and `bypass` disabling
-  stuffing entirely.
+  `stuff_pending_after` interface), checked against `usb_bit_model.py`.
+  `stuff_pending_after` is the lookahead the TX framer uses to discharge
+  USB 2.0 §7.1.9's trailing-stuff-bit duty.
 - `test_usb_bit_destuffer.py` / `request-usb-bit-destuffer.json` — cocotb
-  testbench for `rtl/common/usb_bit_destuffer.v` (vendored, canonical
+  testbench for `rtl/common/usb_bit_destuffer.v` (vendored; the canonical
   `enable`/`data_strobe`/`data_bit` → `bit_valid`/`out_bit`/`stuff_err`
-  interface, on the `clk_144`/`rst_144_n` port names): enabled destuffing
-  against the model, **stuff-error injection** (a 1 in a mandatory stuff
-  position → `stuff_err`, the offending bit dropped), the trailing stuffed
-  bit at a packet end removed cleanly, `enable` low as a transparent
-  pass-through that never accumulates and can never raise a false
-  stuff_err on unbounded idle 1s, and an `enable` drop zeroing the run
-  counter for the next packet (the canonical replacement for the former
-  `init`).
+  interface, on the `clk_144`/`rst_144_n` port names), checked against
+  `usb_bit_model.py`. `enable` is the canonical SOP..EOP gate, and the
+  replacement for this repo's former per-packet `init`.
 - `tb_usb_bit_codec_loopback.v` — **testbench scaffolding, not PHY RTL**
   (which is why it lives here and not in `rtl/`): a structural harness
   wiring the whole TX path (stuffer → NRZI encoder) into the whole RX path
@@ -120,112 +111,74 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   is explicitly *not* the top-level digital wrapper — no SYNC, no EOP, no
   line-state decode, no UTMI ports.
 - `test_usb_bit_codec_loopback.py` / `request-usb-bit-codec-loopback.json`
-  — cocotb testbench for that harness: a 512-bit 1-biased random stream,
-  all-1s (which also checks the line never holds the same state for more
-  than seven bit times — the entire point of bit stuffing), all-0s, the
-  "stream ends on exactly six 1s" boundary (the harness's auto-flush puts
-  the #7.1.9 trailing stuff bit on the wire), and a second independent
-  session after an idle gap (the canonical `sof`/`enable` re-arm).
+  — cocotb testbench for that harness. Where the four per-module
+  testbenches above check RTL against a Python model, this one closes the
+  loop in RTL: the claim is that the bit stream comes back out unchanged.
 
 ### SYNC/EOP framing, line-state decode, and the top-level UTMI wrapper (`spec/usb2-device-phy.md` §2/§3/§4)
 
 - `test_usb_line_state_decode.py` / `request-usb-line-state-decode.json` —
-  cocotb testbench for `rtl/usb_line_state_decode.v`: reset-to-J, all four
-  `LineState[1:0]` encodings (J/K/SE0/SE1) directly from `rxdp`/`rxdm`, and
-  a toggling sequence across all four.
+  cocotb testbench for `rtl/usb_line_state_decode.v`: the `LineState[1:0]`
+  decode of the two single-ended receiver outputs `rxdp`/`rxdm`, per spec
+  §3/§4.
 - `test_usb_sync_detector.py` / `request-usb-sync-detector.json` — cocotb
-  testbench for `rtl/usb_sync_detector.v`: the exact SYNC pattern pulsing
-  `sync_valid` on precisely the eighth clock, a run of 1s (idle-J's own
-  decoded shape) never matching, a corrupted bit inside an otherwise-correct
-  pattern never matching, `enable` gating (including that re-enabling starts
-  a fresh search rather than resuming a stale partial match), a
-  `data_valid` gap holding the partial-match state, and a broken first
-  attempt not preventing a clean second one.
+  testbench for `rtl/usb_sync_detector.v`: SYNC-field matching against the
+  NRZI-decoded bit stream (`data_valid`/`data_bit`, matching
+  `usb_nrzi_decoder`'s output ports), per spec §2. SYNC is the fixed
+  pre-stuff byte 8'h80; `usb_sync_detector.v`'s own header derives the
+  transmission order.
 - `test_usb_eop_detector.py` / `request-usb-eop-detector.json` — cocotb
-  testbench for `rtl/usb_eop_detector.v`: SE0 held for 1 clock (not EOP),
-  held for **exactly** the 2-bit-time EOP boundary (`eop` pulses once, on
-  the boundary clock, and does not re-fire), held for one clock short of
-  the 2.5 µs reset threshold (`bus_reset` never fires), held for
-  **exactly** that threshold (`bus_reset` asserts on the boundary clock and
-  stays asserted as a level until SE0 ends), and both outputs derived from
-  a single long hold.
+  testbench for `rtl/usb_eop_detector.v`: the SE0 hold-duration
+  disambiguation spec §4 requires — SE0 for 2 bit times is EOP, SE0 for
+  ≥ 2.5 µs (30 clocks at the ratified 12.000 MHz interface clock, spec §3)
+  is a reset condition — with both boundaries exercised exactly at the
+  edge.
 - `test_usb_utmi_phy.py` / `request-usb-utmi-phy.json` — cocotb testbench
-  for `rtl/usb_utmi_phy.v`, the top-level integration testbench this
-  issue's test plan requires: the reset state of every UTMI/wire-level
-  port, the TX SYNC field's exact KJKJKJKK wire pattern, the TX EOP tail's
-  exact SE0,SE0,J wire pattern, a single-byte TX→wire→RX self-loopback
-  round trip, a multi-byte round trip that forces bit stuffing (cross-checked
-  against `usb_bit_model.py`'s `bit_stuff`/`nrzi_encode`), a payload
-  opening with a run of 1s pinning the canonical stuffing scope (stuff
-  after the sixth payload one, not five — SYNC never reaches the stuffer),
-  a packet whose payload bit stream ends on exactly six 1s (USB 2.0
-  §7.1.9's mandatory trailing-stuff-bit case, exercising the wrapper's
-  `stuff_pending_after`-decided TX_FLUSH-before-EOP path), raw mode
-  (`OpMode 2'b10`: payload on the wire un-stuffed and un-NRZI-encoded,
-  SYNC still framed), two packets sent back to back with the minimum
-  possible inter-packet gap, and a malformed/missing SYNC pattern that
-  must never assert `RxActive`/`RxValid` (bit-lock failure fails safe).
-  The RX-side claim uses self-loopback (the Python driver mirrors the
-  DUT's own `txdp`/`txdm` onto its own `rxdp`/`rxdm` each clock) rather
-  than a second structural harness file, since the module under test is
-  already the real top-level wrapper.
-  Since issue #130 it also carries `test_tx_utmi_reset_aborts_and_recovers`,
-  a `cocotb.parametrize`d TX reset-and-recovery regression with 36 cases.
-  It raises UTMI `Reset` at nine model-located wire phases (inside SYNC,
-  SYNC's last bit, an ordinary payload bit, an inserted stuff bit, the
-  trailing-stuff flush, the last level's hold clock, and each EOP-tail
-  cell). `Reset` is held for 1 or 3 clocks, with `TxValid` low or held
-  high. Each case checks three things: the abort happens on the sampling
-  edge and not before it; the line holds idle J with `TxReady` high
-  during reset; and the next packet is bit-exact against
-  `usb_bit_model.py`, with acceptance at release following the normal
-  handshake. See `spec/decisions/0005` for the RTL fix this test forced.
-  Since issue #132 it also carries three edge-timed RX reset tests
-  (`spec/decisions/0006`). `test_rx_utmi_reset_edge_timed_abort_and_release`
-  (40 cases) raises `Reset` between edges at ten model-located receive
-  phases (mid-SYNC, the edge that would arm reception, the first PID bit,
-  a partial byte, a byte-delivery edge, a six-1 run, the stuffed 0, a
-  stuffing violation and the edge that would raise `RxError`, EOP). It
-  holds `Reset` for 1 or 3 clocks and releases it with J or K on the wire.
-  It checks that the RX ports do not move before the sampling edge, that
-  the edge suppresses the pending byte or error, that RX stays quiet
-  through reset and the aborted tail, and that a fresh packet is exact.
-  `test_rx_utmi_reset_release_straight_into_sync` (8 cases) starts SYNC on
-  the release edge itself, after a J or K pre-reset line.
-  `test_rx_utmi_reset_pulse_between_edges_is_not_sampled` (4 cases) is a
-  structural probe, not a UTMI-legal stimulus: a `Reset` pulse that no
-  edge samples must leave the packet in flight intact, and any
-  asynchronous path from `Reset` into RX state fails it. The RTL run also
-  checks the vendored decoder's and destuffer's internal reset state
-  through hierarchical names. Set `USB_UTMI_PHY_TB_PORTS_ONLY=1` to skip
-  those whitebox reads; gate-level netlists skip them automatically.
+  for `rtl/usb_utmi_phy.v`, the top-level integration testbench (spec §3):
+  TX bytes in → wire-level NRZI/stuffed/SYNC/EOP framed output, and
+  wire-level input → `DataIn[7:0]`/`RxValid`/`RxActive` out. The RX-side
+  claim uses self-loopback (the Python driver mirrors the DUT's own
+  `txdp`/`txdm` onto its own `rxdp`/`rxdm` each clock) rather than a second
+  structural harness file, since the module under test is already the real
+  top-level wrapper. Wire-level expectations follow the vendored modules'
+  stuffing scope: SYNC is framing and is never bit-stuffed, and the
+  stuffer's run counter starts fresh at the first post-SYNC bit.
+  The UTMI `Reset` contract its TX and RX reset regressions pin is
+  `spec/decisions/0005` (the RTL fix the TX regression forced, issue #130)
+  and `spec/decisions/0006` (the edge-timed RX contract, issue #132).
+  Some tests read the vendored decoder's and destuffer's internal reset
+  state through hierarchical names: set `USB_UTMI_PHY_TB_PORTS_ONLY=1` to
+  skip those whitebox reads; gate-level netlists skip them automatically.
+- `test_usb_utmi_txoe.py` / `request-usb-utmi-txoe.json` — cocotb
+  testbench for the `txoe` driver-enable output of the same
+  `rtl/usb_utmi_phy.v` (`spec/decisions/0004`, issue #113). It is a
+  separate module from `test_usb_utmi_phy.py` on purpose, because that
+  file is also replayed against the committed gate-level netlists (see the
+  gate-level section below); the shared driver and RX helpers are
+  imported, not copied.
 
 - `test_usb_rx_clock_tolerance.py` / `request-usb-rx-clock-tolerance.json`
   — cocotb *characterization* (issue #108) of `rtl/usb_utmi_phy.v`'s RX
   against a host whose bit clock is independent of the device clock (spec
   §7's +/-2500 ppm, unsynchronized). An independent host model drives
-  `rxdp`/`rxdm` at absolute simulator times (exact-rational deadlines, no
-  accumulating rounding, never waiting on DUT edges) with a configurable
-  rate offset (`ppm = 1e6*(f_host/f_dev - 1)`) and start phase (k/8 of a
-  device period); a separate per-clock monitor scores `DataIn` byte for
-  byte, `RxActive` rise/fall, and `RxError`. `npm test` asserts only the
-  harness (stimulus decodes back to the payload, edges on the requested
-  grid, scoreboard catches corrupt/missing/extra bytes with `RxError` low,
-  missing SYNC terminates, zero-offset control at phase 1/2 matches every
-  byte, a +5% control fails) and that the sweep completes. The tolerance
-  matrix is **recorded, not asserted**: measured failures stay failures in
-  the artifact. Run the full issue grid (lengths 1/8/64/1024 bytes, 9
-  offsets, 8 phases, 3 patterns = 864 cases, ~1 minute) with:
+  `rxdp`/`rxdm` at absolute simulator times, never waiting on DUT edges;
+  a separate per-clock monitor scores the result. The docstring fixes the
+  ppm, phase and pass conventions every number from this file is quoted
+  in; read it before citing one.
+
+  `npm test` asserts only the harness and that the sweep completes. The
+  tolerance matrix itself is **recorded, not asserted**: measured
+  failures stay failures in the artifact. The default is a reduced grid;
+  run the full issue grid (~1 minute) with:
 
   ```bash
   USB_RXTOL_GRID=full USB_RXTOL_OUT=/path/matrix.json \
     klt functional-verification verification/request-usb-rx-clock-tolerance.json --format json
   ```
 
-  Default (no env) is the reduced 1/8/64-byte grid. The result and its
-  interpretation live in `records/utmi-framing-functional/` (record
-  `20261008-210900-2875d57`); the sampled matrix says nothing about points
-  between grid points.
+  The result and its interpretation live in
+  `records/utmi-framing-functional/` (record `20261008-210900-2875d57`);
+  the sampled matrix says nothing about points between grid points.
 
 - `tb_usb_rx_sync_candidate.v` / `test_usb_rx_sync_candidate.py` /
   `request-usb-rx-sync-candidate.json` / `rx_sync_candidate_summary.py` —
@@ -239,45 +192,15 @@ module instead, per `CLAUDE.md`'s scope-discipline rule.
   selects the baseline (the raw ports, no added flops). `inj_dp`/`inj_dm`
   add one extra capture clock on a line. That is deterministic digital
   fault injection for unequal capture, **not** a metastability model.
-  The test reuses `test_usb_rx_clock_tolerance.py`'s host model,
-  scheduler and scoreboard by import, and adds:
-  - **Asserted controls** (an experiment whose controls fail is invalid):
-    - The skewed-stimulus model has the expected polarity: J->K with DP
-      leading gives SE0, with DM leading gives SE1, and K->J is the
-      reverse.
-    - Scoreboard negative controls: altered, missing and extra bytes
-      fail, even on a real DUT run with `RxError` low.
-    - Reset to J from both reset sources, whatever the line holds.
-    - Measured latency, from input to `LineState`: 1 edge (baseline),
-      3 (candidate), 4 on an injected line. `RxActive` rise, every
-      `RxValid` and `RxActive` fall are exactly baseline + 2 clocks.
-    - Zero-skew/zero-offset/no-injection exact-byte controls on both
-      designs, plus a +5% host that must fail.
-    - A real 2-bit SE0 EOP pulses `eop` once.
-    - Sustained SE0 raises the internal `bus_reset`.
-    - Recovery to an exact next packet after bus reset (after a packet
-      and mid-packet), and after UTMI `Reset`/`rst_n` (idle and
-      mid-packet).
-    - Injection self-check: single-line injection manufactures non-J/K
-      samples; both-line injection does not.
-  - **Recorded characterization** (never asserted; failures stay
-    failures):
-    - The existing offset × phase × pattern × length grid for each
-      design, with phases extended by one simulator tick after and
-      before a rising edge.
-    - A J->K / K->J skew sweep (each line leading; 0, 1 tick, T/8, T/2;
-      skew on all transitions or payload-only) × {baseline, candidate,
-      candidate + DP/DM/both injection}. Each case records the per-sample
-      `LineState` run-length string, manufactured SE0/SE1 runs, `eop`
-      pulses, `bus_reset` samples and the packet result.
+  The test reuses `test_usb_rx_clock_tolerance.py`'s host model, scheduler
+  and scoreboard by import, so the two cannot drift. Its docstring splits
+  what is **asserted** (harness validity plus the structural, latency and
+  reset controls — an experiment whose controls fail is invalid) from what
+  is **recorded and never asserted** (the grids and sweeps, whose failures
+  stay failures). Read it before citing a number.
 
-  Every case carries `coincident_host_edges`: the number of host edges
-  landing exactly on a DUT rising edge. Their capture order is
-  scheduler-dependent and not claimed. Phases are measured from the
-  clock's actual start time: cocotb restarts the clock in each test at
-  the current sim time, so absolute multiples of T are not edges. Default
-  `npm test` runs the reduced grid for both designs (~45 s). To run the
-  full grid, invoke the designs sequentially, one process each:
+  Default `npm test` runs the reduced grid for both designs (~45 s). To run
+  the full grid, invoke the designs sequentially, one process each:
 
   ```bash
   USB_RXTOL_GRID=full USB_RXSYNC_DESIGNS=baseline  USB_RXSYNC_OUT_DIR=/tmp/a \
