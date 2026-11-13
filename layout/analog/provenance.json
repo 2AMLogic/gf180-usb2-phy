@@ -2,6 +2,25 @@
   "schema_version": 1,
   "blocks": [
     {
+      "block": "differential_driver",
+      "gds": "layout/analog/differential_driver.gds",
+      "gds_sha256": "f6293c3af17b568cb29f856482b1dee47319f9c99ac04ca616ded67bf3d8eb3d",
+      "netlist_sha256": "b5dda5306f4636451ffc047c3792151f0a5c49d87082e6304cc065831c9f0b72",
+      "plan_sha256": "4a8b1ed420ff93de0f2847927a4a7337f46d4545f6690f7a6f7ccf912417ea4f",
+      "klt_version": "0.9.0",
+      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver --blocks differential_driver",
+      "routing_method": {
+        "klt-plan": 2,
+        "scripted": 18
+      },
+      "net_count": 20,
+      "drc": {
+        "status": "clean",
+        "violation_count": 0,
+        "by_rule": {}
+      }
+    },
+    {
       "block": "differential_receiver",
       "gds": "layout/analog/differential_receiver.gds",
       "gds_sha256": "743d43ebdf5e26fea80903aecde6705839d746471bb9c256b86bb12e684e1fcf",

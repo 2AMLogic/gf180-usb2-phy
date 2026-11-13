@@ -6,21 +6,21 @@ Drives klayout-tools' netlist-driven layout-plan executor (Phase C,
 ``layout/analog/plans/``, then runs ``klt drc`` on whatever GDS each plan
 produced, and prints one honest per-block verdict.
 
-For the four blocks that do not depend on the driver re-size
-(``DELIVERABLE_BLOCKS``) it also finishes the routing klt's plan path cannot
-complete (issue #251): every net klt leaves unrouted is completed by a
-scripted channel route (see "Scripted routing" below), and the result is
-re-checked by a flat conductivity extraction -- never by the router's own
-bookkeeping -- before a net counts as routed. ``--deliver`` writes the
-routed GDS per block to ``layout/analog/<block>.gds`` plus
-``layout/analog/provenance.json``; ``--check`` regenerates into a scratch
+For every block in ``DELIVERABLE_BLOCKS`` -- all five, since issue #252 added
+``differential_driver`` to the four of issue #251 -- it also finishes the
+routing klt's plan path cannot complete: every net klt leaves unrouted is
+completed by a scripted channel route (see "Scripted routing" below), and the
+result is re-checked by a flat conductivity extraction -- never by the
+router's own bookkeeping -- before a net counts as routed. ``--deliver``
+writes the routed GDS per block to ``layout/analog/<block>.gds`` plus
+``layout/analog/provenance.json`` (merging per block, so ``--blocks <name>``
+leaves the other entries untouched); ``--check`` regenerates into a scratch
 directory and compares every ``gds_sha256`` against that sidecar.
 
-``differential_driver`` is not routed here (it follows the driver re-size,
-issue #252); it is still executed and reported, as before, so the day
-klayout-tools closes a gap the same command re-measures instead of someone
-re-deriving the setup from prose. See ``layout/README.md`` and
-``verification/records/analog-layout/`` for the full finding.
+``--check`` reproduces four of the five committed streams as of 2026-11-13:
+``dplus_pullup`` regenerates stably to a byte-different but *geometrically
+identical* stream (issue #335, predating #252). See ``layout/README.md`` and
+``verification/records/analog-layout/`` for the measurement.
 
 Scripted routing. Every plan places one row of tall vertical devices: MOS
 source/drain are full-height metal-1 strips, gates end in a metal-1 pad on
@@ -72,9 +72,11 @@ DELIVER_DIR = os.path.join(REPO_ROOT, "layout", "analog")
 PROVENANCE_PATH = os.path.join(DELIVER_DIR, "provenance.json")
 NETLIST_DIR = os.path.join(REPO_ROOT, "design", "netlist")
 
-# The four blocks that do not depend on the driver re-size (issue #251, child A
-# of #245). differential_driver is child B (#252).
+# Every analog block is delivered: the four of child A (issue #251) plus
+# differential_driver, child B (issue #252), added once the driver re-size
+# (#166/#167) landed and its plan routed 20/20.
 DELIVERABLE_BLOCKS = (
+    "differential_driver",
     "differential_receiver",
     "dplus_pullup",
     "se_receiver_dm",

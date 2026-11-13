@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Drift check for the artifact-anchored T1 citations (items 1, 2.digital, 9, 10).
+"""Drift check for the artifact-anchored T1 citations (items 1, 2.analog, 2.digital, 9, 10).
 
     python3 signoff/check.py            # the gate `npm run check:ci` runs
     python3 signoff/check.py --regen    # rebuild inventories, envelopes, manifest pins
