@@ -493,6 +493,13 @@ def build_analog_layout_inventory(root: Path = REPO_ROOT) -> dict:
         net_count = entry.get("net_count")
         if not isinstance(net_count, int) or net_count <= 0:
             raise AuditError(f"{block}: {ANALOG_PROVENANCE} records no net_count")
+        if isinstance(routing, str):
+            # The sidecar collapses a single-method block to that method's
+            # bare name (gen_analog_layout.py's `_routing_method`); first seen
+            # on a delivered block in issue #346, where tying every body moved
+            # the last klt-plan-routed net of three blocks to the scripted
+            # pass. Expand it so the net accounting below still applies.
+            routing = {routing: net_count}
         routed = sum(routing.values())
         if routed != net_count:
             raise AuditError(

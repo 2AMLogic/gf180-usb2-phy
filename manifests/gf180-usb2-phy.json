@@ -12,7 +12,7 @@
     },
     "2.analog": {
       "file": "signoff/evidence/t1-item-2-analog-layout.json",
-      "content_hash": "sha256:a2736098b47652efd427b5db18d852d7b77a59ba4b02f81db46dc6e4c95a98ae"
+      "content_hash": "sha256:503e10ed5a6e4afe70b76a4e4ce2b570cc1cefbe8071b144d99972e05975efad"
     },
     "2.digital": {
       "file": "signoff/evidence/t1-item-2-digital-layout.json",
@@ -147,7 +147,7 @@
     },
     "10": {
       "file": "signoff/evidence/t1-item-10-repo-hygiene.json",
-      "content_hash": "sha256:980a59c202683a13a7378a5c2bec970ee81b48d61cead86795f6b71c51ce4274"
+      "content_hash": "sha256:c0800c15e6c429129d3b21f7a8b5eea2ab85ad4144a645ab6e68c1815a9e9f21"
     },
     "11.digital": [
       {

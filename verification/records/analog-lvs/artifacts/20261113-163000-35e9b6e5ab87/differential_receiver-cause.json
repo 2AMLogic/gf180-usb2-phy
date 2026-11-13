@@ -1,0 +1,68 @@
+{
+  "block": "differential_receiver",
+  "ports": {
+    "layout": [
+      "DM",
+      "DP",
+      "RXD",
+      "VDD",
+      "VSS"
+    ],
+    "reference": [
+      "VDD",
+      "VSS",
+      "DP",
+      "DM",
+      "RXD"
+    ],
+    "only_in_layout": [],
+    "only_in_reference": [],
+    "common": [
+      "DM",
+      "DP",
+      "RXD",
+      "VDD",
+      "VSS"
+    ]
+  },
+  "layout_nets": {
+    "total": 10,
+    "unnamed_count": 5,
+    "unnamed": [
+      "\\$4",
+      "\\$5",
+      "\\$6",
+      "\\$7",
+      "\\$8"
+    ],
+    "named": [
+      "DM",
+      "DP",
+      "RXD",
+      "VDD",
+      "VSS"
+    ]
+  },
+  "bulk_nets": {
+    "layout": {
+      "nfet": [
+        "VSS"
+      ],
+      "pfet": [
+        "VDD"
+      ]
+    },
+    "reference": {
+      "nfet": [
+        "VSS"
+      ],
+      "pfet": [
+        "VDD"
+      ]
+    }
+  },
+  "device_counts": {
+    "layout": 11,
+    "reference": 11
+  }
+}

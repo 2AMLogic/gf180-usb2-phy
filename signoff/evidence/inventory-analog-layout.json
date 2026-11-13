@@ -3,14 +3,14 @@
   "about": "The routed analog GDS set cited by T1 item 2.analog. Every block's stream, layout plan and SPICE netlist is listed with its sha256, alongside the generator sidecar that records how each was produced.",
   "sidecar": {
     "path": "layout/analog/provenance.json",
-    "sha256": "sha256:f9c51cc4fe6ee979f330bb6a4a4a3b35a1ca29b67fbe88204dcb811626316a68"
+    "sha256": "sha256:e251e7429521f76450b44eeaa955d428ece8f10eaa97d8297c9a393e0d084e82"
   },
   "blocks": [
     {
       "block": "differential_driver",
       "gds": {
         "path": "layout/analog/differential_driver.gds",
-        "sha256": "sha256:f6293c3af17b568cb29f856482b1dee47319f9c99ac04ca616ded67bf3d8eb3d"
+        "sha256": "sha256:4a1c1ddfc5a1a984c2ecd156808cd20acbd881ef74d6f092e18ee377a2800fcb"
       },
       "plan": {
         "path": "layout/analog/plans/differential_driver.json",
@@ -30,13 +30,13 @@
         "violation_count": 0
       },
       "klt_version": "0.9.0",
-      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver --blocks differential_driver"
+      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver"
     },
     {
       "block": "differential_receiver",
       "gds": {
         "path": "layout/analog/differential_receiver.gds",
-        "sha256": "sha256:743d43ebdf5e26fea80903aecde6705839d746471bb9c256b86bb12e684e1fcf"
+        "sha256": "sha256:8546baa5d159f33bf741d55d367ab11a91aaf622da31b08dd1ded1872de22f5f"
       },
       "plan": {
         "path": "layout/analog/plans/differential_receiver.json",
@@ -48,8 +48,7 @@
       },
       "net_count": 8,
       "routing_method": {
-        "klt-plan": 1,
-        "scripted": 7
+        "scripted": 8
       },
       "drc": {
         "status": "clean",
@@ -62,7 +61,7 @@
       "block": "dplus_pullup",
       "gds": {
         "path": "layout/analog/dplus_pullup.gds",
-        "sha256": "sha256:3729bd19545640ac1361174b05fcbbbdfdd9b496aa01118cc70ad876e756245c"
+        "sha256": "sha256:61811cc55de70c8645c98eaf6472913e631250970dbfa8cdd812bacd6c7789d8"
       },
       "plan": {
         "path": "layout/analog/plans/dplus_pullup.json",
@@ -82,13 +81,13 @@
         "violation_count": 0
       },
       "klt_version": "0.9.0",
-      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver --blocks dplus_pullup"
+      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver"
     },
     {
       "block": "se_receiver_dm",
       "gds": {
         "path": "layout/analog/se_receiver_dm.gds",
-        "sha256": "sha256:54088ae62673bde9dfbce946bb0fc7f7a20016b6084684ebe24505a39826afbb"
+        "sha256": "sha256:31601e6386711cba7a89dcd2f24716eff8568c2de098d5f1e1b27a1ff47cc06c"
       },
       "plan": {
         "path": "layout/analog/plans/se_receiver_dm.json",
@@ -100,8 +99,7 @@
       },
       "net_count": 9,
       "routing_method": {
-        "klt-plan": 1,
-        "scripted": 8
+        "scripted": 9
       },
       "drc": {
         "status": "clean",
@@ -114,7 +112,7 @@
       "block": "se_receiver_dp",
       "gds": {
         "path": "layout/analog/se_receiver_dp.gds",
-        "sha256": "sha256:a3839bad60a4412b394a4c0d5f36116bfd2d582acf79412b241447c265df44a4"
+        "sha256": "sha256:101312916c6851df73af1f8977ec92f1db0f24c802bef3d5840ddc7bcc93c5d3"
       },
       "plan": {
         "path": "layout/analog/plans/se_receiver_dp.json",
@@ -126,8 +124,7 @@
       },
       "net_count": 9,
       "routing_method": {
-        "klt-plan": 1,
-        "scripted": 8
+        "scripted": 9
       },
       "drc": {
         "status": "clean",

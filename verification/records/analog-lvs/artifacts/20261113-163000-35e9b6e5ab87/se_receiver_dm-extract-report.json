@@ -1,0 +1,597 @@
+{
+  "schema_version": 4,
+  "file": {
+    "path": "layout/analog/lvs/se_receiver_dm/se_receiver_dm.gds",
+    "scope": "repo"
+  },
+  "deck": "gf180mcu",
+  "top": "se_receiver_dm",
+  "dbu_um": 0.0005,
+  "netlist_path": "se_receiver_dm_extract.spice",
+  "netlist_sha256": "092dea43f40eb9eb5723b39faf9d425c9f9fdd2f2cea7e5373c6873ba698f46f",
+  "netlist_normalized_sha256": "1aa211075377b2f57139cff6ceab4a553e3ef567df5eda3cb2299ee6798f0429",
+  "status": "extracted",
+  "device_count": 13,
+  "net_count": 10,
+  "pin_count": 4,
+  "device_counts": {
+    "nfet": 6,
+    "pfet": 4,
+    "ppolyf_u_1k": 3
+  },
+  "dummy_devices_dropped": 0,
+  "ignored_layers": [],
+  "device_recognition_only_layers": [
+    {
+      "layer": 49,
+      "datatype": 0,
+      "shapes": 3
+    },
+    {
+      "layer": 62,
+      "datatype": 0,
+      "shapes": 3
+    },
+    {
+      "layer": 110,
+      "datatype": 5,
+      "shapes": 3
+    }
+  ],
+  "device_classes": [
+    "nfet",
+    "pfet",
+    "bjt",
+    "cap_mim_2f0_m4m5_noshield",
+    "cap_nmos_03v3",
+    "cap_nmos_03v3_dn",
+    "cap_pmos_03v3",
+    "cap_pmos_03v3_dn",
+    "cap_nmos_06v0",
+    "cap_nmos_06v0_dn",
+    "cap_pmos_06v0",
+    "cap_pmos_06v0_dn",
+    "cap_nmos_03v3_b",
+    "cap_pmos_03v3_b",
+    "cap_nmos_06v0_b",
+    "cap_pmos_06v0_b",
+    "resistor",
+    "diode_nd2ps_06v0",
+    "diode_pd2nw_06v0"
+  ],
+  "devices": [
+    {
+      "name": "$1",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$4",
+        "d": "\\$4",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.5,
+        "w_um": 4.0,
+        "as_um2": 2.0,
+        "ad_um2": 2.0,
+        "ps_um": 9.0,
+        "pd_um": 9.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_nbias__mn_nbias_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_nbias_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$10",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "\\$8",
+        "d": "\\$9",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 40.0,
+        "as_um2": 20.0,
+        "ad_um2": 20.0,
+        "ps_um": 81.0,
+        "pd_um": 81.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_p_loadb__mp_p_loadb_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_p_loadb_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$11",
+      "class": "ppolyf_u_1k",
+      "nets": {
+        "a": "\\$2",
+        "b": "VDD",
+        "w": "VSS"
+      },
+      "params": {
+        "r_ohm": 1900.0,
+        "l_um": 3.8,
+        "w_um": 2.0,
+        "area_um2": 7.6,
+        "perimeter_um": 11.6
+      },
+      "instance_path": [
+        {
+          "cell": "r_1__r_1_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$12",
+      "class": "ppolyf_u_1k",
+      "nets": {
+        "a": "VSS",
+        "b": "\\$2",
+        "w": "VSS"
+      },
+      "params": {
+        "r_ohm": 1400.0,
+        "l_um": 2.8,
+        "w_um": 2.0,
+        "area_um2": 5.6,
+        "perimeter_um": 9.6
+      },
+      "instance_path": [
+        {
+          "cell": "r_2__r_2_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$13",
+      "class": "ppolyf_u_1k",
+      "nets": {
+        "a": "\\$4",
+        "b": "VDD",
+        "w": "VSS"
+      },
+      "params": {
+        "r_ohm": 200000.0,
+        "l_um": 400.0,
+        "w_um": 2.0,
+        "area_um2": 800.0,
+        "perimeter_um": 804.0
+      },
+      "instance_path": [
+        {
+          "cell": "r_bias__r_bias_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_bias_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$2",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$9",
+        "d": "\\$5",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 4.0,
+        "as_um2": 2.0,
+        "ad_um2": 2.0,
+        "ps_um": 9.0,
+        "pd_um": 9.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_n_b1__mn_n_b1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_n_b1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$3",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$5",
+        "d": "RXDM",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 8.0,
+        "as_um2": 4.0,
+        "ad_um2": 4.0,
+        "ps_um": 17.0,
+        "pd_um": 17.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_n_b2__mn_n_b2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_n_b2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$4",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$4",
+        "d": "\\$7",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.5,
+        "w_um": 8.0,
+        "as_um2": 4.0,
+        "ad_um2": 4.0,
+        "ps_um": 17.0,
+        "pd_um": 17.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_tail__mn_tail_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_tail_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$5",
+      "class": "nfet",
+      "nets": {
+        "s": "\\$7",
+        "g": "DM",
+        "d": "\\$8",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 20.0,
+        "as_um2": 10.0,
+        "ad_um2": 10.0,
+        "ps_um": 41.0,
+        "pd_um": 41.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_n_ina__mn_n_ina_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_n_ina_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$6",
+      "class": "nfet",
+      "nets": {
+        "s": "\\$7",
+        "g": "\\$2",
+        "d": "\\$9",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 20.0,
+        "as_um2": 10.0,
+        "ad_um2": 10.0,
+        "ps_um": 41.0,
+        "pd_um": 41.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_n_inb__mn_n_inb_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_n_inb_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$7",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "\\$9",
+        "d": "\\$5",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 8.0,
+        "as_um2": 4.0,
+        "ad_um2": 4.0,
+        "ps_um": 17.0,
+        "pd_um": 17.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_p_b1__mp_p_b1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_p_b1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$8",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "\\$5",
+        "d": "RXDM",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 16.0,
+        "as_um2": 8.0,
+        "ad_um2": 8.0,
+        "ps_um": 33.0,
+        "pd_um": 33.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_p_b2__mp_p_b2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_p_b2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$9",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "\\$8",
+        "d": "\\$8",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 40.0,
+        "as_um2": 20.0,
+        "ad_um2": 20.0,
+        "ps_um": 81.0,
+        "pd_um": 81.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_p_loada__mp_p_loada_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_p_loada_0__core",
+          "array_index": null
+        }
+      ]
+    }
+  ],
+  "nets": [
+    {
+      "name": "DM",
+      "pin": true,
+      "device_count": 1,
+      "net_id": 10,
+      "pin_index": 0,
+      "label_positions_um": [
+        {
+          "text": "DM",
+          "x_um": 433.77,
+          "y_um": 22.19
+        }
+      ]
+    },
+    {
+      "name": "RXDM",
+      "pin": true,
+      "device_count": 2,
+      "net_id": 6,
+      "pin_index": 1,
+      "label_positions_um": [
+        {
+          "text": "RXDM",
+          "x_um": 428.67,
+          "y_um": 5.23
+        }
+      ]
+    },
+    {
+      "name": "VDD",
+      "pin": true,
+      "device_count": 10,
+      "net_id": 3,
+      "pin_index": 2,
+      "label_positions_um": [
+        {
+          "text": "VDD",
+          "x_um": 4.58,
+          "y_um": 1.22
+        }
+      ]
+    },
+    {
+      "name": "VSS",
+      "pin": true,
+      "device_count": 14,
+      "net_id": 11,
+      "pin_index": 3,
+      "label_positions_um": [
+        {
+          "text": "VSS",
+          "x_um": 7.1,
+          "y_um": 1.22
+        }
+      ]
+    },
+    {
+      "name": "\\$2",
+      "pin": false,
+      "device_count": 3,
+      "net_id": 2,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$4",
+      "pin": false,
+      "device_count": 4,
+      "net_id": 4,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$5",
+      "pin": false,
+      "device_count": 4,
+      "net_id": 5,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$7",
+      "pin": false,
+      "device_count": 3,
+      "net_id": 7,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$8",
+      "pin": false,
+      "device_count": 4,
+      "net_id": 8,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$9",
+      "pin": false,
+      "device_count": 4,
+      "net_id": 9,
+      "pin_index": null,
+      "label_positions_um": []
+    }
+  ],
+  "warnings": [],
+  "black_box_regions": [],
+  "abstracted_cells": [],
+  "unmodelled_poly": [],
+  "merged_net_labels": [],
+  "split_net_labels": [],
+  "voltage_domain_warnings": [],
+  "missing_flavour_markers": [],
+  "unsupported_devices": [],
+  "unbiased_pmos_body_nets": [],
+  "single_terminal_nets": [],
+  "dead_metal": [],
+  "matched_device_groups": [],
+  "def_pin_promotion": null,
+  "pin_renames": null,
+  "rename_declared_pins": false,
+  "declared_pins": null,
+  "def_pins": null,
+  "label_layers": null,
+  "device_models": null,
+  "probes": [],
+  "pdk": null,
+  "provenance": {
+    "klt_version": "0.9.0",
+    "klt_git_commit": "5dbbad05ff42265c92a6f3d2f20d1bbcd2957d49",
+    "klt_reinstall_spec": "klayout-tools==0.9.0",
+    "klayout_version": "0.30.13",
+    "pdk": null,
+    "deck": {
+      "name": "gf180mcu",
+      "content_hash": "sha256:cf44de63f0a5b01c1d09c4d58e0535e990aa4b070bcaae17fd3a94a67a1d97e1",
+      "released": true,
+      "options": {
+        "metal_top": "9K",
+        "mim_cap": "cap_mim_2f0_m4m5_noshield",
+        "poly_res": "1k"
+      },
+      "options_explicit": {
+        "metal_top": false,
+        "mim_cap": false,
+        "poly_res": false
+      },
+      "options_hash": "sha256:6a7dc7660a470994263c5ca8ace6d8ac8c605d77e6876a9c5490949de6e7cb05"
+    },
+    "input": {
+      "content_hash": "sha256:31601e6386711cba7a89dcd2f24716eff8568c2de098d5f1e1b27a1ff47cc06c",
+      "role": "layout"
+    }
+  },
+  "parasitics": null,
+  "spef_path": null,
+  "subcircuit": null,
+  "metrics": {
+    "extract__device__count": 13,
+    "extract__net__count": 10,
+    "extract__pin__count": 4
+  },
+  "timing": {
+    "stages": {
+      "read_layout": 0.001,
+      "device_extraction": 0.015,
+      "diagnostics": 0.0,
+      "netlist_write": 0.001,
+      "netlist_hash": 0.0,
+      "netlist_normalized_hash": 0.0
+    },
+    "total_seconds": 0.11,
+    "unattributed_seconds": 0.093
+  }
+}

@@ -1,0 +1,49 @@
+Per-block comparison of the committed stream at HEAD (35e9b6e5ab87,
+'old') against the stream this record delivers ('new'). Produced with
+klayout.db 0.30.13; old streams read from `git show HEAD:<path>`.
+
+== differential_driver
+   bbox      old (-1.02,-11.94;1830.18,91.265)
+             new (-1.02,-11.94;1830.18,91.265)
+   cell count old 81  new 81
+   every device (sub)cell identical in bbox, shape count and instance count: True
+   top-cell shape delta by layer (only non-zero): {'34/10': -1, '35/0': 34, '36/0': 34, '38/0': 34}
+   labels old (8): 34/10:DM_GATEN, 34/10:DM_GATEP, 34/10:DM_PX, 34/10:DP_GATEN, 34/10:DP_GATEP, 34/10:DP_PX, 34/10:TXDM, 34/10:TXDP
+   labels new (7): 34/10:DM, 34/10:DP, 34/10:TXDM, 34/10:TXDP, 34/10:TXOE, 34/10:VDD, 34/10:VSS
+
+== differential_receiver
+   bbox      old (0,-6.915;457.18,48.695)
+             new (0,-7.615;457.18,48.695)
+   cell count old 23  new 23
+   every device (sub)cell identical in bbox, shape count and instance count: True
+   top-cell shape delta by layer (only non-zero): {'34/10': 2, '35/0': 15, '36/0': 15, '38/0': 15, '42/0': 1}
+   labels old (3): 34/10:AMPOUT, 34/10:IBIASN, 34/10:VDD
+   labels new (5): 34/10:DM, 34/10:DP, 34/10:RXD, 34/10:VDD, 34/10:VSS
+
+== dplus_pullup
+   bbox      old (-1.02,-11.94;251.755,109.52)
+             new (-1.02,-11.94;251.755,109.52)
+   cell count old 49  new 49
+   every device (sub)cell identical in bbox, shape count and instance count: True
+   top-cell shape delta by layer (only non-zero): {'34/10': -4, '35/0': 18, '36/0': 18, '36/10': -6, '38/0': 18}
+   labels old (19): 34/10:NODE5, 34/10:PU_EN, 34/10:PU_ENB, 34/10:TRIM0, 34/10:TRIM0B, 34/10:TRIM1, 34/10:TRIM1B, 34/10:TRIM2, 34/10:TRIM2B, 34/10:TRIM3, 34/10:TRIM3B, 34/10:TRIM4, 34/10:TRIM4B, 36/10:DP, 36/10:NODE0, 36/10:NODE1, 36/10:NODE2, 36/10:NODE3, 36/10:NODE4
+   labels new (9): 34/10:DP, 34/10:PU_EN, 34/10:TRIM0, 34/10:TRIM1, 34/10:TRIM2, 34/10:TRIM3, 34/10:TRIM4, 34/10:VPU_REG, 34/10:VSS
+
+== se_receiver_dm
+   bbox      old (0,-7.615;469.84,49.395)
+             new (0,-8.315;469.84,49.395)
+   cell count old 27  new 27
+   every device (sub)cell identical in bbox, shape count and instance count: True
+   top-cell shape delta by layer (only non-zero): {'34/10': 1, '35/0': 16, '36/0': 16, '38/0': 16, '42/0': 1}
+   labels old (3): 34/10:AMPOUT, 34/10:IBIASN, 34/10:VDD
+   labels new (4): 34/10:DM, 34/10:RXDM, 34/10:VDD, 34/10:VSS
+
+== se_receiver_dp
+   bbox      old (0,-7.615;469.84,49.395)
+             new (0,-8.315;469.84,49.395)
+   cell count old 27  new 27
+   every device (sub)cell identical in bbox, shape count and instance count: True
+   top-cell shape delta by layer (only non-zero): {'34/10': 1, '35/0': 16, '36/0': 16, '38/0': 16, '42/0': 1}
+   labels old (3): 34/10:AMPOUT, 34/10:IBIASN, 34/10:VDD
+   labels new (4): 34/10:DP, 34/10:RXDP, 34/10:VDD, 34/10:VSS
+

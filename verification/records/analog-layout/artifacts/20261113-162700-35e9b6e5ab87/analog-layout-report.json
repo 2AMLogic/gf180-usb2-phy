@@ -1,0 +1,569 @@
+{
+  "schema_version": 2,
+  "klt_version": "0.9.0",
+  "plan_dir": "layout/analog/plans",
+  "out_dir": "/tmp/gen346e",
+  "blocks": [
+    {
+      "block": "differential_driver",
+      "plan": "layout/analog/plans/differential_driver.json",
+      "status": "executed",
+      "klt_exit_code": 3,
+      "gds_path": "../../../../../../../tmp/gen346e/differential_driver.gds",
+      "device_group_count": 40,
+      "net_count": 20,
+      "routed_net_count": 20,
+      "klt_routed_net_count": 2,
+      "unrouted_nets": [],
+      "unmapped_netlist_nets": [],
+      "bbox_um": {
+        "x0": -1.02,
+        "y0": 0.0,
+        "x1": 1830.18,
+        "y1": 83.88000000000001
+      },
+      "warning_count": 0,
+      "drc": {
+        "status": "clean",
+        "violation_count": 0,
+        "by_rule": {}
+      },
+      "routing": {
+        "snapped_instances": 0,
+        "l2n_net_count": 20,
+        "shorts": [],
+        "problems": [],
+        "methods": {
+          "klt-plan": 2,
+          "scripted": 18
+        }
+      },
+      "body_ties": {
+        "nets": {
+          "VDD": [
+            "mp_1adm",
+            "mp_1adp",
+            "mp_1bdm",
+            "mp_1bdp",
+            "mp_2dm_1",
+            "mp_2dm_2",
+            "mp_2dm_3",
+            "mp_2dm_4",
+            "mp_2dp_1",
+            "mp_2dp_2",
+            "mp_2dp_3",
+            "mp_2dp_4",
+            "mp_3adm",
+            "mp_3adp",
+            "mp_3bdm",
+            "mp_3bdp",
+            "mp_oeb"
+          ],
+          "VSS": [
+            "mn_1adm",
+            "mn_1adp",
+            "mn_1bdm",
+            "mn_1bdp",
+            "mn_2dm_1",
+            "mn_2dm_2",
+            "mn_2dm_3",
+            "mn_2dm_4",
+            "mn_2dp_1",
+            "mn_2dp_2",
+            "mn_2dp_3",
+            "mn_2dp_4",
+            "mn_3adm",
+            "mn_3adp",
+            "mn_3bdm",
+            "mn_3bdp",
+            "mn_oeb"
+          ]
+        },
+        "tied_groups": 34,
+        "untied": [
+          {
+            "block": "r_slewpdp",
+            "net": "VSS"
+          },
+          {
+            "block": "r_slewndp",
+            "net": "VSS"
+          },
+          {
+            "block": "r_slewpdm",
+            "net": "VSS"
+          },
+          {
+            "block": "r_slewndm",
+            "net": "VSS"
+          }
+        ],
+        "problems": []
+      },
+      "pin_labels": {
+        "cleared": 8,
+        "layer": [
+          34,
+          10
+        ],
+        "written": {
+          "DM": {
+            "block": "r_serdm",
+            "port": "R0_A"
+          },
+          "DP": {
+            "block": "r_serdp",
+            "port": "R0_A"
+          },
+          "TXDM": {
+            "block": "mn_1adm",
+            "port": "U0_G"
+          },
+          "TXDP": {
+            "block": "mn_1adp",
+            "port": "U0_G"
+          },
+          "TXOE": {
+            "block": "mn_oeb",
+            "port": "U0_G"
+          },
+          "VDD": {
+            "block": "mp_oeb",
+            "port": "U0_S"
+          },
+          "VSS": {
+            "block": "mn_oeb",
+            "port": "U0_S"
+          }
+        },
+        "unlabelled_ports": []
+      }
+    },
+    {
+      "block": "differential_receiver",
+      "plan": "layout/analog/plans/differential_receiver.json",
+      "status": "executed",
+      "klt_exit_code": 3,
+      "gds_path": "../../../../../../../tmp/gen346e/differential_receiver.gds",
+      "device_group_count": 11,
+      "net_count": 8,
+      "routed_net_count": 8,
+      "klt_routed_net_count": 1,
+      "unrouted_nets": [],
+      "unmapped_netlist_nets": [],
+      "bbox_um": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 457.18,
+        "y1": 43.879999999999995
+      },
+      "warning_count": 0,
+      "drc": {
+        "status": "clean",
+        "violation_count": 0,
+        "by_rule": {}
+      },
+      "routing": {
+        "snapped_instances": 0,
+        "l2n_net_count": 8,
+        "shorts": [],
+        "problems": [],
+        "methods": {
+          "klt-plan": 0,
+          "scripted": 8
+        }
+      },
+      "body_ties": {
+        "nets": {
+          "VDD": [
+            "mp_p_b1",
+            "mp_p_b2",
+            "mp_p_loada",
+            "mp_p_loadb"
+          ],
+          "VSS": [
+            "mn_n_b1",
+            "mn_n_b2",
+            "mn_n_ina",
+            "mn_n_inb",
+            "mn_nbias",
+            "mn_tail"
+          ]
+        },
+        "tied_groups": 10,
+        "untied": [
+          {
+            "block": "r_bias",
+            "net": "VSS"
+          }
+        ],
+        "problems": []
+      },
+      "pin_labels": {
+        "cleared": 3,
+        "layer": [
+          34,
+          10
+        ],
+        "written": {
+          "DM": {
+            "block": "mn_n_inb",
+            "port": "U0_G"
+          },
+          "DP": {
+            "block": "mn_n_ina",
+            "port": "U0_G"
+          },
+          "RXD": {
+            "block": "mn_n_b2",
+            "port": "U0_D"
+          },
+          "VDD": {
+            "block": "r_bias",
+            "port": "R0_B"
+          },
+          "VSS": {
+            "block": "mn_nbias",
+            "port": "U0_S"
+          }
+        },
+        "unlabelled_ports": []
+      }
+    },
+    {
+      "block": "dplus_pullup",
+      "plan": "layout/analog/plans/dplus_pullup.json",
+      "status": "executed",
+      "klt_exit_code": 3,
+      "gds_path": "../../../../../../../tmp/gen346e/dplus_pullup.gds",
+      "device_group_count": 24,
+      "net_count": 21,
+      "routed_net_count": 21,
+      "klt_routed_net_count": 6,
+      "unrouted_nets": [],
+      "unmapped_netlist_nets": [],
+      "bbox_um": {
+        "x0": -1.02,
+        "y0": 0.0,
+        "x1": 251.75499999999994,
+        "y1": 103.88000000000001
+      },
+      "warning_count": 0,
+      "drc": {
+        "status": "clean",
+        "violation_count": 0,
+        "by_rule": {}
+      },
+      "routing": {
+        "snapped_instances": 0,
+        "l2n_net_count": 21,
+        "shorts": [],
+        "problems": [],
+        "methods": {
+          "klt-plan": 6,
+          "scripted": 15
+        }
+      },
+      "body_ties": {
+        "nets": {
+          "VPU_REG": [
+            "mp_drv_en",
+            "mp_drv_t0",
+            "mp_drv_t1",
+            "mp_drv_t2",
+            "mp_drv_t3",
+            "mp_drv_t4",
+            "mp_sw0",
+            "mp_sw1",
+            "mp_sw2",
+            "mp_sw3",
+            "mp_sw4",
+            "mp_sw_en"
+          ],
+          "VSS": [
+            "mn_drv_en",
+            "mn_drv_t0",
+            "mn_drv_t1",
+            "mn_drv_t2",
+            "mn_drv_t3",
+            "mn_drv_t4"
+          ]
+        },
+        "tied_groups": 18,
+        "untied": [
+          {
+            "block": "r_base",
+            "net": "VSS"
+          },
+          {
+            "block": "r_seg0",
+            "net": "VSS"
+          },
+          {
+            "block": "r_seg1",
+            "net": "VSS"
+          },
+          {
+            "block": "r_seg2",
+            "net": "VSS"
+          },
+          {
+            "block": "r_seg3",
+            "net": "VSS"
+          },
+          {
+            "block": "r_seg4",
+            "net": "VSS"
+          }
+        ],
+        "problems": []
+      },
+      "pin_labels": {
+        "cleared": 19,
+        "layer": [
+          34,
+          10
+        ],
+        "written": {
+          "DP": {
+            "block": "r_seg4",
+            "port": "R0_A"
+          },
+          "PU_EN": {
+            "block": "mn_drv_en",
+            "port": "U0_G"
+          },
+          "TRIM0": {
+            "block": "mn_drv_t0",
+            "port": "U0_G"
+          },
+          "TRIM1": {
+            "block": "mn_drv_t1",
+            "port": "U0_G"
+          },
+          "TRIM2": {
+            "block": "mn_drv_t2",
+            "port": "U0_G"
+          },
+          "TRIM3": {
+            "block": "mn_drv_t3",
+            "port": "U0_G"
+          },
+          "TRIM4": {
+            "block": "mn_drv_t4",
+            "port": "U0_G"
+          },
+          "VPU_REG": {
+            "block": "mp_drv_en",
+            "port": "U0_S"
+          },
+          "VSS": {
+            "block": "mn_drv_en",
+            "port": "U0_S"
+          }
+        },
+        "unlabelled_ports": []
+      }
+    },
+    {
+      "block": "se_receiver_dm",
+      "plan": "layout/analog/plans/se_receiver_dm.json",
+      "status": "executed",
+      "klt_exit_code": 3,
+      "gds_path": "../../../../../../../tmp/gen346e/se_receiver_dm.gds",
+      "device_group_count": 13,
+      "net_count": 9,
+      "routed_net_count": 9,
+      "klt_routed_net_count": 1,
+      "unrouted_nets": [],
+      "unmapped_netlist_nets": [],
+      "bbox_um": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 469.84000000000003,
+        "y1": 43.879999999999995
+      },
+      "warning_count": 0,
+      "drc": {
+        "status": "clean",
+        "violation_count": 0,
+        "by_rule": {}
+      },
+      "routing": {
+        "snapped_instances": 0,
+        "l2n_net_count": 9,
+        "shorts": [],
+        "problems": [],
+        "methods": {
+          "klt-plan": 0,
+          "scripted": 9
+        }
+      },
+      "body_ties": {
+        "nets": {
+          "VDD": [
+            "mp_p_b1",
+            "mp_p_b2",
+            "mp_p_loada",
+            "mp_p_loadb"
+          ],
+          "VSS": [
+            "mn_n_b1",
+            "mn_n_b2",
+            "mn_n_ina",
+            "mn_n_inb",
+            "mn_nbias",
+            "mn_tail"
+          ]
+        },
+        "tied_groups": 10,
+        "untied": [
+          {
+            "block": "r_1",
+            "net": "VSS"
+          },
+          {
+            "block": "r_2",
+            "net": "VSS"
+          },
+          {
+            "block": "r_bias",
+            "net": "VSS"
+          }
+        ],
+        "problems": []
+      },
+      "pin_labels": {
+        "cleared": 3,
+        "layer": [
+          34,
+          10
+        ],
+        "written": {
+          "DM": {
+            "block": "mn_n_ina",
+            "port": "U0_G"
+          },
+          "RXDM": {
+            "block": "mn_n_b2",
+            "port": "U0_D"
+          },
+          "VDD": {
+            "block": "r_1",
+            "port": "R0_B"
+          },
+          "VSS": {
+            "block": "r_2",
+            "port": "R0_A"
+          }
+        },
+        "unlabelled_ports": []
+      }
+    },
+    {
+      "block": "se_receiver_dp",
+      "plan": "layout/analog/plans/se_receiver_dp.json",
+      "status": "executed",
+      "klt_exit_code": 3,
+      "gds_path": "../../../../../../../tmp/gen346e/se_receiver_dp.gds",
+      "device_group_count": 13,
+      "net_count": 9,
+      "routed_net_count": 9,
+      "klt_routed_net_count": 1,
+      "unrouted_nets": [],
+      "unmapped_netlist_nets": [],
+      "bbox_um": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 469.84000000000003,
+        "y1": 43.879999999999995
+      },
+      "warning_count": 0,
+      "drc": {
+        "status": "clean",
+        "violation_count": 0,
+        "by_rule": {}
+      },
+      "routing": {
+        "snapped_instances": 0,
+        "l2n_net_count": 9,
+        "shorts": [],
+        "problems": [],
+        "methods": {
+          "klt-plan": 0,
+          "scripted": 9
+        }
+      },
+      "body_ties": {
+        "nets": {
+          "VDD": [
+            "mp_p_b1",
+            "mp_p_b2",
+            "mp_p_loada",
+            "mp_p_loadb"
+          ],
+          "VSS": [
+            "mn_n_b1",
+            "mn_n_b2",
+            "mn_n_ina",
+            "mn_n_inb",
+            "mn_nbias",
+            "mn_tail"
+          ]
+        },
+        "tied_groups": 10,
+        "untied": [
+          {
+            "block": "r_1",
+            "net": "VSS"
+          },
+          {
+            "block": "r_2",
+            "net": "VSS"
+          },
+          {
+            "block": "r_bias",
+            "net": "VSS"
+          }
+        ],
+        "problems": []
+      },
+      "pin_labels": {
+        "cleared": 3,
+        "layer": [
+          34,
+          10
+        ],
+        "written": {
+          "DP": {
+            "block": "mn_n_ina",
+            "port": "U0_G"
+          },
+          "RXDP": {
+            "block": "mn_n_b2",
+            "port": "U0_D"
+          },
+          "VDD": {
+            "block": "r_1",
+            "port": "R0_B"
+          },
+          "VSS": {
+            "block": "r_2",
+            "port": "R0_A"
+          }
+        },
+        "unlabelled_ports": []
+      }
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "executed": 5,
+    "fully_routed": 5,
+    "drc_clean": 5,
+    "deliverable_total": 5,
+    "deliverable_routed": 5,
+    "deliverable_ok": 5,
+    "verdict": "analog layout DELIVERED"
+  }
+}

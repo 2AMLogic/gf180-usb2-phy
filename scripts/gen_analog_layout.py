@@ -42,6 +42,26 @@ share a y, so the only same-layer interactions are stub-vs-stub at distinct
 pin x. No device is moved or re-sized; instance origins are snapped to the
 0.005 um manufacturing grid, which klt's own placement does not do.
 
+Body ties and pin labels (issue #346). klt's layout-plan executor derives
+``connectivity[]`` from source/drain/gate terminals only -- its
+``_TERMINAL_SUFFIXES`` table has no bulk entry -- so a device **body** is
+never in a plan net and the contacted tap pads ``mos_array`` draws for
+gf180mcu's tap-distance rule stay floating. And the only labels a plan run
+leaves behind are the ones klt's own router writes: one per net it drew a
+leg for, partially-routed nets included, which is neither the schematic's
+port set nor a subset of it. LVS saw both: all five committed streams
+mismatched, with every PMOS body on its own anonymous well, every NMOS body
+on the deck-synthesized ``vsubs``, and internal nodes exported as pins.
+
+So the same post-plan pass that completes the routing also re-reads the
+plan's own netlist digest and, per device group, ties the group's body --
+through one of its ``TAP_PAD*`` ports -- to the net the schematic puts that
+body on (``_netlist_pin_map``), then re-labels the top cell so its named
+nets are exactly the reference ``.subckt`` ports (``_write_pin_labels``).
+One pad per group is enough: a group's pads contact the one well (pfet) or
+the one substrate (nfet) its devices sit in. The tool gap is filed as
+``2AMLogic/klayout-tools#5546``; nothing here edits a plan or a GDS by hand.
+
 Exit codes (about *the run*, never about the quality of the layout -- read
 the report for that):
 
@@ -94,6 +114,18 @@ DELIVERABLE_BLOCKS = (
 # gf180mcuD layers (klt deck): metal1 34/0, via1 35/0, metal2 36/0,
 # via2 38/0, metal3 42/0.
 M1, VIA1, M2, VIA2, M3 = (34, 0), (35, 0), (36, 0), (38, 0), (42, 0)
+# gf180mcu's label purposes (datatype 10 on each metal). A kdb.Text on one of
+# these names the conductor it sits on; `klt extract` reads nothing else, and
+# a net with no text extracts as an anonymous `$<n>` (issue #346 cause C).
+M1_LABEL = (34, 10)
+LABEL_LAYERS = ((34, 10), (36, 10), (42, 10))
+# `mos_array`'s contacted well/substrate tap pads (klayout-tools #3648/#4143).
+TAP_PAD_PREFIX = "TAP_PAD"
+# The digest terminal that names a device's body. klt's own layout-plan
+# connectivity derivation deliberately drops it (_TERMINAL_SUFFIXES has no
+# "B" entry), which is why the committed streams had untied wells and an
+# untied substrate -- see _body_ties().
+BULK_TERMINAL = "B"
 GRID_UM = 0.005  # manufacturing grid
 WIRE_UM = 0.28  # metal2 / metal3 minimum width and spacing
 VIA_UM = 0.26  # via1 / via2 fixed size
@@ -212,7 +244,12 @@ def _execute_plan(
     if scripted:
         gds_path = os.path.join(final_dir, f"{block}.gds")
         routing = _complete_routing(
-            klt_gds, gds_path, response, captured.get("request"), klt_routed
+            klt_gds,
+            gds_path,
+            response,
+            captured.get("request"),
+            klt_routed,
+            _netlist_digest(plan_path, request),
         )
         routed_names = {n for n, ok in routing["routed"].items() if ok}
 
@@ -238,6 +275,8 @@ def _execute_plan(
             "problems": routing["problems"],
             "methods": routing["methods"],
         }
+        result["body_ties"] = routing["body_ties"]
+        result["pin_labels"] = routing["pin_labels"]
     return result
 
 
@@ -281,10 +320,233 @@ def _execute_plan_isolated(plan_path: str, out_dir: str, keep_work: bool) -> dic
         return json.load(handle)
 
 
-def _complete_routing(
-    klt_gds: str, out_gds: str, response: dict, compose_request, klt_routed: set[str]
+def _netlist_digest(plan_path: str, request: dict) -> dict:
+    """The plan's own reference netlist, digested by klt (Phase A).
+
+    The same object ``klt``'s layout-plan executor validates the plan
+    against, read a second time here for the two things its own
+    ``connectivity[]`` derivation drops: each device's **body** terminal and
+    every net's ``is_pin`` flag. Both are needed below and neither is
+    recoverable from the executor's response.
+    """
+    from klayout_tools.netlist_digest import build_netlist_digest
+
+    spec = request["netlist"]
+    path = os.path.normpath(
+        os.path.join(os.path.dirname(os.path.abspath(plan_path)), spec["path"])
+    )
+    return build_netlist_digest(
+        path,
+        top=spec.get("top"),
+        form=spec.get("form", "plain-element"),
+        deck=spec.get("deck"),
+    )
+
+
+def _tap_pad_pin(ports: list[dict]) -> str | None:
+    """The tap pad to tie a group's body with: the bottom-facing one nearest
+    the group's own x centre, so its stub drops straight into the bottom
+    channel without crossing the device. ``None`` when the generator drew no
+    pads (every pad of one group ties the same well/substrate conductor, so
+    one contacted pad biases the whole tub -- this never needs a second)."""
+    pads = [p for p in ports if str(p.get("name", "")).startswith(TAP_PAD_PREFIX)]
+    if not pads:
+        return None
+    facing = [p for p in pads if p.get("direction_deg") == 270] or pads
+    centre = sum(p["x_um"] for p in pads) / len(pads)
+    return min(facing, key=lambda p: (abs(p["x_um"] - centre), p["name"]))["name"]
+
+
+def _netlist_pin_map(response: dict, compose_request, digest: dict) -> dict:
+    """Resolve every netlist terminal of every placed device onto a generated
+    port -- issue #346 causes A, B and C.
+
+    Returns ``{"terminals", "ties", "untied", "problems"}``:
+
+    ``terminals``
+        ``{net: [{"block", "port"}, ...]}`` over the terminals klt's own
+        ``connectivity[]`` derivation wires (``_TERMINAL_SUFFIXES``), rebuilt
+        here because the executor's response drops the one-pin nets -- a net
+        with a single terminal has nothing to route, but it is still a port
+        that must be named.
+    ``ties``
+        the same shape for each device **body**. A terminal the generator's
+        own suffix table does not map (MOS ``B``; a poly resistor's ``W``) is
+        a body: klt therefore never puts it in a plan net, so the contacted
+        tap pads ``mos_array`` draws for gf180mcu's tap-distance rule are
+        left floating, every PMOS body extracts onto its own anonymous well
+        net and every NMOS body onto the deck-synthesized ``vsubs``. That is
+        what the first LVS record measured. Filed upstream as a tool gap;
+        completed here the same way the scripted routes are.
+
+        One pad per group is enough and is all this returns: a group's pads
+        all contact the one well (pfet) or the one substrate (nfet) its
+        devices sit in, so they are already one conductor before any metal.
+    ``untied``
+        ``[{"block", "net"}]`` for a body on a group that draws no tap pad --
+        a poly resistor's substrate terminal, which has no tap of its own and
+        reaches ground through the shared substrate the nfet groups tie. Not
+        a problem; the LVS run is what says whether it landed.
+    """
+    from klayout_tools.layout_plan_execute import (
+        _TERMINAL_SUFFIXES,
+        _device_owned_port_names,
+    )
+
+    reports = {
+        block["id"]: block["generator_report"] for block in compose_request["blocks"]
+    }
+    by_key = {(d["name"], d["device_class"]): d for d in digest["devices"]}
+    terminals: dict[str, list[dict[str, str]]] = {}
+    ties: dict[str, list[dict[str, str]]] = {}
+    untied: list[dict[str, str]] = []
+    problems: list[str] = []
+    seen: dict[str, set[tuple[str, str]]] = {}
+
+    def _add(target: dict, net: str, block: str, port: str) -> None:
+        if (block, port) in seen.setdefault(net, set()):
+            return
+        seen[net].add((block, port))
+        target.setdefault(net, []).append({"block": block, "port": port})
+
+    for group in response.get("device_groups") or []:
+        ports = reports.get(group["id"], {}).get("ports") or []
+        suffixes = _TERMINAL_SUFFIXES.get(group["generator"], {})
+        candidates = {
+            suffix: _device_owned_port_names(ports, suffix)
+            for suffix in set(suffixes.values())
+        }
+        bodies: set[str] = set()
+        for index, reference in enumerate(group["devices"]):
+            device = by_key.get((reference["name"], reference["device_class"]))
+            if device is None:
+                continue
+            for terminal, net in device["terminals"].items():
+                if net is None:
+                    continue
+                suffix = suffixes.get(terminal)
+                if suffix is None:
+                    # Not a terminal this generator exposes a port for: the
+                    # device's body. Tied below, per group, not per device.
+                    bodies.add(net)
+                    continue
+                names = candidates.get(suffix, [])
+                if index < len(names):
+                    _add(terminals, net, group["id"], names[index])
+        if not bodies:
+            continue
+        pad = _tap_pad_pin(ports)
+        if pad is None:
+            untied.extend(
+                {"block": group["id"], "net": net} for net in sorted(bodies)
+            )
+            continue
+        if len(bodies) > 1:
+            problems.append(
+                f"{group['id']}: devices disagree on their body net "
+                f"({', '.join(sorted(bodies))}) -- one group is one well, so "
+                "this group cannot be tied; split it in the plan"
+            )
+            continue
+        _add(ties, next(iter(bodies)), group["id"], pad)
+    return {
+        "terminals": terminals,
+        "ties": ties,
+        "untied": untied,
+        "problems": problems,
+    }
+
+
+def _augmented_nets(response: dict, ties: dict) -> list[dict]:
+    """``response["nets"]`` with each body tie's tap pad added to its net,
+    and an entry minted for a body net the plan path has none for."""
+    nets = [dict(net, pins=list(net["pins"])) for net in response.get("nets") or []]
+    by_name = {net["net"]: net for net in nets}
+    for name, pins in sorted(ties.items()):
+        net = by_name.get(name)
+        if net is None:
+            net = {"net": name, "pins": [], "routed": False}
+            nets.append(net)
+            by_name[name] = net
+        net["pins"].extend(pins)
+    return nets
+
+
+def _write_pin_labels(
+    geo: _Geometry, top, dev_m1, digest: dict, pin_map: dict, ports: dict
 ) -> dict:
-    """Snap, route the nets klt left open, re-verify every net, write ``out_gds``."""
+    """Re-label the top cell so its named nets are exactly the reference
+    ``.subckt`` ports -- issue #346 cause C.
+
+    What klt leaves behind is one ``kdb.Text`` per net its own plan router
+    drew a leg for, partially-routed nets included: a set that is neither
+    the schematic's ports (it misses every net the scripted pass routes,
+    including ``VSS`` on all five blocks) nor a subset of them (it names
+    internal nodes, which then extract as top-level pins). Since a name is
+    the only thing that makes a layout net a pin, every existing label is
+    dropped and one is written per ``is_pin`` net of the digest, on the
+    metal-1 label purpose at a device terminal of that net.
+    """
+    cleared = 0
+    for pair in LABEL_LAYERS:
+        index = geo.layout.layer(*pair)
+        for cell in geo.layout.each_cell():
+            texts = [s for s in cell.shapes(index).each() if s.is_text()]
+            for shape in texts:
+                cell.shapes(index).erase(shape)
+            cleared += len(texts)
+
+    pins_by_net: dict[str, list[dict]] = {
+        net: list(pins) + list(pin_map["ties"].get(net, []))
+        for net, pins in pin_map["terminals"].items()
+    }
+    for net, pins in pin_map["ties"].items():
+        pins_by_net.setdefault(net, list(pins))
+    written: dict[str, dict] = {}
+    missing: list[str] = []
+    index = geo.layout.layer(*M1_LABEL)
+    for net in digest["nets"]:
+        if not net.get("is_pin"):
+            continue
+        name = net["name"]
+        at = None
+        for pin in pins_by_net.get(name, []):
+            key = (pin["block"], pin["port"])
+            if key not in ports:
+                continue
+            x, y = ports[key]
+            probe = geo.db.Region(geo.centred(x, y, 0.01))
+            if dev_m1.interacting(probe).is_empty():
+                continue
+            at = (key, x, y)
+            if not pin["port"].startswith(TAP_PAD_PREFIX):
+                break
+        if at is None:
+            missing.append(name)
+            continue
+        (block, port), x, y = at
+        top.shapes(index).insert(
+            geo.db.Text(name, geo.db.Trans(geo.db.Vector(geo.d(x), geo.d(y))))
+        )
+        written[name] = {"block": block, "port": port}
+    return {
+        "cleared": cleared,
+        "layer": list(M1_LABEL),
+        "written": written,
+        "unlabelled_ports": sorted(missing),
+    }
+
+
+def _complete_routing(
+    klt_gds: str,
+    out_gds: str,
+    response: dict,
+    compose_request,
+    klt_routed: set[str],
+    digest: dict,
+) -> dict:
+    """Snap, tie every body, route the nets klt left open, label the
+    schematic's ports, re-verify every net, write ``out_gds``."""
     import klayout.db as kdb
 
     layout = kdb.Layout()
@@ -310,26 +572,44 @@ def _complete_routing(
         for port in block["generator_report"].get("ports") or []:
             ports[(group, port["name"])] = (ox + port["x_um"], oy + port["y_um"])
 
-    routed = _route_scripted(geo, top, response, ports)
-    check = _connectivity(geo, top, response.get("nets") or [], ports)
+    pin_map = _netlist_pin_map(response, compose_request, digest)
+    ties = pin_map["ties"]
+    tie_problems = pin_map["problems"]
+    nets = _augmented_nets(response, ties)
+    # A net klt already routed still has to be re-drawn once it gains a tap
+    # pad: klt's own route reaches the device terminals only.
+    dev_m1 = _device_region(geo, top, M1)
+    routed = _route_scripted(geo, top, nets, ports, force=set(ties), dev_m1=dev_m1)
+    check = _connectivity(geo, top, nets, ports)
+    labels = _write_pin_labels(geo, top, dev_m1, digest, pin_map, ports)
     l2n_nets = _l2n_net_count(layout, top)
     os.makedirs(os.path.dirname(out_gds), exist_ok=True)
     _write_gds(layout, out_gds)
 
     methods = {"klt-plan": 0, "scripted": 0}
-    for net in response.get("nets") or []:
-        if net["net"] in klt_routed:
+    for net in nets:
+        if net["net"] in klt_routed and net["net"] not in ties:
             methods["klt-plan"] += 1
         elif routed["nets"].get(net["net"], {}).get("scripted"):
             methods["scripted"] += 1
     return {
         "routed": check["routed"],
         "shorts": check["shorts"],
-        "problems": routed["problems"],
+        "problems": tie_problems + routed["problems"],
         "methods": methods,
         "snapped_instances": snapped,
         "l2n_net_count": l2n_nets,
         "per_net": routed["nets"],
+        "body_ties": {
+            "nets": {
+                net: sorted(pin["block"] for pin in pins)
+                for net, pins in sorted(ties.items())
+            },
+            "tied_groups": sum(len(pins) for pins in ties.values()),
+            "untied": pin_map["untied"],
+            "problems": tie_problems,
+        },
+        "pin_labels": labels,
     }
 
 
@@ -401,13 +681,32 @@ def _device_region(geo: _Geometry, top, layer: tuple[int, int]):
     return region.merged()
 
 
-def _pin_geometry(geo: _Geometry, dev_m1, port_x: float, port_y: float, kind: str):
+def _pin_anchor(port: str) -> tuple[str, str]:
+    """``(channel side, via anchor)`` for one generated port name.
+
+    Gate pins escape up, everything else down (a device's gate and
+    source/drain stubs sit 0.43 um apart, closer than metal-2 spacing
+    allows, so they never share a side). A tap pad escapes down like a
+    source/drain, but takes its via on the port point the way a gate pad
+    does: the pad is 0.42 um square and the via 0.26 um, so an inset via --
+    right for a full-height source/drain strip -- would not fit inside it.
+    """
+    if port.endswith("_G"):
+        return "top", "centre"
+    if port.startswith(TAP_PAD_PREFIX):
+        return "bottom", "centre"
+    return "bottom", "inset"
+
+
+def _pin_geometry(geo: _Geometry, dev_m1, port_x: float, port_y: float, anchor: str):
     """Via centre (um) and the host metal-1 polygon for one pin, or ``None``.
 
-    Gates: the via sits on the port point (the centre of the top pad).
-    Everything else: on the port's x, ``PIN_VIA_INSET_UM`` above the bottom of
-    the metal-1 shape that owns the port, so the stub leaves from the lower
-    end of the strip.
+    ``anchor="centre"`` puts the via on the port point itself -- right for a
+    gate pad and for a tap pad, both of which are squares barely wider than
+    the via. ``anchor="inset"`` puts it on the port's x,
+    ``PIN_VIA_INSET_UM`` above the bottom of the metal-1 shape that owns the
+    port, so the stub leaves from the lower end of a full-height
+    source/drain strip.
     """
     probe = geo.db.Region(geo.centred(port_x, port_y, 0.01))
     hits = dev_m1.interacting(probe)
@@ -416,7 +715,7 @@ def _pin_geometry(geo: _Geometry, dev_m1, port_x: float, port_y: float, kind: st
         return None
     poly = polys[0]
     cx = _snap(port_x)
-    if kind == "top":
+    if anchor == "centre":
         cy = _snap(port_y)
     else:
         cy = _snap(poly.bbox().bottom * geo.dbu + PIN_VIA_INSET_UM)
@@ -446,18 +745,31 @@ def _slot_candidates(geo: _Geometry, top) -> list[float]:
     return sorted(set(slots))
 
 
-def _route_scripted(geo: _Geometry, top, response: dict, ports: dict) -> dict:
-    """Complete every net klt left unrouted. Returns a per-net summary.
+def _route_scripted(
+    geo: _Geometry,
+    top,
+    nets: list[dict],
+    ports: dict,
+    force: set[str] | None = None,
+    dev_m1=None,
+) -> dict:
+    """Complete every net klt left unrouted, plus every net in ``force``.
 
     ``ports`` maps ``(block, port)`` to an absolute ``(x_um, y_um)``.
+    ``force`` names the nets that must be re-drawn even though klt reports
+    them routed -- a body tie adds a tap pad klt's own route never reached.
     """
-    dev_m1 = _device_region(geo, top, M1)
+    if dev_m1 is None:
+        dev_m1 = _device_region(geo, top, M1)
     existing_m2 = geo.region(top, M2).merged()
     bbox = top.bbox()
     y_low = bbox.bottom * geo.dbu - CHANNEL_MARGIN_UM
     y_high = bbox.top * geo.dbu + CHANNEL_MARGIN_UM
 
-    todo = [net for net in response.get("nets") or [] if not net.get("routed")]
+    force = force or set()
+    todo = [
+        net for net in nets if not net.get("routed") or net["net"] in force
+    ]
     todo.sort(key=lambda net: net["net"])
     slots = _slot_candidates(geo, top)
     reserved = geo.db.Region()  # new metal-2, to keep corridors apart
@@ -475,8 +787,8 @@ def _route_scripted(geo: _Geometry, top, response: dict, ports: dict) -> dict:
             if key not in ports:
                 problems.append(f"{name}: no geometry for pin {key}")
                 continue
-            kind = "top" if pin["port"].endswith("_G") else "bottom"
-            at = _pin_geometry(geo, dev_m1, *ports[key], kind)
+            kind, anchor = _pin_anchor(pin["port"])
+            at = _pin_geometry(geo, dev_m1, *ports[key], anchor)
             if at is None:
                 problems.append(f"{name}: no metal-1 landing for pin {key}")
                 continue
@@ -793,6 +1105,14 @@ def _deliver(blocks: list[dict], klt_version: str, partial: bool) -> list[str]:
             ),
             "routing_method": _routing_method(entry["routing"]["methods"]),
             "net_count": entry["net_count"],
+            # Issue #346: what the stream ties and what it names. Both are
+            # the difference between this stream and the one that mismatched
+            # LVS on every block, so both are pinned here per stream.
+            "body_tie_nets": {
+                net: len(groups)
+                for net, groups in sorted(entry["body_ties"]["nets"].items())
+            },
+            "pin_labels": sorted(entry["pin_labels"]["written"]),
             "drc": entry["drc"],
         }
     if existing:

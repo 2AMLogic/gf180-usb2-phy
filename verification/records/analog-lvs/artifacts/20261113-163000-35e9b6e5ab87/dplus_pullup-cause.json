@@ -1,0 +1,91 @@
+{
+  "block": "dplus_pullup",
+  "ports": {
+    "layout": [
+      "DP",
+      "PU_EN",
+      "TRIM0",
+      "TRIM1",
+      "TRIM2",
+      "TRIM3",
+      "TRIM4",
+      "VPU_REG",
+      "VSS"
+    ],
+    "reference": [
+      "DP",
+      "VPU_REG",
+      "VSS",
+      "PU_EN",
+      "TRIM0",
+      "TRIM1",
+      "TRIM2",
+      "TRIM3",
+      "TRIM4"
+    ],
+    "only_in_layout": [],
+    "only_in_reference": [],
+    "common": [
+      "DP",
+      "PU_EN",
+      "TRIM0",
+      "TRIM1",
+      "TRIM2",
+      "TRIM3",
+      "TRIM4",
+      "VPU_REG",
+      "VSS"
+    ]
+  },
+  "layout_nets": {
+    "total": 21,
+    "unnamed_count": 12,
+    "unnamed": [
+      "\\$16",
+      "\\$17",
+      "\\$18",
+      "\\$19",
+      "\\$20",
+      "\\$21",
+      "\\$3",
+      "\\$4",
+      "\\$5",
+      "\\$6",
+      "\\$7",
+      "\\$8"
+    ],
+    "named": [
+      "DP",
+      "PU_EN",
+      "TRIM0",
+      "TRIM1",
+      "TRIM2",
+      "TRIM3",
+      "TRIM4",
+      "VPU_REG",
+      "VSS"
+    ]
+  },
+  "bulk_nets": {
+    "layout": {
+      "nfet": [
+        "VSS"
+      ],
+      "pfet": [
+        "VPU_REG"
+      ]
+    },
+    "reference": {
+      "nfet": [
+        "VSS"
+      ],
+      "pfet": [
+        "VPU_REG"
+      ]
+    }
+  },
+  "device_counts": {
+    "layout": 78,
+    "reference": 78
+  }
+}
