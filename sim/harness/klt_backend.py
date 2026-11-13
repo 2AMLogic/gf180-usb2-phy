@@ -41,6 +41,12 @@ from .testbench import Testbench
 KLT = "klt"
 DEFAULT_SUPPLY_SOURCE = "vsup"
 
+#: ``models.lib`` for every gf180mcu ``klt sim`` request: the path of the
+#: ngspice model library relative to the PDK variant root. Named here so the
+#: Monte Carlo request builders under ``sim/*-mc/`` cite one literal, not a
+#: copy each.
+MODELS_LIB = "libs.tech/ngspice/sm141064.ngspice"
+
 #: Transports: ``request`` re-expresses the bench as a `klt sim` corners
 #: request (needs ``klt_measure``); ``decks`` ships the harness's own composed
 #: per-point decks verbatim as a deck-list request, so ``.control`` / derived
@@ -112,7 +118,7 @@ def klt_version() -> str:
     return (out.stdout or out.stderr).strip()
 
 
-def _measurement(name: str, entry, check: dict | None = None) -> dict:
+def measurement(name: str, entry, check: dict | None = None) -> dict:
     """A ``klt_measure`` entry: a ``.meas`` card dict, or a bare expression string.
 
     The bounds of the bench's ``checks[name]`` ride along as ``limits`` so the
@@ -217,14 +223,14 @@ def build_request(
     request = {
         "netlist": "body.spice",
         "engine": "ngspice",
-        "models": {"pdk": pdk.variant, "lib": "libs.tech/ngspice/sm141064.ngspice"},
+        "models": {"pdk": pdk.variant, "lib": MODELS_LIB},
         "corners": {
             "process": process,
             "supply_v": {source: supplies},
             "temperature_c": temps,
         },
         "analysis": {"kind": analysis[0], "args": analysis[1] if len(analysis) > 1 else ""},
-        "measurements": [_measurement(n, klt_measure[n], tb.checks.get(n)) for n in tb.measure],
+        "measurements": [measurement(n, klt_measure[n], tb.checks.get(n)) for n in tb.measure],
         "options": {"timeout_s": timeout_s, "keep_artifacts": True},
     }
     if backend:

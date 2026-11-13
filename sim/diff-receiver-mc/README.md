@@ -18,7 +18,10 @@ The §4 differential input sensitivity is decided by MOS-pair mismatch, so the
 Limits on each measurement are copied from the ratified-spec `checks` in
 `sim/diff-receiver-sensitivity/testbench/tb.json`; nothing is widened. `klt sim`
 reports the raw `.meas` value and does not apply `scale`, so the limits are
-divided by `scale` (the threshold rows are `.meas` volts against +/-0.2 V).
+divided by `scale` (the threshold rows are `.meas` volts against +/-0.2 V). That
+mapping is `klt_backend.measurement()`, the same one the 45-corner path uses --
+one implementation, covered by `sim/tests/test_harness.py`, so it cannot drift
+here the way it did for the first 2026-11-05 campaign below.
 
 ## Run (fleet only)
 

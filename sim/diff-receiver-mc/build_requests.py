@@ -46,11 +46,11 @@ REPO = SIM.parent
 sys.path.insert(0, str(SIM))
 
 from harness import corners as corners_mod  # noqa: E402
+from harness import klt_backend  # noqa: E402
 from harness import testbench as tb_mod  # noqa: E402
 from harness.pdk import find_pdk  # noqa: E402
 
 SOURCE_TB = SIM / "diff-receiver-sensitivity"
-MODELS_LIB = "libs.tech/ngspice/sm141064.ngspice"
 VARY = "mismatch"
 DEFAULT_N = 100
 DEFAULT_SEED = 20261017
@@ -136,24 +136,20 @@ def build_request(tb, pdk, manifest: dict, n: int, seed: int,
     supplies = corners_mod.supply_points(tb.nominal_supply_v, tb.supply_tolerance)
     process = [{"name": c.name, "sections": list(c.sections)} for c in cl]
     analysis = tb.analyses[0].split(None, 1)
-    checks = manifest["checks"]
-    measurements = []
-    for name, entry in manifest["klt_measure"].items():
-        m = {"name": name, "spice": entry["spice"]}
-        if "scale" in entry:
-            m["scale"] = entry["scale"]
-        # `klt sim` reports the raw `.meas` value and does not apply `scale`, so the
-        # ratified limits (in the check's unit, e.g. mV) are divided by it here, as
-        # sim/harness/klt_backend.py does; unscaled, +/-200 would be compared with volts.
-        k_scale = float(entry.get("scale", 1.0))
-        limits = {k: checks[name][k] / k_scale for k in ("min", "max") if k in checks.get(name, {})}
-        if limits:
-            m["limits"] = limits
-        measurements.append(m)
+    checks = manifest.get("checks", {})
+    # One implementation of the `klt_measure` entry -> `measurements[]` mapping,
+    # shared with the PVT-corner path. It carries the `limits` division by
+    # `scale` that this campaign needs: `klt sim` reports the raw `.meas` value,
+    # so unscaled, the ratified +/-200 mV bound would be graded against volts
+    # (commit 3a6e489, and the regraded 2026-11-05 campaign in README.md).
+    measurements = [
+        klt_backend.measurement(name, entry, checks.get(name))
+        for name, entry in manifest["klt_measure"].items()
+    ]
     return {
         "netlist": "body.spice",
         "engine": "ngspice",
-        "models": {"pdk": pdk.variant, "lib": MODELS_LIB},
+        "models": {"pdk": pdk.variant, "lib": klt_backend.MODELS_LIB},
         "corners": {
             "process": process,
             "supply_v": {manifest.get("klt_supply_source", "vsup"): supplies},
