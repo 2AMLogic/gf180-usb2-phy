@@ -966,7 +966,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:3c778ef121af6c00cb04f2630f836d28cbcf779db127cd7d31aadbd8459cbd50",
+        "content_hash": "sha256:975e8799bb4dccb269a745de587950590fc0fc5f06cd85276ee1a9e6ad4c1f18",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -975,7 +975,7 @@
             "path": "signoff/evidence/inventory-testbenches.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:3c778ef121af6c00cb04f2630f836d28cbcf779db127cd7d31aadbd8459cbd50",
+          "content_hash": "sha256:975e8799bb4dccb269a745de587950590fc0fc5f06cd85276ee1a9e6ad4c1f18",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 12 cocotb tests mapped to 17 klt functional-verification requests, 9 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-testbenches.json"
@@ -997,7 +997,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:3c778ef121af6c00cb04f2630f836d28cbcf779db127cd7d31aadbd8459cbd50",
+        "content_hash": "sha256:975e8799bb4dccb269a745de587950590fc0fc5f06cd85276ee1a9e6ad4c1f18",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -1006,7 +1006,7 @@
             "path": "signoff/evidence/inventory-testbenches.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:3c778ef121af6c00cb04f2630f836d28cbcf779db127cd7d31aadbd8459cbd50",
+          "content_hash": "sha256:975e8799bb4dccb269a745de587950590fc0fc5f06cd85276ee1a9e6ad4c1f18",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 12 cocotb tests mapped to 17 klt functional-verification requests, 9 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-testbenches.json"
