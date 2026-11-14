@@ -37,8 +37,8 @@
     "let cons[4] = tx6 - tx5 - 1*tbit",
     "let cons[5] = tx7 - tx6 - 6*tbit",
     "let cons[6] = tx8 - tx7 - 1*tbit",
-    "print dev",
-    "print cons"
+    "print dev[0] dev[1] dev[2] dev[3] dev[4] dev[5] dev[6] dev[7]",
+    "print cons[0] cons[1] cons[2] cons[3] cons[4] cons[5] cons[6]"
   ],
   "measure": {
     "tprop_ns": "(tx1 - 283.3333e-9)*1e9",
