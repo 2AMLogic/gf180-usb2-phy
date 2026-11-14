@@ -98,8 +98,10 @@ driver re-size (#166/#167) landed. See "Outcome per block" immediately below.
 The set is cited by T1 item `2.analog` through
 `signoff/evidence/inventory-analog-layout.json`, and transistor-level LVS of
 all five is cited by T1 item `4.analog` (issue #247, record
-`20261113-163000-35e9b6e5ab87`). DRC and ERC of these streams are still
-unsigned — issues #246 and #248. The dated history of the klt-only
+`20261113-163000-35e9b6e5ab87`). Supply-connectivity ERC of all five is
+cited by T1 item `11.analog` (issue #248, record
+`20261114-003000-db05b5e`). DRC of these streams is still unsigned —
+issue #246. The dated history of the klt-only
 attempt that led here is kept verbatim in
 [`analog/HISTORY.md`](analog/HISTORY.md); where it says "not delivered" or
 lists 6/21 and 1/8/9/9 routed nets, it describes that run, not the committed
@@ -253,9 +255,13 @@ is history: that stream no longer exists in the tree.
 topology alone — their `R` is a `subckt-call` placeholder and `L`/`W`/`A`/`P`
 are KLayout-secondary, so none was compared — so it verifies no resistor
 dimension, including the DR-0010 deviation above. MOS `L`/`W` *were* compared
-and agreed. No ERC or extracted re-simulation was run on these streams
-(issues #248, #53), and nothing here is an IR-drop or latch-up-margin claim
-about the tie geometry.
+and agreed. No extracted re-simulation was run on these streams (#53), and
+nothing here is an IR-drop or latch-up-margin claim about the tie geometry.
+Supply-connectivity ERC has since been run and cited separately (#248, item
+`11.analog`) — read that record for what it does and does not establish
+about the body ties, in particular that only 17 / 6 / 6 / 6 / 6 of the drawn
+body-tie pads reach ground through metal rather than through the
+substrate.
 Metal-3 is used for the first time in this repo; nothing yet checks it beyond the
 deck's `metal3.*` and `via2.*` rules.
 
@@ -300,10 +306,11 @@ labelled port set is the schematic's. The earlier
 (issue #103) is superseded: its verdict still holds for the stream it pinned,
 but its 1-of-8 routing and 31-vs-10 net counts describe that 2026-10-09
 plan-path-only `differential_receiver` geometry, not the committed stream.
-What is still missing is electrical: no ERC and no extracted re-simulation
-exists, and LVS compared no resistor dimension (see "What the match does not
-say" above). DRC and ERC signoff of the committed streams are issues #246 and
-#248. The match is cited as T1 item `4.analog` (issue #247): all five
+What is still missing is electrical: no extracted re-simulation exists, and
+LVS compared no resistor dimension (see "What the match does not say" above).
+Supply-connectivity ERC of all five streams landed with issue #248 and is
+cited as T1 item `11.analog` (record `20261114-003000-db05b5e`); DRC signoff
+of the committed streams is still issue #246. The match is cited as T1 item `4.analog` (issue #247): all five
 envelopes of record `20261113-163000-35e9b6e5ab87` are pinned in
 `manifests/gf180-usb2-phy.json`, the frozen report grades the row `met`, and
 `manifests/README.md` carries the per-block counts and what the match does not
@@ -355,6 +362,14 @@ PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --check    
 #     of the harness; see verification/records/analog-lvs/)
 PDK=gf180mcuD python3 scripts/analog_lvs.py
 PDK=gf180mcuD python3 scripts/analog_lvs.py --blocks differential_receiver   # one block
+
+# --- analog signoff: supply-connectivity ERC of every committed stream, plus
+#     the per-stream negative control and the LVS supply-pairing re-read
+#     (T1 item 11.analog; each klt erc process exits 4 -- antenna half
+#     not_checked -- while the harness itself exits 0)
+PDK=gf180mcuD python3 scripts/analog_erc.py
+PDK=gf180mcuD python3 scripts/analog_erc.py --regen-specs   # rewrite the well_boxes
+PDK=gf180mcuD python3 scripts/analog_erc.py --gap-scan 1.0,1.1,1.2   # granularity sensitivity
 ```
 
 `scripts/analog_lvs.py` discovers its blocks from `layout/analog/*.gds` (never
@@ -366,6 +381,27 @@ reads `status: "match"`**; a block whose reference netlist is missing fails
 loudly rather than being skipped. Frozen evidence lives under
 `verification/records/analog-lvs/`. `scripts/test_analog_lvs.py` is its
 self-test and needs neither klt nor the PDK.
+
+`scripts/analog_erc.py` discovers its blocks the same way and runs `klt erc`
+against each stream's own committed
+`layout/analog/erc-supply-spec-<block>.json` (one spec per stream: the supply
+names differ — `dplus_pullup` runs off `VPU_REG` — and the substrate
+assertion is per-stream geometry). It does four things beyond the run itself:
+it **re-derives each spec's `well_boxes` from the GDS and refuses to proceed
+if a committed spec has drifted** (`--regen-specs` to rewrite on purpose); it
+runs a **deliberately-wrong twin spec** per stream, which must report
+`erc.missing_tie` on every asserted polygon and `erc.unconnected_net` on a
+supply the layout never labels; it **re-reads the committed `analog-lvs`
+reports** and gates on both supplies being paired, since that is item 11's
+other half; and it **counts the body-tie pads `klt erc` cannot see** — how
+many drawn pads are contacted, and how many of those reach ground through
+metal rather than through the substrate. Artifacts go to `layout/analog/erc/`
+(gitignored scratch); frozen evidence lives under
+`verification/records/analog-erc/`; the field-by-field spec rationale and the
+rejected alternatives are in `layout/analog/erc-supply-spec.notes.md`. It
+**exits 0 only when every stream passes every gate**, including the controls.
+`scripts/test_analog_erc.py` is its self-test, needs neither klt nor the PDK,
+and runs in `npm run lint`.
 
 `scripts/gen_analog_layout.py` writes each block's klt result
 (`<block>.klt.gds`), the routed GDS, its raw Phase C response JSON, and a

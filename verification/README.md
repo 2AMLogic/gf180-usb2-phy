@@ -355,7 +355,7 @@ verification/records/
 ```
 
 - **`<experiment-slug>`** — short, descriptive, kebab-case name for the
-  claim being verified. This repo currently has eleven:
+  claim being verified. This repo currently has thirteen:
   - `functional-smoke` — the cocotb + Icarus + `klt functional-verification`
     harness runs end-to-end (no PDK dependency). A harness claim, not a PHY
     claim. Originally carried by the bootstrap counter; retired by DR-0007
@@ -450,8 +450,26 @@ verification/records/
     `SPECIALNETS` grid, and this GDS's own 62 `VNW` + 62 `VPW` drawn
     tap labels). The item-11 LVS `power_connectivity` leg is a tracked
     gap (#79), so item 11 remains partially met at the tracker level.
+  - `analog-erc` (issue #248) — the same `klt erc` supply read for the
+    **analog** partition: one run per committed stream against its own
+    `layout/analog/erc-supply-spec-<block>.json`, via
+    `scripts/analog_erc.py`. All five report `erc_status: "clean"`, zero
+    findings, one labelled island per declared supply, and — unlike the
+    digital spec above — **both** ties *checked* rather than omitted: the
+    drawn n-well tap (`Comp ∩ Nplus` → the positive rail) and, because
+    gf180mcu draws no tub layer for a native-substrate block, an asserted
+    substrate region (`well_layer: null` + `well_boxes`, klayout-tools#2255)
+    whose boxes the harness re-derives from each stream and gates against the
+    committed spec. **With a negative control**: each stream is re-run
+    against a deliberately-wrong twin spec that must report
+    `erc.missing_tie` on every asserted polygon and `erc.unconnected_net` on
+    a supply the layout never labels, and does. What the clean verdict does
+    not establish is measured rather than left to prose — only 17 / 6 / 6 /
+    6 / 6 of the 84 / 28 / 24 / 28 / 28 drawn body-tie pads reach ground
+    through metal, the rest being tied through the substrate, which `klt
+    erc` does not model.
   One directory per distinct claim, not per run. Future entries (e.g.
-  `analog-drc`/`analog-lvs`, `gate-level-sim`) follow the same pattern once
+  `analog-drc`, `gate-level-sim`) follow the same pattern once
   those legs of the maturity ladder are taken up.
 - **`<record-id>`** — unique and traceable:
   `<YYYYMMDD>-<HHMMSS>-<short-git-sha>` (e.g. `20260810-205021-c819c95`),

@@ -1,0 +1,144 @@
+{
+  "_comment": [
+    "klt erc supply spec for layout/analog/se_receiver_dm.gds -- the T1 item",
+    "11.analog (power delivery, structural) artifact for this stream",
+    "(issue #248). One spec per stream, because both the supply names",
+    "and the substrate assertion are per-stream. Regenerate and re-run:",
+    "",
+    "    PDK=gf180mcuD python3 scripts/analog_erc.py",
+    "",
+    "which re-derives well_boxes from the GDS and fails on drift.",
+    "Field-by-field rationale, the rejected alternatives and the",
+    "measured limits of this evidence:",
+    "layout/analog/erc-supply-spec.notes.md.",
+    "",
+    "Supplies: VDD (positive), VSS (ground), read from this",
+    "block's body_tie_nets in layout/analog/provenance.json.",
+    "",
+    "substrate_neg_tap asserts 6 substrate region(s).",
+    "gf180mcu draws no pwell/tub layer for a native-substrate block, so",
+    "well_layer is null and the region is asserted (klayout-tools#2255)",
+    "and graded under erc_coverage.checked_by_well_assertion. The boxes",
+    "are derived, not hand-typed: Comp (22/0) minus Nwell (21/0),",
+    "grouped by a 1.1 um proximity closure, one bounding box per",
+    "group of diffusion -- the finest partition whose every polygon",
+    "still holds a body-tie pad wired to ground in metal."
+  ],
+  "stackup": [
+    {
+      "name": "poly2",
+      "layer": "30/0",
+      "role": "gate",
+      "active_layer": "22/0"
+    },
+    {
+      "name": "Metal1",
+      "layer": "34/0",
+      "label_layer": "34/10"
+    },
+    {
+      "name": "Metal2",
+      "layer": "36/0"
+    },
+    {
+      "name": "Metal3",
+      "layer": "42/0"
+    }
+  ],
+  "vias": [
+    {
+      "name": "Contact",
+      "layer": "33/0",
+      "between": [
+        "poly2",
+        "Metal1"
+      ]
+    },
+    {
+      "name": "Via1",
+      "layer": "35/0",
+      "between": [
+        "Metal1",
+        "Metal2"
+      ]
+    },
+    {
+      "name": "Via2",
+      "layer": "38/0",
+      "between": [
+        "Metal2",
+        "Metal3"
+      ]
+    }
+  ],
+  "nets": [
+    {
+      "name": "VDD",
+      "kind": "supply"
+    },
+    {
+      "name": "VSS",
+      "kind": "supply"
+    }
+  ],
+  "ties": [
+    {
+      "name": "nwell_pos_tap",
+      "well_layer": "21/0",
+      "tap_layer": "22/0",
+      "tap_requires": [
+        "32/0"
+      ],
+      "connect_to": "Metal1",
+      "net": "VDD"
+    },
+    {
+      "name": "substrate_neg_tap",
+      "well_layer": null,
+      "well_boxes": [
+        [
+          415.88,
+          0.16,
+          419.1,
+          7.72
+        ],
+        [
+          421.42,
+          0.16,
+          424.42,
+          7.72
+        ],
+        [
+          426.74,
+          0.16,
+          429.74,
+          11.72
+        ],
+        [
+          432.06,
+          0.16,
+          435.48,
+          23.72
+        ],
+        [
+          437.8,
+          0.16,
+          441.22,
+          23.72
+        ],
+        [
+          466.46,
+          0.16,
+          469.68,
+          11.72
+        ]
+      ],
+      "tap_layer": "22/0",
+      "tap_requires": [
+        "31/0"
+      ],
+      "connect_to": "Metal1",
+      "net": "VSS"
+    }
+  ]
+}

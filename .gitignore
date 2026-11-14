@@ -129,3 +129,7 @@ verification/.pdk-models/
 
 # Repo Skills Codex-side machine-local install metadata (never committed)
 .agents/skills/repo/.install-local.json
+
+# analog ERC scratch (scripts/analog_erc.py) -- the committed evidence
+# lives under verification/records/analog-erc/ instead
+layout/analog/erc/

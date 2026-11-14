@@ -1,0 +1,134 @@
+{
+  "_comment": [
+    "NEGATIVE CONTROL -- deliberately wrong, never evidence of a clean",
+    "layout. Derived from this block's real spec by scripts/analog_erc.py:",
+    "  * substrate_neg_tap.net points at VPU_REG (the positive rail)",
+    "    instead of ground, so every asserted substrate polygon must",
+    "    report erc.missing_tie;",
+    "  * an extra supply 'VSS_NOT_IN_LAYOUT' is declared, which the layout labels",
+    "    nowhere, so it must report erc.unconnected_net at zero islands.",
+    "A clean result here would mean the real spec's clean result proves",
+    "nothing. See layout/analog/erc-supply-spec.notes.md."
+  ],
+  "stackup": [
+    {
+      "name": "poly2",
+      "layer": "30/0",
+      "role": "gate",
+      "active_layer": "22/0"
+    },
+    {
+      "name": "Metal1",
+      "layer": "34/0",
+      "label_layer": "34/10"
+    },
+    {
+      "name": "Metal2",
+      "layer": "36/0"
+    },
+    {
+      "name": "Metal3",
+      "layer": "42/0"
+    }
+  ],
+  "vias": [
+    {
+      "name": "Contact",
+      "layer": "33/0",
+      "between": [
+        "poly2",
+        "Metal1"
+      ]
+    },
+    {
+      "name": "Via1",
+      "layer": "35/0",
+      "between": [
+        "Metal1",
+        "Metal2"
+      ]
+    },
+    {
+      "name": "Via2",
+      "layer": "38/0",
+      "between": [
+        "Metal2",
+        "Metal3"
+      ]
+    }
+  ],
+  "nets": [
+    {
+      "name": "VPU_REG",
+      "kind": "supply"
+    },
+    {
+      "name": "VSS",
+      "kind": "supply"
+    },
+    {
+      "name": "VSS_NOT_IN_LAYOUT",
+      "kind": "supply"
+    }
+  ],
+  "ties": [
+    {
+      "name": "nwell_pos_tap",
+      "well_layer": "21/0",
+      "tap_layer": "22/0",
+      "tap_requires": [
+        "32/0"
+      ],
+      "connect_to": "Metal1",
+      "net": "VPU_REG"
+    },
+    {
+      "name": "substrate_neg_tap",
+      "well_layer": null,
+      "well_boxes": [
+        [
+          -0.86,
+          0.16,
+          2.14,
+          4.72
+        ],
+        [
+          12.18,
+          0.16,
+          15.18,
+          4.72
+        ],
+        [
+          25.22,
+          0.16,
+          28.22,
+          4.72
+        ],
+        [
+          38.26,
+          0.16,
+          41.26,
+          4.72
+        ],
+        [
+          51.3,
+          0.16,
+          54.3,
+          4.72
+        ],
+        [
+          64.34,
+          0.16,
+          67.34,
+          4.72
+        ]
+      ],
+      "tap_layer": "22/0",
+      "tap_requires": [
+        "31/0"
+      ],
+      "connect_to": "Metal1",
+      "net": "VPU_REG"
+    }
+  ]
+}
