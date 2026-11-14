@@ -355,7 +355,7 @@ verification/records/
 ```
 
 - **`<experiment-slug>`** — short, descriptive, kebab-case name for the
-  claim being verified. This repo currently has thirteen:
+  claim being verified. This repo currently has fifteen:
   - `functional-smoke` — the cocotb + Icarus + `klt functional-verification`
     harness runs end-to-end (no PDK dependency). A harness claim, not a PHY
     claim. Originally carried by the bootstrap counter; retired by DR-0007
@@ -403,6 +403,15 @@ verification/records/
     took part once the devices paired, but every poly-resistor parameter is
     excluded by the engine (`R` is a `subckt-call` placeholder, the rest are
     KLayout-secondary), so no resistor dimension is verified.
+  - `analog-drc` (issue #368) — standalone `klt drc` of the same five
+    committed analog streams against klt's curated `gf180mcu` deck, at the
+    repo pin. All five report `status: "clean"`, `violation_count: 0`, with
+    the deck identified by content hash and the envelope's coverage block
+    quoted verbatim in the record: the deck skips 68-69 rules per stream and
+    every stream carries layers with no rules (`34/10`, plus `110/11` on
+    `differential_driver`). Caveat: clean is **not** a density-clean claim —
+    the deck has no density rules — and it is not the foundry signoff deck,
+    so this is a curated-deck claim, not a signoff claim.
   - `analog-layout` (issue #25) — what klt's netlist-driven layout-plan
     path (`klt.layout_plan.request/1` +
     `klayout_tools.layout_plan_execute`) actually produces for the five
@@ -490,7 +499,7 @@ verification/records/
     since the experiment's only analysis is a DC sweep — the matching
     thresholds are **not** evidence that parasitics are immaterial.
   One directory per distinct claim, not per run. Future entries (e.g.
-  `analog-drc`, `gate-level-sim`) follow the same pattern once
+  `gate-level-sim`) follow the same pattern once
   those legs of the maturity ladder are taken up.
 - **`<record-id>`** — unique and traceable:
   `<YYYYMMDD>-<HHMMSS>-<short-git-sha>` (e.g. `20260810-205021-c819c95`),
