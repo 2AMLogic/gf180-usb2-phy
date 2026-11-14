@@ -6,8 +6,15 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 - [2026-09](work_log/WORK_LOG_2026-09.md)
 
+### 2026-11-14
+
+- **PR #356**: chore(sim): print driver-jitter dev/cons element-wise instead of tabulating them
+- **Issue #347** (closed): Stop tabulating 8-element vectors against the time scale in sim/driver-jitter/testbench/tb.json: 98% of each corner log is blank rows (~89 MB per run)
+
 ### 2026-11-13
 
+- **PR #354**: feat(signoff): cite the five analog LVS matches as T1 item 4.analog
+- **Issue #247** (closed): T1 item 4 (LVS clean, analog partition): klt lvs of each analog block against its schematic netlist
 - **PR #351**: fix(layout): tie every device body and label the schematic's ports
 - **Issue #346** (closed): Analog LVS: all five committed streams mismatch — untied n-wells, untied substrate, and a wrong labelled port set
 - **PR #348**: feat(verification): add analog LVS harness and record the five-block mismatch
@@ -271,9 +278,4 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 ### 2026-09-17
 
 - **Issue #76** (closed): Same protocol logic, two incompatible implementations: usb_nrzi_encoder.v diverged across PDKs
-
-### 2026-09-14
-
-- **PR #75**: fix(layout): set params.flavor:1k on 3 receiver plans' res_array groups
-- **Issue #73** (closed): Fix silent PPOLYF_U_1K/generic-flavor mismatch on 3 committed analog layout plans' res_array groups
 
