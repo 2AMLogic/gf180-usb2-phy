@@ -19,19 +19,22 @@ when it publishes; §2.8 lists what would change if any of them moved.
 **Status of this repository, stated up front.** The digital half of this
 block is at the sign-off bar: synthesized, placed and routed, **DRC-clean**
 and **LVS-matched**, with timing closed at every liberty corner of its cell
-library including the 5.0 V ones. The analog half is **simulation-complete
-and partly laid out, but not signed off** — all five analog blocks have
+library including the 5.0 V ones. The analog half is **simulation-complete,
+laid out and LVS-matched, but not signed off** — all five analog blocks have
 captured schematics, exported netlists and full 45-corner PVT sweeps, and the
 driver's §6 rows (Rows A–D) and the differential receiver (Row E) **pass**
-45/45 in simulation (as of issues #96 and #97). **Four of the five blocks**
-(`differential_receiver`, `se_receiver_dm`, `se_receiver_dp`, `dplus_pullup`)
-now have a committed, fully routed, DRC-clean GDS under `layout/analog/` (issue
-#251); `differential_driver` has none, and **no** analog block has an LVS
-match, an ERC result or an extracted-netlist re-simulation — so the analog half
-is not at the sign-off bar. §5 gives the per-block state. Nothing has been
-fabricated and nothing has been measured on silicon. §4 states every row's
-verdict, met and unmet alike, and §6 says plainly what a shuttle seat
-would and would not settle.
+45/45 in simulation (as of issues #96 and #97). **All five blocks**
+(`differential_driver`, `differential_receiver`, `se_receiver_dm`,
+`se_receiver_dp`, `dplus_pullup`) now have a committed, fully routed,
+DRC-clean GDS under `layout/analog/` (issues #251 and #252), and
+transistor-level LVS of all five is a **match** with `error_count: 0`
+(`verification/records/analog-lvs/records/20261113-163000-35e9b6e5ab87.md`,
+issue #247). What no analog block yet has is an ERC result (#248), a DRC
+coverage attestation (#246) or an extracted-netlist re-simulation (#53) — so
+the analog half is not at the sign-off bar. §5 gives the per-block state.
+Nothing has been fabricated and nothing has been measured on silicon. §4
+states every row's verdict, met and unmet alike, and §6 says plainly what a
+shuttle seat would and would not settle.
 
 This document contains no personal or institutional identifiers; the
 designer/CV and test-equipment attachments the program asks for separately
@@ -334,16 +337,23 @@ and is the authority if this table and it ever disagree.
 | I | Digital section maximum clock frequency (`fmax`) | — | 44.4256 MHz @ `tt_025C_1v80` | — | must exceed the 12 MHz UTMI interface clock (spec §3) | worst setup slack 27.4122 ns @ `ss_125C_1v62`; worst hold 0.41107 ns @ `ff_n40C_5v50` | `verification/records/place-and-route/records/20261015-011501-32db02a.md` | **Met** — 3.7× the required rate, 0 setup / 0 hold / 0 antenna / 0 router-DRC violations. | **Met.** Uniquely among these rows: the standard-cell library `gf180mcu_fd_sc_mcu9t5v0` is a 5 V-capable library and the P&R run's own multi-corner STA covers `4v50`/`5v00`/`5v50` as well as `3v00`/`3v30`/`3v60`. Every one of the 15 corners is positive on setup and hold. At `tt_025C_3v30`: 74.6683 ns setup / 0.96618 ns hold. At `tt_025C_5v00`: 77.4675 ns setup / 0.66084 ns hold. |
 | J | Driver propagation delay and data-dependent jitter | 3.02 ns | 3.94 ns | 5.50 ns | **none** — spec §8.2 records that this repo has no confirmed numeric USB 2.0 source-jitter limits from the physical specification text and forbids inventing them | min: `ff`/−40 °C/3.63 V; max: `ss`/125 °C/2.97 V | `sim/driver-jitter/`, record `20261015-104027-d109790` (supersedes `20260817-203915-5a963e7`) | **No pass/fail claimed, by design.** Corner-to-corner propagation-delay spread is 2.48 ns. Data-dependent jitter within one corner, over an 18-bit 12 Mbps pattern with run lengths 1,1,2,1,3,1,6,1,2, is ≤ 0.26 ps peak-to-peak consecutive-transition and ≤ 0.16 ps against the ideal bit grid — ~3 × 10⁻⁶ UI at an 83.33 ns bit time, i.e. at the transient solver's own resolution floor. Read as "below the noise of this measurement". | **Unmet/TBD — no record above 3.63 V** |
 | K | Digital UTMI logic functional correctness | — | — | — | spec §11: bit-exact against NRZI / bit-stuffing / SYNC / EOP / line-state behaviour, by cocotb testbench | n/a | `verification/records/bit-codec-functional/` (record `20260817-212707-6c7f7ff`), `verification/records/utmi-framing-functional/` (record `20260818-025302-ea10f21`) | **Met.** Bit-exact against an independently-written Python golden model, plus TX→wire→RX loopback including the trailing-stuff-bit case, back-to-back packets at minimum gap, and a malformed-SYNC case that must never assert `RxActive`/`RxValid`. | Rail-independent (a functional claim, not an electrical one) |
-| L | DRC | — | 0 violations | — | spec §11: clean before signoff | n/a | `verification/records/digital-drc/records/20261015-011502-32db02a.md` | **Met for the digital half** — `klt drc --deck gf180mcu` reports `status: "clean"`, `violation_count: 0` against `layout/digital/usb_utmi_phy.gds`. **Unmet for the analog half** — but no longer for want of a layout. Four of the five analog blocks (`differential_receiver`, `se_receiver_dm`, `se_receiver_dp`, `dplus_pullup`) now have a committed, fully routed GDS that `klt drc --deck gf180mcu` reports `status: "clean"`, `violation_count: 0` on, recorded per block in `layout/analog/provenance.json` (re-hashed offline against the committed streams by `scripts/check_analog_provenance.py`; run record `verification/records/analog-layout/records/20261113-090000-4f79d854e7b4.md`, the head of this lineage, which restates that the four blocks remain routed and DRC-clean, unchanged, and supersedes `verification/records/analog-layout/records/20261106-120000-ef841f90e933.md` — the record carrying the per-block measurement detail). The row stays **unmet** because the fifth block, `differential_driver`, has no committed GDS (issue #252), and the analog DRC coverage attestation is still open (issue #246). See §5. | Rail-independent |
-| M | LVS | — | match, 0 mismatches | — | spec §11: clean before signoff | n/a | `verification/records/digital-lvs/records/20261015-011503-32db02a.md` | **Met for the digital half** — gate-level LVS of the routed GDS against the as-built netlist is a match, with a passing negative control. **Unmet for the analog half.** Four of the five blocks now have a committed GDS (§5), so the obstacle is no longer a missing layout: **no analog LVS match is recorded for any block.** The four committed streams have not been LVS'd at all; the only recorded analog LVS result is a **mismatch** on an earlier `differential_receiver` stream (11 devices unmatched, 31 layout nets vs 10 reference — `verification/records/analog-layout/records/20261009-203500-7a8e831.md`); and each generator leaves its guard-ring / body-tie pads out of every plan net, so they are drawn but unconnected. Analog LVS is tracked by issue #247. | Rail-independent |
-| N | Post-layout (extracted-parasitic) PVT simulation | — | — | — | spec §11 (implied by "verified by simulation" once a layout exists) | n/a | `verification/records/post-layout-pvt/records/20261015-011505-32db02a.md` (digital half only; three liberty corners, parasitics attached, regenerated layout of #131; supersedes the name-annotation-only `20260905-182000-80d4593.md`) | **Unmet.** Every electrical row above is still measured against the **schematic** netlist under `design/netlist/`, not an extracted one — no extracted-netlist re-run of any analog row exists. Four of the five blocks have become extractable since this row was first written: `differential_receiver`, `se_receiver_dm`, `se_receiver_dp` and `dplus_pullup` have committed, fully routed, DRC-clean GDS under `layout/analog/` as of issue #251, so this row's earlier rationale — that issue #52 closed without committing any analog GDS and there was "nothing under `layout/analog/` to extract" — no longer holds. What is missing now is the extraction and re-simulation itself (issue #53), plus `differential_driver`'s layout (issue #252). See `layout/README.md` § "Analog".
+| L | DRC | — | 0 violations | — | spec §11: clean before signoff | n/a | `verification/records/digital-drc/records/20261015-011502-32db02a.md` | **Met for the digital half** — `klt drc --deck gf180mcu` reports `status: "clean"`, `violation_count: 0` against `layout/digital/usb_utmi_phy.gds`. **Unmet for the analog half** — but no longer for want of a layout, and no longer for want of a block. **All five** analog blocks (`differential_driver`, `differential_receiver`, `se_receiver_dm`, `se_receiver_dp`, `dplus_pullup`) now have a committed, fully routed GDS that `klt drc --deck gf180mcu` reports `status: "clean"`, `violation_count: 0` on, recorded per block in `layout/analog/provenance.json` (re-hashed offline against the committed streams by `scripts/check_analog_provenance.py`; run record `verification/records/analog-layout/records/20261113-162700-35e9b6e5ab87.md`, the head of this lineage, which re-measures **5/5 executed, 5/5 fully routed, 5/5 DRC-clean** on the streams re-delivered for issue #346 and supersedes `20261113-134500-7233150d73ec` — itself the successor of `20261113-090000-4f79d854e7b4` and `20261106-120000-ef841f90e933`, which carry the earlier four-block measurement detail). The row stays **unmet** for one remaining reason only: the analog DRC **coverage attestation** is still open (issue #246) — no record yet attests which of the deck's rules actually ran on these streams. See §5. | Rail-independent |
+| M | LVS | — | match, 0 mismatches | — | spec §11: clean before signoff | n/a | `verification/records/digital-lvs/records/20261015-011503-32db02a.md` | **Met for the digital half** — gate-level LVS of the routed GDS against the as-built netlist is a match, with a passing negative control. **Met for the analog half too, as measured** — transistor-level `klt lvs` of all five committed streams against their `design/netlist/*.spice` references reads `status: "match"` with `error_count: 0` on every block, with every device, net and pin paired: `differential_driver` 40/40 devices, 22/22 nets, 7/7 pins; `differential_receiver` 11/11, 10/10, 5/5; `dplus_pullup` 78/78, 21/21, 9/9; `se_receiver_dm` and `se_receiver_dp` 13/13, 10/10, 4/4. `scripts/analog_lvs.py` exits 0, and no compare-relaxing option is set (`ignore_mos_bulk: false`, no `parameter_tolerance`, no `compare_parameters`, no flattening). Record: `verification/records/analog-lvs/records/20261113-163000-35e9b6e5ab87.md`, cited as T1 item `4.analog` in `manifests/t1-signoff-report.json` (issue #247, closed). **Two limits the record states and this row does not paper over:** the poly resistors paired on *topology alone* — `R` is excluded as a `placeholder_value` and `L`/`W`/`A`/`P` as `secondary`, so no resistor dimension was compared and the DR-0010 trim-length deviation would not have surfaced here either way — and `power_connectivity.status` is `unchecked` on all five, because that check applies to a `gate-level-verilog` reference and not to a `subckt-call` one, which is why the analog ERC obligation (issue #248) stands separately and is still open. The earlier mismatches are kept as history rather than superseded by deletion: five on the pre-#346 streams (`verification/records/analog-lvs/records/20261113-151132-45afbeea4868.md`) and one on an older `differential_receiver` stream, 11 devices unmatched and 31 layout nets vs 10 reference (`verification/records/analog-layout/records/20261009-203500-7a8e831.md`). | Rail-independent |
+| N | Post-layout (extracted-parasitic) PVT simulation | — | — | — | spec §11 (implied by "verified by simulation" once a layout exists) | n/a | `verification/records/post-layout-pvt/records/20261015-011505-32db02a.md` (digital half only; three liberty corners, parasitics attached, regenerated layout of #131; supersedes the name-annotation-only `20260905-182000-80d4593.md`) | **Unmet.** Every electrical row above is still measured against the **schematic** netlist under `design/netlist/`, not an extracted one — no extracted-netlist re-run of any analog row exists. **All five** blocks have become extractable since this row was first written: `differential_driver`, `differential_receiver`, `se_receiver_dm`, `se_receiver_dp` and `dplus_pullup` all have committed, fully routed, DRC-clean GDS under `layout/analog/` as of issues #251 and #252, and all five LVS-match (Row M), so this row's earlier rationale — that issue #52 closed without committing any analog GDS and there was "nothing under `layout/analog/` to extract" — no longer holds. What is missing now is the extraction and the re-simulation itself, and nothing upstream of it: issue #53. See `layout/README.md` § "Analog".
 Row I now has a post-layout re-verification: a SPEF-annotated `klt sta` re-run at three corners against the committed digital layout (Row I cites the regenerated P&R record `20261015-011501-32db02a.md` for its liberty/estimated-RC numbers). History: an earlier generation of that re-run reported a +0.22 to +2.96 ns worst-setup-slack delta versus the then-cited Row I numbers. Caution: that earlier record's name-annotation counts (186, then 364 of 366 nets) were later shown not to establish attached capacitance — the same extraction applied no wire parasitics (`delay_changed: false`). The current evidence is `verification/records/post-layout-pvt/records/20261015-011505-32db02a.md` (regenerated layout of #131; method established in `20261008-195826-74ccfac.md`): parasitics attached, 7 unannotated and 3 partially unannotated drivers, lumped capacitance (no wire RC delay), ideal clock; on the previous layout attaching them cost 2.76 / 6.89 / 0.37 ns of setup slack at tt / ss / ff versus the wire-free figures, so that earlier +0.22 to +2.96 ns delta was not a real post-layout delta. That is real progress on the digital half, but this row's verdict is about *every* electrical row in this table having an extracted-netlist re-run, and none of Rows A–H, J is a digital-timing row — so this still does not make this row **Met**. | Same |
 
 ### Summary of verdicts
 
-**Met:** Rows A, B, C, D (as of issue #96), E (as of issue #97), F (conditional on per-part trim), H, I (at both 3.3 V and
-5.0 V), K, L and M (digital half).
-**Unmet:** Rows G, N, and the analog half of L and M.
+**Met:** Rows A, B, C, D (as of issue #96), E (as of issue #97), F
+(conditional on per-part trim), H, I (at both 3.3 V and 5.0 V), K, L
+(digital half), and M — digital half, and the analog half too **as
+measured**: transistor-level LVS reads `status: "match"` with `error_count:
+0` on all five blocks, subject to the two limits Row M states (the poly
+resistors paired on topology alone, so no resistor dimension was compared;
+`power_connectivity` `unchecked` on all five, hence the separate and still
+open ERC obligation, issue #248).
+**Unmet:** Rows G, N, and the analog half of L — the analog DRC coverage
+attestation, issue #246.
 **Deliberately unjudged:** Row J.
 
 Rows A, C and D needed a design change rather than a document change: a
@@ -364,45 +374,59 @@ instances after tapcell, PDN and filler insertion, in a 37 937 µm²
 (~195 µm × 195 µm) core-only die at 44 % utilization. It is DRC-clean (Row
 L) and LVS-matched (Row M).
 
-**Analog — four of five blocks routed and DRC-clean, none signed off.**
-Every one of the five blocks has a committed layout plan
-(`layout/analog/plans/*.json`), and four of them have a committed, fully
-routed GDS under `layout/analog/`:
+**Analog — all five blocks routed, DRC-clean and LVS-matched; not signed
+off.** Every one of the five blocks has a committed layout plan
+(`layout/analog/plans/*.json`) and a committed, fully routed GDS under
+`layout/analog/`:
 
-| Block | GDS | Nets routed | DRC (`klt drc --deck gf180mcu`) | LVS | ERC | Extracted re-sim |
+| Block | GDS | Nets routed | DRC (`klt drc --deck gf180mcu`) | LVS (`klt lvs`) | ERC | Extracted re-sim |
 |---|---|---|---|---|---|---|
-| `differential_receiver` | committed | 8 / 8 | **clean** (0) | not run | not run | not run |
-| `se_receiver_dm` | committed | 9 / 9 | **clean** (0) | not run | not run | not run |
-| `se_receiver_dp` | committed | 9 / 9 | **clean** (0) | not run | not run | not run |
-| `dplus_pullup` | committed | 21 / 21 | **clean** (0) | not run | not run | not run |
-| `differential_driver` | **none** (placed, not committed) | 2 / 20 | **clean** (0) on the placed GDS | not run | not run | not run |
+| `differential_driver` | committed | 20 / 20 | **clean** (0) | **match** (0) | not run | not run |
+| `differential_receiver` | committed | 8 / 8 | **clean** (0) | **match** (0) | not run | not run |
+| `se_receiver_dm` | committed | 9 / 9 | **clean** (0) | **match** (0) | not run | not run |
+| `se_receiver_dp` | committed | 9 / 9 | **clean** (0) | **match** (0) | not run | not run |
+| `dplus_pullup` | committed | 21 / 21 | **clean** (0) | **match** (0) | not run | not run |
+
+The DRC column is the per-block result in `layout/analog/provenance.json`; the
+LVS column is `error_count: 0` with every device, net and pin paired, per Row M.
 
 `layout/analog/provenance.json` carries, per block, the GDS / netlist / plan
 SHA-256, the `klt` version (0.9.0), the regeneration command, the per-method
-routed-net split and the DRC result;
+routed-net split, the body-tie net map, the labelled pin set and the DRC
+result;
 `scripts/gen_analog_layout.py --check` regenerates every block and reproduces
 each hash, and `scripts/check_analog_provenance.py` re-hashes the committed
 streams offline in CI. A net counts as routed only when a flat conductivity
 extraction over metal1/via1/metal2/via2/metal3 puts all of its pins in one
 component that no other net's pin shares, cross-checked against KLayout's own
 `LayoutToNetlist`; an open and a short were both injected as negative controls
-and both were reported. Run record:
-`verification/records/analog-layout/records/20261113-090000-4f79d854e7b4.md`, the
-head of this lineage — it restates that the four blocks "remain routed and
-DRC-clean, unchanged" — superseding
-`verification/records/analog-layout/records/20261106-120000-ef841f90e933.md`, which
-carries the per-block measurement detail.
+and both were reported. Run records, layout and LVS separately. Layout is
+`verification/records/analog-layout/records/20261113-162700-35e9b6e5ab87.md`,
+the head of this lineage — it re-measures **5/5 executed, 5/5 fully routed,
+5/5 DRC-clean (0 violations)** on the streams re-delivered for issue #346, and
+confirms `--check` still reproduces all five hashes — superseding
+`20261113-134500-7233150d73ec`, and through it
+`20261113-090000-4f79d854e7b4` and
+`verification/records/analog-layout/records/20261106-120000-ef841f90e933.md`,
+which carry the earlier four-block measurement detail. The LVS verdict on these
+same streams is its own record,
+`verification/records/analog-lvs/records/20261113-163000-35e9b6e5ab87.md`.
 
 **Two things about that routing are stated rather than glossed.** First, the
-layout-plan compiler routes only part of each block — 1 of 8, 1 of 9, 1 of 9
-and 6 of 21 nets respectively; the remainder are completed by scripted routes
-in `scripts/gen_analog_layout.py` (per-pin via1 and metal-2 stub, one
-unshared metal-3 track per net, one metal-2 corridor per mixed net, no device
-moved or re-sized). The multi-net layer/track-assignment gap that blocks the
-compiler from finishing them is filed upstream as
-`2AMLogic/klayout-tools#1962` (open). Second, `dplus_pullup` reached a
-committed layout through two operator-ratified decisions, each with a record
-rather than a silent edit, and neither relaxing the ratified spec:
+layout-plan compiler routes only part of each block, and on three of them none
+of it: 2 of `differential_driver`'s 20 nets and 6 of `dplus_pullup`'s 21 come
+from the compiler, while the three receivers are **fully scripted** — 0 of 8,
+0 of 9 and 0 of 9, because issue #346 gave their `VDD` net a body-tie pad,
+which moves it into the scripted pass. Every remaining net is completed by
+scripted routes in `scripts/gen_analog_layout.py` (per-pin via1 and metal-2
+stub, one unshared metal-3 track per net, one metal-2 corridor per mixed net,
+no device moved or re-sized); `routing_method` in
+`layout/analog/provenance.json` is the per-block split. The multi-net
+layer/track-assignment gap that blocks the compiler from finishing them is
+filed upstream as `2AMLogic/klayout-tools#1962` (open). Second,
+`dplus_pullup` reached a committed layout through two operator-ratified
+decisions, each with a record rather than a silent edit, and neither
+relaxing the ratified spec:
 
 - **DR-0001** (`spec/decisions/0001-dplus-pullup-switch-device-flattening.md`,
   decided on gf180-usb2-phy#56) re-drew its six wide switch devices from one
@@ -418,35 +442,55 @@ rather than a silent edit, and neither relaxing the ratified spec:
   lengths over the full 45-corner matrix and passes (worst per-corner error
   2.44 %, fixed-trim 2.55 %, limit 5 %).
 
-**`differential_driver` has no committed GDS.** Its plan now **executes**:
-the "cannot be ingested by the layout-plan compiler" wording in this
-document's earlier revisions is history, cleared by the plan/netlist
-regeneration that followed the issue #96 output-stage re-size (issues #166 and
-#167, both closed). On the current run record
-(`verification/records/analog-layout/records/20261113-090000-4f79d854e7b4.md`)
-the plan places all 40 device groups for the 40 netlist devices and the placed
-GDS is DRC-clean (0 violations at the `gf180mcu` deck), but only **2 of its 20
-nets are routed** — the remaining 18 are unrouted, `gen_analog_layout.py` does
-not script-route this block, and no stream is committed. Routing and committing
-those 20 nets is issue #252, whose stated prerequisites are all closed as of
-2026-11-13; it is the one analog block for which no layout is delivered.
+**`differential_driver` is delivered too.** Its plan **executes** — the
+"cannot be ingested by the layout-plan compiler" wording in this document's
+earlier revisions is history, cleared by the plan/netlist regeneration that
+followed the issue #96 output-stage re-size (issues #166 and #167, both
+closed) — and on the current run record
+(`verification/records/analog-layout/records/20261113-162700-35e9b6e5ab87.md`)
+the plan places all 40 device groups for the 40 netlist devices, **all 20 of
+its nets are routed** (2 by the compiler, 18 scripted), and the committed
+stream is DRC-clean, 0 violations at the `gf180mcu` deck. `klt lvs` against
+`design/netlist/differential_driver.spice` is a **match**: 40/40 devices,
+22/22 nets, 7/7 pins, `error_count: 0`. Routing and committing those 20 nets
+was issue #252, **closed completed on 2026-11-13**; the statement in this
+document's earlier revisions that it was "the one analog block for which no
+layout is delivered" no longer holds.
 
-**Nothing analog is signed off.** No analog block has an LVS match (issue
-#247; the only recorded analog LVS result is a **mismatch** on an earlier
-`differential_receiver` stream, `20261009-203500-7a8e831`), an ERC supply
+**LVS is matched; the rest of analog signoff is not.** All five blocks
+LVS-match (issue #247, closed), but no analog block yet has an ERC supply
 check (issue #248), a DRC coverage attestation (issue #246) or an
-extracted-netlist re-simulation (issue #53). The guard-ring and body-tie
-pads each generator draws are in no plan net and are left unconnected.
+extracted-netlist re-simulation (issue #53) — and the LVS record itself
+compared no resistor dimension and left `power_connectivity` `unchecked`.
+
+One statement in this document's earlier revisions is now **half** true. A
+device body is still in no *plan* net: `klt`'s layout-plan executor derives
+`connectivity[]` from source/drain/gate terminals only — its
+`_TERMINAL_SUFFIXES` table has no bulk entry — which is filed upstream under
+the friction protocol as `2AMLogic/klayout-tools#5546` (open). But the
+guard-ring / body-tie pads the generators draw are **no longer left
+unconnected**. Issue #346 added a post-plan pass that ties every device body,
+through one of the generator's own contacted tap pads, to the net the
+schematic puts that body on; re-routes the nets that gained a pad; and
+re-labels the top cell with exactly the reference `.subckt` port set.
+`body_verification.status` reads `verified` with `finding_count: 0` on all
+five blocks, and `layout/analog/provenance.json` carries the per-block
+`body_tie_nets` map. What that tie is *not* is an IR-drop or
+latch-up-margin argument: one pad per device group is sufficient for
+extraction and for the deck's tap-distance rule, both measured, and nothing
+beyond that is claimed.
+
 `layout/README.md` § "Analog" gives the per-block outcome, and
 `layout/analog/HISTORY.md` the dated klt-only attempt — which produced no
 committed layout — that preceded it.
 
 **What that means for this proposal.** A Chipalooza submission is expected
 to reach DRC/LVS-clean GDS with post-layout PVT simulation. This block is
-there for its digital half; its analog half has four of five blocks drawn and
-DRC-clean and is not there on LVS, ERC, the fifth block, or post-layout
-simulation. That is stated here as the current status, with the work it
-implies named in §7, rather than presented as a formality remaining.
+there for its digital half; its analog half has all five blocks drawn,
+DRC-clean and LVS-matched, and is not there on ERC, the DRC coverage
+attestation, or post-layout simulation. That is stated here as the current
+status, with the work it implies named in §7, rather than presented as a
+formality remaining.
 
 ---
 
@@ -525,16 +569,21 @@ They are named in §7.
 
 Listed honestly, in the order it gates:
 
-1. **Analog layout for all five blocks**, then DRC, LVS and ERC on each.
-   Four of the five (`differential_receiver`, `se_receiver_dm`,
-   `se_receiver_dp`, `dplus_pullup`) now have a committed, fully routed,
-   DRC-clean GDS (§5, issue #251). What remains is `differential_driver`'s
-   layout, which follows the issue #96 driver re-size (issue #252), and the
-   signoff checks on all of them: analog DRC coverage (#246), LVS (#247) and
-   ERC supply (#248) — no analog LVS match or ERC result exists today. The
-   layout-plan compiler still cannot finish the multi-net routing on its own
-   (`2AMLogic/klayout-tools#1962`, open); the committed streams close that
-   gap with scripted routes rather than by waiting on the tool.
+1. **The remaining analog signoff checks** — the layout itself is done, and
+   so is LVS. All five blocks (`differential_driver`,
+   `differential_receiver`, `se_receiver_dm`, `se_receiver_dp`,
+   `dplus_pullup`) have a committed, fully routed, DRC-clean GDS (§5, issues
+   #251 and #252), and all five **LVS-match** with `error_count: 0` (issue
+   #247, closed; record `20261113-163000-35e9b6e5ab87`, cited as T1 item
+   `4.analog`). What remains is the analog **DRC coverage attestation**
+   (#246) and the analog **ERC supply** check (#248) — neither exists today —
+   plus, within LVS, a compare of the poly-resistor dimensions that run
+   excluded (Row M). The layout-plan compiler still cannot finish the
+   multi-net routing on its own (`2AMLogic/klayout-tools#1962`, open), and a
+   device body cannot be bound to a plan net at all
+   (`2AMLogic/klayout-tools#5546`, open); the committed streams close both
+   gaps — with scripted routes and with a post-plan body-tie pass — rather
+   than by waiting on the tool.
 2. **Post-layout (extracted-parasitic) PVT re-verification** of every Row
    A–H measurement (blocked on item 1). The digital section's timing (Row
    N) has been re-verified against extracted parasitics —
@@ -544,9 +593,9 @@ Listed honestly, in the order it gates:
    and are superseded; disclosed limits: lumped capacitance, ideal clock,
    3 corners not the 45-corner matrix). The remaining item here is
    entirely the analog half. It is no longer blocked on having something to
-   extract — four of the five blocks have committed, DRC-clean GDS (§5) —
-   so Rows A–H's extracted-netlist re-run can start on those four; it is
-   tracked by issue #53, and `differential_driver` still needs item 1.
+   extract, on any block — all five have committed, DRC-clean, LVS-matched
+   GDS (§5) — so Rows A–H's extracted-netlist re-run can start on all five.
+   It is tracked by issue #53 and no longer waits on item 1.
 3. **Row C — driver rise/fall matching.** Closed by issue #96: an
    output-stage and predriver re-size takes it from 36/45 failing corners to
    45/45 passing (ratio 0.944–1.086).
