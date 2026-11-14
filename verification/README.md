@@ -484,6 +484,82 @@ verification/records/
   cocotb `results_icarus.xml` for a functional-verification record, and a
   mapped-netlist snapshot plus the Yosys script for a synthesis record.
 
+## Stored evidence (manifest in place of bytes)
+
+From issue #366, a **new** record's artifact bytes do not have to be committed.
+They go to the fleet artifact store through `klt artifact put`, and git keeps a
+manifest instead — the same mechanism `sim/` has used since
+`spec/decisions/0008-stored-evidence-manifest-forward.md` (DR-0008), applied to
+the tree that decision named as its own follow-up.
+
+`verification/records/*/artifacts/*` is why: 646 blobs, 76.53 MiB, **40% of the
+repository** (as of `22ceb85`, 2026-11-14), of which 38.49 MiB is six
+generations of the same `klt extract` DEF name map. Every digital layout
+regeneration mints another `post-layout-pvt` record and adds another ~7 MiB,
+so the counts above drift
+upward — re-derive them with `git ls-tree -r -l` rather than citing these.
+
+Write the record by hand as always, stage its artifact bytes **outside the
+tracked tree**, then:
+
+```bash
+python3 scripts/store_verification_evidence.py \
+  --experiment post-layout-pvt \
+  --record-id 20261015-011505-32db02a \
+  --stage-dir sim/.work/.stage/post-layout-pvt/20261015-011505-32db02a \
+  --exclude sta-corners.json            # once per signoff-cited artefact
+```
+
+Git then holds, for that record:
+
+- `manifests/artifacts/<experiment>-<record-id>.manifest.json` — one entry per
+  stored file (`sha256`, `size`, `kind: evidence`, `producer`, the logical
+  `artifact:<key>` `uri`, and a `name` that is **exactly** the path the bytes
+  would have had under `verification/records/`);
+- `records/<record-id>.md`, hand-authored as always, with a "Stored evidence"
+  table (name, size, sha256) **appended** by the helper. It appends rather than
+  composing the record, because these records are written by hand and `sim/`'s
+  writer is not.
+
+Order matters: author the record, store the evidence, then commit the record
+and the manifest **together**. The helper appends to a file that is not
+committed yet, so the commit is a pure addition and the append-only rule below
+is untouched.
+
+**Signoff-cited artefacts stay committed.** `manifests/gf180-usb2-phy.json`
+cites 24 artefacts under `verification/records/` (2.34 MiB, 9 experiments,
+as of `22ceb85`, 2026-11-14) as in-tree evidence, and
+`scripts/check_signoff_report.py` re-renders the report through a real `klt`.
+Derive the live set from the block manifest rather than from that count — a new
+signoff row adds to it. Whether `klt signoff` can re-hash a manifest-backed
+citation is **not yet established** (issue #375), so a cited artefact is named
+with `--exclude` and committed as before. The split is **per file, not per
+record**: in `post-layout-pvt/artifacts/20261015-011505-32db02a/`,
+`sta-corners.json` is cited while its 12 siblings are not.
+
+**Fail closed** (DR-0008 point 3). Storing needs `KLT_ARTIFACT_BROKER` set (no
+default; the URL is never written in the repo), a `klt` with `artifact put` at
+or after klayout-tools `7e3561f`, and a broker that answers a `stat`. On any
+failure the helper exits 1, nothing is written under `manifests/` or
+`verification/`, and the staged bytes are left where they are, so nothing is
+lost. **There is no flag, env var or fallback that commits the bytes
+instead** — that would undo the change.
+
+**Forward-only.** Records already committed keep their bytes in the tree:
+nothing is moved, rewritten or deleted (DR-0008 point 2, and the append-only
+rule below). This removes a source of *new* committed bytes.
+
+Check and verify:
+
+```bash
+python3 scripts/check_artifact_manifests.py check --tree HEAD   # offline, in CI
+klt artifact verify manifests/artifacts/<experiment>-<record-id>.manifest.json
+```
+
+The first is offline — schema, plus the rule that no stored object's bytes are
+*also* committed — and runs in `npm run lint`. The second hash-verifies against
+the broker and needs a fleet worker with `$KLT_ARTIFACT_BROKER` set.
+
 ## Record format
 
 Each record is a markdown file, `records/<record-id>.md`, with two parts:
