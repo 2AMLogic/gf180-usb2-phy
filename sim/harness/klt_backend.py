@@ -29,7 +29,6 @@ import os
 import re
 import shutil
 import subprocess
-import tempfile
 import time
 from pathlib import Path
 
@@ -108,14 +107,6 @@ def effective_klt_backend(backend: str | None, n_points: int) -> str | None:
             f"klt:batch) or export {BACKEND_ENV}=batch."
         )
     return name
-
-
-def klt_version() -> str:
-    exe = shutil.which(KLT)
-    if not exe:
-        raise KltError("klt not found on PATH")
-    out = subprocess.run([exe, "--version"], capture_output=True, text=True, check=False)
-    return (out.stdout or out.stderr).strip()
 
 
 def measurement(name: str, entry, check: dict | None = None) -> dict:
