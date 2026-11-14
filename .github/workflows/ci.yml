@@ -7,6 +7,16 @@
 # requests for the real PHY modules). None of that needs the gf180mcu PDK,
 # only Icarus Verilog + cocotb + klt.
 #
+# Exactly one gate runs outside `check:ci`: the evidence-record linters are
+# re-run with `--require-append-only --base-ref origin/main`, a strict superset
+# of the bare invocations inside `npm run lint` and one only CI can perform (it
+# needs the fetched origin/main ref). Nothing else runs after `check:ci`. Do
+# not add a step that merely repeats a command `check:ci` already ran: this job
+# is a single sequential `steps:` list with no `if:` and no
+# `continue-on-error:`, so such a step sits after the command it duplicates and
+# can only ever be green -- decoration in the checks UI, not a gate, and a
+# two-file sync hazard for the flags it copies (issue #359).
+#
 # `check:all`'s extra leg (`PDK=gf180mcuD klt synthesize`) is NOT run here:
 # it needs a fetched gf180mcu PDK, which is a real, recurring cost to
 # provision in a hosted runner on every push/PR. That leg stays a local,
@@ -74,23 +84,30 @@ jobs:
             "cocotb==2.0.1"
           klt --version
 
+      # Two gates this step owns, carrying the rationale that used to sit on a
+      # duplicate step below it (removed in issue #359). `package.json` is JSON
+      # and cannot hold a comment, so the explanation lives here, next to the
+      # one step that now runs each command:
+      #
+      #   * `npm run reuse:check` -> `python3 scripts/reuse-check.py .`
+      #     Rule 9 (2am REUSE.md): the vendored copies under rtl/common/ must
+      #     still byte-match their reuse.lock.json stamps. Per-repo mode --
+      #     no network, no sibling checkout needed (the upstream cross-check
+      #     additionally runs when a sky130-usb2-phy checkout is present).
+      #
+      #   * `npm run lint` -> `python3 scripts/check_artifact_manifests.py
+      #     check --tree HEAD`
+      #     Stored evidence (issue #237): new corner-run bytes live in the
+      #     artifact store, git keeps only manifests. Offline schema check --
+      #     no broker in CI; hash verification is `klt artifact verify` from a
+      #     fleet worker.
+      #
+      # If either command ever leaves `check:ci`, add it back as its own step
+      # here -- and move its rationale with it -- in the same change.
       - name: npm run check:ci (lint + klt functional-verification)
         run: npm run check:ci
-
-      # Rule 9 (2am REUSE.md): the vendored copies under rtl/common/ must
-      # still byte-match their reuse.lock.json stamps. Per-repo mode --
-      # no network, no sibling checkout needed (the upstream cross-check
-      # additionally runs when a sky130-usb2-phy checkout is present).
-      - name: Reuse lock check (vendored byte-stamps)
-        run: python3 scripts/reuse-check.py .
 
       - name: Evidence-record linters, strict append-only against origin/main
         run: |
           python3 verification/check_records.py --require-append-only --base-ref origin/main
           python3 sim/check_records.py --require-append-only --base-ref origin/main
-
-      # Stored evidence (issue #237): new corner-run bytes live in the artifact
-      # store, git keeps only manifests. Offline schema check -- no broker in CI;
-      # hash verification is `klt artifact verify` from a fleet worker.
-      - name: Stored-evidence manifests (schema, no committed bytes)
-        run: python3 scripts/check_artifact_manifests.py check --tree HEAD
