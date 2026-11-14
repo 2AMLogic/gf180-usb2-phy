@@ -68,13 +68,14 @@ by the grader at freeze time (`input_verified: true` in the frozen
 report), while 7.digital and item 8 read `null`: 7.digital carries no
 `content_hash` for the grader to re-hash, and item 8's pin is a `role:
 "document"` hash with no path it can resolve. The list-form ones (items
-4.analog, 5.analog, 5.digital, 6.analog and 11.digital) are the compound
-citing sets those items' own text requires. Items 3, 7 and 11 are keyed
-to the **digital partition only** (`"3.digital"`, `"7.digital"`,
-`"11.digital"`), and item 5 is keyed in both; item 4 became
-partition-complete when `"4.analog"` was added (issue #247), so the T1
-rows still graded from digital evidence alone are 3, 7 and 11. Only item
-8 uses a bare key and so grades in both partitions:
+4.analog, 5.analog, 5.digital, 6.analog, 11.analog and 11.digital) are
+the compound citing sets those items' own text requires. Items 3 and 7 are
+keyed to the **digital partition only** (`"3.digital"`, `"7.digital"`),
+and item 5 is keyed in both; item 4 became partition-complete when
+`"4.analog"` was added (issue #247) and item 11 when `"11.analog"` was
+added (issue #248), so the T1 rows still graded from digital evidence
+alone are 3 and 7. Only item 8 uses a bare key and so grades in both
+partitions:
 
 - **Item 3.digital, DRC clean** — cites the digital routed GDS's `klt drc`
   envelope (`verification/records/digital-drc/artifacts/20261015-011502-32db02a/drc-report.json`),
@@ -151,7 +152,10 @@ rows still graded from digital evidence alone are 3, 7 and 11. Only item
     nets, so they take part in the ordinary compare and the separate
     power check — which exists to cover the signal-only
     `gate-level-verilog` form — does not apply. The supplies' own check is
-    item 11.analog (issue #248), not this item.
+    item 11.analog, which issue #248 landed: these same five envelopes are
+    its LVS half (the supply-pairing read of their `net_correspondence`),
+    beside the five `klt erc` supply runs in
+    `verification/records/analog-erc/`.
   - **No resistor dimension is compared.** The `ppolyf_u` / `ppolyf_u_1k`
     / `rm1` devices pair on topology alone: `R` is `not_compared`
     (`placeholder_value`) and `L`/`W`/`A`/`P` are `not_compared`
@@ -449,11 +453,82 @@ repo's rule that an envelope must actually support the item to be cited:
   OpenSTA script (klayout-tools#2886, open). **Item 7.analog stays
   `unmet`/`no_evidence`** (no analog layout; parked on klayout-tools#1962,
   tracked by #53 and the analog `layout/README.md` narrative).
-- **Item 11.analog** (power delivery, structural, analog partition) — no
-  analog layout exists, so no `klt erc` supply run has anything to grade:
-  `unmet`/`no_evidence`. The digital partition's `met` state is the
-  bullet above; the frozen report carries both rows, which is what
-  this manifest guarantees: the row exists the day the checklist does.
+- **Item 11.analog, power delivery (structural), analog partition — cited,
+  `met`** (issue #248; it read `unmet`/`no_evidence` until this change,
+  because no analog layout existed when the row was first frozen). Its
+  manifest entry is a **two-part list**, the shape item 11 requires: the
+  `differential_driver` `klt erc` supply report
+  (`verification/records/analog-erc/artifacts/20261114-003000-db05b5e/differential_driver-erc-supply-report.json`,
+  pinned to that stream's GDS hash `sha256:4a1c1ddf…`), **plus** that same
+  block's `analog-lvs` envelope — the identical artifact item 4.analog cites,
+  at the identical pin. No `klt place-and-route` part: that is the Digital
+  column's PDN branch, and these are full-custom streams with no P&R
+  response to cite.
+
+  **Why this row cites one stream when the partition has five.** `klt
+  signoff` resolves item 11's compound citation into exactly one
+  `(erc, lvs)` pair — "a later part of the same kind replaces an earlier
+  one", in its own docstring's words — so unlike item 4, which accepts a
+  per-block citation **list** and renders a `citations_graded` entry per
+  block, item 11 has no multi-member form for a partition built from five
+  separately signed-off streams. A ten-entry list would be reduced to one
+  pair while the rendered report still showed only two `parts`, i.e. the
+  drop would be invisible to a reader of `t1-signoff-report.json`. So this
+  row cites one visible pair, and `differential_driver` is the one: the
+  largest analog stream (17 n-wells, 84 drawn body-tie pads, 17 asserted
+  substrate polygons) and the block that drives the bus. **The tool gap is
+  filed upstream as
+  [klayout-tools#5597](https://github.com/2AMLogic/klayout-tools/issues/5597)**;
+  when item 11 grows the list form item 4 already has, this entry becomes the
+  five-pair set and the row is re-rendered in that change.
+
+  The other four streams are *not* unevidenced. Their identical `klt erc`
+  runs are frozen in the same record
+  (`verification/records/analog-erc/records/20261114-003000-db05b5e.md`),
+  every stream and every spec is pinned by hash in that record's
+  `provenance.inputs[]` — so `verification/check_records.py` fails CI if any
+  of them moves without a fresh record — and `scripts/analog_erc.py` re-runs
+  and re-gates all five (plus five negative controls, plus the LVS supply
+  pairing) on demand, with its shape-and-gating self-test
+  (`scripts/test_analog_erc.py`) in `npm run lint`.
+
+  **Coverage disclosures, quoted from the cited envelope**, since item 11
+  asks a claimant to state them rather than leaving them to the tool:
+  `erc_coverage.layers_in_stream_without_declaration` is **empty** (the
+  spec's model is as wide as what the stream draws);
+  `erc_coverage.skipped` is **empty** and both ties are in `checked`;
+  `power_delivery.ties_checked_by_well_assertion` names
+  `erc.missing_tie:["substrate_neg_tap"]`, because gf180mcu draws no tub
+  layer for a native-substrate block and the substrate region is therefore
+  caller-asserted (`well_boxes`, klayout-tools#2255) — derived from the
+  stream by `scripts/analog_erc.py` and re-gated on every run, not
+  hand-typed; that asserted tie's own uncovered-tap fields
+  (klayout-tools#2427 — item 11 asks a claimant to quote them, because a
+  `well_boxes` assertion examines only the geometry it spans) are
+  `uncovered_tap_area_um2` / `uncovered_tap_fraction` = 970.4848 / 0.727793
+  on the cited `differential_driver`, and 168.4264 / 0.65955, 7714.4112 /
+  0.998458, 137.3536 / 0.605475 and 137.3536 / 0.605475 on
+  `differential_receiver`, `dplus_pullup`, `se_receiver_dm` and
+  `se_receiver_dp` — each **equal, to every digit, to that stream's own
+  `comp_area_inside_nwell_um2`**, because klt measures uncovered tap over the
+  declared `tap_layer` *un-narrowed* (`22/0`, bare `Comp`), so every µm² it
+  reports uncovered is `Comp` inside `Nwell`: n-well diffusion that
+  `nwell_pos_tap` covers on drawn geometry and the substrate tie does not
+  assert. The narrowed substrate tap the tie is about (`Comp ∩ Pplus −
+  Nwell`) is fully covered — `substrate_tap_area_outside_assertion_um2` is
+  `0.0` on all five — so a high `uncovered_tap_fraction` here measures how
+  much of a stream's bare `Comp` sits in n-well, not assertion-missed
+  substrate pads. Reporting only: `klt signoff` does not grade these fields
+  and the harness does not gate the equality;
+  `power_delivery.supply_unlabelled_islands` is `{}`, klt's
+  honest "not measured", because no role is owned by a supply in these
+  streams and `nets[].roles` is deliberately not declared; and
+  `erc.supply_short` is `inapplicable` /`substrate_continuity_not_modelled`
+  on every analog run, so the no-short claim rests on the LVS compare
+  pairing the two supplies as distinct nets. The record's "What is NOT
+  established" section carries these in full, including the measured fact
+  that only 17 of `differential_driver`'s 84 drawn body-tie pads reach
+  ground through metal.
 
 ## Regeneration and freshness
 
@@ -469,16 +544,17 @@ diff /tmp/fresh.json manifests/t1-signoff-report.json   # regeneration = update 
 ```
 
 Exit `0` means every T1 item met (this repo is **not** there:
-exit `3`, `tier: null`, `17/22` item-rows met at the time of freezing —
-3.digital, 4.analog, 4.digital, 5.digital, 6.analog, 7.digital and
-11.digital, plus item 8 in both partitions and the artifact-anchored rows
-1.analog, 1.digital, 2.analog, 2.digital and items 9 and 10 in both
-partitions. The four still unmet are 3.analog (`no_evidence`), 5.analog
-(`partial_coverage`), 7.analog (`no_evidence`) and 11.analog
-(`no_evidence`); the twenty-second row, 6.digital, grades
+exit `3`, `tier: null`, `18/22` item-rows met at the time of freezing —
+3.digital, 4.analog, 4.digital, 5.digital, 6.analog, 7.digital, 11.analog
+and 11.digital, plus item 8 in both partitions and the artifact-anchored
+rows 1.analog, 1.digital, 2.analog, 2.digital and items 9 and 10 in both
+partitions. The three still unmet are 3.analog (`no_evidence`), 5.analog
+(`partial_coverage`) and 7.analog (`no_evidence`); the twenty-second row,
+6.digital, grades
 `not_applicable` rather than unmet (`t1_not_applicable_count: 1`, as the
-item 6 bullet above records), so the rows are 17 `met` + 1
-`not_applicable` + 4 `unmet`. The count was
+item 6 bullet above records), so the rows are 18 `met` + 1
+`not_applicable` + 3 `unmet`. The count was
+`17/22` before issue #248 added the 11.analog citation,
 `16/22` before issue #247 added the 4.analog citation, `6/22` before issue
 #187, `7/22` before issue #188 (when 5.digital was also met, see the
 5.analog bullet), and `8/22` before issue #95 stopped items 3 and 4 from

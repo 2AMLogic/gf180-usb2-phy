@@ -169,8 +169,18 @@
     },
     "10": {
       "file": "signoff/evidence/t1-item-10-repo-hygiene.json",
-      "content_hash": "sha256:7cfc19221fea429828d6e21f1a0da0e66f2fd79c235939d9d07c803822b352c8"
+      "content_hash": "sha256:42d6a5b7c3706a521451f589ea55abfc25ace2f332a758d210cda1e2689f5a85"
     },
+    "11.analog": [
+      {
+        "file": "verification/records/analog-erc/artifacts/20261114-003000-db05b5e/differential_driver-erc-supply-report.json",
+        "content_hash": "sha256:4a1c1ddfc5a1a984c2ecd156808cd20acbd881ef74d6f092e18ee377a2800fcb"
+      },
+      {
+        "file": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/differential_driver-lvs-report.json",
+        "content_hash": "sha256:4a1c1ddfc5a1a984c2ecd156808cd20acbd881ef74d6f092e18ee377a2800fcb"
+      }
+    ],
     "11.digital": [
       {
         "file": "verification/records/digital-erc/artifacts/20261015-011504-32db02a/erc-supply-report.json",
