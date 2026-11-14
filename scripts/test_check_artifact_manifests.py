@@ -66,6 +66,43 @@ class Schema(unittest.TestCase):
         dup = chk.manifest_problems({"schema_version": 1, "entries": [e, e]})
         self.assertTrue(any("duplicate name" in p for p in dup))
 
+    def test_verification_records_name_is_accepted(self):
+        # Issue #366: verification/records/ is DR-0008's own named follow-up
+        # tree, so a manifest entry may name a path under it. This assertion
+        # FAILS against the pre-change canonical_name(), which hardcoded
+        # name.startswith("sim/").
+        name = ("verification/records/post-layout-pvt/artifacts/"
+                "20261015-011505-32db02a/extract-defnames-defpins-output.json")
+        self.assertTrue(chk.canonical_name(name))
+        self.assertEqual(chk.manifest_problems(
+            {"schema_version": 1, "entries": [entry(b"x", name=name)]}), [])
+
+    def test_name_under_a_foreign_root_is_rejected(self):
+        # The roots are a closed list: widening to verification/records/ must
+        # not turn canonical_name() into "any relative path". This assertion
+        # FAILS against the pre-change code for the verification/ cases below,
+        # which it rejected for the right reason but by the wrong rule.
+        for name in ("layout/digital/usb_utmi_phy.def",        # DR-0008 defers it
+                     "verification/check_records.py",          # not under records/
+                     "verification/records",                   # the root itself
+                     "verificationrecords/x/y.json",           # prefix near-miss
+                     "simulation/b/r.json",                    # sim/ near-miss
+                     "/sim/b/r.json", "sim", "simx/b/r.json",
+                     "../sim/b/r.json", "sim/../etc/passwd",
+                     "sim/./b/r.json", "sim/b//r.json",
+                     "sim\\b\\r.json", "x/sim/b/r.json", "", 7, None):
+            with self.subTest(name=name):
+                self.assertFalse(chk.canonical_name(name))
+                problems = chk.manifest_problems(
+                    {"schema_version": 1, "entries": [{**entry(b"x"), "name": name}]})
+                self.assertTrue(any("name must be a canonical relative path" in p
+                                    for p in problems), problems)
+
+    def test_every_evidence_root_is_a_prefix_of_an_accepted_name(self):
+        for root in chk.EVIDENCE_ROOTS:
+            with self.subTest(root=root):
+                self.assertTrue(chk.canonical_name(root + "b/r1.json"))
+
     def test_only_the_artifact_scheme_is_accepted(self):
         # Operator ruling H1: the uri is the logical
         # artifact:<key>; a bucket-naming uri or any other scheme is refused.
@@ -128,6 +165,38 @@ class Check(unittest.TestCase):
         rc, out, err = self.run_check()
         self.assertEqual(rc, 0, err)
         self.assertIn("1 manifest(s), 1 entry", out)
+
+    def test_verification_tree_manifest_fixture_passes(self):
+        # Issue #366 acceptance criterion: a hand-written manifest whose
+        # entries name verification/records/<exp>/artifacts/<rid>/<file>
+        # paths is accepted by `check`. Against the pre-change code this
+        # exits 1 with "name must be a canonical relative sim/... path".
+        rid = "20261015-011505-32db02a"
+        base = f"verification/records/post-layout-pvt/artifacts/{rid}"
+        self.add_manifest(
+            entry(b"defnames", name=f"{base}/extract-defnames-defpins-output.json"),
+            entry(b"spef", name=f"{base}/usb_utmi_phy_route.spef"),
+            name=f"post-layout-pvt-{rid}.manifest.json")
+        # the hand-authored record stays committed; only the bytes move out
+        self.write(f"verification/records/post-layout-pvt/records/{rid}.md", "# r\n")
+        self.commit()
+        rc, out, err = self.run_check()
+        self.assertEqual(rc, 0, err)
+        self.assertIn("1 manifest(s), 2 entries", out)
+
+    def test_committed_verification_blob_beside_manifest_fails(self):
+        # The no-blob-fallback rule is root-agnostic: it keys off the
+        # manifest's own name, so it covers the new root with no change.
+        rid = "20261015-011505-32db02a"
+        name = (f"verification/records/post-layout-pvt/artifacts/{rid}/"
+                "extract-defnames-defpins-output.json")
+        self.add_manifest(entry(b"x", name=name),
+                          name=f"post-layout-pvt-{rid}.manifest.json")
+        self.write(name, "x")  # the stored bytes, committed too
+        self.commit()
+        rc, _, err = self.run_check()
+        self.assertEqual(rc, 1)
+        self.assertIn("no blob fallback", err)
 
     def test_committed_blob_beside_manifest_fails(self):
         self.add_manifest(entry(b"x"))

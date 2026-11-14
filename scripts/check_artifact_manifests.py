@@ -14,10 +14,11 @@ Reads every manifest committed in ``REV`` (blob contents via git, so a sparse
 working tree does not matter) and fails if one is malformed: wrong schema, an
 unknown or missing field, a ``uri`` that is not the logical ``artifact:<key>``
 (an ``s3`` bucket uri or any other scheme is refused), a key that does not end
-in the entry's sha256, a ``name`` that is not a canonical ``sim/...`` path, or
-a duplicate name. It also fails if any entry's ``name`` is a tracked path in
-``REV``: the point of a manifest is that the bytes are *not* committed, so a
-blob beside its own manifest is the fallback this repo forbids.
+in the entry's sha256, a ``name`` that is not a canonical path under one of
+this repo's evidence roots (:data:`EVIDENCE_ROOTS`), or a duplicate name. It
+also fails if any entry's ``name`` is a tracked path in ``REV``: the point of a
+manifest is that the bytes are *not* committed, so a blob beside its own
+manifest is the fallback this repo forbids.
 
 ``check`` is offline: it never contacts the broker, so CI needs none, and it
 says so. Schema-valid is not hash-verified; hash verification is
@@ -51,6 +52,13 @@ REQUIRED = ("sha256", "size", "kind", "producer", "uri")
 OPTIONAL = ("name", "media_type")
 PRODUCER_FIELDS = ("tool", "version", "loom.repo", "commit")
 
+#: The evidence roots a manifest entry's logical ``name`` may sit under. Both
+#: trees keep their bytes in the fleet artifact store and only a manifest in
+#: git: ``sim/`` since DR-0008, ``verification/records/`` as the follow-up that
+#: decision names (issue #366). A name under any other root is refused -- the
+#: roots are a closed list, not a prefix free-for-all.
+EVIDENCE_ROOTS = ("sim/", "verification/records/")
+
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 #: The manifest ``uri`` is a logical name only the broker resolves,
 #: ``artifact:<key>`` (operator ruling H1; klayout-tools
@@ -66,8 +74,8 @@ class ToolError(Exception):
 
 # --------------------------------------------------------------------------
 # Manifest schema (mirrors klayout_tools.artifact_store.entry_problems, plus
-# this repo's own rules: evidence kind only, a canonical sim/ name, unique
-# names, and a uri key that names the producer's repo)
+# this repo's own rules: evidence kind only, a canonical name under an
+# evidence root, unique names, and a uri key that names the producer's repo)
 # --------------------------------------------------------------------------
 
 
@@ -86,7 +94,8 @@ def repo_from_key(key: str) -> str | None:
 
 
 def canonical_name(name) -> bool:
-    return (isinstance(name, str) and name.startswith("sim/")
+    """True for a canonical relative path under one of :data:`EVIDENCE_ROOTS`."""
+    return (isinstance(name, str) and name.startswith(EVIDENCE_ROOTS)
             and "\\" not in name and "\0" not in name
             and posixpath.normpath(name) == name
             and not {"", ".", ".."} & set(name.split("/")))
@@ -131,9 +140,11 @@ def entry_problems(entry) -> list[str]:
         elif isinstance(producer, dict) and producer.get("loom.repo") not in (None, key_repo):
             problems.append("uri key names a different repo than producer.loom.repo")
     if "name" not in entry:
-        problems.append("name is required here (the logical sim/ path of the bytes)")
+        problems.append("name is required here (the logical path the bytes "
+                        "would have had in the tree)")
     elif not canonical_name(entry["name"]):
-        problems.append("name must be a canonical relative sim/... path")
+        problems.append("name must be a canonical relative path under one of "
+                        + ", ".join(EVIDENCE_ROOTS))
     if "media_type" in entry and not isinstance(entry["media_type"], str):
         problems.append("media_type must be a string")
     return problems

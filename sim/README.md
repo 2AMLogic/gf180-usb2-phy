@@ -164,11 +164,16 @@ python3 scripts/check_artifact_manifests.py check --tree HEAD   # offline, in CI
 klt artifact verify manifests/artifacts/<bench>-<record-id>.manifest.json  # needs the broker
 ```
 
-Not covered by the corner runner (so not automated here): `verification/records/`
-and `layout/digital/` produce evidence through `klt` requests and scripts. To
-store such a file today, run `klt artifact put <file> --name sim/<...> --manifest
+Not covered by the corner runner: `verification/records/` and
+`layout/digital/` produce evidence through `klt` requests and scripts.
+`verification/records/` now has its own writer —
+`scripts/store_verification_evidence.py`, issue #366, see
+`verification/README.md` "Stored evidence" — which reuses this module and
+writes manifests into the same directory with a `verification/records/...`
+`name`. `layout/digital/` still has none: to store such a file, run `klt
+artifact put <file> --name <in-tree path> --manifest
 manifests/artifacts/<name>.manifest.json` yourself; the CI check applies to the
-resulting manifest.
+resulting manifest either way.
 
 ## Append-only rule
 
