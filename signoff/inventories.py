@@ -35,6 +35,8 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from collections.abc import Callable
+from dataclasses import dataclass
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -52,32 +54,23 @@ PAR_REQUEST = "flow/request-usb-utmi-phy-par.json"
 ANALOG_PROVENANCE = "layout/analog/provenance.json"
 ANALOG_PLAN_GLOB = "layout/analog/plans/*.json"
 
-# manifest key -> T1 item number
-ITEM_NUMBER = {"1.analog": 1, "1.digital": 1, "2.analog": 2, "2.digital": 2, "9": 9, "10": 10}
-ITEM_ARTIFACTS = {
-    "1.analog": "signoff/evidence/inventory-design-sources-analog.json",
-    "1.digital": "signoff/evidence/inventory-design-sources-digital.json",
-    "2.analog": "signoff/evidence/inventory-analog-layout.json",
-    "2.digital": GDS_TOP,
-    "9": "signoff/evidence/inventory-testbenches.json",
-    "10": "signoff/evidence/inventory-repo-hygiene.json",
-}
-ITEM_ENVELOPES = {
-    "1.analog": "signoff/evidence/t1-item-1-analog-design-sources.json",
-    "1.digital": "signoff/evidence/t1-item-1-digital-design-sources.json",
-    "2.analog": "signoff/evidence/t1-item-2-analog-layout.json",
-    "2.digital": "signoff/evidence/t1-item-2-digital-layout.json",
-    "9": "signoff/evidence/t1-item-9-testbenches.json",
-    "10": "signoff/evidence/t1-item-10-repo-hygiene.json",
-}
-ITEM_TITLES = {
-    "1.analog": "Design sources (analog partition)",
-    "1.digital": "Design sources (digital partition)",
-    "2.analog": "Layout (analog partition)",
-    "2.digital": "Layout (digital partition)",
-    "9": "Testbenches shipped",
-    "10": "Repo hygiene",
-}
+# One record per T1 item (the ITEMS registry below): the artifact each
+# envelope binds, that envelope's committed path, the item's title and the
+# builder that re-derives the artifact from the tree. Every field except
+# `builder` is required, so an item with no envelope is rejected here, at
+# construction, instead of being written and then never verified. The T1
+# item number is not stored -- it is the integer prefix of the item key.
+@dataclass(frozen=True)
+class Item:
+    artifact: str
+    envelope: str
+    title: str
+    builder: Callable[[Path], dict] | None = None
+
+
+def _item_number(key: str) -> int:
+    return int(key.partition(".")[0])
+
 
 # `sim/` directories that ship no `testbench*/` directory of their own. Each
 # must be classified; a new one is unclassified and fails the audit.
@@ -537,12 +530,46 @@ def build_analog_layout_inventory(root: Path = REPO_ROOT) -> dict:
     }
 
 
-INVENTORY_BUILDERS = {
-    "1.analog": build_analog_design_inventory,
-    "1.digital": build_digital_design_inventory,
-    "2.analog": build_analog_layout_inventory,
-    "9": build_testbench_inventory,
-    "10": build_hygiene_inventory,
+# The single T1 registry: one record per item, so no item can be built and
+# written by one table-driven loop while another table never envelops, cites
+# or verifies it. 2.digital carries `builder=None`: its routed GDS is bound
+# directly (see the module docstring).
+ITEMS: dict[str, Item] = {
+    "1.analog": Item(
+        artifact="signoff/evidence/inventory-design-sources-analog.json",
+        envelope="signoff/evidence/t1-item-1-analog-design-sources.json",
+        title="Design sources (analog partition)",
+        builder=build_analog_design_inventory,
+    ),
+    "1.digital": Item(
+        artifact="signoff/evidence/inventory-design-sources-digital.json",
+        envelope="signoff/evidence/t1-item-1-digital-design-sources.json",
+        title="Design sources (digital partition)",
+        builder=build_digital_design_inventory,
+    ),
+    "2.analog": Item(
+        artifact="signoff/evidence/inventory-analog-layout.json",
+        envelope="signoff/evidence/t1-item-2-analog-layout.json",
+        title="Layout (analog partition)",
+        builder=build_analog_layout_inventory,
+    ),
+    "2.digital": Item(
+        artifact=GDS_TOP,
+        envelope="signoff/evidence/t1-item-2-digital-layout.json",
+        title="Layout (digital partition)",
+    ),
+    "9": Item(
+        artifact="signoff/evidence/inventory-testbenches.json",
+        envelope="signoff/evidence/t1-item-9-testbenches.json",
+        title="Testbenches shipped",
+        builder=build_testbench_inventory,
+    ),
+    "10": Item(
+        artifact="signoff/evidence/inventory-repo-hygiene.json",
+        envelope="signoff/evidence/t1-item-10-repo-hygiene.json",
+        title="Repo hygiene",
+        builder=build_hygiene_inventory,
+    ),
 }
 
 
@@ -583,7 +610,8 @@ _EXTRA_SUMMARY = {
 
 def build_envelope(root: Path, key: str) -> dict:
     """The generic envelope for `key`, derived from the bound artifact on disk."""
-    artifact = ITEM_ARTIFACTS[key]
+    record = ITEMS[key]
+    artifact = record.artifact
     if key == "2.digital":
         summary = _layout_summary(root)
     else:
@@ -621,7 +649,7 @@ def build_envelope(root: Path, key: str) -> dict:
         else:
             what = ", ".join(m["path"] for m in inv["files"]) + " with the stated assertions"
         summary = (
-            f"Audited inventory for T1 item {ITEM_NUMBER[key]} ({ITEM_TITLES[key]}): {what}. "
+            f"Audited inventory for T1 item {_item_number(key)} ({record.title}): {what}. "
             "Every member file is listed with its sha256 and signoff/check.py re-derives the "
             "inventory from the live tree, so the bound hash proves the inventory is current "
             "and the member hashes prove the files it describes are. It does not run a "
@@ -632,7 +660,7 @@ def build_envelope(root: Path, key: str) -> dict:
     return {
         "schema_version": 1,
         "kind": "generic",
-        "t1_item": ITEM_NUMBER[key],
+        "t1_item": _item_number(key),
         "status": "pass",
         "summary": summary,
         "source": artifact,
@@ -653,15 +681,15 @@ def write_all(root: Path = REPO_ROOT) -> dict[str, str]:
     """Rebuild every inventory and envelope; returns {key: pinned content_hash}."""
     # Build everything before writing anything, so a failed audit leaves the
     # previous (honest) files untouched.
-    inventories = {key: builder(root) for key, builder in INVENTORY_BUILDERS.items()}
+    built = {key: item.builder(root) for key, item in ITEMS.items() if item.builder is not None}
     _layout_summary(root)
     (root / "signoff" / "evidence").mkdir(parents=True, exist_ok=True)
-    for key, inventory in inventories.items():
-        (root / ITEM_ARTIFACTS[key]).write_text(dump_json(inventory))
+    for key, inventory in built.items():
+        (root / ITEMS[key].artifact).write_text(dump_json(inventory))
     pins = {}
-    for key in ITEM_ENVELOPES:
+    for key, item in ITEMS.items():
         envelope = build_envelope(root, key)
-        (root / ITEM_ENVELOPES[key]).write_text(dump_json(envelope))
+        (root / item.envelope).write_text(dump_json(envelope))
         pins[key] = envelope["provenance"]["input"]["content_hash"]
     return pins
 
@@ -704,8 +732,9 @@ def verify_item(root: Path, key: str, manifest: dict) -> list[str]:
     entry = (manifest.get("evidence") or {}).get(key)
     if not isinstance(entry, dict) or not entry.get("file") or not entry.get("content_hash"):
         return [f"manifest item {key}: needs one {{file, content_hash}} citation"]
+    record = ITEMS[key]
     problems: list[str] = []
-    envelope_rel = ITEM_ENVELOPES[key]
+    envelope_rel = record.envelope
     if entry["file"] != envelope_rel:
         problems.append(f"manifest item {key}: cites {entry['file']!r}, expected {envelope_rel!r}")
     try:
@@ -713,7 +742,7 @@ def verify_item(root: Path, key: str, manifest: dict) -> list[str]:
     except (AuditError, ValueError) as exc:
         return problems + [f"{envelope_rel}: unreadable ({exc})"]
 
-    artifact = ITEM_ARTIFACTS[key]
+    artifact = record.artifact
     if not (root / artifact).is_file():
         return problems + [f"{artifact}: bound artifact is missing"]
     actual = sha256_file(root / artifact)
@@ -723,9 +752,9 @@ def verify_item(root: Path, key: str, manifest: dict) -> list[str]:
         )
     if committed_env.get("kind") != "generic":
         problems.append(f"{envelope_rel}: kind must be 'generic'")
-    item = ITEM_NUMBER[key]
-    if committed_env.get("t1_item") != item or isinstance(committed_env.get("t1_item"), bool):
-        problems.append(f"{envelope_rel}: t1_item is {committed_env.get('t1_item')!r}, expected {item}")
+    number = _item_number(key)
+    if committed_env.get("t1_item") != number or isinstance(committed_env.get("t1_item"), bool):
+        problems.append(f"{envelope_rel}: t1_item is {committed_env.get('t1_item')!r}, expected {number}")
     prov_input = (committed_env.get("provenance") or {}).get("input") or {}
     if committed_env.get("source") != artifact or prov_input.get("path") != {
         "path": artifact,
@@ -738,7 +767,7 @@ def verify_item(root: Path, key: str, manifest: dict) -> list[str]:
     if prov_input.get("content_hash") != actual:
         problems.append(f"{envelope_rel}: provenance.input.content_hash is stale vs {artifact}")
 
-    builder = INVENTORY_BUILDERS.get(key)
+    builder = record.builder
     try:
         if builder is not None:
             rebuilt = builder(root)
