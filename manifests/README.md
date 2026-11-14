@@ -502,7 +502,25 @@ repo's rule that an envelope must actually support the item to be cited:
   layer for a native-substrate block and the substrate region is therefore
   caller-asserted (`well_boxes`, klayout-tools#2255) — derived from the
   stream by `scripts/analog_erc.py` and re-gated on every run, not
-  hand-typed; `power_delivery.supply_unlabelled_islands` is `{}`, klt's
+  hand-typed; that asserted tie's own uncovered-tap fields
+  (klayout-tools#2427 — item 11 asks a claimant to quote them, because a
+  `well_boxes` assertion examines only the geometry it spans) are
+  `uncovered_tap_area_um2` / `uncovered_tap_fraction` = 970.4848 / 0.727793
+  on the cited `differential_driver`, and 168.4264 / 0.65955, 7714.4112 /
+  0.998458, 137.3536 / 0.605475 and 137.3536 / 0.605475 on
+  `differential_receiver`, `dplus_pullup`, `se_receiver_dm` and
+  `se_receiver_dp` — each **equal, to every digit, to that stream's own
+  `comp_area_inside_nwell_um2`**, because klt measures uncovered tap over the
+  declared `tap_layer` *un-narrowed* (`22/0`, bare `Comp`), so every µm² it
+  reports uncovered is `Comp` inside `Nwell`: n-well diffusion that
+  `nwell_pos_tap` covers on drawn geometry and the substrate tie does not
+  assert. The narrowed substrate tap the tie is about (`Comp ∩ Pplus −
+  Nwell`) is fully covered — `substrate_tap_area_outside_assertion_um2` is
+  `0.0` on all five — so a high `uncovered_tap_fraction` here measures how
+  much of a stream's bare `Comp` sits in n-well, not assertion-missed
+  substrate pads. Reporting only: `klt signoff` does not grade these fields
+  and the harness does not gate the equality;
+  `power_delivery.supply_unlabelled_islands` is `{}`, klt's
   honest "not measured", because no role is owned by a supply in these
   streams and `nets[].roles` is deliberately not declared; and
   `erc.supply_short` is `inapplicable` /`substrate_continuity_not_modelled`

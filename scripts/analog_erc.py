@@ -713,7 +713,7 @@ def grade_lvs_pairing(root: str, block: str, positive: str, ground: str) -> dict
 
 
 def gap_scan(kdb, root: str, blocks: list[str], klt: str, gaps: list[float]) -> int:
-    """Why `CLUSTER_GAP_UM` is 2.0 um, re-measurable rather than asserted.
+    """Why `CLUSTER_GAP_UM` is 1.1 um, re-measurable rather than asserted.
 
     For each gap, derive the assertion that gap implies, run `klt erc` on it,
     and print the resulting polygon count and `erc.missing_tie` count per

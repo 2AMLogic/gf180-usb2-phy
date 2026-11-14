@@ -99,8 +99,11 @@ The set is cited by T1 item `2.analog` through
 `signoff/evidence/inventory-analog-layout.json`, and transistor-level LVS of
 all five is cited by T1 item `4.analog` (issue #247, record
 `20261113-163000-35e9b6e5ab87`). Supply-connectivity ERC of all five is
-cited by T1 item `11.analog` (issue #248, record
-`20261114-003000-db05b5e`). DRC of these streams is still unsigned —
+*recorded* in record `20261114-003000-db05b5e` (issue #248); T1 item
+`11.analog` cites one `(erc, lvs)` pair from it — `differential_driver` —
+because item 11 takes a single pair, not a list (klayout-tools#5597). See
+`manifests/README.md`, "Why this row cites one stream when the partition has
+five". DRC of these streams is still unsigned —
 issue #246. The dated history of the klt-only
 attempt that led here is kept verbatim in
 [`analog/HISTORY.md`](analog/HISTORY.md); where it says "not delivered" or
@@ -309,7 +312,8 @@ plan-path-only `differential_receiver` geometry, not the committed stream.
 What is still missing is electrical: no extracted re-simulation exists, and
 LVS compared no resistor dimension (see "What the match does not say" above).
 Supply-connectivity ERC of all five streams landed with issue #248 and is
-cited as T1 item `11.analog` (record `20261114-003000-db05b5e`); DRC signoff
+recorded in `20261114-003000-db05b5e`, from which T1 item `11.analog` cites
+one `(erc, lvs)` pair (`differential_driver`) rather than all five; DRC signoff
 of the committed streams is still issue #246. The match is cited as T1 item `4.analog` (issue #247): all five
 envelopes of record `20261113-163000-35e9b6e5ab87` are pinned in
 `manifests/gf180-usb2-phy.json`, the frozen report grades the row `met`, and
