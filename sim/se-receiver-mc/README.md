@@ -8,7 +8,8 @@ validate a mismatch-driven row alone.
 `build_requests.py` writes, for each receiver (`dp`, `dm`), four `klt sim`
 requests (one self-contained `body.spice` each, DUT and testbench taken
 unmodified from the corner-run benches). Same shape as
-`sim/diff-receiver-mc/`, whose builder it reuses:
+`sim/diff-receiver-mc/`, with which it shares one request builder
+(`sim/harness/mc_requests.py`):
 
 | variant | deck switch | purpose |
 |---|---|---|
