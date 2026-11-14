@@ -427,7 +427,7 @@
     },
     {
       "path": "sim/harness/README.md",
-      "sha256": "sha256:bff8feaed91d0a6908d3447a5850671fcc60cc91fd96778f7854721cfbc3ee15"
+      "sha256": "sha256:23ef38c2420ab575a105d23f64f4e650f1eebfc1a1058d59c7c7bc15e2524796"
     },
     {
       "path": "sim/harness/__init__.py",
@@ -452,6 +452,10 @@
     {
       "path": "sim/harness/klt_backend.py",
       "sha256": "sha256:7addce46b45abdb8b7e86c101940019572d7ac7650abf26e0989869ff687c0ea"
+    },
+    {
+      "path": "sim/harness/mc_requests.py",
+      "sha256": "sha256:42153c98cadbe8ad4ef6f82811ec9cc43653854cfe02dc920ec4395df9f16936"
     },
     {
       "path": "sim/harness/pdk.py",
@@ -503,7 +507,7 @@
     },
     {
       "path": "sim/tests/test_harness.py",
-      "sha256": "sha256:1b26634c779e338613974e79aad852026062cbb8f6240d742a5bb11305346e00"
+      "sha256": "sha256:fb354c93abf8a17a557f062876fa7a84caf70cdfa17d9c023a770278d81195d8"
     },
     {
       "path": "sim/tests/test_port_lint.py",
@@ -515,10 +519,10 @@
     }
   ],
   "dirs_without_testbench": {
-    "diff-receiver-mc": "Monte Carlo request builder (build_requests.py) for the fleet; ships no testbench of its own, reuses sim/diff-receiver-sensitivity/",
+    "diff-receiver-mc": "Monte Carlo request builder (build_requests.py) for the fleet; ships no testbench of its own, reuses sim/diff-receiver-sensitivity/ and takes its request shape from sim/harness/mc_requests.py",
     "harness": "shared corner-runner support code, not an experiment",
     "notes": "dated comparison notes between evidence records (prose only), not an experiment",
-    "se-receiver-mc": "Monte Carlo request builder (build_requests.py) for the fleet; ships no testbench of its own, reuses the single-ended receiver deck",
+    "se-receiver-mc": "Monte Carlo request builder (build_requests.py) for the fleet; ships no testbench of its own, reuses the single-ended receiver deck and takes its request shape from sim/harness/mc_requests.py",
     "tests": "harness unit tests, not an experiment"
   }
 }

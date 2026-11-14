@@ -30,6 +30,10 @@ sim/
   check_records.py          evidence-record format + append-only checker
   pdk.json                  committed PDK defaults (variant, extra search roots)
   harness/                  the runner itself (this directory)
+    mc_requests.py          the `klt sim` Monte Carlo request shape and deck
+                            layout both receiver MC campaigns share; imported
+                            by sim/diff-receiver-mc/ and sim/se-receiver-mc/,
+                            not part of the PVT corner runner below
   tests/                    harness unit tests (no PDK, no ngspice required)
   .work/                    generated ngspice decks (git-ignored, disposable)
 
