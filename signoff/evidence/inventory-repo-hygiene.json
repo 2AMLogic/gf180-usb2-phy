@@ -27,11 +27,11 @@
     },
     {
       "path": "package.json",
-      "sha256": "sha256:060261f1339381953828549032e2e3318a1ebe18babbafe53edcebcade761a0e"
+      "sha256": "sha256:f99c4a14f4a33732ec2573a701b101db9a70a225a59c044f6c75e25c45ee852c"
     },
     {
       "path": "spec/usb2-device-phy.md",
-      "sha256": "sha256:a7f5fd1c62fc17dcc008d45580eea7440b74b58e8fa8d2717c3bee052f2a19e9"
+      "sha256": "sha256:b3477b0669fb2d3d802d9a9594baf7f9974055ab35b770b40b4a98dd9cb5f4d9"
     }
   ]
 }
