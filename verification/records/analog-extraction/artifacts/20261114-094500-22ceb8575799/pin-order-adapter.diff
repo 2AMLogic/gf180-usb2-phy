@@ -1,0 +1,4 @@
+16c16
+< .SUBCKT differential_receiver DM DP RXD VDD VSS
+---
+> .SUBCKT differential_receiver VDD VSS DP DM RXD
