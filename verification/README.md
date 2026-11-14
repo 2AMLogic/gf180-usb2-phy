@@ -468,6 +468,27 @@ verification/records/
     6 / 6 of the 84 / 28 / 24 / 28 / 28 drawn body-tie pads reach ground
     through metal, the rest being tied through the substrate, which `klt
     erc` does not model.
+  - `analog-extraction` (issue #369) — whether the **pinned** `klt` can turn a
+    committed analog stream into a parasitic-annotated netlist that ngspice
+    will load in place of the schematic DUT. It can: `klt extract --parasitics
+    --pdk gf180mcuD` on `differential_receiver.gds` yields 43 R / 10 ground C /
+    24 coupling C, and the block's existing `diff-receiver-sensitivity`
+    testbench runs it to `PASS` at one corner via the harness's `--dut` swap —
+    with **no edit to `tb.json`** and no verdict in `sim/spec-coverage.md`
+    touched. Two caveats carry forward to #53, which still owns the extracted
+    PVT matrix. First, `--pdk` is **required** for a simulatable netlist:
+    without it MOS devices are written as bare `M` cards against models the
+    PDK's ngspice deck does not define (which is why the `analog-lvs`
+    harness's extract, correctly for LVS, is not simulatable). Second, the
+    extracted `.SUBCKT` port order is alphabetical while the testbench
+    instantiates positionally, and on the pin no flag reconciles them — dropped
+    in as written the netlist **loads silently and returns confidently wrong
+    numbers** (a ±500 mV threshold that mimics a real spec failure), so the
+    record freezes that mis-wired transcript alongside the correct one as the
+    evidence. Also worth reading for what the extraction *omits*: no lateral
+    coupling, no distributed RC, no substrate spreading, no inductance, and —
+    since the experiment's only analysis is a DC sweep — the matching
+    thresholds are **not** evidence that parasitics are immaterial.
   One directory per distinct claim, not per run. Future entries (e.g.
   `analog-drc`, `gate-level-sim`) follow the same pattern once
   those legs of the maturity ladder are taken up.
