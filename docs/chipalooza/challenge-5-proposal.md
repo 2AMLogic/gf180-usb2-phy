@@ -31,10 +31,10 @@ transistor-level LVS of all five is a **match** with `error_count: 0`
 (`verification/records/analog-lvs/records/20261113-163000-35e9b6e5ab87.md`,
 issue #247). What no analog block yet has is an ERC result (#248), a DRC
 coverage attestation (#246) or an extracted-netlist re-simulation (#53) — so
-the analog half is not at the sign-off bar. §5 gives the per-block state. Nothing has been
-fabricated and nothing has been measured on silicon. §4 states every row's
-verdict, met and unmet alike, and §6 says plainly what a shuttle seat
-would and would not settle.
+the analog half is not at the sign-off bar. §5 gives the per-block state.
+Nothing has been fabricated and nothing has been measured on silicon. §4
+states every row's verdict, met and unmet alike, and §6 says plainly what a
+shuttle seat would and would not settle.
 
 This document contains no personal or institutional identifiers; the
 designer/CV and test-equipment attachments the program asks for separately
@@ -344,9 +344,16 @@ Row I now has a post-layout re-verification: a SPEF-annotated `klt sta` re-run a
 
 ### Summary of verdicts
 
-**Met:** Rows A, B, C, D (as of issue #96), E (as of issue #97), F (conditional on per-part trim), H, I (at both 3.3 V and
-5.0 V), K, L and M (digital half).
-**Unmet:** Rows G, N, and the analog half of L and M.
+**Met:** Rows A, B, C, D (as of issue #96), E (as of issue #97), F
+(conditional on per-part trim), H, I (at both 3.3 V and 5.0 V), K, L
+(digital half), and M — digital half, and the analog half too **as
+measured**: transistor-level LVS reads `status: "match"` with `error_count:
+0` on all five blocks, subject to the two limits Row M states (the poly
+resistors paired on topology alone, so no resistor dimension was compared;
+`power_connectivity` `unchecked` on all five, hence the separate and still
+open ERC obligation, issue #248).
+**Unmet:** Rows G, N, and the analog half of L — the analog DRC coverage
+attestation, issue #246.
 **Deliberately unjudged:** Row J.
 
 Rows A, C and D needed a design change rather than a document change: a
@@ -416,9 +423,10 @@ stub, one unshared metal-3 track per net, one metal-2 corridor per mixed net,
 no device moved or re-sized); `routing_method` in
 `layout/analog/provenance.json` is the per-block split. The multi-net
 layer/track-assignment gap that blocks the compiler from finishing them is
-filed upstream as `2AMLogic/klayout-tools#1962` (open). Second, `dplus_pullup` reached a
-committed layout through two operator-ratified decisions, each with a record
-rather than a silent edit, and neither relaxing the ratified spec:
+filed upstream as `2AMLogic/klayout-tools#1962` (open). Second,
+`dplus_pullup` reached a committed layout through two operator-ratified
+decisions, each with a record rather than a silent edit, and neither
+relaxing the ratified spec:
 
 - **DR-0001** (`spec/decisions/0001-dplus-pullup-switch-device-flattening.md`,
   decided on gf180-usb2-phy#56) re-drew its six wide switch devices from one
