@@ -107,12 +107,11 @@ def _sh(cmd: list[str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(cmd, capture_output=True, text=True, check=False)
 
 
-def parse_verilog(path: str) -> tuple[list[str], list[tuple[str, str, dict[str, str]]]]:
-    """Return (top-level port names, instances) from structural Verilog.
+def parse_verilog(path: str) -> list[str]:
+    """Return the top-level port names from structural Verilog.
 
     Ports are expanded bit-by-bit (`DataIn[7:0]` -> `DataIn[0]` ...) to match
     the per-bit net names `klt extract --def-net-names` recovers from the DEF.
-    Instances are `(cell_type, instance_name, {pin: net})`.
     """
     src = open(path, encoding="utf-8").read()
     # Strip line comments; the generated netlist has no block comments.
@@ -144,17 +143,25 @@ def parse_verilog(path: str) -> tuple[list[str], list[tuple[str, str, dict[str, 
         for lhs, rhs in re.findall(r"\bassign\s+([^=;]+?)\s*=\s*([^;]+?)\s*;", src)
     }
     ports = [aliases.get(p, p) for p in ports]
+    return ports
 
-    instances: list[tuple[str, str, dict[str, str]]] = []
-    for cell, inst, body in re.findall(
-        r"\b(gf180mcu_fd_sc_\w+)\s+(\S+)\s*\(([^;]*?)\)\s*;", src, re.S
-    ):
-        conns = {
-            pin: unescape_verilog(net)
-            for pin, net in re.findall(r"\.(\w+)\s*\(([^)]*?)\)", body)
-        }
-        instances.append((cell, unescape_verilog(inst), conns))
-    return ports, instances
+
+def count_instances(path: str, cell_library: str) -> int:
+    """Count standard-cell instances of `cell_library` in a netlist.
+
+    Counts occurrences without building the per-instance structures
+    `parse_verilog` used to produce -- nothing consumes those, and this
+    derives the progress-line count from the `pdk.cell_library` value the
+    caller already reads rather than a hard-coded library prefix.
+    """
+    src = open(path, encoding="utf-8").read()
+    # Strip line comments; the generated netlist has no block comments.
+    src = re.sub(r"//[^\n]*", "", src)
+    return len(
+        re.findall(
+            rf"\b{re.escape(cell_library)}\w*\s+\S+\s*\([^;]*?\)\s*;", src, re.S
+        )
+    )
 
 
 def unescape_verilog(name: str) -> str:
@@ -308,9 +315,9 @@ def main() -> int:
             "library to abstract and compare against cannot be derived"
         )
 
-    ports, _instances = parse_verilog(verilog)
+    ports = parse_verilog(verilog)
     print(
-        f"as-built netlist: {len(_instances)} instances, "
+        f"as-built netlist: {count_instances(verilog, cell_library)} instances, "
         f"{len(ports)} top-level ports (after assign-alias resolution)"
     )
 
