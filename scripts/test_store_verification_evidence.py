@@ -158,6 +158,11 @@ class Stores(Base):
         self.assertIn(sve.SECTION_HEADING, after)
         self.assertIn("klt artifact verify", after)
         self.assertIn(f"{EXPERIMENT}-{RID}.manifest.json", after)
+        # The appended section cites the issue/decision governing this tree,
+        # not the corner-campaign one (records are append-only, issue #395).
+        section = after[after.index(sve.SECTION_HEADING):]
+        self.assertIn("issue #366, DR-0008", section)
+        self.assertNotIn("#237", section)
 
     def test_zero_byte_file_is_listed_not_stored(self):
         self.stage_file("a.json")

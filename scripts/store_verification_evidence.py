@@ -140,7 +140,10 @@ def store_record_evidence(files, *, repo_root: Path, experiment: str, record_id:
     mrel = mpath.relative_to(repo_root).as_posix()
     evidence_store.install_manifest(manifest, mpath)
     with open(record, "a", encoding="utf-8") as fh:
-        fh.write(evidence_store.summary_section(mrel, manifest, empty))
+        fh.write(evidence_store.summary_section(
+            mrel, manifest, empty,
+            provenance="The bytes of this record are in the fleet artifact "
+                       "store, not in git (issue #366, DR-0008)"))
     return mpath
 
 
