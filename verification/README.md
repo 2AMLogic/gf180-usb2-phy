@@ -415,12 +415,15 @@ verification/records/
     so this is a curated-deck claim, not a signoff claim.
   - `analog-layout` (issue #25) — what klt's netlist-driven layout-plan
     path (`klt.layout_plan.request/1` +
-    `klayout_tools.layout_plan_execute`) actually produces for the five
-    analog blocks: two cannot be ingested, three place DRC-clean and route
-    **zero** nets. A negative result, measured rather than assumed, with
-    klt's own per-net failure reasons frozen as artifacts — see
-    `layout/analog/HISTORY.md` for the diagnosis and the friction issues
-    filed upstream.
+    `klayout_tools.layout_plan_execute`) actually produced for the five
+    analog blocks during the klt-only routing attempt — **dated history,
+    not current state**: two could not be ingested, three placed DRC-clean
+    and routed **zero** nets. A negative result, measured rather than
+    assumed, with klt's own per-net failure reasons frozen as artifacts —
+    see `layout/analog/HISTORY.md` for the diagnosis and the friction
+    issues filed upstream. Current state is the committed streams
+    (`layout/analog/provenance.json`, all five routed), measured by the
+    later `analog-layout` records (e.g. `20261115-175500-5279711`).
   - `post-layout-functional` (issue #93) — the gate-level, SDF-annotated
     regression behind T1 item `7.digital`. The early records are **negative
     results** (the pinned `klt` rejected the SDF annotation,
@@ -443,8 +446,15 @@ verification/records/
     single-pin nets with no wire to extract — and reported every
     timing/power/skew number unchanged from the first attempt. The analog
     half is still not attempted: #52 closed (PR #57) without ever
-    committing a GDS/OASIS for any of the five analog blocks, so there is
-    nothing under `layout/analog/` to extract.
+    committing a GDS/OASIS for any of the five analog blocks — dated
+    history now, because the five streams have since been committed under
+    `layout/analog/`, and the `analog-extraction` entry below records a
+    parasitic-extraction probe on one of them (`differential_receiver`) at
+    a single corner (latest probe `20261115-180500-5279711`, re-run on the
+    regenerated stream; it supersedes the #369 record). What no record yet
+    covers is the extracted-netlist PVT matrix across the partition: no
+    analog `post-layout-pvt` record exists for any block, and #53 owns
+    that re-verification.
   - `digital-erc` (issue #77) — the `klt erc` supply read against the routed
     GDS with the committed `layout/digital/erc-supply-spec.json`: the T1
     item 11 (power delivery, structural) artifact for the digital
