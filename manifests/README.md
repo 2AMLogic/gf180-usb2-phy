@@ -112,7 +112,7 @@ partitions:
   The record lineage has since advanced twice: `20261115-002602-b2da113`
   re-measured at a new script hash and disclosed a `power_connectivity`
   mismatch (a harness LEF flag unioning well pins into the abstracted
-  cells), and `20261115-152827-e71630d` (issue #392) dropped that flag and
+  cells), and `20261115-200849-6416f1a` (issue #392) dropped that flag and
   restored the full pass above at the same engine pin — it is the current
   evidence for this item's claim. The citation itself stays pinned to the
   committed, hash-matching `20261015` bytes so `scripts/check_signoff_report.py`

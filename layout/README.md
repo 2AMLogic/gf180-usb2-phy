@@ -37,7 +37,7 @@ reproduced all three byte-identically.
 against this exact GDS.
 
 **LVS-matched, power-verified** —
-`verification/records/digital-lvs/records/20261115-152827-e71630d.md`:
+`verification/records/digital-lvs/records/20261115-200849-6416f1a.md`:
 gate-level LVS of this GDS against `usb_utmi_phy_routed.v` (the as-built,
 post-CTS netlist) is a `status: "match"` **and**
 `power_connectivity.status: "match"` — every power/ground pin of every

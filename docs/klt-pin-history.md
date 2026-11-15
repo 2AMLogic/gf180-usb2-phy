@@ -248,7 +248,7 @@ future bump appends the next move here and changes the table there.
    (its only re-mints came from unrelated refactors staling a provenance
    hash). Fixed in issue #392 by dropping the flag (the abstraction is
    label-resolved again; the full-pass verdict and the negative control are
-   re-measured in `verification/records/digital-lvs/records/20261115-152827-e71630d.md`)
+   re-measured in `verification/records/digital-lvs/records/20261115-200849-6416f1a.md`)
    and filed upstream as klayout-tools#5842.
 
 `npm run check:ci` was re-run against each new pin before it was committed.
