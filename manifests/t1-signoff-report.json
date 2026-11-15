@@ -96,7 +96,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:503e10ed5a6e4afe70b76a4e4ce2b570cc1cefbe8071b144d99972e05975efad",
+        "content_hash": "sha256:1751a3b98fc930a30fa24b5e4d05420ba6101560bc047222ea430951acbb5748",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -105,7 +105,7 @@
             "path": "signoff/evidence/inventory-analog-layout.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:503e10ed5a6e4afe70b76a4e4ce2b570cc1cefbe8071b144d99972e05975efad",
+          "content_hash": "sha256:1751a3b98fc930a30fa24b5e4d05420ba6101560bc047222ea430951acbb5748",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 2 (Layout (analog partition)): 5 routed analog GDS (differential_driver, differential_receiver, dplus_pullup, se_receiver_dm, se_receiver_dp) and the generator sidecar layout/analog/provenance.json, each stream listed with its sha256 alongside the layout plan and SPICE netlist it was built from. Every block is fully routed (routing_method accounts for all of its nets) and DRC-clean in the sidecar, which records the klt drc run made at delivery. Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run. It asserts only that the routed analog streams exist, still hash to the values layout/analog/provenance.json recorded for them, and were DRC-clean when delivered. Byte-level regeneration is a separate gate (scripts/gen_analog_layout.py --check) that needs klt and the PDK and is run neither here nor in CI, so this envelope does not assert that regenerating a stream reproduces its committed bytes -- see verification/records/analog-layout/ for what that gate last measured. It does NOT claim LVS, ERC or extracted re-simulation of the analog partition, and makes no area, matching or timing claim.",
           "source": "signoff/evidence/inventory-analog-layout.json"
@@ -222,84 +222,84 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/differential_driver-lvs-report.json",
+        "file": "verification/records/analog-lvs/artifacts/20261115-175000-5279711/differential_driver-lvs-report.json",
         "command": null,
         "kind": "lvs",
         "check_status": "match",
-        "content_hash": "sha256:4a1c1ddfc5a1a984c2ecd156808cd20acbd881ef74d6f092e18ee377a2800fcb",
+        "content_hash": "sha256:8db96dcd4eef2d388293298b948f25f765b48d80d3340892d06ca1051a76d010",
         "input_verified": null,
         "exit_status": 0
       },
       "citations_graded": [
         {
-          "citation": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/differential_driver-lvs-report.json",
+          "citation": "verification/records/analog-lvs/artifacts/20261115-175000-5279711/differential_driver-lvs-report.json",
           "status": "met",
           "reason": null
         },
         {
-          "citation": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/differential_receiver-lvs-report.json",
+          "citation": "verification/records/analog-lvs/artifacts/20261115-175000-5279711/differential_receiver-lvs-report.json",
           "status": "met",
           "reason": null
         },
         {
-          "citation": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/dplus_pullup-lvs-report.json",
+          "citation": "verification/records/analog-lvs/artifacts/20261115-175000-5279711/dplus_pullup-lvs-report.json",
           "status": "met",
           "reason": null
         },
         {
-          "citation": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/se_receiver_dm-lvs-report.json",
+          "citation": "verification/records/analog-lvs/artifacts/20261115-175000-5279711/se_receiver_dm-lvs-report.json",
           "status": "met",
           "reason": null
         },
         {
-          "citation": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/se_receiver_dp-lvs-report.json",
+          "citation": "verification/records/analog-lvs/artifacts/20261115-175000-5279711/se_receiver_dp-lvs-report.json",
           "status": "met",
           "reason": null
         }
       ],
       "citations": [
         {
-          "file": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/differential_driver-lvs-report.json",
+          "file": "verification/records/analog-lvs/artifacts/20261115-175000-5279711/differential_driver-lvs-report.json",
           "command": null,
           "kind": "lvs",
           "check_status": "match",
-          "content_hash": "sha256:4a1c1ddfc5a1a984c2ecd156808cd20acbd881ef74d6f092e18ee377a2800fcb",
+          "content_hash": "sha256:8db96dcd4eef2d388293298b948f25f765b48d80d3340892d06ca1051a76d010",
           "input_verified": null,
           "exit_status": 0
         },
         {
-          "file": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/differential_receiver-lvs-report.json",
+          "file": "verification/records/analog-lvs/artifacts/20261115-175000-5279711/differential_receiver-lvs-report.json",
           "command": null,
           "kind": "lvs",
           "check_status": "match",
-          "content_hash": "sha256:8546baa5d159f33bf741d55d367ab11a91aaf622da31b08dd1ded1872de22f5f",
+          "content_hash": "sha256:b7bb3c859b3fc9655e7320d990bd484c133908099cff2a0b41e70e0902c46eba",
           "input_verified": null,
           "exit_status": 0
         },
         {
-          "file": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/dplus_pullup-lvs-report.json",
+          "file": "verification/records/analog-lvs/artifacts/20261115-175000-5279711/dplus_pullup-lvs-report.json",
           "command": null,
           "kind": "lvs",
           "check_status": "match",
-          "content_hash": "sha256:61811cc55de70c8645c98eaf6472913e631250970dbfa8cdd812bacd6c7789d8",
+          "content_hash": "sha256:69a6310d5fbf2b29ba39e3ec4c581b29860f6df2ba8794afc46973b5d42d5ed9",
           "input_verified": null,
           "exit_status": 0
         },
         {
-          "file": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/se_receiver_dm-lvs-report.json",
+          "file": "verification/records/analog-lvs/artifacts/20261115-175000-5279711/se_receiver_dm-lvs-report.json",
           "command": null,
           "kind": "lvs",
           "check_status": "match",
-          "content_hash": "sha256:31601e6386711cba7a89dcd2f24716eff8568c2de098d5f1e1b27a1ff47cc06c",
+          "content_hash": "sha256:653fd721daf443512c589ce4fa7bb1b5f606b7b4c5d2aa37e196f15924ea2784",
           "input_verified": null,
           "exit_status": 0
         },
         {
-          "file": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/se_receiver_dp-lvs-report.json",
+          "file": "verification/records/analog-lvs/artifacts/20261115-175000-5279711/se_receiver_dp-lvs-report.json",
           "command": null,
           "kind": "lvs",
           "check_status": "match",
-          "content_hash": "sha256:101312916c6851df73af1f8977ec92f1db0f24c802bef3d5840ddc7bcc93c5d3",
+          "content_hash": "sha256:4ef694777f5ce99b485c2f3024137918c0d82730e023129485afcbb25317cd2e",
           "input_verified": null,
           "exit_status": 0
         }
@@ -966,7 +966,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:2e157b01bfc0b103a71552216d38ea95f6fad7c477eb6f52b54fade6309de951",
+        "content_hash": "sha256:651e34ef5410576b1039140a412ad66fcfc9651d9cedc4ad51f1c5c841108b83",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -975,7 +975,7 @@
             "path": "signoff/evidence/inventory-testbenches.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:2e157b01bfc0b103a71552216d38ea95f6fad7c477eb6f52b54fade6309de951",
+          "content_hash": "sha256:651e34ef5410576b1039140a412ad66fcfc9651d9cedc4ad51f1c5c841108b83",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 12 cocotb tests mapped to 17 klt functional-verification requests, 9 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-testbenches.json"
@@ -997,7 +997,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:2e157b01bfc0b103a71552216d38ea95f6fad7c477eb6f52b54fade6309de951",
+        "content_hash": "sha256:651e34ef5410576b1039140a412ad66fcfc9651d9cedc4ad51f1c5c841108b83",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -1006,7 +1006,7 @@
             "path": "signoff/evidence/inventory-testbenches.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:2e157b01bfc0b103a71552216d38ea95f6fad7c477eb6f52b54fade6309de951",
+          "content_hash": "sha256:651e34ef5410576b1039140a412ad66fcfc9651d9cedc4ad51f1c5c841108b83",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 12 cocotb tests mapped to 17 klt functional-verification requests, 9 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-testbenches.json"
@@ -1028,7 +1028,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:1848e7dacbd6443eb19c86a2db763e623a61b6ae9361ac771b54a4ed561437da",
+        "content_hash": "sha256:21bff749d7c8ff6be41d40f83e790e0208bd79b96ab2b35be8be4b70c4e8b501",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -1037,7 +1037,7 @@
             "path": "signoff/evidence/inventory-repo-hygiene.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:1848e7dacbd6443eb19c86a2db763e623a61b6ae9361ac771b54a4ed561437da",
+          "content_hash": "sha256:21bff749d7c8ff6be41d40f83e790e0208bd79b96ab2b35be8be4b70c4e8b501",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 10 (Repo hygiene): .github/workflows/ci.yml, LICENSE, README.md, docs/environment-setup.md, package.json, spec/usb2-device-phy.md with the stated assertions. Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-repo-hygiene.json"
@@ -1059,7 +1059,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:1848e7dacbd6443eb19c86a2db763e623a61b6ae9361ac771b54a4ed561437da",
+        "content_hash": "sha256:21bff749d7c8ff6be41d40f83e790e0208bd79b96ab2b35be8be4b70c4e8b501",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -1068,7 +1068,7 @@
             "path": "signoff/evidence/inventory-repo-hygiene.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:1848e7dacbd6443eb19c86a2db763e623a61b6ae9361ac771b54a4ed561437da",
+          "content_hash": "sha256:21bff749d7c8ff6be41d40f83e790e0208bd79b96ab2b35be8be4b70c4e8b501",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 10 (Repo hygiene): .github/workflows/ci.yml, LICENSE, README.md, docs/environment-setup.md, package.json, spec/usb2-device-phy.md with the stated assertions. Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-repo-hygiene.json"
@@ -1089,29 +1089,29 @@
       "reason": null,
       "graded_by_build": true,
       "citation": {
-        "file": "verification/records/analog-erc/artifacts/20261114-003000-db05b5e/differential_driver-erc-supply-report.json",
+        "file": "verification/records/analog-erc/artifacts/20261115-174000-5279711/differential_driver-erc-supply-report.json",
         "command": null,
         "kind": "erc",
         "check_status": "not_checked",
-        "content_hash": "sha256:4a1c1ddfc5a1a984c2ecd156808cd20acbd881ef74d6f092e18ee377a2800fcb",
+        "content_hash": "sha256:8db96dcd4eef2d388293298b948f25f765b48d80d3340892d06ca1051a76d010",
         "input_verified": true,
         "exit_status": 0,
         "parts": [
           {
-            "file": "verification/records/analog-erc/artifacts/20261114-003000-db05b5e/differential_driver-erc-supply-report.json",
+            "file": "verification/records/analog-erc/artifacts/20261115-174000-5279711/differential_driver-erc-supply-report.json",
             "command": null,
             "kind": "erc",
             "check_status": "not_checked",
-            "content_hash": "sha256:4a1c1ddfc5a1a984c2ecd156808cd20acbd881ef74d6f092e18ee377a2800fcb",
+            "content_hash": "sha256:8db96dcd4eef2d388293298b948f25f765b48d80d3340892d06ca1051a76d010",
             "input_verified": true,
             "exit_status": 0
           },
           {
-            "file": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/differential_driver-lvs-report.json",
+            "file": "verification/records/analog-lvs/artifacts/20261115-175000-5279711/differential_driver-lvs-report.json",
             "command": null,
             "kind": "lvs",
             "check_status": "match",
-            "content_hash": "sha256:4a1c1ddfc5a1a984c2ecd156808cd20acbd881ef74d6f092e18ee377a2800fcb",
+            "content_hash": "sha256:8db96dcd4eef2d388293298b948f25f765b48d80d3340892d06ca1051a76d010",
             "input_verified": null,
             "exit_status": 0
           }

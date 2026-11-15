@@ -111,3 +111,11 @@ jobs:
         run: |
           python3 verification/check_records.py --require-append-only --base-ref origin/main
           python3 sim/check_records.py --require-append-only --base-ref origin/main
+
+      # Drawn resistor L/W vs netlist (issue #370). Needs the klayout module
+      # (installed above with klayout-tools), not the PDK or a deck, so it
+      # runs here and NOT inside `npm run lint`: lint must keep passing on a
+      # bare python3 with no klayout importable -- that property is why the
+      # check's unit test lives in lint while this script does not.
+      - name: Analog resistor drawn-dimension check (klayout geometry, no PDK)
+        run: python3 scripts/check_analog_resistor_dims.py
