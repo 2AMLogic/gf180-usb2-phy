@@ -8,6 +8,10 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-15
 
+- **PR #393**: refactor: drop the unused instance-parsing half of digital_lvs parse_verilog
+- **Issue #389** (closed): Remove the unused instance-parsing half of digital_lvs.py's parse_verilog()
+- **PR #377**: ci: drop two workflow steps that repeat commands check:ci already ran
+- **Issue #359** (closed): Remove two CI steps that re-run commands npm run check:ci already ran: neither can ever fail
 - **PR #394**: refactor: one record per T1 item in signoff/inventories.py
 - **Issue #384** (closed): Collapse the five parallel T1-item tables in signoff/inventories.py into one record per item: a missing ITEM_ENVELOPES entry is written but never verified
 - **PR #391**: evidence: standalone klt drc records for the five analog streams, coverage quoted verbatim

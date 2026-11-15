@@ -355,7 +355,7 @@ verification/records/
 ```
 
 - **`<experiment-slug>`** — short, descriptive, kebab-case name for the
-  claim being verified. This repo currently has fifteen:
+  claim being verified. This repo currently has sixteen:
   - `functional-smoke` — the cocotb + Icarus + `klt functional-verification`
     harness runs end-to-end (no PDK dependency). A harness claim, not a PHY
     claim. Originally carried by the bootstrap counter; retired by DR-0007
@@ -499,6 +499,19 @@ verification/records/
     coupling, no distributed RC, no substrate spreading, no inductance, and —
     since the experiment's only analysis is a DC sweep — the matching
     thresholds are **not** evidence that parasitics are immaterial.
+  - `analog-resistor-dims` (issue #370) — the drawn resistor dimension check
+    that LVS cannot do: `scripts/check_analog_resistor_dims.py` reads every
+    resistor's drawn `L`/`W` off the GDS resistor-marker layer (`110/5` poly,
+    `110/11` `RM1`), joins it to the netlist `r_length`/`r_width` through the
+    plan's `res_array` groups, and compares exactly in whole nanometres
+    across all five streams — 19 devices, 14 exact, the only 5 deviations
+    being the `dplus_pullup` trim segments drawn at exactly DR-0010's
+    sanctioned lengths (per-instance allow-list, each naming the decision
+    record; a segment drawn at any other length fails). Fail-loud guards
+    cover provenance hash drift, `num`/`dummy`/`m` deviations, missing marker
+    geometry and unjoineable instances; negative controls (perturbed and
+    dropped allow-list entries) are part of the record. A drawn-geometry
+    claim only: no resistance, no LVS verdict change, no simulation.
   One directory per distinct claim, not per run. Future entries (e.g.
   `gate-level-sim`) follow the same pattern once
   those legs of the maturity ladder are taken up.
