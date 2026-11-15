@@ -54,12 +54,15 @@ mismatched, with every PMOS body on its own anonymous well, every NMOS body
 on the deck-synthesized ``vsubs``, and internal nodes exported as pins.
 
 So the same post-plan pass that completes the routing also re-reads the
-plan's own netlist digest and, per device group, ties the group's body --
-through one of its ``TAP_PAD*`` ports -- to the net the schematic puts that
-body on (``_netlist_pin_map``), then re-labels the top cell so its named
-nets are exactly the reference ``.subckt`` ports (``_write_pin_labels``).
-One pad per group is enough: a group's pads contact the one well (pfet) or
-the one substrate (nfet) its devices sit in. The tool gap is filed as
+plan's own netlist digest and, per device group, ties the group's body net
+through EVERY ``TAP_PAD*`` port the generator drew for it -- substrate pads
+on the nfet groups and n-well pads on the pfet groups alike -- and straps
+the group's pads together in metal-1 so each drawn pad reaches the net the
+schematic puts that body on (``_netlist_pin_map``, ``_strap_body_pads``),
+then re-labels the top cell so its named nets are exactly the reference
+``.subckt`` ports (``_write_pin_labels``). A pad the strap cannot carry
+keeps its own escape stub, and same-net stubs within one via width of a
+kept stub's column ride that stub's via-2. The tool gap is filed as
 ``2AMLogic/klayout-tools#5546``; nothing here edits a plan or a GDS by hand.
 
 Exit codes (about *the run*, never about the quality of the layout -- read
@@ -121,6 +124,9 @@ M1_LABEL = (34, 10)
 LABEL_LAYERS = ((34, 10), (36, 10), (42, 10))
 # `mos_array`'s contacted well/substrate tap pads (klayout-tools #3648/#4143).
 TAP_PAD_PREFIX = "TAP_PAD"
+# One drawn tap pad's metal-1 square, read off the committed streams
+# (`_strap_body_pads` needs it to size what a leg may legally touch).
+PAD_SQUARE_UM = 0.42
 # The digest terminal that names a device's body. klt's own layout-plan
 # connectivity derivation deliberately drops it (_TERMINAL_SUFFIXES has no
 # "B" entry), which is why the committed streams had untied wells and an
@@ -343,18 +349,250 @@ def _netlist_digest(plan_path: str, request: dict) -> dict:
     )
 
 
+def _tap_pad_pins(ports: list[dict]) -> list[str]:
+    """Every contacted tap pad the generator drew for one device group, in
+    the group report's own order.
+
+    Every pad of one group contacts the same well (pfet) or the same
+    substrate (nfet) conductor -- they are one conductor the moment any metal
+    joins them, which is exactly what the strap does -- so all of them belong
+    on the group's body net. Empty when the generator drew none (a poly
+    resistor's substrate terminal: reported untied, not crashed on)."""
+    return [
+        str(p["name"])
+        for p in ports
+        if str(p.get("name", "")).startswith(TAP_PAD_PREFIX)
+    ]
+
+
 def _tap_pad_pin(ports: list[dict]) -> str | None:
-    """The tap pad to tie a group's body with: the bottom-facing one nearest
-    the group's own x centre, so its stub drops straight into the bottom
-    channel without crossing the device. ``None`` when the generator drew no
-    pads (every pad of one group ties the same well/substrate conductor, so
-    one contacted pad biases the whole tub -- this never needs a second)."""
+    """The one tap pad to *escape* a group's body with: the bottom-facing one
+    nearest the group's own x centre, so its stub drops straight into the
+    bottom channel without crossing the device. ``None`` when the generator
+    drew no pads. Every other pad of the group reaches this one through the
+    body strap (:func:`_body_strap_boxes`), so the routed escape stays one
+    stub per group no matter how many pads ``mos_array`` drew."""
     pads = [p for p in ports if str(p.get("name", "")).startswith(TAP_PAD_PREFIX)]
     if not pads:
         return None
     facing = [p for p in pads if p.get("direction_deg") == 270] or pads
     centre = sum(p["x_um"] for p in pads) / len(pads)
     return min(facing, key=lambda p: (abs(p["x_um"] - centre), p["name"]))["name"]
+
+
+def _body_strap_boxes(
+    pads: list[tuple[float, float]],
+) -> list[tuple[float, float, float, float]]:
+    """Metal-1 boxes (um, x0/y0/x1/y1) strapping one group's tap pads into a
+    single conductor.
+
+    ``mos_array`` puts every pad on the cell boundary: two pad columns at the
+    left and right cell edges, up to several pad rows down the sides plus one
+    row across the bottom and the top. The strap draws on exactly those
+    lines -- a vertical along EVERY pad column and a horizontal along the
+    outermost pad row each end -- so every box hugs the pads' own
+    coordinates and the strap never enters the device interior (device
+    metal starts 0.44 um inside the outermost pad column, measured on every
+    committed ``mos_array`` cell; the inner pad columns sit between the side
+    pads and the strips with the same clearance, and a column the spacing
+    rule blocks is cut per-segment by ``_strap_body_pads``). Single-pad and
+    single-line groups degrade to nothing / one strip."""
+    half = WIRE_UM / 2
+    points = sorted(set(pads))
+    if len(points) < 2:
+        return []
+    xs = sorted({x for x, _ in points})
+    ys = sorted({y for _, y in points})
+    if len(xs) == 1:
+        return [(xs[0] - half, ys[0] - half, xs[0] + half, ys[-1] + half)]
+    if len(ys) == 1:
+        return [(xs[0] - half, ys[0] - half, xs[-1] + half, ys[0] + half)]
+    boxes: list[tuple[float, float, float, float]] = []
+    for x in xs:
+        boxes.append((x - half, ys[0] - half, x + half, ys[-1] + half))
+    for y in (ys[0], ys[-1]):
+        boxes.append((xs[0] - half, y - half, xs[-1] + half, y + half))
+    return boxes
+
+
+def _strap_body_pads(
+    geo: _Geometry, top, nets: list[dict], ports: dict, dev_m1
+) -> tuple[set[tuple[str, str]], list[str], dict]:
+    """Strap each device group's tap pads together in metal-1 where the drawn
+    routes leave room, and name the pads the strap already carries.
+
+    Returns ``(strapped, problems, stats)``. ``strapped`` holds the ``(block,
+    port)`` keys whose pad the strap connects to the group's escape pad, so
+    the scripted router owes them no stub of their own; every pad it does NOT
+    name keeps its own escape stub, so a group whose legs are all blocked is
+    wired pad-by-pad instead of left floating.
+
+    A leg is drawn only where it clears *foreign* metal-1 -- klt's own routes
+    plus every other group's device metal -- by the metal-1 spacing rule: the
+    executor runs gate/source routes across the pad rows of the tall
+    ``mos_array`` cells (their bridged shapes sit 0.345 um above the top pad
+    row on the committed streams), so a perimeter leg is checked, not
+    assumed. A leg the rule blocks is cut back to its clear segments along
+    its long axis -- dropping it whole would strand every pad behind the
+    band, whose only remaining escape would be a stub parallel to a
+    neighbouring stub 0.21 um away, colliding the two via-2 cuts at the
+    track. Segment ends snap outward to the manufacturing grid so no piece
+    lands off ``metal1.ongrid.1``. The only metal-1 a leg may touch besides
+    clear space is the group's own pad squares; anything else blocks it. A
+    leg that would cover a non-tap port of the same group is refused outright
+    and reported: the perimeter rule never does that on a ``mos_array`` cell,
+    so a refusal means a generator this rule does not understand."""
+    strapped: set[tuple[str, str]] = set()
+    problems: list[str] = []
+    pads_by_group: dict[
+        tuple[str, str], list[tuple[tuple[str, str], tuple[float, float]]]
+    ] = {}
+    group_ports: dict[str, set[str]] = {}
+    for net in nets:
+        for pin in net["pins"]:
+            key = (pin["block"], pin["port"])
+            if key not in ports:
+                continue
+            if str(pin["port"]).startswith(TAP_PAD_PREFIX):
+                pads_by_group.setdefault((net["net"], pin["block"]), []).append(
+                    (key, ports[key])
+                )
+            else:
+                group_ports.setdefault(pin["block"], set()).add(pin["port"])
+
+    klt_m1 = geo.region(top, M1)  # klt's own routes (recursive: devices too)
+    layer = geo.layout.layer(*M1)
+    stats = {"legs_drawn": 0, "legs_dropped": 0, "groups_strapped": 0}
+    for (net, block), pads in sorted(pads_by_group.items()):
+        if len(pads) < 2:
+            continue
+        pad_ports = [
+            {"name": key[1], "x_um": xy[0], "y_um": xy[1]} for key, xy in pads
+        ]
+        boxes = _body_strap_boxes([(xy[0], xy[1]) for _, xy in pads])
+        if not boxes:
+            continue
+        unsafe = [
+            port
+            for port in group_ports.get(block, ())
+            if any(
+                bx0 <= ports[(block, port)][0] <= bx1
+                and by0 <= ports[(block, port)][1] <= by1
+                for bx0, by0, bx1, by1 in boxes
+            )
+        ]
+        if unsafe:
+            problems.append(
+                f"{net}: body strap for {block} would cover non-tap port(s) "
+                f"{', '.join(sorted(unsafe))} -- group left unstrapped"
+            )
+            continue
+        # Only this group's own pad squares may touch a leg; everything else
+        # must clear the metal-1 spacing rule. The group's own pads are
+        # removed from the foreign set first: the legs legitimately overlap
+        # them, and sized(0.28 um) they would otherwise reject every leg of
+        # their own row.
+        allowed = geo.db.Region()
+        for _, (px, py) in pads:
+            allowed.insert(geo.centred(px, py, PAD_SQUARE_UM))
+        blocking = ((klt_m1 + dev_m1) - allowed).sized(geo.d(WIRE_UM))
+
+        def _clear(box) -> bool:
+            leg = geo.db.Region(geo.box(*box)) - allowed
+            # Intersection, not "interacting": a piece whose edge merely
+            # touches the sized blocking shape sits at exactly the metal-1
+            # spacing and is legal, but counts as interacting.
+            return (leg & blocking).is_empty()
+
+        def _clear_segments(box) -> list:
+            x0, y0, x1, y1 = box
+            vertical = (x1 - x0) < (y1 - y0)
+            lo_edge, hi_edge = (y0, y1) if vertical else (x0, x1)
+            strip = geo.db.Region(geo.box(*box))
+            cuts = []
+            # Clip the blocking shapes to the leg before reading band edges:
+            # "interacting" returns whole polygons, and a serpentine's
+            # bounding box spans the entire row, which would cut the leg at
+            # nothing.
+            for poly in ((blocking - allowed) & strip).each():
+                b = poly.bbox()
+                lo, hi = (
+                    (b.bottom * geo.dbu, b.top * geo.dbu)
+                    if vertical
+                    else (b.left * geo.dbu, b.right * geo.dbu)
+                )
+                cuts.append((_snap(lo) - GRID_UM, _snap(hi) + GRID_UM))
+            merged: list[list[float]] = []
+            for lo, hi in sorted(cuts):
+                if merged and lo <= merged[-1][1]:
+                    merged[-1][1] = max(merged[-1][1], hi)
+                else:
+                    merged.append([lo, hi])
+            free: list[tuple[float, float]] = []
+            cursor = lo_edge
+            for lo, hi in merged:
+                if lo > cursor:
+                    free.append((cursor, min(lo, hi_edge)))
+                cursor = max(cursor, hi)
+            if cursor < hi_edge:
+                free.append((cursor, hi_edge))
+            pieces = []
+            for lo, hi in free:
+                lo, hi = max(lo, lo_edge), min(hi, hi_edge)
+                if hi - lo < WIRE_UM:
+                    continue
+                piece = (
+                    (x0, _snap(lo), x1, _snap(hi))
+                    if vertical
+                    else (_snap(lo), y0, _snap(hi), y1)
+                )
+                if _clear(piece):
+                    pieces.append(piece)
+            return pieces
+
+        clear: list[tuple[float, float, float, float]] = []
+        for box in boxes:
+            if _clear(box):
+                clear.append(box)
+            else:
+                pieces = _clear_segments(box)
+                if pieces:
+                    clear.extend(pieces)
+                else:
+                    stats["legs_dropped"] += 1
+        stats["legs_drawn"] += len(clear)
+        if not clear:
+            continue
+        for box in clear:
+            top.shapes(layer).insert(geo.box(*box))
+        # A pad is strapped when its pad square and the escape pad's square
+        # end up in ONE merged polygon of (drawn legs + every pad square) --
+        # per polygon, not per region: blocked leg pieces can leave a pad on
+        # its own island.
+        joined = geo.db.Region()
+        for box in clear:
+            joined.insert(geo.box(*box))
+        for _, (px, py) in pads:
+            joined.insert(geo.centred(px, py, PAD_SQUARE_UM))
+        joined.merge()
+
+        def _poly_at(px: float, py: float):
+            point = geo.db.Point(geo.d(px), geo.d(py))
+            for poly in joined.each():
+                if poly.bbox().contains(point) and poly.inside(point):
+                    return poly
+            return None
+
+        escape = _tap_pad_pin(pad_ports)
+        ex, ey = ports[(block, escape)]
+        escape_poly = _poly_at(ex, ey)
+        if escape_poly is None:
+            continue
+        for key, (px, py) in pads:
+            if key[1] != escape and _poly_at(px, py) == escape_poly:
+                strapped.add(key)
+        stats["groups_strapped"] += 1
+    return strapped, problems, stats
 
 
 def _netlist_pin_map(response: dict, compose_request, digest: dict) -> dict:
@@ -379,9 +617,12 @@ def _netlist_pin_map(response: dict, compose_request, digest: dict) -> dict:
         what the first LVS record measured. Filed upstream as a tool gap;
         completed here the same way the scripted routes are.
 
-        One pad per group is enough and is all this returns: a group's pads
-        all contact the one well (pfet) or the one substrate (nfet) its
-        devices sit in, so they are already one conductor before any metal.
+        Every drawn pad of the group is a tie pin, not just one per group:
+        they all contact the one well (pfet) or the one substrate (nfet) its
+        devices sit in, and the strap (``_body_strap_boxes``) joins them in
+        metal so the body net reaches each pad the generator drew. The
+        scripted router still escapes one pad per group (``_tap_pad_pin``) --
+        the strap carries the rest to it.
     ``untied``
         ``[{"block", "net"}]`` for a body on a group that draws no tap pad --
         a poly resistor's substrate terminal, which has no tap of its own and
@@ -435,8 +676,8 @@ def _netlist_pin_map(response: dict, compose_request, digest: dict) -> dict:
                     _add(terminals, net, group["id"], names[index])
         if not bodies:
             continue
-        pad = _tap_pad_pin(ports)
-        if pad is None:
+        pads = _tap_pad_pins(ports)
+        if not pads:
             untied.extend(
                 {"block": group["id"], "net": net} for net in sorted(bodies)
             )
@@ -448,7 +689,9 @@ def _netlist_pin_map(response: dict, compose_request, digest: dict) -> dict:
                 "this group cannot be tied; split it in the plan"
             )
             continue
-        _add(ties, next(iter(bodies)), group["id"], pad)
+        body_net = next(iter(bodies))
+        for pad in pads:
+            _add(ties, body_net, group["id"], pad)
     return {
         "terminals": terminals,
         "ties": ties,
@@ -579,7 +822,24 @@ def _complete_routing(
     # A net klt already routed still has to be re-drawn once it gains a tap
     # pad: klt's own route reaches the device terminals only.
     dev_m1 = _device_region(geo, top, M1)
-    routed = _route_scripted(geo, top, nets, ports, force=set(ties), dev_m1=dev_m1)
+    # Strap each group's tap pads together in metal-1 where the drawn routes
+    # leave room: the router then owes an escape stub only for pads the strap
+    # does not already carry.
+    strapped, strap_problems, strap_stats = _strap_body_pads(
+        geo, top, nets, ports, dev_m1
+    )
+    route_nets = [
+        dict(
+            net,
+            pins=[
+                pin
+                for pin in net["pins"]
+                if (pin["block"], pin["port"]) not in strapped
+            ],
+        )
+        for net in nets
+    ]
+    routed = _route_scripted(geo, top, route_nets, ports, force=set(ties), dev_m1=dev_m1)
     check = _connectivity(geo, top, nets, ports)
     labels = _write_pin_labels(geo, top, dev_m1, digest, pin_map, ports)
     l2n_nets = _l2n_net_count(layout, top)
@@ -595,7 +855,7 @@ def _complete_routing(
     return {
         "routed": check["routed"],
         "shorts": check["shorts"],
-        "problems": tie_problems + routed["problems"],
+        "problems": tie_problems + strap_problems + routed["problems"],
         "methods": methods,
         "snapped_instances": snapped,
         "l2n_net_count": l2n_nets,
@@ -608,6 +868,7 @@ def _complete_routing(
             "tied_groups": sum(len(pins) for pins in ties.values()),
             "untied": pin_map["untied"],
             "problems": tie_problems,
+            "straps": strap_stats,
         },
         "pin_labels": labels,
     }
@@ -831,9 +1092,18 @@ def _route_scripted(
                 continue
             track_y = ys[kind]
             xs = [p[0] for p in points]
+            stub_xs: list[float] = []
             for cx, cy in points:
                 shapes[VIA1].append(geo.centred(cx, cy, VIA_UM))
-                shapes[VIA2].append(geo.centred(cx, track_y, VIA_UM))
+                # A same-net stub landing within one via width of a kept
+                # stub's column overlaps that stub's metal-2 band end to end,
+                # so it rides the kept via-2: its own cut would sit 0.21 um
+                # from the kept one, merging into an over-wide via that
+                # fails ``via2.width.1``.
+                rides = any(abs(cx - px) < VIA_UM for px in stub_xs)
+                if not rides:
+                    shapes[VIA2].append(geo.centred(cx, track_y, VIA_UM))
+                stub_xs.append(cx)
                 lo, hi = sorted((cy, track_y))
                 shapes[M2].append(
                     geo.box(cx - WIRE_UM / 2, lo - END_EXT_UM, cx + WIRE_UM / 2, hi + END_EXT_UM)

@@ -241,10 +241,15 @@ guard-ring / body-tie metal-1 pads each generator draws are in no plan net.
 That is a tool gap (`2AMLogic/klayout-tools#5546`), and until it closes
 `scripts/gen_analog_layout.py` completes the tie itself, in the same post-plan
 pass as the scripted routes: it reads the plan's own netlist digest, and for
-each device group ties the group's body — through one of the contacted
-`TAP_PAD` ports `mos_array` reports — to the net the schematic puts that body
-on. One pad per group is enough, because a group's pads contact the one well
-(pfet) or the one substrate (nfet) its devices sit in. The same pass re-labels
+each device group ties the group's body net through **every** contacted
+`TAP_PAD` port `mos_array` reports for it — substrate pads on the nfet
+groups and n-well pads on the pfet groups alike — then straps the group's
+pads together in metal-1 so each drawn pad reaches the net the schematic
+puts that body on (the strap draws each leg only where it clears klt's own
+routes and every other group's device metal by the metal-1 spacing rule; a
+pad the strap cannot carry keeps its own escape stub, and same-net stubs
+within one via width of a kept stub's column ride that stub's via-2). The
+same pass re-labels
 the top cell so its named nets are **exactly** the reference `.subckt` ports;
 what klt leaves behind is one label per net its router drew a leg for, which is
 neither the port set nor a subset of it.
@@ -275,10 +280,14 @@ compared
 and agreed. No extracted re-simulation was run on these streams (#53), and
 nothing here is an IR-drop or latch-up-margin claim about the tie geometry.
 Supply-connectivity ERC has since been run and cited separately (#248, item
-`11.analog`) — read that record for what it does and does not establish
-about the body ties, in particular that only 17 / 6 / 6 / 6 / 6 of the drawn
-body-tie pads reach ground through metal rather than through the
-substrate.
+`11.analog`) — since issue #361 that record measures a strictly stronger
+verdict: **every** drawn body-tie pad (84 / 28 / 24 / 28 / 28 substrate pads
+per stream, and the n-well pads beside them) reaches ground through metal —
+the generator straps each group's pads — and the asserted substrate
+partition moved to pad granularity (`CLUSTER_GAP_UM` 0.7 µm, 51 / 18 / 18 /
+18 / 18 polygons, zero `erc.missing_tie`). See
+`verification/records/analog-erc/records/20261115-174000-5279711.md` for
+what that verdict does and does not establish.
 Metal-3 is used for the first time in this repo; nothing yet checks it beyond the
 deck's `metal3.*` and `via2.*` rules.
 
