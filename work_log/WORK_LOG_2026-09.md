@@ -2,6 +2,11 @@
 
 Sections moved byte-for-byte from [WORK_LOG.md](../WORK_LOG.md) by `loom-daemon work-docs archive`.
 
+### 2026-09-14
+
+- **PR #75**: fix(layout): set params.flavor:1k on 3 receiver plans' res_array groups
+- **Issue #73** (closed): Fix silent PPOLYF_U_1K/generic-flavor mismatch on 3 committed analog layout plans' res_array groups
+
 ### 2026-09-13
 
 - **PR #74**: feat(env): re-pin klt past klayout-tools#1731 (res_array rm1 support)

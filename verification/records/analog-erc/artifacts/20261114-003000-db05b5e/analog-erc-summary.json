@@ -1,0 +1,595 @@
+{
+  "schema_version": 1,
+  "harness": "scripts/analog_erc.py",
+  "deck": "gf180mcu",
+  "cluster_gap_um": 1.1,
+  "blocks": [
+    {
+      "block": "differential_driver",
+      "gds": "layout/analog/differential_driver.gds",
+      "gds_sha256": "sha256:4a1c1ddfc5a1a984c2ecd156808cd20acbd881ef74d6f092e18ee377a2800fcb",
+      "spec": "layout/analog/erc-supply-spec-differential_driver.json",
+      "spec_sha256": "sha256:b482b35d26767d9867e775fddc3a7b42c1bb7371fc3b617bed0e78c01fb0b721",
+      "supplies": {
+        "positive": "VDD",
+        "ground": "VSS"
+      },
+      "report": "layout/analog/erc/differential_driver-erc-supply-report.json",
+      "exit_status": 4,
+      "assertion": {
+        "asserted_polygons": 17,
+        "asserted_area_um2": 1110.3216,
+        "top_extent_area_um2": 188988.996,
+        "extent_uncovered_fraction": 0.994125,
+        "substrate_taps_drawn": 84,
+        "substrate_tap_area_um2": 14.8176,
+        "substrate_tap_area_outside_assertion_um2": 0.0,
+        "asserted_polygons_without_a_tap": 0,
+        "tap_narrowing_removed_um2": 348.16,
+        "comp_area_inside_nwell_um2": 970.4848,
+        "nwells_drawn": 17,
+        "nwell_taps_drawn": 132
+      },
+      "census": {
+        "ground_net": "VSS",
+        "substrate_tap_pads_drawn": 84,
+        "substrate_tap_pads_contacted": 84,
+        "substrate_tap_pads_reaching_ground_in_metal": 17,
+        "ground_label_count": 1,
+        "metal_wired_taps_per_asserted_polygon": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "verdict": {
+        "gates": {
+          "erc_status_clean": true,
+          "zero_findings": true,
+          "no_skipped_work": true,
+          "nwell_tie_checked": true,
+          "substrate_tie_checked": true,
+          "substrate_tie_graded_by_well_assertion": true,
+          "positive_supply_one_island": true,
+          "ground_supply_one_island": true,
+          "every_substrate_tap_inside_assertion": true,
+          "every_asserted_polygon_holds_a_tap": true,
+          "every_asserted_polygon_has_a_metal_wired_tap": true,
+          "assertion_not_whole_extent": true,
+          "tap_narrowing_is_real": true,
+          "no_undeclared_drawn_layers": true
+        },
+        "passed": true,
+        "erc_status": "clean",
+        "erc_finding_count": 0,
+        "finding_rules": [],
+        "skipped_reasons": [],
+        "matched_islands": {
+          "VDD": 1,
+          "VSS": 1
+        },
+        "inapplicable": [
+          {
+            "id": "erc.supply_short",
+            "reason": "substrate_continuity_not_modelled"
+          }
+        ],
+        "well_assertion_coverage": [
+          {
+            "id": "erc.missing_tie:[\"substrate_neg_tap\"]",
+            "tap_layer": "22/0",
+            "drawn_tap_area_um2": 1333.4624,
+            "uncovered_tap_area_um2": 970.4848,
+            "uncovered_tap_fraction": 0.727793,
+            "extent_uncovered_fraction": 0.994125
+          }
+        ]
+      },
+      "lvs_pairing": {
+        "gates": {
+          "lvs_status_match": true,
+          "positive_supply_paired": true,
+          "ground_supply_paired": true
+        },
+        "passed": true,
+        "report": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/differential_driver-lvs-report.json",
+        "lvs_status": "match",
+        "power_connectivity_status": "unchecked"
+      },
+      "control": {
+        "spec": "layout/analog/erc/differential_driver-erc-control-spec.json",
+        "report": "layout/analog/erc/differential_driver-erc-control-report.json",
+        "exit_status": 3,
+        "absent_net": "VSS_NOT_IN_LAYOUT",
+        "verdict": {
+          "gates": {
+            "erc_status_not_clean": true,
+            "every_asserted_polygon_reports_missing_tie": true,
+            "absent_supply_reports_unconnected_net": true,
+            "absent_supply_has_zero_islands": true
+          },
+          "passed": true,
+          "erc_status": "violations",
+          "erc_finding_count": 18,
+          "missing_tie_findings": 17,
+          "unconnected_net_findings": 1
+        }
+      }
+    },
+    {
+      "block": "differential_receiver",
+      "gds": "layout/analog/differential_receiver.gds",
+      "gds_sha256": "sha256:8546baa5d159f33bf741d55d367ab11a91aaf622da31b08dd1ded1872de22f5f",
+      "spec": "layout/analog/erc-supply-spec-differential_receiver.json",
+      "spec_sha256": "sha256:58727bc38080a71362e9ba076ac10279944bc0c806eed4422d68f6cde09767dc",
+      "supplies": {
+        "positive": "VDD",
+        "ground": "VSS"
+      },
+      "report": "layout/analog/erc/differential_receiver-erc-supply-report.json",
+      "exit_status": 4,
+      "assertion": {
+        "asserted_polygons": 6,
+        "asserted_area_um2": 274.0768,
+        "top_extent_area_um2": 25743.8058,
+        "extent_uncovered_fraction": 0.989354,
+        "substrate_taps_drawn": 28,
+        "substrate_tap_area_um2": 4.9392,
+        "substrate_tap_area_outside_assertion_um2": 0.0,
+        "asserted_polygons_without_a_tap": 0,
+        "tap_narrowing_removed_um2": 82.0,
+        "comp_area_inside_nwell_um2": 168.4264,
+        "nwells_drawn": 4,
+        "nwell_taps_drawn": 26
+      },
+      "census": {
+        "ground_net": "VSS",
+        "substrate_tap_pads_drawn": 28,
+        "substrate_tap_pads_contacted": 28,
+        "substrate_tap_pads_reaching_ground_in_metal": 6,
+        "ground_label_count": 1,
+        "metal_wired_taps_per_asserted_polygon": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "verdict": {
+        "gates": {
+          "erc_status_clean": true,
+          "zero_findings": true,
+          "no_skipped_work": true,
+          "nwell_tie_checked": true,
+          "substrate_tie_checked": true,
+          "substrate_tie_graded_by_well_assertion": true,
+          "positive_supply_one_island": true,
+          "ground_supply_one_island": true,
+          "every_substrate_tap_inside_assertion": true,
+          "every_asserted_polygon_holds_a_tap": true,
+          "every_asserted_polygon_has_a_metal_wired_tap": true,
+          "assertion_not_whole_extent": true,
+          "tap_narrowing_is_real": true,
+          "no_undeclared_drawn_layers": true
+        },
+        "passed": true,
+        "erc_status": "clean",
+        "erc_finding_count": 0,
+        "finding_rules": [],
+        "skipped_reasons": [],
+        "matched_islands": {
+          "VDD": 1,
+          "VSS": 1
+        },
+        "inapplicable": [
+          {
+            "id": "erc.supply_short",
+            "reason": "substrate_continuity_not_modelled"
+          }
+        ],
+        "well_assertion_coverage": [
+          {
+            "id": "erc.missing_tie:[\"substrate_neg_tap\"]",
+            "tap_layer": "22/0",
+            "drawn_tap_area_um2": 255.3656,
+            "uncovered_tap_area_um2": 168.4264,
+            "uncovered_tap_fraction": 0.65955,
+            "extent_uncovered_fraction": 0.989354
+          }
+        ]
+      },
+      "lvs_pairing": {
+        "gates": {
+          "lvs_status_match": true,
+          "positive_supply_paired": true,
+          "ground_supply_paired": true
+        },
+        "passed": true,
+        "report": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/differential_receiver-lvs-report.json",
+        "lvs_status": "match",
+        "power_connectivity_status": "unchecked"
+      },
+      "control": {
+        "spec": "layout/analog/erc/differential_receiver-erc-control-spec.json",
+        "report": "layout/analog/erc/differential_receiver-erc-control-report.json",
+        "exit_status": 3,
+        "absent_net": "VSS_NOT_IN_LAYOUT",
+        "verdict": {
+          "gates": {
+            "erc_status_not_clean": true,
+            "every_asserted_polygon_reports_missing_tie": true,
+            "absent_supply_reports_unconnected_net": true,
+            "absent_supply_has_zero_islands": true
+          },
+          "passed": true,
+          "erc_status": "violations",
+          "erc_finding_count": 7,
+          "missing_tie_findings": 6,
+          "unconnected_net_findings": 1
+        }
+      }
+    },
+    {
+      "block": "dplus_pullup",
+      "gds": "layout/analog/dplus_pullup.gds",
+      "gds_sha256": "sha256:61811cc55de70c8645c98eaf6472913e631250970dbfa8cdd812bacd6c7789d8",
+      "spec": "layout/analog/erc-supply-spec-dplus_pullup.json",
+      "spec_sha256": "sha256:4aa72378ab7697f558906c3066f535f29992bc6b15288c37e401ba0263e0a9d6",
+      "supplies": {
+        "positive": "VPU_REG",
+        "ground": "VSS"
+      },
+      "report": "layout/analog/erc/dplus_pullup-erc-supply-report.json",
+      "exit_status": 4,
+      "assertion": {
+        "asserted_polygons": 6,
+        "asserted_area_um2": 82.08,
+        "top_extent_area_um2": 30702.0515,
+        "extent_uncovered_fraction": 0.997327,
+        "substrate_taps_drawn": 24,
+        "substrate_tap_area_um2": 4.2336,
+        "substrate_tap_area_outside_assertion_um2": 0.0,
+        "asserted_polygons_without_a_tap": 0,
+        "tap_narrowing_removed_um2": 7.68,
+        "comp_area_inside_nwell_um2": 7714.4112,
+        "nwells_drawn": 12,
+        "nwell_taps_drawn": 108
+      },
+      "census": {
+        "ground_net": "VSS",
+        "substrate_tap_pads_drawn": 24,
+        "substrate_tap_pads_contacted": 24,
+        "substrate_tap_pads_reaching_ground_in_metal": 6,
+        "ground_label_count": 1,
+        "metal_wired_taps_per_asserted_polygon": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "verdict": {
+        "gates": {
+          "erc_status_clean": true,
+          "zero_findings": true,
+          "no_skipped_work": true,
+          "nwell_tie_checked": true,
+          "substrate_tie_checked": true,
+          "substrate_tie_graded_by_well_assertion": true,
+          "positive_supply_one_island": true,
+          "ground_supply_one_island": true,
+          "every_substrate_tap_inside_assertion": true,
+          "every_asserted_polygon_holds_a_tap": true,
+          "every_asserted_polygon_has_a_metal_wired_tap": true,
+          "assertion_not_whole_extent": true,
+          "tap_narrowing_is_real": true,
+          "no_undeclared_drawn_layers": true
+        },
+        "passed": true,
+        "erc_status": "clean",
+        "erc_finding_count": 0,
+        "finding_rules": [],
+        "skipped_reasons": [],
+        "matched_islands": {
+          "VPU_REG": 1,
+          "VSS": 1
+        },
+        "inapplicable": [
+          {
+            "id": "erc.supply_short",
+            "reason": "substrate_continuity_not_modelled"
+          }
+        ],
+        "well_assertion_coverage": [
+          {
+            "id": "erc.missing_tie:[\"substrate_neg_tap\"]",
+            "tap_layer": "22/0",
+            "drawn_tap_area_um2": 7726.3248,
+            "uncovered_tap_area_um2": 7714.4112,
+            "uncovered_tap_fraction": 0.998458,
+            "extent_uncovered_fraction": 0.997327
+          }
+        ]
+      },
+      "lvs_pairing": {
+        "gates": {
+          "lvs_status_match": true,
+          "positive_supply_paired": true,
+          "ground_supply_paired": true
+        },
+        "passed": true,
+        "report": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/dplus_pullup-lvs-report.json",
+        "lvs_status": "match",
+        "power_connectivity_status": "unchecked"
+      },
+      "control": {
+        "spec": "layout/analog/erc/dplus_pullup-erc-control-spec.json",
+        "report": "layout/analog/erc/dplus_pullup-erc-control-report.json",
+        "exit_status": 3,
+        "absent_net": "VSS_NOT_IN_LAYOUT",
+        "verdict": {
+          "gates": {
+            "erc_status_not_clean": true,
+            "every_asserted_polygon_reports_missing_tie": true,
+            "absent_supply_reports_unconnected_net": true,
+            "absent_supply_has_zero_islands": true
+          },
+          "passed": true,
+          "erc_status": "violations",
+          "erc_finding_count": 7,
+          "missing_tie_findings": 6,
+          "unconnected_net_findings": 1
+        }
+      }
+    },
+    {
+      "block": "se_receiver_dm",
+      "gds": "layout/analog/se_receiver_dm.gds",
+      "gds_sha256": "sha256:31601e6386711cba7a89dcd2f24716eff8568c2de098d5f1e1b27a1ff47cc06c",
+      "spec": "layout/analog/erc-supply-spec-se_receiver_dm.json",
+      "spec_sha256": "sha256:29b3dfdfb41d35df3565784433d2445a93d064f8246d1243f3704d9e21b4b74c",
+      "supplies": {
+        "positive": "VDD",
+        "ground": "VSS"
+      },
+      "report": "layout/analog/erc/se_receiver_dm-erc-supply-report.json",
+      "exit_status": 4,
+      "assertion": {
+        "asserted_polygons": 6,
+        "asserted_area_um2": 280.0768,
+        "top_extent_area_um2": 27114.4664,
+        "extent_uncovered_fraction": 0.989671,
+        "substrate_taps_drawn": 28,
+        "substrate_tap_area_um2": 4.9392,
+        "substrate_tap_area_outside_assertion_um2": 0.0,
+        "asserted_polygons_without_a_tap": 0,
+        "tap_narrowing_removed_um2": 84.56,
+        "comp_area_inside_nwell_um2": 137.3536,
+        "nwells_drawn": 4,
+        "nwell_taps_drawn": 24
+      },
+      "census": {
+        "ground_net": "VSS",
+        "substrate_tap_pads_drawn": 28,
+        "substrate_tap_pads_contacted": 28,
+        "substrate_tap_pads_reaching_ground_in_metal": 6,
+        "ground_label_count": 1,
+        "metal_wired_taps_per_asserted_polygon": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "verdict": {
+        "gates": {
+          "erc_status_clean": true,
+          "zero_findings": true,
+          "no_skipped_work": true,
+          "nwell_tie_checked": true,
+          "substrate_tie_checked": true,
+          "substrate_tie_graded_by_well_assertion": true,
+          "positive_supply_one_island": true,
+          "ground_supply_one_island": true,
+          "every_substrate_tap_inside_assertion": true,
+          "every_asserted_polygon_holds_a_tap": true,
+          "every_asserted_polygon_has_a_metal_wired_tap": true,
+          "assertion_not_whole_extent": true,
+          "tap_narrowing_is_real": true,
+          "no_undeclared_drawn_layers": true
+        },
+        "passed": true,
+        "erc_status": "clean",
+        "erc_finding_count": 0,
+        "finding_rules": [],
+        "skipped_reasons": [],
+        "matched_islands": {
+          "VDD": 1,
+          "VSS": 1
+        },
+        "inapplicable": [
+          {
+            "id": "erc.supply_short",
+            "reason": "substrate_continuity_not_modelled"
+          }
+        ],
+        "well_assertion_coverage": [
+          {
+            "id": "erc.missing_tie:[\"substrate_neg_tap\"]",
+            "tap_layer": "22/0",
+            "drawn_tap_area_um2": 226.8528,
+            "uncovered_tap_area_um2": 137.3536,
+            "uncovered_tap_fraction": 0.605475,
+            "extent_uncovered_fraction": 0.989671
+          }
+        ]
+      },
+      "lvs_pairing": {
+        "gates": {
+          "lvs_status_match": true,
+          "positive_supply_paired": true,
+          "ground_supply_paired": true
+        },
+        "passed": true,
+        "report": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/se_receiver_dm-lvs-report.json",
+        "lvs_status": "match",
+        "power_connectivity_status": "unchecked"
+      },
+      "control": {
+        "spec": "layout/analog/erc/se_receiver_dm-erc-control-spec.json",
+        "report": "layout/analog/erc/se_receiver_dm-erc-control-report.json",
+        "exit_status": 3,
+        "absent_net": "VSS_NOT_IN_LAYOUT",
+        "verdict": {
+          "gates": {
+            "erc_status_not_clean": true,
+            "every_asserted_polygon_reports_missing_tie": true,
+            "absent_supply_reports_unconnected_net": true,
+            "absent_supply_has_zero_islands": true
+          },
+          "passed": true,
+          "erc_status": "violations",
+          "erc_finding_count": 7,
+          "missing_tie_findings": 6,
+          "unconnected_net_findings": 1
+        }
+      }
+    },
+    {
+      "block": "se_receiver_dp",
+      "gds": "layout/analog/se_receiver_dp.gds",
+      "gds_sha256": "sha256:101312916c6851df73af1f8977ec92f1db0f24c802bef3d5840ddc7bcc93c5d3",
+      "spec": "layout/analog/erc-supply-spec-se_receiver_dp.json",
+      "spec_sha256": "sha256:50a043607f3d494085e6a549275af2e505cb2dec5e1936ba3d982e6dfb87490d",
+      "supplies": {
+        "positive": "VDD",
+        "ground": "VSS"
+      },
+      "report": "layout/analog/erc/se_receiver_dp-erc-supply-report.json",
+      "exit_status": 4,
+      "assertion": {
+        "asserted_polygons": 6,
+        "asserted_area_um2": 280.0768,
+        "top_extent_area_um2": 27114.4664,
+        "extent_uncovered_fraction": 0.989671,
+        "substrate_taps_drawn": 28,
+        "substrate_tap_area_um2": 4.9392,
+        "substrate_tap_area_outside_assertion_um2": 0.0,
+        "asserted_polygons_without_a_tap": 0,
+        "tap_narrowing_removed_um2": 84.56,
+        "comp_area_inside_nwell_um2": 137.3536,
+        "nwells_drawn": 4,
+        "nwell_taps_drawn": 24
+      },
+      "census": {
+        "ground_net": "VSS",
+        "substrate_tap_pads_drawn": 28,
+        "substrate_tap_pads_contacted": 28,
+        "substrate_tap_pads_reaching_ground_in_metal": 6,
+        "ground_label_count": 1,
+        "metal_wired_taps_per_asserted_polygon": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "verdict": {
+        "gates": {
+          "erc_status_clean": true,
+          "zero_findings": true,
+          "no_skipped_work": true,
+          "nwell_tie_checked": true,
+          "substrate_tie_checked": true,
+          "substrate_tie_graded_by_well_assertion": true,
+          "positive_supply_one_island": true,
+          "ground_supply_one_island": true,
+          "every_substrate_tap_inside_assertion": true,
+          "every_asserted_polygon_holds_a_tap": true,
+          "every_asserted_polygon_has_a_metal_wired_tap": true,
+          "assertion_not_whole_extent": true,
+          "tap_narrowing_is_real": true,
+          "no_undeclared_drawn_layers": true
+        },
+        "passed": true,
+        "erc_status": "clean",
+        "erc_finding_count": 0,
+        "finding_rules": [],
+        "skipped_reasons": [],
+        "matched_islands": {
+          "VDD": 1,
+          "VSS": 1
+        },
+        "inapplicable": [
+          {
+            "id": "erc.supply_short",
+            "reason": "substrate_continuity_not_modelled"
+          }
+        ],
+        "well_assertion_coverage": [
+          {
+            "id": "erc.missing_tie:[\"substrate_neg_tap\"]",
+            "tap_layer": "22/0",
+            "drawn_tap_area_um2": 226.8528,
+            "uncovered_tap_area_um2": 137.3536,
+            "uncovered_tap_fraction": 0.605475,
+            "extent_uncovered_fraction": 0.989671
+          }
+        ]
+      },
+      "lvs_pairing": {
+        "gates": {
+          "lvs_status_match": true,
+          "positive_supply_paired": true,
+          "ground_supply_paired": true
+        },
+        "passed": true,
+        "report": "verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/se_receiver_dp-lvs-report.json",
+        "lvs_status": "match",
+        "power_connectivity_status": "unchecked"
+      },
+      "control": {
+        "spec": "layout/analog/erc/se_receiver_dp-erc-control-spec.json",
+        "report": "layout/analog/erc/se_receiver_dp-erc-control-report.json",
+        "exit_status": 3,
+        "absent_net": "VSS_NOT_IN_LAYOUT",
+        "verdict": {
+          "gates": {
+            "erc_status_not_clean": true,
+            "every_asserted_polygon_reports_missing_tie": true,
+            "absent_supply_reports_unconnected_net": true,
+            "absent_supply_has_zero_islands": true
+          },
+          "passed": true,
+          "erc_status": "violations",
+          "erc_finding_count": 7,
+          "missing_tie_findings": 6,
+          "unconnected_net_findings": 1
+        }
+      }
+    }
+  ],
+  "all_blocks_pass": true
+}

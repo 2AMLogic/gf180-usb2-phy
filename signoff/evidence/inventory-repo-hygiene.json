@@ -19,7 +19,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "sha256:5a2a281ca8ac62a80026ebc83228f548f958405ded5e79a26717f34f79229b1a"
+      "sha256": "sha256:d94f5593667adc87681b0b0c1953d24eca2d6b6816eee233187ed2309137a4ec"
     },
     {
       "path": "docs/environment-setup.md",
@@ -27,11 +27,11 @@
     },
     {
       "path": "package.json",
-      "sha256": "sha256:9f8bfa6aa3823c42a21fac9918c90fb7360ea6873f6703ae43cd6620b73bc14a"
+      "sha256": "sha256:f99c4a14f4a33732ec2573a701b101db9a70a225a59c044f6c75e25c45ee852c"
     },
     {
       "path": "spec/usb2-device-phy.md",
-      "sha256": "sha256:a7f5fd1c62fc17dcc008d45580eea7440b74b58e8fa8d2717c3bee052f2a19e9"
+      "sha256": "sha256:b3477b0669fb2d3d802d9a9594baf7f9974055ab35b770b40b4a98dd9cb5f4d9"
     }
   ]
 }

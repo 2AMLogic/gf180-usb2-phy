@@ -1,0 +1,27 @@
+experiment: diff-receiver-sensitivity  (Differential receiver input-referred threshold and output levels at ±200 mV, at the three common-mode points §4 names (0.8 / 1.65 / 2.5 V).)
+pdk       : gf180mcuD @ c6d73a35f524070e85faff4a6a9eef49553ebc2b  (/home/ubuntu/.volare/gf180mcuD)
+ngspice   : ngspice-47 : Circuit level simulation program
+dut       : layout/analog/extracted/differential_receiver_parasitic_reordered.spice  (extracted)
+corners   : tt
+temps (C) : 27
+supply (V): 3.3 (nominal 3.3 +/-0%)
+points    : 1  (jobs=2)
+record id : 20261114-094020-22ceb85
+
+[  1/1] ok   tt_27c_3.30v               vth_cm080_mv=-21  vth_cm165_mv=-24  vth_cm250_mv=-27  hi_cm080=1  lo_cm080=2.741909e-10  hi_cm165=1  lo_cm165=2.745279e-10  hi_cm250=1  lo_cm250=3.428555e-10
+
+summary (1/1 points ok, 0.1s):
+  measurement                  min             max            mean    spread %
+  vth_cm080_mv                 -21             -21             -21           0
+  vth_cm165_mv                 -24             -24             -24           0
+  vth_cm250_mv                 -27             -27             -27           0
+  hi_cm080                       1               1               1           0
+  lo_cm080            2.741909e-10    2.741909e-10    2.741909e-10           0
+  hi_cm165                       1               1               1           0
+  lo_cm165            2.745279e-10    2.745279e-10    2.745279e-10           0
+  hi_cm250                       1               1               1           0
+  lo_cm250            3.428555e-10    3.428555e-10    3.428555e-10           0
+
+evidence  : not recorded (--no-write)
+work dir  : /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-369/sim/.work/diff-receiver-sensitivity/20261114-094020-22ceb85
+status    : PASS

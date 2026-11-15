@@ -141,32 +141,24 @@ class RegenRefusalTests(_AnalogFixture):
     """A failed audit must leave every committed file untouched."""
 
     def _isolate(self):
-        """Registries holding just the analog item and one always-fine peer."""
-        return (
-            mock.patch.dict(
-                inventories.INVENTORY_BUILDERS,
-                {
-                    "2.analog": inventories.build_analog_layout_inventory,
-                    "10": lambda root: {"schema_version": 1, "files": []},
-                },
-                clear=True,
-            ),
-            mock.patch.dict(
-                inventories.ITEM_ARTIFACTS,
-                {
-                    "2.analog": "signoff/evidence/inventory-analog-layout.json",
-                    "10": "signoff/evidence/inventory-repo-hygiene.json",
-                },
-                clear=True,
-            ),
-            mock.patch.dict(
-                inventories.ITEM_ENVELOPES,
-                {
-                    "2.analog": "signoff/evidence/t1-item-2-analog-layout.json",
-                    "10": "signoff/evidence/t1-item-10-repo-hygiene.json",
-                },
-                clear=True,
-            ),
+        """The registry holding just the analog item and one always-fine peer."""
+        return mock.patch.dict(
+            inventories.ITEMS,
+            {
+                "2.analog": inventories.Item(
+                    artifact="signoff/evidence/inventory-analog-layout.json",
+                    envelope="signoff/evidence/t1-item-2-analog-layout.json",
+                    title="Layout (analog partition)",
+                    builder=inventories.build_analog_layout_inventory,
+                ),
+                "10": inventories.Item(
+                    artifact="signoff/evidence/inventory-repo-hygiene.json",
+                    envelope="signoff/evidence/t1-item-10-repo-hygiene.json",
+                    title="Repo hygiene",
+                    builder=lambda root: {"schema_version": 1, "files": []},
+                ),
+            },
+            clear=True,
         )
 
     def test_write_all_writes_nothing_when_the_set_is_partial(self):
@@ -177,10 +169,9 @@ class RegenRefusalTests(_AnalogFixture):
         del self.entries["beta"]  # the partial set
         self.write_sidecar()
 
-        patches = self._isolate()
-        for patch in patches:
-            patch.start()
-            self.addCleanup(patch.stop)
+        patch = self._isolate()
+        patch.start()
+        self.addCleanup(patch.stop)
         with self.assertRaises(inventories.AuditError):
             inventories.write_all(self.root)
 
@@ -198,12 +189,26 @@ class RegenRefusalTests(_AnalogFixture):
         del self.entries["gamma"]  # the partial set
         self.write_sidecar()
 
-        patches = self._isolate()
-        for patch in patches:
-            patch.start()
-            self.addCleanup(patch.stop)
+        patch = self._isolate()
+        patch.start()
+        self.addCleanup(patch.stop)
         self.assertFalse(signoff_check.regen(self.root, manifest))
         self.assertEqual(manifest.read_text(), before)
+
+
+class ItemRecordTests(unittest.TestCase):
+    """One record per item: a registry entry cannot under-specify an item."""
+
+    def test_a_record_omitting_envelope_is_rejected(self):
+        # The split tables this registry replaced let an item be built and
+        # written while no envelope, manifest citation or drift-gate line
+        # ever covered it; a required field makes that a construction error.
+        with self.assertRaises(TypeError):
+            inventories.Item(
+                artifact="signoff/evidence/inventory-x.json",
+                title="X",
+                builder=lambda root: {},
+            )
 
 
 if __name__ == "__main__":

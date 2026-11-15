@@ -355,7 +355,7 @@ verification/records/
 ```
 
 - **`<experiment-slug>`** — short, descriptive, kebab-case name for the
-  claim being verified. This repo currently has eleven:
+  claim being verified. This repo currently has fifteen:
   - `functional-smoke` — the cocotb + Icarus + `klt functional-verification`
     harness runs end-to-end (no PDK dependency). A harness claim, not a PHY
     claim. Originally carried by the bootstrap counter; retired by DR-0007
@@ -403,6 +403,15 @@ verification/records/
     took part once the devices paired, but every poly-resistor parameter is
     excluded by the engine (`R` is a `subckt-call` placeholder, the rest are
     KLayout-secondary), so no resistor dimension is verified.
+  - `analog-drc` (issue #368) — standalone `klt drc` of the same five
+    committed analog streams against klt's curated `gf180mcu` deck, at the
+    repo pin. All five report `status: "clean"`, `violation_count: 0`, with
+    the deck identified by content hash and the envelope's coverage block
+    quoted verbatim in the record: the deck skips 68-69 rules per stream and
+    every stream carries layers with no rules (`34/10`, plus `110/11` on
+    `differential_driver`). Caveat: clean is **not** a density-clean claim —
+    the deck has no density rules — and it is not the foundry signoff deck,
+    so this is a curated-deck claim, not a signoff claim.
   - `analog-layout` (issue #25) — what klt's netlist-driven layout-plan
     path (`klt.layout_plan.request/1` +
     `klayout_tools.layout_plan_execute`) actually produces for the five
@@ -450,8 +459,47 @@ verification/records/
     `SPECIALNETS` grid, and this GDS's own 62 `VNW` + 62 `VPW` drawn
     tap labels). The item-11 LVS `power_connectivity` leg is a tracked
     gap (#79), so item 11 remains partially met at the tracker level.
+  - `analog-erc` (issue #248) — the same `klt erc` supply read for the
+    **analog** partition: one run per committed stream against its own
+    `layout/analog/erc-supply-spec-<block>.json`, via
+    `scripts/analog_erc.py`. All five report `erc_status: "clean"`, zero
+    findings, one labelled island per declared supply, and — unlike the
+    digital spec above — **both** ties *checked* rather than omitted: the
+    drawn n-well tap (`Comp ∩ Nplus` → the positive rail) and, because
+    gf180mcu draws no tub layer for a native-substrate block, an asserted
+    substrate region (`well_layer: null` + `well_boxes`, klayout-tools#2255)
+    whose boxes the harness re-derives from each stream and gates against the
+    committed spec. **With a negative control**: each stream is re-run
+    against a deliberately-wrong twin spec that must report
+    `erc.missing_tie` on every asserted polygon and `erc.unconnected_net` on
+    a supply the layout never labels, and does. What the clean verdict does
+    not establish is measured rather than left to prose — only 17 / 6 / 6 /
+    6 / 6 of the 84 / 28 / 24 / 28 / 28 drawn body-tie pads reach ground
+    through metal, the rest being tied through the substrate, which `klt
+    erc` does not model.
+  - `analog-extraction` (issue #369) — whether the **pinned** `klt` can turn a
+    committed analog stream into a parasitic-annotated netlist that ngspice
+    will load in place of the schematic DUT. It can: `klt extract --parasitics
+    --pdk gf180mcuD` on `differential_receiver.gds` yields 43 R / 10 ground C /
+    24 coupling C, and the block's existing `diff-receiver-sensitivity`
+    testbench runs it to `PASS` at one corner via the harness's `--dut` swap —
+    with **no edit to `tb.json`** and no verdict in `sim/spec-coverage.md`
+    touched. Two caveats carry forward to #53, which still owns the extracted
+    PVT matrix. First, `--pdk` is **required** for a simulatable netlist:
+    without it MOS devices are written as bare `M` cards against models the
+    PDK's ngspice deck does not define (which is why the `analog-lvs`
+    harness's extract, correctly for LVS, is not simulatable). Second, the
+    extracted `.SUBCKT` port order is alphabetical while the testbench
+    instantiates positionally, and on the pin no flag reconciles them — dropped
+    in as written the netlist **loads silently and returns confidently wrong
+    numbers** (a ±500 mV threshold that mimics a real spec failure), so the
+    record freezes that mis-wired transcript alongside the correct one as the
+    evidence. Also worth reading for what the extraction *omits*: no lateral
+    coupling, no distributed RC, no substrate spreading, no inductance, and —
+    since the experiment's only analysis is a DC sweep — the matching
+    thresholds are **not** evidence that parasitics are immaterial.
   One directory per distinct claim, not per run. Future entries (e.g.
-  `analog-drc`/`analog-lvs`, `gate-level-sim`) follow the same pattern once
+  `gate-level-sim`) follow the same pattern once
   those legs of the maturity ladder are taken up.
 - **`<record-id>`** — unique and traceable:
   `<YYYYMMDD>-<HHMMSS>-<short-git-sha>` (e.g. `20260810-205021-c819c95`),
@@ -465,6 +513,82 @@ verification/records/
   substantiate that specific record: the raw `klt` JSON envelope, the
   cocotb `results_icarus.xml` for a functional-verification record, and a
   mapped-netlist snapshot plus the Yosys script for a synthesis record.
+
+## Stored evidence (manifest in place of bytes)
+
+From issue #366, a **new** record's artifact bytes do not have to be committed.
+They go to the fleet artifact store through `klt artifact put`, and git keeps a
+manifest instead — the same mechanism `sim/` has used since
+`spec/decisions/0008-stored-evidence-manifest-forward.md` (DR-0008), applied to
+the tree that decision named as its own follow-up.
+
+`verification/records/*/artifacts/*` is why: 646 blobs, 76.53 MiB, **40% of the
+repository** (as of `22ceb85`, 2026-11-14), of which 38.49 MiB is six
+generations of the same `klt extract` DEF name map. Every digital layout
+regeneration mints another `post-layout-pvt` record and adds another ~7 MiB,
+so the counts above drift
+upward — re-derive them with `git ls-tree -r -l` rather than citing these.
+
+Write the record by hand as always, stage its artifact bytes **outside the
+tracked tree**, then:
+
+```bash
+python3 scripts/store_verification_evidence.py \
+  --experiment post-layout-pvt \
+  --record-id 20261015-011505-32db02a \
+  --stage-dir sim/.work/.stage/post-layout-pvt/20261015-011505-32db02a \
+  --exclude sta-corners.json            # once per signoff-cited artefact
+```
+
+Git then holds, for that record:
+
+- `manifests/artifacts/<experiment>-<record-id>.manifest.json` — one entry per
+  stored file (`sha256`, `size`, `kind: evidence`, `producer`, the logical
+  `artifact:<key>` `uri`, and a `name` that is **exactly** the path the bytes
+  would have had under `verification/records/`);
+- `records/<record-id>.md`, hand-authored as always, with a "Stored evidence"
+  table (name, size, sha256) **appended** by the helper. It appends rather than
+  composing the record, because these records are written by hand and `sim/`'s
+  writer is not.
+
+Order matters: author the record, store the evidence, then commit the record
+and the manifest **together**. The helper appends to a file that is not
+committed yet, so the commit is a pure addition and the append-only rule below
+is untouched.
+
+**Signoff-cited artefacts stay committed.** `manifests/gf180-usb2-phy.json`
+cites 24 artefacts under `verification/records/` (2.34 MiB, 9 experiments,
+as of `22ceb85`, 2026-11-14) as in-tree evidence, and
+`scripts/check_signoff_report.py` re-renders the report through a real `klt`.
+Derive the live set from the block manifest rather than from that count — a new
+signoff row adds to it. Whether `klt signoff` can re-hash a manifest-backed
+citation is **not yet established** (issue #375), so a cited artefact is named
+with `--exclude` and committed as before. The split is **per file, not per
+record**: in `post-layout-pvt/artifacts/20261015-011505-32db02a/`,
+`sta-corners.json` is cited while its 12 siblings are not.
+
+**Fail closed** (DR-0008 point 3). Storing needs `KLT_ARTIFACT_BROKER` set (no
+default; the URL is never written in the repo), a `klt` with `artifact put` at
+or after klayout-tools `7e3561f`, and a broker that answers a `stat`. On any
+failure the helper exits 1, nothing is written under `manifests/` or
+`verification/`, and the staged bytes are left where they are, so nothing is
+lost. **There is no flag, env var or fallback that commits the bytes
+instead** — that would undo the change.
+
+**Forward-only.** Records already committed keep their bytes in the tree:
+nothing is moved, rewritten or deleted (DR-0008 point 2, and the append-only
+rule below). This removes a source of *new* committed bytes.
+
+Check and verify:
+
+```bash
+python3 scripts/check_artifact_manifests.py check --tree HEAD   # offline, in CI
+klt artifact verify manifests/artifacts/<experiment>-<record-id>.manifest.json
+```
+
+The first is offline — schema, plus the rule that no stored object's bytes are
+*also* committed — and runs in `npm run lint`. The second hash-verifies against
+the broker and needs a fleet worker with `$KLT_ARTIFACT_BROKER` set.
 
 ## Record format
 
