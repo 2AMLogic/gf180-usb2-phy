@@ -16,7 +16,6 @@ from __future__ import annotations
 
 import datetime
 import hashlib
-import importlib.util
 import json
 import os
 import sys
@@ -31,7 +30,7 @@ from unittest import mock
 SIM_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SIM_DIR))
 
-from harness import cli, corners, klt_backend, report, runner, testbench  # noqa: E402
+from harness import cli, corners, klt_backend, mc_requests, report, runner, testbench  # noqa: E402
 from harness.pdk import Pdk  # noqa: E402
 
 
@@ -646,10 +645,10 @@ class KltRequestTests(_KltFixture):
 
 
 class MonteCarloRequestSharesHarnessLimitsTests(_KltFixture):
-    """`sim/diff-receiver-mc/build_requests.py` must not re-derive `limits`.
+    """`sim/harness/mc_requests.py` must not re-derive `limits`.
 
     Both Monte Carlo campaigns (`diff-receiver-mc` and `se-receiver-mc`, which
-    calls this same `build_request`) grade their samples against the `limits`
+    both call this same `build_request`) grade their samples against the `limits`
     carried in the request. A second copy of that scaling drifted once already
     (commit `3a6e489`): limits in the check's unit, mV, were shipped unscaled
     and graded against volts, so no `vth` row could fail and the 2026-11-05
@@ -658,12 +657,7 @@ class MonteCarloRequestSharesHarnessLimitsTests(_KltFixture):
 
     def setUp(self):
         super().setUp()
-        spec = importlib.util.spec_from_file_location(
-            "diff_receiver_mc_build_requests",
-            SIM_DIR / "diff-receiver-mc" / "build_requests.py",
-        )
-        self.mc = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(self.mc)
+        self.mc = mc_requests
 
     def mc_request(self, manifest=None) -> dict:
         return self.mc.build_request(
