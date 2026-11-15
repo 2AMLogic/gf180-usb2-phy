@@ -8,6 +8,12 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-14
 
+- **PR #374**: build: discover scripts/ unittest modules in lint instead of listing them
+- **Issue #365** (closed): Collapse four hand-enumerated scripts/ test steps in npm run lint into one unittest discover (scripts/test_analog_lvs.py has been silently never-run)
+- **PR #363**: feat(analog): add per-stream klt erc supply specs and cite 11.analog
+- **Issue #248** (closed): T1 item 11 (Power delivery, analog partition): analog klt erc supply spec plus LVS supply pairing
+- **PR #358**: docs: state the five analog LVS matches and the committed driver layout
+- **Issue #355** (closed): docs: challenge-5 proposal still says no analog block has an LVS match or a committed driver layout
 - **PR #356**: chore(sim): print driver-jitter dev/cons element-wise instead of tabulating them
 - **Issue #347** (closed): Stop tabulating 8-element vectors against the time scale in sim/driver-jitter/testbench/tb.json: 98% of each corner log is blank rows (~89 MB per run)
 
