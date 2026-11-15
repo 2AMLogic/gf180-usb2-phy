@@ -5,7 +5,7 @@
     "path": "layout/digital/lvs/usb_utmi_phy_layout.spice",
     "scope": "repo"
   },
-  "reference": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-389/layout/digital/lvs/usb_utmi_phy_reference_negctl.v",
+  "reference": "./usb_utmi_phy_reference_negctl.v",
   "top": "USB_UTMI_PHY",
   "reference_top": "USB_UTMI_PHY",
   "reference_conversion": {

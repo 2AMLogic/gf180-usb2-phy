@@ -1,11 +1,11 @@
 {
   "schema": "klt.lvs.request/1",
   "layout": {
-    "netlist": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-389/layout/digital/lvs/usb_utmi_phy_layout.spice",
+    "netlist": "./usb_utmi_phy_layout.spice",
     "top": "usb_utmi_phy"
   },
   "reference": {
-    "netlist": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-389/layout/digital/lvs/usb_utmi_phy_reference_negctl.v",
+    "netlist": "./usb_utmi_phy_reference_negctl.v",
     "top": "usb_utmi_phy",
     "form": "gate-level-verilog",
     "library": "gf180mcu_fd_sc_mcu9t5v0"
