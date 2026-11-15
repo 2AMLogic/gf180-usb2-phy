@@ -4,7 +4,7 @@
 PDK, ending at the UTMI boundary, built to be finished and verified with the
 open flow and to surface klayout-tools (`klt`) gaps along the way.
 
-Status as of 2026-11-15, `main` @ `4bbdd5c`.
+Status as of 2026-11-15, `main` @ `c973e30`.
 
 The verdict of record stays the machine-graded manifest
 (`manifests/gf180-usb2-phy.json`, frozen report
@@ -62,14 +62,19 @@ the parasitic-extraction probe (#369,
 
 ## Next
 
-- **Cite `3.analog` (#246).** Blocked: `klt signoff` at 0.9.0 and 0.9.1
-  rejects a list of reports under one item (klayout-tools#5031, fixed after
-  0.9.1; 0.9.1 is the newest PyPI release as read today). Needs a release
-  carrying that fix, a pin move in `.github/workflows/ci.yml` and
-  `scripts/setup-env.sh` with the frozen report re-rendered, then the
-  citation. Done when `3.analog` renders `met` with coverage quoted in
-  `manifests/README.md`. The per-stream reports are committed
-  (`verification/records/analog-drc/`).
+- **Cite `3.analog` (#246).** Startable: `klt signoff` at 0.9.0 and 0.9.1
+  rejects a list of reports under one item (klayout-tools#5031), but
+  klayout-tools 0.9.2 -- on PyPI since 2026-11-14 -- carries the fix
+  (klayout-tools#5032, merged `3876fff`, in `v0.9.2`). Move the pin in
+  `.github/workflows/ci.yml` and `scripts/setup-env.sh` from 0.9.0 to 0.9.2
+  and re-render the frozen report. Whether `3.analog` renders `met` at 0.9.2
+  is unmeasured -- the pin move finds out, and is not waited on. Done when
+  the re-rendered report is committed and `3.analog`'s verdict is recorded,
+  with its coverage block quoted in `manifests/README.md` if it renders
+  `met`. The per-stream reports are committed
+  (`verification/records/analog-drc/`). #246 itself stays `loom:blocked`;
+  its park reason (no release carrying the fix) now looks discharged, and
+  re-stating or releasing the park is the Guide/Curator lane, not this doc.
 - **Analog post-layout PVT (#53, analog half).** The extraction path is shown
   (probe record `20261114-094500-22ceb8575799`: `klt extract --parasitics`
   produces a netlist ngspice loads — 43 R, 10 ground C, 24 coupling C, 0 L —
@@ -79,10 +84,10 @@ the parasitic-extraction probe (#369,
   `7.analog`. #53's park stays formally on klayout-tools#1962 until it is
   re-stated, narrowed or released against this record.
 - **Hermit simplifications awaiting an operator decision** (#319, #320, #331,
-  #339, #344, #350, #360, #364, #380, #385; #359 is in progress under
-  `loom:building`). Each is a self-contained removal or fold with its evidence
-  in the issue; #339 (one cell for the two identical single-ended receivers)
-  changes artifacts the manifest cites.
+  #339, #344, #350, #360, #364, #380, #385; #359 of this set is closed,
+  merged as PR #377). Each is a self-contained removal or fold with its
+  evidence in the issue; #339 (one cell for the two identical single-ended
+  receivers) changes artifacts the manifest cites.
 
 ## Later
 
@@ -106,16 +111,16 @@ the parasitic-extraction probe (#369,
 | Item | Waiting on |
 |---|---|
 | #3 tracker | every T1 row `met`; stays parked by design |
-| #246 (`3.analog` citation) | a klayout-tools release after 0.9.1 with klayout-tools#5031, then a pin move |
+| #246 (`3.analog` citation) | klayout-tools 0.9.2 (with klayout-tools#5031) is on PyPI; the pin move is startable, and the park itself awaits a Guide/Curator re-statement |
 | #249 (`5.analog`) | ratification of DR-0009 |
 | #53 (`7.analog`) | park stays on klayout-tools#1962; the extraction record is what re-states, narrows or releases it |
 | #51 (Challenge #5 maturation) | #53 |
 | #126, #319, #320, #331, #339, #344, #350, #360, #364, #380, #385 | an operator decision (options in each issue) |
 | #98, #99, #100, #195 | parked; see each issue |
 
-Dispatchable today: #370 (points 5) and #382 (points 2) sit on `loom:issue`,
-unclaimed. Now item 1 is #370; item 2's issue #371 is in triage awaiting
-curation.
+Dispatchable today: #370 (points 5) sits on `loom:issue`, unclaimed; #382
+(points 2) is now claimed (`loom:building`). Now item 1 is #370; item 2's
+issue #371 is curated (`points:2`), awaiting promotion.
 
 ## Not planned
 
