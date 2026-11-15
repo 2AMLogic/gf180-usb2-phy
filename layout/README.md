@@ -37,12 +37,13 @@ reproduced all three byte-identically.
 against this exact GDS.
 
 **LVS-matched, power-verified** —
-`verification/records/digital-lvs/records/20261015-011503-32db02a.md`:
+`verification/records/digital-lvs/records/20261115-152827-e71630d.md`:
 gate-level LVS of this GDS against `usb_utmi_phy_routed.v` (the as-built,
 post-CTS netlist) is a `status: "match"` **and**
 `power_connectivity.status: "match"` — every power/ground pin of every
 instantiated standard cell reaches its expected net — with the negative
-control on a deliberately-broken reference correctly rejected. Driven by
+control on a deliberately-broken reference correctly rejected on the
+signal half. Driven by
 `scripts/digital_lvs.py`, which asks `klt lvs` to compare the as-built
 Verilog directly (`reference.form: "gate-level-verilog"`, the form
 [klayout-tools#1336](https://github.com/2AMLogic/klayout-tools/issues/1336)
@@ -54,7 +55,13 @@ filler/tap masters structurally instead of by name. The three flow-level
 asymmetries the script's earlier hand-transcription handled
 (physical-only fillers, unconnected CTS load pins, `assign`-aliased output
 ports) are the tool's own disclosed warnings now
-(`topology.power_only_pruned`, `topology.reference_port_alias_joined`).
+(`topology.power_only_pruned`, `topology.reference_port_alias_joined`),
+plus `topology.top_level_pins_anchored` — five disclosed warnings, zero
+errors. The abstraction is label-resolved: the script supplies no
+abstract-cell LEF, since at klt 0.9.0 its pins would be unioned into the
+label-resolved cells, injecting floating well pins that fail the power
+half (issue #392; filed upstream as
+[klayout-tools#5842](https://github.com/2AMLogic/klayout-tools/issues/5842)).
 
 **What that does and does not say.** The curated `gf180mcu` deck is klt's own
 rule set, not the foundry sign-off deck; no metal/density fill is inserted, so

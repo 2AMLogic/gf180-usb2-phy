@@ -230,4 +230,25 @@ future bump appends the next move here and changes the table there.
    `gds_sha256` values in `layout/analog/provenance.json` moved. See
    `verification/records/analog-layout/` for the record.
 
+   What the same move did to the digital LVS verdict went unnoticed for the
+   whole life of the pin: `scripts/digital_lvs.py` passes
+   `klt extract --abstract-cell-lef`, and 0.9.0 turned that flag from the
+   per-cell-type fallback it was at 0.5.0 (and remains documented as) into a
+   *union* — the LEF's well/substrate PORTs (`VNW`/`VPW`, drawn on well
+   layers) were injected into every abstracted cell whose pins were already
+   fully label-resolved, growing the extraction 366 → 1430 nets and landing
+   the floating well pins in `klt lvs`'s power-pin universe, where they
+   failed `power_connectivity` (`power.inconsistent_pin_net`) against a
+   reference that correctly declares no such pin. While the flag was passed
+   the power half mismatched on every run, which also silently disarmed the
+   harness's negative-control gate (it can only fail when both halves
+   compare clean). It was not caught by the pin-move re-checks because the
+   digital-LVS harness is not wired into CI — "`npm run check:ci` was
+   re-run against each new pin" never exercised `scripts/digital_lvs.py`
+   (its only re-mints came from unrelated refactors staling a provenance
+   hash). Fixed in issue #392 by dropping the flag (the abstraction is
+   label-resolved again; the full-pass verdict and the negative control are
+   re-measured in `verification/records/digital-lvs/records/20261115-152827-e71630d.md`)
+   and filed upstream as klayout-tools#5842.
+
 `npm run check:ci` was re-run against each new pin before it was committed.

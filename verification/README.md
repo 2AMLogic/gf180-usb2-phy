@@ -384,10 +384,11 @@ verification/records/
   - `digital-lvs` (issue #51) — gate-level LVS of the routed GDS against
     `klt place-and-route`'s own as-built (post-CTS) netlist, via
     `scripts/digital_lvs.py` (`klt extract --abstract-cells` + `klt lvs`).
-    `status: "match"`, 0 mismatches, **with a negative control**: the same
-    harness re-run against a deliberately broken reference must report a
-    mismatch, and does. A record that only ever reports "match" is not
-    evidence, so the control is part of the claim rather than a nicety.
+    `status: "match"`, 5 disclosed warnings / 0 errors, **with a negative
+    control**: the same harness re-run against a deliberately broken
+    reference must report a mismatch (on the signal half), and does. A
+    record that only ever reports "match" is not evidence, so the control
+    is part of the claim rather than a nicety.
   - `analog-lvs` (issues #345, #346) — transistor-level LVS of the five
     committed analog streams (`layout/analog/*.gds`) against their schematic
     netlists (`design/netlist/<block>.spice`, `form: "subckt-call"`), via

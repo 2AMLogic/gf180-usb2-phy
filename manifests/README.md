@@ -109,6 +109,15 @@ partitions:
   carries a hand-transcribed SPICE reference, and that form's power half
   reads `"unchecked"` by construction — see record
   `20260921-145814-5bee855.md`).
+  The record lineage has since advanced twice: `20261115-002602-b2da113`
+  re-measured at a new script hash and disclosed a `power_connectivity`
+  mismatch (a harness LEF flag unioning well pins into the abstracted
+  cells), and `20261115-152827-e71630d` (issue #392) dropped that flag and
+  restored the full pass above at the same engine pin — it is the current
+  evidence for this item's claim. The citation itself stays pinned to the
+  committed, hash-matching `20261015` bytes so `scripts/check_signoff_report.py`
+  keeps passing; re-pointing it (with a real-`klt` re-render of the report)
+  is deliberately out of scope of issue #392.
 
   **Item 3.analog is still `unmet`/`no_evidence`** (item 4.analog is
   cited, below). Until issue #95 these two citations sat under the bare
