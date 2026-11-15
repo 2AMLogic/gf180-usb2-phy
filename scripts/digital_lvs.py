@@ -23,7 +23,17 @@ It answers both with one `klt lvs` compare:
   deliberately with no name filter: `klt lvs` recognizes a power-only master
   structurally and prunes it from the signal compare itself (klayout-tools
   #1622, disclosed as `topology.power_only_pruned`), while the power/ground
-  half below still checks it.
+  half below still checks it. The abstraction is **label-resolved**: no
+  cell LEF is supplied to `klt extract`, so every abstracted type's pins
+  must come from the in-cell label layers alone, and the run fails if a
+  type reports any other `resolution_source`. The standard-cell LEF is
+  deliberately withheld because at klt 0.9.0 its pins are *unioned* with
+  the label-resolved set instead of serving as the per-cell-type fallback
+  the option documents -- which injects the well pins the cells draw on
+  well/substrate layers (gf180mcu's `VNW`/`VPW`) into cells whose pins were
+  already fully resolved, and those floating well pins then fail the
+  power/ground half below (issue #392; the harness passed the LEF through
+  record `20261115-002602-b2da113`).
 * **reference side** -- the as-built Verilog itself, via
   ``"form": "gate-level-verilog"`` (klayout-tools #1336): `klt lvs` reads
   the file as Verilog and converts it to plain-element SPICE internally,
@@ -162,6 +172,26 @@ def count_instances(path: str, cell_library: str) -> int:
             rf"\b{re.escape(cell_library)}\w*\s+\S+\s*\([^;]*?\)\s*;", src, re.S
         )
     )
+
+
+def unlabelled_abstract_cells(extract_report: dict) -> list[str]:
+    """Return abstracted cell types not resolved purely from in-cell labels.
+
+    The abstraction this harness runs is label-resolved -- no cell LEF is
+    supplied (see the module docstring for why) --
+    so every entry of the extract report's `abstracted_cells` must name
+    `in_cell_labels` as its `resolution_source`. klt itself raises an
+    application error when a matched cell type resolves pins from neither
+    labels nor a supplied LEF, so a cell type that reports some *other*
+    source here would mean klt grew a third resolution path -- one that
+    could add or drop pins without anything else catching it. Returns the
+    offending cell names; empty means every type resolved from labels.
+    """
+    return [
+        entry["cell"]
+        for entry in extract_report.get("abstracted_cells", [])
+        if entry.get("resolution_source") != "in_cell_labels"
+    ]
 
 
 def unescape_verilog(name: str) -> str:
@@ -321,14 +351,6 @@ def main() -> int:
         f"{len(ports)} top-level ports (after assign-alias resolution)"
     )
 
-    lef_dir = None
-    pdk_root = os.environ.get("PDK_ROOT")
-    if pdk_root:
-        for root, _dirs, files in os.walk(pdk_root):
-            if f"{cell_library}.lef" in files:
-                lef_dir = os.path.join(root, f"{cell_library}.lef")
-                break
-
     layout_spice = os.path.join(args.out_dir, f"{args.top}_layout.spice")
     extract_cmd = [
         "klt",
@@ -349,14 +371,21 @@ def main() -> int:
         "--format",
         "json",
     ]
-    if lef_dir:
-        extract_cmd += ["--abstract-cell-lef", lef_dir]
 
     proc = _sh(extract_cmd)
     if proc.returncode != 0:
         sys.stderr.write(proc.stdout + proc.stderr)
         raise SystemExit(f"klt extract failed (exit {proc.returncode})")
     extract_report = json.loads(proc.stdout)
+    unlabelled = unlabelled_abstract_cells(extract_report)
+    if unlabelled:
+        raise SystemExit(
+            "abstracted cell types whose pins did not resolve from in-cell "
+            f"labels: {', '.join(sorted(unlabelled))} -- the abstraction is "
+            "label-resolved (no cell LEF is supplied, see the "
+            "module docstring), so a type resolving any other way would "
+            "silently gain or lose pins"
+        )
     with open(
         os.path.join(args.out_dir, "extract-report.json"), "w", encoding="utf-8"
     ) as fh:
