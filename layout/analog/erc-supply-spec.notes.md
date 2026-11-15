@@ -132,8 +132,8 @@ every harness invocation and gated against the committed spec:
 
 ```
 substrate diffusion = Comp (22/0) − Nwell (21/0)
-groups              = that region closed over a 1.1 µm proximity gap
-                      (sized(+1.1 µm), merged, intersected back with the
+groups              = that region closed over a 0.7 µm proximity gap
+                      (sized(+0.7 µm), merged, intersected back with the
                       diffusion — the closure only says which shapes belong
                       together, it is not part of the asserted region)
 well_boxes          = the bounding box of each group's own diffusion
@@ -158,27 +158,40 @@ summary's `assertion` block and gated in its `verdict`:
    `tap_narrowing_removed_um2` is 7.7–348.2 µm², so the tap side is not
    `degenerate_tap_declaration` either.
 
-### Why 1.1 µm, and what the number buys
+### Why 0.7 µm, and what the number buys
 
 The gap is chosen by measurement (`scripts/analog_erc.py --gap-scan`), not
-taste. Polygons per stream, in the committed stream order, with the
-`erc.missing_tie` count each produces:
+taste. Since issue #361 the generator straps **every** drawn body-tie pad of
+every device group to its body net in metal, so the old coarse plateau — the
+finest partition the metal used to support — is no longer the finest: the
+per-device-group partition itself is now clean at pad granularity. Polygons
+per stream, in the committed stream order, with the `erc.missing_tie` count
+each produces:
 
 | gap (µm) | polygons | `erc.missing_tie` | `erc_status` |
 |---|---|---|---|
-| 0.6 – 1.03 | 51 / 18 / 18 / 18 / 18 | 34 / 12 / 12 / 12 / 12 | violations |
-| **1.04 – 1.15** | **17 / 6 / 6 / 6 / 6** | **0** | **clean** |
+| **0.4 – 1.03** | **51 / 18 / 18 / 18 / 18** | **0** | **clean** |
+| 1.04 – 1.15 | 17 / 6 / 6 / 6 / 6 | 0 | clean |
 | 1.16 – 1.25 | 4 / 2 / 6 / 2 / 2 | 0 | clean |
 | ≥ 1.3 | 1 / 2 / 6 / 2 / 2 | 0 | clean |
 
-1.1 µm sits in the middle of the clean plateau whose partition is finest.
-That partition is not an arbitrary win: its polygon count equals, on every
-stream, the number of body-tie pads that actually reach the ground rail
-through metal (17 / 6 / 6 / 6 / 6), and the harness measures the distribution
-directly — `metal_wired_taps_per_asserted_polygon` is `[1, 1, …]` on all five
-streams. So the asserted partition is exactly the generator's own device
-groups, one metal-wired body-tie pad each, which is the finest substrate
-partition the drawn metal supports.
+(Before issue #361, the 0.4–1.03 µm row reported 34 / 12 / 12 / 12 / 12
+`erc.missing_tie` — one per polygon whose only drawn pad was unwired. The
+frozen sensitivity table for that state is
+`verification/records/analog-erc/artifacts/20261114-003000-db05b5e/gap-scan.txt`;
+the current one is the superseding ERC record's `gap-scan.txt`.)
+
+0.7 µm sits in the middle of the clean plateau whose partition is finest
+(measured clean across 0.4 – 1.03 µm). That partition is not an arbitrary
+win: each device group's diffusion closes into a handful of patches (51 /
+18 / 18 / 18 / 18 across the five streams — the closure still merges
+neighbouring diffusion, so this is per-pad-pad-adjacent, not one polygon per
+drawn pad), and the harness measures the per-polygon metal-wiring
+distribution directly — `metal_wired_taps_per_asserted_polygon` has
+minimum **1** on all five streams, most polygons carrying one or two wired
+pads and the corner patches up to four. So the asserted partition is the
+finest substrate partition the drawn metal supports, now at pad granularity
+rather than device-group granularity.
 
 The gate `every_asserted_polygon_has_a_metal_wired_tap` makes that
 self-checking: a gap set too fine cannot pass quietly, it fails the run. The
@@ -190,16 +203,16 @@ number.
 Stated here, and quoted in the evidence record, because the clean verdict is
 narrower than it looks.
 
-- **Not every drawn body-tie pad is wired to the rail.** `klt erc` joins
+- **Metal reach is verified; impedance is not.** `klt erc` joins
   conductors only through the declared `stackup`/`vias`; it has no device
-  recognition and does not model substrate conduction. The harness therefore
-  counts what the model cannot see (`census`): of the drawn substrate tap pads
-  — 84 / 28 / 24 / 28 / 28 — **all** are contacted, but only **17 / 6 / 6 / 6
-  / 6** reach `VSS` through `Contact`/`Metal1`/`Via*`/`Metal2-3`. The rest sit
-  on isolated `Metal1` pads and are tied only through the substrate itself,
-  which is what `klt lvs`'s deck-based extraction sees (and why its
-  `body_verification.status` reads `verified` on all five streams while this
-  ERC model cannot corroborate it). That is a layout observation, not a
+  recognition and does not model substrate conduction, so the clean verdict
+  is about what the metal model can see. Since issue #361 the harness's
+  census answers the question it used to leave open: of the drawn substrate
+  tap pads — 84 / 28 / 24 / 28 / 28 — **all** are contacted **and all**
+  reach `VSS` through `Contact`/`Metal1`/`Via*`/`Metal2-3` (the generator's
+  body strap, `scripts/gen_analog_layout.py`, wires every drawn pad; the
+  superseding ERC record gates it). What that metal path's resistance or
+  IR drop looks like is not measured here and is not this check's subject.
   defect this item grades; it is filed as
   [#361](https://github.com/2AMLogic/gf180-usb2-phy/issues/361).
 - **`erc.supply_short` is not computed.** Every one of these runs records it

@@ -15,12 +15,12 @@
     "Supplies: VPU_REG (positive), VSS (ground), read from this",
     "block's body_tie_nets in layout/analog/provenance.json.",
     "",
-    "substrate_neg_tap asserts 6 substrate region(s).",
+    "substrate_neg_tap asserts 18 substrate region(s).",
     "gf180mcu draws no pwell/tub layer for a native-substrate block, so",
     "well_layer is null and the region is asserted (klayout-tools#2255)",
     "and graded under erc_coverage.checked_by_well_assertion. The boxes",
     "are derived, not hand-typed: Comp (22/0) minus Nwell (21/0),",
-    "grouped by a 1.1 um proximity closure, one bounding box per",
+    "grouped by a 0.7 um proximity closure, one bounding box per",
     "group of diffusion -- the finest partition whose every polygon",
     "still holds a body-tie pad wired to ground in metal."
   ],
@@ -100,11 +100,35 @@
           -0.86,
           0.16,
           2.14,
+          2.23
+        ],
+        [
+          -0.86,
+          4.3,
+          -0.44,
+          4.72
+        ],
+        [
+          1.72,
+          4.3,
+          2.14,
           4.72
         ],
         [
           12.18,
           0.16,
+          15.18,
+          2.23
+        ],
+        [
+          12.18,
+          4.3,
+          12.6,
+          4.72
+        ],
+        [
+          14.76,
+          4.3,
           15.18,
           4.72
         ],
@@ -112,11 +136,35 @@
           25.22,
           0.16,
           28.22,
+          2.23
+        ],
+        [
+          25.22,
+          4.3,
+          25.64,
+          4.72
+        ],
+        [
+          27.8,
+          4.3,
+          28.22,
           4.72
         ],
         [
           38.26,
           0.16,
+          41.26,
+          2.23
+        ],
+        [
+          38.26,
+          4.3,
+          38.68,
+          4.72
+        ],
+        [
+          40.84,
+          4.3,
           41.26,
           4.72
         ],
@@ -124,11 +172,35 @@
           51.3,
           0.16,
           54.3,
+          2.23
+        ],
+        [
+          51.3,
+          4.3,
+          51.72,
+          4.72
+        ],
+        [
+          53.88,
+          4.3,
+          54.3,
           4.72
         ],
         [
           64.34,
           0.16,
+          67.34,
+          2.23
+        ],
+        [
+          64.34,
+          4.3,
+          64.76,
+          4.72
+        ],
+        [
+          66.92,
+          4.3,
           67.34,
           4.72
         ]
