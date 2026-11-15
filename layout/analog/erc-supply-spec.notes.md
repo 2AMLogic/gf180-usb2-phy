@@ -185,7 +185,7 @@ the current one is the superseding ERC record's `gap-scan.txt`.)
 (measured clean across 0.4 – 1.03 µm). That partition is not an arbitrary
 win: each device group's diffusion closes into a handful of patches (51 /
 18 / 18 / 18 / 18 across the five streams — the closure still merges
-neighbouring diffusion, so this is per-pad-pad-adjacent, not one polygon per
+neighbouring diffusion, so this is per-pad-adjacent-patch, not one polygon per
 drawn pad), and the harness measures the per-polygon metal-wiring
 distribution directly — `metal_wired_taps_per_asserted_polygon` has
 minimum **1** on all five streams, most polygons carrying one or two wired
@@ -213,7 +213,9 @@ narrower than it looks.
   body strap, `scripts/gen_analog_layout.py`, wires every drawn pad; the
   superseding ERC record gates it). What that metal path's resistance or
   IR drop looks like is not measured here and is not this check's subject.
-  defect this item grades; it is filed as
+  The earlier state this bullet used to grade -- only one pad per device
+  group wired to the rail, the rest tied through the substrate alone -- was
+  filed and closed as
   [#361](https://github.com/2AMLogic/gf180-usb2-phy/issues/361).
 - **`erc.supply_short` is not computed.** Every one of these runs records it
   in `erc_coverage.inapplicable` with reason
