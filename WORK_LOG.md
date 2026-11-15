@@ -6,8 +6,23 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 - [2026-09](work_log/WORK_LOG_2026-09.md)
 
+### 2026-11-15
+
+- **PR #394**: refactor: one record per T1 item in signoff/inventories.py
+- **Issue #384** (closed): Collapse the five parallel T1-item tables in signoff/inventories.py into one record per item: a missing ITEM_ENVELOPES entry is written but never verified
+- **PR #391**: evidence: standalone klt drc records for the five analog streams, coverage quoted verbatim
+- **Issue #368** (closed): Record standalone klt drc reports for the five committed analog streams, with the coverage block quoted
+- **PR #388**: feat: store verification-record artifacts by manifest instead of in git
+- **Issue #366** (closed): Stop committing verification/records artifact bytes: 629 blobs, 40% of the repo, DR-0008's own named follow-up
+- **PR #387**: feat: check spec §12.1's decision-record index against spec/decisions/
+- **Issue #378** (closed): Remove the hand-maintained DR index in spec §12.1: drifted to 3 of 11 and let DR-0007 be allocated twice
+
 ### 2026-11-14
 
+- **PR #390**: evidence: probe klt --parasitics extraction of differential_receiver.gds for an ngspice re-run
+- **Issue #369** (closed): Probe parasitic extraction of differential_receiver.gds for an ngspice re-run and record what the pinned klt can do
+- **PR #379**: refactor: move the shared Monte Carlo request code into sim/harness/mc_requests.py
+- **Issue #376** (closed): Remove the importlib path-load between the two Monte Carlo builders: move the shared request code into sim/harness/
 - **PR #374**: build: discover scripts/ unittest modules in lint instead of listing them
 - **Issue #365** (closed): Collapse four hand-enumerated scripts/ test steps in npm run lint into one unittest discover (scripts/test_analog_lvs.py has been silently never-run)
 - **PR #363**: feat(analog): add per-stream klt erc supply specs and cite 11.analog
