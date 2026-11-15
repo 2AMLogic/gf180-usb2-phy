@@ -11,7 +11,7 @@ _None._
 
 `loom:very-important` (one counts per workspace); every stage takes these first.
 
-- **#369**: Probe parasitic extraction of differential_receiver.gds for an ngspice re-run and record what the pinned klt can do
+_None._
 
 ## Important
 
@@ -20,16 +20,13 @@ _None._
 - **#53**: Post-layout (extracted-parasitic) re-verification: digital STA now, analog PVT after #52
 - **#246**: T1 item 3 (DRC clean, analog partition): klt drc on the committed analog GDS with coverage disclosed
 - **#249**: T1 item 5 (Full corner verification): propose a spec 8.2 driver-jitter decision record so 5.analog's declared gap can close
-- **#368**: Record standalone klt drc reports for the five committed analog streams, with the coverage block quoted
 
 ## Ready
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-- **#366**: Stop committing verification/records artifact bytes: 629 blobs, 40% of the repo, DR-0008's own named follow-up
 - **#370**: Check drawn poly-resistor dimensions in the five analog streams against design/netlist, since LVS compares none
-- **#378**: Remove the hand-maintained DR index in spec §12.1: drifted to 3 of 11 and let DR-0007 be allocated twice
-- **#384**: Collapse the five parallel T1-item tables in signoff/inventories.py into one record per item: a missing ITEM_ENVELOPES entry is written but never verified
+- **#382**: Make a zero-test scripts/test_*.py module loud: unittest discover hides a hand-rolled runner it collects nothing from
 
 ## In Progress
 
@@ -37,19 +34,19 @@ Issues currently being built (`loom:building`).
 
 - **#359**: Remove two CI steps that re-run commands npm run check:ci already ran: neither can ever fail
 - **#373**: Remove three dead symbols in sim/harness: klt_version() and two unused imports
-- **#376**: Remove the importlib path-load between the two Monte Carlo builders: move the shared request code into sim/harness/
+- **#389**: Remove the unused instance-parsing half of digital_lvs.py's parse_verilog()
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-- **#367**: docs: roadmap as of 2026-11-13
+_None._
 
 ## Approved (Awaiting Merge)
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-- **#379**: refactor: move the shared Monte Carlo request code into sim/harness/mc_requests.py
+- **#377**: ci: drop two workflow steps that repeat commands check:ci already ran
 - **#383**: refactor: drop unused klt_version() probe and two unused imports in sim/harness
 
 ## Proposed
@@ -59,13 +56,10 @@ Issues carrying `loom:curated`.
 - **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief *(curated)*
 - **#53**: Post-layout (extracted-parasitic) re-verification: digital STA now, analog PVT after #52 *(curated)*
 - **#126**: Resolve DR-0003: transition-resynchronized RX oversampling for independent host clocks *(curated)*
-- **#366**: Stop committing verification/records artifact bytes: 629 blobs, 40% of the repo, DR-0008's own named follow-up *(curated)*
-- **#368**: Record standalone klt drc reports for the five committed analog streams, with the coverage block quoted *(curated)*
-- **#369**: Probe parasitic extraction of differential_receiver.gds for an ngspice re-run and record what the pinned klt can do *(curated)*
+- **#361**: Analog body-tie pads: only one pad per device group is wired to the rail; the rest are tied through the substrate alone *(curated)*
 - **#370**: Check drawn poly-resistor dimensions in the five analog streams against design/netlist, since LVS compares none *(curated)*
-- **#371**: docs: manifests/README.md and verification/README.md still say no analog layout exists *(curated)*
-- **#378**: Remove the hand-maintained DR index in spec §12.1: drifted to 3 of 11 and let DR-0007 be allocated twice *(curated)*
 - **#382**: Make a zero-test scripts/test_*.py module loud: unittest discover hides a hand-rolled runner it collects nothing from *(curated)*
+- **#392**: Frozen digital-lvs record no longer reproduces on main under repo-pin klt 0.9.0 (power_connectivity VNW/VPW well-pin derivation) *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -91,13 +85,13 @@ Issues carrying `loom:curated`.
 | Bucket | Count |
 |------|-------|
 | Operator merge-risk holds | 0 |
-| Very important | 1 |
-| Important | 4 |
-| Ready (`loom:issue`) | 4 |
+| Very important | 0 |
+| Important | 3 |
+| Ready (`loom:issue`) | 2 |
 | In Progress (`loom:building`) | 3 |
-| PRs awaiting review | 1 |
+| PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 2 |
-| Curated | 10 |
+| Curated | 7 |
 | Architect / Hermit proposals | 12 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
