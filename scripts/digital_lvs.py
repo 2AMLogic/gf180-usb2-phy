@@ -25,8 +25,12 @@ It answers both with one `klt lvs` compare:
   #1622, disclosed as `topology.power_only_pruned`), while the power/ground
   half below still checks it. The abstraction is **label-resolved**: no
   cell LEF is supplied to `klt extract`, so every abstracted type's pins
-  must come from the in-cell label layers alone, and the run fails if a
-  type reports any other `resolution_source`. The standard-cell LEF is
+  must come from the in-cell label
+  layers alone -- both `resolution_source: "in_cell_labels"` and a null
+  `lef_path` (the union keeps the source field at `in_cell_labels` while
+  appending the LEF's pins and setting `lef_path`, so the source field
+  alone cannot see it) -- and the run fails if a type reports anything
+  else. The standard-cell LEF is
   deliberately withheld because at klt 0.9.0 its pins are *unioned* with
   the label-resolved set instead of serving as the per-cell-type fallback
   the option documents -- which injects the well pins the cells draw on
@@ -179,18 +183,28 @@ def unlabelled_abstract_cells(extract_report: dict) -> list[str]:
 
     The abstraction this harness runs is label-resolved -- no cell LEF is
     supplied (see the module docstring for why) --
-    so every entry of the extract report's `abstracted_cells` must name
-    `in_cell_labels` as its `resolution_source`. klt itself raises an
-    application error when a matched cell type resolves pins from neither
-    labels nor a supplied LEF, so a cell type that reports some *other*
-    source here would mean klt grew a third resolution path -- one that
-    could add or drop pins without anything else catching it. Returns the
-    offending cell names; empty means every type resolved from labels.
+    so every entry of the extract report's `abstracted_cells` must have
+    pins that came from the in-cell label layers alone: `resolution_source`
+    equal to `in_cell_labels` **and** a null `lef_path`. Neither field
+    alone is sufficient. The LEF-union path klt grew at 0.9.0 (upstream
+    issue klayout-tools#3749) keeps `resolution_source` at `in_cell_labels`
+    -- labels win on any pin name present in both -- while appending the
+    LEF's extra pins and setting `lef_path`; keying only on the source
+    field therefore passes the exact payload that caused issue #392 (the
+    committed capture `20261115-002602-b2da113` shows the shape: 62 of 64
+    types with `lef_path` set, every one still `in_cell_labels`). klt
+    itself raises an application error when a matched cell type resolves
+    pins from neither labels nor a supplied LEF, so a cell type that
+    reports some *other* source here would mean klt grew a third
+    resolution path -- one that could add or drop pins without anything
+    else catching it. Returns the offending cell names; empty means every
+    type resolved from labels with no LEF contribution.
     """
     return [
         entry["cell"]
         for entry in extract_report.get("abstracted_cells", [])
         if entry.get("resolution_source") != "in_cell_labels"
+        or entry.get("lef_path") is not None
     ]
 
 
@@ -380,11 +394,11 @@ def main() -> int:
     unlabelled = unlabelled_abstract_cells(extract_report)
     if unlabelled:
         raise SystemExit(
-            "abstracted cell types whose pins did not resolve from in-cell "
-            f"labels: {', '.join(sorted(unlabelled))} -- the abstraction is "
-            "label-resolved (no cell LEF is supplied, see the "
-            "module docstring), so a type resolving any other way would "
-            "silently gain or lose pins"
+            "abstracted cell types whose pins did not resolve purely from "
+            f"in-cell labels: {', '.join(sorted(unlabelled))} -- the abstraction "
+            "is label-resolved (no cell LEF is supplied, see the module "
+            "docstring), so a foreign resolution_source or a non-null "
+            "lef_path would mean the run silently gained or lost pins"
         )
     with open(
         os.path.join(args.out_dir, "extract-report.json"), "w", encoding="utf-8"
