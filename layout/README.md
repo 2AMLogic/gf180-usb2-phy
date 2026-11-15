@@ -257,7 +257,14 @@ is history: that stream no longer exists in the tree.
 **What the match does not say.** The compare paired the poly resistors on
 topology alone — their `R` is a `subckt-call` placeholder and `L`/`W`/`A`/`P`
 are KLayout-secondary, so none was compared — so it verifies no resistor
-dimension, including the DR-0010 deviation above. MOS `L`/`W` *were* compared
+dimension, including the DR-0010 deviation above. Drawn resistor dimensions
+are now checked separately, outside LVS:
+`scripts/check_analog_resistor_dims.py` reads every resistor's drawn `L`/`W`
+off the GDS marker layer, compares it exactly against the netlist
+`r_length`/`r_width`, and allows only the five DR-0010 trim segments — its
+per-resistor record is
+`verification/records/analog-resistor-dims/` (issue #370). MOS `L`/`W` *were*
+compared
 and agreed. No extracted re-simulation was run on these streams (#53), and
 nothing here is an IR-drop or latch-up-margin claim about the tie geometry.
 Supply-connectivity ERC has since been run and cited separately (#248, item
@@ -310,7 +317,11 @@ labelled port set is the schematic's. The earlier
 but its 1-of-8 routing and 31-vs-10 net counts describe that 2026-10-09
 plan-path-only `differential_receiver` geometry, not the committed stream.
 What is still missing is electrical: no extracted re-simulation exists, and
-LVS compared no resistor dimension (see "What the match does not say" above).
+LVS compared no resistor dimension (see "What the match does not say" above;
+drawn resistor dimensions are since checked by
+`scripts/check_analog_resistor_dims.py`, recorded in
+`verification/records/analog-resistor-dims/`, but that is a drawn-geometry
+check, not an electrical one).
 Supply-connectivity ERC of all five streams landed with issue #248 and is
 recorded in `20261114-003000-db05b5e`, from which T1 item `11.analog` cites
 one `(erc, lvs)` pair (`differential_driver`) rather than all five; DRC signoff
