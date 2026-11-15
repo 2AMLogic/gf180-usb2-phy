@@ -1,0 +1,8 @@
+{
+  "file": "../../../../../layout/analog/differential_receiver.gds",
+  "deck": "gf180mcu",
+  "top": "differential_receiver",
+  "pdk": "gf180mcuD",
+  "parasitics": true,
+  "output": "../../../../../layout/analog/extracted/differential_receiver_parasitic.spice"
+}

@@ -410,22 +410,49 @@ class BodyTieTests(unittest.TestCase):
         }
         return response, compose, digest
 
-    def test_every_body_is_tied_to_its_schematic_net(self):
+    def test_every_drawn_tap_pad_is_tied_to_its_schematic_net(self):
         pin_map = gal._netlist_pin_map(*self._inputs())
         self.assertEqual(
             {net: [p["block"] for p in pins] for net, pins in pin_map["ties"].items()},
-            {"VSS": ["mn_a"], "VDD": ["mp_a"]},
+            {"VSS": ["mn_a"] * 4, "VDD": ["mp_a"] * 4},
         )
         self.assertEqual(pin_map["problems"], [])
         self.assertEqual(pin_map["untied"], [])
         for pins in pin_map["ties"].values():
-            self.assertTrue(pins[0]["port"].startswith(gal.TAP_PAD_PREFIX))
+            for pin in pins:
+                self.assertTrue(pin["port"].startswith(gal.TAP_PAD_PREFIX))
+        # Every drawn pad of the group appears exactly once, in a stable order.
+        for pins in pin_map["ties"].values():
+            self.assertEqual(
+                [p["port"] for p in pins],
+                [f"TAP_PAD{i}" for i in range(4)],
+            )
 
-    def test_tie_uses_a_bottom_facing_pad(self):
+    def test_a_pfet_group_ties_its_nwell_pads_too(self):
+        # The n-well side: the same tie rule covers a pfet group's drawn
+        # n-well pads -- one tie pin per drawn pad, not one per group.
+        pin_map = gal._netlist_pin_map(*self._inputs())
+        ports = {p["name"] for p in _mos_ports()}
+        tied = {p["port"] for p in pin_map["ties"]["VDD"]}
+        self.assertEqual(tied, {name for name in ports if name.startswith("TAP_PAD")})
+
+    def test_the_escape_pad_is_still_a_bottom_facing_one(self):
+        # The strap carries the group's pads to the rail through ONE escape
+        # per group, and that escape keeps dropping straight into the bottom
+        # channel: the bottom-facing pad nearest the group's x centre. The
+        # tied SET is no longer all-bottom-facing -- the stub's two 90-facing
+        # corner pads are tied too, which is what the old assertion could not
+        # express.
         pin_map = gal._netlist_pin_map(*self._inputs())
         ports = {p["name"]: p for p in _mos_ports()}
-        for pins in pin_map["ties"].values():
-            self.assertEqual(ports[pins[0]["port"]]["direction_deg"], 270)
+        for net, pins in pin_map["ties"].items():
+            by_block: dict[str, list[dict]] = {}
+            for pin in pins:
+                by_block.setdefault(pin["block"], []).append(ports[pin["port"]])
+            for block, pad_ports in by_block.items():
+                escape = gal._tap_pad_pin(pad_ports)
+                self.assertIsNotNone(escape)
+                self.assertEqual(ports[escape]["direction_deg"], 270)
 
     def test_terminal_map_covers_one_pin_nets(self):
         # 'IN' has a single terminal, so the plan's own nets[] omits it -- it
@@ -495,6 +522,82 @@ class BodyTieTests(unittest.TestCase):
         )
         self.assertEqual(pin_map["untied"], [{"block": "r_1", "net": "VSS"}])
         self.assertEqual(pin_map["ties"], {})
+
+
+class BodyStrapTests(unittest.TestCase):
+    """``_body_strap_boxes``: the perimeter rule, measured not asserted.
+
+    ``mos_array`` draws every tap pad on the cell boundary -- pad columns at
+    the left/right edges, pad rows across the bottom/top and down the sides
+    -- so a strap confined to the pads' own coordinates cannot reach the
+    device. These tests pin that confinement: no box covers a device port,
+    and every pad is covered.
+    """
+
+    CORNER_PADS = [(-0.65, -0.86), (-0.65, 7.28), (1.93, -0.86), (1.93, 7.28)]
+    # A tall mn_2dm-shaped group: corners plus mid-side pads.
+    SIDE_PADS = [
+        (-0.65, -0.86), (-0.65, 32.28), (1.93, -0.86), (1.93, 32.28),
+        (-0.86, 15.71), (2.14, 15.71),
+    ]
+    DEVICE_PORTS = [(0.21, 2.0), (1.29, 2.0), (0.75, 4.96)]  # S, D, G
+
+    @staticmethod
+    def _covers(boxes, point):
+        x, y = point
+        return any(x0 <= x <= x1 and y0 <= y <= y1 for x0, y0, x1, y1 in boxes)
+
+    def test_corner_pads_make_a_perimeter_ring(self):
+        boxes = gal._body_strap_boxes(self.CORNER_PADS)
+        self.assertEqual(len(boxes), 4)  # two verticals, two horizontals
+        for pad in self.CORNER_PADS:
+            self.assertTrue(self._covers(boxes, pad), pad)
+        for port in self.DEVICE_PORTS:
+            self.assertFalse(self._covers(boxes, port), port)
+
+    def test_side_pads_ride_the_columns_and_never_cross_the_cell(self):
+        boxes = gal._body_strap_boxes(self.SIDE_PADS)
+        for pad in self.SIDE_PADS:
+            self.assertTrue(self._covers(boxes, pad), pad)
+        for port in self.DEVICE_PORTS:
+            self.assertFalse(self._covers(boxes, port), port)
+        # No horizontal at the side pads' own row: a strip across the cell
+        # interior there would cross the source/drain strips of a tall cell.
+        # (The perimeter verticals legitimately span the row; a horizontal
+        # would be a thin box centred on it.)
+        side_y = 15.71
+        self.assertFalse(
+            any(
+                abs(y0 - (side_y - gal.WIRE_UM / 2)) < 1e-9
+                and x0 < 0.5 < x1
+                for x0, y0, x1, y1 in boxes
+            )
+        )
+
+    def test_collinear_pads_get_one_strip(self):
+        boxes = gal._body_strap_boxes([(-0.65, -0.86), (1.93, -0.86)])
+        self.assertEqual(len(boxes), 1)
+        x0, y0, x1, y1 = boxes[0]
+        self.assertEqual((x0, x1), (-0.65 - 0.14, 1.93 + 0.14))
+        self.assertAlmostEqual(y1 - y0, gal.WIRE_UM)
+
+    def test_a_single_pad_needs_nothing(self):
+        self.assertEqual(gal._body_strap_boxes([(1.0, 1.0)]), [])
+        self.assertEqual(gal._body_strap_boxes([]), [])
+
+    def test_an_interior_column_never_reaches_the_device(self):
+        pads = self.CORNER_PADS + [(0.4, 3.0)]  # between both columns and rows
+        boxes = gal._body_strap_boxes(pads)
+        for pad in pads:
+            self.assertTrue(self._covers(boxes, pad), pad)
+        for port in self.DEVICE_PORTS:
+            self.assertFalse(self._covers(boxes, port), port)
+        # The interior pad gets its own column, and that column is a pad band
+        # (0.28 um wide), never a plate that could short across the device.
+        column = [b for b in boxes if abs(b[0] - 0.26) < 1e-9]
+        self.assertEqual(len(column), 1)
+        x0, y0, x1, y1 = column[0]
+        self.assertAlmostEqual(x1 - x0, gal.WIRE_UM)
 
 
 class PinAnchorTests(unittest.TestCase):

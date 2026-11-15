@@ -44,7 +44,7 @@ hand-typed magic numbers here. They are derived from the stream by one
 mechanical rule:
 
     substrate diffusion  = Comp (22/0) - Nwell (21/0)
-    groups               = that region closed over a CLUSTER_GAP_UM (1.1 um)
+    groups               = that region closed over a CLUSTER_GAP_UM (0.7 um)
                            proximity gap (`sized(+gap)`, merged, then
                            intersected back with the diffusion -- the closure
                            only says which shapes belong together, it is not
@@ -158,17 +158,16 @@ METAL3 = (42, 0)
 #: It groups a device's diffusion with the body-tie pads drawn beside it.
 #: Chosen by measurement, not taste (`--gap-scan`, and the table in
 #: `layout/analog/erc-supply-spec.notes.md`): on these five streams the
-#: partition is 17/6/6/6/6 polygons for every gap in 1.03-1.15 um, which is
-#: the finest partition whose every polygon still holds a body-tie pad
-#: wired to the ground rail in metal -- and 1.1 um sits in the middle of that
-#: plateau. Finer (<= 1.03 um) splits the partition past what the drawn metal
-#: supports and the run reports `erc.missing_tie`; coarser (>= 1.16 um)
-#: merges groups and weakens the claim to 4/2/6/2/2 and then 1/2/6/2/2
-#: polygons. The `every_asserted_polygon_has_a_metal_wired_tap` gate means
-#: this constant cannot be set too fine without the run failing loudly, so
-#: it is a granularity knob with a verified floor rather than a tuned
-#: magic number.
-CLUSTER_GAP_UM = 1.1
+#: partition is 51/18/18/18/18 polygons for every gap in 0.4-1.03 um, which
+#: since the body strap wires every drawn pad (`_strap_body_pads`) is the
+#: finest partition whose every polygon still holds body-tie pads wired to
+#: the ground rail in metal -- and 0.7 um sits in the middle of that
+#: plateau. Coarser (>= 1.04 um) merges device groups and weakens the claim
+#: to 17/6/6/6/6 and then 4/2/6/2/2 polygons. The
+#: `every_asserted_polygon_has_a_metal_wired_tap` gate means this constant
+#: cannot be set too fine without the run failing loudly, so it is a
+#: granularity knob with a verified floor rather than a tuned magic number.
+CLUSTER_GAP_UM = 0.7
 
 #: Tie names the committed specs use, so the harness can look their work
 #: identities up in `erc_coverage` without re-parsing the spec twice.
@@ -713,21 +712,23 @@ def grade_lvs_pairing(root: str, block: str, positive: str, ground: str) -> dict
 
 
 def gap_scan(kdb, root: str, blocks: list[str], klt: str, gaps: list[float]) -> int:
-    """Why `CLUSTER_GAP_UM` is 1.1 um, re-measurable rather than asserted.
+    """Why `CLUSTER_GAP_UM` is 0.7 um, re-measurable rather than asserted.
 
     For each gap, derive the assertion that gap implies, run `klt erc` on it,
     and print the resulting polygon count and `erc.missing_tie` count per
     block. Writes nothing: this is the sensitivity measurement the notes file
     and the evidence record quote, not a spec generator.
 
-    The shape it shows on these five streams is two plateaus -- a coarse one
-    (device-group granularity) that reports clean, and a finer one that
-    reports `erc.missing_tie` per asserted patch, because the layout wires
-    one body-tie pad per device group to the rail and leaves the rest to
-    substrate conduction, which `klt erc` does not model. Picking a gap
-    inside the coarse plateau is picking the finest granularity the drawn
-    metal supports; the `census` block reports the per-pad numbers that
-    granularity does not state.
+    The shape it shows on these five streams: the fine plateau (0.4-1.03 um,
+    one to a few polygons per device group -- the closure still merges
+    neighbouring diffusion, so this is finer than device-group granularity
+    but coarser than one polygon per drawn pad) reports clean with zero
+    `erc.missing_tie`, because the generator now wires every drawn body-tie
+    pad to the rail in metal (issue #361's body strap); coarser gaps merge
+    device groups and weaken the partition without adding anything. Picking
+    a gap inside the fine plateau is picking the finest granularity the
+    drawn metal supports; the `census` block gates it per polygon (every
+    asserted polygon must hold a metal-wired pad).
     """
     global CLUSTER_GAP_UM
     original = CLUSTER_GAP_UM

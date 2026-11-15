@@ -37,12 +37,13 @@ reproduced all three byte-identically.
 against this exact GDS.
 
 **LVS-matched, power-verified** —
-`verification/records/digital-lvs/records/20261015-011503-32db02a.md`:
+`verification/records/digital-lvs/records/20261115-200849-6416f1a.md`:
 gate-level LVS of this GDS against `usb_utmi_phy_routed.v` (the as-built,
 post-CTS netlist) is a `status: "match"` **and**
 `power_connectivity.status: "match"` — every power/ground pin of every
 instantiated standard cell reaches its expected net — with the negative
-control on a deliberately-broken reference correctly rejected. Driven by
+control on a deliberately-broken reference correctly rejected on the
+signal half. Driven by
 `scripts/digital_lvs.py`, which asks `klt lvs` to compare the as-built
 Verilog directly (`reference.form: "gate-level-verilog"`, the form
 [klayout-tools#1336](https://github.com/2AMLogic/klayout-tools/issues/1336)
@@ -54,7 +55,13 @@ filler/tap masters structurally instead of by name. The three flow-level
 asymmetries the script's earlier hand-transcription handled
 (physical-only fillers, unconnected CTS load pins, `assign`-aliased output
 ports) are the tool's own disclosed warnings now
-(`topology.power_only_pruned`, `topology.reference_port_alias_joined`).
+(`topology.power_only_pruned`, `topology.reference_port_alias_joined`),
+plus `topology.top_level_pins_anchored` — five disclosed warnings, zero
+errors. The abstraction is label-resolved: the script supplies no
+abstract-cell LEF, since at klt 0.9.0 its pins would be unioned into the
+label-resolved cells, injecting floating well pins that fail the power
+half (issue #392; filed upstream as
+[klayout-tools#5842](https://github.com/2AMLogic/klayout-tools/issues/5842)).
 
 **What that does and does not say.** The curated `gf180mcu` deck is klt's own
 rule set, not the foundry sign-off deck; no metal/density fill is inserted, so
@@ -234,10 +241,15 @@ guard-ring / body-tie metal-1 pads each generator draws are in no plan net.
 That is a tool gap (`2AMLogic/klayout-tools#5546`), and until it closes
 `scripts/gen_analog_layout.py` completes the tie itself, in the same post-plan
 pass as the scripted routes: it reads the plan's own netlist digest, and for
-each device group ties the group's body — through one of the contacted
-`TAP_PAD` ports `mos_array` reports — to the net the schematic puts that body
-on. One pad per group is enough, because a group's pads contact the one well
-(pfet) or the one substrate (nfet) its devices sit in. The same pass re-labels
+each device group ties the group's body net through **every** contacted
+`TAP_PAD` port `mos_array` reports for it — substrate pads on the nfet
+groups and n-well pads on the pfet groups alike — then straps the group's
+pads together in metal-1 so each drawn pad reaches the net the schematic
+puts that body on (the strap draws each leg only where it clears klt's own
+routes and every other group's device metal by the metal-1 spacing rule; a
+pad the strap cannot carry keeps its own escape stub, and same-net stubs
+within one via width of a kept stub's column ride that stub's via-2). The
+same pass re-labels
 the top cell so its named nets are **exactly** the reference `.subckt` ports;
 what klt leaves behind is one label per net its router drew a leg for, which is
 neither the port set nor a subset of it.
@@ -268,10 +280,14 @@ compared
 and agreed. No extracted re-simulation was run on these streams (#53), and
 nothing here is an IR-drop or latch-up-margin claim about the tie geometry.
 Supply-connectivity ERC has since been run and cited separately (#248, item
-`11.analog`) — read that record for what it does and does not establish
-about the body ties, in particular that only 17 / 6 / 6 / 6 / 6 of the drawn
-body-tie pads reach ground through metal rather than through the
-substrate.
+`11.analog`) — since issue #361 that record measures a strictly stronger
+verdict: **every** drawn body-tie pad (84 / 28 / 24 / 28 / 28 substrate pads
+per stream, and the n-well pads beside them) reaches ground through metal —
+the generator straps each group's pads — and the asserted substrate
+partition moved to pad granularity (`CLUSTER_GAP_UM` 0.7 µm, 51 / 18 / 18 /
+18 / 18 polygons, zero `erc.missing_tie`). See
+`verification/records/analog-erc/records/20261115-174000-5279711.md` for
+what that verdict does and does not establish.
 Metal-3 is used for the first time in this repo; nothing yet checks it beyond the
 deck's `metal3.*` and `via2.*` rules.
 
