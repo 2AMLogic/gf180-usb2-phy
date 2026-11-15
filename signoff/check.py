@@ -51,7 +51,7 @@ def check_anchored_evidence(root: Path = REPO_ROOT, manifest_path: Path | None =
         fail(f"{manifest_path}: unreadable manifest ({exc})")
         return False
     ok = True
-    for key in inventories.ITEM_ENVELOPES:
+    for key in inventories.ITEMS:
         problems = inventories.verify_item(root, key, manifest)
         for problem in problems:
             fail(problem)
@@ -64,7 +64,7 @@ def check_anchored_evidence(root: Path = REPO_ROOT, manifest_path: Path | None =
             )
         else:
             print(
-                f"ok   T1 item {key}: {inventories.ITEM_ARTIFACTS[key]} is bound and "
+                f"ok   T1 item {key}: {inventories.ITEMS[key].artifact} is bound and "
                 "describes the current tree"
             )
     return ok
@@ -85,7 +85,7 @@ def regen(root: Path = REPO_ROOT, manifest_path: Path | None = None) -> bool:
     manifest = json.loads(manifest_path.read_text())
     evidence = manifest["evidence"]
     for key, content_hash in pins.items():
-        evidence[key] = {"file": inventories.ITEM_ENVELOPES[key], "content_hash": content_hash}
+        evidence[key] = {"file": inventories.ITEMS[key].envelope, "content_hash": content_hash}
     manifest["evidence"] = dict(sorted(evidence.items(), key=lambda kv: _sort_key(kv[0])))
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
     print(f"wrote inventories, envelopes and manifest pins for T1 items {', '.join(pins)}")
