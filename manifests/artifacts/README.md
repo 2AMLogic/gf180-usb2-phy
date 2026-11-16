@@ -26,9 +26,22 @@ stays committed — under `sim/<bench>/records/` or
 Not everything under an admitted root moves: the artefacts that
 `manifests/gf180-usb2-phy.json` cites as in-tree signoff evidence (24 under
 `verification/records/`, as of `22ceb85`, 2026-11-14) stay committed and are
-named in no manifest, until issue #375 establishes whether `klt signoff` can
-re-hash a manifest-backed citation. Keeping a file tracked but unnamed passes
-the no-committed-blob rule below, which inspects manifest-named paths only.
+named in no manifest. That deferral is now settled (issue #412, measured at
+runtime 2026-11-16 against `klt 0.9.3.dev16+gdcf18e2e0c03`): `klt signoff`
+cannot resolve or re-hash a manifest-backed citation. An `artifact:<key>`
+reference in an evidence entry — `{"file": ..., "content_hash": ...}` or a
+bare string — grades `unmet`/`unreadable_evidence` (the URI is joined onto
+the grading cwd as a literal relative path), and a passing generic envelope
+whose `provenance.input.path` is an `artifact:` URI grades
+`unmet`/`unverifiable_provenance` (the re-hash layer resolves only
+filesystem paths; a real-file control grades `met` with
+`input_verified: true`). The gap is filed upstream at
+`2AMLogic/klayout-tools#5882` (adjacent: `2AMLogic/klayout-tools#5591`).
+Until that capability exists, migrating this set into manifests would leave
+every item it evidence-anchors ungradeable — the migration stays with issue
+#375, so the set stays committed and unnamed meanwhile. Keeping a file
+tracked but unnamed passes the no-committed-blob rule below, which inspects
+manifest-named paths only.
 
 Manifests are append-only evidence: never edit or delete one
 (`sim/check_records.py --require-append-only` enforces it). CI runs
