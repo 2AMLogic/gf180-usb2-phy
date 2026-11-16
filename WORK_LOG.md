@@ -8,6 +8,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-16
 
+- **PR #424**: fix: drop dead __main__ block left by unittest conversion and rebind evidence
+- **Issue #407** (closed): verification/test_check_records.py carries a dead `if __name__ == "__main__": sys.exit(main())` block after the unittest conversion
 - **PR #421**: docs: re-point analog-layout citations to the 8dff986 head and retire the stale no-ERC clauses
 - **Issue #417** (closed): docs: analog-layout prose cites the superseded 162700 record; adjacent prose still says "no ERC result"
 - **PR #416**: docs: settle the stored-evidence signoff deferral with the measured klt signoff determination
