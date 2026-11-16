@@ -170,10 +170,11 @@ Not covered by the corner runner: `verification/records/` and
 `scripts/store_verification_evidence.py`, issue #366, see
 `verification/README.md` "Stored evidence" — which reuses this module and
 writes manifests into the same directory with a `verification/records/...`
-`name`. `layout/digital/` still has none: to store such a file, run `klt
-artifact put <file> --name <in-tree path> --manifest
-manifests/artifacts/<name>.manifest.json` yourself; the CI check applies to the
-resulting manifest either way.
+`name`. `layout/digital/` still has no writer, and
+`scripts/check_artifact_manifests.py` does not admit a `layout/digital/`
+`name` today, so there is no working recipe for storing a file from that
+tree; `manifests/artifacts/README.md` carries the authoritative
+admitted-roots table.
 
 ## Append-only rule
 

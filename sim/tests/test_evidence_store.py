@@ -386,6 +386,40 @@ class StageDirectory(unittest.TestCase):
             es.refuse_tracked_stage(self.root / "sim/scratch", self.root)
 
 
+class SummarySection(unittest.TestCase):
+    """The appended section's citation comes from ``provenance``; the default
+    must keep the ``sim/`` corner path byte-identical (issue #395)."""
+
+    MANIFEST = {"schema_version": 1, "entries": [
+        {"name": "sim/b/corners/r1/tt.log", "size": 7, "sha256": "ab" * 32}]}
+
+    def test_default_citation_is_the_corner_run_wording(self):
+        text = es.summary_section("manifests/artifacts/b-r1.manifest.json",
+                                  self.MANIFEST, [])
+        self.assertIn("The bytes of this run are in the fleet artifact store, "
+                      "not in git (issue #237). Manifest: "
+                      "`manifests/artifacts/b-r1.manifest.json` (1 objects, "
+                      "7 B).", text)
+        self.assertNotIn("#366", text)
+
+    def test_explicit_provenance_is_emitted(self):
+        text = es.summary_section(
+            "manifests/artifacts/post-layout-pvt-x.manifest.json",
+            self.MANIFEST, [],
+            provenance="The bytes of this record are in the fleet artifact "
+                       "store, not in git (issue #366, DR-0008)")
+        self.assertIn("The bytes of this record are in the fleet artifact "
+                      "store, not in git (issue #366, DR-0008).", text)
+        self.assertNotIn("#237", text)
+        self.assertIn("## Stored evidence", text)
+
+    def test_empty_rows_still_render(self):
+        text = es.summary_section("manifests/artifacts/b-r1.manifest.json",
+                                  self.MANIFEST, ["sim/b/corners/r1/empty.log"])
+        self.assertIn("`sim/b/corners/r1/empty.log` | 0 |", text)
+        self.assertIn("empty, not stored", text)
+
+
 if __name__ == "__main__":
     unittest.main()
 
