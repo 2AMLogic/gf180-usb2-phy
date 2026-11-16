@@ -8,6 +8,11 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-15
 
+- **PR #399**: check: compare drawn analog resistor L/W against the netlists outside LVS
+- **Issue #370** (closed): Check drawn poly-resistor dimensions in the five analog streams against design/netlist, since LVS compares none
+- **PR #383**: refactor: drop unused klt_version() probe and two unused imports in sim/harness
+- **Issue #373** (closed): Remove three dead symbols in sim/harness: klt_version() and two unused imports
+- **Issue #397** (closed): digital_lvs.py picks the abstract-cell LEF by filesystem walk order, not by the declared PDK variant
 - **PR #393**: refactor: drop the unused instance-parsing half of digital_lvs parse_verilog
 - **Issue #389** (closed): Remove the unused instance-parsing half of digital_lvs.py's parse_verilog()
 - **PR #377**: ci: drop two workflow steps that repeat commands check:ci already ran
