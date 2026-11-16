@@ -389,18 +389,25 @@ verification/records/
     reference must report a mismatch (on the signal half), and does. A
     record that only ever reports "match" is not evidence, so the control
     is part of the claim rather than a nicety.
-  - `analog-lvs` (issues #345, #346) — transistor-level LVS of the five
+  - `analog-lvs` (issues #345, #346, #361) — transistor-level LVS of the five
     committed analog streams (`layout/analog/*.gds`) against their schematic
     netlists (`design/netlist/<block>.spice`, `form: "subckt-call"`), via
     `scripts/analog_lvs.py`. The first record (#345) measured **five
     mismatches** and named the cause per block — untied PMOS n-wells, an
     untied p-substrate, and a labelled port set that was not the schematic's
     — each read off the compare's own extracted netlist rather than
-    inferred, with what could *not* be established marked as such. The
-    current record (#346) repairs all three in the layout generator and
-    measures **five matches**: every device, net and pin pairs, with no LVS
-    option that would hide a mismatch set — in particular no
-    `ignore_mos_bulk`. Caveat: this is a structural compare. MOS `L`/`W`
+    inferred, with what could *not* be established marked as such. Record
+    #346 (`20261113-163000-35e9b6e5ab87`) repairs all three in the layout
+    generator and measures **five matches** — every device, net and pin
+    pairs, with no LVS option that would hide a mismatch set, in particular
+    no `ignore_mos_bulk` — on the pre-#361 streams; kept as dated history
+    per the append-only rule. The current record
+    (`20261115-175000-5279711`, issue #361) re-runs the same compare on the
+    **regenerated** streams (every drawn body-tie pad strapped to its body
+    net in metal) and still reads **five matches**, `error_count: 0`,
+    `body_verification.status: "verified"`, the layout pin set equal to the
+    reference port set, and nothing relaxed. Caveat: this is a structural
+    compare. MOS `L`/`W`
     took part once the devices paired, but every poly-resistor parameter is
     excluded by the engine (`R` is a `subckt-call` placeholder, the rest are
     KLayout-secondary), so no resistor dimension is verified.
@@ -492,8 +499,14 @@ verification/records/
     committed analog stream into a parasitic-annotated netlist that ngspice
     will load in place of the schematic DUT. It can: `klt extract --parasitics
     --pdk gf180mcuD` on `differential_receiver.gds` yields 43 R / 10 ground C /
-    24 coupling C, and the block's existing `diff-receiver-sensitivity`
-    testbench runs it to `PASS` at one corner via the harness's `--dut` swap —
+    25 coupling C / 0 L in the current record (`20261115-180500-5279711`,
+    re-run on issue #361's regenerated stream; the coupling count moved from
+    the superseded #369 record's 24, as that record itself notes — the strap
+    added metal-1), and the block's existing `diff-receiver-sensitivity`
+    testbench runs it to `PASS` at one corner via the harness's `--dut` swap
+    on the **port-order-reconciled** leg of the record's three-way probe
+    (schematic-DUT baseline `PASS`, as-written `FAIL` on the same eight
+    confidently-wrong checks #369 froze, reconciled `PASS`) —
     with **no edit to `tb.json`** and no verdict in `sim/spec-coverage.md`
     touched. Two caveats carry forward to #53, which still owns the extracted
     PVT matrix. First, `--pdk` is **required** for a simulatable netlist:
