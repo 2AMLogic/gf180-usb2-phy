@@ -460,8 +460,15 @@ repo's rule that an envelope must actually support the item to be cited:
   which is past `bc386fb`; the replay was not re-run against it.
   The slow-corner SDF was produced outside klt from klt's generated
   OpenSTA script (klayout-tools#2886, open). **Item 7.analog stays
-  `unmet`/`no_evidence`** (no analog layout; parked on klayout-tools#1962,
-  tracked by #53 and the analog `layout/README.md` narrative).
+  `unmet`/`no_evidence`**: the five analog streams are committed under
+  `layout/analog/` and parasitic extraction has been probed on one of them
+  (`differential_receiver`, one corner — record `20261115-180500-5279711`,
+  superseding #369's probe `20261114-094500-22ceb8575799`), but no analog
+  `post-layout-pvt` / extracted-netlist PVT matrix record exists for any
+  block, and that re-verification is #53's. (History: this row was first
+  parked on klayout-tools#1962, a `gen-compose` routing gap — dated
+  history; the streams and `layout/analog/provenance.json` are the
+  current state.)
 - **Item 11.analog, power delivery (structural), analog partition — cited,
   `met`** (issue #248; it read `unmet`/`no_evidence` until this change,
   because no analog layout existed when the row was first frozen). Its
