@@ -23,6 +23,13 @@ hard-coded list):
     joins to the plan ``res_array`` group whose ``devices[].name == "<NAME>"``
     (all groups must be ``num: 1, dummy: 0``), and from there to the GDS cell
     ``<group_id>__<group_id>_0``;
+  * the stream's marker-bearing cells -- cells whose **own** shapes include
+    any ``MARKER_LAYERS`` layer, deduped across the two layer pairs, never
+    counted recursively -- must number exactly the block's ``res_array``
+    groups: the measured set is only ``plan groups ∩ netlist XR cards``, so a
+    resistor drawn outside that join (hand-placed, a series array, a SPICE
+    ``R`` primitive) is skipped by every other guard; the count is what
+    proves nothing went unmeasured;
   * the drawn extent is the bounding box of the resistor-marker layer
     (``110/5`` for ``PPOLYF_U``/``PPOLYF_U_1K``, ``110/11`` for ``RM1``)
     inside that cell, which is exactly ``L`` x ``W`` with no overhead;
@@ -297,6 +304,25 @@ def validate_join(block: str, netlist: dict[str, NetlistResistor], groups: dict[
             )
 
 
+def validate_marker_coverage(block: str, drawn: int, measured: int) -> None:
+    """Every marker-bearing cell in a stream must be a measured group.
+
+    The measured set is exactly ``plan res_array groups ∩ netlist XR cards``;
+    no other guard asserts it covers what was actually drawn. ``drawn`` is
+    the count of cells carrying *own* resistor-marker shapes in the block's
+    stream (deduped across the marker layer pairs), ``measured`` the count
+    of groups measured for the block; any difference -- a resistor outside
+    the join, or a plan gone stale -- is a fail-loud error naming both,
+    never a silently shorter report.
+    """
+    if drawn != measured:
+        raise CheckError(
+            f"{block}: {drawn} marker-bearing cell(s) drawn in the stream "
+            f"but {measured} res_array group(s) measured -- a resistor "
+            "outside the plan/netlist join would be skipped unmeasured"
+        )
+
+
 def compare(
     block: str,
     netlist: dict[str, NetlistResistor],
@@ -388,12 +414,18 @@ def verdict_fails(row: Row) -> bool:
 
 
 def measure_block(
-    kdb, gds_path: Path, groups: dict[str, dict]
+    kdb, gds_path: Path, groups: dict[str, dict], block: str | None = None
 ) -> dict[str, tuple[int, int]]:
     """Read each resistor group's drawn ``L``/``W`` off the marker layer.
 
     Values are returned in whole nanometres on the stream's own grid; a
     dimension that is not a whole number of nanometres is a fail-loud error.
+
+    Before returning, the stream's marker-bearing cells -- counted by their
+    *own* shapes on any ``MARKER_LAYERS`` layer (``cell.shapes``, not
+    ``begin_shapes_rec``, which would triple-count the wrapper and top
+    cells), deduped across the two layer pairs -- must equal the number of
+    groups measured, per ``validate_marker_coverage()``.
     """
     layout = kdb.Layout()
     layout.read(str(gds_path))
@@ -425,6 +457,17 @@ def measure_block(
             dbu_to_nm(bbox.width(), dbu, f"{ctx} L"),
             dbu_to_nm(bbox.height(), dbu, f"{ctx} W"),
         )
+    marker_indexes = [
+        index
+        for layer, datatype in sorted(set(MARKER_LAYERS.values()))
+        if (index := layout.find_layer(layer, datatype)) is not None
+    ]
+    drawn = sum(
+        1
+        for cell in layout.each_cell()
+        if any(not cell.shapes(index).is_empty() for index in marker_indexes)
+    )
+    validate_marker_coverage(block or gds_path.stem, drawn, len(measured))
     return measured
 
 
@@ -551,7 +594,7 @@ def main(argv: list[str] | None = None) -> int:
             groups = load_res_array_groups(plan)
             validate_join(block, netlist, groups)
             gds = root / entry.get("gds", f"{GDS_DIR}/{block}.gds")
-            measured = measure_block(kdb, gds, groups)
+            measured = measure_block(kdb, gds, groups, block=block)
             # measure_block keys by plan device name; the comparison and the
             # allow-list are keyed by netlist instance (XR<NAME>).
             measured = {f"XR{name}": dims for name, dims in measured.items()}
