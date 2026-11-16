@@ -363,15 +363,22 @@ def stage_files(stage_dir: Path, name_prefix: str, *, exclude=()) -> list[tuple[
     return out
 
 
-def summary_section(manifest_rel: str, manifest: dict, empty: list[str]) -> str:
-    """Markdown appended to a run's committed summary: where its bytes are."""
+def summary_section(manifest_rel: str, manifest: dict, empty: list[str], *,
+                    provenance: str = "The bytes of this run are in the fleet "
+                                      "artifact store, not in git (issue #237)") -> str:
+    """Markdown appended to a run's committed summary: where its bytes are.
+
+    ``provenance`` cites the issue/decision governing the stored tree; the
+    default is the ``sim/`` corner-campaign wording. Callers storing another
+    tree must pass their own citation — records are append-only, so a wrong
+    one cannot be corrected after the fact.
+    """
     total = sum(e["size"] for e in manifest["entries"])
     lines = [
         "",
         "## Stored evidence",
         "",
-        f"The bytes of this run are in the fleet artifact store, not in git "
-        f"(issue #237). Manifest: `{manifest_rel}` "
+        f"{provenance}. Manifest: `{manifest_rel}` "
         f"({len(manifest['entries'])} objects, {total} B). Paths above are the "
         "manifest `name`s. Fetch one, hash-verified, with:",
         "",
