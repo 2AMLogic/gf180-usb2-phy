@@ -21,9 +21,11 @@ by its own name.
 
 Zero dependencies beyond the Python 3 standard library.
 
-Usage:
-    python3 scripts/test_check_signoff_report.py
-Exit codes: 0 all cases behave as specified, 1 at least one did not.
+Runs both ways: directly (`python3 scripts/test_check_signoff_report.py`,
+an explicit `npm run lint` step) and under the scripts/ directory sweep
+(`python3 -m unittest discover -s scripts -t scripts -p 'test_*.py'`,
+which collects these tests with everything else).
+Exit codes: 0 all tests pass, non-zero at least one did not.
 """
 
 from __future__ import annotations
@@ -35,6 +37,7 @@ import stat
 import subprocess
 import sys
 import tempfile
+import unittest
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -156,115 +159,93 @@ def run_checker(repo: Path, bin_dir: Path) -> subprocess.CompletedProcess[str]:
     )
 
 
-def case_parity_accepted(tmp: Path) -> list[str]:
-    """An exit-3 render equal to the committed report passes (sees OK)."""
-    repo, bin_dir = build_fixture_repo(tmp)
-    result = run_checker(repo, bin_dir)
-    errors = []
-    if result.returncode != 0:
-        errors.append(
-            f"parity render (exit 3, identical report) should exit 0, got "
-            f"{result.returncode}; stdout={result.stdout!r} stderr={result.stderr!r}"
+class TestCheckSignoffReport(unittest.TestCase):
+    """One test per behavior of the checker's contract; each builds a fresh
+    fixture repo so cases stay isolated."""
+
+    def setUp(self) -> None:
+        tmp = tempfile.TemporaryDirectory(prefix="signoff-report-selftest-")
+        self.addCleanup(tmp.cleanup)
+        self.tmp = Path(tmp.name)
+
+    def test_parity_accepted(self) -> None:
+        """An exit-3 render equal to the committed report passes (sees OK)."""
+        repo, bin_dir = build_fixture_repo(self.tmp)
+        result = run_checker(repo, bin_dir)
+        self.assertEqual(
+            0,
+            result.returncode,
+            f"parity render (exit 3, identical report) should exit 0; "
+            f"stdout={result.stdout!r} stderr={result.stderr!r}",
         )
-    if "OK:" not in result.stdout:
-        errors.append(f"accepted case should print an OK line, got {result.stdout!r}")
-    return errors
+        self.assertIn("OK:", result.stdout)
 
+    def test_exit_zero_render_accepted(self) -> None:
+        """An exit-0 render (every T1 item met) is a clean run, not a failure."""
+        repo, bin_dir = build_fixture_repo(self.tmp)
+        accepted = json.loads(
+            (repo / "manifests" / "t1-signoff-report.json").read_text(encoding="utf-8")
+        )
+        _write_stub(bin_dir, "klt", 0, accepted)
+        result = run_checker(repo, bin_dir)
+        self.assertEqual(
+            0,
+            result.returncode,
+            f"exit-0 render should be accepted; stderr={result.stderr!r}",
+        )
 
-def case_exit_zero_render_accepted(tmp: Path) -> list[str]:
-    """An exit-0 render (every T1 item met) is a clean run, not a failure."""
-    repo, bin_dir = build_fixture_repo(tmp)
-    accepted = json.loads(
-        (repo / "manifests" / "t1-signoff-report.json").read_text(encoding="utf-8")
-    )
-    _write_stub(bin_dir, "klt", 0, accepted)
-    result = run_checker(repo, bin_dir)
-    if result.returncode != 0:
-        return [
-            f"exit-0 render should be accepted (exit 0), got "
-            f"{result.returncode}; stderr={result.stderr!r}"
-        ]
-    return []
+    def test_exit_one_render_rejected(self) -> None:
+        """A klt error render (exit 1) fails the check, never parses as parity."""
+        repo, bin_dir = build_fixture_repo(self.tmp)
+        _write_stub(bin_dir, "klt", 1, {"error": {"message": "fixture error envelope"}})
+        result = run_checker(repo, bin_dir)
+        self.assertNotEqual(
+            0,
+            result.returncode,
+            "an error render (klt exit 1) must FAIL the check, but it exited 0",
+        )
+        self.assertIn(
+            "exited 1",
+            result.stderr,
+            f"the failure should name the unexpected klt exit, got: {result.stderr!r}",
+        )
 
+    def test_drifted_render_rejected(self) -> None:
+        """A fresh render that diverges from the committed report FAILS -- the
+        rot case this checker exists to catch (a hash-pin flips an item to
+        `unmet`/`stale_evidence`, a tier boundary moves, a build drifts)."""
+        repo, bin_dir = build_fixture_repo(self.tmp)
+        drifted = json.loads(
+            (repo / "manifests" / "t1-signoff-report.json").read_text(encoding="utf-8")
+        )
+        drifted["items"][0]["status"] = "unmet"
+        drifted["items"][0]["reason"] = "stale_evidence"
+        drifted["items"][0]["citation"]["coverage"]["rules_skipped"] = ["metaltop.width.1"]
+        drifted["t1_met_count"] = 0
+        _write_stub(bin_dir, "klt", 3, drifted)
+        result = run_checker(repo, bin_dir)
+        self.assertNotEqual(
+            0,
+            result.returncode,
+            "a drifted fresh render must FAIL the check, but it exited 0",
+        )
+        self.assertIn(
+            "stale_evidence",
+            result.stderr,
+            f"the drift failure should show the diverging fields, got: {result.stderr!r}",
+        )
 
-def case_exit_one_render_rejected(tmp: Path) -> list[str]:
-    """A klt error render (exit 1) fails the check, never parses as parity."""
-    repo, bin_dir = build_fixture_repo(tmp)
-    _write_stub(bin_dir, "klt", 1, {"error": {"message": "fixture error envelope"}})
-    result = run_checker(repo, bin_dir)
-    if result.returncode == 0:
-        return [
-            "an error render (klt exit 1) must FAIL the check, but it exited 0"
-        ]
-    if "exited 1" not in result.stderr:
-        return [
-            f"the failure should name the unexpected klt exit, got: {result.stderr!r}"
-        ]
-    return []
-
-
-def case_drifted_render_rejected(tmp: Path) -> list[str]:
-    """A fresh render that diverges from the committed report FAILS -- the
-    rot case this checker exists to catch (a hash-pin flips an item to
-    `unmet`/`stale_evidence`, a tier boundary moves, a build drifts)."""
-    repo, bin_dir = build_fixture_repo(tmp)
-    drifted = json.loads(
-        (repo / "manifests" / "t1-signoff-report.json").read_text(encoding="utf-8")
-    )
-    drifted["items"][0]["status"] = "unmet"
-    drifted["items"][0]["reason"] = "stale_evidence"
-    drifted["items"][0]["citation"]["coverage"]["rules_skipped"] = ["metaltop.width.1"]
-    drifted["t1_met_count"] = 0
-    _write_stub(bin_dir, "klt", 3, drifted)
-    result = run_checker(repo, bin_dir)
-    if result.returncode == 0:
-        return ["a drifted fresh render must FAIL the check, but it exited 0"]
-    if "stale_evidence" not in result.stderr:
-        return [
-            f"the drift failure should show the diverging fields, got: {result.stderr!r}"
-        ]
-    return []
-
-
-def case_missing_report_rejected(tmp: Path) -> list[str]:
-    """No committed report at all is a failure, not a silent pass."""
-    repo, bin_dir = build_fixture_repo(tmp)
-    (repo / "manifests" / "t1-signoff-report.json").unlink()
-    result = run_checker(repo, bin_dir)
-    if result.returncode == 0:
-        return ["a missing committed report must FAIL the check, but it exited 0"]
-    return []
-
-
-_CASES = [
-    ("parity accepted (exit 3 + identical report)", case_parity_accepted),
-    ("exit-0 render accepted", case_exit_zero_render_accepted),
-    ("error render (klt exit 1) rejected", case_exit_one_render_rejected),
-    ("drifted fresh render rejected", case_drifted_render_rejected),
-    ("missing committed report rejected", case_missing_report_rejected),
-]
-
-
-def main() -> int:
-    # Importable as a module without side effects; only a direct run tests.
-    failures = []
-    for name, case in _CASES:
-        with tempfile.TemporaryDirectory() as tmp_str:
-            errors = case(Path(tmp_str))
-        if errors:
-            failures.append((name, errors))
-            print(f"FAIL: {name}")
-            for err in errors:
-                print(f"  - {err}")
-        else:
-            print(f"OK:   {name}")
-    total = len(_CASES)
-    if failures:
-        print(f"\n{len(failures)}/{total} case(s) FAILED")
-        return 1
-    print(f"\nall {total} cases passed")
-    return 0
+    def test_missing_report_rejected(self) -> None:
+        """No committed report at all is a failure, not a silent pass."""
+        repo, bin_dir = build_fixture_repo(self.tmp)
+        (repo / "manifests" / "t1-signoff-report.json").unlink()
+        result = run_checker(repo, bin_dir)
+        self.assertNotEqual(
+            0,
+            result.returncode,
+            "a missing committed report must FAIL the check, but it exited 0",
+        )
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    unittest.main()

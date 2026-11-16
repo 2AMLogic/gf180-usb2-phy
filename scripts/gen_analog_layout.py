@@ -124,8 +124,11 @@ M1_LABEL = (34, 10)
 LABEL_LAYERS = ((34, 10), (36, 10), (42, 10))
 # `mos_array`'s contacted well/substrate tap pads (klayout-tools #3648/#4143).
 TAP_PAD_PREFIX = "TAP_PAD"
-# One drawn tap pad's metal-1 square, read off the committed streams
-# (`_strap_body_pads` needs it to size what a leg may legally touch).
+# One drawn tap pad's metal-1 square on the committed streams. This is the
+# *checked default*, not the geometry's source of truth: `_strap_body_pads`
+# derives each pad's actual square from the stream at its port coordinate
+# and refuses a group whose pads drift from this value (the standard
+# `scripts/analog_erc.py` holds itself to), never silently trusting it.
 PAD_SQUARE_UM = 0.42
 # The digest terminal that names a device's body. klt's own layout-plan
 # connectivity derivation deliberately drops it (_TERMINAL_SUFFIXES has no
@@ -427,21 +430,49 @@ def _strap_body_pads(
     name keeps its own escape stub, so a group whose legs are all blocked is
     wired pad-by-pad instead of left floating.
 
-    A leg is drawn only where it clears *foreign* metal-1 -- klt's own routes
-    plus every other group's device metal -- by the metal-1 spacing rule: the
+    A leg is drawn only where it clears *foreign* metal-1 -- klt's own routes,
+    every other group's device metal, and every strap leg drawn for a group
+    processed earlier in this run -- by the metal-1 spacing rule: the
     executor runs gate/source routes across the pad rows of the tall
     ``mos_array`` cells (their bridged shapes sit 0.345 um above the top pad
     row on the committed streams), so a perimeter leg is checked, not
-    assumed. A leg the rule blocks is cut back to its clear segments along
-    its long axis -- dropping it whole would strand every pad behind the
-    band, whose only remaining escape would be a stub parallel to a
-    neighbouring stub 0.21 um away, colliding the two via-2 cuts at the
-    track. Segment ends snap outward to the manufacturing grid so no piece
-    lands off ``metal1.ongrid.1``. The only metal-1 a leg may touch besides
-    clear space is the group's own pad squares; anything else blocks it. A
-    leg that would cover a non-tap port of the same group is refused outright
-    and reported: the perimeter rule never does that on a ``mos_array`` cell,
-    so a refusal means a generator this rule does not understand."""
+    assumed. Legs join the foreign set as they are drawn (the ``drawn``
+    region below), so the clearance between two groups on different body
+    nets is a measurement rather than an argument that every leg lies
+    inside its own pads' row/column band. A group never blocks itself: its
+    own legs enter the set only after it finishes, and an earlier group's
+    legs are foreign exactly the way its pads -- which those legs overlap --
+    already are. (Before issue #406 this relied on ``klt_m1`` staying a
+    *live view*: a KLayout ``Region`` built from ``begin_shapes_rec`` re-reads
+    the cell, so legs drawn into ``top`` were invisible to no one. That is
+    an implementation detail of KLayout's lazy regions, measured on 0.30.12
+    and 0.30.13, not a contract -- an eagerly-materialising Region would
+    silently reduce the check to the stale snapshot the rule must never
+    trust, so the legs are accumulated explicitly.)
+
+    What a leg may touch of its own group is measured too: each tap pad's
+    port coordinate is probed in the device metal (the lookup
+    ``_pin_geometry`` uses for a via host) and the hit polygons themselves
+    are the only metal-1 a leg may touch besides clear space;
+    ``PAD_SQUARE_UM`` is only the committed size that measurement is
+    checked against. A tap pad with no metal-1 at its port, pads that
+    disagree on their square, or a square drifted from the committed size
+    is refused outright and reported -- the way ``scripts/analog_erc.py``
+    refuses a spec that drifted from its derivation -- never silently
+    absorbed into the constant. A leg the rule blocks is cut back to its
+    clear segments along its long axis -- dropping it whole would strand
+    every pad behind the band, whose only remaining escape would be a stub
+    parallel to a neighbouring stub 0.21 um away, colliding the two via-2
+    cuts at the track. Segment ends snap outward to the manufacturing grid
+    so no piece lands off ``metal1.ongrid.1``. A leg that would cover a
+    non-tap port of the same group is refused outright and reported: the
+    perimeter rule never does that on a ``mos_array`` cell, so a refusal
+    means a generator this rule does not understand.
+
+    ``stats`` counts ``legs_drawn`` / ``legs_dropped`` / ``groups_strapped``
+    and records ``pad_square_um``, the distinct tap-pad squares measured
+    across the run -- the report carries the observed value, not the
+    constant."""
     strapped: set[tuple[str, str]] = set()
     problems: list[str] = []
     pads_by_group: dict[
@@ -463,6 +494,11 @@ def _strap_body_pads(
     klt_m1 = geo.region(top, M1)  # klt's own routes (recursive: devices too)
     layer = geo.layout.layer(*M1)
     stats = {"legs_drawn": 0, "legs_dropped": 0, "groups_strapped": 0}
+    # Strap legs drawn so far, by earlier groups. Also kept out of
+    # `klt_m1`'s hands on purpose: whether that Region re-reads `top` is
+    # KLayout's laziness, not ours.
+    drawn = geo.db.Region()
+    observed_squares: set[tuple[float, float]] = set()
     for (net, block), pads in sorted(pads_by_group.items()):
         if len(pads) < 2:
             continue
@@ -487,15 +523,61 @@ def _strap_body_pads(
                 f"{', '.join(sorted(unsafe))} -- group left unstrapped"
             )
             continue
-        # Only this group's own pad squares may touch a leg; everything else
-        # must clear the metal-1 spacing rule. The group's own pads are
-        # removed from the foreign set first: the legs legitimately overlap
-        # them, and sized(0.28 um) they would otherwise reject every leg of
-        # their own row.
+        # Only this group's own pad metal may touch a leg; everything else
+        # must clear the metal-1 spacing rule. The pads are *measured*: each
+        # tap pad's port coordinate is probed in the device metal (the same
+        # lookup `_pin_geometry` uses for a via host) and the hit polygons
+        # themselves become `allowed` -- PAD_SQUARE_UM is only the committed
+        # size that measurement is checked against. A pad with no metal-1 at
+        # its port, pads that disagree on their square, or a square drifted
+        # from the committed size is a generator this rule does not
+        # understand: the group is left unstrapped (every pad keeps its own
+        # escape stub) and the surprise reported, never absorbed into the
+        # constant.
         allowed = geo.db.Region()
-        for _, (px, py) in pads:
-            allowed.insert(geo.centred(px, py, PAD_SQUARE_UM))
-        blocking = ((klt_m1 + dev_m1) - allowed).sized(geo.d(WIRE_UM))
+        pad_size: tuple[float, float] | None = None
+        refusal: str | None = None
+        for key, (px, py) in pads:
+            hits = dev_m1.interacting(geo.db.Region(geo.centred(px, py, 0.01)))
+            if hits.is_empty():
+                refusal = (
+                    f"tap pad {key[1]} at ({px}, {py}) um has no metal-1 "
+                    f"at its port"
+                )
+                break
+            allowed += hits
+            bb = hits.bbox()
+            size = (
+                round(bb.width() * geo.dbu, 4),
+                round(bb.height() * geo.dbu, 4),
+            )
+            observed_squares.add(size)
+            if pad_size is None:
+                pad_size = size
+            elif size != pad_size:
+                refusal = (
+                    f"tap pads disagree on their metal-1 square "
+                    f"({size[0]}x{size[1]} vs {pad_size[0]}x{pad_size[1]} um)"
+                )
+                break
+        if refusal is None and pad_size != (PAD_SQUARE_UM, PAD_SQUARE_UM):
+            refusal = (
+                f"drawn tap-pad square {pad_size[0]}x{pad_size[1]} um has "
+                f"drifted from the committed {PAD_SQUARE_UM} um "
+                f"(PAD_SQUARE_UM)"
+            )
+        if refusal is not None:
+            problems.append(
+                f"{net}: body strap for {block} refused: {refusal} -- "
+                f"group left unstrapped"
+            )
+            continue
+        # Foreign metal-1: klt's own routes, every device's metal, and every
+        # strap leg drawn by a group processed before this one -- sized by
+        # the spacing rule. The group's own pads are removed first: the legs
+        # legitimately overlap them, and sized(0.28 um) they would otherwise
+        # reject every leg of their own row.
+        blocking = ((klt_m1 + dev_m1 + drawn) - allowed).sized(geo.d(WIRE_UM))
 
         def _clear(box) -> bool:
             leg = geo.db.Region(geo.box(*box)) - allowed
@@ -565,6 +647,7 @@ def _strap_body_pads(
             continue
         for box in clear:
             top.shapes(layer).insert(geo.box(*box))
+            drawn.insert(geo.box(*box))
         # A pad is strapped when its pad square and the escape pad's square
         # end up in ONE merged polygon of (drawn legs + every pad square) --
         # per polygon, not per region: blocked leg pieces can leave a pad on
@@ -572,8 +655,7 @@ def _strap_body_pads(
         joined = geo.db.Region()
         for box in clear:
             joined.insert(geo.box(*box))
-        for _, (px, py) in pads:
-            joined.insert(geo.centred(px, py, PAD_SQUARE_UM))
+        joined += allowed
         joined.merge()
 
         def _poly_at(px: float, py: float):
@@ -592,6 +674,7 @@ def _strap_body_pads(
             if key[1] != escape and _poly_at(px, py) == escape_poly:
                 strapped.add(key)
         stats["groups_strapped"] += 1
+    stats["pad_square_um"] = [list(s) for s in sorted(observed_squares)]
     return strapped, problems, stats
 
 
@@ -949,8 +1032,10 @@ def _pin_anchor(port: str) -> tuple[str, str]:
     source/drain stubs sit 0.43 um apart, closer than metal-2 spacing
     allows, so they never share a side). A tap pad escapes down like a
     source/drain, but takes its via on the port point the way a gate pad
-    does: the pad is 0.42 um square and the via 0.26 um, so an inset via --
-    right for a full-height source/drain strip -- would not fit inside it.
+    does: the pad is a 0.42 um square on the committed cells (measured and
+    drift-checked by ``_strap_body_pads``, not trusted from a constant) and
+    the via 0.26 um, so an inset via -- right for a full-height
+    source/drain strip -- would not fit inside it.
     """
     if port.endswith("_G"):
         return "top", "centre"

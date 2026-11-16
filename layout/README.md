@@ -271,7 +271,12 @@ reads `verified` on every block, `vsubs` appears in none of the five extracted
 netlists, and the layout pin set equals the reference port set on every block.
 The layout measurement for those regenerated streams — 5/5 fully routed, 5/5
 DRC-clean, every device cell unchanged — is
-`verification/records/analog-layout/records/20261113-162700-35e9b6e5ab87.md`.
+`verification/records/analog-layout/records/20261115-175500-5279711.md`,
+re-run with every stream byte-identical by the current head
+`verification/records/analog-layout/records/20261116-000742-8dff986.md`
+after issue #406's generator change; the first 5/5 measurement
+`20261113-162700-35e9b6e5ab87.md` measured the pre-#361 streams and stands
+as dated history.
 The earlier `differential_receiver` LVS mismatch (`20261009-203500-7a8e831`)
 is history: that stream no longer exists in the tree.
 
@@ -316,9 +321,15 @@ block: the klt plan path routes 0, 0, 0 and 6 of them, and scripted routes in
 plan executes 40 device groups for the 40 netlist devices and all **20 of its
 20** nets are routed — the plan path routes 2 and scripted routes in
 `scripts/gen_analog_layout.py` complete the remaining 18 — DRC-clean at the
-`gf180mcu` deck, bbox 1831.2 x 83.88 um; run record
-`verification/records/analog-layout/records/20261113-162700-35e9b6e5ab87.md`,
-the current measurement of all five streams (its lineage runs back through
+`gf180mcu` deck, committed-stream top-cell extent 1831.2 x 103.205 um
+(klayout `dbbox()`); run record
+`verification/records/analog-layout/records/20261116-000742-8dff986.md`,
+the current measurement of all five streams — re-run after issue #406's
+generator change with every stream byte-identical; it supersedes
+`20261115-175500-5279711.md` (the #361 re-measurement on the regenerated
+streams), which superseded `20261113-162700-35e9b6e5ab87.md` (the first
+5/5 measurement, on the pre-#361 streams) — and the lineage runs back
+through
 `20261113-134500-7233150d73ec.md` and `20261113-133000-f26c7be72693.md` to the
 2-of-20 measurement of `20261113-090000-4f79d854e7b4.md`; each date's three
 sibling records are source-only provenance-hash refreshes, not measurements).

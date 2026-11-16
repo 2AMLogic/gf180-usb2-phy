@@ -131,8 +131,12 @@ partitions:
   analog evidence rather than restored by un-keying.
 - **Item 4.analog, LVS clean — cited, `met` since #247** — cites a list of
   five `klt lvs` envelopes, one per committed analog block, from record
-  `verification/records/analog-lvs/artifacts/20261113-163000-35e9b6e5ab87/`
-  (`<block>-lvs-report.json`). All five read `status: "match"` with
+  `verification/records/analog-lvs/artifacts/20261115-175000-5279711/`
+  (`<block>-lvs-report.json`). It supersedes the first clean record
+  `20261113-163000-35e9b6e5ab87` — dated history: that one measured the
+  pre-#361 streams, this one the regenerated streams of issue #361, with
+  the same request shape and nothing relaxed. All five read
+  `status: "match"` with
   `error_count: 0`, against the schematic netlist
   (`design/netlist/<block>.spice`, `reference.form: "subckt-call"`,
   `reference_top` upper-cased) that item 1.analog cites — the reference is
@@ -144,11 +148,11 @@ partitions:
 
   | block | GDS (`content_hash`) | reference netlist | devices | nets | pins | `device.geometry_not_compared` | `device.placeholder_value` | `topology` |
   |---|---|---|---|---|---|---|---|---|
-  | `differential_driver` | `4a1c1ddf…` | `b5dda530…` | 40 | 22 | 7 | 2 | 2 | 1 |
-  | `differential_receiver` | `8546baa5…` | `76a1e6f9…` | 11 | 10 | 5 | 1 | 1 | 1 |
-  | `dplus_pullup` | `61811cc5…` | `9c645ecf…` | 78 | 21 | 9 | 1 | 1 | 1 |
-  | `se_receiver_dm` | `31601e63…` | `ebfc91ac…` | 13 | 10 | 4 | 1 | 1 | 1 |
-  | `se_receiver_dp` | `10131291…` | `1f854210…` | 13 | 10 | 4 | 1 | 1 | 1 |
+  | `differential_driver` | `8db96dcd…` | `b5dda530…` | 40 | 22 | 7 | 2 | 2 | 1 |
+  | `differential_receiver` | `b7bb3c85…` | `76a1e6f9…` | 11 | 10 | 5 | 1 | 1 | 1 |
+  | `dplus_pullup` | `69a6310d…` | `9c645ecf…` | 78 | 21 | 9 | 1 | 1 | 1 |
+  | `se_receiver_dm` | `653fd721…` | `ebfc91ac…` | 13 | 10 | 4 | 1 | 1 | 1 |
+  | `se_receiver_dp` | `4ef69477…` | `1f854210…` | 13 | 10 | 4 | 1 | 1 | 1 |
 
   Device, net and pin columns are *matched* counts, and layout equals
   reference equals matched on every block. **What this claim does not

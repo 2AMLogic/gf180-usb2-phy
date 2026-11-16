@@ -6,8 +6,41 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 - [2026-09](work_log/WORK_LOG_2026-09.md)
 
+### 2026-11-16
+
+- **PR #426**: docs: correct differential_driver stream extent and ERC wording
+- **Issue #422** (closed): docs: layout/README.md states an unsupported differential_driver bbox height (83.88 vs 103.205 measured); one residual "no ERC" clause in challenge-5-proposal.md
+- **PR #424**: fix: drop dead __main__ block left by unittest conversion and rebind evidence
+- **Issue #407** (closed): verification/test_check_records.py carries a dead `if __name__ == "__main__": sys.exit(main())` block after the unittest conversion
+- **PR #421**: docs: re-point analog-layout citations to the 8dff986 head and retire the stale no-ERC clauses
+- **Issue #417** (closed): docs: analog-layout prose cites the superseded 162700 record; adjacent prose still says "no ERC result"
+- **PR #416**: docs: settle the stored-evidence signoff deferral with the measured klt signoff determination
+- **PR #414**: docs: re-point analog LVS/extraction prose and item 4.analog citation to the superseding records
+- **PR #413**: check: assert GDS marker-cell count equals measured resistor count
+- **Issue #412** (closed): Establish at runtime whether klt signoff can re-hash a manifest-backed (artifact:) citation, and file the gap upstream
+- **Issue #411** (closed): docs: five more files still cite the pre-#361 analog-lvs record as current state (layout/README, README, characterization-report, spec-coverage, challenge-5 proposal)
+- **PR #410**: fix: measure the analog body strap's inputs instead of asserting them
+- **PR #409**: docs: state the live 7.analog gap; date the klt-only analog-layout claims
+- **Issue #408** (closed): docs: analog-lvs / analog-extraction entries and item 4.analog citation still describe the pre-#361 records
+- **Issue #406** (closed): Analog body strap: the collision model is a per-block snapshot and the pad size is a hand-measured constant
+- **Issue #402** (closed): check_analog_resistor_dims: assert GDS marker-cell count equals the measured device count, so a resistor outside the plan/netlist join cannot go unmeasured
+- **PR #400**: fix: replace unusable layout/digital evidence recipe, parameterise stored-evidence citation
+- **PR #398**: test: convert hand-rolled case-table self-test runners to unittest
+- **Issue #395** (closed): sim/README.md's manual klt artifact put recipe is unusable for the one tree it now addresses
+- **Issue #382** (closed): Make a zero-test scripts/test_*.py module loud: unittest discover hides a hand-rolled runner it collects nothing from
+- **Issue #371** (closed): docs: manifests/README.md and verification/README.md still say no analog layout exists
+
 ### 2026-11-15
 
+- **PR #404**: feat(analog): strap every drawn body-tie pad to its body net; ERC partition to pad granularity
+- **PR #403**: fix(lvs): resolve the digital abstraction from in-cell labels only, restore the full-pass LVS verdict
+- **PR #367**: docs: roadmap as of 2026-11-13
+- **Issue #361** (closed): Analog body-tie pads: only one pad per device group is wired to the rail; the rest are tied through the substrate alone
+- **PR #399**: check: compare drawn analog resistor L/W against the netlists outside LVS
+- **Issue #370** (closed): Check drawn poly-resistor dimensions in the five analog streams against design/netlist, since LVS compares none
+- **PR #383**: refactor: drop unused klt_version() probe and two unused imports in sim/harness
+- **Issue #373** (closed): Remove three dead symbols in sim/harness: klt_version() and two unused imports
+- **Issue #397** (closed): digital_lvs.py picks the abstract-cell LEF by filesystem walk order, not by the declared PDK variant
 - **PR #393**: refactor: drop the unused instance-parsing half of digital_lvs parse_verilog
 - **Issue #389** (closed): Remove the unused instance-parsing half of digital_lvs.py's parse_verilog()
 - **PR #377**: ci: drop two workflow steps that repeat commands check:ci already ran

@@ -260,7 +260,7 @@
     },
     {
       "path": "verification/test_check_records.py",
-      "sha256": "sha256:fca2256d076069d9e2d0944e80206dcb853264f333fb1cf6f4547d9ede8ae222"
+      "sha256": "sha256:17f889ee4097704783c783d7bb66723a355e5c968960f0b62d7b66b0acc938c5"
     },
     {
       "path": "verification/test_check_statistical_na.py",
@@ -491,7 +491,7 @@
     },
     {
       "path": "sim/spec-coverage.md",
-      "sha256": "sha256:a9fa2e048d5c6eb71542138a62cbcb3f7588f80408c0899b1f577ebb6af7341e"
+      "sha256": "sha256:aedaaee5048c08014cb86607b6f8166d6e8930e276c447a493ad6f964b65fdf2"
     },
     {
       "path": "sim/tests/test_evidence_lint.py",
