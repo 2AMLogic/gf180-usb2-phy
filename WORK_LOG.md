@@ -8,6 +8,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-16
 
+- **PR #418**: docs: re-point superseded analog-erc/analog-lvs record citations to the live head records
+- **Issue #415** (closed): docs: six passages still cite the superseded analog-erc record 20261114-003000-db05b5e as current (item 11.analog + four files)
 - **PR #426**: docs: correct differential_driver stream extent and ERC wording
 - **Issue #422** (closed): docs: layout/README.md states an unsupported differential_driver bbox height (83.88 vs 103.205 measured); one residual "no ERC" clause in challenge-5-proposal.md
 - **PR #424**: fix: drop dead __main__ block left by unittest conversion and rebind evidence

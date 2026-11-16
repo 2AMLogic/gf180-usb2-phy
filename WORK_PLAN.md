@@ -34,7 +34,7 @@ Human-approved issues ready for implementation (`loom:issue`).
 
 Issues currently being built (`loom:building`).
 
-- **#415**: docs: six passages still cite the superseded analog-erc record 20261114-003000-db05b5e as current (item 11.analog + four files)
+_None._
 
 ## PRs Awaiting Review
 
@@ -56,7 +56,6 @@ Issues carrying `loom:curated`.
 - **#53**: Post-layout (extracted-parasitic) re-verification: digital STA now, analog PVT after #52 *(curated)*
 - **#126**: Resolve DR-0003: transition-resynchronized RX oversampling for independent host clocks *(curated)*
 - **#392**: Frozen digital-lvs record no longer reproduces on main under repo-pin klt 0.9.0 (power_connectivity VNW/VPW well-pin derivation) *(curated)*
-- **#415**: docs: six passages still cite the superseded analog-erc record 20261114-003000-db05b5e as current (item 11.analog + four files) *(curated)*
 - **#419**: check_signoff_report.py's 5-diff cap hides graded-content divergences behind klt build-stamp drift *(curated)*
 - **#420**: T1 item 8's envelope pins a content hash that matches no revision of docs/characterization-report.md, and nothing checks it *(curated)*
 - **#427**: analog-layout-report.json bbox_um does not describe the committed stream it is paired with (y-extent only; x matches) *(curated)*
@@ -88,10 +87,10 @@ Issues carrying `loom:curated`.
 | Very important | 0 |
 | Important | 4 |
 | Ready (`loom:issue`) | 3 |
-| In Progress (`loom:building`) | 1 |
+| In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 8 |
+| Curated | 7 |
 | Architect / Hermit proposals | 12 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
