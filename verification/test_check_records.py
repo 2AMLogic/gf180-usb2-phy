@@ -16,9 +16,11 @@ stand-in.
 
 Zero dependencies beyond the Python 3 standard library and `git`.
 
-Usage:
-    python3 verification/test_check_records.py
-Exit codes: 0 all cases behave as specified, 1 at least one did not.
+Runs both ways: directly (`python3 verification/test_check_records.py`,
+an explicit `npm run lint` step) and under unittest discovery
+(`python3 -m unittest discover -s verification -t verification
+-p 'test_check_records.py'`).
+Exit codes: 0 all tests pass, non-zero at least one did not.
 """
 
 from __future__ import annotations
@@ -29,6 +31,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import unittest
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -169,8 +172,8 @@ def record_path(repo: Path, experiment: str, record_id: str) -> Path:
 
 
 # --- cases -----------------------------------------------------------------
-# Each case mutates a fresh fixture repo and returns nothing; the harness
-# asserts the expected exit code and a substring of the linter's output.
+# Each case mutates a fresh fixture repo and returns nothing; the TestCase
+# below asserts the expected exit code and a substring of the linter's output.
 
 
 def case_valid(repo: Path) -> None:
@@ -300,102 +303,78 @@ def case_new_record_is_a_pure_addition(repo: Path) -> None:
     _git(repo, "commit", "--quiet", "-m", "fixture: add a new record")
 
 
-CASES = [
-    # (name, mutation, expected_exit, expected_substring)
-    ("valid record passes", case_valid, 0, "PASS: all records valid"),
-    (
-        "record missing a required prose field fails",
-        case_missing_required_field,
-        1,
-        "missing required field bullet `- **Claim**:`",
-    ),
-    (
-        "record missing a required provenance key fails",
-        case_missing_required_meta_key,
-        1,
-        "provenance missing required key `klt_version`",
-    ),
-    (
-        "edited existing record fails (append-only)",
-        case_edited_existing_record,
-        1,
-        "append-only violation",
-    ),
-    (
-        "deleted existing record fails (append-only)",
-        case_deleted_existing_record,
-        1,
-        "append-only violation",
-    ),
-    (
-        "stale provenance hash fails",
-        case_stale_provenance_hash,
-        1,
-        "is stale",
-    ),
-    (
-        "superseded record is exempt from hash freshness",
-        case_superseded_record_exempt_from_freshness,
-        0,
-        "PASS: all records valid",
-    ),
-    (
-        "malformed record id fails",
-        case_bad_record_id_grammar,
-        1,
-        "is not a valid record-id",
-    ),
-    (
-        "supersedes naming a nonexistent record fails",
-        case_dangling_supersedes,
-        1,
-        "which has no record",
-    ),
-    (
-        "adding a new record is allowed",
-        case_new_record_is_a_pure_addition,
-        0,
-        "no append-only violations",
-    ),
-]
+class TestCheckRecords(unittest.TestCase):
+    """One test per violation class (or exempted behavior) the convention
+    names; each runs its `case_*` mutation against a fresh fixture repo and
+    asserts the linter's exit code plus one substring of its output."""
+
+    def setUp(self) -> None:
+        if not LINTER.exists():
+            self.fail(f"{LINTER} not found")
+        tmpdir = tempfile.TemporaryDirectory(prefix="record-linter-selftest-")
+        self.addCleanup(tmpdir.cleanup)
+        self.tmp = Path(tmpdir.name)
+
+    def _run_case(self, mutate) -> tuple[int, str]:
+        repo = build_fixture_repo(self.tmp)
+        mutate(repo)
+        return run_linter(repo)
+
+    def test_valid_record_passes(self) -> None:
+        """Control: an untouched fixture must pass, or every negative case
+        below would pass for the wrong reason."""
+        exit_code, output = self._run_case(case_valid)
+        self.assertEqual(0, exit_code, f"linter output:\n{output}")
+        self.assertIn("PASS: all records valid", output)
+
+    def test_record_missing_required_field_fails(self) -> None:
+        exit_code, output = self._run_case(case_missing_required_field)
+        self.assertEqual(1, exit_code, f"linter output:\n{output}")
+        self.assertIn("missing required field bullet `- **Claim**:`", output)
+
+    def test_record_missing_required_meta_key_fails(self) -> None:
+        exit_code, output = self._run_case(case_missing_required_meta_key)
+        self.assertEqual(1, exit_code, f"linter output:\n{output}")
+        self.assertIn("provenance missing required key `klt_version`", output)
+
+    def test_edited_existing_record_fails(self) -> None:
+        exit_code, output = self._run_case(case_edited_existing_record)
+        self.assertEqual(1, exit_code, f"linter output:\n{output}")
+        self.assertIn("append-only violation", output)
+
+    def test_deleted_existing_record_fails(self) -> None:
+        exit_code, output = self._run_case(case_deleted_existing_record)
+        self.assertEqual(1, exit_code, f"linter output:\n{output}")
+        self.assertIn("append-only violation", output)
+
+    def test_stale_provenance_hash_fails(self) -> None:
+        exit_code, output = self._run_case(case_stale_provenance_hash)
+        self.assertEqual(1, exit_code, f"linter output:\n{output}")
+        self.assertIn("is stale", output)
+
+    def test_superseded_record_exempt_from_freshness(self) -> None:
+        exit_code, output = self._run_case(case_superseded_record_exempt_from_freshness)
+        self.assertEqual(0, exit_code, f"linter output:\n{output}")
+        self.assertIn("PASS: all records valid", output)
+
+    def test_bad_record_id_grammar_fails(self) -> None:
+        exit_code, output = self._run_case(case_bad_record_id_grammar)
+        self.assertEqual(1, exit_code, f"linter output:\n{output}")
+        self.assertIn("is not a valid record-id", output)
+
+    def test_dangling_supersedes_fails(self) -> None:
+        exit_code, output = self._run_case(case_dangling_supersedes)
+        self.assertEqual(1, exit_code, f"linter output:\n{output}")
+        self.assertIn("which has no record", output)
+
+    def test_new_record_is_a_pure_addition(self) -> None:
+        exit_code, output = self._run_case(case_new_record_is_a_pure_addition)
+        self.assertEqual(0, exit_code, f"linter output:\n{output}")
+        self.assertIn("no append-only violations", output)
 
 
-def main() -> int:
-    if not LINTER.exists():
-        print(f"FATAL: {LINTER} not found", file=sys.stderr)
-        return 1
-
-    print(f"== check_records.py self-test ({len(CASES)} cases) ==")
-    failures = 0
-    for name, mutate, expected_exit, expected_substring in CASES:
-        with tempfile.TemporaryDirectory(prefix="record-linter-selftest-") as tmpdir:
-            repo = build_fixture_repo(Path(tmpdir))
-            mutate(repo)
-            exit_code, output = run_linter(repo)
-
-            problems = []
-            if exit_code != expected_exit:
-                problems.append(f"exit {exit_code}, expected {expected_exit}")
-            if expected_substring not in output:
-                problems.append(f"output missing {expected_substring!r}")
-
-            if problems:
-                failures += 1
-                print(f"FAIL: {name}")
-                for problem in problems:
-                    print(f"  - {problem}")
-                print("  --- linter output ---")
-                for line in output.splitlines():
-                    print(f"  | {line}")
-            else:
-                print(f"OK:   {name}")
-
-    print()
-    if failures:
-        print(f"FAIL: {failures}/{len(CASES)} self-test case(s) did not behave as specified")
-        return 1
-    print(f"PASS: all {len(CASES)} self-test cases behaved as specified")
-    return 0
+if __name__ == "__main__":
+    unittest.main()
 
 
 if __name__ == "__main__":
