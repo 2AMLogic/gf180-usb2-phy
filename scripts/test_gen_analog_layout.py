@@ -31,6 +31,21 @@ contract too, on synthetic plan/digest inputs (klt is stubbed here as well):
   * a tap pad takes its via on the port point, not inset like a full-height
     source/drain strip -- a 0.42um pad cannot hold an inset 0.26um via.
 
+Issue #406: the body strap's two inputs become measurements, not assertions.
+``StrapBodyPadsTests`` calls ``_strap_body_pads()`` directly on real klayout
+geometry (skipped where ``klayout.db`` is not importable -- it needs the
+boolean engine, not a stub; CI installs klayout-tools first):
+
+  * a strap leg is measured against every leg drawn for an earlier group in
+    the same run -- legs are accumulated explicitly instead of trusting
+    KLayout's live-view regions (``klt_m1`` re-read the cell through lazy
+    evaluation, an implementation detail, not a contract);
+  * the tap-pad square is derived from the stream at each port coordinate
+    and checked against ``PAD_SQUARE_UM``: drift is refused with a problem,
+    not silently absorbed;
+  * a tap pad with no metal-1 at its port is refused loudly, never silently
+    falling back to the constant.
+
 Usage:
     python3 scripts/test_gen_analog_layout.py
 Exit codes: 0 all cases behave as specified, 1 otherwise.
@@ -625,6 +640,179 @@ class PinAnchorTests(unittest.TestCase):
             self.assertEqual(gal._pin_anchor("R0_A"), ("bottom", "inset"))
             self.assertEqual(gal._pin_anchor("TAP_PAD0"), ("bottom", "centre"))
             self.assertEqual(gal._pin_anchor("TAP_PAD7"), ("bottom", "centre"))
+
+
+def _klayout_available() -> bool:
+    try:
+        import klayout.db  # noqa: F401
+    except ImportError:
+        return False
+    return True
+
+
+@unittest.skipUnless(
+    _klayout_available(),
+    "needs the real klayout.db boolean engine (installed by CI's "
+    "klayout-tools step; a bare lint host skips these)",
+)
+class StrapBodyPadsTests(unittest.TestCase):
+    """``_strap_body_pads`` called directly, on real klayout geometry.
+
+    These are the first cases to exercise the strap's clearance path itself
+    (the classes above pin the pure helpers it calls). They need the real
+    ``klayout.db`` boolean engine, so they skip on a bare lint host and run
+    wherever klayout is importable (CI installs klayout-tools before the
+    unittest leg). Issue #406's two observations, pinned as contracts:
+
+    * **cross-group leg clearance is measured**: two groups on different
+      body nets, close enough that the second group's leg would pass 0.22 um
+      from the first group's drawn leg, get that leg refused. On the
+      pre-#406 generator this case passes too -- ``klt_m1`` turned out to
+      be a live view, not a snapshot, so the old code already measured the
+      clearance through KLayout's lazy regions. The test pins the invariant
+      across klayout versions; the #406 fix stops relying on the
+      implementation detail;
+    * **the pad square is measured, not assumed**: a stream whose tap pads
+      are not ``PAD_SQUARE_UM`` square is refused with a drift problem (the
+      standard ``scripts/analog_erc.py`` holds itself to), its pads left
+      their own escape stubs;
+    * **a tap pad with no metal-1 at its port is refused loudly** -- never
+      silently absorbed by falling back to the constant.
+    """
+
+    def _strap(self, groups, pad_size=None, padless_pads=()):
+        """Run ``_strap_body_pads`` on a synthetic stream.
+
+        ``groups`` is a list of ``(net, block, pads)`` with ``pads`` a list
+        of ``(x, y)`` um tap-pad centres; each group also gets a ``U0_S``
+        device port well outside its strap boxes, so the non-tap-port
+        refusal never fires. ``pad_size`` is the drawn pad square (default
+        the committed one); a pad named in ``padless_pads`` gets no
+        metal-1 at all.
+
+        Returns ``(strapped, problems, stats, ctx)``; ``ctx`` carries the
+        built layout (``top``, ``geo``, ``layer``) so a case can measure the
+        delivered metal instead of trusting the stats.
+        """
+        import klayout.db as kdb
+
+        layout = kdb.Layout()
+        layout.dbu = 0.001
+        top = layout.create_cell("TOP")
+        geo = gal._Geometry(layout)
+        layer = layout.layer(*gal.M1)
+        dev_m1 = kdb.Region()
+        ports: dict[tuple[str, str], tuple[float, float]] = {}
+        nets: list[dict] = []
+        half = (pad_size or gal.PAD_SQUARE_UM) / 2.0
+        for net, block, pads in groups:
+            pins = []
+            for i, (x, y) in enumerate(pads):
+                name = f"TAP_PAD{i}"
+                ports[(block, name)] = (x, y)
+                pins.append({"block": block, "port": name})
+                if (block, name) not in padless_pads:
+                    dev_m1.insert(geo.box(x - half, y - half, x + half, y + half))
+            ports[(block, "U0_S")] = (-9.0, -9.0)
+            pins.append({"block": block, "port": "U0_S"})
+            nets.append({"net": net, "pins": pins})
+        return (
+            *gal._strap_body_pads(geo, top, nets, ports, dev_m1),
+            {"top": top, "geo": geo, "layer": layer},
+        )
+
+    def test_a_leg_is_measured_against_legs_drawn_for_earlier_groups(self):
+        # The cross-group clearance invariant, on the adversarial fixture:
+        # g_a (a four-pad ring) sorts first ("AAA" < "BBB"); its column leg
+        # is cut by g_b's pads, and its mid-band piece lands at x in
+        # [-0.14, 0.14]. g_b's column leg would then run 0.22 um from that
+        # drawn piece (0.36 - 0.14) -- inside the WIRE_UM clearance every
+        # checked leg honours. The measured contract: g_b's mid-band metal
+        # is refused. Both groups end unstrapped (their rings are split by
+        # the cuts), so their pads fall back to per-pad stubs -- the
+        # fail-safe path.
+        #
+        # This fixture is deliberately closer than any mos_array arrangement
+        # can draw (0.42 um pads cannot approach a 0.28 um leg strip this
+        # tightly without cutting it first), and on the pre-#406 generator
+        # it PASSES TOO -- `klt_m1` turned out to be a live view, not a
+        # snapshot, so the old code already measured this clearance at
+        # runtime. What the test pins is that the invariant no longer
+        # depends on that KLayout implementation detail: with the legs
+        # accumulated explicitly, an eagerly-materialising Region in some
+        # future klayout cannot silently reopen the gap.
+        import klayout.db as kdb
+
+        strapped, problems, stats, ctx = self._strap(
+            [
+                ("AAA", "g_a", [(0.0, 0.0), (0.0, 3.0)]),
+                ("BBB", "g_b", [(0.5, 0.0), (0.5, 3.0)]),
+            ]
+        )
+        self.assertEqual(problems, [])
+        self.assertEqual(strapped, set())
+        self.assertEqual(stats["legs_drawn"], 5)
+        self.assertEqual(stats["legs_dropped"], 0)
+        self.assertEqual(stats["groups_strapped"], 2)
+        self.assertEqual(stats["pad_square_um"], [[0.42, 0.42]])
+        # The near-miss zone itself: g_b's strip (x in [0.36, 0.64]) between
+        # its two pad rows must carry no strap metal at all -- the pieces
+        # there sit closer than WIRE_UM to g_a's drawn mid-band leg. Read
+        # back the actual top-cell metal, not the stats, so the assertion
+        # measures the delivered geometry.
+        drawn = kdb.Region(ctx["top"].begin_shapes_rec(ctx["layer"]))
+        zone = kdb.Region(ctx["geo"].box(0.36, 0.21, 0.64, 2.79))
+        self.assertTrue((drawn & zone).is_empty())
+
+    def test_two_groups_far_apart_both_strap(self):
+        # The accumulation must not over-block: a neighbour far outside any
+        # sized band straps exactly as before the change, and the measured
+        # pad square is recorded in the stats.
+        strapped, problems, stats, _ctx = self._strap(
+            [
+                ("AAA", "g_a", [(0.0, 0.0), (0.0, 3.0)]),
+                ("BBB", "g_b", [(6.0, 0.0), (6.0, 3.0)]),
+            ]
+        )
+        self.assertEqual(problems, [])
+        self.assertEqual(stats["groups_strapped"], 2)
+        self.assertEqual(stats["legs_drawn"], 2)
+        self.assertEqual(stats["legs_dropped"], 0)
+        self.assertEqual(stats["pad_square_um"], [[0.42, 0.42]])
+
+    def test_a_pad_square_that_drifts_from_the_committed_size_is_refused(self):
+        # The pad square is measured from the stream, not taken from the
+        # constant: pads drawn 0.5 um square do not match PAD_SQUARE_UM, so
+        # the group is refused with a drift problem -- naming both the
+        # observed and the committed size -- and its pads are left their own
+        # escape stubs. Never silently strapped with a carve-out sized for
+        # the wrong square.
+        strapped, problems, stats, _ctx = self._strap(
+            [("AAA", "g_a", [(0.0, 0.0), (0.0, 3.0)])], pad_size=0.5
+        )
+        self.assertEqual(strapped, set())
+        self.assertEqual(len(problems), 1)
+        self.assertIn("g_a", problems[0])
+        self.assertIn("0.5", problems[0])
+        self.assertIn("0.42", problems[0])
+        self.assertEqual(stats["legs_drawn"], 0)
+        self.assertEqual(stats["groups_strapped"], 0)
+        self.assertEqual(stats["pad_square_um"], [[0.5, 0.5]])
+
+    def test_a_tap_pad_with_no_metal1_at_its_port_is_refused_loudly(self):
+        # No silent fallback to PAD_SQUARE_UM: a port with nothing drawn on
+        # it is a generator this rule does not understand, so the group is
+        # refused and the missing metal reported by port name.
+        strapped, problems, stats, _ctx = self._strap(
+            [("AAA", "g_a", [(0.0, 0.0), (0.0, 3.0)])],
+            padless_pads={("g_a", "TAP_PAD1")},
+        )
+        self.assertEqual(strapped, set())
+        self.assertEqual(len(problems), 1)
+        self.assertIn("g_a", problems[0])
+        self.assertIn("TAP_PAD1", problems[0])
+        self.assertEqual(stats["legs_drawn"], 0)
+        self.assertEqual(stats["groups_strapped"], 0)
 
 
 if __name__ == "__main__":
