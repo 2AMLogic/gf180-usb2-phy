@@ -24,8 +24,10 @@ by CI's own step against the real streams, not here):
   * **every fail-loud guard raises**: ``num != 1`` or ``dummy != 0`` on a
     plan group, ``m != 1`` or a missing ``m`` in the netlist, a device class
     with no marker layer, a join missing in either direction, a resistor
-    instance without the ``XR`` prefix, an unparsable dimension value, and a
-    zero-resistor report -- each is an error, never a silent pass;
+    instance without the ``XR`` prefix, an unparsable dimension value, a
+    marker-cell count that disagrees with the measured group count (a
+    resistor drawn outside the plan/netlist join), and a zero-resistor
+    report -- each is an error, never a silent pass;
   * **the committed allow-list is exactly the five DR-0010 entries**, each
     naming the decision record and carrying the expected drawn value from
     DR-0010's Drawn L column.
@@ -369,6 +371,30 @@ class JoinTests(unittest.TestCase):
         groups = {"0": {"id": "r_seg0", "devices": [{"name": "0"}]},
                   "BASE": {"id": "r_base", "devices": [{"name": "BASE"}]}}
         card.validate_join("dplus_pullup", netlist, groups)
+
+
+class MarkerCoverageTests(unittest.TestCase):
+    def test_equal_counts_pass(self):
+        card.validate_marker_coverage("dplus_pullup", drawn=6, measured=6)
+
+    def test_zero_zero_passes(self):
+        card.validate_marker_coverage("differential_receiver", drawn=0, measured=0)
+
+    def test_drawn_exceeding_measured_raises(self):
+        # The silent-omission case this guard exists for: a resistor drawn
+        # in the stream but outside the plan/netlist join.
+        with self.assertRaisesRegex(card.CheckError, "dplus_pullup"):
+            card.validate_marker_coverage("dplus_pullup", drawn=7, measured=6)
+
+    def test_measured_exceeding_drawn_raises(self):
+        with self.assertRaisesRegex(card.CheckError, "dplus_pullup"):
+            card.validate_marker_coverage("dplus_pullup", drawn=5, measured=6)
+
+    def test_message_names_block_and_both_counts(self):
+        with self.assertRaisesRegex(
+            card.CheckError, r"7 marker-bearing cell\(s\).*5 res_array group\(s\)"
+        ):
+            card.validate_marker_coverage("dplus_pullup", drawn=7, measured=5)
 
 
 class MarkerLayerTests(unittest.TestCase):
