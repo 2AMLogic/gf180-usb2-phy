@@ -104,11 +104,20 @@ All five analog blocks (`differential_driver`, `differential_receiver`,
 driver re-size (#166/#167) landed. See "Outcome per block" immediately below.
 The set is cited by T1 item `2.analog` through
 `signoff/evidence/inventory-analog-layout.json`, and transistor-level LVS of
-all five is cited by T1 item `4.analog` (issue #247, record
-`20261113-163000-35e9b6e5ab87`). Supply-connectivity ERC of all five is
-*recorded* in record `20261114-003000-db05b5e` (issue #248); T1 item
-`11.analog` cites one `(erc, lvs)` pair from it — `differential_driver` —
-because item 11 takes a single pair, not a list (klayout-tools#5597). See
+all five is cited by T1 item `4.analog` (issue #247) from record
+`20261115-175000-5279711` — the head, re-run on the #361-regenerated streams
+with the same request shape and nothing relaxed; it supersedes the first
+all-match record `20261113-163000-35e9b6e5ab87` (#346; dated history: that
+one measured the pre-#361 streams). Supply-connectivity ERC of all five is
+*recorded* in record `20261116-000746-8dff986` (issue #248; re-run after
+issue #406's generator change on byte-identical re-delivered streams with
+the clean verdict unchanged at the same finer asserted partition — it
+supersedes `20261115-174000-5279711`, the #361 re-run on the regenerated
+streams, which superseded `20261114-003000-db05b5e`, which measured the
+pre-#361 streams, as dated history); T1 item
+`11.analog` cites one `(erc, lvs)` pair — `differential_driver` — with the
+ERC half pinned from `20261115-174000-5279711`'s artifacts, because item 11
+takes a single pair, not a list (klayout-tools#5597). See
 `manifests/README.md`, "Why this row cites one stream when the partition has
 five". DRC of these streams is still unsigned —
 issue #246. The dated history of the klt-only
@@ -255,9 +264,12 @@ what klt leaves behind is one label per net its router drew a leg for, which is
 neither the port set nor a subset of it.
 
 **LVS has now been run on all five committed streams and all five match** —
-record `verification/records/analog-lvs/records/20261113-163000-35e9b6e5ab87.md`
-(issue #346), which supersedes the five-mismatch measurement of
-`20261113-151132-45afbeea4868.md` (issue #345). `body_verification.status`
+record `verification/records/analog-lvs/records/20261115-175000-5279711.md`
+(issue #361's re-run on the regenerated streams, nothing relaxed), which
+supersedes the first all-match record
+`20261113-163000-35e9b6e5ab87.md` (issue #346), which in turn superseded the
+five-mismatch measurement of `20261113-151132-45afbeea4868.md` (issue #345) —
+the chain is three deep. `body_verification.status`
 reads `verified` on every block, `vsubs` appears in none of the five extracted
 netlists, and the layout pin set equals the reference port set on every block.
 The layout measurement for those regenerated streams — 5/5 fully routed, 5/5
@@ -285,13 +297,14 @@ compared
 and agreed. No extracted re-simulation was run on these streams (#53), and
 nothing here is an IR-drop or latch-up-margin claim about the tie geometry.
 Supply-connectivity ERC has since been run and cited separately (#248, item
-`11.analog`) — since issue #361 that record measures a strictly stronger
-verdict: **every** drawn body-tie pad (84 / 28 / 24 / 28 / 28 substrate pads
-per stream, and the n-well pads beside them) reaches ground through metal —
-the generator straps each group's pads — and the asserted substrate
-partition moved to pad granularity (`CLUSTER_GAP_UM` 0.7 µm, 51 / 18 / 18 /
-18 / 18 polygons, zero `erc.missing_tie`). See
-`verification/records/analog-erc/records/20261115-174000-5279711.md` for
+`11.analog`) — since issue #361 the record measures a strictly stronger
+verdict, re-measured unchanged after issue #406's generator change on
+byte-identical re-delivered streams: **every** drawn body-tie pad (84 / 28 /
+24 / 28 / 28 substrate pads per stream, and the n-well pads beside them)
+reaches ground through metal — the generator straps each group's pads — and
+the asserted substrate partition moved to pad granularity (`CLUSTER_GAP_UM`
+0.7 µm, 51 / 18 / 18 / 18 / 18 polygons, zero `erc.missing_tie`). See
+`verification/records/analog-erc/records/20261116-000746-8dff986.md` for
 what that verdict does and does not establish.
 Metal-3 is used for the first time in this repo; nothing yet checks it beyond the
 deck's `metal3.*` and `via2.*` rules.
@@ -330,12 +343,15 @@ columns of the per-run table in `analog/HISTORY.md` is history. There is still
 merely measured: `scripts/analog_lvs.py` runs transistor-level LVS on **all
 five** committed streams against `design/netlist/<block>.spice`, and **all
 five match** — record
-`verification/records/analog-lvs/records/20261113-163000-35e9b6e5ab87.md`
-(issue #346, klt 0.9.0), which supersedes the five-mismatch measurement of
-`20261113-151132-45afbeea4868.md` (issue #345). Every device, net and pin
+`verification/records/analog-lvs/records/20261115-175000-5279711.md`
+(issue #361, klt 0.9.0; the re-run on the regenerated streams, nothing
+relaxed), which supersedes the first all-match record
+`20261113-163000-35e9b6e5ab87.md` (issue #346), which superseded the
+five-mismatch measurement of `20261113-151132-45afbeea4868.md` (issue #345).
+Every device, net and pin
 pairs on every block (40/40, 11/11, 78/78, 13/13, 13/13 devices), `error_count`
 is 0, and nothing was relaxed to get there — no `ignore_mos_bulk`, no
-parameter tolerance, no flattening. The three causes that record named are
+parameter tolerance, no flattening. The three causes the first all-match record named are
 each gone: PMOS bodies sit on the supply the schematic names, the substrate is
 tied to a drawn `VSS` (`vsubs` appears in no extracted netlist), and the
 labelled port set is the schematic's. The earlier
@@ -350,10 +366,19 @@ drawn resistor dimensions are since checked by
 `verification/records/analog-resistor-dims/`, but that is a drawn-geometry
 check, not an electrical one).
 Supply-connectivity ERC of all five streams landed with issue #248 and is
-recorded in `20261114-003000-db05b5e`, from which T1 item `11.analog` cites
-one `(erc, lvs)` pair (`differential_driver`) rather than all five; DRC signoff
+recorded in `20261116-000746-8dff986` — re-run after issue #406's generator
+change on byte-identical re-delivered streams with the clean verdict
+unchanged at the finer asserted partition; it supersedes
+`20261115-174000-5279711`, the #361 re-run on the regenerated streams, which
+superseded `20261114-003000-db05b5e`, which measured the pre-#361 streams,
+as dated history — with T1 item `11.analog` citing one `(erc, lvs)` pair
+(`differential_driver`, ERC half pinned from `20261115-174000-5279711`'s
+artifacts) rather than
+all five; DRC signoff
 of the committed streams is still issue #246. The match is cited as T1 item `4.analog` (issue #247): all five
-envelopes of record `20261113-163000-35e9b6e5ab87` are pinned in
+envelopes of record `20261115-175000-5279711` — the #361 re-run on the
+regenerated streams; the first all-match record
+`20261113-163000-35e9b6e5ab87` stands as dated history — are pinned in
 `manifests/gf180-usb2-phy.json`, the frozen report grades the row `met`, and
 `manifests/README.md` carries the per-block counts and what the match does not
 cover. The

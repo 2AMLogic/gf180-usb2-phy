@@ -478,10 +478,16 @@ repo's rule that an envelope must actually support the item to be cited:
   because no analog layout existed when the row was first frozen). Its
   manifest entry is a **two-part list**, the shape item 11 requires: the
   `differential_driver` `klt erc` supply report
-  (`verification/records/analog-erc/artifacts/20261114-003000-db05b5e/differential_driver-erc-supply-report.json`,
-  pinned to that stream's GDS hash `sha256:4a1c1ddf…`), **plus** that same
+  (`verification/records/analog-erc/artifacts/20261115-174000-5279711/differential_driver-erc-supply-report.json`,
+  pinned to that stream's GDS hash `sha256:8db96dcd…`), **plus** that same
   block's `analog-lvs` envelope — the identical artifact item 4.analog cites,
-  at the identical pin. No `klt place-and-route` part: that is the Digital
+  at the identical pin. The ERC artifact's record, `20261115-174000-5279711`,
+  re-ran the same gates on the #361-regenerated streams at a finer asserted
+  partition; it supersedes `20261114-003000-db05b5e` — dated history: that
+  one measured the pre-#361 streams — and has since been superseded by
+  `20261116-000746-8dff986`, the #406 re-run on byte-identical re-delivered
+  streams with the verdict unchanged. No `klt
+  place-and-route` part: that is the Digital
   column's PDN branch, and these are full-custom streams with no P&R
   response to cite.
 
@@ -504,7 +510,7 @@ repo's rule that an envelope must actually support the item to be cited:
 
   The other four streams are *not* unevidenced. Their identical `klt erc`
   runs are frozen in the same record
-  (`verification/records/analog-erc/records/20261114-003000-db05b5e.md`),
+  (`verification/records/analog-erc/records/20261115-174000-5279711.md`),
   every stream and every spec is pinned by hash in that record's
   `provenance.inputs[]` — so `verification/check_records.py` fails CI if any
   of them moves without a fresh record — and `scripts/analog_erc.py` re-runs
