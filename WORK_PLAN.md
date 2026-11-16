@@ -28,7 +28,7 @@ Human-approved issues ready for implementation (`loom:issue`).
 
 - **#419**: check_signoff_report.py's 5-diff cap hides graded-content divergences behind klt build-stamp drift
 - **#420**: T1 item 8's envelope pins a content hash that matches no revision of docs/characterization-report.md, and nothing checks it
-- **#422**: docs: layout/README.md states an unsupported differential_driver bbox height (83.88 vs 103.205 measured); one residual "no ERC" clause in challenge-5-proposal.md
+- **#427**: analog-layout-report.json bbox_um does not describe the committed stream it is paired with (y-extent only; x matches)
 
 ## In Progress
 
@@ -59,7 +59,7 @@ Issues carrying `loom:curated`.
 - **#415**: docs: six passages still cite the superseded analog-erc record 20261114-003000-db05b5e as current (item 11.analog + four files) *(curated)*
 - **#419**: check_signoff_report.py's 5-diff cap hides graded-content divergences behind klt build-stamp drift *(curated)*
 - **#420**: T1 item 8's envelope pins a content hash that matches no revision of docs/characterization-report.md, and nothing checks it *(curated)*
-- **#422**: docs: layout/README.md states an unsupported differential_driver bbox height (83.88 vs 103.205 measured); one residual "no ERC" clause in challenge-5-proposal.md *(curated)*
+- **#427**: analog-layout-report.json bbox_um does not describe the committed stream it is paired with (y-extent only; x matches) *(curated)*
 
 ## Proposed (Architect / Hermit)
 

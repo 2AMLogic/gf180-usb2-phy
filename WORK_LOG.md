@@ -8,6 +8,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-16
 
+- **PR #426**: docs: correct differential_driver stream extent and ERC wording
+- **Issue #422** (closed): docs: layout/README.md states an unsupported differential_driver bbox height (83.88 vs 103.205 measured); one residual "no ERC" clause in challenge-5-proposal.md
 - **PR #424**: fix: drop dead __main__ block left by unittest conversion and rebind evidence
 - **Issue #407** (closed): verification/test_check_records.py carries a dead `if __name__ == "__main__": sys.exit(main())` block after the unittest conversion
 - **PR #421**: docs: re-point analog-layout citations to the 8dff986 head and retire the stale no-ERC clauses
