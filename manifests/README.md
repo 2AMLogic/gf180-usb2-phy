@@ -484,7 +484,9 @@ repo's rule that an envelope must actually support the item to be cited:
   at the identical pin. The ERC artifact's record, `20261115-174000-5279711`,
   re-ran the same gates on the #361-regenerated streams at a finer asserted
   partition; it supersedes `20261114-003000-db05b5e` — dated history: that
-  one measured the pre-#361 streams. No `klt
+  one measured the pre-#361 streams — and has since been superseded by
+  `20261116-000746-8dff986`, the #406 re-run on byte-identical re-delivered
+  streams with the verdict unchanged. No `klt
   place-and-route` part: that is the Digital
   column's PDN branch, and these are full-custom streams with no P&R
   response to cite.

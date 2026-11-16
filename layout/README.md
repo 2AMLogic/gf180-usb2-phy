@@ -109,12 +109,15 @@ all five is cited by T1 item `4.analog` (issue #247) from record
 with the same request shape and nothing relaxed; it supersedes the first
 all-match record `20261113-163000-35e9b6e5ab87` (#346; dated history: that
 one measured the pre-#361 streams). Supply-connectivity ERC of all five is
-*recorded* in record `20261115-174000-5279711` (issue #248; same gates on the
-regenerated streams at a finer asserted partition — it supersedes
-`20261114-003000-db05b5e`, which measured the pre-#361 streams, as dated
-history); T1 item
-`11.analog` cites one `(erc, lvs)` pair from it — `differential_driver` —
-because item 11 takes a single pair, not a list (klayout-tools#5597). See
+*recorded* in record `20261116-000746-8dff986` (issue #248; re-run after
+issue #406's generator change on byte-identical re-delivered streams with
+the clean verdict unchanged at the same finer asserted partition — it
+supersedes `20261115-174000-5279711`, the #361 re-run on the regenerated
+streams, which superseded `20261114-003000-db05b5e`, which measured the
+pre-#361 streams, as dated history); T1 item
+`11.analog` cites one `(erc, lvs)` pair — `differential_driver` — with the
+ERC half pinned from `20261115-174000-5279711`'s artifacts, because item 11
+takes a single pair, not a list (klayout-tools#5597). See
 `manifests/README.md`, "Why this row cites one stream when the partition has
 five". DRC of these streams is still unsigned —
 issue #246. The dated history of the klt-only
@@ -294,13 +297,14 @@ compared
 and agreed. No extracted re-simulation was run on these streams (#53), and
 nothing here is an IR-drop or latch-up-margin claim about the tie geometry.
 Supply-connectivity ERC has since been run and cited separately (#248, item
-`11.analog`) — since issue #361 that record measures a strictly stronger
-verdict: **every** drawn body-tie pad (84 / 28 / 24 / 28 / 28 substrate pads
-per stream, and the n-well pads beside them) reaches ground through metal —
-the generator straps each group's pads — and the asserted substrate
-partition moved to pad granularity (`CLUSTER_GAP_UM` 0.7 µm, 51 / 18 / 18 /
-18 / 18 polygons, zero `erc.missing_tie`). See
-`verification/records/analog-erc/records/20261115-174000-5279711.md` for
+`11.analog`) — since issue #361 the record measures a strictly stronger
+verdict, re-measured unchanged after issue #406's generator change on
+byte-identical re-delivered streams: **every** drawn body-tie pad (84 / 28 /
+24 / 28 / 28 substrate pads per stream, and the n-well pads beside them)
+reaches ground through metal — the generator straps each group's pads — and
+the asserted substrate partition moved to pad granularity (`CLUSTER_GAP_UM`
+0.7 µm, 51 / 18 / 18 / 18 / 18 polygons, zero `erc.missing_tie`). See
+`verification/records/analog-erc/records/20261116-000746-8dff986.md` for
 what that verdict does and does not establish.
 Metal-3 is used for the first time in this repo; nothing yet checks it beyond the
 deck's `metal3.*` and `via2.*` rules.
@@ -362,10 +366,14 @@ drawn resistor dimensions are since checked by
 `verification/records/analog-resistor-dims/`, but that is a drawn-geometry
 check, not an electrical one).
 Supply-connectivity ERC of all five streams landed with issue #248 and is
-recorded in `20261115-174000-5279711` — same gates on the #361-regenerated
-streams at a finer asserted partition; it supersedes `20261114-003000-db05b5e`,
-which measured the pre-#361 streams, as dated history — from which T1 item
-`11.analog` cites one `(erc, lvs)` pair (`differential_driver`) rather than
+recorded in `20261116-000746-8dff986` — re-run after issue #406's generator
+change on byte-identical re-delivered streams with the clean verdict
+unchanged at the finer asserted partition; it supersedes
+`20261115-174000-5279711`, the #361 re-run on the regenerated streams, which
+superseded `20261114-003000-db05b5e`, which measured the pre-#361 streams,
+as dated history — with T1 item `11.analog` citing one `(erc, lvs)` pair
+(`differential_driver`, ERC half pinned from `20261115-174000-5279711`'s
+artifacts) rather than
 all five; DRC signoff
 of the committed streams is still issue #246. The match is cited as T1 item `4.analog` (issue #247): all five
 envelopes of record `20261115-175000-5279711` — the #361 re-run on the
