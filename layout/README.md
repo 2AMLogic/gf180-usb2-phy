@@ -312,7 +312,8 @@ block: the klt plan path routes 0, 0, 0 and 6 of them, and scripted routes in
 plan executes 40 device groups for the 40 netlist devices and all **20 of its
 20** nets are routed — the plan path routes 2 and scripted routes in
 `scripts/gen_analog_layout.py` complete the remaining 18 — DRC-clean at the
-`gf180mcu` deck, bbox 1831.2 x 83.88 um; run record
+`gf180mcu` deck, committed-stream top-cell extent 1831.2 x 103.205 um
+(klayout `dbbox()`); run record
 `verification/records/analog-layout/records/20261116-000742-8dff986.md`,
 the current measurement of all five streams — re-run after issue #406's
 generator change with every stream byte-identical; it supersedes

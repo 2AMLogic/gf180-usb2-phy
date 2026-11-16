@@ -500,8 +500,10 @@ committed layout — that preceded it.
 **What that means for this proposal.** A Chipalooza submission is expected
 to reach DRC/LVS-clean GDS with post-layout PVT simulation. This block is
 there for its digital half; its analog half has all five blocks drawn,
-DRC-clean and LVS-matched, and is not there on ERC, the DRC coverage
-attestation, or post-layout simulation. That is stated here as the current
+DRC-clean and LVS-matched, and is not there on a clean-verdict ERC (the landed
+structural check, T1 item `11.analog`, is graded `met` but its envelopes carry
+`check_status: not_checked`), the DRC coverage attestation, or post-layout
+simulation. That is stated here as the current
 status, with the work it implies named in §7, rather than presented as a
 formality remaining.
 
