@@ -34,7 +34,7 @@ these records, because none of them is a subset.
   receiver rows (§4) and the pull-up row (§5) pass post-layout with the
   ratified limits unchanged; the driver §6 timing rows **fail post-layout** —
   trise 27.7–32.1 ns and tfall 28.5–33.0 ns against the 4–20 ns limits, and
-  the rise crossover exceeds the 2.0 V ceiling at 16 of 45 corners — root-caused
+  the rise crossover exceeds the 2.0 V ceiling at 15 of 45 corners — root-caused
   in the extraction record to the committed routing's own output-path Metal1
   resistance (~250 Ω series into the 50 pF load; an LVS-level extraction of
   the same stream reproduces the schematic timing, so the devices are not the
