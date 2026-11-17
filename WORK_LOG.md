@@ -8,6 +8,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-17
 
+- **PR #445**: fix: partition signoff-report divergences by build stamp vs graded content
+- **Issue #419** (closed): check_signoff_report.py's 5-diff cap hides graded-content divergences behind klt build-stamp drift
 - **PR #443**: fix(signoff): bind item 8's envelope to the report by path and live hash
 - **Issue #420** (closed): T1 item 8's envelope pins a content hash that matches no revision of docs/characterization-report.md, and nothing checks it
 - **PR #440**: fix: version-gate lvs/extract reports and the npm klt path
@@ -348,8 +350,4 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 - **Issue #79** (closed): T1 item 11 digital leg: committed LVS report predates power_connectivity - re-run digital LVS on a klt that computes it
 - **Issue #78** (closed): Commit a klt signoff block manifest so this block's T1 state is graded, not hand-read
 - **Issue #77** (closed): T1 item 11 (power delivery, structural): no klt erc supply spec or report in this repo
-
-### 2026-09-17
-
-- **Issue #76** (closed): Same protocol logic, two incompatible implementations: usb_nrzi_encoder.v diverged across PDKs
 
