@@ -332,6 +332,53 @@ class TestCheckSignoffReport(unittest.TestCase):
         )
         self.assertIn(FIXTURE_PIN, result.stderr)
 
+    def test_build_drift_does_not_hide_content_drift(self) -> None:
+        """Six `.build.*` divergences (every field of the build block) must
+        not crowd a `.items[...]` divergence out of the failure output
+        (issue #419): leaf paths sort with `.build` first, so a global cap
+        hid graded content behind build-stamp drift. The output must carry
+        both sections -- build stamp under its own heading, graded content
+        under another -- and the per-section cap cannot push the item diff
+        out."""
+        repo, bin_dir = build_fixture_repo(self.tmp)
+        drifted = json.loads(
+            (repo / "manifests" / "t1-signoff-report.json").read_text(encoding="utf-8")
+        )
+        # The whole build block drifts; `version` stays release-compatible
+        # with the pin (local segment apart) so the version gate passes and
+        # parity -- not the gate -- is what catches this run.
+        drifted["build"]["version"] = "0.5.0+gotherbuild"
+        drifted["build"]["package_version"] = "0.5.1"
+        drifted["build"]["git_commit"] = "othercommit" * 4
+        drifted["build"]["git_tag"] = "v0.5.1"
+        drifted["build"]["dirty"] = True
+        drifted["build"]["is_release"] = True
+        drifted["items"][0]["status"] = "unmet"
+        _write_stub(bin_dir, "klt", 3, drifted)
+        result = run_checker(repo, bin_dir)
+        self.assertNotEqual(
+            0,
+            result.returncode,
+            "a drifted fresh render must FAIL the check, but it exited 0",
+        )
+        self.assertIn(
+            "build stamp",
+            result.stderr,
+            f"build-stamp drift should be headed as such, got: {result.stderr!r}",
+        )
+        self.assertIn(
+            "graded content",
+            result.stderr,
+            f"graded-content drift should be headed as such, got: {result.stderr!r}",
+        )
+        self.assertIn(
+            ".items[0].status",
+            result.stderr,
+            "the graded-content divergence must appear even with 6 "
+            "build-stamp divergences ahead of it (issue #419); "
+            f"stderr={result.stderr!r}",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
