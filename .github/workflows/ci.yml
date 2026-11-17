@@ -79,6 +79,11 @@ jobs:
 
       - name: Install klayout-tools (klt) + cocotb -- pinned, see docs/environment-setup.md
         run: |
+          # Literal pin: item 9 of the sign-off audit (signoff/inventories.py)
+          # requires a parseable `klayout-tools==X` here and cross-checks it
+          # against KLT_VERSION in scripts/setup-env.sh, so a pin bump that
+          # leaves CI installing a different klt than the harnesses' version
+          # gate expects is a hard failure. Keep both pins in sync.
           python3 -m pip install --disable-pip-version-check \
             "klayout-tools==0.9.0" \
             "cocotb==2.0.1"

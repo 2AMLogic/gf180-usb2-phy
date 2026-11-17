@@ -80,7 +80,12 @@ import shutil
 import subprocess
 import sys
 
-from klt_resolve import klt_argv
+from klt_resolve import (
+    KltVersionError,
+    klt_argv,
+    pinned_klt_version,
+    require_pinned_klt_version,
+)
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DECK = "gf180mcu"
@@ -290,8 +295,20 @@ def analyze_cause(block: str, layout_spice: str, reference_spice: str) -> dict:
     }
 
 
+def gate_klt_version(report: dict, pinned: str, context: str) -> str:
+    """Refuse a `klt extract` / `klt lvs` report rendered by anything but
+    the pinned klt (issue #438, closing the class PR #430 opened: a report
+    from the `$PATH` fallback branch froze silently). Returns the report's
+    normalized klt version.
+    """
+    try:
+        return require_pinned_klt_version(report, pinned, context)
+    except KltVersionError as exc:
+        raise SystemExit(str(exc)) from exc
+
+
 def run_block(block: str, gds_src: str, ref_src: str, out_dir: str, *,
-              analyze: bool, also_preextracted: bool) -> dict:
+              analyze: bool, also_preextracted: bool, pinned: str) -> dict:
     """Extract, compare, and (optionally) analyse one block. Returns a summary."""
     work = os.path.join(out_dir, block)
     os.makedirs(work, exist_ok=True)
@@ -321,6 +338,7 @@ def run_block(block: str, gds_src: str, ref_src: str, out_dir: str, *,
         sys.stderr.write(proc.stdout + proc.stderr)
         raise SystemExit(f"{block}: klt extract failed (exit {proc.returncode})")
     extract_report = json.loads(proc.stdout)
+    gate_klt_version(extract_report, pinned, f"{block} extract")
     with open(os.path.join(work, f"{block}-extract-report.json"), "w",
               encoding="utf-8") as fh:
         json.dump(extract_report, fh, indent=2)
@@ -343,6 +361,7 @@ def run_block(block: str, gds_src: str, ref_src: str, out_dir: str, *,
         sys.stderr.write(proc.stderr)
         raise SystemExit(f"{block}: klt lvs produced no report (exit {proc.returncode})")
     report = json.loads(proc.stdout)
+    summary["klt_version"] = gate_klt_version(report, pinned, f"{block} lvs")
     with open(os.path.join(work, f"{block}-lvs-report.json"), "w",
               encoding="utf-8") as fh:
         json.dump(report, fh, indent=2)
@@ -401,6 +420,7 @@ def run_block(block: str, gds_src: str, ref_src: str, out_dir: str, *,
              "--format", "json"], cwd=work)
         if proc_pre.stdout.strip():
             pre_report = json.loads(proc_pre.stdout)
+            gate_klt_version(pre_report, pinned, f"{block} lvs (pre-extracted)")
             with open(os.path.join(work, f"{block}-lvs-report-preextracted.json"),
                       "w", encoding="utf-8") as fh:
                 json.dump(pre_report, fh, indent=2)
@@ -471,6 +491,7 @@ def main() -> int:
         )
 
     os.makedirs(args.out_dir, exist_ok=True)
+    pinned = pinned_klt_version()
     summaries = []
     for block in blocks:
         summaries.append(run_block(
@@ -480,6 +501,7 @@ def main() -> int:
             args.out_dir,
             analyze=args.analyze,
             also_preextracted=args.also_preextracted,
+            pinned=pinned,
         ))
 
     matched = [s for s in summaries if s["lvs"]["status"] == "match"]

@@ -114,13 +114,30 @@ import shutil
 import subprocess
 import sys
 
-from klt_resolve import klt_argv
+from klt_resolve import (
+    KltVersionError,
+    klt_argv,
+    pinned_klt_version,
+    require_pinned_klt_version,
+)
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def _sh(cmd: list[str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(cmd, capture_output=True, text=True, check=False)
+
+
+def gate_klt_version(report: dict, pinned: str, context: str) -> str:
+    """Refuse a `klt extract` / `klt lvs` report rendered by anything but
+    the pinned klt (issue #438, closing the class PR #430 opened: a report
+    from the `$PATH` fallback branch froze silently). Returns the report's
+    normalized klt version.
+    """
+    try:
+        return require_pinned_klt_version(report, pinned, context)
+    except KltVersionError as exc:
+        raise SystemExit(str(exc)) from exc
 
 
 def parse_verilog(path: str) -> list[str]:
@@ -349,6 +366,7 @@ def main() -> int:
                 "chain in flow/README.md first"
             )
     os.makedirs(args.out_dir, exist_ok=True)
+    pinned = pinned_klt_version()
 
     par_req = json.load(open(args.par_request, encoding="utf-8"))
     power_block = par_req.get("power") or {}
@@ -393,6 +411,7 @@ def main() -> int:
         sys.stderr.write(proc.stdout + proc.stderr)
         raise SystemExit(f"klt extract failed (exit {proc.returncode})")
     extract_report = json.loads(proc.stdout)
+    gate_klt_version(extract_report, pinned, "extract")
     unlabelled = unlabelled_abstract_cells(extract_report)
     if unlabelled:
         raise SystemExit(
@@ -456,6 +475,7 @@ def main() -> int:
         sys.stderr.write(proc.stderr)
         raise SystemExit(f"klt lvs produced no report (exit {proc.returncode})")
     report = json.loads(proc.stdout)
+    gate_klt_version(report, pinned, "lvs")
     report_name = (
         "lvs-report-negctl.json" if args.negative_control else "lvs-report.json"
     )

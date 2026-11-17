@@ -182,5 +182,42 @@ class UnlabelledAbstractCellsTest(unittest.TestCase):
         self.assertEqual(dlvs.unlabelled_abstract_cells({"net_count": 366}), [])
 
 
+class TestKltResolutionAndVersionGate(unittest.TestCase):
+    """Issue #438: the harness's frozen reports must be refused unless the
+    klt that rendered them is the repo's pin. The gate lives in
+    ``klt_resolve`` (unit-tested in ``test_klt_resolve.py``); what is
+    checked here is this harness's wrapper of it -- a per-report gate that
+    fails loudly (this script's ``SystemExit`` idiom) on mismatch or a
+    missing version, without needing klt, klayout or the PDK.
+    """
+
+    PIN = "0.9.0"
+
+    @staticmethod
+    def _report(klt_version):
+        report = {"status": "match"}
+        if klt_version is not None:
+            report["provenance"] = {"klt_version": klt_version}
+        return report
+
+    def test_gate_accepts_a_pinned_report_and_returns_the_version(self):
+        version = dlvs.gate_klt_version(
+            self._report("0.9.0+g5dbbad0"), self.PIN, "extract"
+        )
+        self.assertEqual(version, "0.9.0")
+
+    def test_gate_rejects_an_unpinned_klt_naming_both_versions(self):
+        report = self._report("0.9.3.dev394+gf0ecf3ca0ebf")
+        with self.assertRaises(SystemExit) as ctx:
+            dlvs.gate_klt_version(report, self.PIN, "lvs")
+        self.assertIn("0.9.3.dev394", str(ctx.exception))
+        self.assertIn(self.PIN, str(ctx.exception))
+
+    def test_gate_rejects_a_report_with_no_provenance_version(self):
+        with self.assertRaises(SystemExit) as ctx:
+            dlvs.gate_klt_version(self._report(None), self.PIN, "extract")
+        self.assertIn(self.PIN, str(ctx.exception))
+
+
 if __name__ == "__main__":
     unittest.main()
