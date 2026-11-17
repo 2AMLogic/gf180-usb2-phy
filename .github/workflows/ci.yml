@@ -79,18 +79,13 @@ jobs:
 
       - name: Install klayout-tools (klt) + cocotb -- pinned, see docs/environment-setup.md
         run: |
-          # The pin has one source of truth: KLT_VERSION in
-          # scripts/setup-env.sh (issue #438). Reading it here instead of
-          # restating a literal means a pin bump cannot leave CI installing
-          # a different klt than the harnesses' version gate expects.
-          KLT_VERSION="$(sed -n 's/^KLT_VERSION="\([^"]*\)"$/\1/p' scripts/setup-env.sh)"
-          if [ -z "${KLT_VERSION}" ]; then
-            echo "error: could not parse KLT_VERSION from scripts/setup-env.sh" >&2
-            exit 1
-          fi
-          echo "klt pin (from scripts/setup-env.sh): ${KLT_VERSION}"
+          # Literal pin: item 9 of the sign-off audit (signoff/inventories.py)
+          # requires a parseable `klayout-tools==X` here and cross-checks it
+          # against KLT_VERSION in scripts/setup-env.sh, so a pin bump that
+          # leaves CI installing a different klt than the harnesses' version
+          # gate expects is a hard failure. Keep both pins in sync.
           python3 -m pip install --disable-pip-version-check \
-            "klayout-tools==${KLT_VERSION}" \
+            "klayout-tools==0.9.0" \
             "cocotb==2.0.1"
           klt --version
 
