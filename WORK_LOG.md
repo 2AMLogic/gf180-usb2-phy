@@ -8,6 +8,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-17
 
+- **PR #443**: fix(signoff): bind item 8's envelope to the report by path and live hash
+- **Issue #420** (closed): T1 item 8's envelope pins a content hash that matches no revision of docs/characterization-report.md, and nothing checks it
 - **PR #440**: fix: version-gate lvs/extract reports and the npm klt path
 - **Issue #438** (closed): Close the rest of the klt-pin class: version-gate analog_lvs/digital_lvs reports and the bare-klt npm scripts
 - **PR #433**: fix(harness): resolve klt from the interpreter and gate report versions against the pin
