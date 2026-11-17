@@ -114,6 +114,8 @@ import shutil
 import subprocess
 import sys
 
+from klt_resolve import klt_argv
+
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -367,7 +369,7 @@ def main() -> int:
 
     layout_spice = os.path.join(args.out_dir, f"{args.top}_layout.spice")
     extract_cmd = [
-        "klt",
+        *klt_argv(),
         "extract",
         gds,
         "--deck",
@@ -449,7 +451,7 @@ def main() -> int:
     with open(request_path, "w", encoding="utf-8") as fh:
         json.dump(lvs_request, fh, indent=2)
 
-    proc = _sh(["klt", "lvs", request_path, "--format", "json"])
+    proc = _sh(klt_argv() + ["lvs", request_path, "--format", "json"])
     if not proc.stdout.strip():
         sys.stderr.write(proc.stderr)
         raise SystemExit(f"klt lvs produced no report (exit {proc.returncode})")

@@ -375,5 +375,47 @@ class TestCommittedSpecs(unittest.TestCase):
             self.assertNotIn("ties_disclosure", spec)
 
 
+class TestKltResolutionAndVersionGate(unittest.TestCase):
+    """Issue #431: the harness must not grade with a klt that is not the
+    repo's pin. The resolution default and the gate live in
+    ``klt_resolve`` (unit-tested in ``test_klt_resolve.py``); what is
+    checked here is this harness's wiring of them -- the explicit override,
+    and a per-block gate that fails loudly on mismatch or a missing
+    version, without needing klt, klayout or the PDK.
+    """
+
+    PIN = "0.9.0"
+
+    def _report(self, klt_version):
+        report = _clean_report()
+        if klt_version is not None:
+            report["provenance"] = {"klt_version": klt_version}
+        return report
+
+    def test_explicit_klt_path_overrides_the_default(self):
+        self.assertEqual(aerc.resolve_klt_command(".venv/bin/klt"), [".venv/bin/klt"])
+
+    def test_no_explicit_klt_resolves_to_klt_resolve(self):
+        self.assertEqual(aerc.resolve_klt_command(None), aerc.klt_argv())
+
+    def test_gate_accepts_a_pinned_report_and_returns_the_version(self):
+        version = aerc.gate_klt_version(
+            "demo", self._report("0.9.0+g5dbbad0"), self.PIN
+        )
+        self.assertEqual(version, "0.9.0")
+
+    def test_gate_rejects_an_unpinned_klt_naming_both_versions(self):
+        report = self._report("0.9.3.dev234+g5ed4e55bffbd")
+        with self.assertRaises(aerc.HarnessError) as ctx:
+            aerc.gate_klt_version("demo", report, self.PIN)
+        self.assertIn("0.9.3.dev234", str(ctx.exception))
+        self.assertIn(self.PIN, str(ctx.exception))
+
+    def test_gate_rejects_a_report_with_no_provenance_version(self):
+        with self.assertRaises(aerc.HarnessError) as ctx:
+            aerc.gate_klt_version("demo", self._report(None), self.PIN)
+        self.assertIn(self.PIN, str(ctx.exception))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

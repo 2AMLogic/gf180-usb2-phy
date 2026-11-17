@@ -80,6 +80,8 @@ import shutil
 import subprocess
 import sys
 
+from klt_resolve import klt_argv
+
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DECK = "gf180mcu"
 #: `klt extract` names a net it found no label for `$<n>`, which the SPICE
@@ -311,7 +313,7 @@ def run_block(block: str, gds_src: str, ref_src: str, out_dir: str, *,
     #     emit. Its netlist is kept only to cross-check the compare's own.
     extract_spice = f"{block}_extract.spice"
     proc = sh(
-        ["klt", "extract", f"{block}.gds", "--deck", DECK, "--top", block,
+        klt_argv() + ["extract", f"{block}.gds", "--deck", DECK, "--top", block,
          "-o", extract_spice, "--format", "json"],
         cwd=work,
     )
@@ -335,7 +337,7 @@ def run_block(block: str, gds_src: str, ref_src: str, out_dir: str, *,
     request_path = os.path.join(work, f"{block}-lvs-request.json")
     with open(request_path, "w", encoding="utf-8") as fh:
         json.dump(lvs_request(block), fh, indent=2)
-    proc = sh(["klt", "lvs", f"{block}-lvs-request.json", "--format", "json"],
+    proc = sh(klt_argv() + ["lvs", f"{block}-lvs-request.json", "--format", "json"],
               cwd=work)
     if not proc.stdout.strip():
         sys.stderr.write(proc.stderr)
@@ -395,7 +397,7 @@ def run_block(block: str, gds_src: str, ref_src: str, out_dir: str, *,
                   "w", encoding="utf-8") as fh:
             json.dump(pre_req, fh, indent=2)
         proc_pre = sh(
-            ["klt", "lvs", f"{block}-lvs-request-preextracted.json",
+            klt_argv() + ["lvs", f"{block}-lvs-request-preextracted.json",
              "--format", "json"], cwd=work)
         if proc_pre.stdout.strip():
             pre_report = json.loads(proc_pre.stdout)
