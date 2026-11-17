@@ -2,6 +2,10 @@
 
 Sections moved byte-for-byte from [WORK_LOG.md](../WORK_LOG.md) by `loom-daemon work-docs archive`.
 
+### 2026-09-17
+
+- **Issue #76** (closed): Same protocol logic, two incompatible implementations: usb_nrzi_encoder.v diverged across PDKs
+
 ### 2026-09-14
 
 - **PR #75**: fix(layout): set params.flavor:1k on 3 receiver plans' res_array groups
