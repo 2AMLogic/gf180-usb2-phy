@@ -191,6 +191,33 @@ def _run_drc(gds_path: str) -> dict:
     }
 
 
+def _stream_bbox_um(gds_path: str) -> dict | None:
+    """The extent of the top cell of the stream at ``gds_path`` (um).
+
+    Measured read-only from the stream itself -- never taken from klt's
+    plan-stage response, which describes the pre-scripted-routing
+    intermediate (``<block>.klt.gds``) for a scripted block while
+    ``gds_path`` names the stream ``_complete_routing()`` wrote
+    (issue #427): the upper-metal tracks the scripted pass adds lift the
+    true envelope ~19% above the plan-stage one for ``differential_driver``,
+    and both fields sit in the same ``blocks[]`` entry. Failures are
+    reported by omission (``None``): the ``drc`` entry read from the same
+    path carries the reason, and the exit-code contract stays about the
+    run, never the quality of the layout.
+    """
+    import klayout.db as kdb
+
+    try:
+        layout = kdb.Layout()
+        layout.read(gds_path)
+        box = layout.top_cell().dbbox()
+    except Exception:  # noqa: BLE001 -- the drc entry read from the same path carries the failure
+        return None
+    if box.empty():
+        return None
+    return {"x0": box.left, "y0": box.bottom, "x1": box.right, "y1": box.top}
+
+
 def _execute_plan(
     plan_path: str, out_dir: str, keep_work: bool, final_dir: str | None
 ) -> dict:
@@ -272,7 +299,12 @@ def _execute_plan(
         klt_routed_net_count=len(klt_routed),
         unrouted_nets=sorted(net["net"] for net in nets if net["net"] not in routed_names),
         unmapped_netlist_nets=sorted(response.get("unmapped_netlist_nets") or []),
-        bbox_um=response.get("bbox_um"),
+        # The committed stream's own envelope, measured from gds_path after
+        # scripted routing -- klt's plan-stage envelope describes
+        # <block>.klt.gds, not this stream (issue #427), so it is kept under
+        # its own name.
+        bbox_um=_stream_bbox_um(gds_path),
+        plan_bbox_um=response.get("bbox_um"),
         warning_count=len(response.get("warnings") or []),
         drc=_run_drc(gds_path),
     )
