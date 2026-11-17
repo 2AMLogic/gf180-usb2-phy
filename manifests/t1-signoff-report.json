@@ -920,8 +920,8 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:b2502c53b9536bbe94e33289a55d4a1d3740156568ada4ed77923aab90e7439d",
-        "input_verified": null,
+        "content_hash": "sha256:848f6c29a9becbcbcabcfe9283a134acb40250b1153f508ba02e89dee03809b1",
+        "input_verified": true,
         "exit_status": 0,
         "attestation": {
           "tool_produced": false
@@ -943,8 +943,8 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:b2502c53b9536bbe94e33289a55d4a1d3740156568ada4ed77923aab90e7439d",
-        "input_verified": null,
+        "content_hash": "sha256:848f6c29a9becbcbcabcfe9283a134acb40250b1153f508ba02e89dee03809b1",
+        "input_verified": true,
         "exit_status": 0,
         "attestation": {
           "tool_produced": false

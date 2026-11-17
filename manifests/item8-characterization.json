@@ -1,13 +1,21 @@
 {
   "schema_version": 1,
   "kind": "generic",
+  "t1_item": 8,
   "status": "pass",
-  "summary": "T1 item 8 (characterization report): docs/characterization-report.md exists, is current (every cited spec-row evidence record content-pinned in its staleness table), and aggregates every ratified spec row across the 45-corner PVT matrix with the evidence record each verdict rests on, recording FAIL rows as FAIL rather than hiding them. 'status: pass' here asserts the artifact's existence, currency and completeness -- it is the characterization item's own verdict, not a claim that every spec row passes (4 of 9 electrical rows fail at some corners; the report says exactly which and why).",
+  "summary": "T1 item 8 (characterization report): docs/characterization-report.md exists, is current (every cited spec-row evidence record content-pinned in its staleness table), and aggregates every ratified spec row across the 45-corner PVT matrix with the evidence record each verdict rests on, recording FAIL rows as FAIL rather than hiding them. 'status: pass' here asserts the artifact's existence, currency and completeness -- it is the characterization item's own verdict, not a claim that every spec row passes (4 of 9 electrical rows fail at some corners; the report says exactly which and why). The envelope binds the report by repo path and content hash: signoff/check.py fails when the report changes without a re-pin (python3 signoff/check.py --regen), and the re-rendered signoff report discloses whether the pin still verified.",
   "source": "docs/characterization-report.md",
   "provenance": {
+    "klt_version": null,
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
     "input": {
-      "content_hash": "sha256:b2502c53b9536bbe94e33289a55d4a1d3740156568ada4ed77923aab90e7439d",
-      "role": "document"
+      "path": {
+        "path": "docs/characterization-report.md",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:848f6c29a9becbcbcabcfe9283a134acb40250b1153f508ba02e89dee03809b1"
     }
   }
 }

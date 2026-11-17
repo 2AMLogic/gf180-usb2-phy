@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audited inventories behind T1 items 1, 2.analog, 2.digital, 9 and 10.
+"""Audited inventories behind T1 items 1, 2.analog, 2.digital, 8, 9 and 10.
 
 `klt signoff` (>= 0.7.0) accepts a `kind: generic` envelope for these items
 when it is bound to an audited artifact: the envelope declares
@@ -7,6 +7,12 @@ when it is bound to an audited artifact: the envelope declares
 manifest pins the same `content_hash`. That binding proves the artifact's
 *bytes* are fresh. It proves nothing about whether the artifact is *true*, or
 whether a file the inventory is about has moved underneath it.
+
+Item 8 binds `docs/characterization-report.md` directly (the report is a
+hand-assembled Markdown artifact with no per-member hashes to re-derive), so
+for it this module is only the envelope's writer and the binding's verifier:
+`verify_item` checks the manifest pin, the envelope's declared path and the
+recomputed hash against the live file.
 
 So the artifacts bound here (except the routed GDS of 2.digital, which is
 bound directly) are inventories that carry the sha256 of every member file,
@@ -558,6 +564,11 @@ ITEMS: dict[str, Item] = {
         envelope="signoff/evidence/t1-item-2-digital-layout.json",
         title="Layout (digital partition)",
     ),
+    "8": Item(
+        artifact="docs/characterization-report.md",
+        envelope="manifests/item8-characterization.json",
+        title="Characterization report",
+    ),
     "9": Item(
         artifact="signoff/evidence/inventory-testbenches.json",
         envelope="signoff/evidence/t1-item-9-testbenches.json",
@@ -607,12 +618,33 @@ _EXTRA_SUMMARY = {
     ),
 }
 
+#: The item 8 envelope's `summary`, kept verbatim from the hand-written
+#: envelope this registry absorbed (issue #420). The report is a
+#: hand-assembled Markdown artifact, so unlike every other item there is no
+#: inventory to re-derive -- the envelope is this constant plus the report's
+#: live hash, and the binding (not the report's claims) is what is checked.
+_ITEM8_SUMMARY = (
+    "T1 item 8 (characterization report): docs/characterization-report.md exists, is "
+    "current (every cited spec-row evidence record content-pinned in its staleness "
+    "table), and aggregates every ratified spec row across the 45-corner PVT matrix "
+    "with the evidence record each verdict rests on, recording FAIL rows as FAIL "
+    "rather than hiding them. 'status: pass' here asserts the artifact's existence, "
+    "currency and completeness -- it is the characterization item's own verdict, not a "
+    "claim that every spec row passes (4 of 9 electrical rows fail at some corners; "
+    "the report says exactly which and why). The envelope binds the report by repo "
+    "path and content hash: signoff/check.py fails when the report changes without a "
+    "re-pin (python3 signoff/check.py --regen), and the re-rendered signoff report "
+    "discloses whether the pin still verified."
+)
+
 
 def build_envelope(root: Path, key: str) -> dict:
     """The generic envelope for `key`, derived from the bound artifact on disk."""
     record = ITEMS[key]
     artifact = record.artifact
-    if key == "2.digital":
+    if key == "8":
+        summary = _ITEM8_SUMMARY
+    elif key == "2.digital":
         summary = _layout_summary(root)
     else:
         inv = json.loads(_read(root, artifact))

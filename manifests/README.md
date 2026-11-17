@@ -286,7 +286,21 @@ partitions:
   a purpose-built **generic envelope**
   (`manifests/item8-characterization.json`), wrapping
   `docs/characterization-report.md` and pinned to that file's content
-  hash (`sha256:b2502c53…`). The envelope's `status: "pass"` asserts the
+  hash (`sha256:848f6c29…`, re-pinned by
+  `python3 signoff/check.py --regen`, which also writes this envelope).
+  The envelope declares `provenance.input.path` (repo scope), so the
+  grader re-hashes the report at render time and the citation discloses
+  `input_verified`; the item 8 envelope lives in the same
+  `signoff/inventories.py` registry as the inventories above, and
+  `signoff/check.py` fails when the report is edited without a re-pin.
+  Two honest limits, both measured (issue [#420]): the grader itself
+  would still grade the row `met` on a stale binding — item 8 is not one
+  of its anchored-required items, so a stale pin only flips the citation's
+  `input_verified` to `false`; it is `signoff/check.py` and the re-render
+  parity check below that fail CI. And before #420 the envelope carried
+  the hash with no path, which the grader silently never verified and
+  nothing in-repo recomputed — the pinned value matched no revision of
+  the report. The envelope's `status: "pass"` asserts the
   *report's* existence, currency, and complete per-row coverage — it is
   **not** an assertion that every spec row passes; the wrapped report
   records 4 of 9 electrical rows as FAIL at some corners and says so, and
@@ -617,7 +631,7 @@ script, P&R request — to the working tree on every run).
 | `t1-signoff-report.json` | `klt signoff --manifest gf180-usb2-phy.json --format json` output, frozen at the pinned `klt`; CI diff-checks a fresh render against it |
 | `item8-characterization.json` | the T1-item-8 `generic` evidence envelope wrapping `docs/characterization-report.md`, pinned to its content hash |
 | `artifacts/` | stored-evidence manifests for new corner-run records — bytes in the artifact store, hashes here; see `artifacts/README.md` (not part of the signoff manifest) |
-| `../signoff/` | `inventories.py` (the only writer of the items 1/2.digital/9/10 inventories and envelopes), `check.py` (the drift gate), `evidence/` (inventories and envelopes) |
+| `../signoff/` | `inventories.py` (the only writer of the items 1/2.digital/8/9/10 inventories and envelopes — item 8's envelope is its constant summary plus the report's live hash), `check.py` (the drift gate), `evidence/` (inventories and envelopes) |
 | `README.md` | this claim document — kind/partition basis, citation rationale, disclosure of the uncited rows, the regeneration contract |
 
 ## Stored-evidence manifests are a different thing
@@ -635,3 +649,4 @@ writer checks for the verb and fails closed rather than moving the pin.
 [#77]: https://github.com/2AMLogic/gf180-usb2-phy/issues/77
 [#83]: https://github.com/2AMLogic/gf180-usb2-phy/issues/83
 [#53]: https://github.com/2AMLogic/gf180-usb2-phy/issues/53
+[#420]: https://github.com/2AMLogic/gf180-usb2-phy/issues/420
