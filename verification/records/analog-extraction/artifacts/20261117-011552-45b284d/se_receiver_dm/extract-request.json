@@ -1,0 +1,8 @@
+{
+  "file": "layout/analog/se_receiver_dm.gds",
+  "deck": "gf180mcu",
+  "top": "se_receiver_dm",
+  "pdk": "gf180mcuD",
+  "parasitics": true,
+  "output": "layout/analog/extracted/se_receiver_dm_parasitic.spice"
+}

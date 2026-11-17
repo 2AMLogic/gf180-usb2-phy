@@ -1,0 +1,997 @@
+* extracted by klt extract --deck gf180mcu
+* parasitic model (--parasitics):
+* - capacitance: net-to-ground for every net's own (non-coupled) area/perimeter, plus net-to-net for the vertical-overlap coupling `coupling` describes below -- a coupled net pair gets a direct capacitor between their two hub nodes, not just capacitors to the deck's ground/substrate net
+* - coupling: vertical overlap (crossover) unconditionally -- where one net's conductor on an adjacent metal level sits directly over another *distinct* net's conductor, that overlap area is charged between the two nets instead of to ground (issue #760) -- plus lateral (same-layer, sidewall) coupling, but only for a net pair naming one of the caller's declared `--critical-net` nets (issue #976): facing-edge length within that layer's own minimum-spacing lookback is charged between the two nets, *additively* (not deducted from either net's substrate fringe term, unlike the vertical case -- a known simplification). Any same-layer pair with neither side named `--critical-net`, and fringe shielding in general, are still not modelled
+* - resistance: single lumped series resistance per net, distributed as a star across that net's device terminals (issue #592) -- not a per-segment, distributed RC ladder, *unless* `--distributed-rc` names this net via `--critical-net` (issue #977, Epic #709 Phase 2b): then the net's terminals are ordered along their approximate physical spread and its total R/C is broken into a chain of per-segment resistors (segment length proportional to inter-terminal distance) with a ground capacitor at each terminal node (proportional to its adjacent segment length/2), instead of one star hub -- still an approximation (terminal position is a device-placement proxy, not true per-segment routing geometry), but a strictly finer-grained one than the single-hub star
+* - frequency: quasi-static -- one frequency-independent R and C per net; no skin effect, no distributed transmission-line behavior
+* - substrate tie: 1e+12 ohm to ground -- the substrate is capacitively floating in transient analysis (DC reference only); see --substrate-tie-ohms
+.GLOBAL vsubs
+
+* cell dplus_pullup
+* pin DP
+* pin PU_EN
+* pin TRIM0
+* pin TRIM1
+* pin TRIM2
+* pin TRIM3
+* pin TRIM4
+* pin VPU_REG
+* pin VSS
+.SUBCKT dplus_pullup DP VPU_REG VSS PU_EN TRIM0 TRIM1 TRIM2 TRIM3 TRIM4
+* device instance $1 r0 *1 0.64,1.73 nfet
+X$1 \$16__t0 PU_EN__t0 VSS__t0 VSS__t12 nfet_03v3 L=0.28U W=1U AS=0.5P AD=0.5P
++ PS=3U PD=3U
+* device instance $2 r0 *1 13.68,1.73 nfet
+X$2 \$17__t11 TRIM0__t1 VSS__t5 VSS__t13 nfet_03v3 L=0.28U W=1U AS=0.5P AD=0.5P
++ PS=3U PD=3U
+* device instance $3 r0 *1 26.72,1.73 nfet
+X$3 \$18__t11 TRIM1__t1 VSS__t4 VSS__t14 nfet_03v3 L=0.28U W=1U AS=0.5P AD=0.5P
++ PS=3U PD=3U
+* device instance $4 r0 *1 39.76,1.73 nfet
+X$4 \$19__t11 TRIM2__t1 VSS__t3 VSS__t15 nfet_03v3 L=0.28U W=1U AS=0.5P AD=0.5P
++ PS=3U PD=3U
+* device instance $5 r0 *1 52.8,1.73 nfet
+X$5 \$20__t11 TRIM3__t1 VSS__t2 VSS__t16 nfet_03v3 L=0.28U W=1U AS=0.5P AD=0.5P
++ PS=3U PD=3U
+* device instance $6 r0 *1 65.84,1.73 nfet
+X$6 \$21__t11 TRIM4__t1 VSS__t1 VSS__t17 nfet_03v3 L=0.28U W=1U AS=0.5P AD=0.5P
++ PS=3U PD=3U
+* device instance $7 r0 *1 7.16,2.23 pfet
+X$7 \$16__t1 PU_EN__t1 VPU_REG__t0 VPU_REG__t1 pfet_03v3 L=0.28U W=2U AS=1P
++ AD=1P PS=5U PD=5U
+* device instance $8 r0 *1 20.2,2.23 pfet
+X$8 \$17__t10 TRIM0__t0 VPU_REG__t77 VPU_REG__t72 pfet_03v3 L=0.28U W=2U AS=1P
++ AD=1P PS=5U PD=5U
+* device instance $9 r0 *1 33.24,2.23 pfet
+X$9 \$18__t10 TRIM1__t0 VPU_REG__t78 VPU_REG__t73 pfet_03v3 L=0.28U W=2U AS=1P
++ AD=1P PS=5U PD=5U
+* device instance $10 r0 *1 46.28,2.23 pfet
+X$10 \$19__t10 TRIM2__t0 VPU_REG__t79 VPU_REG__t74 pfet_03v3 L=0.28U W=2U AS=1P
++ AD=1P PS=5U PD=5U
+* device instance $11 r0 *1 59.32,2.23 pfet
+X$11 \$20__t10 TRIM3__t0 VPU_REG__t81 VPU_REG__t76 pfet_03v3 L=0.28U W=2U AS=1P
++ AD=1P PS=5U PD=5U
+* device instance $12 r0 *1 72.36,2.23 pfet
+X$12 \$21__t10 TRIM4__t0 VPU_REG__t80 VPU_REG__t75 pfet_03v3 L=0.28U W=2U AS=1P
++ AD=1P PS=5U PD=5U
+* device instance $13 r0 *1 79.09,51.23 pfet
+X$13 \$5__t1 \$16__t2 VPU_REG__t2 VPU_REG__t3 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $14 r0 *1 80.77,51.23 pfet
+X$14 \$5__t10 \$16__t11 VPU_REG__t71 VPU_REG__t31 pfet_03v3 L=0.28U W=100U
++ AS=50P AD=50P PS=201U PD=201U
+* device instance $15 r0 *1 82.45,51.23 pfet
+X$15 \$5__t9 \$16__t10 VPU_REG__t70 VPU_REG__t30 pfet_03v3 L=0.28U W=100U
++ AS=50P AD=50P PS=201U PD=201U
+* device instance $16 r0 *1 84.13,51.23 pfet
+X$16 \$5__t8 \$16__t9 VPU_REG__t69 VPU_REG__t29 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $17 r0 *1 85.81,51.23 pfet
+X$17 \$5__t7 \$16__t8 VPU_REG__t68 VPU_REG__t28 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $18 r0 *1 87.49,51.23 pfet
+X$18 \$5__t6 \$16__t7 VPU_REG__t67 VPU_REG__t27 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $19 r0 *1 89.17,51.23 pfet
+X$19 \$5__t5 \$16__t6 VPU_REG__t66 VPU_REG__t26 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $20 r0 *1 90.85,51.23 pfet
+X$20 \$5__t4 \$16__t5 VPU_REG__t65 VPU_REG__t25 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $21 r0 *1 92.53,51.23 pfet
+X$21 \$5__t3 \$16__t4 VPU_REG__t64 VPU_REG__t24 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $22 r0 *1 94.21,51.23 pfet
+X$22 \$5__t2 \$16__t3 VPU_REG__t63 VPU_REG__t23 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $23 r0 *1 120.88,51.23 pfet
+X$23 \$7__t11 \$17__t9 \$6__t11 VPU_REG__t22 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $24 r0 *1 122.56,51.23 pfet
+X$24 \$7__t10 \$17__t8 \$6__t10 VPU_REG__t21 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $25 r0 *1 124.24,51.23 pfet
+X$25 \$7__t9 \$17__t7 \$6__t9 VPU_REG__t20 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $26 r0 *1 125.92,51.23 pfet
+X$26 \$7__t8 \$17__t6 \$6__t8 VPU_REG__t19 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $27 r0 *1 127.6,51.23 pfet
+X$27 \$7__t2 \$17__t0 \$6__t2 VPU_REG__t4 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $28 r0 *1 129.28,51.23 pfet
+X$28 \$7__t7 \$17__t5 \$6__t7 VPU_REG__t18 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $29 r0 *1 130.96,51.23 pfet
+X$29 \$7__t3 \$17__t1 \$6__t3 VPU_REG__t5 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $30 r0 *1 132.64,51.23 pfet
+X$30 \$7__t4 \$17__t2 \$6__t4 VPU_REG__t6 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $31 r0 *1 134.32,51.23 pfet
+X$31 \$7__t5 \$17__t3 \$6__t5 VPU_REG__t7 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $32 r0 *1 136,51.23 pfet
+X$32 \$7__t6 \$17__t4 \$6__t6 VPU_REG__t8 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $33 r0 *1 147.465,51.23 pfet
+X$33 \$8__t2 \$18__t0 \$7__t12 VPU_REG__t9 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $34 r0 *1 149.145,51.23 pfet
+X$34 \$8__t3 \$18__t1 \$7__t13 VPU_REG__t10 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $35 r0 *1 150.825,51.23 pfet
+X$35 \$8__t4 \$18__t2 \$7__t14 VPU_REG__t11 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $36 r0 *1 152.505,51.23 pfet
+X$36 \$8__t5 \$18__t3 \$7__t15 VPU_REG__t12 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $37 r0 *1 154.185,51.23 pfet
+X$37 \$8__t6 \$18__t4 \$7__t16 VPU_REG__t13 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $38 r0 *1 155.865,51.23 pfet
+X$38 \$8__t7 \$18__t5 \$7__t17 VPU_REG__t14 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $39 r0 *1 157.545,51.23 pfet
+X$39 \$8__t8 \$18__t6 \$7__t18 VPU_REG__t15 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $40 r0 *1 159.225,51.23 pfet
+X$40 \$8__t11 \$18__t9 \$7__t21 VPU_REG__t48 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $41 r0 *1 160.905,51.23 pfet
+X$41 \$8__t9 \$18__t7 \$7__t19 VPU_REG__t16 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $42 r0 *1 162.585,51.23 pfet
+X$42 \$8__t10 \$18__t8 \$7__t20 VPU_REG__t32 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $43 r0 *1 174.735,51.23 pfet
+X$43 \$3__t2 \$19__t0 \$8__t12 VPU_REG__t17 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $44 r0 *1 176.415,51.23 pfet
+X$44 \$3__t11 \$19__t9 \$8__t21 VPU_REG__t61 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $45 r0 *1 178.095,51.23 pfet
+X$45 \$3__t3 \$19__t1 \$8__t13 VPU_REG__t49 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $46 r0 *1 179.775,51.23 pfet
+X$46 \$3__t4 \$19__t2 \$8__t14 VPU_REG__t50 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $47 r0 *1 181.455,51.23 pfet
+X$47 \$3__t5 \$19__t3 \$8__t15 VPU_REG__t51 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $48 r0 *1 183.135,51.23 pfet
+X$48 \$3__t6 \$19__t4 \$8__t16 VPU_REG__t52 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $49 r0 *1 184.815,51.23 pfet
+X$49 \$3__t7 \$19__t5 \$8__t17 VPU_REG__t53 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $50 r0 *1 186.495,51.23 pfet
+X$50 \$3__t8 \$19__t6 \$8__t18 VPU_REG__t54 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $51 r0 *1 188.175,51.23 pfet
+X$51 \$3__t9 \$19__t7 \$8__t19 VPU_REG__t55 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $52 r0 *1 189.855,51.23 pfet
+X$52 \$3__t10 \$19__t8 \$8__t20 VPU_REG__t56 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $53 r0 *1 203.38,51.23 pfet
+X$53 \$4__t7 \$20__t5 \$3__t17 VPU_REG__t57 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $54 r0 *1 205.06,51.23 pfet
+X$54 \$4__t8 \$20__t6 \$3__t18 VPU_REG__t58 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $55 r0 *1 206.74,51.23 pfet
+X$55 \$4__t9 \$20__t7 \$3__t19 VPU_REG__t59 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $56 r0 *1 208.42,51.23 pfet
+X$56 \$4__t10 \$20__t8 \$3__t20 VPU_REG__t60 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $57 r0 *1 210.1,51.23 pfet
+X$57 \$4__t11 \$20__t9 \$3__t21 VPU_REG__t62 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $58 r0 *1 211.78,51.23 pfet
+X$58 \$4__t6 \$20__t4 \$3__t16 VPU_REG__t47 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $59 r0 *1 213.46,51.23 pfet
+X$59 \$4__t5 \$20__t3 \$3__t15 VPU_REG__t46 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $60 r0 *1 215.14,51.23 pfet
+X$60 \$4__t4 \$20__t2 \$3__t14 VPU_REG__t45 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $61 r0 *1 216.82,51.23 pfet
+X$61 \$4__t3 \$20__t1 \$3__t13 VPU_REG__t44 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $62 r0 *1 218.5,51.23 pfet
+X$62 \$4__t2 \$20__t0 \$3__t12 VPU_REG__t43 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $63 r0 *1 234.765,51.23 pfet
+X$63 DP__t10 \$21__t9 \$4__t21 VPU_REG__t42 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $64 r0 *1 236.445,51.23 pfet
+X$64 DP__t9 \$21__t8 \$4__t20 VPU_REG__t41 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $65 r0 *1 238.125,51.23 pfet
+X$65 DP__t8 \$21__t7 \$4__t19 VPU_REG__t40 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $66 r0 *1 239.805,51.23 pfet
+X$66 DP__t7 \$21__t6 \$4__t18 VPU_REG__t39 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $67 r0 *1 241.485,51.23 pfet
+X$67 DP__t6 \$21__t5 \$4__t17 VPU_REG__t38 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $68 r0 *1 243.165,51.23 pfet
+X$68 DP__t5 \$21__t4 \$4__t16 VPU_REG__t37 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $69 r0 *1 244.845,51.23 pfet
+X$69 DP__t4 \$21__t3 \$4__t15 VPU_REG__t36 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $70 r0 *1 246.525,51.23 pfet
+X$70 DP__t3 \$21__t2 \$4__t14 VPU_REG__t35 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $71 r0 *1 248.205,51.23 pfet
+X$71 DP__t2 \$21__t1 \$4__t13 VPU_REG__t34 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $72 r0 *1 249.885,51.23 pfet
+X$72 DP__t1 \$21__t0 \$4__t12 VPU_REG__t33 pfet_03v3 L=0.28U W=100U AS=50P
++ AD=50P PS=201U PD=201U
+* device instance $73 r0 *1 105.315,2.22 ppolyf_u
+X$73 \$6__t0 \$5__t0 VSS__t6 ppolyf_u r_length=11.43U r_width=4U
+* device instance $74 r0 *1 115.28,2.22 ppolyf_u
+X$74 \$7__t0 \$6__t1 VSS__t7 ppolyf_u r_length=0.42U r_width=4U
+* device instance $75 r0 *1 141.7325,2.22 ppolyf_u
+X$75 \$8__t0 \$7__t1 VSS__t8 ppolyf_u r_length=0.685U r_width=4U
+* device instance $76 r0 *1 168.66,2.22 ppolyf_u
+X$76 \$3__t0 \$8__t1 VSS__t9 ppolyf_u r_length=1.37U r_width=4U
+* device instance $77 r0 *1 196.6175,2.22 ppolyf_u
+X$77 \$4__t0 \$3__t1 VSS__t10 ppolyf_u r_length=2.745U r_width=4U
+* device instance $78 r0 *1 226.6325,2.22 ppolyf_u
+X$78 DP__t0 \$4__t1 VSS__t11 ppolyf_u r_length=5.485U r_width=4U
+* device instance _16_t0 r0 *1 0,0 
+R_16_t0 \$16__t0 \$16 102.646757667
+* device instance _16_t1 r0 *1 0,0 
+R_16_t1 \$16__t1 \$16 95.4192094842
+* device instance _16_t2 r0 *1 0,0 
+R_16_t2 \$16__t2 \$16 12.7162882912
+* device instance _16_t3 r0 *1 0,0 
+R_16_t3 \$16__t3 \$16 28.2253878438
+* device instance _16_t4 r0 *1 0,0 
+R_16_t4 \$16__t4 \$16 26.301024997
+* device instance _16_t5 r0 *1 0,0 
+R_16_t5 \$16__t5 \$16 24.4010132753
+* device instance _16_t6 r0 *1 0,0 
+R_16_t6 \$16__t6 \$16 22.5315138826
+* device instance _16_t7 r0 *1 0,0 
+R_16_t7 \$16__t7 \$16 20.7007952221
+* device instance _16_t8 r0 *1 0,0 
+R_16_t8 \$16__t8 \$16 18.9201179654
+* device instance _16_t9 r0 *1 0,0 
+R_16_t9 \$16__t9 \$16 17.2050266152
+* device instance _16_t10 r0 *1 0,0 
+R_16_t10 \$16__t10 \$16 15.5771998076
+* device instance _16_t11 r0 *1 0,0 
+R_16_t11 \$16__t11 \$16 14.0669649488
+* device instance _16 r0 *1 0,0 
+C_16 \$16 vsubs 2.2901534e-14
+* device instance _17_t0 r0 *1 0,0 
+R_17_t0 \$17__t0 \$17 19.7307479073
+* device instance _17_t1 r0 *1 0,0 
+R_17_t1 \$17__t1 \$17 22.852830083
+* device instance _17_t2 r0 *1 0,0 
+R_17_t2 \$17__t2 \$17 24.4407660374
+* device instance _17_t3 r0 *1 0,0 
+R_17_t3 \$17__t3 \$17 26.0422714839
+* device instance _17_t4 r0 *1 0,0 
+R_17_t4 \$17__t4 \$17 27.6549890878
+* device instance _17_t5 r0 *1 0,0 
+R_17_t5 \$17__t5 \$17 21.2815013325
+* device instance _17_t6 r0 *1 0,0 
+R_17_t6 \$17__t6 \$17 18.2058283209
+* device instance _17_t7 r0 *1 0,0 
+R_17_t7 \$17__t7 \$17 16.7138150813
+* device instance _17_t8 r0 *1 0,0 
+R_17_t8 \$17__t8 \$17 15.2643605221
+* device instance _17_t9 r0 *1 0,0 
+R_17_t9 \$17__t9 \$17 13.8708127945
+* device instance _17_t10 r0 *1 0,0 
+R_17_t10 \$17__t10 \$17 99.4108019635
+* device instance _17_t11 r0 *1 0,0 
+R_17_t11 \$17__t11 \$17 105.633575386
+* device instance _17 r0 *1 0,0 
+C_17 \$17 vsubs 2.5395355e-14
+* device instance _18_t0 r0 *1 0,0 
+R_18_t0 \$18__t0 \$18 14.5643506313
+* device instance _18_t1 r0 *1 0,0 
+R_18_t1 \$18__t1 \$18 15.9188049314
+* device instance _18_t2 r0 *1 0,0 
+R_18_t2 \$18__t2 \$18 17.3092044826
+* device instance _18_t3 r0 *1 0,0 
+R_18_t3 \$18__t3 \$18 18.7275448856
+* device instance _18_t4 r0 *1 0,0 
+R_18_t4 \$18__t4 \$18 20.1679320534
+* device instance _18_t5 r0 *1 0,0 
+R_18_t5 \$18__t5 \$18 21.6259611908
+* device instance _18_t6 r0 *1 0,0 
+R_18_t6 \$18__t6 \$18 23.0982917071
+* device instance _18_t7 r0 *1 0,0 
+R_18_t7 \$18__t7 \$18 26.0761452144
+* device instance _18_t8 r0 *1 0,0 
+R_18_t8 \$18__t8 \$18 27.5780843486
+* device instance _18_t9 r0 *1 0,0 
+R_18_t9 \$18__t9 \$18 24.5823540449
+* device instance _18_t10 r0 *1 0,0 
+R_18_t10 \$18__t10 \$18 101.563819615
+* device instance _18_t11 r0 *1 0,0 
+R_18_t11 \$18__t11 \$18 107.393606895
+* device instance _18 r0 *1 0,0 
+C_18 \$18 vsubs 2.6939197e-14
+* device instance _19_t0 r0 *1 0,0 
+R_19_t0 \$19__t0 \$19 15.284510328
+* device instance _19_t1 r0 *1 0,0 
+R_19_t1 \$19__t1 \$19 17.9087522312
+* device instance _19_t2 r0 *1 0,0 
+R_19_t2 \$19__t2 \$19 19.2512157009
+* device instance _19_t3 r0 *1 0,0 
+R_19_t3 \$19__t3 \$19 20.6086572811
+* device instance _19_t4 r0 *1 0,0 
+R_19_t4 \$19__t4 \$19 21.9783018766
+* device instance _19_t5 r0 *1 0,0 
+R_19_t5 \$19__t5 \$19 23.3580029393
+* device instance _19_t6 r0 *1 0,0 
+R_19_t6 \$19__t6 \$19 24.7460784516
+* device instance _19_t7 r0 *1 0,0 
+R_19_t7 \$19__t7 \$19 26.1411944187
+* device instance _19_t8 r0 *1 0,0 
+R_19_t8 \$19__t8 \$19 27.542280988
+* device instance _19_t9 r0 *1 0,0 
+R_19_t9 \$19__t9 \$19 16.5849044761
+* device instance _19_t10 r0 *1 0,0 
+R_19_t10 \$19__t10 \$19 103.733103611
+* device instance _19_t11 r0 *1 0,0 
+R_19_t11 \$19__t11 \$19 109.192997697
+* device instance _19 r0 *1 0,0 
+C_19 \$19 vsubs 2.8527282e-14
+* device instance _20_t0 r0 *1 0,0 
+R_20_t0 \$20__t0 \$20 27.5430704105
+* device instance _20_t1 r0 *1 0,0 
+R_20_t1 \$20__t1 \$20 26.2376246507
+* device instance _20_t2 r0 *1 0,0 
+R_20_t2 \$20__t2 \$20 24.9365324517
+* device instance _20_t3 r0 *1 0,0 
+R_20_t3 \$20__t3 \$20 23.6405126396
+* device instance _20_t4 r0 *1 0,0 
+R_20_t4 \$20__t4 \$20 22.3504476185
+* device instance _20_t5 r0 *1 0,0 
+R_20_t5 \$20__t5 \$20 16.0395797715
+* device instance _20_t6 r0 *1 0,0 
+R_20_t6 \$20__t6 \$20 17.2763430642
+* device instance _20_t7 r0 *1 0,0 
+R_20_t7 \$20__t7 \$20 18.528395069
+* device instance _20_t8 r0 *1 0,0 
+R_20_t8 \$20__t8 \$20 19.7928346058
+* device instance _20_t9 r0 *1 0,0 
+R_20_t9 \$20__t9 \$20 21.0674313425
+* device instance _20_t10 r0 *1 0,0 
+R_20_t10 \$20__t10 \$20 105.991116137
+* device instance _20_t11 r0 *1 0,0 
+R_20_t11 \$20__t11 \$20 111.092012239
+* device instance _20 r0 *1 0,0 
+C_20 \$20 vsubs 3.0201811e-14
+* device instance _21_t0 r0 *1 0,0 
+R_21_t0 \$21__t0 \$21 27.5783076389
+* device instance _21_t1 r0 *1 0,0 
+R_21_t1 \$21__t1 \$21 26.3693932362
+* device instance _21_t2 r0 *1 0,0 
+R_21_t2 \$21__t2 \$21 25.1635699042
+* device instance _21_t3 r0 *1 0,0 
+R_21_t3 \$21__t3 \$21 23.9613043104
+* device instance _21_t4 r0 *1 0,0 
+R_21_t4 \$21__t4 \$21 22.7631601815
+* device instance _21_t5 r0 *1 0,0 
+R_21_t5 \$21__t5 \$21 21.5698243363
+* device instance _21_t6 r0 *1 0,0 
+R_21_t6 \$21__t6 \$21 20.38214134
+* device instance _21_t7 r0 *1 0,0 
+R_21_t7 \$21__t7 \$21 19.201160188
+* device instance _21_t8 r0 *1 0,0 
+R_21_t8 \$21__t8 \$21 18.0281979905
+* device instance _21_t9 r0 *1 0,0 
+R_21_t9 \$21__t9 \$21 16.8649279945
+* device instance _21_t10 r0 *1 0,0 
+R_21_t10 \$21__t10 \$21 108.464081467
+* device instance _21_t11 r0 *1 0,0 
+R_21_t11 \$21__t11 \$21 113.196431412
+* device instance _21 r0 *1 0,0 
+C_21 \$21 vsubs 3.2048599e-14
+* device instance _3_t0 r0 *1 0,0 
+R_3_t0 \$3__t0 \$3 68.1873613032
+* device instance _3_t1 r0 *1 0,0 
+R_3_t1 \$3__t1 \$3 58.5206101759
+* device instance _3_t2 r0 *1 0,0 
+R_3_t2 \$3__t2 \$3 27.6866625928
+* device instance _3_t3 r0 *1 0,0 
+R_3_t3 \$3__t3 \$3 23.3933933964
+* device instance _3_t4 r0 *1 0,0 
+R_3_t4 \$3__t4 \$3 21.2649049844
+* device instance _3_t5 r0 *1 0,0 
+R_3_t5 \$3__t5 \$3 19.1538997761
+* device instance _3_t6 r0 *1 0,0 
+R_3_t6 \$3__t6 \$3 17.0668665111
+* device instance _3_t7 r0 *1 0,0 
+R_3_t7 \$3__t7 \$3 15.0138053678
+* device instance _3_t8 r0 *1 0,0 
+R_3_t8 \$3__t8 \$3 13.0108083523
+* device instance _3_t9 r0 *1 0,0 
+R_3_t9 \$3__t9 \$3 11.0850475676
+* device instance _3_t10 r0 *1 0,0 
+R_3_t10 \$3__t10 \$3 9.28470723345
+* device instance _3_t11 r0 *1 0,0 
+R_3_t11 \$3__t11 \$3 25.5349934099
+* device instance _3_t12 r0 *1 0,0 
+R_3_t12 \$3__t12 \$3 30.9562827384
+* device instance _3_t13 r0 *1 0,0 
+R_3_t13 \$3__t13 \$3 28.793322959
+* device instance _3_t14 r0 *1 0,0 
+R_3_t14 \$3__t14 \$3 26.6373763028
+* device instance _3_t15 r0 *1 0,0 
+R_3_t15 \$3__t15 \$3 24.4902949924
+* device instance _3_t16 r0 *1 0,0 
+R_3_t16 \$3__t16 \$3 22.3546336265
+* device instance _3_t17 r0 *1 0,0 
+R_3_t17 \$3__t17 \$3 12.0607036267
+* device instance _3_t18 r0 *1 0,0 
+R_3_t18 \$3__t18 \$3 14.0304547329
+* device instance _3_t19 r0 *1 0,0 
+R_3_t19 \$3__t19 \$3 16.061665894
+* device instance _3_t20 r0 *1 0,0 
+R_3_t20 \$3__t20 \$3 18.1336958674
+* device instance _3_t21 r0 *1 0,0 
+R_3_t21 \$3__t21 \$3 20.2340085889
+* device instance _3 r0 *1 0,0 
+C_3 \$3 vsubs 2.07227813e-13
+* device instance _4_t0 r0 *1 0,0 
+R_4_t0 \$4__t0 \$4 65.3839963256
+* device instance _4_t1 r0 *1 0,0 
+R_4_t1 \$4__t1 \$4 55.0206293056
+* device instance _4_t2 r0 *1 0,0 
+R_4_t2 \$4__t2 \$4 10.001804099
+* device instance _4_t3 r0 *1 0,0 
+R_4_t3 \$4__t3 \$4 11.7891322985
+* device instance _4_t4 r0 *1 0,0 
+R_4_t4 \$4__t4 \$4 13.6576497404
+* device instance _4_t5 r0 *1 0,0 
+R_4_t5 \$4__t5 \$4 15.578169131
+* device instance _4_t6 r0 *1 0,0 
+R_4_t6 \$4__t6 \$4 17.5336109082
+* device instance _4_t7 r0 *1 0,0 
+R_4_t7 \$4__t7 \$4 27.5712044705
+* device instance _4_t8 r0 *1 0,0 
+R_4_t8 \$4__t8 \$4 25.5425557283
+* device instance _4_t9 r0 *1 0,0 
+R_4_t9 \$4__t9 \$4 23.5217599528
+* device instance _4_t10 r0 *1 0,0 
+R_4_t10 \$4__t10 \$4 21.5110304351
+* device instance _4_t11 r0 *1 0,0 
+R_4_t11 \$4__t11 \$4 19.513479199
+* device instance _4_t12 r0 *1 0,0 
+R_4_t12 \$4__t12 \$4 30.8788605975
+* device instance _4_t13 r0 *1 0,0 
+R_4_t13 \$4__t13 \$4 28.8407094763
+* device instance _4_t14 r0 *1 0,0 
+R_4_t14 \$4__t14 \$4 26.8080065532
+* device instance _4_t15 r0 *1 0,0 
+R_4_t15 \$4__t15 \$4 24.782092498
+* device instance _4_t16 r0 *1 0,0 
+R_4_t16 \$4__t16 \$4 22.7647798752
+* device instance _4_t17 r0 *1 0,0 
+R_4_t17 \$4__t17 \$4 20.7585764906
+* device instance _4_t18 r0 *1 0,0 
+R_4_t18 \$4__t18 \$4 18.7670454262
+* device instance _4_t19 r0 *1 0,0 
+R_4_t19 \$4__t19 \$4 16.7954068454
+* device instance _4_t20 r0 *1 0,0 
+R_4_t20 \$4__t20 \$4 14.8515854083
+* device instance _4_t21 r0 *1 0,0 
+R_4_t21 \$4__t21 \$4 12.9481152351
+* device instance _4 r0 *1 0,0 
+C_4 \$4 vsubs 2.07578806e-13
+* device instance _5_t0 r0 *1 0,0 
+R_5_t0 \$5__t0 \$5 104.201133909
+* device instance _5_t1 r0 *1 0,0 
+R_5_t1 \$5__t1 \$5 22.4531988237
+* device instance _5_t2 r0 *1 0,0 
+R_5_t2 \$5__t2 \$5 16.0946624772
+* device instance _5_t3 r0 *1 0,0 
+R_5_t3 \$5__t3 \$5 13.3572167718
+* device instance _5_t4 r0 *1 0,0 
+R_5_t4 \$5__t4 \$5 11.1694496074
+* device instance _5_t5 r0 *1 0,0 
+R_5_t5 \$5__t5 \$5 9.9026387489
+* device instance _5_t6 r0 *1 0,0 
+R_5_t6 \$5__t6 \$5 9.91625881382
+* device instance _5_t7 r0 *1 0,0 
+R_5_t7 \$5__t7 \$5 11.2056418177
+* device instance _5_t8 r0 *1 0,0 
+R_5_t8 \$5__t8 \$5 13.4076438364
+* device instance _5_t9 r0 *1 0,0 
+R_5_t9 \$5__t9 \$5 16.1532567291
+* device instance _5_t10 r0 *1 0,0 
+R_5_t10 \$5__t10 \$5 19.2107984654
+* device instance _5 r0 *1 0,0 
+C_5 \$5 vsubs 9.975661e-14
+* device instance _6_t0 r0 *1 0,0 
+R_6_t0 \$6__t0 \$6 66.0947237677
+* device instance _6_t1 r0 *1 0,0 
+R_6_t1 \$6__t1 \$6 61.1004181275
+* device instance _6_t2 r0 *1 0,0 
+R_6_t2 \$6__t2 \$6 12.2768003569
+* device instance _6_t3 r0 *1 0,0 
+R_6_t3 \$6__t3 \$6 14.3338521372
+* device instance _6_t4 r0 *1 0,0 
+R_6_t4 \$6__t4 \$6 15.8328787911
+* device instance _6_t5 r0 *1 0,0 
+R_6_t5 \$6__t5 \$6 17.5442709639
+* device instance _6_t6 r0 *1 0,0 
+R_6_t6 \$6__t6 \$6 19.4119420877
+* device instance _6_t7 r0 *1 0,0 
+R_6_t7 \$6__t7 \$6 13.1201845447
+* device instance _6_t8 r0 *1 0,0 
+R_6_t8 \$6__t8 \$6 11.882805672
+* device instance _6_t9 r0 *1 0,0 
+R_6_t9 \$6__t9 \$6 11.9826112928
+* device instance _6_t10 r0 *1 0,0 
+R_6_t10 \$6__t10 \$6 12.5644552317
+* device instance _6_t11 r0 *1 0,0 
+R_6_t11 \$6__t11 \$6 13.5664570269
+* device instance _6 r0 *1 0,0 
+C_6 \$6 vsubs 1.06616295e-13
+* device instance _7_t0 r0 *1 0,0 
+R_7_t0 \$7__t0 \$7 69.2165983821
+* device instance _7_t1 r0 *1 0,0 
+R_7_t1 \$7__t1 \$7 60.2404291406
+* device instance _7_t2 r0 *1 0,0 
+R_7_t2 \$7__t2 \$7 18.4843395232
+* device instance _7_t3 r0 *1 0,0 
+R_7_t3 \$7__t3 \$7 14.2677305329
+* device instance _7_t4 r0 *1 0,0 
+R_7_t4 \$7__t4 \$7 12.2468012633
+* device instance _7_t5 r0 *1 0,0 
+R_7_t5 \$7__t5 \$7 10.3301360059
+* device instance _7_t6 r0 *1 0,0 
+R_7_t6 \$7__t6 \$7 8.58783096694
+* device instance _7_t7 r0 *1 0,0 
+R_7_t7 \$7__t7 \$7 16.3543171681
+* device instance _7_t8 r0 *1 0,0 
+R_7_t8 \$7__t8 \$7 20.6443572745
+* device instance _7_t9 r0 *1 0,0 
+R_7_t9 \$7__t9 \$7 22.8258565895
+* device instance _7_t10 r0 *1 0,0 
+R_7_t10 \$7__t10 \$7 25.0232198749
+* device instance _7_t11 r0 *1 0,0 
+R_7_t11 \$7__t11 \$7 27.2326072727
+* device instance _7_t12 r0 *1 0,0 
+R_7_t12 \$7__t12 \$7 11.1407037276
+* device instance _7_t13 r0 *1 0,0 
+R_7_t13 \$7__t13 \$7 13.1086324968
+* device instance _7_t14 r0 *1 0,0 
+R_7_t14 \$7__t14 \$7 15.1614238917
+* device instance _7_t15 r0 *1 0,0 
+R_7_t15 \$7__t15 \$7 17.2688408705
+* device instance _7_t16 r0 *1 0,0 
+R_7_t16 \$7__t16 \$7 19.413101702
+* device instance _7_t17 r0 *1 0,0 
+R_7_t17 \$7__t17 \$7 21.5832280364
+* device instance _7_t18 r0 *1 0,0 
+R_7_t18 \$7__t18 \$7 23.7721372481
+* device instance _7_t19 r0 *1 0,0 
+R_7_t19 \$7__t19 \$7 28.1887699162
+* device instance _7_t20 r0 *1 0,0 
+R_7_t20 \$7__t20 \$7 30.4108568204
+* device instance _7_t21 r0 *1 0,0 
+R_7_t21 \$7__t21 \$7 25.9750812957
+* device instance _7 r0 *1 0,0 
+C_7 \$7 vsubs 2.04678165e-13
+* device instance _8_t0 r0 *1 0,0 
+R_8_t0 \$8__t0 \$8 69.0646592247
+* device instance _8_t1 r0 *1 0,0 
+R_8_t1 \$8__t1 \$8 59.8459762151
+* device instance _8_t2 r0 *1 0,0 
+R_8_t2 \$8__t2 \$8 27.4743155697
+* device instance _8_t3 r0 *1 0,0 
+R_8_t3 \$8__t3 \$8 25.2774751786
+* device instance _8_t4 r0 *1 0,0 
+R_8_t4 \$8__t4 \$8 23.0919939134
+* device instance _8_t5 r0 *1 0,0 
+R_8_t5 \$8__t5 \$8 20.9214318463
+* device instance _8_t6 r0 *1 0,0 
+R_8_t6 \$8__t6 \$8 18.7709651912
+* device instance _8_t7 r0 *1 0,0 
+R_8_t7 \$8__t7 \$8 16.6483829253
+* device instance _8_t8 r0 *1 0,0 
+R_8_t8 \$8__t8 \$8 14.5658803358
+* device instance _8_t9 r0 *1 0,0 
+R_8_t9 \$8__t9 \$8 10.6154316984
+* device instance _8_t10 r0 *1 0,0 
+R_8_t10 \$8__t10 \$8 8.84385065461
+* device instance _8_t11 r0 *1 0,0 
+R_8_t11 \$8__t11 \$8 12.543435813
+* device instance _8_t12 r0 *1 0,0 
+R_8_t12 \$8__t12 \$8 11.4819449794
+* device instance _8_t13 r0 *1 0,0 
+R_8_t13 \$8__t13 \$8 15.5118147716
+* device instance _8_t14 r0 *1 0,0 
+R_8_t14 \$8__t14 \$8 17.6145425763
+* device instance _8_t15 r0 *1 0,0 
+R_8_t15 \$8__t15 \$8 19.7510637421
+* device instance _8_t16 r0 *1 0,0 
+R_8_t16 \$8__t16 \$8 21.911495244
+* device instance _8_t17 r0 *1 0,0 
+R_8_t17 \$8__t17 \$8 24.0894048249
+* device instance _8_t18 r0 *1 0,0 
+R_8_t18 \$8__t18 \$8 26.2804475213
+* device instance _8_t19 r0 *1 0,0 
+R_8_t19 \$8__t19 \$8 28.4815925666
+* device instance _8_t20 r0 *1 0,0 
+R_8_t20 \$8__t20 \$8 30.6906664061
+* device instance _8_t21 r0 *1 0,0 
+R_8_t21 \$8__t21 \$8 13.4587288016
+* device instance _8 r0 *1 0,0 
+C_8 \$8 vsubs 2.05887992e-13
+* device instance DP_t0 r0 *1 0,0 
+RDP_t0 DP__t0 DP 101.750429602
+* device instance DP_t1 r0 *1 0,0 
+RDP_t1 DP__t1 DP 21.8157950233
+* device instance DP_t2 r0 *1 0,0 
+RDP_t2 DP__t2 DP 18.6130268152
+* device instance DP_t3 r0 *1 0,0 
+RDP_t3 DP__t3 DP 15.6097085717
+* device instance DP_t4 r0 *1 0,0 
+RDP_t4 DP__t4 DP 12.9454090668
+* device instance DP_t5 r0 *1 0,0 
+RDP_t5 DP__t5 DP 10.8722863217
+* device instance DP_t6 r0 *1 0,0 
+RDP_t6 DP__t6 DP 9.77404642698
+* device instance DP_t7 r0 *1 0,0 
+RDP_t7 DP__t7 DP 9.97796256731
+* device instance DP_t8 r0 *1 0,0 
+RDP_t8 DP__t8 DP 11.4144588209
+* device instance DP_t9 r0 *1 0,0 
+RDP_t9 DP__t9 DP 13.7011818138
+* device instance DP_t10 r0 *1 0,0 
+RDP_t10 DP__t10 DP 16.4880949706
+* device instance DP r0 *1 0,0 
+CDP DP vsubs 9.889097e-14
+* device instance PU_EN_t0 r0 *1 0,0 
+RPU_EN_t0 PU_EN__t0 PU_EN 32.35085
+* device instance PU_EN_t1 r0 *1 0,0 
+RPU_EN_t1 PU_EN__t1 PU_EN 32.35085
+* device instance PU_EN r0 *1 0,0 
+CPU_EN PU_EN vsubs 1.629133e-15
+* device instance TRIM0_t0 r0 *1 0,0 
+RTRIM0_t0 TRIM0__t0 TRIM0 32.35085
+* device instance TRIM0_t1 r0 *1 0,0 
+RTRIM0_t1 TRIM0__t1 TRIM0 32.35085
+* device instance TRIM0 r0 *1 0,0 
+CTRIM0 TRIM0 vsubs 1.629133e-15
+* device instance TRIM1_t0 r0 *1 0,0 
+RTRIM1_t0 TRIM1__t0 TRIM1 32.35085
+* device instance TRIM1_t1 r0 *1 0,0 
+RTRIM1_t1 TRIM1__t1 TRIM1 32.35085
+* device instance TRIM1 r0 *1 0,0 
+CTRIM1 TRIM1 vsubs 1.629133e-15
+* device instance TRIM2_t0 r0 *1 0,0 
+RTRIM2_t0 TRIM2__t0 TRIM2 32.35085
+* device instance TRIM2_t1 r0 *1 0,0 
+RTRIM2_t1 TRIM2__t1 TRIM2 32.35085
+* device instance TRIM2 r0 *1 0,0 
+CTRIM2 TRIM2 vsubs 1.629133e-15
+* device instance TRIM3_t0 r0 *1 0,0 
+RTRIM3_t0 TRIM3__t0 TRIM3 32.35085
+* device instance TRIM3_t1 r0 *1 0,0 
+RTRIM3_t1 TRIM3__t1 TRIM3 32.35085
+* device instance TRIM3 r0 *1 0,0 
+CTRIM3 TRIM3 vsubs 1.629133e-15
+* device instance TRIM4_t0 r0 *1 0,0 
+RTRIM4_t0 TRIM4__t0 TRIM4 32.35085
+* device instance TRIM4_t1 r0 *1 0,0 
+RTRIM4_t1 TRIM4__t1 TRIM4 32.35085
+* device instance TRIM4 r0 *1 0,0 
+CTRIM4 TRIM4 vsubs 1.629133e-15
+* device instance VPU_REG_t0 r0 *1 0,0 
+RVPU_REG_t0 VPU_REG__t0 VPU_REG 25.0604789969
+* device instance VPU_REG_t1 r0 *1 0,0 
+RVPU_REG_t1 VPU_REG__t1 VPU_REG 25.0604789969
+* device instance VPU_REG_t2 r0 *1 0,0 
+RVPU_REG_t2 VPU_REG__t2 VPU_REG 10.9351135993
+* device instance VPU_REG_t3 r0 *1 0,0 
+RVPU_REG_t3 VPU_REG__t3 VPU_REG 10.9351135993
+* device instance VPU_REG_t4 r0 *1 0,0 
+RVPU_REG_t4 VPU_REG__t4 VPU_REG 2.44405588102
+* device instance VPU_REG_t5 r0 *1 0,0 
+RVPU_REG_t5 VPU_REG__t5 VPU_REG 1.95542501685
+* device instance VPU_REG_t6 r0 *1 0,0 
+RVPU_REG_t6 VPU_REG__t6 VPU_REG 1.73973200355
+* device instance VPU_REG_t7 r0 *1 0,0 
+RVPU_REG_t7 VPU_REG__t7 VPU_REG 1.55398699308
+* device instance VPU_REG_t8 r0 *1 0,0 
+RVPU_REG_t8 VPU_REG__t8 VPU_REG 1.41007495826
+* device instance VPU_REG_t9 r0 *1 0,0 
+RVPU_REG_t9 VPU_REG__t9 VPU_REG 2.00563137742
+* device instance VPU_REG_t10 r0 *1 0,0 
+RVPU_REG_t10 VPU_REG__t10 VPU_REG 2.24617216585
+* device instance VPU_REG_t11 r0 *1 0,0 
+RVPU_REG_t11 VPU_REG__t11 VPU_REG 2.50064976715
+* device instance VPU_REG_t12 r0 *1 0,0 
+RVPU_REG_t12 VPU_REG__t12 VPU_REG 2.76521912334
+* device instance VPU_REG_t13 r0 *1 0,0 
+RVPU_REG_t13 VPU_REG__t13 VPU_REG 3.03724414971
+* device instance VPU_REG_t14 r0 *1 0,0 
+RVPU_REG_t14 VPU_REG__t14 VPU_REG 3.31488988243
+* device instance VPU_REG_t15 r0 *1 0,0 
+RVPU_REG_t15 VPU_REG__t15 VPU_REG 3.59685494886
+* device instance VPU_REG_t16 r0 *1 0,0 
+RVPU_REG_t16 VPU_REG__t16 VPU_REG 4.17022658287
+* device instance VPU_REG_t17 r0 *1 0,0 
+RVPU_REG_t17 VPU_REG__t17 VPU_REG 6.59715801188
+* device instance VPU_REG_t18 r0 *1 0,0 
+RVPU_REG_t18 VPU_REG__t18 VPU_REG 2.19224410859
+* device instance VPU_REG_t19 r0 *1 0,0 
+RVPU_REG_t19 VPU_REG__t19 VPU_REG 2.70667909997
+* device instance VPU_REG_t20 r0 *1 0,0 
+RVPU_REG_t20 VPU_REG__t20 VPU_REG 2.9772541097
+* device instance VPU_REG_t21 r0 *1 0,0 
+RVPU_REG_t21 VPU_REG__t21 VPU_REG 3.25379778106
+* device instance VPU_REG_t22 r0 *1 0,0 
+RVPU_REG_t22 VPU_REG__t22 VPU_REG 3.53490956731
+* device instance VPU_REG_t23 r0 *1 0,0 
+RVPU_REG_t23 VPU_REG__t23 VPU_REG 8.22201846771
+* device instance VPU_REG_t24 r0 *1 0,0 
+RVPU_REG_t24 VPU_REG__t24 VPU_REG 8.52265747754
+* device instance VPU_REG_t25 r0 *1 0,0 
+RVPU_REG_t25 VPU_REG__t25 VPU_REG 8.82354922684
+* device instance VPU_REG_t26 r0 *1 0,0 
+RVPU_REG_t26 VPU_REG__t26 VPU_REG 9.12466871291
+* device instance VPU_REG_t27 r0 *1 0,0 
+RVPU_REG_t27 VPU_REG__t27 VPU_REG 9.42599411016
+* device instance VPU_REG_t28 r0 *1 0,0 
+RVPU_REG_t28 VPU_REG__t28 VPU_REG 9.72750628333
+* device instance VPU_REG_t29 r0 *1 0,0 
+RVPU_REG_t29 VPU_REG__t29 VPU_REG 10.029188387
+* device instance VPU_REG_t30 r0 *1 0,0 
+RVPU_REG_t30 VPU_REG__t30 VPU_REG 10.3310255345
+* device instance VPU_REG_t31 r0 *1 0,0 
+RVPU_REG_t31 VPU_REG__t31 VPU_REG 10.6330045223
+* device instance VPU_REG_t32 r0 *1 0,0 
+RVPU_REG_t32 VPU_REG__t32 VPU_REG 4.46041964297
+* device instance VPU_REG_t33 r0 *1 0,0 
+RVPU_REG_t33 VPU_REG__t33 VPU_REG 20.1231023299
+* device instance VPU_REG_t34 r0 *1 0,0 
+RVPU_REG_t34 VPU_REG__t34 VPU_REG 19.8194215231
+* device instance VPU_REG_t35 r0 *1 0,0 
+RVPU_REG_t35 VPU_REG__t35 VPU_REG 19.5157607928
+* device instance VPU_REG_t36 r0 *1 0,0 
+RVPU_REG_t36 VPU_REG__t36 VPU_REG 19.2121210911
+* device instance VPU_REG_t37 r0 *1 0,0 
+RVPU_REG_t37 VPU_REG__t37 VPU_REG 18.9085034309
+* device instance VPU_REG_t38 r0 *1 0,0 
+RVPU_REG_t38 VPU_REG__t38 VPU_REG 18.6049088915
+* device instance VPU_REG_t39 r0 *1 0,0 
+RVPU_REG_t39 VPU_REG__t39 VPU_REG 18.3013386233
+* device instance VPU_REG_t40 r0 *1 0,0 
+RVPU_REG_t40 VPU_REG__t40 VPU_REG 17.9977938545
+* device instance VPU_REG_t41 r0 *1 0,0 
+RVPU_REG_t41 VPU_REG__t41 VPU_REG 17.6942758976
+* device instance VPU_REG_t42 r0 *1 0,0 
+RVPU_REG_t42 VPU_REG__t42 VPU_REG 17.3907861563
+* device instance VPU_REG_t43 r0 *1 0,0 
+RVPU_REG_t43 VPU_REG__t43 VPU_REG 14.4543524852
+* device instance VPU_REG_t44 r0 *1 0,0 
+RVPU_REG_t44 VPU_REG__t44 VPU_REG 14.1512850185
+* device instance VPU_REG_t45 r0 *1 0,0 
+RVPU_REG_t45 VPU_REG__t45 VPU_REG 13.8482727177
+* device instance VPU_REG_t46 r0 *1 0,0 
+RVPU_REG_t46 VPU_REG__t46 VPU_REG 13.5453192851
+* device instance VPU_REG_t47 r0 *1 0,0 
+RVPU_REG_t47 VPU_REG__t47 VPU_REG 13.242428761
+* device instance VPU_REG_t48 r0 *1 0,0 
+RVPU_REG_t48 VPU_REG__t48 VPU_REG 3.88219832008
+* device instance VPU_REG_t49 r0 *1 0,0 
+RVPU_REG_t49 VPU_REG__t49 VPU_REG 7.1948919579
+* device instance VPU_REG_t50 r0 *1 0,0 
+RVPU_REG_t50 VPU_REG__t50 VPU_REG 7.49441792511
+* device instance VPU_REG_t51 r0 *1 0,0 
+RVPU_REG_t51 VPU_REG__t51 VPU_REG 7.79431571527
+* device instance VPU_REG_t52 r0 *1 0,0 
+RVPU_REG_t52 VPU_REG__t52 VPU_REG 8.09454400106
+* device instance VPU_REG_t53 r0 *1 0,0 
+RVPU_REG_t53 VPU_REG__t53 VPU_REG 8.39506732455
+* device instance VPU_REG_t54 r0 *1 0,0 
+RVPU_REG_t54 VPU_REG__t54 VPU_REG 8.69585509684
+* device instance VPU_REG_t55 r0 *1 0,0 
+RVPU_REG_t55 VPU_REG__t55 VPU_REG 8.99688079445
+* device instance VPU_REG_t56 r0 *1 0,0 
+RVPU_REG_t56 VPU_REG__t56 VPU_REG 9.29812130898
+* device instance VPU_REG_t57 r0 *1 0,0 
+RVPU_REG_t57 VPU_REG__t57 VPU_REG 11.7290903104
+* device instance VPU_REG_t58 r0 *1 0,0 
+RVPU_REG_t58 VPU_REG__t58 VPU_REG 12.0315907568
+* device instance VPU_REG_t59 r0 *1 0,0 
+RVPU_REG_t59 VPU_REG__t59 VPU_REG 12.3341809802
+* device instance VPU_REG_t60 r0 *1 0,0 
+RVPU_REG_t60 VPU_REG__t60 VPU_REG 12.6368545315
+* device instance VPU_REG_t61 r0 *1 0,0 
+RVPU_REG_t61 VPU_REG__t61 VPU_REG 6.89578626542
+* device instance VPU_REG_t62 r0 *1 0,0 
+RVPU_REG_t62 VPU_REG__t62 VPU_REG 12.9396055631
+* device instance VPU_REG_t63 r0 *1 0,0 
+RVPU_REG_t63 VPU_REG__t63 VPU_REG 8.22201846771
+* device instance VPU_REG_t64 r0 *1 0,0 
+RVPU_REG_t64 VPU_REG__t64 VPU_REG 8.52265747754
+* device instance VPU_REG_t65 r0 *1 0,0 
+RVPU_REG_t65 VPU_REG__t65 VPU_REG 8.82354922684
+* device instance VPU_REG_t66 r0 *1 0,0 
+RVPU_REG_t66 VPU_REG__t66 VPU_REG 9.12466871291
+* device instance VPU_REG_t67 r0 *1 0,0 
+RVPU_REG_t67 VPU_REG__t67 VPU_REG 9.42599411016
+* device instance VPU_REG_t68 r0 *1 0,0 
+RVPU_REG_t68 VPU_REG__t68 VPU_REG 9.72750628333
+* device instance VPU_REG_t69 r0 *1 0,0 
+RVPU_REG_t69 VPU_REG__t69 VPU_REG 10.029188387
+* device instance VPU_REG_t70 r0 *1 0,0 
+RVPU_REG_t70 VPU_REG__t70 VPU_REG 10.3310255345
+* device instance VPU_REG_t71 r0 *1 0,0 
+RVPU_REG_t71 VPU_REG__t71 VPU_REG 10.6330045223
+* device instance VPU_REG_t72 r0 *1 0,0 
+RVPU_REG_t72 VPU_REG__t72 VPU_REG 22.8200752611
+* device instance VPU_REG_t73 r0 *1 0,0 
+RVPU_REG_t73 VPU_REG__t73 VPU_REG 20.6068800442
+* device instance VPU_REG_t74 r0 *1 0,0 
+RVPU_REG_t74 VPU_REG__t74 VPU_REG 18.4306977149
+* device instance VPU_REG_t75 r0 *1 0,0 
+RVPU_REG_t75 VPU_REG__t75 VPU_REG 14.2570394211
+* device instance VPU_REG_t76 r0 *1 0,0 
+RVPU_REG_t76 VPU_REG__t76 VPU_REG 16.3063537991
+* device instance VPU_REG_t77 r0 *1 0,0 
+RVPU_REG_t77 VPU_REG__t77 VPU_REG 22.8200752611
+* device instance VPU_REG_t78 r0 *1 0,0 
+RVPU_REG_t78 VPU_REG__t78 VPU_REG 20.6068800442
+* device instance VPU_REG_t79 r0 *1 0,0 
+RVPU_REG_t79 VPU_REG__t79 VPU_REG 18.4306977149
+* device instance VPU_REG_t80 r0 *1 0,0 
+RVPU_REG_t80 VPU_REG__t80 VPU_REG 14.2570394211
+* device instance VPU_REG_t81 r0 *1 0,0 
+RVPU_REG_t81 VPU_REG__t81 VPU_REG 16.3063537991
+* device instance VPU_REG r0 *1 0,0 
+CVPU_REG VPU_REG vsubs 3.39025292e-13
+* device instance VSS_t0 r0 *1 0,0 
+RVSS_t0 VSS__t0 VSS 7.21382320729
+* device instance VSS_t1 r0 *1 0,0 
+RVSS_t1 VSS__t1 VSS 0.90346539705
+* device instance VSS_t2 r0 *1 0,0 
+RVSS_t2 VSS__t2 VSS 2.16548054571
+* device instance VSS_t3 r0 *1 0,0 
+RVSS_t3 VSS__t3 VSS 3.4275550591
+* device instance VSS_t4 r0 *1 0,0 
+RVSS_t4 VSS__t4 VSS 4.68964100882
+* device instance VSS_t5 r0 *1 0,0 
+RVSS_t5 VSS__t5 VSS 5.95173111954
+* device instance VSS_t6 r0 *1 0,0 
+RVSS_t6 VSS__t6 VSS 2.91749072477
+* device instance VSS_t7 r0 *1 0,0 
+RVSS_t7 VSS__t7 VSS 3.88192547988
+* device instance VSS_t8 r0 *1 0,0 
+RVSS_t8 VSS__t8 VSS 6.4421187966
+* device instance VSS_t9 r0 *1 0,0 
+RVSS_t9 VSS__t9 VSS 9.0483145168
+* device instance VSS_t10 r0 *1 0,0 
+RVSS_t10 VSS__t10 VSS 11.7542099473
+* device instance VSS_t11 r0 *1 0,0 
+RVSS_t11 VSS__t11 VSS 14.6592478597
+* device instance VSS_t12 r0 *1 0,0 
+RVSS_t12 VSS__t12 VSS 7.21382320729
+* device instance VSS_t13 r0 *1 0,0 
+RVSS_t13 VSS__t13 VSS 5.95173111954
+* device instance VSS_t14 r0 *1 0,0 
+RVSS_t14 VSS__t14 VSS 4.68964100882
+* device instance VSS_t15 r0 *1 0,0 
+RVSS_t15 VSS__t15 VSS 3.4275550591
+* device instance VSS_t16 r0 *1 0,0 
+RVSS_t16 VSS__t16 VSS 2.16548054571
+* device instance VSS_t17 r0 *1 0,0 
+RVSS_t17 VSS__t17 VSS 0.90346539705
+* device instance VSS r0 *1 0,0 
+CVSS VSS vsubs 2.3126196e-14
+* device instance cc__16__17 r0 *1 0,0 
+Ccc__16__17 \$16 \$17 9.255e-18
+* device instance cc__16__18 r0 *1 0,0 
+Ccc__16__18 \$16 \$18 9.255e-18
+* device instance cc__16__19 r0 *1 0,0 
+Ccc__16__19 \$16 \$19 9.255e-18
+* device instance cc__16__20 r0 *1 0,0 
+Ccc__16__20 \$16 \$20 9.255e-18
+* device instance cc__16__21 r0 *1 0,0 
+Ccc__16__21 \$16 \$21 9.255e-18
+* device instance cc__16_VPU_REG r0 *1 0,0 
+Ccc__16_VPU_REG \$16 VPU_REG 1.06437e-16
+* device instance cc__16_VSS r0 *1 0,0 
+Ccc__16_VSS \$16 VSS 5.0905e-17
+* device instance cc__17__18 r0 *1 0,0 
+Ccc__17__18 \$17 \$18 9.255e-18
+* device instance cc__17__19 r0 *1 0,0 
+Ccc__17__19 \$17 \$19 9.255e-18
+* device instance cc__17__20 r0 *1 0,0 
+Ccc__17__20 \$17 \$20 9.255e-18
+* device instance cc__17__21 r0 *1 0,0 
+Ccc__17__21 \$17 \$21 9.255e-18
+* device instance cc__17__6 r0 *1 0,0 
+Ccc__17__6 \$17 \$6 4.628e-18
+* device instance cc__17_VPU_REG r0 *1 0,0 
+Ccc__17_VPU_REG \$17 VPU_REG 1.48087e-16
+* device instance cc__17_VSS r0 *1 0,0 
+Ccc__17_VSS \$17 VSS 4.1649e-17
+* device instance cc__18__19 r0 *1 0,0 
+Ccc__18__19 \$18 \$19 9.255e-18
+* device instance cc__18__20 r0 *1 0,0 
+Ccc__18__20 \$18 \$20 9.255e-18
+* device instance cc__18__21 r0 *1 0,0 
+Ccc__18__21 \$18 \$21 9.255e-18
+* device instance cc__18__7 r0 *1 0,0 
+Ccc__18__7 \$18 \$7 9.255e-18
+* device instance cc__18_VPU_REG r0 *1 0,0 
+Ccc__18_VPU_REG \$18 VPU_REG 1.55029e-16
+* device instance cc__18_VSS r0 *1 0,0 
+Ccc__18_VSS \$18 VSS 3.2394e-17
+* device instance cc__19__20 r0 *1 0,0 
+Ccc__19__20 \$19 \$20 9.255e-18
+* device instance cc__19__21 r0 *1 0,0 
+Ccc__19__21 \$19 \$21 9.255e-18
+* device instance cc__19__8 r0 *1 0,0 
+Ccc__19__8 \$19 \$8 9.255e-18
+* device instance cc__19_VPU_REG r0 *1 0,0 
+Ccc__19_VPU_REG \$19 VPU_REG 1.6197e-16
+* device instance cc__19_VSS r0 *1 0,0 
+Ccc__19_VSS \$19 VSS 2.3139e-17
+* device instance cc__20__21 r0 *1 0,0 
+Ccc__20__21 \$20 \$21 9.255e-18
+* device instance cc__20__3 r0 *1 0,0 
+Ccc__20__3 \$20 \$3 9.255e-18
+* device instance cc__20_VPU_REG r0 *1 0,0 
+Ccc__20_VPU_REG \$20 VPU_REG 1.68912e-16
+* device instance cc__20_VSS r0 *1 0,0 
+Ccc__20_VSS \$20 VSS 1.3883e-17
+* device instance cc__21__4 r0 *1 0,0 
+Ccc__21__4 \$21 \$4 9.255e-18
+* device instance cc__21_VPU_REG r0 *1 0,0 
+Ccc__21_VPU_REG \$21 VPU_REG 1.75853e-16
+* device instance cc__21_VSS r0 *1 0,0 
+Ccc__21_VSS \$21 VSS 4.628e-18
+* device instance cc__3__4 r0 *1 0,0 
+Ccc__3__4 \$3 \$4 1.08751e-16
+* device instance cc__3__8 r0 *1 0,0 
+Ccc__3__8 \$3 \$8 1.08751e-16
+* device instance cc__3_VPU_REG r0 *1 0,0 
+Ccc__3_VPU_REG \$3 VPU_REG 1.33047e-16
+* device instance cc__4_DP r0 *1 0,0 
+Ccc__4_DP \$4 DP 1.13379e-16
+* device instance cc__4_VPU_REG r0 *1 0,0 
+Ccc__4_VPU_REG \$4 VPU_REG 1.21478e-16
+* device instance cc__5__6 r0 *1 0,0 
+Ccc__5__6 \$5 \$6 4.628e-18
+* device instance cc__5_VPU_REG r0 *1 0,0 
+Ccc__5_VPU_REG \$5 VPU_REG 1.55029e-16
+* device instance cc__6__7 r0 *1 0,0 
+Ccc__6__7 \$6 \$7 1.08751e-16
+* device instance cc__6_VPU_REG r0 *1 0,0 
+Ccc__6_VPU_REG \$6 VPU_REG 6.2474e-17
+* device instance cc__7__8 r0 *1 0,0 
+Ccc__7__8 \$7 \$8 1.08751e-16
+* device instance cc__7_VPU_REG r0 *1 0,0 
+Ccc__7_VPU_REG \$7 VPU_REG 1.33047e-16
+* device instance cc__8_VPU_REG r0 *1 0,0 
+Ccc__8_VPU_REG \$8 VPU_REG 1.33047e-16
+* device instance cc_DP_VPU_REG r0 *1 0,0 
+Ccc_DP_VPU_REG DP VPU_REG 5.0905e-17
+* device instance cc_VPU_REG_VSS r0 *1 0,0 
+Ccc_VPU_REG_VSS VPU_REG VSS 4.6277e-17
+* device instance vsubs_dctie r0 *1 0,0 
+Rvsubs_dctie vsubs 0 1e+12
+.ENDS dplus_pullup

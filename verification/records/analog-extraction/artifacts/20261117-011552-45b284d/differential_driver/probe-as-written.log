@@ -1,0 +1,26 @@
+experiment: driver-signal-quality  (Differential driver into the ratified 50 pF test load: rise/fall time, rise/fall matching, output crossover voltage, and full-speed signal quality (spec/usb2-device-phy.md §6, §8.2).)
+pdk       : gf180mcuD @ c6d73a35f524070e85faff4a6a9eef49553ebc2b  (/home/ubuntu/.volare/gf180mcuD)
+ngspice   : ngspice-47 : Circuit level simulation program
+dut       : layout/analog/extracted/differential_driver_parasitic.spice  (extracted)
+corners   : tt
+temps (C) : 27
+supply (V): 3.3 (nominal 3.3 +/-0%)
+points    : 1  (jobs=2)
+record id : 20261117-011611-45b284d
+
+[  1/1] FAIL tt_27c_3.30v               Error: measure  t_rise  trig(TRIG) : out of interval
+
+summary (0/1 points ok, 1.5s):
+  measurement                  min             max            mean    spread %
+  trise_ns                 no data
+  tfall_ns                 no data
+  trf_ratio                no data
+  vcross_rise              no data
+  vcross_fall              no data
+  xing_extra_ps            no data
+  dp_over_mv               no data
+  dp_under_mv              no data
+
+evidence  : not recorded (--no-write)
+work dir  : /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-51/sim/.work/driver-signal-quality/20261117-011611-45b284d
+status    : ERROR

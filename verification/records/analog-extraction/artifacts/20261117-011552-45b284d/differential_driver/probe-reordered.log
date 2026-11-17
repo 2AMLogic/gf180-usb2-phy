@@ -1,0 +1,28 @@
+experiment: driver-signal-quality  (Differential driver into the ratified 50 pF test load: rise/fall time, rise/fall matching, output crossover voltage, and full-speed signal quality (spec/usb2-device-phy.md §6, §8.2).)
+pdk       : gf180mcuD @ c6d73a35f524070e85faff4a6a9eef49553ebc2b  (/home/ubuntu/.volare/gf180mcuD)
+ngspice   : ngspice-47 : Circuit level simulation program
+dut       : layout/analog/extracted/differential_driver_parasitic_reordered.spice  (extracted)
+corners   : tt
+temps (C) : 27
+supply (V): 3.3 (nominal 3.3 +/-0%)
+points    : 1  (jobs=2)
+record id : 20261117-011612-45b284d
+
+[  1/1] ok   tt_27c_3.30v               trise_ns=29.3989  tfall_ns=30.2081  trf_ratio=0.973212  vcross_rise=1.88445  vcross_fall=1.42297  xing_extra_ps=0  dp_over_mv=-1.73448  dp_under_mv=-0.0626854
+
+summary (1/1 points ok, 1.4s):
+  measurement                  min             max            mean    spread %
+  trise_ns                 29.3989         29.3989         29.3989           0
+  tfall_ns                 30.2081         30.2081         30.2081           0
+  trf_ratio               0.973212        0.973212        0.973212           0
+  vcross_rise              1.88445         1.88445         1.88445           0
+  vcross_fall              1.42297         1.42297         1.42297           0
+  xing_extra_ps                  0               0               0         n/a
+  dp_over_mv              -1.73448        -1.73448        -1.73448           0
+  dp_under_mv           -0.0626854      -0.0626854      -0.0626854           0
+  CHECK FAIL trise_ns max=20 got 29.3989 at tt_27c_3.30v
+  CHECK FAIL tfall_ns max=20 got 30.2081 at tt_27c_3.30v
+
+evidence  : not recorded (--no-write)
+work dir  : /home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-51/sim/.work/driver-signal-quality/20261117-011612-45b284d
+status    : FAIL

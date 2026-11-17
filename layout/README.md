@@ -183,6 +183,35 @@ hashes reproduce.
 > *geometric* equivalence — was closed as already provided by `klt diff`
 > (`2AMLogic/klayout-tools#5489`).
 
+### Extracted netlists (2026-11-17, issue #51)
+
+`layout/analog/extracted/` holds a parasitic-annotated extraction of every
+committed stream (`klt extract --parasitics`, klt 0.9.0, deck `gf180mcu`),
+each as written plus a **port-reordered twin**: klt's `.SUBCKT` port order
+differs from `design/netlist/`'s, and every `sim/` testbench instantiates
+the DUT positionally, so the as-written file either errors the harness leg
+or returns confidently wrong numbers (e.g. `dplus_pullup` "measures" a
+5.8e59 Ω pull-up). The twin differs from the as-written file in that one
+`.SUBCKT` line only. Extraction integrity is clean on all five blocks (0
+findings, 0 open nets); the four-block extraction is recorded in
+`verification/records/analog-extraction/records/20261117-011552-45b284d.md`
+(`differential_receiver`'s earlier probe:
+`20261115-180500-5279711.md`), and
+`layout/analog/extracted/shared_pad_dut_extracted.spice` is the composite
+post-layout DUT for the shared-pad-bus testbench, mirroring the schematic
+composite. Every analog `sim/` row was re-run at the full 45-corner matrix
+on these netlists (issue #51): the receiver and pull-up rows pass at the
+unchanged limits, and the **driver §6 rows fail post-layout** — 27.7–33.0 ns
+edges against the 4–20 ns limits, crossover outside 1.3–2.0 V at 29/45
+corners — root-caused by netlist bisection (same record) to the committed
+routing's output-path Metal1 series resistance: the star-hub arm feeding
+the `rm1` series resistor on `DP_OUTINT` alone is 211 Ω (~0.5 mm of
+minimum-width Metal1 between the output stage and the resistor), ~250 Ω
+added in series into the 50 pF test load. An LVS-level extraction of the
+same stream reproduces the schematic timing, so the devices are not the
+cause; a faster driver route (or wider output-path metal) is the fix the
+next layout iteration owes this block.
+
 CI (`scripts/check_analog_provenance.py`, via `npm run lint`) re-hashes the committed GDS, netlist and plan against the sidecar offline, with no PDK; `--check` stays the full regeneration test. A net counts as routed only when a flat conductivity
 extraction over metal1/via1/metal2/via2/metal3 puts all of its pins in one
 component that no other net's pin shares, and as a cross-check KLayout's own
@@ -294,8 +323,11 @@ off the GDS marker layer, compares it exactly against the netlist
 per-resistor record is
 `verification/records/analog-resistor-dims/` (issue #370). MOS `L`/`W` *were*
 compared
-and agreed. No extracted re-simulation was run on these streams (#53), and
-nothing here is an IR-drop or latch-up-margin claim about the tie geometry.
+and agreed. Extracted re-simulation of these streams has since landed
+(2026-11-17, issue #51 — every analog `sim/` row re-run on the committed
+extractions; the driver §6 rows fail post-layout on the output-path Metal1
+resistance, see "Extracted netlists" below), but nothing here is an
+IR-drop or latch-up-margin claim about the tie geometry.
 Supply-connectivity ERC has since been run and cited separately (#248, item
 `11.analog`) — since issue #361 the record measures a strictly stronger
 verdict, re-measured unchanged after issue #406's generator change on
@@ -359,12 +391,14 @@ labelled port set is the schematic's. The earlier
 (issue #103) is superseded: its verdict still holds for the stream it pinned,
 but its 1-of-8 routing and 31-vs-10 net counts describe that 2026-10-09
 plan-path-only `differential_receiver` geometry, not the committed stream.
-What is still missing is electrical: no extracted re-simulation exists, and
-LVS compared no resistor dimension (see "What the match does not say" above;
+What is still missing is electrical: LVS compared no resistor dimension (see
+"What the match does not say" above;
 drawn resistor dimensions are since checked by
 `scripts/check_analog_resistor_dims.py`, recorded in
 `verification/records/analog-resistor-dims/`, but that is a drawn-geometry
-check, not an electrical one).
+check, not an electrical one). The extracted-netlist gap itself has since
+closed: every analog `sim/` row was re-run against the committed extractions
+on 2026-11-17 (issue #51) — see "Extracted netlists" below.
 Supply-connectivity ERC of all five streams landed with issue #248 and is
 recorded in `20261116-000746-8dff986` — re-run after issue #406's generator
 change on byte-identical re-delivered streams with the clean verdict
