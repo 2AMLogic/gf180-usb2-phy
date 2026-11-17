@@ -27,9 +27,9 @@ _None._
 
 Human-approved issues ready for implementation (`loom:issue`).
 
+- **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief
 - **#419**: check_signoff_report.py's 5-diff cap hides graded-content divergences behind klt build-stamp drift
 - **#420**: T1 item 8's envelope pins a content hash that matches no revision of docs/characterization-report.md, and nothing checks it
-- **#438**: Close the rest of the klt-pin class: version-gate analog_lvs/digital_lvs reports and the bare-klt npm scripts
 
 ## In Progress
 
@@ -59,7 +59,6 @@ Issues carrying `loom:curated`.
 - **#392**: Frozen digital-lvs record no longer reproduces on main under repo-pin klt 0.9.0 (power_connectivity VNW/VPW well-pin derivation) *(curated)*
 - **#419**: check_signoff_report.py's 5-diff cap hides graded-content divergences behind klt build-stamp drift *(curated)*
 - **#420**: T1 item 8's envelope pins a content hash that matches no revision of docs/characterization-report.md, and nothing checks it *(curated)*
-- **#438**: Close the rest of the klt-pin class: version-gate analog_lvs/digital_lvs reports and the bare-klt npm scripts *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -91,7 +90,7 @@ Issues carrying `loom:curated`.
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 7 |
+| Curated | 6 |
 | Architect / Hermit proposals | 12 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
