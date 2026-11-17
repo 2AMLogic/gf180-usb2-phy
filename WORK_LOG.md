@@ -6,6 +6,12 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 - [2026-09](work_log/WORK_LOG_2026-09.md)
 
+### 2026-11-17
+
+- **PR #432**: feat(analog): extracted-netlist 45-corner PVT re-verification of all five analog blocks
+- **PR #430**: fix(layout): measure bbox_um from the stream gds_path names
+- **Issue #427** (closed): analog-layout-report.json bbox_um does not describe the committed stream it is paired with (y-extent only; x matches)
+
 ### 2026-11-16
 
 - **PR #418**: docs: re-point superseded analog-erc/analog-lvs record citations to the live head records
