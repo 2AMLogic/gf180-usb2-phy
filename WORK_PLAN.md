@@ -21,6 +21,7 @@ _None._
 - **#246**: T1 item 3 (DRC clean, analog partition): klt drc on the committed analog GDS with coverage disclosed
 - **#249**: T1 item 5 (Full corner verification): propose a spec 8.2 driver-jitter decision record so 5.analog's declared gap can close
 - **#392**: Frozen digital-lvs record no longer reproduces on main under repo-pin klt 0.9.0 (power_connectivity VNW/VPW well-pin derivation)
+- **#420**: T1 item 8's envelope pins a content hash that matches no revision of docs/characterization-report.md, and nothing checks it
 
 ## Ready
 
@@ -28,7 +29,7 @@ Human-approved issues ready for implementation (`loom:issue`).
 
 - **#419**: check_signoff_report.py's 5-diff cap hides graded-content divergences behind klt build-stamp drift
 - **#420**: T1 item 8's envelope pins a content hash that matches no revision of docs/characterization-report.md, and nothing checks it
-- **#427**: analog-layout-report.json bbox_um does not describe the committed stream it is paired with (y-extent only; x matches)
+- **#438**: Close the rest of the klt-pin class: version-gate analog_lvs/digital_lvs reports and the bare-klt npm scripts
 
 ## In Progress
 
@@ -58,7 +59,7 @@ Issues carrying `loom:curated`.
 - **#392**: Frozen digital-lvs record no longer reproduces on main under repo-pin klt 0.9.0 (power_connectivity VNW/VPW well-pin derivation) *(curated)*
 - **#419**: check_signoff_report.py's 5-diff cap hides graded-content divergences behind klt build-stamp drift *(curated)*
 - **#420**: T1 item 8's envelope pins a content hash that matches no revision of docs/characterization-report.md, and nothing checks it *(curated)*
-- **#427**: analog-layout-report.json bbox_um does not describe the committed stream it is paired with (y-extent only; x matches) *(curated)*
+- **#438**: Close the rest of the klt-pin class: version-gate analog_lvs/digital_lvs reports and the bare-klt npm scripts *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -85,7 +86,7 @@ Issues carrying `loom:curated`.
 |------|-------|
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
-| Important | 4 |
+| Important | 5 |
 | Ready (`loom:issue`) | 3 |
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |

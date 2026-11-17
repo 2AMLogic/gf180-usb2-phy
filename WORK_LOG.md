@@ -8,6 +8,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-17
 
+- **PR #433**: fix(harness): resolve klt from the interpreter and gate report versions against the pin
+- **Issue #431** (closed): Harden harnesses that resolve klt from $PATH: pin the interpreter's klt and gate the report's embedded version
 - **PR #436**: fix: correct rise-crossover failing-corner count in spec-coverage provenance summary
 - **Issue #434** (closed): sim/spec-coverage.md: rise-crossover failing-corner count is 16 in the provenance summary, 15 in the row and the record
 - **PR #432**: feat(analog): extracted-netlist 45-corner PVT re-verification of all five analog blocks
