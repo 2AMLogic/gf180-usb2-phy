@@ -8,6 +8,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-17
 
+- **PR #436**: fix: correct rise-crossover failing-corner count in spec-coverage provenance summary
+- **Issue #434** (closed): sim/spec-coverage.md: rise-crossover failing-corner count is 16 in the provenance summary, 15 in the row and the record
 - **PR #432**: feat(analog): extracted-netlist 45-corner PVT re-verification of all five analog blocks
 - **PR #430**: fix(layout): measure bbox_um from the stream gds_path names
 - **Issue #427** (closed): analog-layout-report.json bbox_um does not describe the committed stream it is paired with (y-extent only; x matches)
