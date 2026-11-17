@@ -60,10 +60,11 @@ def _git(*args: str, cwd: Path) -> str:
 
 
 #: Paths whose git state says nothing about whether a run is reproducible:
-#: the append-only evidence tree, which runs *write into*, and the suite's
-#: own summaries. See :func:`working_tree_dirty`.
+#: the append-only evidence tree, which runs *write into*, the stored-evidence
+#: manifests a run mints beside its record, and the suite's own summaries.
+#: See :func:`working_tree_dirty`.
 _EVIDENCE_PATH_RE = re.compile(
-    r"^sim/(?:[^/]+/(?:%s|%s|%s)/|suite/summaries/)"
+    r"^(?:sim/(?:[^/]+/(?:%s|%s|%s)/|suite/summaries/)|manifests/artifacts/)"
     % (RECORDS_DIR, SNAPSHOT_DIR, CORNERS_DIR)
 )
 
@@ -76,7 +77,12 @@ def working_tree_dirty(repo_root: Path) -> bool:
     unreproducible -- and evidence is exactly what a run leaves behind, so a
     naive ``git status --porcelain`` check reports every run after the first
     as dirty (the previous bench's own logs are sitting in the tree). Only
-    changes outside the append-only evidence directories count.
+    changes outside the append-only evidence directories count. Under the
+    stored-evidence flow (issue #237) a run also mints a manifest under
+    ``manifests/artifacts/`` beside its record; that manifest is run output
+    the same way the record is, so it is excluded here too -- otherwise the
+    second grid of a session would always be stamped dirty by the first
+    grid's manifest.
     """
     status = _git("status", "--porcelain", cwd=repo_root)
     for line in status.splitlines():

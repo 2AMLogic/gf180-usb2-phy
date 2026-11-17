@@ -596,7 +596,20 @@ class KltRequestTests(_KltFixture):
     def test_backend_and_runner_version_check_are_propagated(self):
         req = self._request(backend="batch", rvc="warn")
         self.assertEqual(req["backend"], "batch")
-        self.assertEqual(req["batch"], {"runner_version_check": "warn"})
+        self.assertEqual(
+            req["batch"],
+            {"runner_version_check": "warn", "capacity_wait_s": klt_backend.BATCH_CAPACITY_WAIT_S},
+        )
+
+    def test_fleet_backend_gets_capacity_wait_without_version_check(self):
+        req = self._request(backend="batch")
+        self.assertEqual(req["backend"], "batch")
+        self.assertEqual(req["batch"], {"capacity_wait_s": klt_backend.BATCH_CAPACITY_WAIT_S})
+
+    def test_local_backend_gets_no_batch_block(self):
+        req = self._request(backend="local")
+        self.assertEqual(req["backend"], "local")
+        self.assertNotIn("batch", req)
 
     def test_supply_source_name_comes_from_the_manifest(self):
         manifest = self._write_manifest(klt_supply_source="vdd_src")
@@ -708,7 +721,10 @@ class KltRunGridTests(_KltFixture):
         self.assertIn("--format", self.last_cmd)
         self.assertEqual(self.last_cmd[-2:], ["--backend", "batch"])
         req = json.loads((self.workdir / "request.json").read_text())
-        self.assertEqual(req["batch"], {"runner_version_check": "warn"})
+        self.assertEqual(
+            req["batch"],
+            {"runner_version_check": "warn", "capacity_wait_s": klt_backend.BATCH_CAPACITY_WAIT_S},
+        )
         self.assertEqual(info["backend"], "batch")
         self.assertEqual(info["klt_exit_code"], 0)
         self.assertEqual(info["klt_status"], "pass")
@@ -1247,8 +1263,10 @@ class KltDeckTests(_KltFixture):
         self.assertNotIn("$PDK_ROOT", text)
 
     def test_runner_version_check_is_forwarded(self):
-        self.assertEqual(self.build(runner_version_check="warn")["batch"],
-                         {"runner_version_check": "warn"})
+        self.assertEqual(
+            self.build(runner_version_check="warn")["batch"],
+            {"runner_version_check": "warn", "capacity_wait_s": klt_backend.BATCH_CAPACITY_WAIT_S},
+        )
 
     # ---- result mapping ------------------------------------------------
 
@@ -1362,6 +1380,34 @@ class KltDeckTests(_KltFixture):
         self.assertEqual(klt_backend.select_transport("decks", with_measure), "decks")
         with self.assertRaises(klt_backend.KltError):
             klt_backend.select_transport("bogus", {})
+
+
+class WorkingTreeDirtyTests(unittest.TestCase):
+    """Run output (records, snapshots, corner logs, stored-evidence manifests)
+    must not stamp a run dirty; only changes to reproducibility inputs may."""
+
+    def porcelain(self, lines):
+        return mock.patch.object(report, "_git", return_value="\n".join(lines))
+
+    def test_run_outputs_are_not_dirty(self):
+        lines = [
+            "?? sim/foo/records/20260101-000000-abc1234.md",
+            "?? sim/foo/netlist-snapshots/20260101-000000-abc1234.spice",
+            "?? sim/foo/corners/20260101-000000-abc1234/tt_27c_3.30v.log",
+            "?? manifests/artifacts/foo-20260101-000000-abc1234.manifest.json",
+        ]
+        with self.porcelain(lines):
+            self.assertFalse(report.working_tree_dirty(Path("/tmp")))
+
+    def test_input_changes_are_dirty(self):
+        for line in [
+            " M sim/harness/report.py",
+            "?? design/netlist/dplus_pullup.spice",
+            "?? layout/analog/extracted/dplus_pullup_parasitic.spice",
+            "?? manifests/README.md",
+        ]:
+            with self.porcelain([line]):
+                self.assertTrue(report.working_tree_dirty(Path("/tmp")), line)
 
 
 class RepoManifestContractTests(unittest.TestCase):

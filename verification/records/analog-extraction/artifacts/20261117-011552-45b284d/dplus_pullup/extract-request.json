@@ -1,0 +1,8 @@
+{
+  "file": "layout/analog/dplus_pullup.gds",
+  "deck": "gf180mcu",
+  "top": "dplus_pullup",
+  "pdk": "gf180mcuD",
+  "parasitics": true,
+  "output": "layout/analog/extracted/dplus_pullup_parasitic.spice"
+}

@@ -61,6 +61,12 @@ BACKEND_ENV = "KLT_SIM_BACKEND"
 #: The executing host resolves its own PDK; the deck names it by this literal.
 PDK_ROOT_LITERAL = "$PDK_ROOT"
 
+#: Fleet capacity wait (seconds) baked into every fleet-backend request: the
+#: Spot fleet is vCPU-budgeted, so a burst of corner-grid submissions can be
+#: refused ``batch_no_capacity``; waiting with backoff instead of failing the
+#: submit is the sanctioned behavior on shared dispatch hosts.
+BATCH_CAPACITY_WAIT_S = 600
+
 _INCLUDE_RE = re.compile(r"^\s*\.(include|inc|lib|read)\b", re.IGNORECASE | re.MULTILINE)
 
 
@@ -226,8 +232,13 @@ def build_request(
     }
     if backend:
         request["backend"] = backend
+    batch: dict = {}
     if runner_version_check:
-        request["batch"] = {"runner_version_check": runner_version_check}
+        batch["runner_version_check"] = runner_version_check
+    if backend in FLEET_BACKENDS:
+        batch["capacity_wait_s"] = BATCH_CAPACITY_WAIT_S
+    if batch:
+        request["batch"] = batch
     path = workdir / "request.json"
     path.write_text(json.dumps(request, indent=2) + "\n")
     return path
@@ -460,8 +471,13 @@ def build_deck_request(
     }
     if backend:
         request["backend"] = backend
+    batch: dict = {}
     if runner_version_check:
-        request["batch"] = {"runner_version_check": runner_version_check}
+        batch["runner_version_check"] = runner_version_check
+    if backend in FLEET_BACKENDS:
+        batch["capacity_wait_s"] = BATCH_CAPACITY_WAIT_S
+    if batch:
+        request["batch"] = batch
     path = workdir / "request.json"
     path.write_text(json.dumps(request, indent=2) + "\n")
     return path
