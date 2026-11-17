@@ -46,6 +46,19 @@ boolean engine, not a stub; CI installs klayout-tools first):
   * a tap pad with no metal-1 at its port is refused loudly, never silently
     falling back to the constant.
 
+Issue #427: the report's ``bbox_um`` was klt's plan-stage envelope while
+``gds_path`` named the post-scripted-routing stream -- for
+``differential_driver`` that envelope was ~19% low in height, because the
+upper-metal tracks ``_complete_routing()`` draws are absent from the plan
+stream. ``BlockBboxSourceTests`` pins, on real fixture streams (needs
+``klayout.db``, like ``StrapBodyPadsTests``):
+
+  * a scripted block's ``bbox_um`` is the extent of the stream at
+    ``gds_path``, measured after ``_complete_routing()``; the plan-stage
+    envelope survives only under ``plan_bbox_um``;
+  * a non-scripted block whose plan envelope already matches its stream
+    emits the same value either way.
+
 Usage:
     python3 scripts/test_gen_analog_layout.py
 Exit codes: 0 all cases behave as specified, 1 otherwise.
@@ -813,6 +826,183 @@ class StrapBodyPadsTests(unittest.TestCase):
         self.assertIn("TAP_PAD1", problems[0])
         self.assertEqual(stats["legs_drawn"], 0)
         self.assertEqual(stats["groups_strapped"], 0)
+
+
+class _PlanExecutorStub:
+    """Stand in for ``klayout_tools.layout_plan_execute`` (and
+    ``klayout_tools.layout_plan``) during ``_execute_plan``: a fake executor
+    that writes the plan-stage stream itself -- at ``options.output``, where
+    the real one writes -- and reports the envelope matching it, plus the
+    error names and ``exit_code_for`` the caller imports at call time.
+    """
+
+    def __init__(self, block, extent_um):
+        self.block = block
+        self.extent_um = extent_um  # (x0, y0, x1, y1) of the fake klt stream
+
+    def __enter__(self):
+        import klayout.db as kdb
+
+        executor = self
+
+        def fake_execute(request, request_dir=None, work_dir=None):
+            layout = kdb.Layout()
+            layout.dbu = 0.001
+            top = layout.create_cell(executor.block)
+            x0, y0, x1, y1 = executor.extent_um
+            top.shapes(layout.layer(*gal.M1)).insert(
+                kdb.Box(int(x0 * 1000), int(y0 * 1000), int(x1 * 1000), int(y1 * 1000))
+            )
+            layout.write(request["options"]["output"])
+            return {"bbox_um": dict(zip(("x0", "y0", "x1", "y1"), executor.extent_um)), "nets": []}
+
+        module = types.ModuleType("klayout_tools.layout_plan_execute")
+        module.LayoutPlanExecuteError = type("LayoutPlanExecuteError", (Exception,), {})
+        module.execute_layout_plan_document = fake_execute
+        module.exit_code_for = lambda response: 0
+        module.compose = lambda *args, **kwargs: None
+        plan_module = types.ModuleType("klayout_tools.layout_plan")
+        plan_module.LayoutPlanError = type("LayoutPlanError", (Exception,), {})
+        self.saved = (
+            sys.modules.get("klayout_tools.layout_plan_execute"),
+            sys.modules.get("klayout_tools.layout_plan"),
+        )
+        sys.modules["klayout_tools.layout_plan_execute"] = module
+        sys.modules["klayout_tools.layout_plan"] = plan_module
+        return self
+
+    def __exit__(self, *exc):
+        for name, saved in zip(
+            ("klayout_tools.layout_plan_execute", "klayout_tools.layout_plan"), self.saved
+        ):
+            if saved is None:
+                sys.modules.pop(name, None)
+            else:
+                sys.modules[name] = saved
+        return False
+
+
+@unittest.skipUnless(
+    _klayout_available(),
+    "needs the real klayout.db (it writes the fixture streams; installed by "
+    "CI's klayout-tools step, same as StrapBodyPadsTests)",
+)
+class BlockBboxSourceTests(unittest.TestCase):
+    """``bbox_um`` is measured from the stream ``gds_path`` names.
+
+    The cases run ``_execute_plan()`` on a miniature of the real pipeline:
+    the fake executor writes the plan-stage stream and reports its envelope;
+    the stubbed ``_complete_routing`` extends it -- which is what the real
+    scripted pass does with its upper-metal tracks -- and writes the final
+    stream. Negative coordinates are in every fixture (issue #427's whole
+    point was a stream dipping below y=0).
+    """
+
+    def setUp(self):
+        import klayout.db as kdb
+
+        self.kdb = kdb
+        self._tmp = tempfile.TemporaryDirectory(prefix="gal-bbox-")
+        self.addCleanup(self._tmp.cleanup)
+        self.tmp = self._tmp.name
+        # _execute_plan never needs klt here, but it always runs DRC and --
+        # on the scripted path -- reads the plan's netlist digest.
+        self._saved_drc = gal._run_drc
+        gal._run_drc = lambda gds_path: {
+            "status": "clean",
+            "violation_count": 0,
+            "by_rule": {},
+        }
+        self.addCleanup(setattr, gal, "_run_drc", self._saved_drc)
+        self._saved_digest = gal._netlist_digest
+        gal._netlist_digest = lambda plan_path, request: {}
+        self.addCleanup(setattr, gal, "_netlist_digest", self._saved_digest)
+
+    def _measure(self, path):
+        """The top-cell extent of the stream at ``path``, read independently
+        of the generator's own measurement."""
+        layout = self.kdb.Layout()
+        layout.read(path)
+        box = layout.top_cell().dbbox()
+        return {"x0": box.left, "y0": box.bottom, "x1": box.right, "y1": box.top}
+
+    def _run(self, block, extent, route_to=None):
+        out_dir = os.path.join(self.tmp, "out")
+        os.makedirs(out_dir, exist_ok=True)
+        plan_path = os.path.join(self.tmp, f"{block}.json")
+        with open(plan_path, "w", encoding="utf-8") as handle:
+            json.dump({}, handle)
+
+        if route_to is not None:
+            kdb = self.kdb
+
+            def fake_routing(klt_gds, out_gds, response, compose_request,
+                             klt_routed, digest):
+                layout = kdb.Layout()
+                layout.read(klt_gds)
+                top = layout.top_cell()
+                x0, y0, x1, y1 = route_to
+                top.shapes(layout.layer(*gal.M2)).insert(
+                    kdb.Box(int(x0 * 1000), int(y0 * 1000), int(x1 * 1000), int(y1 * 1000))
+                )
+                layout.write(out_gds)
+                return {
+                    "routed": {},
+                    "snapped_instances": 0,
+                    "l2n_net_count": 0,
+                    "shorts": [],
+                    "problems": [],
+                    "methods": {"klt-plan": 0, "scripted": 0},
+                    "body_ties": {},
+                    "pin_labels": {},
+                }
+
+            self._saved_routing = gal._complete_routing
+            gal._complete_routing = fake_routing
+            self.addCleanup(setattr, gal, "_complete_routing", self._saved_routing)
+
+        with _PlanExecutorStub(block, extent):
+            return gal._execute_plan(
+                plan_path,
+                out_dir,
+                keep_work=False,
+                final_dir=out_dir if route_to is not None else None,
+            )
+
+    def test_a_scripted_block_reports_its_own_streams_extent(self):
+        # The plan-stage stream spans 0..4 x 0..3; the scripted pass extends
+        # it to -2..5 x -3.5..6.25. The emitted envelope must be the final
+        # stream's -- measured from the file -- never the plan response's.
+        result = self._run(
+            "differential_receiver",
+            extent=(0.0, 0.0, 4.0, 3.0),
+            route_to=(-2.0, -3.5, 5.0, 6.25),
+        )
+        expected = {"x0": -2.0, "y0": -3.5, "x1": 5.0, "y1": 6.25}
+        self.assertEqual(result["status"], "executed")
+        self.assertEqual(result["bbox_um"], expected)
+        self.assertNotEqual(result["bbox_um"], result["plan_bbox_um"])
+        self.assertEqual(
+            result["plan_bbox_um"], {"x0": 0.0, "y0": 0.0, "x1": 4.0, "y1": 3.0}
+        )
+        # bbox_um describes the stream gds_path names: re-measure it.
+        self.assertEqual(
+            self._measure(os.path.join(gal.REPO_ROOT, result["gds_path"])), expected
+        )
+
+    def test_a_non_scripted_block_whose_plan_envelope_matches_emits_it(self):
+        # gds_path is klt's own output here, so the measured envelope equals
+        # the plan response's: a healthy non-scripted block keeps its value
+        # -- but it now comes from the stream (negative coordinates
+        # included), not from the response.
+        result = self._run("not_a_deliverable_block", extent=(0.0, -2.5, 3.0, 4.0))
+        expected = {"x0": 0.0, "y0": -2.5, "x1": 3.0, "y1": 4.0}
+        self.assertEqual(result["status"], "executed")
+        self.assertEqual(result["bbox_um"], expected)
+        self.assertEqual(result["plan_bbox_um"], expected)
+        self.assertEqual(
+            self._measure(os.path.join(gal.REPO_ROOT, result["gds_path"])), expected
+        )
 
 
 if __name__ == "__main__":

@@ -1,0 +1,15 @@
+block                   superseded bbox_um (plan-stage, um)           this record bbox_um (committed stream)                  y0 / y1 delta (um)
+differential_driver      (   -1.020,    0.000,  1830.180,   83.880)         (   -1.020,  -11.940,  1830.180,   91.265)         -11.940 /   7.385
+differential_receiver    (    0.000,    0.000,   457.180,   43.880)         (    0.000,   -7.615,   457.180,   48.695)          -7.615 /   4.815
+dplus_pullup             (   -1.020,    0.000,   251.755,  103.880)         (   -1.020,  -11.940,   251.755,  109.520)         -11.940 /   5.640
+se_receiver_dm           (    0.000,    0.000,   469.840,   43.880)         (    0.000,   -8.315,   469.840,   49.395)          -8.315 /   5.515
+se_receiver_dp           (    0.000,    0.000,   469.840,   43.880)         (    0.000,   -8.315,   469.840,   49.395)          -8.315 /   5.515
+
+x extents are unchanged on every block to measurement precision
+(dplus_pullup x1 251.75499999999994 -> 251.755 is a 7.3e-14 um double
+rounding artifact, not a geometry change; the streams are byte-identical).
+y moved onto the committed stream's own top-cell dbbox() -- exactly the
+independently measured extents issue #427 reported for these five streams
+(e.g. differential_driver bottom=-11.940, top=91.265). plan_bbox_um in
+this record's report carries the superseded values verbatim, bit-exact,
+on every block.
