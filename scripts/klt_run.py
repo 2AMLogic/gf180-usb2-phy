@@ -55,7 +55,13 @@ def resolve_gated_klt() -> list[str]:
         pinned = pinned_klt_version(klt=klt)
     except KltVersionError as exc:
         raise SystemExit(f"error: {exc}") from exc
-    proc = subprocess.run(klt + ["--version"], capture_output=True, text=True)
+    try:
+        proc = subprocess.run(klt + ["--version"], capture_output=True, text=True)
+    except OSError as exc:
+        raise SystemExit(
+            f"error: `{' '.join(klt)} --version` did not run: {exc}; "
+            "re-run inside the pinned environment (./scripts/setup-env.sh)"
+        ) from exc
     tokens = (proc.stdout or "").strip().split()
     found = tokens[-1] if proc.returncode == 0 and tokens else ""
     if not found:

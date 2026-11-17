@@ -112,6 +112,23 @@ class TestKltRun(unittest.TestCase):
         self.assertIn("--version", str(ctx.exception))
         self.assertFalse((self.dir / "invoked.txt").exists())
 
+    def test_missing_klt_binary_is_an_actionable_refusal(self):
+        """Fallback klt not on $PATH and klayout_tools not importable: the
+        gate refuses with its error contract, not a raw traceback."""
+        missing = str(self.dir / "no-such-klt")
+        for name, value in (
+            ("klt_argv", [missing]),
+            ("pinned_klt_version", self.PIN),
+        ):
+            patcher = patch.object(krun, name, return_value=value)
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        with self.assertRaises(SystemExit) as ctx:
+            krun.main(["erc", "x.gds"])
+        self.assertIn("--version", str(ctx.exception))
+        self.assertIn(missing, str(ctx.exception))
+        self.assertFalse((self.dir / "invoked.txt").exists())
+
     def test_child_exit_status_propagates(self):
         """npm's `&&` chains keep their meaning: klt's exit status is the
         wrapper's, uncaptured and unadorned."""
