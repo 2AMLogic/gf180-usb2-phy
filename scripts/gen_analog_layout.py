@@ -96,6 +96,8 @@ import subprocess
 import sys
 import tempfile
 
+from klt_resolve import klt_argv
+
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PLAN_DIR = os.path.join(REPO_ROOT, "layout", "analog", "plans")
 DEFAULT_OUT_DIR = os.path.join(REPO_ROOT, "layout", "analog", "out")
@@ -150,18 +152,8 @@ def _fail(message: str) -> None:
     raise SystemExit(1)
 
 
-def _klt_argv() -> list[str]:
-    """Prefer the interpreter's own klt (so a venv run never picks up a
-    different klt from $PATH), falling back to a plain `klt`."""
-    try:
-        import klayout_tools.cli  # noqa: F401
-    except ImportError:
-        return ["klt"]
-    return [sys.executable, "-m", "klayout_tools.cli"]
-
-
 def _run_drc(gds_path: str) -> dict:
-    argv = _klt_argv() + [
+    argv = klt_argv() + [
         "drc",
         gds_path,
         "--deck",

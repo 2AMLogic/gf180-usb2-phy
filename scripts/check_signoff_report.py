@@ -24,7 +24,13 @@ rather than rotting" acceptance criterion. A stale committed report (old
 regenerating the report and updating the manifest move in one change.
 
 Zero dependencies beyond the Python 3 standard library and a working
-`klt` on `$PATH` (or `--klt <path>`).
+`klt`: by default the interpreter's own (`python -m klayout_tools.cli`,
+see `scripts/klt_resolve.py`), a `klt` on `$PATH` only when klayout_tools
+is not importable, or an explicit `--klt <path>`. The fresh render is
+additionally version-gated against the repo's klt pin
+(`KLT_VERSION` in `scripts/setup-env.sh`): a report rendered by any
+other klt fails loudly (issue #431), instead of silently grading with
+whatever klt came first on `$PATH`.
 
 Usage:
     python3 scripts/check_signoff_report.py
@@ -39,6 +45,13 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+
+from klt_resolve import (
+    KltVersionError,
+    klt_argv,
+    pinned_klt_version,
+    require_pinned_klt_version,
+)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST = REPO_ROOT / "manifests" / "gf180-usb2-phy.json"
@@ -94,8 +107,10 @@ def main() -> int:
     )
     ap.add_argument(
         "--klt",
-        default="klt",
-        help="klt executable (default: 'klt' from $PATH)",
+        default=None,
+        help="klt executable path (default: this interpreter's klt via "
+        "`python -m klayout_tools.cli`, falling back to `klt` on $PATH only "
+        "if klayout_tools is not importable -- see scripts/klt_resolve.py)",
     )
     args = ap.parse_args()
 
@@ -108,8 +123,15 @@ def main() -> int:
         print(f"FAIL: committed report {report_path} does not exist", file=sys.stderr)
         return 1
 
+    klt = [args.klt] if args.klt else klt_argv()
+    try:
+        pinned = pinned_klt_version(klt=klt)
+    except KltVersionError as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
+        return 1
+
     proc = subprocess.run(
-        [args.klt, "signoff", "--manifest", str(manifest_path), "--format", "json"],
+        klt + ["signoff", "--manifest", str(manifest_path), "--format", "json"],
         cwd=str(REPO_ROOT),
         capture_output=True,
         text=True,
@@ -142,6 +164,15 @@ def main() -> int:
         return 1
 
     committed = json.loads(report_path.read_text(encoding="utf-8"))
+
+    # Version gate (issue #431): the fresh render must come from the pinned
+    # klt, whatever klt resolved. A dev build on $PATH renders a report that
+    # may still parse -- and must fail here, loudly, naming both versions.
+    try:
+        require_pinned_klt_version(fresh, pinned, "fresh signoff report")
+    except KltVersionError as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
+        return 1
 
     diffs = _first_differences(fresh, committed)
     if diffs:

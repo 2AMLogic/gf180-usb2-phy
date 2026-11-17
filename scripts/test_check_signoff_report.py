@@ -42,6 +42,13 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 CHECKER = SCRIPT_DIR / "check_signoff_report.py"
+KLT_RESOLVE = SCRIPT_DIR / "klt_resolve.py"
+
+#: The fixture repo's klt pin. `BASE_REPORT`'s `build.version` is
+#: `0.5.0+gfixture` -- same release, a PEP 440 local segment apart -- so a
+#: stub replaying BASE_REPORT passes the checker's version gate while the
+#: mismatch tests below move both sides together.
+FIXTURE_PIN = "0.5.0"
 
 #: A minimal, well-formed tier-report shape for the fixture: every field
 #: the real checker reads (tier summary block, one T1 item, build block).
@@ -123,6 +130,16 @@ def build_fixture_repo(tmp: Path) -> tuple[Path, Path]:
     repo = tmp / "fixture-repo"
     (repo / "scripts").mkdir(parents=True)
     shutil.copy(CHECKER, repo / "scripts" / "check_signoff_report.py")
+    # The checker now imports its klt resolution/version gate from a sibling
+    # module and reads the pin from setup-env.sh, so the fixture carries
+    # both -- the pin deliberately matches BASE_REPORT's build.version.
+    shutil.copy(KLT_RESOLVE, repo / "scripts" / "klt_resolve.py")
+    (repo / "scripts" / "setup-env.sh").write_text(
+        "#!/bin/sh\n"
+        f'KLT_VERSION="{FIXTURE_PIN}"\n'
+        'VOLARE_PDK_FAMILY="gf180mcu"\n',
+        encoding="utf-8",
+    )
     (repo / "manifests").mkdir()
     manifest = {
         "block": "fixture-block",
@@ -148,10 +165,21 @@ def build_fixture_repo(tmp: Path) -> tuple[Path, Path]:
 
 
 def run_checker(repo: Path, bin_dir: Path) -> subprocess.CompletedProcess[str]:
+    """Run the fixture checker against its stub klt via the *explicit*
+    `--klt` override. The default resolution (the interpreter's own
+    `python -m klayout_tools.cli`) is unit-tested in
+    `test_klt_resolve.py`; driving it here would run whatever klayout_tools
+    the host python can import -- 0.9.3.dev on a dev box -- right over the
+    stub, so every end-to-end case pins the stub explicitly instead."""
     env = dict(os.environ)
     env["PATH"] = f"{bin_dir}{os.pathsep}{env.get('PATH', '')}"
     return subprocess.run(
-        [sys.executable, str(repo / "scripts" / "check_signoff_report.py")],
+        [
+            sys.executable,
+            str(repo / "scripts" / "check_signoff_report.py"),
+            "--klt",
+            str(bin_dir / "klt"),
+        ],
         cwd=repo,
         capture_output=True,
         text=True,
@@ -245,6 +273,64 @@ class TestCheckSignoffReport(unittest.TestCase):
             result.returncode,
             "a missing committed report must FAIL the check, but it exited 0",
         )
+
+    def test_version_gate_passes_on_the_pinned_klt(self) -> None:
+        """A fresh render from the pinned klt (local segment aside) passes
+        the version gate -- the stub replays BASE_REPORT, whose
+        `build.version` `0.5.0+gfixture` matches the fixture pin 0.5.0."""
+        repo, bin_dir = build_fixture_repo(self.tmp)
+        result = run_checker(repo, bin_dir)
+        self.assertEqual(
+            0,
+            result.returncode,
+            f"pinned-klt render should pass the version gate; "
+            f"stderr={result.stderr!r}",
+        )
+
+    def test_version_gate_rejects_an_unpinned_klt(self) -> None:
+        """A render from any other klt -- here 9.9.9 -- must FAIL naming
+        both versions, even when parity otherwise holds (issue #431: PR
+        #430 froze a record whose pinned version contradicted its
+        artifacts)."""
+        repo, bin_dir = build_fixture_repo(self.tmp)
+        rendered = json.loads(
+            (repo / "manifests" / "t1-signoff-report.json").read_text(encoding="utf-8")
+        )
+        rendered["build"]["version"] = "9.9.9+gdeadbee"
+        # Move the committed report with it, so *parity* holds and only the
+        # version gate can catch the run.
+        (repo / "manifests" / "t1-signoff-report.json").write_text(
+            json.dumps(rendered), encoding="utf-8"
+        )
+        _write_stub(bin_dir, "klt", 3, rendered)
+        result = run_checker(repo, bin_dir)
+        self.assertNotEqual(
+            0,
+            result.returncode,
+            "a render from an unpinned klt must FAIL the check, but it exited 0",
+        )
+        self.assertIn("9.9.9", result.stderr)
+        self.assertIn(FIXTURE_PIN, result.stderr)
+
+    def test_version_gate_rejects_a_report_with_no_version(self) -> None:
+        """A render that carries no klt version at all cannot be gated, so
+        it fails naming the pin rather than passing silently."""
+        repo, bin_dir = build_fixture_repo(self.tmp)
+        rendered = json.loads(
+            (repo / "manifests" / "t1-signoff-report.json").read_text(encoding="utf-8")
+        )
+        del rendered["build"]
+        (repo / "manifests" / "t1-signoff-report.json").write_text(
+            json.dumps(rendered), encoding="utf-8"
+        )
+        _write_stub(bin_dir, "klt", 3, rendered)
+        result = run_checker(repo, bin_dir)
+        self.assertNotEqual(
+            0,
+            result.returncode,
+            "a version-less render must FAIL the check, but it exited 0",
+        )
+        self.assertIn(FIXTURE_PIN, result.stderr)
 
 
 if __name__ == "__main__":

@@ -126,6 +126,13 @@ import os
 import subprocess
 import sys
 
+from klt_resolve import (
+    KltVersionError,
+    klt_argv,
+    pinned_klt_version,
+    require_pinned_klt_version,
+)
+
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DECK = "gf180mcu"
 GDS_DIR = "layout/analog"
@@ -711,7 +718,24 @@ def grade_lvs_pairing(root: str, block: str, positive: str, ground: str) -> dict
     }
 
 
-def gap_scan(kdb, root: str, blocks: list[str], klt: str, gaps: list[float]) -> int:
+def resolve_klt_command(explicit: str | None) -> list[str]:
+    """The klt invocation this run uses: an explicit `--klt PATH` wins,
+    otherwise the interpreter's own klt (see `klt_resolve.klt_argv`) --
+    never a bare `klt` from $PATH, which is how PR #430 graded with an
+    unpinned klt."""
+    return [explicit] if explicit else klt_argv()
+
+
+def gate_klt_version(block: str, report: dict, pinned: str) -> str:
+    """Refuse a `klt erc` report rendered by anything but the pinned klt
+    (issue #431). Returns the report's normalized klt version."""
+    try:
+        return require_pinned_klt_version(report, pinned, f"{block}")
+    except KltVersionError as exc:
+        raise HarnessError(str(exc)) from exc
+
+
+def gap_scan(kdb, root: str, blocks: list[str], klt: list[str], gaps: list[float]) -> int:
     """Why `CLUSTER_GAP_UM` is 0.7 um, re-measurable rather than asserted.
 
     For each gap, derive the assertion that gap implies, run `klt erc` on it,
@@ -732,6 +756,7 @@ def gap_scan(kdb, root: str, blocks: list[str], klt: str, gaps: list[float]) -> 
     """
     global CLUSTER_GAP_UM
     original = CLUSTER_GAP_UM
+    pinned = pinned_klt_version(klt=klt)
     try:
         print(f"{'gap_um':>7}  {'block':24} {'polygons':>8} {'missing_tie':>11}  erc_status")
         for gap in gaps:
@@ -745,8 +770,8 @@ def gap_scan(kdb, root: str, blocks: list[str], klt: str, gaps: list[float]) -> 
                 with open(scratch, "w") as fh:
                     json.dump(spec, fh, indent=2)
                 proc = sh(
-                    [
-                        klt, "erc", f"{GDS_DIR}/{block}.gds",
+                    klt + [
+                        "erc", f"{GDS_DIR}/{block}.gds",
                         os.path.relpath(scratch, root), "--top", block,
                         "--deck", DECK, "--format", "json",
                     ],
@@ -756,6 +781,7 @@ def gap_scan(kdb, root: str, blocks: list[str], klt: str, gaps: list[float]) -> 
                     print(f"error: klt erc failed for {block} at gap {gap}", file=sys.stderr)
                     return 1
                 report = json.loads(proc.stdout)
+                gate_klt_version(block, report, pinned)
                 missing = sum(
                     1
                     for f in report.get("erc_findings") or []
@@ -779,10 +805,11 @@ def run_block(
     kdb,
     root: str,
     block: str,
-    klt: str,
+    klt: list[str],
     out_dir: str,
     regen: bool,
     control: bool,
+    pinned: str,
 ) -> dict:
     gds_rel = f"{GDS_DIR}/{block}.gds"
     gds_abs = os.path.join(root, gds_rel)
@@ -822,12 +849,13 @@ def run_block(
 
     report_rel = f"{out_dir}/{block}-erc-supply-report.json"
     proc = sh(
-        [klt, "erc", gds_rel, spec_rel, "--top", block, "--deck", DECK, "--format", "json"],
+        klt + ["erc", gds_rel, spec_rel, "--top", block, "--deck", DECK, "--format", "json"],
         cwd=root,
     )
     if not proc.stdout.strip():
         raise HarnessError(f"{block}: klt erc produced no report (exit {proc.returncode})\n{proc.stderr}")
     report = json.loads(proc.stdout)
+    klt_version = gate_klt_version(block, report, pinned)
     with open(os.path.join(root, report_rel), "w") as fh:
         json.dump(report, fh, indent=2)
         fh.write("\n")
@@ -841,6 +869,7 @@ def run_block(
         "supplies": {"positive": positive, "ground": ground},
         "report": report_rel,
         "exit_status": proc.returncode,
+        "klt_version": klt_version,
         "assertion": facts,
         "census": census,
         "verdict": grade_run(report, positive, ground, facts, census),
@@ -855,8 +884,8 @@ def run_block(
             fh.write("\n")
         control_report_rel = f"{out_dir}/{block}-erc-control-report.json"
         cproc = sh(
-            [
-                klt, "erc", gds_rel, control_spec_rel, "--top", block,
+            klt + [
+                "erc", gds_rel, control_spec_rel, "--top", block,
                 "--deck", DECK, "--format", "json",
             ],
             cwd=root,
@@ -866,6 +895,7 @@ def run_block(
                 f"{block}: control klt erc produced no report (exit {cproc.returncode})\n{cproc.stderr}"
             )
         creport = json.loads(cproc.stdout)
+        gate_klt_version(f"{block} (control)", creport, pinned)
         with open(os.path.join(root, control_report_rel), "w") as fh:
             json.dump(creport, fh, indent=2)
             fh.write("\n")
@@ -883,7 +913,13 @@ def run_block(
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--root", default=REPO_ROOT, help="repo root (default: this script's)")
-    parser.add_argument("--klt", default="klt", help="klt executable (default: klt on $PATH)")
+    parser.add_argument(
+        "--klt",
+        default=None,
+        help="klt executable path (default: this interpreter's klt via "
+        "`python -m klayout_tools.cli`, falling back to `klt` on $PATH only "
+        "if klayout_tools is not importable -- see scripts/klt_resolve.py)",
+    )
     parser.add_argument(
         "--regen-specs",
         action="store_true",
@@ -928,13 +964,20 @@ def main(argv: list[str] | None = None) -> int:
 
     os.makedirs(os.path.join(root, OUT_DIR), exist_ok=True)
 
+    klt = resolve_klt_command(args.klt)
+    try:
+        pinned = pinned_klt_version(klt=klt)
+    except KltVersionError as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
+        return 1
+
     if args.gap_scan:
         try:
             gaps = [float(g) for g in args.gap_scan.split(",") if g.strip()]
         except ValueError:
             print(f"error: --gap-scan expects numbers, got {args.gap_scan!r}", file=sys.stderr)
             return 2
-        return gap_scan(kdb, root, blocks, args.klt, gaps)
+        return gap_scan(kdb, root, blocks, klt, gaps)
 
     results = []
     for block in blocks:
@@ -942,7 +985,7 @@ def main(argv: list[str] | None = None) -> int:
         try:
             results.append(
                 run_block(
-                    kdb, root, block, args.klt, OUT_DIR, args.regen_specs, not args.no_control
+                    kdb, root, block, klt, OUT_DIR, args.regen_specs, not args.no_control, pinned
                 )
             )
         except HarnessError as exc:
@@ -986,6 +1029,8 @@ def main(argv: list[str] | None = None) -> int:
         "harness": "scripts/analog_erc.py",
         "deck": DECK,
         "cluster_gap_um": CLUSTER_GAP_UM,
+        "klt_version": results[0]["klt_version"] if results else pinned,
+        "klt_pinned_version": pinned,
         "blocks": results,
         "all_blocks_pass": ok,
     }
