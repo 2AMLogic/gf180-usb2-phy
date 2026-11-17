@@ -75,7 +75,16 @@ def _flatten(obj, prefix=""):
         yield prefix, obj
 
 
-def _first_differences(fresh, committed, limit=5):
+#: Per-section cap on printed divergences: build-stamp drift and graded
+#: content are capped *independently* (issue #419), so the `.build.*` leaf
+#: paths that sort first can never crowd a graded-content divergence out
+#: of the failure output.
+_DIFF_LIMIT = 5
+
+
+def _first_differences(fresh, committed):
+    """Return *every* (path, committed, fresh) leaf divergence, sorted by
+    path. The caller splits and caps the result per section."""
     fresh_map = dict(_flatten(fresh))
     committed_map = dict(_flatten(committed))
     out = []
@@ -84,8 +93,6 @@ def _first_differences(fresh, committed, limit=5):
         c = committed_map.get(key, "<absent in committed>")
         if f != c:
             out.append((key, c, f))
-            if len(out) >= limit:
-                break
     return out
 
 
@@ -176,18 +183,45 @@ def main() -> int:
 
     diffs = _first_differences(fresh, committed)
     if diffs:
+        build_diffs = [d for d in diffs if d[0].startswith(".build.")]
+        content_diffs = [d for d in diffs if not d[0].startswith(".build.")]
         print(
             "FAIL: fresh render of the T1 signoff manifest diverges from the "
             "committed report -- regenerate the report in the same change "
             "that moved the manifest/evidence (see manifests/README.md):",
             file=sys.stderr,
         )
-        for key, committed_value, fresh_value in diffs:
-            print(
-                f"  {key}: committed {json.dumps(committed_value)[:160]} "
-                f"-> fresh {json.dumps(fresh_value)[:160]}",
-                file=sys.stderr,
+        # Issue #419: build-stamp drift and graded content are printed under
+        # separate headings, each capped independently, so build-stamp drift
+        # (which sorts first) can never hide a graded-content divergence.
+        for heading, group in (
+            (
+                "build stamp differs from the pin (expected when this klt "
+                "is not the CI-pinned release; not by itself a content "
+                "finding)",
+                build_diffs,
+            ),
+            (
+                "graded content diverges (manifest/evidence moved without "
+                "regenerating the report)",
+                content_diffs,
+            ),
+        ):
+            if not group:
+                continue
+            shown = group[:_DIFF_LIMIT]
+            note = (
+                f" -- showing first {len(shown)} of {len(group)}"
+                if len(group) > len(shown)
+                else f" ({len(group)})"
             )
+            print(f"  {heading}{note}:", file=sys.stderr)
+            for key, committed_value, fresh_value in shown:
+                print(
+                    f"    {key}: committed {json.dumps(committed_value)[:160]} "
+                    f"-> fresh {json.dumps(fresh_value)[:160]}",
+                    file=sys.stderr,
+                )
         return 1
 
     print(
