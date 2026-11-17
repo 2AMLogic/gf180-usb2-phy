@@ -211,5 +211,101 @@ class ItemRecordTests(unittest.TestCase):
             )
 
 
+class Item8BindingTests(unittest.TestCase):
+    """Item 8 binds docs/characterization-report.md directly (issue #420).
+
+    The report is a hand-assembled Markdown artifact, so unlike every other
+    item there is no inventory to re-derive: the envelope is the report's
+    repo path plus its live hash. These cases pin the binding down -- a
+    regenerated envelope verifies, and a report edited without a re-pin, an
+    envelope stripped of `provenance.input.path`, or a manifest pin that does
+    not match the report each fail `verify_item` with the reason named.
+    Before #420 the envelope carried a `content_hash` with no `path`, which
+    the grader silently never checked and nothing in-repo re-computed.
+    """
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        self.root = Path(self._tmp.name)
+        report = self.root / "docs" / "characterization-report.md"
+        report.parent.mkdir(parents=True)
+        report.write_text("# characterization report\n\nper-row verdicts.\n")
+        (self.root / "manifests").mkdir()
+        self.manifest_path = self.root / "manifests" / "gf180-usb2-phy.json"
+        self.envelope_path = self.root / "manifests" / "item8-characterization.json"
+        self._write_manifest(self._hash())
+        self._write_envelope()
+
+    def _hash(self) -> str:
+        digest = hashlib.sha256(
+            (self.root / "docs" / "characterization-report.md").read_bytes()
+        ).hexdigest()
+        return f"sha256:{digest}"
+
+    def _manifest(self) -> dict:
+        return json.loads(self.manifest_path.read_text())
+
+    def _write_manifest(self, content_hash: str) -> None:
+        manifest = {"evidence": {"8": {"file": "manifests/item8-characterization.json",
+                                       "content_hash": content_hash}}}
+        self.manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
+
+    def _write_envelope(self, env: dict | None = None) -> None:
+        if env is None:
+            env = inventories.build_envelope(self.root, "8")
+        self.envelope_path.write_text(json.dumps(env, indent=2) + "\n")
+
+    def _problems(self) -> list[str]:
+        return inventories.verify_item(self.root, "8", self._manifest())
+
+    def test_a_regenerated_envelope_verifies(self):
+        self.assertEqual(self._problems(), [])
+
+    def test_the_envelope_is_derived_from_the_tree(self):
+        # `--regen` must reproduce the committed envelope byte-for-byte in
+        # content: the summary is a constant, the hash comes from the file.
+        committed = json.loads(self.envelope_path.read_text())
+        self.assertEqual(committed, inventories.build_envelope(self.root, "8"))
+
+    def test_the_envelope_declares_t1_item_and_the_repo_path(self):
+        committed = json.loads(self.envelope_path.read_text())
+        self.assertEqual(committed["t1_item"], 8)
+        self.assertEqual(committed["source"], "docs/characterization-report.md")
+        self.assertEqual(
+            committed["provenance"]["input"]["path"],
+            {"path": "docs/characterization-report.md", "scope": "repo"},
+        )
+
+    def test_a_report_edited_without_a_repin_fails(self):
+        report = self.root / "docs" / "characterization-report.md"
+        report.write_text(report.read_text() + "\nan unpinning edit.\n")
+        problems = self._problems()
+        self.assertTrue(any("hashes to" in p for p in problems), problems)
+        self.assertTrue(any("content_hash is stale" in p for p in problems), problems)
+        # The documented remedy re-pins against the edited report...
+        env = inventories.build_envelope(self.root, "8")
+        self.assertEqual(env["provenance"]["input"]["content_hash"], self._hash())
+        # ...and with the re-pinned envelope and pin the item verifies again.
+        self._write_envelope(env)
+        self._write_manifest(self._hash())
+        self.assertEqual(self._problems(), [])
+
+    def test_an_envelope_without_provenance_path_fails(self):
+        # The pre-#420 shape: a declared content_hash with no path, which the
+        # grader silently never verified (input_verified: null).
+        env = inventories.build_envelope(self.root, "8")
+        del env["provenance"]["input"]["path"]
+        self._write_envelope(env)
+        problems = self._problems()
+        self.assertTrue(any("provenance.input.path" in p for p in problems), problems)
+
+    def test_a_manifest_pin_that_does_not_match_the_report_fails(self):
+        self._write_manifest("sha256:" + "00" * 32)
+        problems = self._problems()
+        self.assertTrue(any("pins sha256:" in p and "hashes to" in p for p in problems),
+                        problems)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

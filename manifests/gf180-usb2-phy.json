@@ -161,7 +161,7 @@
     },
     "8": {
       "file": "manifests/item8-characterization.json",
-      "content_hash": "sha256:b2502c53b9536bbe94e33289a55d4a1d3740156568ada4ed77923aab90e7439d"
+      "content_hash": "sha256:848f6c29a9becbcbcabcfe9283a134acb40250b1153f508ba02e89dee03809b1"
     },
     "9": {
       "file": "signoff/evidence/t1-item-9-testbenches.json",
