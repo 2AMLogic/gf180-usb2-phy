@@ -1382,6 +1382,34 @@ class KltDeckTests(_KltFixture):
             klt_backend.select_transport("bogus", {})
 
 
+class WorkingTreeDirtyTests(unittest.TestCase):
+    """Run output (records, snapshots, corner logs, stored-evidence manifests)
+    must not stamp a run dirty; only changes to reproducibility inputs may."""
+
+    def porcelain(self, lines):
+        return mock.patch.object(report, "_git", return_value="\n".join(lines))
+
+    def test_run_outputs_are_not_dirty(self):
+        lines = [
+            "?? sim/foo/records/20260101-000000-abc1234.md",
+            "?? sim/foo/netlist-snapshots/20260101-000000-abc1234.spice",
+            "?? sim/foo/corners/20260101-000000-abc1234/tt_27c_3.30v.log",
+            "?? manifests/artifacts/foo-20260101-000000-abc1234.manifest.json",
+        ]
+        with self.porcelain(lines):
+            self.assertFalse(report.working_tree_dirty(Path("/tmp")))
+
+    def test_input_changes_are_dirty(self):
+        for line in [
+            " M sim/harness/report.py",
+            "?? design/netlist/dplus_pullup.spice",
+            "?? layout/analog/extracted/dplus_pullup_parasitic.spice",
+            "?? manifests/README.md",
+        ]:
+            with self.porcelain([line]):
+                self.assertTrue(report.working_tree_dirty(Path("/tmp")), line)
+
+
 class RepoManifestContractTests(unittest.TestCase):
     """Audit of the repo's real benches: every one must have a supported klt route."""
 
