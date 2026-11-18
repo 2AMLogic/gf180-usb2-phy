@@ -1,6 +1,6 @@
 # se-receiver-mc — Monte Carlo for the single-ended D+/D− receivers (T1 item 6, analog)
 
-Classification and rationale: `spec/decisions/0007-analog-statistical-rows.md`
+Classification and rationale: `spec/decisions/0011-analog-statistical-rows.md`
 §4 (VIL < 0.8 V, VIH > 2.0 V; statistical, lower risk). The 45-corner matrices
 in `sim/se-receiver-dp-thresholds/` and `sim/se-receiver-dm-thresholds/` cannot
 validate a mismatch-driven row alone.
@@ -52,4 +52,4 @@ measurement in a cited report to detect its control.
 |---|---|---|
 | 2026-11-05 | throwaway `uvx --from "klayout-tools[yield]==0.9.0" klt`, `build_requests.py --n 100 --timeout-s 75`, `klt sim --dry-run --backend batch` first, then each of `dp`/`dm` x `mismatch`/`degraded`/`degraded_neg` alone with `--max-units-per-job 46 --max-concurrent-jobs 8 --wait-for-capacity 3000` (98 jobs per variant, no `--resume`, no `lost_shard`; `dp` `mismatch` first job `klt-sim-3cec53dae673`). Report sha256 (first 12): `dp` `mismatch` `aad894784917`, `degraded` `6c96b1c28032`, `degraded_neg` `9b134fe9def3`; `dm` `mismatch` `f079faa9e35b`, `degraded` `003ff93c4cfa`, `degraded_neg` `f6f4a7d3da30`. Committed yield reports in `results/20261105-n100/{dp,dm}/`. | **Campaign complete and graded `met`.** Seed 20261017, N=4500 per measurement. `mismatch`: 4500 / 4500 pass for both receivers. `degraded` and `degraded_neg`: 4500 / 4500 fail, 0 errored (the known-bad offset pushes every sample out of limits, as designed). `sample_size.verdict` `sufficient`, empirical yield 1.0 (95 % lower bound 99.918 %) on all 3 measurements per receiver; negative control `detected` on all 3 (`vth_v`, `out_at_vil` against +offset; `out_at_vih` against -offset). `klt signoff --manifest` (klt 0.8.0, the CI pin) keeps `6.analog` `met` with the four new citations. Caveats: the `control` variant (`sw_stat_mismatch = 0`) was not run, as in the differential campaign's regrade; the controls are known-bad by construction and prove the detector, not receiver margin; the 0.9 V offset was chosen from the 1.2-1.5 V measured threshold spread so every sample leaves its limits, and was probed on one local single-unit run before the fleet submit. Ratified limits are unchanged. No local grid. |
 
-Remaining after this record: the D+ pull-up row (PDK-blocked, DR-0007).
+Remaining after this record: the D+ pull-up row (PDK-blocked, DR-0011).

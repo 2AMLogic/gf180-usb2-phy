@@ -1,7 +1,8 @@
-# DR-0007 — Which analog spec rows are statistical (T1 item 6)
+# DR-0011 — Which analog spec rows are statistical (T1 item 6)
 
 - **Status**: Accepted (classification only; no spec row, bound or tolerance changes)
 - **Date**: 2026-10-17
+- **Renumbered from DR-0007**, issue #381 (see DR-0012); the body below is otherwise unchanged.
 - **Raised by**: Builder agent, issue #189
 - **Corrects**: `manifests/README.md`, which said the whole block has no
   statistical row. That is true only of the digital partition.

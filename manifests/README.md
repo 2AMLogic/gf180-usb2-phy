@@ -438,7 +438,7 @@ repo's rule that an envelope must actually support the item to be cited:
   it was held `unmet` / `no_evidence` while the pin predated that form).
   **Analog partition: statistical rows exist.** An earlier version of this
   paragraph said the whole block has none; that was wrong for the analog
-  partition. `spec/decisions/0007-analog-statistical-rows.md` classifies them:
+  partition. `spec/decisions/0011-analog-statistical-rows.md` classifies them:
   the differential and single-ended receiver thresholds (input-referred
   offset is a MOS matching quantity) and the D+ pull-up tolerance (resistor
   ladder matching; not measurable with the gf180mcuD resistor model, whose
