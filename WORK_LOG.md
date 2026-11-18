@@ -8,6 +8,12 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-18
 
+- **PR #466**: evidence: move driver-jitter 20260817 raw logs to artifact store (DR-0008 A1)
+- **PR #465**: layout: check array repetitions in origin on-grid assertion; add rotated/mirrored/array tests
+- **PR #460**: docs: renumber analog-statistical-rows record to DR-0011 and drop the DR-0007 exemption
+- **Issue #458** (closed): Origin on-grid check: no coverage for mirrored/rotated or array instances
+- **Issue #381** (closed): Operator ruling: resolve the duplicate DR-0007 allocation in spec/decisions/ (renumber the analog record to DR-0011, or keep the documented exemption)
+- **Issue #364** (closed): Migrate the 84.7 MB pre-#347 driver-jitter corner logs out of git: 95% blank table rows, 45% of the repo
 - **PR #459**: verification: retire filtered slow-corner SDF, cite as-exported SDF for item 7.digital
 - **PR #454**: refactor: replace analog-layout origin snap with a fail-on-off-grid check
 - **Issue #344** (closed): Remove origin-snap workaround from scripts/gen_analog_layout.py: pinned klt 0.9.0 places group origins on-grid (0 instances snapped in every 0.9.0 run)
