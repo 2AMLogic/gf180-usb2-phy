@@ -69,7 +69,7 @@ Issues carrying `loom:curated`.
 
 ## Epics
 
-- **#3**: Track the gap to T1 sim-validated / bronze (klayout-tools design-evidence tiers)
+- **#3**: Track the gap to T1 sim-validated / bronze (klayout-tools design-evidence tiers) *(held)*
 
 ## Backlog Balance
 
