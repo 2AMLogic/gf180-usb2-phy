@@ -438,7 +438,7 @@
     },
     {
       "path": "sim/harness/evidence_store.py",
-      "sha256": "sha256:943fed96ef3a1f8739f85f2868f6ef7e8898a18cef94696ddb4a72e9bfe65bae"
+      "sha256": "sha256:8dea210f8609f7d49b33ce0ec16ad415f7e05b1ee9e4bc05c2defdbc775d75cc"
     },
     {
       "path": "sim/harness/klt_backend.py",
@@ -490,7 +490,7 @@
     },
     {
       "path": "sim/tests/test_evidence_store.py",
-      "sha256": "sha256:0469f337fe49d819d8ceb9f7a209dc69fe3dd1b8c2917a60efd8193304e804e1"
+      "sha256": "sha256:dbec00360479c59f137559530559c035c58383bea67e12afca423deae9abe8a4"
     },
     {
       "path": "sim/tests/test_fixed_trim.py",
