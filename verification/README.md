@@ -392,7 +392,9 @@ verification/records/
   - `analog-lvs` (issues #345, #346, #361) — transistor-level LVS of the five
     committed analog streams (`layout/analog/*.gds`) against their schematic
     netlists (`design/netlist/<block>.spice`, `form: "subckt-call"`), via
-    `scripts/analog_lvs.py`. The first record (#345) measured **five
+    `scripts/analog_lvs.py`. That harness is **not standalone**: it imports
+    `scripts/analog_common.py` (issue #380), so replaying a frozen record
+    needs both files present. The first record (#345) measured **five
     mismatches** and named the cause per block — untied PMOS n-wells, an
     untied p-substrate, and a labelled port set that was not the schematic's
     — each read off the compare's own extracted netlist rather than
@@ -480,7 +482,9 @@ verification/records/
   - `analog-erc` (issue #248) — the same `klt erc` supply read for the
     **analog** partition: one run per committed stream against its own
     `layout/analog/erc-supply-spec-<block>.json`, via
-    `scripts/analog_erc.py`. All five report `erc_status: "clean"`, zero
+    `scripts/analog_erc.py` (not standalone either: it imports
+    `scripts/analog_common.py`, issue #380, so a replay needs both files
+    present). All five report `erc_status: "clean"`, zero
     findings, one labelled island per declared supply, and — unlike the
     digital spec above — **both** ties *checked* rather than omitted: the
     drawn n-well tap (`Comp ∩ Nplus` → the positive rail) and, because

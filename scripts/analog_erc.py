@@ -111,6 +111,12 @@ requires a matching committed spec for each, and writes its artifacts to
 `layout/analog/erc/` (gitignored scratch -- the frozen copies live under
 `verification/records/analog-erc/`).
 
+**Not standalone**: `sh()`, `sha256()`, `discover_blocks()` and the
+`REPO_ROOT`/`DECK` constants live in `scripts/analog_common.py` (issue
+#380), imported here and by `scripts/analog_lvs.py` so this script's
+`grade_lvs_pairing()` and the LVS harness can never enumerate different
+block sets. Replaying a frozen record needs both files present.
+
 **Exit status is 0 only when every block's verdict passes every gate above**,
 including the negative control and the LVS supply pairing. Any violation, any
 skipped tie, any drifted spec and any tool failure is non-zero.
@@ -120,12 +126,11 @@ from __future__ import annotations
 
 import argparse
 import glob
-import hashlib
 import json
 import os
-import subprocess
 import sys
 
+from analog_common import DECK, REPO_ROOT, discover_blocks, sh, sha256
 from klt_resolve import (
     KltVersionError,
     klt_argv,
@@ -133,8 +138,6 @@ from klt_resolve import (
     require_pinned_klt_version,
 )
 
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DECK = "gf180mcu"
 GDS_DIR = "layout/analog"
 OUT_DIR = "layout/analog/erc"
 PROVENANCE = "layout/analog/provenance.json"
@@ -184,30 +187,6 @@ SUBSTRATE_TIE = "substrate_neg_tap"
 
 class HarnessError(Exception):
     """A precondition of the run is unmet (spec drift, missing input)."""
-
-
-def sh(cmd: list[str], cwd: str) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, check=False)
-
-
-def sha256(path: str) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as fh:
-        for chunk in iter(lambda: fh.read(1 << 20), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
-def discover_blocks(gds_dir: str) -> list[str]:
-    """Block names from the committed streams, sorted, never hard-coded.
-
-    The same glob `scripts/analog_lvs.py` uses, for the same reason: #339 may
-    merge the two single-ended receivers and later work may add streams.
-    """
-    return sorted(
-        os.path.splitext(os.path.basename(p))[0]
-        for p in glob.glob(os.path.join(gds_dir, "*.gds"))
-    )
 
 
 def spec_path(block: str) -> str:

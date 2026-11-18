@@ -64,6 +64,12 @@ requires a matching `design/netlist/<block>.spice` for each, and writes its
 artifacts to `layout/analog/lvs/` (gitignored scratch -- the frozen copies
 live under `verification/records/analog-lvs/`).
 
+**Not standalone**: `sh()`, `sha256()`, `discover_blocks()` and the
+`REPO_ROOT`/`DECK` constants live in `scripts/analog_common.py` (issue
+#380), imported here and by `scripts/analog_erc.py` so the two harnesses
+can never enumerate different block sets. Replaying a frozen record needs
+both files present.
+
 **Exit status is 0 only when every block reports `status: "match"`.** Any
 mismatch, any missing reference netlist, and any tool failure is non-zero.
 """
@@ -71,15 +77,13 @@ mismatch, any missing reference netlist, and any tool failure is non-zero.
 from __future__ import annotations
 
 import argparse
-import glob
-import hashlib
 import json
 import os
 import re
 import shutil
-import subprocess
 import sys
 
+from analog_common import DECK, REPO_ROOT, discover_blocks, sh, sha256
 from klt_resolve import (
     KltVersionError,
     klt_argv,
@@ -87,8 +91,6 @@ from klt_resolve import (
     require_pinned_klt_version,
 )
 
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DECK = "gf180mcu"
 #: `klt extract` names a net it found no label for `$<n>`, which the SPICE
 #: writer escapes as `\$<n>`. Such a net exists in the geometry but has no
 #: name of its own, so it can never correspond to a reference net by name.
@@ -102,30 +104,6 @@ def _is_number(token: str) -> bool:
     except ValueError:
         return False
     return True
-
-
-def sh(cmd: list[str], cwd: str) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, check=False)
-
-
-def sha256(path: str) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as fh:
-        for chunk in iter(lambda: fh.read(1 << 20), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
-def discover_blocks(gds_dir: str) -> list[str]:
-    """Block names from the committed streams, sorted, never hard-coded.
-
-    #339 may merge the two single-ended receivers and #252-style work may add
-    streams; both are picked up by this glob with no edit here.
-    """
-    return sorted(
-        os.path.splitext(os.path.basename(p))[0]
-        for p in glob.glob(os.path.join(gds_dir, "*.gds"))
-    )
 
 
 def lvs_request(block: str) -> dict:
