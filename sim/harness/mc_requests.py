@@ -2,7 +2,7 @@
 """The `klt sim` Monte Carlo request shape both receiver MC campaigns share.
 
 `sim/diff-receiver-mc/` and `sim/se-receiver-mc/` express their statistical
-rows (spec/decisions/0007-analog-statistical-rows.md) as `monte_carlo` `klt
+rows (spec/decisions/0011-analog-statistical-rows.md) as `monte_carlo` `klt
 sim` requests. The two campaigns test different spec rows against different
 testbenches, but the *request* -- the corner matrix, the measurement mapping,
 the `monte_carlo` block -- and the *deck layout* around the testbench fragment

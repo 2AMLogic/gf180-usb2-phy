@@ -966,7 +966,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:fbcbd89c8588e60ecec1ed3718e0673067b8830fac4848cd04710876d05dec0b",
+        "content_hash": "sha256:55774f0ce2ad7d072d85b662ac4c87977e4e4c5a983db0aa16149a3297c21da6",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -975,7 +975,7 @@
             "path": "signoff/evidence/inventory-testbenches.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:fbcbd89c8588e60ecec1ed3718e0673067b8830fac4848cd04710876d05dec0b",
+          "content_hash": "sha256:55774f0ce2ad7d072d85b662ac4c87977e4e4c5a983db0aa16149a3297c21da6",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 12 cocotb tests mapped to 16 klt functional-verification requests, 9 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-testbenches.json"
@@ -997,7 +997,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:fbcbd89c8588e60ecec1ed3718e0673067b8830fac4848cd04710876d05dec0b",
+        "content_hash": "sha256:55774f0ce2ad7d072d85b662ac4c87977e4e4c5a983db0aa16149a3297c21da6",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -1006,7 +1006,7 @@
             "path": "signoff/evidence/inventory-testbenches.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:fbcbd89c8588e60ecec1ed3718e0673067b8830fac4848cd04710876d05dec0b",
+          "content_hash": "sha256:55774f0ce2ad7d072d85b662ac4c87977e4e4c5a983db0aa16149a3297c21da6",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 12 cocotb tests mapped to 16 klt functional-verification requests, 9 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-testbenches.json"
@@ -1028,7 +1028,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:7f7413de5f40962ee169d9cc995d992b8c482ca8a7216817f33dacddec8a08d5",
+        "content_hash": "sha256:5589c0fe4b67feca6e8043eae47523badf86752979603c04429466a1ec1f6306",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -1037,7 +1037,7 @@
             "path": "signoff/evidence/inventory-repo-hygiene.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:7f7413de5f40962ee169d9cc995d992b8c482ca8a7216817f33dacddec8a08d5",
+          "content_hash": "sha256:5589c0fe4b67feca6e8043eae47523badf86752979603c04429466a1ec1f6306",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 10 (Repo hygiene): .github/workflows/ci.yml, LICENSE, README.md, docs/environment-setup.md, package.json, spec/usb2-device-phy.md with the stated assertions. Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-repo-hygiene.json"
@@ -1059,7 +1059,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:7f7413de5f40962ee169d9cc995d992b8c482ca8a7216817f33dacddec8a08d5",
+        "content_hash": "sha256:5589c0fe4b67feca6e8043eae47523badf86752979603c04429466a1ec1f6306",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -1068,7 +1068,7 @@
             "path": "signoff/evidence/inventory-repo-hygiene.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:7f7413de5f40962ee169d9cc995d992b8c482ca8a7216817f33dacddec8a08d5",
+          "content_hash": "sha256:5589c0fe4b67feca6e8043eae47523badf86752979603c04429466a1ec1f6306",
           "input_verified": true,
           "summary": "Audited inventory for T1 item 10 (Repo hygiene): .github/workflows/ci.yml, LICENSE, README.md, docs/environment-setup.md, package.json, spec/usb2-device-phy.md with the stated assertions. Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
           "source": "signoff/evidence/inventory-repo-hygiene.json"

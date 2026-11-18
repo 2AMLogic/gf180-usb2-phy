@@ -1,8 +1,32 @@
 # Statistical claims (T1 item 6) — digital partition: not applicable
 
-<!-- statistical-na: spec_sha256=b3477b0669fb2d3d802d9a9594baf7f9974055ab35b770b40b4a98dd9cb5f4d9 -->
+<!-- statistical-na: spec_sha256=c35a12ba9f5a83c3b7c7ca0a648395d64a1b4ae66371f4c050206c61f15e1d08 -->
 
-## Current statement (2026-11-14) — supersedes the statements of record below
+## Current statement (2026-11-18) — supersedes the statements of record below
+
+**Why superseded.** Issue #381 renumbered the analog-statistical-rows record
+from DR-0007 to DR-0011 and added DR-0012 (`spec/decisions/0012-renumber-analog-statistical-rows-record.md`).
+That edited §12.1 of `spec/usb2-device-phy.md` (the analog row, a new DR-0012
+row, the harness-counter row's cross-reference, and the paragraph under the
+table), changing the spec's SHA-256 from `b3477b06…` to `c35a12ba…`. The binding
+check (`verification/check_statistical_na.py`) refuses a pin that no longer
+matches, so the statement is re-read and re-pinned here.
+
+**Re-read result.** The statement below still holds. Only §12.1 changed (the
+index rows above and the prose under the table); §4, §5, §7 and §8.2 are
+byte-identical. No digital row was added and no row whose pass/fail depends on
+a random device parameter. The digital partition still has no statistical row.
+(Analog statistical rows remain classified by
+`spec/decisions/0011-analog-statistical-rows.md`, renumbered from DR-0007;
+its classification is unchanged.)
+
+**Binding.** The marker on line 3 pins the SHA-256 of the spec as changed by
+issue #381. If the spec changes again, this statement must be re-read and
+superseded the same way.
+
+## Superseded statement (2026-11-14, pinned to spec_sha256 b3477b06…) — kept as history
+
+Its marker is shown as plain text (`spec_sha256=b3477b0669fb2d3d802d9a9594baf7f9974055ab35b770b40b4a98dd9cb5f4d9`) so the checker sees exactly one live marker. Its body follows unchanged.
 
 **Why superseded.** Issue #378 completed the §12.1 decision-record index of
 `spec/usb2-device-phy.md` from 3 rows to all 11 records on disk, and added a
