@@ -4,10 +4,12 @@
 These cases pin the contracts the item-11.analog claim rests on without
 running klt, klayout or the PDK, so they run in CI:
 
-  * **stream discovery** comes from the committed ``*.gds`` glob, never a
-    hard-coded block list, and the supply names come from
-    ``layout/analog/provenance.json`` -- so ``dplus_pullup``'s ``VPU_REG``
-    needs no special case and a renamed rail cannot be missed;
+  * **stream discovery** comes from the committed ``*.gds`` glob via the
+    shared ``scripts/analog_common.py`` (issue #380) -- its contract is
+    characterised once, in ``scripts/test_analog_common.py`` -- and the
+    supply names come from ``layout/analog/provenance.json`` -- so
+    ``dplus_pullup``'s ``VPU_REG`` needs no special case and a renamed
+    rail cannot be missed;
   * **the spec shape** declares what the item requires and nothing that
     would weaken it: both supplies ``kind: "supply"``, a narrowed n-well tap
     (never ``tap_is_dedicated``), an asserted substrate region, and no
@@ -86,12 +88,6 @@ def _good_census() -> dict:
 
 
 class TestDiscovery(unittest.TestCase):
-    def test_blocks_come_from_the_committed_streams(self):
-        blocks = aerc.discover_blocks(str(ROOT / aerc.GDS_DIR))
-        self.assertEqual(blocks, sorted(blocks))
-        self.assertIn("dplus_pullup", blocks)
-        self.assertTrue(blocks, "no committed analog streams found")
-
     def test_every_stream_has_a_committed_spec(self):
         for block in aerc.discover_blocks(str(ROOT / aerc.GDS_DIR)):
             self.assertTrue(

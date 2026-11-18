@@ -4,9 +4,9 @@
 These cases pin the contracts the harness's result depends on without
 running klt or the PDK, so they run in CI:
 
-  * **stream discovery** comes from the committed ``*.gds`` glob, never a
-    hard-coded block list (#339 may merge the two single-ended receivers),
-    is sorted, and is not confused by sibling files;
+  * **stream discovery** comes from the committed ``*.gds`` glob via the
+    shared ``scripts/analog_common.py`` (issue #380) -- its contract is
+    characterised once, in ``scripts/test_analog_common.py``;
   * **a missing reference netlist fails loudly** before any tool runs,
     rather than silently skipping the block;
   * **the request shape** is the one the 2026-10-09 analog record
@@ -76,27 +76,6 @@ LVS_KEPT_SPICE = LAYOUT_SPICE.replace(
     "X$3 \\$3 VDD vsubs ppolyf_u_1k r=200000 L=400U W=2U",
     "R$3 \\$3 VDD vsubs 200000 ppolyf_u_1k",
 )
-
-
-class DiscoverBlocks(unittest.TestCase):
-    def test_discovers_from_gds_glob_sorted(self):
-        with tempfile.TemporaryDirectory() as d:
-            for name in ("zeta.gds", "alpha.gds", "mid.gds"):
-                Path(d, name).write_bytes(b"")
-            # Sibling files that are not streams must not become blocks.
-            Path(d, "alpha.json").write_text("{}")
-            Path(d, "notes.md").write_text("x")
-            self.assertEqual(alvs.discover_blocks(d), ["alpha", "mid", "zeta"])
-
-    def test_empty_dir_yields_no_blocks(self):
-        with tempfile.TemporaryDirectory() as d:
-            self.assertEqual(alvs.discover_blocks(d), [])
-
-    def test_block_list_is_not_hard_coded(self):
-        """A merged/renamed stream is picked up with no edit to the script."""
-        with tempfile.TemporaryDirectory() as d:
-            Path(d, "se_receiver_merged.gds").write_bytes(b"")
-            self.assertEqual(alvs.discover_blocks(d), ["se_receiver_merged"])
 
 
 class MissingReferenceFailsLoudly(unittest.TestCase):
