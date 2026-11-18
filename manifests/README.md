@@ -455,9 +455,9 @@ repo's rule that an envelope must actually support the item to be cited:
   replayed through `klt functional-verification` against the routed netlist,
   the PDK cell models and the post-route SDF at the slow corner
   `ss_125C_1v62` (`options.sdf`, `environment.sdf.annotated: true`):
-  `verification/records/post-layout-functional/artifacts/20261015-040000-963c79c/response-gate-sdf-ss_125C_1v62-filtered-klt-0.7.1.dev472.json`,
-  111/111 pass (record `post-layout-functional/20261015-040000-963c79c`,
-  issue #93). A `klt functional-verification` response carries no
+  `verification/records/post-layout-functional/artifacts/20261118-220000-9c307a3/response-gate-sdf-ss_125C_1v62-klt-0.9.0.json`,
+  111/111 pass (record `post-layout-functional/20261118-220000-9c307a3`,
+  issues #93, #331). A `klt functional-verification` response carries no
   `provenance` block, so the entry has **no `content_hash`** (a pinned one
   would render `unverifiable_provenance`); the layout, SDF, test and request
   hashes are pinned in the record, where `verification/check_records.py`
@@ -467,17 +467,12 @@ repo's rule that an envelope must actually support the item to be cited:
   Icarus cannot elaborate their `ifnone` edge-only paths, and every
   TIMINGCHECK section dropped because Icarus implements none), so it is a
   functional check against annotated cell delays, not a setup/hold signoff;
-  and one zero-delay `INTERCONNECT` entry was deleted from the SDF before the
-  replay to pass klt's annotation gate (klayout-tools#2984, open; the raw
-  SDF and the refused run are archived next to it). The negative control
-  (same suite, 30 ns clock) fails 48/111 on functional assertions while the
-  zero-delay replay at 30 ns passes. The replay needs klt at or after
-  klayout-tools `bc386fb` (the #2885 fix); the pin
-  at the time (`e8ca621a`) rendered the signoff report correctly but could not
-  replay the SDF (53 diagnostics). Issue #188 moved the pin to `7ee09483`,
-  which is past `bc386fb`; the replay was not re-run against it.
-  The slow-corner SDF was produced outside klt from klt's generated
-  OpenSTA script (klayout-tools#2886, open). **Item 7.analog stays
+  the SDF is annotated exactly as exported (no hand edit). The negative
+  control (same suite, 30 ns clock) fails 48/111 on functional assertions
+  while the zero-delay replay at 30 ns passes. The replay was minted under
+  the repo-pinned klt 0.9.0. The slow-corner SDF was produced outside klt
+  from klt's generated OpenSTA script (whether the pinned klt can export it
+  directly is untested). **Item 7.analog stays
   `unmet`/`no_evidence`**: the five analog streams are committed under
   `layout/analog/` and parasitic extraction has been probed on one of them
   (`differential_receiver`, one corner — record `20261115-180500-5279711`,

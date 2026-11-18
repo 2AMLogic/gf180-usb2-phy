@@ -235,23 +235,17 @@ list in issue #328).
   RTL-only. Passes 5/5.
 - `request-usb-utmi-phy-gate-sdf-ss.json` — the same suite with
   `options.sdf` set to the slow-corner (`ss_125C_1v62`, Icarus `-T max`) SDF
-  `records/post-layout-functional/artifacts/20261015-040000-963c79c/usb_utmi_phy_route_ss_125C_1v62.filtered.sdf`.
-  **This is the item-7 request**: 111/111 pass, `environment.sdf.annotated:
-  true`, `partial: true` (52 `ifnone` edge-only IOPATH entries and all 68
-  TIMINGCHECK sections dropped; see the record). It needs klt at or after
-  klayout-tools `bc386fb` (the #2885 fix), which the repo pin does not have;
-  replay it from a throwaway venv, not the host tool:
-  `uv venv -p 3.12 /tmp/klt-sdf && VIRTUAL_ENV=/tmp/klt-sdf uv pip install
-  "klayout-tools @ git+https://github.com/2AMLogic/klayout-tools@0258b255c21c1f46da63d23bde193cca4d61dd2d"
-  cocotb==2.0.1` (CI does not run it, so the repo pin is unchanged).
-  `request-usb-utmi-phy-gate-sdf-ss-unfiltered.json` is the same request on
-  the SDF exactly as exported; klt refuses it with one `Could not find
-  intermodpath!` (an all-zero `INTERCONNECT OpMode[0] _203_.A2` entry,
-  klayout-tools#2984). The filtered SDF is that file with that one line
-  deleted. How the slow-corner SDF is made: replay the OpenSTA script that
-  `klt place-and-route` generates for the post-route SPEF session with only
-  `read_liberty` swapped to the ss library (`write-sdf-ss_125C_1v62.tcl` in
-  the artifacts; klt has no route for this, klayout-tools#2886).
+  exactly as exported,
+  `records/post-layout-functional/artifacts/20261015-040000-963c79c/usb_utmi_phy_route_ss_125C_1v62.sdf`.
+  **This is the item-7 request**: 111/111 pass under the repo-pinned klt,
+  `environment.sdf.annotated: true`, `partial: true` (52 `ifnone` edge-only
+  IOPATH entries and 68 TIMINGCHECK sections dropped, plus 14 zero-delay
+  INTERCONNECT entries klt reports; see record
+  `post-layout-functional/20261118-220000-9c307a3`). The slow-corner SDF is
+  made by replaying the OpenSTA script that `klt place-and-route` generates
+  for the post-route SPEF session with only `read_liberty` swapped to the ss
+  library (`write-sdf-ss_125C_1v62.tcl` in the artifacts); whether the pinned
+  klt can export it directly has not been tested.
 - Negative control: `USB_UTMI_PHY_TB_CLK_PERIOD_PS=30000 klt
   functional-verification verification/request-usb-utmi-phy-gate-sdf-ss.json`
   fails 48/111 on functional assertions (60 ns passes, 45 ns fails 53); the
@@ -260,8 +254,8 @@ list in issue #328).
   if the transcript shows a built, annotated run and the failures are
   assertions; an annotation or elaboration error is not a detection.
 - `request-usb-utmi-phy-gate-sdf-tt.json` — the nominal-corner request on
-  the unfiltered nominal SDF of the #131 layout; it is refused by the same
-  one-entry gate and was not re-run. The pre-#131 request
+  the nominal SDF of the #131 layout, as exported; passes 111/111 annotated
+  (record `post-layout-functional/20261118-220000-9c307a3`). The pre-#131 request
   `request-usb-utmi-phy-gate-sdf.json` (superseded layout
   `20261008-211700-2875d57`) was removed; its records are frozen history.
 - Cell models are not vendored. Stage them first (gitignored dir):
@@ -435,10 +429,11 @@ verification/records/
     later `analog-layout` records (e.g. `20261115-175500-5279711`).
   - `post-layout-functional` (issue #93) — the gate-level, SDF-annotated
     regression behind T1 item `7.digital`. The early records are **negative
-    results** (the pinned `klt` rejected the SDF annotation,
-    klayout-tools#2885); `20261015-040000-963c79c` is the passing slow-corner
-    annotated replay (111/111), with its negative control, the refused raw-SDF
-    run and the one-line SDF filter all archived. Annotation is partial (see
+    results** (the then-pinned `klt` rejected the SDF annotation,
+    klayout-tools#2885); `20261118-220000-9c307a3` is the current passing
+    slow-corner annotated replay (111/111) on the SDF as exported, under the
+    repo-pinned klt, with its negative control; the earlier records, including
+    the filtered-SDF replay and the refused raw-SDF run, are frozen history. Annotation is partial (see
     that record) and the row is a functional, not a timing, claim.
   - `post-layout-pvt` (issues #51/#53) — the digital half of post-layout
     (extracted-parasitic) timing re-verification: a `klt extract
