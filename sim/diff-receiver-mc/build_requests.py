@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Emit `klt sim` Monte Carlo requests for the differential-receiver rows.
 
-Statistical row classified in spec/decisions/0007-analog-statistical-rows.md:
+Statistical row classified in spec/decisions/0011-analog-statistical-rows.md:
 the §4 differential input sensitivity (|D+ - D-| > 200 mV over a 0.8-2.5 V
 common-mode range) is decided by MOS-pair mismatch, so the 45-corner matrix
 alone cannot validate it. This script expresses the Monte Carlo campaign as

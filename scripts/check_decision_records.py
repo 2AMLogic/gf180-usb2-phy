@@ -13,9 +13,9 @@ Three properties over the *tracked* files in ``spec/decisions/``
 (``git ls-files``, so an untracked scratch file cannot change the verdict):
 
   * **(a) unique numbers** — each ``NNNN`` filename prefix is used by exactly
-    one record, with one documented historical exemption
-    (``DUPLICATE_PREFIX_EXEMPTION`` below). Any other collision fails,
-    including a third file joining the exempt pair.
+    one record, with no exemption. (DR-0007 was once allocated twice; the
+    analog-statistical-rows record was renumbered DR-0011 by DR-0012,
+    issue #381, so the exemption that carried the pair is gone.)
   * **(b) H1 agreement** — each record's ``# DR-NNNN`` H1 matches its own
     filename prefix.
   * **(c) index completeness** — every record has exactly one row in §12.1,
@@ -46,29 +46,6 @@ from pathlib import Path
 RECORDS_DIR = "spec/decisions"
 SPEC = "spec/usb2-device-phy.md"
 HEADING = "### 12.1 Post-ratification decision records"
-
-# --- property (a)'s one exemption -----------------------------------------
-# A historical collision, not a loosened rule: DR-0007 was allocated twice
-# while §12.1 listed only DR-0001, so these two *different* decisions both
-# ship an H1 reading "# DR-0007". Both are already cited in the wild by the
-# abbreviated "DR-0007" form, and
-# `0007-retire-bootstrap-harness-counter.md` cannot be renamed at all — two
-# frozen append-only evidence records cite it by path
-# (verification/records/functional-smoke/records/20261020-033000-4be8f5b.md:58
-# and verification/records/synthesis-smoke/records/20261020-033001-4be8f5b.md:72),
-# and `verification/check_records.py --require-append-only` enforces that in
-# CI. Resolving the collision is therefore an operator ruling, open as
-# **issue #381** (renumber the analog record to DR-0011 / keep this exemption
-# permanently / renumber the harness-counter record). Whichever way #381
-# rules, this constant is what it removes or makes permanent.
-#
-# The exemption is SINGLE-ENTRY: it names exactly this pair of paths. It is
-# matched as a set, so a third `0007-*` record — or any other duplicated
-# prefix — still fails property (a).
-DUPLICATE_PREFIX_EXEMPTION = frozenset({
-    f"{RECORDS_DIR}/0007-analog-statistical-rows.md",
-    f"{RECORDS_DIR}/0007-retire-bootstrap-harness-counter.md",
-})
 
 RECORD_NAME_RE = re.compile(r"^(\d{4})-.+\.md$")
 H1_RE = re.compile(r"^#\s+DR-(\d{4})\b")
@@ -138,7 +115,7 @@ def check(root: Path) -> list[str]:
     records, _ = tracked_records(root)
     errs: list[str] = []
 
-    # --- (a) unique NNNN prefix, modulo the single-entry exemption
+    # --- (a) unique NNNN prefix, no exemption
     by_prefix: dict[str, list[str]] = {}
     for path in records:
         prefix = RECORD_NAME_RE.match(path.rsplit("/", 1)[-1]).group(1)
@@ -146,15 +123,10 @@ def check(root: Path) -> list[str]:
     for prefix, paths in sorted(by_prefix.items()):
         if len(paths) == 1:
             continue
-        if frozenset(paths) == DUPLICATE_PREFIX_EXEMPTION:
-            continue
         errs.append(
             f"(a) DR-{prefix} is allocated to {len(paths)} records: "
             + ", ".join(paths)
-            + " — allocate the next free number instead; the only exempt "
-              "collision is the historical pair "
-            + ", ".join(sorted(DUPLICATE_PREFIX_EXEMPTION))
-            + " (see issue #381)")
+            + " — allocate the next free number instead")
 
     # --- (b) H1 agrees with the filename prefix
     for path in records:

@@ -37,15 +37,6 @@ ENV = {
     "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_SYSTEM": os.devnull,
 }
 
-# The two paths the checker exempts from property (a). Named here rather than
-# imported so that emptying or widening the constant in the checker shows up
-# as a test failure instead of being silently mirrored.
-EXEMPT_PAIR = (
-    "0007-analog-statistical-rows.md",
-    "0007-retire-bootstrap-harness-counter.md",
-)
-
-
 class Fixture(unittest.TestCase):
     """A throwaway repo with a `spec/` tree the fixtures mutate."""
 
@@ -134,19 +125,8 @@ class RealTree(unittest.TestCase):
     def test_real_tree_passes(self):
         self.assertEqual(cdr.check(ROOT), [])
 
-    def test_real_tree_exemption_is_exactly_the_known_pair(self):
-        self.assertEqual(
-            cdr.DUPLICATE_PREFIX_EXEMPTION,
-            frozenset(f"{cdr.RECORDS_DIR}/{n}" for n in EXEMPT_PAIR))
-        for path in cdr.DUPLICATE_PREFIX_EXEMPTION:
-            self.assertTrue((ROOT / path).is_file(), f"{path} is gone")
-
-    def test_real_tree_exemption_is_self_documenting(self):
-        """Reading the checker must tell you what the exemption is and why."""
-        src = (ROOT / "scripts" / "check_decision_records.py").read_text()
-        head = src.split("RECORD_NAME_RE", 1)[0]
-        for needle in (*EXEMPT_PAIR, "#381", "historical", "SINGLE-ENTRY"):
-            self.assertIn(needle, head)
+    def test_real_tree_has_no_exemption_constant(self):
+        self.assertFalse(hasattr(cdr, "DUPLICATE_PREFIX_EXEMPTION"))
 
 
 class Conforming(Fixture):
@@ -163,7 +143,7 @@ class Conforming(Fixture):
 
 
 class PropertyA(Fixture):
-    """(a) the NNNN prefix is unique, modulo one single-entry exemption."""
+    """(a) the NNNN prefix is unique, with no exemption."""
 
     def test_unique_prefixes_pass(self):
         self.conforming()
@@ -178,32 +158,15 @@ class PropertyA(Fixture):
         self.assertFails("a", "DR-0002", "0002-second.md",
                          "0002-also-second.md")
 
-    def test_the_exempt_0007_pair_passes(self):
-        names = ["0001-first.md", *EXEMPT_PAIR]
+    def test_two_0007_records_now_fail_with_no_exemption(self):
+        names = ["0001-first.md", "0007-analog-statistical-rows.md",
+                 "0007-retire-bootstrap-harness-counter.md"]
         for n in names:
             self.record(n)
         self.index(*names)
         self.track()
-        self.assertPasses()
-
-    def test_a_third_0007_record_fails_with_the_exemption_in_place(self):
-        """The exemption is single-entry: it is a set of two exact paths."""
-        names = ["0001-first.md", *EXEMPT_PAIR, "0007-synthetic-third.md"]
-        for n in names:
-            self.record(n)
-        self.index(*names)
-        self.track()
-        hits = self.assertFails("a", "DR-0007", "0007-synthetic-third.md")
-        self.assertTrue(any("3 records" in h for h in hits), hits)
-
-    def test_half_the_exempt_pair_plus_a_stranger_fails(self):
-        """A near-miss set must not inherit the pair's exemption."""
-        names = ["0001-first.md", EXEMPT_PAIR[0], "0007-impostor.md"]
-        for n in names:
-            self.record(n)
-        self.index(*names)
-        self.track()
-        self.assertFails("a", "DR-0007", "0007-impostor.md")
+        self.assertFails("a", "DR-0007", "0007-analog-statistical-rows.md",
+                         "0007-retire-bootstrap-harness-counter.md")
 
     def test_a_collision_on_another_number_is_never_exempt(self):
         names = ["0003-a.md", "0003-b.md"]
@@ -241,11 +204,12 @@ class PropertyB(Fixture):
         self.track()
         self.assertFails("b", "file is empty")
 
-    def test_both_live_0007_h1s_already_match_their_prefixes(self):
-        """Property (b) holds on the real tree unchanged (issue #378 AC)."""
-        for name in EXEMPT_PAIR:
+    def test_live_0007_and_0011_h1s_match_their_prefixes(self):
+        """Property (b) holds on the real tree after the renumbering."""
+        for name, num in (("0007-retire-bootstrap-harness-counter.md", "0007"),
+                          ("0011-analog-statistical-rows.md", "0011")):
             first = (ROOT / cdr.RECORDS_DIR / name).read_text().splitlines()[0]
-            self.assertRegex(first, r"^# DR-0007\b")
+            self.assertRegex(first, rf"^# DR-{num}\b")
 
 
 class PropertyC(Fixture):

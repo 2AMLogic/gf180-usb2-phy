@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Emit `klt sim` Monte Carlo requests for the single-ended D+/D- receiver rows.
 
-Statistical row classified in spec/decisions/0007-analog-statistical-rows.md
+Statistical row classified in spec/decisions/0011-analog-statistical-rows.md
 (§4): the single-ended thresholds VIL < 0.8 V / VIH > 2.0 V depend on the
 input-stage MOS mismatch, so the 45-corner matrix alone cannot validate them.
 This script expresses the Monte Carlo campaign as `klt sim` requests

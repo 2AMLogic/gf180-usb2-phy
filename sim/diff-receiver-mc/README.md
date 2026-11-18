@@ -1,6 +1,6 @@
 # diff-receiver-mc — Monte Carlo for the differential receiver (T1 item 6, analog)
 
-Classification and rationale: `spec/decisions/0007-analog-statistical-rows.md`.
+Classification and rationale: `spec/decisions/0011-analog-statistical-rows.md`.
 The §4 differential input sensitivity is decided by MOS-pair mismatch, so the
 45-corner matrix in `sim/diff-receiver-sensitivity/` cannot validate it alone.
 
@@ -47,7 +47,7 @@ compared volts with +/-200 (mV) limits, so the threshold rows could not fail,
 and its negative control was better than nominal. The re-run uses corrected
 limits and known-bad controls; `klt signoff` (klt 0.8.0, the CI pin, and
 0.9.0) renders `6.analog` `met`. **Scope: the differential-receiver rows only.**
-Pull-up and single-ended rows are not covered (DR-0007; #212). No local grid.
+Pull-up and single-ended rows are not covered (DR-0011; #212). No local grid.
 Attempts, newest first (append-only; N=100, 4500 units per variant unless noted):
 
 | date | submission | outcome |
@@ -82,4 +82,4 @@ What the next attempt has to respect:
 
 Remaining after this record: `6.digital` (cite once the pinned grader renders the
 "not applicable" outcome), the single-ended receiver rows (#212) and the D+
-pull-up row (PDK-blocked, DR-0007).
+pull-up row (PDK-blocked, DR-0011).
