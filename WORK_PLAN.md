@@ -65,7 +65,6 @@ Issues carrying `loom:curated`.
 - **#360**: Remove the inert ciel-symlink mount block from scripts/openroad-docker.sh: the guard never fires, and the mount it adds is the wrong path *(hermit)* *(held)*
 - **#364**: Migrate the 84.7 MB pre-#347 driver-jitter corner logs out of git: 95% blank table rows, 45% of the repo *(hermit)* *(held)*
 - **#372**: Split scripts/gen_analog_layout.py: extract the 335-LOC scripted-routing layer, delete the dead BULK_TERMINAL constant *(hermit)* *(held)*
-- **#380**: Deduplicate the byte-identical sh/sha256/discover_blocks helpers shared by scripts/analog_erc.py and scripts/analog_lvs.py *(hermit)* *(held)*
 - **#385**: Wire scripts/test_analog_lvs.py into npm run lint: the only self-test in the repo CI never runs *(hermit)* *(held)*
 
 ## Epics
@@ -84,6 +83,6 @@ Issues carrying `loom:curated`.
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
 | Curated | 3 |
-| Architect / Hermit proposals | 12 |
+| Architect / Hermit proposals | 11 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
