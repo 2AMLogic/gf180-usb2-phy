@@ -3,7 +3,7 @@
   "kind": "generic",
   "t1_item": 9,
   "status": "pass",
-  "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 12 cocotb tests mapped to 17 klt functional-verification requests, 9 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
+  "summary": "Audited inventory for T1 item 9 (Testbenches shipped): 12 cocotb tests mapped to 16 klt functional-verification requests, 9 analog sim/ experiments with their testbench files, the cold-start invocations and the klt/cocotb/PDK pins (the analog benches need ngspice and the PDK; not run in CI). Every member file is listed with its sha256 and signoff/check.py re-derives the inventory from the live tree, so the bound hash proves the inventory is current and the member hashes prove the files it describes are. It does not run a simulation, a synthesis or a flow, and re-derives no measured value. Gates that need xschem, the gf180mcu PDK, yosys or OpenROAD are not run by signoff/check.py or by the PDK-free CI job; they are named in the inventory, not claimed as having run.",
   "source": "signoff/evidence/inventory-testbenches.json",
   "provenance": {
     "klt_version": null,
@@ -15,7 +15,7 @@
         "path": "signoff/evidence/inventory-testbenches.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:c639475d7125b4e5907d6a606cde8aeb74c0d56faadfe61bca66367421f00454"
+      "content_hash": "sha256:d2710bc6a0b7cea02e6a3e46afab37e60a07d4bd9974783f76f5816104230821"
     }
   }
 }

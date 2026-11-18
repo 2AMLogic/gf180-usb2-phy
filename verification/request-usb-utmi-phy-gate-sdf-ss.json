@@ -19,7 +19,7 @@
     ],
     "random_seed": 1,
     "sdf": {
-      "file": "records/post-layout-functional/artifacts/20261015-040000-963c79c/usb_utmi_phy_route_ss_125C_1v62.filtered.sdf",
+      "file": "records/post-layout-functional/artifacts/20261015-040000-963c79c/usb_utmi_phy_route_ss_125C_1v62.sdf",
       "corner": "max"
     }
   }
