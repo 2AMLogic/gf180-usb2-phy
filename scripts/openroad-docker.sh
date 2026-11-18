@@ -91,20 +91,16 @@ if [ -n "${PDK_MOUNT_DIR}" ] && [ "${PDK_MOUNT_DIR}" != "${MOUNT_DIR}" ]; then
   VOLUME_ARGS+=(-v "${PDK_MOUNT_DIR}:${PDK_MOUNT_DIR}")
 fi
 
-# `~/.ciel`'s PDK install stores its real content under a versioned
-# `ciel/gf180mcu/versions/<sha>/...` tree with the per-variant directories
-# (`gf180mcuA`/`B`/`C`/`D`) symlinked into it -- if those symlinks are
-# absolute (as ciel's own layout uses), the container needs that target
-# path bind-mounted too, at the identical host path, or the symlink
-# resolves to nothing inside the container. Resolve it defensively rather
-# than assuming a relative symlink.
+# The per-variant PDK directory (`gf180mcuD`) is a symlink into a versioned
+# install tree. A relative symlink resolves inside the PDK_MOUNT_DIR mount
+# above and needs nothing more. An absolute symlink whose real target lies
+# OUTSIDE PDK_MOUNT_DIR does not resolve in the container unless that target
+# is bind-mounted too, at the identical host path -- so mount it.
 if [ -n "${PDK_MOUNT_DIR}" ] && [ -L "${PDK_MOUNT_DIR}/gf180mcuD" ]; then
   REAL_TARGET="$(readlink -f "${PDK_MOUNT_DIR}/gf180mcuD" 2>/dev/null || true)"
-  if [ -n "${REAL_TARGET}" ] && [ "${REAL_TARGET#${PDK_MOUNT_DIR}}" = "${REAL_TARGET}" ]; then
-    CIEL_ROOT="${PDK_MOUNT_DIR}/ciel"
-    if [ -d "${CIEL_ROOT}" ]; then
-      VOLUME_ARGS+=(-v "${CIEL_ROOT}:${CIEL_ROOT}")
-    fi
+  if [ -n "${REAL_TARGET}" ] && [ -d "${REAL_TARGET}" ] \
+     && [ "${REAL_TARGET#"${PDK_MOUNT_DIR}"}" = "${REAL_TARGET}" ]; then
+    VOLUME_ARGS+=(-v "${REAL_TARGET}:${REAL_TARGET}")
   fi
 fi
 
