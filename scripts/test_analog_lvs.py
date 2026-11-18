@@ -135,6 +135,17 @@ class RequestShape(unittest.TestCase):
                      "combine_devices", "netgen_setup"):
             self.assertNotIn(knob, blob)
 
+    def test_request_has_no_unlisted_keys(self):
+        """The denylist above cannot see a knob it does not name.
+
+        Pin the full key set of the request and its two sub-dicts, so a new
+        option added outside `options` (or any sub-dict) goes red too.
+        """
+        req = alvs.lvs_request("demo")
+        self.assertEqual(set(req), {"schema", "layout", "reference", "options"})
+        self.assertEqual(set(req["layout"]), {"file", "deck", "top"})
+        self.assertEqual(set(req["reference"]), {"netlist", "top", "form"})
+
 
 class Classify(unittest.TestCase):
     def test_mos_families(self):
