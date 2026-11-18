@@ -1,17 +1,17 @@
-* se-receiver-dp-thresholds -- single-ended D+ receiver switching levels vs. §4
+* se-receiver-thresholds -- single-ended receiver (any line) switching levels vs. §4
 *
 * Netlist FRAGMENT. The harness supplies the title, the .include of the
 * gf180mcu models, the corner .lib sections, .temp, the .control block and
 * .end. Parameters provided by the harness: vdd_val, vdd_nom, temp_c.
 *
-* DUT: design/netlist/se_receiver_dp.spice (named by tb.json's "dut"), the
-* schematic-level export of design/se_receiver_dp.sch.
+* DUT: design/netlist/se_receiver.spice (named by tb.json's "dut"), the
+* schematic-level export of design/se_receiver.sch.
 *
 * What this substantiates (spec/usb2-device-phy.md):
-*   §4   single-ended receiver on D+: VIH > 2.0 V, VIL < 0.8 V
+*   §4   single-ended receiver: VIH > 2.0 V, VIL < 0.8 V
 *   §8.2 "Receiver thresholds ... DC/parametric analysis across the 45 corners"
-*        (D+ single-ended half; the D− receiver is a separate schematic and
-*        gets its own experiment, sim/se-receiver-dm-thresholds/)
+*        (one cell serves D+ and D-, DR-0011; it supersedes the per-line
+*        benches sim/se-receiver-d{p,m}-thresholds/, which stay as records)
 *
 * Reading of the row: "VIH > 2.0 V, VIL < 0.8 V" means an input at or above
 * 2.0 V is guaranteed to read high and an input at or below 0.8 V is guaranteed
@@ -37,6 +37,6 @@ vin  IN  0 dc 0
 * output normalised to the supply, both tracking whatever VDD `klt sim` alters
 * the supply source to. The local-ngspice path ignores them.
 bmid mid 0 v = 0.5*v(vdd)
-bn1  n1  0 v = v(rxdp)/v(vdd)
+bn1  n1  0 v = v(out)/v(vdd)
 
-Xrxdp VDD 0 IN RXDP se_receiver_dp
+Xout VDD 0 IN OUT se_receiver

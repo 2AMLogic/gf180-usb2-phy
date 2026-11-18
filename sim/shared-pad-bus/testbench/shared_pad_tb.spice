@@ -82,8 +82,8 @@ spdp DP 0 HENB 0 swp
 spdm DM 0 HENB 0 swp
 
 Xdrv VDD 0 TXDP TXDM TXOE DP DM differential_driver
-Xrxp VDD 0 DP RXDP se_receiver_dp
-Xrxm VDD 0 DM RXDM se_receiver_dm
+Xrxp VDD 0 DP RXDP se_receiver
+Xrxm VDD 0 DM RXDM se_receiver
 Xrxd VDD 0 DP DM RXD differential_receiver
 Xpu DP VPU_REG 0 PU_EN TRIM0 TRIM1 TRIM2 TRIM3 TRIM4 dplus_pullup
 .csparam vmid={0.5*vdd_val}

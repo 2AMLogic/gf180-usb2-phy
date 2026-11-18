@@ -113,8 +113,7 @@ DELIVERABLE_BLOCKS = (
     "differential_driver",
     "differential_receiver",
     "dplus_pullup",
-    "se_receiver_dm",
-    "se_receiver_dp",
+    "se_receiver",
 )
 
 # gf180mcuD layers (klt deck): metal1 34/0, via1 35/0, metal2 36/0,

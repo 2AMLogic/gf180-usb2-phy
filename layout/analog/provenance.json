@@ -95,13 +95,13 @@
       }
     },
     {
-      "block": "se_receiver_dm",
-      "gds": "layout/analog/se_receiver_dm.gds",
-      "gds_sha256": "653fd721daf443512c589ce4fa7bb1b5f606b7b4c5d2aa37e196f15924ea2784",
-      "netlist_sha256": "ebfc91ac1306060dfa0ffce7d91e048b4fc8b50cfebbd5804c3aaf9b58a20554",
-      "plan_sha256": "90b3ec9e6b22ce691540746afc85731e3d9692c94a63028167049b9afbf5a687",
+      "block": "se_receiver",
+      "gds": "layout/analog/se_receiver.gds",
+      "gds_sha256": "572c151eb14d6c1f18ee84ca33e324692fb4c17a4e9759a358afc90396e188c1",
+      "netlist_sha256": "2bf42b45808d1f39a1afd6f204c97d44b8b907530644f846f15a7c0707587234",
+      "plan_sha256": "d95c4e0bb8293a2612ec0cc4c875282fdf1e91289f32b76de97a73991e06ad16",
       "klt_version": "0.9.0",
-      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver",
+      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver --blocks se_receiver",
       "routing_method": "scripted",
       "net_count": 9,
       "body_tie_nets": {
@@ -109,34 +109,8 @@
         "VSS": 28
       },
       "pin_labels": [
-        "DM",
-        "RXDM",
-        "VDD",
-        "VSS"
-      ],
-      "drc": {
-        "status": "clean",
-        "violation_count": 0,
-        "by_rule": {}
-      }
-    },
-    {
-      "block": "se_receiver_dp",
-      "gds": "layout/analog/se_receiver_dp.gds",
-      "gds_sha256": "4ef694777f5ce99b485c2f3024137918c0d82730e023129485afcbb25317cd2e",
-      "netlist_sha256": "1f854210680331a1df73b96b317479cad4af325192fec68b0b61fb1421fac0b3",
-      "plan_sha256": "4806a6fa835c72f6205d1aef2a77732703f109205bac472a76bfb6b1b961a81a",
-      "klt_version": "0.9.0",
-      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver",
-      "routing_method": "scripted",
-      "net_count": 9,
-      "body_tie_nets": {
-        "VDD": 24,
-        "VSS": 28
-      },
-      "pin_labels": [
-        "DP",
-        "RXDP",
+        "IN",
+        "OUT",
         "VDD",
         "VSS"
       ],
