@@ -8,6 +8,11 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-18
 
+- **PR #456**: test: pin full key set of the analog-LVS request
+- **PR #455**: fix: bind-mount out-of-tree PDK symlink target in openroad-docker.sh
+- **Issue #453** (closed): Prove the analog-LVS anti-relaxation guard goes red on a relaxing option
+- **Issue #385** (closed): Wire scripts/test_analog_lvs.py into npm run lint: the only self-test in the repo CI never runs
+- **Issue #360** (closed): Repair the ciel-symlink mount block in scripts/openroad-docker.sh: mount REAL_TARGET and fix the comment
 - **PR #450**: refactor: share the analog harness helpers in scripts/analog_common.py
 - **Issue #380** (closed): Deduplicate the byte-identical sh/sha256/discover_blocks helpers shared by scripts/analog_erc.py and scripts/analog_lvs.py
 - **Issue #392** (closed): Frozen digital-lvs record no longer reproduces on main under repo-pin klt 0.9.0 (power_connectivity VNW/VPW well-pin derivation)
