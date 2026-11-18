@@ -39,8 +39,9 @@ source/drain stubs of one device sit 0.43 um apart, closer than metal-2
 spacing allows, so they never share a side). A net that has both kinds is
 joined by one metal-2 corridor in a gap between two devices. Tracks never
 share a y, so the only same-layer interactions are stub-vs-stub at distinct
-pin x. No device is moved or re-sized; instance origins are snapped to the
-0.005 um manufacturing grid, which klt's own placement does not do.
+pin x. No device is moved or re-sized. klt 0.9.0 places instance origins on the
+0.005 um manufacturing grid (klayout-tools#4202, PR #4244); the generator
+asserts that and fails the run, naming the instance, if an origin is off-grid.
 
 Body ties and pin labels (issue #346). klt's layout-plan executor derives
 ``connectivity[]`` from source/drain/gate terminals only -- its
@@ -302,7 +303,6 @@ def _execute_plan(
     )
     if routing is not None:
         result["routing"] = {
-            "snapped_instances": routing["snapped_instances"],
             "l2n_net_count": routing["l2n_net_count"],
             "shorts": routing["shorts"],
             "problems": routing["problems"],
@@ -895,7 +895,7 @@ def _complete_routing(
     klt_routed: set[str],
     digest: dict,
 ) -> dict:
-    """Snap, tie every body, route the nets klt left open, label the
+    """Check origins, tie every body, route the nets klt left open, label the
     schematic's ports, re-verify every net, write ``out_gds``."""
     import klayout.db as kdb
 
@@ -903,7 +903,7 @@ def _complete_routing(
     layout.read(klt_gds)
     top = layout.top_cell()
     geo = _Geometry(layout)
-    snapped = _snap_instances(layout, top)
+    _assert_origins_on_grid(layout, top)
 
     ports: dict[tuple[str, str], tuple[float, float]] = {}
     origins = compose_request["placement"]["origins_um"]
@@ -913,7 +913,7 @@ def _complete_routing(
     }
     for block in compose_request["blocks"]:
         group = block["id"]
-        # origins_um is klt's pre-snap placement; the instance is authoritative.
+        # origins_um is klt's placement; the instance is authoritative.
         cell_name = block["generator_report"].get("cell_name") or f"{group}_0"
         ox, oy = next(
             (xy for name, xy in inst_origin.items() if name.endswith(f"__{cell_name}")),
@@ -964,7 +964,6 @@ def _complete_routing(
         "shorts": check["shorts"],
         "problems": tie_problems + strap_problems + routed["problems"],
         "methods": methods,
-        "snapped_instances": snapped,
         "l2n_net_count": l2n_nets,
         "per_net": routed["nets"],
         "body_ties": {
@@ -1014,28 +1013,24 @@ class _Geometry:
         return self.db.Region(cell.begin_shapes_rec(self.layout.layer(*layer)))
 
 
-def _snap_instances(layout, top) -> int:
-    """Snap every top-level instance origin to the manufacturing grid.
+def _assert_origins_on_grid(layout, top) -> None:
+    """Fail the run if any top-level instance origin is off the 0.005 um grid.
 
-    klt's placement accumulates device widths that are not multiples of
-    0.005 um (resistor lengths), so every device to the right of one lands
-    off-grid and fails ``*.ongrid.1`` wholesale. Moving an origin by at most
-    half a grid step changes no device and no size.
+    klt 0.9.0 places group origins on-grid (klayout-tools#4202); this keeps
+    that protection without silently moving geometry the tool owns.
     """
-    import klayout.db as kdb
-
     step = int(round(GRID_UM / layout.dbu))
-    moved = 0
-    for inst in list(top.each_inst()):
-        trans = inst.trans
-        nx = int(round(trans.disp.x / step)) * step
-        ny = int(round(trans.disp.y / step)) * step
-        if (nx, ny) == (trans.disp.x, trans.disp.y):
-            continue
-        new = kdb.Trans(trans.rot, trans.is_mirror(), kdb.Vector(nx, ny))
-        top.replace(inst, kdb.CellInstArray(inst.cell_index, new))
-        moved += 1
-    return moved
+    bad = [
+        f"{inst.cell.name} at ({inst.trans.disp.x * layout.dbu:.6f}, "
+        f"{inst.trans.disp.y * layout.dbu:.6f}) um"
+        for inst in top.each_inst()
+        if inst.trans.disp.x % step or inst.trans.disp.y % step
+    ]
+    if bad:
+        _fail(
+            f"instance origin(s) off the {GRID_UM} um manufacturing grid: "
+            + "; ".join(bad)
+        )
 
 
 def _device_region(geo: _Geometry, top, layer: tuple[int, int]):
@@ -1396,8 +1391,7 @@ def _print_text(report: dict) -> None:
             methods = routing["methods"]
             print(
                 f"   routing: {methods['klt-plan']} nets by klt-plan, "
-                f"{methods['scripted']} scripted; {routing['snapped_instances']} "
-                f"instance origins snapped to the 0.005 um grid"
+                f"{methods['scripted']} scripted"
             )
             print(
                 f"   cross-check: KLayout LayoutToNetlist finds "

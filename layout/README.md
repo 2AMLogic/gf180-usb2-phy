@@ -243,14 +243,16 @@ completed by scripted routes in `scripts/gen_analog_layout.py`:
 - a net with both kinds is joined by one metal-2 corridor in a gap between two
   devices (gate and source/drain stubs of one device are 0.43 um apart, closer
   than metal-2 spacing, so they never share a side);
-- no device is moved or re-sized. The one geometry-adjacent change is that
-  top-level instance origins are snapped to the 0.005 um manufacturing grid
-  (only `dplus_pullup` is affected: 7 instances).
+- no device is moved or re-sized. klt 0.9.0 places top-level instance origins on
+  the 0.005 um manufacturing grid (`2AMLogic/klayout-tools#4202`, PR #4244); the
+  generator asserts this and fails the run, naming the instance, if an origin is
+  off-grid. (History: at the 2026-10-27 run, on a pre-fix klt, 7 `dplus_pullup`
+  instances had to be snapped; every run at the 0.9.0 pin reports 0.)
 
 **How `dplus_pullup` became DRC-clean (DR-0010).** At klt `7ee09483`
 (0.7.1.dev1743), the pin at the 2026-10-27 run, a bare `dplus_pullup` plan run
 had **2583** violations, almost all `*.ongrid.1` on every
-device placed to the right of the first fractional-width resistor. The origin snap
+device placed to the right of the first fractional-width resistor. The (since removed) origin snap
 removes all of those; 75 remained *inside* the five `res_array` cells for
 `r_seg0`–`r_seg4`, whose netlist lengths (0.343, 0.686, 1.371, 2.743, 5.486 um)
 are not on the grid. Both gaps are filed as `2AMLogic/klayout-tools#4202` (group

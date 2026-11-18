@@ -101,7 +101,6 @@ def _entry(block: str, status: str = "executed") -> dict:
         "warning_count": 0,
         "drc": {"status": "clean", "violation_count": 0, "by_rule": {}},
         "routing": {
-            "snapped_instances": 0,
             "l2n_net_count": 2,
             "shorts": [],
             "problems": [],
@@ -668,6 +667,40 @@ def _klayout_available() -> bool:
     "needs the real klayout.db boolean engine (installed by CI's "
     "klayout-tools step; a bare lint host skips these)",
 )
+class OriginOnGridTests(unittest.TestCase):
+    """``_assert_origins_on_grid`` (issue #344): klt 0.9.0 places origins
+    on-grid, so the generator asserts it instead of snapping."""
+
+    @staticmethod
+    def _layout(origins_dbu):
+        import klayout.db as kdb
+
+        layout = kdb.Layout()
+        layout.dbu = 0.001
+        top = layout.create_cell("TOP")
+        for i, (x, y) in enumerate(origins_dbu):
+            child = layout.create_cell(f"dev{i}")
+            top.insert(kdb.CellInstArray(child.cell_index(), kdb.Trans(kdb.Vector(x, y))))
+        return layout, top
+
+    def test_on_grid_passes(self):
+        layout, top = self._layout([(0, 0), (5000, 10), (12345 // 5 * 5, -5)])
+        gal._assert_origins_on_grid(layout, top)
+
+    def test_off_grid_fails_naming_instance(self):
+        layout, top = self._layout([(0, 0), (5003, 10)])
+        err = io.StringIO()
+        with contextlib.redirect_stderr(err), self.assertRaises(SystemExit):
+            gal._assert_origins_on_grid(layout, top)
+        self.assertIn("dev1", err.getvalue())
+        self.assertNotIn("dev0", err.getvalue())
+
+
+@unittest.skipUnless(
+    _klayout_available(),
+    "needs the real klayout.db boolean engine (installed by CI's "
+    "klayout-tools step; a bare lint host skips these)",
+)
 class StrapBodyPadsTests(unittest.TestCase):
     """``_strap_body_pads`` called directly, on real klayout geometry.
 
@@ -948,7 +981,6 @@ class BlockBboxSourceTests(unittest.TestCase):
                 layout.write(out_gds)
                 return {
                     "routed": {},
-                    "snapped_instances": 0,
                     "l2n_net_count": 0,
                     "shorts": [],
                     "problems": [],
