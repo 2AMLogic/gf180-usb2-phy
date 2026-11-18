@@ -144,8 +144,10 @@ rewritten or deleted (manifest-forward only).
 **Fail closed.** A recording run needs `KLT_ARTIFACT_BROKER` set (no default;
 the URL is never written in the repo), a `klt` with `artifact put` at or after
 klayout-tools `7e3561f` (it writes logical `artifact:<key>` uris), and a broker
-that answers a `stat`. `run_corners.py` checks all of that **before
-simulating** and exits 10 if any is missing. A put that fails after the grid
+that answers a `stat`. `run_corners.py` checks the broker, the `klt` binary and
+its `artifact put` verb **before simulating** and exits 10 if any is missing. A
+`klt` older than `7e3561f` is not detected until the put: its manifest is then
+refused and nothing is written. A put that fails after the grid
 also exits 10: nothing is written under `manifests/` or `sim/`, and the staged
 bytes stay in the git-ignored `sim/.work/.stage/<experiment>/<record-id>/`.
 There is no flag that commits the bytes instead. `--no-write` runs are
