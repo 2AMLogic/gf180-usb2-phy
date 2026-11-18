@@ -152,6 +152,41 @@ EVIDENCE_PATH_RE = re.compile(
     % "|".join(re.escape(d) for d in (RECORDS_DIR, SNAPSHOT_DIR, CORNERS_DIR))
 )
 
+#: One-time carve-outs from the append-only rule (DR-0008 Amendment A1,
+#: 2026-11-18, issue #364): ``(slug, record-id)`` -> the decision record whose
+#: Amendment authorises it. A *deletion* (never a modification) of a
+#: ``corners/<record-id>/*.log`` is allowed only when the run's committed
+#: stored-evidence manifest names that exact path. Nothing else is exempt.
+ONE_TIME_CARVE_OUTS: dict = {
+    ("driver-jitter", "20260817-203915-5a963e7"): (
+        "spec/decisions/0008-stored-evidence-manifest-forward.md"
+    ),
+}
+
+
+def carve_out_allows_delete(root: Path, path: str) -> bool:
+    """True when deleting ``path`` is authorised by a one-time carve-out: it is
+    a corner log of a named run, the amendment record cites the run id, and the
+    run's manifest in the working tree lists this exact path."""
+    match = EVIDENCE_PATH_RE.match(path)
+    if not match or match.group("kind") != CORNERS_DIR:
+        return False
+    rest = match.group("rest")
+    record_id, _, name = rest.partition("/")
+    if not name or "/" in name or not name.endswith(LOG_SUFFIX):
+        return False
+    decision = ONE_TIME_CARVE_OUTS.get((match.group("slug"), record_id))
+    if decision is None:
+        return False
+    try:
+        if record_id not in (root / decision).read_text(encoding="utf-8"):
+            return False
+        manifest = root / MANIFEST_DIR / f"{match.group('slug')}-{record_id}.manifest.json"
+        names = {e["name"] for e in json.loads(manifest.read_text(encoding="utf-8"))["entries"]}
+    except (OSError, ValueError, KeyError, TypeError):
+        return False
+    return path in names
+
 
 @dataclass(frozen=True)
 class Problem:
@@ -610,6 +645,8 @@ def check_append_only(root: Path, base_ref: str) -> tuple[list, str | None]:
         status, _, path = line.partition("\t")
         path = path.strip()
         if not path or not EVIDENCE_PATH_RE.match(path):
+            continue
+        if status[:1] == "D" and carve_out_allows_delete(root, path):
             continue
         problems.append(
             Problem(
