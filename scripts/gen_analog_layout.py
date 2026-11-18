@@ -1020,11 +1020,16 @@ def _assert_origins_on_grid(layout, top) -> None:
     that protection without silently moving geometry the tool owns.
     """
     step = int(round(GRID_UM / layout.dbu))
+    # ``each_trans()`` yields every repetition of an array instance (a single
+    # element for a plain one), so an off-grid array step is caught too, not
+    # only the base displacement. ``disp`` is the origin whatever the
+    # instance's rotation / mirror (issue #458).
     bad = [
-        f"{inst.cell.name} at ({inst.trans.disp.x * layout.dbu:.6f}, "
-        f"{inst.trans.disp.y * layout.dbu:.6f}) um"
+        f"{inst.cell.name} at ({t.disp.x * layout.dbu:.6f}, "
+        f"{t.disp.y * layout.dbu:.6f}) um"
         for inst in top.each_inst()
-        if inst.trans.disp.x % step or inst.trans.disp.y % step
+        for t in inst.cell_inst.each_trans()
+        if t.disp.x % step or t.disp.y % step
     ]
     if bad:
         _fail(
