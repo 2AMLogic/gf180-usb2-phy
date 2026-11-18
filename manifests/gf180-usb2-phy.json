@@ -157,7 +157,7 @@
       }
     },
     "7.digital": {
-      "file": "verification/records/post-layout-functional/artifacts/20261015-040000-963c79c/response-gate-sdf-ss_125C_1v62-filtered-klt-0.7.1.dev472.json"
+      "file": "verification/records/post-layout-functional/artifacts/20261118-220000-9c307a3/response-gate-sdf-ss_125C_1v62-klt-0.9.0.json"
     },
     "8": {
       "file": "manifests/item8-characterization.json",
@@ -165,7 +165,7 @@
     },
     "9": {
       "file": "signoff/evidence/t1-item-9-testbenches.json",
-      "content_hash": "sha256:239ac1bf8ecfa2f231e73021a0e40c67663f225165a09f8efd8e697eb880800f"
+      "content_hash": "sha256:90cfcbc5aa0b6f9a32813be4a7996092c532f9e0d343ba4e80f78cfea36d2b16"
     },
     "10": {
       "file": "signoff/evidence/t1-item-10-repo-hygiene.json",

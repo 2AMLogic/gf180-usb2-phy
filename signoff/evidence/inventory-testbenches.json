@@ -87,11 +87,6 @@
       "toplevel": "usb_sync_detector",
       "level": "rtl"
     },
-    "verification/request-usb-utmi-phy-gate-sdf-ss-unfiltered.json": {
-      "module": "test_usb_utmi_phy",
-      "toplevel": "usb_utmi_phy",
-      "level": "gate"
-    },
     "verification/request-usb-utmi-phy-gate-sdf-ss.json": {
       "module": "test_usb_utmi_phy",
       "toplevel": "usb_utmi_phy",
@@ -219,12 +214,8 @@
       "sha256": "sha256:d94a4e63a9f9d9e24c9ad02b6585fe219f9926d0566749bfb48cd3fddd4b23de"
     },
     {
-      "path": "verification/request-usb-utmi-phy-gate-sdf-ss-unfiltered.json",
-      "sha256": "sha256:41b0b21a27eb1868f0acae6f1177eb51e79f5e9ee8577d24877b76cc5025d75d"
-    },
-    {
       "path": "verification/request-usb-utmi-phy-gate-sdf-ss.json",
-      "sha256": "sha256:9431ec7d137970a545a9c85fcc7b157697ceae7337fe4f3762e2ff37950561bc"
+      "sha256": "sha256:41b0b21a27eb1868f0acae6f1177eb51e79f5e9ee8577d24877b76cc5025d75d"
     },
     {
       "path": "verification/request-usb-utmi-phy-gate-sdf-tt.json",
@@ -491,7 +482,7 @@
     },
     {
       "path": "sim/spec-coverage.md",
-      "sha256": "sha256:1c4f7ff248167ea31d237d2086df012d2c731ee40c65ea205519318f4cf2e508"
+      "sha256": "sha256:0aa56cec947997f7c36e0a6bc8eb398b472d4564484a78182f1cf2405ccd0146"
     },
     {
       "path": "sim/tests/test_evidence_lint.py",
