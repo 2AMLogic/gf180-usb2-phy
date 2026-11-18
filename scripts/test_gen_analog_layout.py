@@ -695,6 +695,63 @@ class OriginOnGridTests(unittest.TestCase):
         self.assertIn("dev1", err.getvalue())
         self.assertNotIn("dev0", err.getvalue())
 
+    @staticmethod
+    def _one(trans, array=None):
+        """TOP with one ``dev`` instance; ``array`` is ``(a, b, na, nb)``."""
+        import klayout.db as kdb
+
+        layout = kdb.Layout()
+        layout.dbu = 0.001
+        top = layout.create_cell("TOP")
+        child = layout.create_cell("dev")
+        if array is None:
+            top.insert(kdb.CellInstArray(child.cell_index(), trans))
+        else:
+            a, b, na, nb = array
+            top.insert(
+                kdb.CellInstArray(
+                    child.cell_index(), trans, kdb.Vector(*a), kdb.Vector(*b), na, nb
+                )
+            )
+        return layout, top
+
+    def _fails(self, layout, top):
+        err = io.StringIO()
+        with contextlib.redirect_stderr(err), self.assertRaises(SystemExit):
+            gal._assert_origins_on_grid(layout, top)
+        return err.getvalue()
+
+    def test_rotated_and_mirrored_origins_judged_on_displacement(self):
+        import klayout.db as kdb
+
+        for rot in range(4):
+            for mirror in (False, True):
+                with self.subTest(rot=rot, mirror=mirror):
+                    gal._assert_origins_on_grid(
+                        *self._one(kdb.Trans(rot, mirror, kdb.Vector(5000, -10)))
+                    )
+                    msg = self._fails(
+                        *self._one(kdb.Trans(rot, mirror, kdb.Vector(5003, 10)))
+                    )
+                    self.assertIn("dev", msg)
+
+    def test_on_grid_array_passes(self):
+        import klayout.db as kdb
+
+        gal._assert_origins_on_grid(
+            *self._one(kdb.Trans(1, True, kdb.Vector(5000, 5)), ((10005, 0), (0, 20), 3, 2))
+        )
+
+    def test_off_grid_array_step_fails_though_base_is_on_grid(self):
+        import klayout.db as kdb
+
+        # base (5000, 5) is on-grid; the second column lands at x = 10003.
+        msg = self._fails(
+            *self._one(kdb.Trans(kdb.Vector(5000, 5)), ((5003, 0), (0, 20), 3, 2))
+        )
+        self.assertIn("dev at (10.003000, 0.005000)", msg)
+        self.assertNotIn("(5.000000, 0.005000)", msg)
+
 
 @unittest.skipUnless(
     _klayout_available(),
