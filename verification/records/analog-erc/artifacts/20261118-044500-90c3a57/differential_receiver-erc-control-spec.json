@@ -1,0 +1,206 @@
+{
+  "_comment": [
+    "NEGATIVE CONTROL -- deliberately wrong, never evidence of a clean",
+    "layout. Derived from this block's real spec by scripts/analog_erc.py:",
+    "  * substrate_neg_tap.net points at VDD (the positive rail)",
+    "    instead of ground, so every asserted substrate polygon must",
+    "    report erc.missing_tie;",
+    "  * an extra supply 'VSS_NOT_IN_LAYOUT' is declared, which the layout labels",
+    "    nowhere, so it must report erc.unconnected_net at zero islands.",
+    "A clean result here would mean the real spec's clean result proves",
+    "nothing. See layout/analog/erc-supply-spec.notes.md."
+  ],
+  "stackup": [
+    {
+      "name": "poly2",
+      "layer": "30/0",
+      "role": "gate",
+      "active_layer": "22/0"
+    },
+    {
+      "name": "Metal1",
+      "layer": "34/0",
+      "label_layer": "34/10"
+    },
+    {
+      "name": "Metal2",
+      "layer": "36/0"
+    },
+    {
+      "name": "Metal3",
+      "layer": "42/0"
+    }
+  ],
+  "vias": [
+    {
+      "name": "Contact",
+      "layer": "33/0",
+      "between": [
+        "poly2",
+        "Metal1"
+      ]
+    },
+    {
+      "name": "Via1",
+      "layer": "35/0",
+      "between": [
+        "Metal1",
+        "Metal2"
+      ]
+    },
+    {
+      "name": "Via2",
+      "layer": "38/0",
+      "between": [
+        "Metal2",
+        "Metal3"
+      ]
+    }
+  ],
+  "nets": [
+    {
+      "name": "VDD",
+      "kind": "supply"
+    },
+    {
+      "name": "VSS",
+      "kind": "supply"
+    },
+    {
+      "name": "VSS_NOT_IN_LAYOUT",
+      "kind": "supply"
+    }
+  ],
+  "ties": [
+    {
+      "name": "nwell_pos_tap",
+      "well_layer": "21/0",
+      "tap_layer": "22/0",
+      "tap_requires": [
+        "32/0"
+      ],
+      "connect_to": "Metal1",
+      "net": "VDD"
+    },
+    {
+      "name": "substrate_neg_tap",
+      "well_layer": null,
+      "well_boxes": [
+        [
+          403.2,
+          0.16,
+          406.42,
+          5.23
+        ],
+        [
+          403.2,
+          7.3,
+          403.62,
+          7.72
+        ],
+        [
+          406.0,
+          7.3,
+          406.42,
+          7.72
+        ],
+        [
+          408.74,
+          0.16,
+          411.74,
+          3.23
+        ],
+        [
+          408.74,
+          5.3,
+          409.16,
+          5.72
+        ],
+        [
+          411.32,
+          5.3,
+          411.74,
+          5.72
+        ],
+        [
+          414.06,
+          0.16,
+          417.06,
+          9.23
+        ],
+        [
+          414.06,
+          11.3,
+          414.48,
+          11.72
+        ],
+        [
+          416.64,
+          11.3,
+          417.06,
+          11.72
+        ],
+        [
+          419.38,
+          0.16,
+          422.8,
+          21.23
+        ],
+        [
+          419.59,
+          23.3,
+          420.01,
+          23.72
+        ],
+        [
+          422.17,
+          23.3,
+          422.59,
+          23.72
+        ],
+        [
+          425.12,
+          0.16,
+          428.54,
+          21.23
+        ],
+        [
+          425.33,
+          23.3,
+          425.75,
+          23.72
+        ],
+        [
+          427.91,
+          23.3,
+          428.33,
+          23.72
+        ],
+        [
+          453.8,
+          0.16,
+          457.02,
+          9.23
+        ],
+        [
+          453.8,
+          11.3,
+          454.22,
+          11.72
+        ],
+        [
+          456.6,
+          11.3,
+          457.02,
+          11.72
+        ]
+      ],
+      "tap_layer": "22/0",
+      "tap_requires": [
+        "31/0"
+      ],
+      "connect_to": "Metal1",
+      "net": "VDD"
+    }
+  ]
+}
