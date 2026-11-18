@@ -8,6 +8,10 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-18
 
+- **PR #459**: verification: retire filtered slow-corner SDF, cite as-exported SDF for item 7.digital
+- **PR #454**: refactor: replace analog-layout origin snap with a fail-on-off-grid check
+- **Issue #344** (closed): Remove origin-snap workaround from scripts/gen_analog_layout.py: pinned klt 0.9.0 places group origins on-grid (0 instances snapped in every 0.9.0 run)
+- **Issue #331** (closed): Remove filtered-SDF workaround request from verification/: pinned klt 0.9.0 annotates the exported SDF (111/111)
 - **PR #456**: test: pin full key set of the analog-LVS request
 - **PR #455**: fix: bind-mount out-of-tree PDK symlink target in openroad-docker.sh
 - **Issue #453** (closed): Prove the analog-LVS anti-relaxation guard goes red on a relaxing option
