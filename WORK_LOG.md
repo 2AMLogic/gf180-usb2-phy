@@ -8,6 +8,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-18
 
+- **PR #450**: refactor: share the analog harness helpers in scripts/analog_common.py
+- **Issue #380** (closed): Deduplicate the byte-identical sh/sha256/discover_blocks helpers shared by scripts/analog_erc.py and scripts/analog_lvs.py
 - **Issue #392** (closed): Frozen digital-lvs record no longer reproduces on main under repo-pin klt 0.9.0 (power_connectivity VNW/VPW well-pin derivation)
 
 ### 2026-11-17
