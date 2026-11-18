@@ -6,6 +6,10 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 - [2026-09](work_log/WORK_LOG_2026-09.md)
 
+### 2026-11-18
+
+- **Issue #392** (closed): Frozen digital-lvs record no longer reproduces on main under repo-pin klt 0.9.0 (power_connectivity VNW/VPW well-pin derivation)
+
 ### 2026-11-17
 
 - **PR #445**: fix: partition signoff-report divergences by build stamp vs graded content
