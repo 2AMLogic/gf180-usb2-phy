@@ -80,6 +80,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 import gen_analog_layout as gal  # noqa: E402
+import gen_analog_routing as gar  # noqa: E402
 
 
 def _entry(block: str, status: str = "executed") -> dict:
@@ -647,11 +648,11 @@ class PinAnchorTests(unittest.TestCase):
         # the port point the way a gate pad does: the pad is 0.42um square
         # and the via 0.26um, so an inset via would not fit inside it.
         with _Stubs():
-            self.assertEqual(gal._pin_anchor("U0_G"), ("top", "centre"))
-            self.assertEqual(gal._pin_anchor("U0_S"), ("bottom", "inset"))
-            self.assertEqual(gal._pin_anchor("R0_A"), ("bottom", "inset"))
-            self.assertEqual(gal._pin_anchor("TAP_PAD0"), ("bottom", "centre"))
-            self.assertEqual(gal._pin_anchor("TAP_PAD7"), ("bottom", "centre"))
+            self.assertEqual(gar._pin_anchor("U0_G"), ("top", "centre"))
+            self.assertEqual(gar._pin_anchor("U0_S"), ("bottom", "inset"))
+            self.assertEqual(gar._pin_anchor("R0_A"), ("bottom", "inset"))
+            self.assertEqual(gar._pin_anchor("TAP_PAD0"), ("bottom", "centre"))
+            self.assertEqual(gar._pin_anchor("TAP_PAD7"), ("bottom", "centre"))
 
 
 def _klayout_available() -> bool:
@@ -802,7 +803,7 @@ class StrapBodyPadsTests(unittest.TestCase):
         layout = kdb.Layout()
         layout.dbu = 0.001
         top = layout.create_cell("TOP")
-        geo = gal._Geometry(layout)
+        geo = gar._Geometry(layout)
         layer = layout.layer(*gal.M1)
         dev_m1 = kdb.Region()
         ports: dict[tuple[str, str], tuple[float, float]] = {}
@@ -1032,7 +1033,7 @@ class BlockBboxSourceTests(unittest.TestCase):
                 layout.read(klt_gds)
                 top = layout.top_cell()
                 x0, y0, x1, y1 = route_to
-                top.shapes(layout.layer(*gal.M2)).insert(
+                top.shapes(layout.layer(*gar.M2)).insert(
                     kdb.Box(int(x0 * 1000), int(y0 * 1000), int(x1 * 1000), int(y1 * 1000))
                 )
                 layout.write(out_gds)
