@@ -6,6 +6,11 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 - [2026-09](work_log/WORK_LOG_2026-09.md)
 
+### 2026-11-19
+
+- **PR #468**: refactor(sim): remove the klt uri-scheme preflight probe
+- **Issue #319** (closed): Remove klt uri-scheme preflight probe from sim/harness/evidence_store.py: release pin makes it always pass
+
 ### 2026-11-18
 
 - **PR #466**: evidence: move driver-jitter 20260817 raw logs to artifact store (DR-0008 A1)
