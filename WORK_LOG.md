@@ -8,6 +8,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-19
 
+- **PR #479**: signoff: sync-check the klayout engine pin across setup-env, CI and docs
+- **Issue #477** (closed): signoff pin audit does not sync-check the new klayout engine pin
 - **PR #475**: fix(env): pin the klayout engine wheel (0.30.12) for the analog flow
 - **Issue #472** (closed): gen_analog_layout --check does not reproduce committed gds_sha256 pins
 - **Issue #372** (closed): Split scripts/gen_analog_layout.py: extract the scripted-routing layer
