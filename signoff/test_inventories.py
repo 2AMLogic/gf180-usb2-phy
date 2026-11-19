@@ -196,6 +196,110 @@ class RegenRefusalTests(_AnalogFixture):
         self.assertEqual(manifest.read_text(), before)
 
 
+class _PinsFixture(unittest.TestCase):
+    """A temp tree holding just the three pin files `_pins` reads, in sync."""
+
+    KLT = "0.9.0"
+    ENGINE = "0.30.12"
+    PDK = "c6d73a35f524070e85faff4a6a9eef49553ebc2b"
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        self.root = Path(self._tmp.name)
+        self.write_ci(self.ENGINE)
+        self.write_setup(self.ENGINE)
+        self.write_env_doc(self.ENGINE)
+
+    def write_ci(self, engine: str | None) -> None:
+        installs = [f'"klayout-tools=={self.KLT}"']
+        if engine:
+            installs.append(f'"klayout=={engine}"')
+        installs.append('"cocotb==2.0.1"')
+        path = self.root / ".github" / "workflows" / "ci.yml"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(
+            "python3 -m pip install --disable-pip-version-check \\\n"
+            "            " + " \\\n            ".join(installs) + "\n"
+        )
+
+    def write_setup(self, engine: str | None) -> None:
+        lines = [f'KLT_VERSION="{self.KLT}"']
+        if engine:
+            lines.append(f'KLAYOUT_VERSION="{engine}"')
+        lines += ['COCOTB_PIN="2.0.1"', f'VOLARE_GF180MCU_VERSION="{self.PDK}"']
+        path = self.root / "scripts" / "setup-env.sh"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("\n".join(lines) + "\n")
+
+    def write_env_doc(self, engine: str | None) -> None:
+        lines = [f'pip install "klayout-tools=={self.KLT}"']
+        if engine:
+            lines.append(f'pip install "klayout=={engine}"')
+        lines.append(f"volare enable {self.PDK}")
+        path = self.root / "docs" / "environment-setup.md"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("\n".join(lines) + "\n")
+
+    def pins(self) -> dict:
+        return inventories._pins(self.root)
+
+    def assert_refuses(self, needle: str):
+        with self.assertRaises(inventories.AuditError) as caught:
+            self.pins()
+        self.assertIn(needle, str(caught.exception))
+
+
+class PinSyncTests(_PinsFixture):
+    """The pin audit must sync-check the klayout engine like every other pin.
+
+    `_pins` enforced klt, cocotb and the PDK commit but not the engine wheel
+    issue #472 pinned (`KLAYOUT_VERSION`, `"klayout==X"` and the env-doc row,
+    added by #475) -- a setup-env/CI engine divergence would surface only as
+    a worker regenerating different GDS bytes. These cases pin the checks
+    down: a synced tree passes and reports `klayout_engine`; a desynced
+    setup-env/CI pair, either pin absent, or the version missing from the
+    env doc each raise `AuditError`; and `klayout-tools==` must not satisfy
+    the engine regex (issue #477).
+    """
+
+    def test_a_synced_tree_passes_and_reports_the_engine_pin(self):
+        self.assertEqual(
+            self.pins(),
+            {
+                "klayout_tools_ci_and_grader": self.KLT,
+                "klayout_tools_setup_env": self.KLT,
+                "klayout_engine": self.ENGINE,
+                "cocotb": "2.0.1",
+                "gf180mcu_open_pdks": self.PDK,
+            },
+        )
+
+    def test_a_desynced_setup_env_ci_engine_pair_fails(self):
+        self.write_ci("0.30.13")
+        with self.assertRaises(inventories.AuditError) as caught:
+            self.pins()
+        message = str(caught.exception)
+        self.assertIn("pins the klayout engine", message)
+        # the error names both files a bumper must edit together
+        self.assertIn("scripts/setup-env.sh", message)
+        self.assertIn(".github/workflows/ci.yml", message)
+
+    def test_an_engine_pin_missing_from_ci_fails(self):
+        # `klayout-tools==0.9.0` alone must not satisfy the engine regex:
+        # the opening quote anchors `"klayout==` away from it.
+        self.write_ci(None)
+        self.assert_refuses("no pinned `klayout==X` engine install")
+
+    def test_an_engine_pin_missing_from_setup_env_fails(self):
+        self.write_setup(None)
+        self.assert_refuses("no KLAYOUT_VERSION pin")
+
+    def test_an_engine_pin_missing_from_the_env_doc_fails(self):
+        self.write_env_doc(None)
+        self.assert_refuses("does not record the klayout engine pin")
+
+
 class ItemRecordTests(unittest.TestCase):
     """One record per item: a registry entry cannot under-specify an item."""
 

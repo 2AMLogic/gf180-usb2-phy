@@ -259,6 +259,19 @@ def _pins(root: Path) -> dict:
     setup_klt = rev.group(1) or rev.group(2)
     if setup_klt != klt_pin:
         raise AuditError(f"{SETUP_ENV} pins klt {setup_klt}, but {CI_WORKFLOW} pins {klt_pin}")
+    # the klayout ENGINE wheel: `"klayout==X"` in CI (the opening quote anchors
+    # it, so `klayout-tools==X` cannot match) vs `KLAYOUT_VERSION="X"` in setup-env
+    engine_ci = re.search(r'"klayout==([0-9][0-9A-Za-z.]*)"', ci)
+    if not engine_ci:
+        raise AuditError(f"{CI_WORKFLOW}: no pinned `klayout==X` engine install")
+    engine_setup = re.search(r'KLAYOUT_VERSION="([0-9][0-9A-Za-z.]*)"', setup)
+    if not engine_setup:
+        raise AuditError(f"{SETUP_ENV}: no KLAYOUT_VERSION pin")
+    if engine_setup.group(1) != engine_ci.group(1):
+        raise AuditError(
+            f"{SETUP_ENV} pins the klayout engine {engine_setup.group(1)}, "
+            f"but {CI_WORKFLOW} pins {engine_ci.group(1)}"
+        )
     if f'COCOTB_PIN="{cocotb.group(1)}"' not in setup:
         raise AuditError(f"{SETUP_ENV} does not pin the same cocotb as {CI_WORKFLOW}")
     volare = re.search(r'VOLARE_GF180MCU_VERSION="([0-9a-f]{40})"', setup)
@@ -269,9 +282,12 @@ def _pins(root: Path) -> dict:
     env_doc = _read(root, ENV_DOC)
     if klt_pin not in env_doc:
         raise AuditError(f"{ENV_DOC} does not record the klt pin {klt_pin}")
+    if engine_setup.group(1) not in env_doc:
+        raise AuditError(f"{ENV_DOC} does not record the klayout engine pin {engine_setup.group(1)}")
     return {
         "klayout_tools_ci_and_grader": klt_pin,
         "klayout_tools_setup_env": setup_klt,
+        "klayout_engine": engine_setup.group(1),
         "cocotb": cocotb.group(1),
         "gf180mcu_open_pdks": volare.group(1),
     }
