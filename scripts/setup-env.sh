@@ -45,6 +45,15 @@ cd "${REPO_ROOT}" || exit 1
 
 # --- pinned versions -- keep in sync with docs/environment-setup.md -------
 KLT_VERSION="0.9.0"
+# The klayout ENGINE (the C++ binary the `klayout` wheel ships) is pinned
+# separately: `klayout-tools` only requires `klayout>=0.30`, so leaving it
+# unpinned floats with PyPI. GDS bytes are engine-sensitive (the analog
+# `--check` gate compares sha256 over whole streams -- issue #472), and klt
+# 0.9.0 itself reports `klayout_version_expected: 0.30.12`, so the venv holds
+# exactly that build and fresh envelopes carry `klayout_version_mismatch:
+# false`. Bump together with KLT_VERSION (a klt release declares the engine
+# it was tested against) and keep in sync with .github/workflows/ci.yml.
+KLAYOUT_VERSION="0.30.12"
 VOLARE_PDK_FAMILY="gf180mcu"
 VOLARE_GF180MCU_VERSION="c6d73a35f524070e85faff4a6a9eef49553ebc2b"
 # ----------------------------------------------------------------------------
@@ -153,9 +162,9 @@ if ! "${VENV_PIP}" install --quiet --upgrade pip; then
 fi
 
 if [ "${TOOL_LIGHT}" = "1" ]; then
-  PKGS=("klayout-tools==${KLT_VERSION}" "cocotb==${COCOTB_PIN}")
+  PKGS=("klayout-tools==${KLT_VERSION}" "klayout==${KLAYOUT_VERSION}" "cocotb==${COCOTB_PIN}")
 else
-  PKGS=("klayout-tools==${KLT_VERSION}" cocotb volare)
+  PKGS=("klayout-tools==${KLT_VERSION}" "klayout==${KLAYOUT_VERSION}" cocotb volare)
 fi
 if ! "${VENV_PIP}" install --quiet "${PKGS[@]}"; then
   echo "FATAL: failed to install ${PKGS[*]} into ${VENV_DIR}."
@@ -170,6 +179,8 @@ fi
 INSTALLED_KLT_VERSION="$("${VENV_PY}" -m klayout_tools.cli --version 2>/dev/null || true)"
 INSTALLED_KLT_VERSION="${INSTALLED_KLT_VERSION#klt }"
 echo "installed: klt ${INSTALLED_KLT_VERSION:-(version unknown)} (pinned klayout-tools==${KLT_VERSION})"
+INSTALLED_KLAYOUT_VERSION="$("${VENV_PY}" -c 'import importlib.metadata as m; print(m.version("klayout"))' 2>/dev/null || true)"
+echo "installed: klayout ${INSTALLED_KLAYOUT_VERSION:-(version unknown)} (pinned klayout==${KLAYOUT_VERSION}; the klayout engine klt ${KLT_VERSION} reports as tested)"
 echo "activate with: source ${VENV_DIR}/bin/activate"
 
 if [ "${TOOL_LIGHT}" = "1" ]; then

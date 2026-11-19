@@ -251,4 +251,23 @@ future bump appends the next move here and changes the table there.
    re-measured in `verification/records/digital-lvs/records/20261115-200849-6416f1a.md`)
    and filed upstream as klayout-tools#5842.
 
+   **Engine-pin follow-up (2026-11-19, issue #472)**: the pin's *engine* —
+   the `klayout` wheel `klt` drives — was found unpinned (`klayout-tools`
+   only floors it at `klayout>=0.30`), floating with PyPI. klt 0.9.0 reports
+   `klayout_version_expected: 0.30.12`, but a fresh resolve yields 0.30.13
+   (PyPI latest, 2026-11-05) and sets `klayout_version_mismatch: true` —
+   the exact state the move-6 note above warns about. This matters here
+   because the analog `--check` gate hashes whole GDS streams, whose bytes
+   are engine-sensitive. Issue #472's reproduction gap (all five analog
+   streams regenerating DRC-clean but byte-different from the committed pins
+   on one worker class) prompted the measurement in
+   `verification/records/analog-layout/records/20261119-054500-f290041a.md`:
+   both 0.30.12 and 0.30.13 reproduce the committed pins on the reporting
+   worker, so the pins are engine-robust across adjacent builds — but the
+   engine is now pinned explicitly to the build klt 0.9.0 declares tested:
+   `KLAYOUT_VERSION="0.30.12"` in `scripts/setup-env.sh`, mirrored in
+   `.github/workflows/ci.yml` (same sync discipline as the `klt` and cocotb
+   pins) and documented in `docs/environment-setup.md`. Bump
+   `KLAYOUT_VERSION` together with `KLT_VERSION` at the next pin move.
+
 `npm run check:ci` was re-run against each new pin before it was committed.
