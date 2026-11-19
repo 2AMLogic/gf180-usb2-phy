@@ -18,8 +18,8 @@ broker admits can resolve its ``uri``s.
 
 **Fail closed.** Every failure here raises :class:`StoreError`: no broker
 configured, no ``klt`` with the ``artifact`` verb, a ``klt`` older than
-klayout-tools ``7e3561f`` (it would write bucket-naming ``s3`` uris), a
-broker that cannot be reached or refuses, a put that fails part-way, a
+klayout-tools ``7e3561f`` (caught by :func:`_entry_problem` after ``artifact
+put``, not before it), a broker that cannot be reached or refuses, a put that fails part-way, a
 manifest that does not match the bytes it claims. Nothing is then installed
 under ``manifests/`` or ``sim/``; the staged bytes stay in the git-ignored
 scratch tree so the run is not lost, and the caller reports the failure.
@@ -52,8 +52,9 @@ ENV_REPO = "KLT_ARTIFACT_REPO"
 MANIFEST_DIR = Path("manifests") / "artifacts"
 #: klayout-tools merge commit (PR #4070) from which ``klt artifact`` writes
 #: logical ``artifact:<key>`` uris and has no bucket setting. The writer needs
-#: a ``klt`` at or after it (:func:`check_klt_uri_scheme`); the signoff/layout
-#: pin in ``manifests/klt-pin.json`` is a separate build and is not moved by this.
+#: a ``klt`` at or after it. An older one is not probed for up front: it writes
+#: a manifest :func:`_entry_problem` refuses after ``artifact put``, and
+#: ``scripts/check_artifact_manifests.py`` refuses it in lint.
 KLT_ARTIFACT_MIN_COMMIT = "7e3561f932145870b6fad917b487b468be12f3c3"
 PROBE_TIMEOUT_S = 30
 PUT_TIMEOUT_S = 900
@@ -62,12 +63,6 @@ _SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 #: Same grammar as ``klayout_tools.artifact_store``: ``artifact:<key>``, no
 #: other scheme.
 _URI_RE = re.compile(r"^artifact:([^/\s]\S*)$")
-#: An unroutable broker for the scheme probe: a klt that gets as far as the
-#: network has already accepted the probe's legacy-scheme uri, i.e. is too old.
-_PROBE_BROKER = "http://127.0.0.1:9"
-#: The scheme klt wrote before ``7e3561f``. Only the probe uses it, to build a
-#: uri a current klt must refuse; nothing in this repo writes one.
-LEGACY_URI_SCHEME = "s3"
 _RID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 _REMOTE_RE = re.compile(r"[:/]([A-Za-z0-9._-]+)/([A-Za-z0-9._-]+?)(?:\.git)?/?$")
 _EMPTY_SHA256 = hashlib.sha256(b"").hexdigest()
@@ -168,7 +163,6 @@ def preflight(repo_root: Path, *, klt: str = "klt", env=None,
     if not ok:
         raise StoreError(f"`{klt}` has no `artifact put` verb; install klayout-tools "
                          f"at or after {KLT_ARTIFACT_MIN_COMMIT[:12]}")
-    check_klt_uri_scheme(exe, run=run)
     probe(base, _repo_name(repo_root, env, run))
 
 
@@ -191,56 +185,6 @@ def refuse_tracked_stage(stage_dir: Path, repo_root: Path, *, run=subprocess.run
     if tracked.returncode != 0 or tracked.stdout.strip() or ignored.returncode != 0:
         raise StoreError(f"staging directory {rel.as_posix()} is inside the tracked tree "
                          "(not git-ignored); stage under sim/.work/ or outside the checkout")
-
-
-def check_klt_uri_scheme(exe: str, *, run=subprocess.run) -> None:
-    """Raise :class:`StoreError` unless ``exe`` is a ``klt`` at or after
-    :data:`KLT_ARTIFACT_MIN_COMMIT`, i.e. one that writes ``artifact:<key>``.
-
-    ``klt`` carries no commit in its version string, so this tests the
-    behaviour that changed rather than a number. It hands ``klt artifact
-    verify`` a manifest that is valid except for a :data:`LEGACY_URI_SCHEME`
-    uri (the bucket-naming form klt wrote before ``7e3561f``). A current
-    ``klt`` rejects it offline as ``invalid_manifest`` with an ``artifact:``
-    problem, before any broker contact. An older ``klt`` accepts the
-    legacy uri and goes on to the (unroutable) probe broker; a ``klt``
-    without ``verify`` fails on usage. Every outcome except the current one
-    refuses (fail closed).
-    """
-    sha = hashlib.sha256(b"klt uri-scheme probe").hexdigest()
-    entry = {"sha256": sha, "size": 1, "kind": "evidence",
-             "producer": {"tool": "probe", "version": "0", "loom.repo": "probe/probe",
-                          "commit": None},
-             "uri": f"{LEGACY_URI_SCHEME}://probe/evidence/probe__probe/{sha[:2]}/{sha}",
-             "name": "sim/probe"}
-    with tempfile.TemporaryDirectory(prefix="klt-scheme-probe-") as tmp:
-        mpath = os.path.join(tmp, "probe.manifest.json")
-        with open(mpath, "w", encoding="utf-8") as fh:
-            json.dump({"schema_version": 1, "entries": [entry]}, fh)
-        try:
-            p = run([exe, "artifact", "verify", mpath, "--broker", _PROBE_BROKER,
-                     "--format", "json"], capture_output=True, text=True,
-                    timeout=PROBE_TIMEOUT_S, check=False, cwd=tmp)
-            rc, stderr = p.returncode, p.stderr or ""
-        except subprocess.TimeoutExpired:
-            raise StoreError(f"`klt` uri-scheme probe timed out after {PROBE_TIMEOUT_S}s; "
-                             "cannot confirm klt writes artifact:<key> uris") from None
-        except OSError as exc:
-            raise StoreError(f"`klt` uri-scheme probe failed to start ({exc}); "
-                             "cannot confirm klt writes artifact:<key> uris") from None
-    try:
-        err = json.loads(stderr)["error"]
-        problems = err.get("problems")
-        current = (rc == 1 and err.get("code") == "invalid_manifest"
-                   and isinstance(problems, list) and bool(problems)
-                   and all(isinstance(x, str) and "artifact:" in x for x in problems))
-    except (ValueError, KeyError, TypeError, AttributeError):
-        current = False
-    if not current:
-        raise StoreError(f"`klt` is older than klayout-tools {KLT_ARTIFACT_MIN_COMMIT[:12]} "
-                         f"(it would write {LEGACY_URI_SCHEME} manifest uris, not "
-                         "artifact:<key>); "
-                         "upgrade klayout-tools")
 
 
 # --------------------------------------------------------------------------

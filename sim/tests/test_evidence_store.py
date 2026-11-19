@@ -171,28 +171,11 @@ class Writer(Base):
             es.stage_files(self.stage / "corners/r1", "sim/b/corners/r1")
 
 
-def klt_probe_answer(cmd, *, current=True):
-    """What ``klt artifact verify <probe manifest>`` answers: a current klt
-    (klayout-tools 7e3561f+) refuses the legacy uri offline; an old one
-    accepts it and fails on the unroutable broker."""
-    if current:
-        err = {"command": "artifact verify", "code": "invalid_manifest",
-               "message": "manifest entry 0: uri ... is not artifact:<key>",
-               "entry": 0, "problems": ["uri '...' is not artifact:<key>"]}
-    else:
-        err = {"command": "artifact verify", "code": "broker_unreachable",
-               "message": "cannot reach the artifact broker"}
-    return subprocess.CompletedProcess(cmd, 1, "", json.dumps({"schema_version": 1,
-                                                               "error": err}))
-
-
 class Preflight(unittest.TestCase):
     def which(self, name):
         return f"/bin/{name}"
 
     def run_ok(self, cmd, **kw):
-        if cmd[1:3] == ["artifact", "verify"]:
-            return klt_probe_answer(cmd)
         return subprocess.CompletedProcess(cmd, 0, "usage", "")
 
     def test_no_broker_configured(self):
@@ -210,20 +193,6 @@ class Preflight(unittest.TestCase):
                          run=lambda cmd, **kw: subprocess.CompletedProcess(cmd, 2, "", ""),
                          probe=lambda *a: None)
 
-    def test_old_klt_refused_before_the_broker_probe(self):
-        env = {es.ENV_BROKER: "http://broker.invalid", es.ENV_REPO: REPO}
-        probed = []
-
-        def run_old(cmd, **kw):
-            if cmd[1:3] == ["artifact", "verify"]:
-                return klt_probe_answer(cmd, current=False)
-            return subprocess.CompletedProcess(cmd, 0, "usage", "")
-
-        with self.assertRaisesRegex(es.StoreError, "older than klayout-tools 7e3561f"):
-            es.preflight(Path("."), env=env, which=self.which, run=run_old,
-                         probe=lambda *a: probed.append(a))
-        self.assertEqual(probed, [])
-
     def test_probe_gets_repo_and_broker(self):
         seen = []
         env = {es.ENV_BROKER: "http://broker.invalid", es.ENV_REPO: REPO}
@@ -232,68 +201,7 @@ class Preflight(unittest.TestCase):
         self.assertEqual(seen, [("http://broker.invalid", REPO)])
 
 
-class KltSchemeProbe(unittest.TestCase):
-    """``check_klt_uri_scheme``: klt has no commit in its version, so the
-    writer tests the behaviour that changed at klayout-tools 7e3561f."""
-
-    def check(self, run):
-        es.check_klt_uri_scheme("/bin/klt", run=run)
-
-    def test_current_klt_passes_and_probe_is_offline(self):
-        seen = []
-
-        def run(cmd, **kw):
-            seen.append(cmd)
-            manifest = json.loads(Path(cmd[3]).read_text())
-            (entry,) = manifest["entries"]
-            self.assertFalse(entry["uri"].startswith("artifact:"))
-            return klt_probe_answer(cmd)
-
-        self.check(run)
-        (cmd,) = seen
-        self.assertEqual(cmd[:3], ["/bin/klt", "artifact", "verify"])
-        # Never the configured broker: a fixed unroutable one.
-        self.assertEqual(cmd[cmd.index("--broker") + 1], "http://127.0.0.1:9")
-
-    def test_every_other_outcome_fails_closed(self):
-        def answer(rc, err=None, stderr=None):
-            def run(cmd, **kw):
-                text = stderr if stderr is not None else json.dumps(
-                    {"schema_version": 1, "error": err})
-                return subprocess.CompletedProcess(cmd, rc, "", text)
-            return run
-
-        def raises(exc):
-            def run(cmd, **kw):
-                raise exc
-            return run
-
-        legacy_problem = "uri 'x' is not s3" + "://<bucket>/<key>"
-        cases = {
-            "old klt reaches the broker": answer(1, {"code": "broker_unreachable"}),
-            "old klt reports a refusal": answer(1, {"code": "broker_refused"}),
-            "klt without verify": answer(2, stderr="usage: klt artifact ..."),
-            "verify passes the legacy uri": answer(0, stderr=""),
-            "invalid for another reason": answer(1, {"code": "invalid_manifest",
-                                                     "problems": [legacy_problem]}),
-            "invalid without problems": answer(1, {"code": "invalid_manifest"}),
-            "wrong exit code": answer(2, {"code": "invalid_manifest",
-                                          "problems": ["is not artifact:<key>"]}),
-            "not json": answer(1, stderr="Traceback ..."),
-        }
-        for label, run in cases.items():
-            with self.subTest(label), \
-                    self.assertRaisesRegex(es.StoreError, "older than klayout-tools"):
-                self.check(run)
-        # A probe that never answered says so rather than blaming klt's age.
-        no_answer = {
-            "timeout": (raises(subprocess.TimeoutExpired("klt", 30)), "probe timed out"),
-            "cannot exec": (raises(OSError("no such file")), "probe failed to start"),
-        }
-        for label, (run, message) in no_answer.items():
-            with self.subTest(label), self.assertRaisesRegex(es.StoreError, message):
-                self.check(run)
-
+class MinCommit(unittest.TestCase):
     def test_min_commit_is_the_artifact_uri_revision(self):
         self.assertTrue(es.KLT_ARTIFACT_MIN_COMMIT.startswith("7e3561f"))
 
