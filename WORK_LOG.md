@@ -8,6 +8,9 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-19
 
+- **PR #475**: fix(env): pin the klayout engine wheel (0.30.12) for the analog flow
+- **Issue #472** (closed): gen_analog_layout --check does not reproduce committed gds_sha256 pins
+- **Issue #372** (closed): Split scripts/gen_analog_layout.py: extract the scripted-routing layer
 - **PR #473**: refactor(analog): extract scripted-routing layer into gen_analog_routing.py, drop dead BULK_TERMINAL
 - **Issue #474** (closed): Repair the mid-sentence docstring split left by the gen_analog_routing extraction
 - **PR #468**: refactor(sim): remove the klt uri-scheme preflight probe
