@@ -1033,7 +1033,7 @@ class BlockBboxSourceTests(unittest.TestCase):
                 layout.read(klt_gds)
                 top = layout.top_cell()
                 x0, y0, x1, y1 = route_to
-                top.shapes(layout.layer(*gal.M2)).insert(
+                top.shapes(layout.layer(*gar.M2)).insert(
                     kdb.Box(int(x0 * 1000), int(y0 * 1000), int(x1 * 1000), int(y1 * 1000))
                 )
                 layout.write(out_gds)
