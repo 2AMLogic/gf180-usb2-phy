@@ -8,6 +8,8 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-19
 
+- **PR #473**: refactor(analog): extract scripted-routing layer into gen_analog_routing.py, drop dead BULK_TERMINAL
+- **Issue #474** (closed): Repair the mid-sentence docstring split left by the gen_analog_routing extraction
 - **PR #468**: refactor(sim): remove the klt uri-scheme preflight probe
 - **Issue #319** (closed): Remove klt uri-scheme preflight probe from sim/harness/evidence_store.py: release pin makes it always pass
 
