@@ -86,7 +86,14 @@ jobs:
           # gate expects is a hard failure. Keep both pins in sync.
           python3 -m pip install --disable-pip-version-check \
             "klayout-tools==0.9.0" \
+            "klayout==0.30.12" \
             "cocotb==2.0.1"
+          # The `klayout` ENGINE is pinned explicitly, not floated by
+          # klayout-tools' `klayout>=0.30` floor: GDS bytes are engine-
+          # sensitive and the analog `--check` gate hashes whole streams
+          # (issue #472). 0.30.12 is what klt 0.9.0 reports as
+          # `klayout_version_expected`. Keep in sync with KLAYOUT_VERSION in
+          # scripts/setup-env.sh and docs/environment-setup.md.
           klt --version
 
       # Two gates this step owns, carrying the rationale that used to sit on a

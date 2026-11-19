@@ -161,6 +161,7 @@ reused.
 | Component | Pinned to | Resolved via |
 |---|---|---|
 | `klayout-tools` (`klt`) | release [`0.9.0`](https://pypi.org/project/klayout-tools/0.9.0/) (reports as `klt 0.9.0`) | `pip install "klayout-tools==0.9.0"` (what `scripts/setup-env.sh` runs) |
+| `klayout` (the engine wheel `klt` drives) | [`0.30.12`](https://pypi.org/project/klayout/0.30.12/) — the version klt 0.9.0 reports as `klayout_version_expected` | `pip install "klayout==0.30.12"` alongside `klt` (explicit pin in `scripts/setup-env.sh` and CI; see below) |
 | `gf180mcu` PDK | `open_pdks` commit `c6d73a35f524070e85faff4a6a9eef49553ebc2b` (variants `gf180mcuA`/`B`/`C`/`D`; the digital harness uses `gf180mcuD`, whose standard-cell libraries are `gf180mcu_fd_sc_mcu7t5v0` / `gf180mcu_fd_sc_mcu9t5v0`) | `volare enable --pdk-root ~/.volare --pdk gf180mcu c6d73a35f524070e85faff4a6a9eef49553ebc2b` |
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
@@ -170,6 +171,25 @@ As of 2026-11-06 (issue #263) `klt` is pinned by PyPI release,
 `scripts/setup-env.sh` venv. A git build reports a dev version and does not
 satisfy a release pin (klayout-tools#2823), so **do not go back to a
 `git+...@<sha>` install**.
+
+As of 2026-11-19 (issue #472) the `klayout` **engine** is pinned too,
+`klayout==0.30.12`. `klayout-tools` only floors it (`klayout>=0.30`), so an
+unpinned venv floats with PyPI — and the analog-layout replay gate hashes
+whole GDS streams, whose bytes are engine-sensitive (the generator documents
+this; klayout-tools#5546). It is the one demonstrably uncontrolled input of
+that gate, and the prime suspect in issue #472's unexplained `CHECK FAILED`
+set: two runs on 2026-11-19 regenerated all five analog streams DRC-clean
+but byte-different from the committed pins, in a worker venv whose full
+contents could not be reconstructed.
+On re-measurement (record `20261119-054500-f290041a`) both `klayout==0.30.13`
+(then PyPI's latest) and `klayout==0.30.12` (klt 0.9.0's
+`klayout_version_expected`) reproduce the committed pins on that worker, so
+the pins themselves are engine-robust across adjacent builds — the pin
+exists to keep every worker's engine identical, not to match a fragile one.
+`0.30.12` is the build klt 0.9.0 itself declares tested, which also keeps
+`klayout_version_mismatch: false` in fresh envelopes. Bump it together with
+`KLT_VERSION` (each klt release declares the engine it was tested against)
+in `scripts/setup-env.sh` and `.github/workflows/ci.yml` together.
 
 How the pin got here is kept as recorded, by move number, in
 [`klt-pin-history.md`](klt-pin-history.md) (moves 1-10; the release-pin scheme
