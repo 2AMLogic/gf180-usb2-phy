@@ -3,18 +3,18 @@
   "about": "The routed analog GDS set cited by T1 item 2.analog. Every block's stream, layout plan and SPICE netlist is listed with its sha256, alongside the generator sidecar that records how each was produced.",
   "sidecar": {
     "path": "layout/analog/provenance.json",
-    "sha256": "sha256:9383d086d77c5f4326658ded093c91889e5dd305716890f4e31551b7d4057ac9"
+    "sha256": "sha256:cb8f6de6b99e4ac8d5af49da258decc38d72e2b38f0fc042d201f58e2e63b206"
   },
   "blocks": [
     {
       "block": "differential_driver",
       "gds": {
         "path": "layout/analog/differential_driver.gds",
-        "sha256": "sha256:8db96dcd4eef2d388293298b948f25f765b48d80d3340892d06ca1051a76d010"
+        "sha256": "sha256:3c0eb67bf330880a33f7ff946307a1156e8ce2dbb6f8c86a6e236e7ca6e4c920"
       },
       "plan": {
         "path": "layout/analog/plans/differential_driver.json",
-        "sha256": "sha256:4a8b1ed420ff93de0f2847927a4a7337f46d4545f6690f7a6f7ccf912417ea4f"
+        "sha256": "sha256:c5ad7c385652b93760a825a94624d045e93712ab4ccbbc21bb9aef6040bc8d17"
       },
       "netlist": {
         "path": "design/netlist/differential_driver.spice",
@@ -30,7 +30,7 @@
         "violation_count": 0
       },
       "klt_version": "0.9.0",
-      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver"
+      "regeneration_command": "PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver --blocks differential_driver"
     },
     {
       "block": "differential_receiver",

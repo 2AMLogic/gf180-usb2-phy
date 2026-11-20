@@ -102,25 +102,15 @@ All five analog blocks (`differential_driver`, `differential_receiver`,
 `layout/analog/`: the four receiver/pull-up blocks from issue #251 (child A of
 #245) and `differential_driver` from issue #252 (child B), delivered once the
 driver re-size (#166/#167) landed. See "Outcome per block" immediately below.
-The set is cited by T1 item `2.analog` through
-`signoff/evidence/inventory-analog-layout.json`, and transistor-level LVS of
-all five is cited by T1 item `4.analog` (issue #247) from record
-`20261115-175000-5279711` — the head, re-run on the #361-regenerated streams
-with the same request shape and nothing relaxed; it supersedes the first
-all-match record `20261113-163000-35e9b6e5ab87` (#346; dated history: that
-one measured the pre-#361 streams). Supply-connectivity ERC of all five is
-*recorded* in record `20261116-000746-8dff986` (issue #248; re-run after
-issue #406's generator change on byte-identical re-delivered streams with
-the clean verdict unchanged at the same finer asserted partition — it
-supersedes `20261115-174000-5279711`, the #361 re-run on the regenerated
-streams, which superseded `20261114-003000-db05b5e`, which measured the
-pre-#361 streams, as dated history); T1 item
-`11.analog` cites one `(erc, lvs)` pair — `differential_driver` — with the
-ERC half pinned from `20261115-174000-5279711`'s artifacts, because item 11
-takes a single pair, not a list (klayout-tools#5597). See
-`manifests/README.md`, "Why this row cites one stream when the partition has
-five". DRC of these streams is still unsigned —
-issue #246. The dated history of the klt-only
+T1 item `2.analog` binds the five streams through
+`signoff/evidence/inventory-analog-layout.json`. The driver in issue #484
+has its own transistor-level LVS envelope (`20261120-204032-b75e9f2`) and
+supply-connectivity ERC envelope (`20261120-204037-b75e9f2`). Item
+`4.analog` cites this LVS result and the four other blocks’ envelopes from
+`20261115-175000-5279711`. Item `11.analog` cites the driver's ERC/LVS
+pair. The driver matched 40 devices, 22 nets and seven pins. ERC found one
+island per supply and zero findings across 51 asserted substrate regions.
+Standalone DRC signoff for the partition is tracked in issue #246. The dated history of the klt-only
 attempt that led here is kept verbatim in
 [`analog/HISTORY.md`](analog/HISTORY.md); where it says "not delivered" or
 lists 6/21 and 1/8/9/9 routed nets, it describes that run, not the committed
@@ -199,18 +189,43 @@ findings, 0 open nets); the four-block extraction is recorded in
 `20261115-180500-5279711.md`), and
 `layout/analog/extracted/shared_pad_dut_extracted.spice` is the composite
 post-layout DUT for the shared-pad-bus testbench, mirroring the schematic
-composite. Every analog `sim/` row was re-run at the full 45-corner matrix
-on these netlists (issue #51): the receiver and pull-up rows pass at the
-unchanged limits, and the **driver §6 rows fail post-layout** — 27.7–33.0 ns
-edges against the 4–20 ns limits, crossover outside 1.3–2.0 V at 29/45
-corners — root-caused by netlist bisection (same record) to the committed
-routing's output-path Metal1 series resistance: the star-hub arm feeding
-the `rm1` series resistor on `DP_OUTINT` alone is 211 Ω (~0.5 mm of
-minimum-width Metal1 between the output stage and the resistor), ~250 Ω
-added in series into the 50 pF test load. An LVS-level extraction of the
-same stream reproduces the schematic timing, so the devices are not the
-cause; a faster driver route (or wider output-path metal) is the fix the
-next layout iteration owes this block.
+composite at issue #51.
+
+#### Differential driver output paths (issue #484)
+
+Each 800 × 2 µm Metal1 series resistor occupies its own row below the
+transistors. The plan aligns the internal resistor head with the gap beside
+the first PMOS output finger of the corresponding bank. This shortens the
+scripted output routes while preserving the transistor placement order.
+The extraction assigns the following resistances in Ω to the output paths.
+Each drain or supply range covers the four fingers of one bank.
+
+| Extracted arm | DP, previous | DP, new | DM, previous | DM, new |
+|---|---:|---:|---:|---:|
+| Pad to series device | 0.412 | 0.412 | 0.412 | 0.412 |
+| Series device to internal hub | 211.13 | 79.99 | 337.52 | 74.70 |
+| PMOS drain to internal hub | 7.09–11.11 | 20.04–24.20 | 25.86–30.82 | 18.91–22.82 |
+| NMOS drain to internal hub | 44.32–52.07 | 2.12–4.48 | 53.95–58.97 | 2.07–4.43 |
+| PMOS source to VDD | 11.73–16.51 | 13.24–18.64 | 22.61–33.10 | 25.52–37.37 |
+| NMOS source to VSS | 6.00–7.62 | 6.27–11.45 | 1.92–3.48 | 3.59–8.42 |
+
+The routing target is 96 Ω per driven edge. The allocation is 1 Ω for
+the pad, 80 Ω for the resistor-side arm, and 15 Ω for the four parallel
+drain/source paths together. Each finger has a 25 Ω drain allocation and
+a 38 Ω supply allocation, with a 60 Ω combined ceiling. The extracted
+routing contributions, treating each drain/source pair in series and the
+four fingers in parallel, are 89.78/83.21 Ω on DP and 88.01/77.34 Ω on
+DM (pull-up/pull-down). With a 50 pF load the first-order 10–90%
+increment is `ln(9) × 96 Ω × 50 pF = 10.55 ns`. Adding the 8.77 ns
+slow schematic edge gives a 19.32 ns screening estimate. The intentional
+`rm1` is already in the schematic measurement. The extracted transistor
+simulation checks the actual edge and crossover.
+
+At TT, 27 °C, 3.30 V the extracted driver measured 15.48/14.70 ns
+(rise/fall) and 1.578/1.610 V (rising/falling crossover). At SS, 125 °C,
+2.97 V it measured 18.27/17.53 ns and 1.433/1.457 V. The three 45-corner
+driver campaigns are pending for this stream. The November 17 signal-quality,
+jitter, leakage and shared-pad records describe the earlier driver.
 
 CI (`scripts/check_analog_provenance.py`, via `npm run lint`) re-hashes the committed GDS, netlist and plan against the sidecar offline, with no PDK; `--check` stays the full regeneration test. A net counts as routed only when a flat conductivity
 extraction over metal1/via1/metal2/via2/metal3 puts all of its pins in one
@@ -235,7 +250,7 @@ committed today are the 0.9.0 ones, and `layout/analog/provenance.json` records
 the klt each was written by. The remaining nets are
 completed by scripted routes in `scripts/gen_analog_layout.py`:
 
-- every plan places one row of tall vertical devices, so gate pins (a metal-1 pad
+- every plan places its transistors in one row, so gate pins (a metal-1 pad
   on top) escape **up** and everything else (full-height source/drain strips,
   resistor heads) escapes **down**; each pin gets a via1 on its own metal-1 and a
   0.28 um metal-2 stub, and each net a metal-3 track (0.70 um pitch, never shared)
@@ -327,8 +342,7 @@ per-resistor record is
 compared
 and agreed. Extracted re-simulation of these streams has since landed
 (2026-11-17, issue #51 — every analog `sim/` row re-run on the committed
-extractions; the driver §6 rows fail post-layout on the output-path Metal1
-resistance, see "Extracted netlists" below), but nothing here is an
+extractions at that revision; see "Differential driver output paths" above for the reroute), but nothing here is an
 IR-drop or latch-up-margin claim about the tie geometry.
 Supply-connectivity ERC has since been run and cited separately (#248, item
 `11.analog`) — since issue #361 the record measures a strictly stronger
@@ -359,10 +373,10 @@ block: the klt plan path routes 0, 0, 0 and 6 of them, and scripted routes in
 plan executes 40 device groups for the 40 netlist devices and all **20 of its
 20** nets are routed — the plan path routes 2 and scripted routes in
 `scripts/gen_analog_layout.py` complete the remaining 18 — DRC-clean at the
-`gf180mcu` deck, committed-stream top-cell extent 1831.2 x 103.205 um
-(klayout `dbbox()`); run record
-`verification/records/analog-layout/records/20261116-000742-8dff986.md`,
-the current measurement of all five streams — re-run after issue #406's
+`gf180mcu` deck, top-cell extent 904.68 × 111.205 µm after #484
+(KLayout `dbbox()`). The prior run record
+`verification/records/analog-layout/records/20261116-000742-8dff986.md`
+measured the five earlier streams after issue #406's
 generator change with every stream byte-identical; it supersedes
 `20261115-175500-5279711.md` (the #361 re-measurement on the regenerated
 streams), which superseded `20261113-162700-35e9b6e5ab87.md` (the first
@@ -407,17 +421,9 @@ change on byte-identical re-delivered streams with the clean verdict
 unchanged at the finer asserted partition; it supersedes
 `20261115-174000-5279711`, the #361 re-run on the regenerated streams, which
 superseded `20261114-003000-db05b5e`, which measured the pre-#361 streams,
-as dated history — with T1 item `11.analog` citing one `(erc, lvs)` pair
-(`differential_driver`, ERC half pinned from `20261115-174000-5279711`'s
-artifacts) rather than
-all five; DRC signoff
-of the committed streams is still issue #246. The match is cited as T1 item `4.analog` (issue #247): all five
-envelopes of record `20261115-175000-5279711` — the #361 re-run on the
-regenerated streams; the first all-match record
-`20261113-163000-35e9b6e5ab87` stands as dated history — are pinned in
-`manifests/gf180-usb2-phy.json`, the frozen report grades the row `met`, and
-`manifests/README.md` carries the per-block counts and what the match does not
-cover. The
+as dated history. The updated driver ERC/LVS pair for item
+`11.analog` and the five LVS citations for `4.analog` are listed in
+`manifests/gf180-usb2-phy.json`. Both items grade `met`. The
 per-run table in `analog/HISTORY.md` is dated history.
 
 ### Dated history
