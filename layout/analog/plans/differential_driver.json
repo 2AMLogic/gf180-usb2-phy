@@ -678,6 +678,21 @@
   "rows": [
     {
       "order": [
+        "r_serdp"
+      ],
+      "spacing_um": 2.0,
+      "align": "bottom"
+    },
+    {
+      "order": [
+        "r_serdm"
+      ],
+      "spacing_um": 2.0,
+      "align": "bottom",
+      "margin_um": 2.0
+    },
+    {
+      "order": [
         "mn_oeb",
         "mn_1adp",
         "mn_1bdp",
@@ -714,13 +729,12 @@
         "mp_2dm_4",
         "r_slewpdp",
         "r_slewndp",
-        "r_serdp",
         "r_slewpdm",
-        "r_slewndm",
-        "r_serdm"
+        "r_slewndm"
       ],
       "spacing_um": 2.0,
-      "align": "bottom"
+      "align": "bottom",
+      "margin_um": 2.0
     }
   ],
   "routing": {
@@ -730,5 +744,19 @@
   "options": {
     "cell_name": "differential_driver",
     "output": "differential_driver.gds"
-  }
+  },
+  "abutment": [
+    {
+      "a": "mp_2dp_1",
+      "b": "r_serdp",
+      "edge": "left",
+      "gap_um": 0.8
+    },
+    {
+      "a": "mp_2dm_1",
+      "b": "r_serdm",
+      "edge": "left",
+      "gap_um": 0.8
+    }
+  ]
 }
