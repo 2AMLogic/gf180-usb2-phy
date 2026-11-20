@@ -390,7 +390,7 @@ class _KltPlanStub:
             marker = f"_{suffix}"
             return [p["name"] for p in ports if p["name"].endswith(marker)]
 
-        module._device_owned_port_names = owned
+        module.device_owned_port_names = owned
         sys.modules["klayout_tools.layout_plan_execute"] = module
         return self
 

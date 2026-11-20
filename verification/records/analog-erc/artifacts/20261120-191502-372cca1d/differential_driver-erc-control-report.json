@@ -1,0 +1,1570 @@
+{
+  "schema_version": 2,
+  "file": {
+    "path": "layout/analog/differential_driver.gds",
+    "scope": "repo"
+  },
+  "spec": "layout/analog/erc/differential_driver-erc-control-spec.json",
+  "pdk": null,
+  "findings_only": false,
+  "gate_role": "poly2",
+  "gate_count": 8,
+  "antenna_tables_omitted": false,
+  "gates": [
+    {
+      "gate_id": "gate0",
+      "net": "TXOE",
+      "gate_area_um2": 8.96,
+      "antenna_verdict": "unchecked",
+      "levels": [
+        {
+          "layer": "poly2",
+          "step_area_um2": 12.0344,
+          "cumulative_area_um2": 12.0344,
+          "antenna_ratio": 1.343125,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal1",
+          "step_area_um2": 1.0584,
+          "cumulative_area_um2": 13.0928,
+          "antenna_ratio": 1.46125,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal2",
+          "step_area_um2": 139.7452,
+          "cumulative_area_um2": 152.838,
+          "antenna_ratio": 17.057813,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal3",
+          "step_area_um2": 42.4368,
+          "cumulative_area_um2": 195.2748,
+          "antenna_ratio": 21.794063,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        }
+      ]
+    },
+    {
+      "gate_id": "gate1",
+      "net": "TXDP",
+      "gate_area_um2": 8.82,
+      "antenna_verdict": "unchecked",
+      "levels": [
+        {
+          "layer": "poly2",
+          "step_area_um2": 10.8696,
+          "cumulative_area_um2": 10.8696,
+          "antenna_ratio": 1.232381,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal1",
+          "step_area_um2": 13.0231,
+          "cumulative_area_um2": 23.8927,
+          "antenna_ratio": 2.708923,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal2",
+          "step_area_um2": 89.5328,
+          "cumulative_area_um2": 113.4255,
+          "antenna_ratio": 12.860034,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal3",
+          "step_area_um2": 29.7136,
+          "cumulative_area_um2": 143.1391,
+          "antenna_ratio": 16.228923,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        }
+      ]
+    },
+    {
+      "gate_id": "gate2",
+      "net": null,
+      "gate_area_um2": 10.36,
+      "antenna_verdict": "unchecked",
+      "levels": [
+        {
+          "layer": "poly2",
+          "step_area_um2": 12.4096,
+          "cumulative_area_um2": 12.4096,
+          "antenna_ratio": 1.197838,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal1",
+          "step_area_um2": 3.2256,
+          "cumulative_area_um2": 15.6352,
+          "antenna_ratio": 1.509189,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal2",
+          "step_area_um2": 124.9038,
+          "cumulative_area_um2": 140.539,
+          "antenna_ratio": 13.565541,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal3",
+          "step_area_um2": 66.08,
+          "cumulative_area_um2": 206.619,
+          "antenna_ratio": 19.943919,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        }
+      ]
+    },
+    {
+      "gate_id": "gate3",
+      "net": "TXDM",
+      "gate_area_um2": 8.82,
+      "antenna_verdict": "unchecked",
+      "levels": [
+        {
+          "layer": "poly2",
+          "step_area_um2": 10.8696,
+          "cumulative_area_um2": 10.8696,
+          "antenna_ratio": 1.232381,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal1",
+          "step_area_um2": 13.0231,
+          "cumulative_area_um2": 23.8927,
+          "antenna_ratio": 2.708923,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal2",
+          "step_area_um2": 88.7488,
+          "cumulative_area_um2": 112.6415,
+          "antenna_ratio": 12.771145,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal3",
+          "step_area_um2": 30.1616,
+          "cumulative_area_um2": 142.8031,
+          "antenna_ratio": 16.190828,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        }
+      ]
+    },
+    {
+      "gate_id": "gate4",
+      "net": null,
+      "gate_area_um2": 33.6,
+      "antenna_verdict": "unchecked",
+      "levels": [
+        {
+          "layer": "poly2",
+          "step_area_um2": 36.1696,
+          "cumulative_area_um2": 36.1696,
+          "antenna_ratio": 1.076476,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal1",
+          "step_area_um2": 7.94055,
+          "cumulative_area_um2": 44.11015,
+          "antenna_ratio": 1.312802,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal2",
+          "step_area_um2": 90.7102,
+          "cumulative_area_um2": 134.82035,
+          "antenna_ratio": 4.01251,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal3",
+          "step_area_um2": 47.2052,
+          "cumulative_area_um2": 182.02555,
+          "antenna_ratio": 5.417427,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        }
+      ]
+    },
+    {
+      "gate_id": "gate5",
+      "net": null,
+      "gate_area_um2": 33.6,
+      "antenna_verdict": "unchecked",
+      "levels": [
+        {
+          "layer": "poly2",
+          "step_area_um2": 36.1696,
+          "cumulative_area_um2": 36.1696,
+          "antenna_ratio": 1.076476,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal1",
+          "step_area_um2": 7.94055,
+          "cumulative_area_um2": 44.11015,
+          "antenna_ratio": 1.312802,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal2",
+          "step_area_um2": 86.3982,
+          "cumulative_area_um2": 130.50835,
+          "antenna_ratio": 3.884177,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal3",
+          "step_area_um2": 264.698,
+          "cumulative_area_um2": 395.20635,
+          "antenna_ratio": 11.762094,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        }
+      ]
+    },
+    {
+      "gate_id": "gate6",
+      "net": null,
+      "gate_area_um2": 89.6,
+      "antenna_verdict": "unchecked",
+      "levels": [
+        {
+          "layer": "poly2",
+          "step_area_um2": 92.1696,
+          "cumulative_area_um2": 92.1696,
+          "antenna_ratio": 1.028679,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal1",
+          "step_area_um2": 7.94055,
+          "cumulative_area_um2": 100.11015,
+          "antenna_ratio": 1.117301,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal2",
+          "step_area_um2": 36.0822,
+          "cumulative_area_um2": 136.19235,
+          "antenna_ratio": 1.520004,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal3",
+          "step_area_um2": 18.97,
+          "cumulative_area_um2": 155.16235,
+          "antenna_ratio": 1.731723,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        }
+      ]
+    },
+    {
+      "gate_id": "gate7",
+      "net": null,
+      "gate_area_um2": 89.6,
+      "antenna_verdict": "unchecked",
+      "levels": [
+        {
+          "layer": "poly2",
+          "step_area_um2": 92.1696,
+          "cumulative_area_um2": 92.1696,
+          "antenna_ratio": 1.028679,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal1",
+          "step_area_um2": 7.94055,
+          "cumulative_area_um2": 100.11015,
+          "antenna_ratio": 1.117301,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal2",
+          "step_area_um2": 31.7702,
+          "cumulative_area_um2": 131.88035,
+          "antenna_ratio": 1.471879,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        },
+        {
+          "layer": "Metal3",
+          "step_area_um2": 236.0148,
+          "cumulative_area_um2": 367.89515,
+          "antenna_ratio": 4.105973,
+          "antenna_ratio_max": null,
+          "antenna_ratio_source": null,
+          "verdict": "unchecked",
+          "remedy": null
+        }
+      ]
+    }
+  ],
+  "nets": [
+    {
+      "name": "VDD",
+      "matched_islands": 1,
+      "expected_islands": 1,
+      "roles": [],
+      "unlabelled_islands": null,
+      "unlabelled_area_um2": null,
+      "unlabelled_bbox": null,
+      "unlabelled_allowed_islands": null
+    },
+    {
+      "name": "VSS",
+      "matched_islands": 1,
+      "expected_islands": 1,
+      "roles": [],
+      "unlabelled_islands": null,
+      "unlabelled_area_um2": null,
+      "unlabelled_bbox": null,
+      "unlabelled_allowed_islands": null
+    },
+    {
+      "name": "VSS_NOT_IN_LAYOUT",
+      "matched_islands": 0,
+      "expected_islands": 1,
+      "roles": [],
+      "unlabelled_islands": null,
+      "unlabelled_area_um2": null,
+      "unlabelled_bbox": null,
+      "unlabelled_allowed_islands": null
+    }
+  ],
+  "erc_findings": [
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": -1720,
+        "bottom": 320,
+        "right": 4280,
+        "top": 6460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 30200,
+        "bottom": 320,
+        "right": 36200,
+        "top": 7460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 40840,
+        "bottom": 320,
+        "right": 46840,
+        "top": 7460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 118680,
+        "bottom": 320,
+        "right": 124680,
+        "top": 7460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 129320,
+        "bottom": 320,
+        "right": 135320,
+        "top": 7460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": -1720,
+        "bottom": 10600,
+        "right": -880,
+        "top": 11440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 3440,
+        "bottom": 10600,
+        "right": 4280,
+        "top": 11440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 30200,
+        "bottom": 11600,
+        "right": 31040,
+        "top": 12440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 35360,
+        "bottom": 11600,
+        "right": 36200,
+        "top": 12440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 40840,
+        "bottom": 11600,
+        "right": 41680,
+        "top": 12440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 46000,
+        "bottom": 11600,
+        "right": 46840,
+        "top": 12440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 118680,
+        "bottom": 11600,
+        "right": 119520,
+        "top": 12440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 123840,
+        "bottom": 11600,
+        "right": 124680,
+        "top": 12440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 129320,
+        "bottom": 11600,
+        "right": 130160,
+        "top": 12440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 134480,
+        "bottom": 11600,
+        "right": 135320,
+        "top": 12440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 8920,
+        "bottom": 320,
+        "right": 14920,
+        "top": 12460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 19560,
+        "bottom": 320,
+        "right": 25560,
+        "top": 12460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 97400,
+        "bottom": 320,
+        "right": 103400,
+        "top": 12460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 108040,
+        "bottom": 320,
+        "right": 114040,
+        "top": 12460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 8920,
+        "bottom": 16600,
+        "right": 9760,
+        "top": 17440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 14080,
+        "bottom": 16600,
+        "right": 14920,
+        "top": 17440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 19560,
+        "bottom": 16600,
+        "right": 20400,
+        "top": 17440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 24720,
+        "bottom": 16600,
+        "right": 25560,
+        "top": 17440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 97400,
+        "bottom": 16600,
+        "right": 98240,
+        "top": 17440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 102560,
+        "bottom": 16600,
+        "right": 103400,
+        "top": 17440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 108040,
+        "bottom": 16600,
+        "right": 108880,
+        "top": 17440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 113200,
+        "bottom": 16600,
+        "right": 114040,
+        "top": 17440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 51480,
+        "bottom": 320,
+        "right": 58320,
+        "top": 62460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 62960,
+        "bottom": 320,
+        "right": 69800,
+        "top": 62460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 74440,
+        "bottom": 320,
+        "right": 81280,
+        "top": 62460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 85920,
+        "bottom": 320,
+        "right": 92760,
+        "top": 62460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 139960,
+        "bottom": 320,
+        "right": 146800,
+        "top": 62460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 151440,
+        "bottom": 320,
+        "right": 158280,
+        "top": 62460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 162920,
+        "bottom": 320,
+        "right": 169760,
+        "top": 62460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 174400,
+        "bottom": 320,
+        "right": 181240,
+        "top": 62460
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 51900,
+        "bottom": 66600,
+        "right": 52740,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 57060,
+        "bottom": 66600,
+        "right": 57900,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 63380,
+        "bottom": 66600,
+        "right": 64220,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 68540,
+        "bottom": 66600,
+        "right": 69380,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 74860,
+        "bottom": 66600,
+        "right": 75700,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 80020,
+        "bottom": 66600,
+        "right": 80860,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 86340,
+        "bottom": 66600,
+        "right": 87180,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 91500,
+        "bottom": 66600,
+        "right": 92340,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 140380,
+        "bottom": 66600,
+        "right": 141220,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 145540,
+        "bottom": 66600,
+        "right": 146380,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 151860,
+        "bottom": 66600,
+        "right": 152700,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 157020,
+        "bottom": 66600,
+        "right": 157860,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 163340,
+        "bottom": 66600,
+        "right": 164180,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 168500,
+        "bottom": 66600,
+        "right": 169340,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 174820,
+        "bottom": 66600,
+        "right": 175660,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.missing_tie",
+      "description": "well/tub tap is not connected to declared net 'VDD'",
+      "net": "VDD",
+      "other_net": null,
+      "gate_id": null,
+      "layer": "substrate_neg_tap",
+      "bbox": {
+        "left": 179980,
+        "bottom": 66600,
+        "right": 180820,
+        "top": 67440
+      },
+      "islands": null
+    },
+    {
+      "rule": "erc.unconnected_net",
+      "description": "declared net 'VSS_NOT_IN_LAYOUT' matches no labelled geometry in this layout",
+      "net": "VSS_NOT_IN_LAYOUT",
+      "other_net": null,
+      "gate_id": null,
+      "layer": null,
+      "bbox": null,
+      "islands": null
+    }
+  ],
+  "erc_finding_count": 52,
+  "erc_status": "violations",
+  "status": "violations",
+  "coverage": {
+    "scope": "antenna",
+    "schema_version": 1,
+    "known": true,
+    "checked": [],
+    "skipped": [
+      {
+        "id": "antenna:[\"gate0\",\"Metal1\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate0\",\"Metal2\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate0\",\"Metal3\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate1\",\"Metal1\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate1\",\"Metal2\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate1\",\"Metal3\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate2\",\"Metal1\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate2\",\"Metal2\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate2\",\"Metal3\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate3\",\"Metal1\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate3\",\"Metal2\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate3\",\"Metal3\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate4\",\"Metal1\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate4\",\"Metal2\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate4\",\"Metal3\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate5\",\"Metal1\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate5\",\"Metal2\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate5\",\"Metal3\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate6\",\"Metal1\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate6\",\"Metal2\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate6\",\"Metal3\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate7\",\"Metal1\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate7\",\"Metal2\"]",
+        "reason": "missing_antenna_pdk"
+      },
+      {
+        "id": "antenna:[\"gate7\",\"Metal3\"]",
+        "reason": "missing_antenna_pdk"
+      }
+    ],
+    "inapplicable": [
+      {
+        "id": "antenna:[\"gate0\",\"poly2\"]",
+        "reason": "gate_reference_level"
+      },
+      {
+        "id": "antenna:[\"gate1\",\"poly2\"]",
+        "reason": "gate_reference_level"
+      },
+      {
+        "id": "antenna:[\"gate2\",\"poly2\"]",
+        "reason": "gate_reference_level"
+      },
+      {
+        "id": "antenna:[\"gate3\",\"poly2\"]",
+        "reason": "gate_reference_level"
+      },
+      {
+        "id": "antenna:[\"gate4\",\"poly2\"]",
+        "reason": "gate_reference_level"
+      },
+      {
+        "id": "antenna:[\"gate5\",\"poly2\"]",
+        "reason": "gate_reference_level"
+      },
+      {
+        "id": "antenna:[\"gate6\",\"poly2\"]",
+        "reason": "gate_reference_level"
+      },
+      {
+        "id": "antenna:[\"gate7\",\"poly2\"]",
+        "reason": "gate_reference_level"
+      }
+    ],
+    "unknown": [],
+    "nothing_checked": true,
+    "nothing_checked_reasons": [
+      "gate_reference_level",
+      "missing_antenna_pdk"
+    ]
+  },
+  "erc_coverage": {
+    "scope": "connectivity",
+    "schema_version": 1,
+    "known": true,
+    "checked": [
+      "erc.floating_gate:[\"gate0\"]",
+      "erc.floating_gate:[\"gate1\"]",
+      "erc.floating_gate:[\"gate2\"]",
+      "erc.floating_gate:[\"gate3\"]",
+      "erc.floating_gate:[\"gate4\"]",
+      "erc.floating_gate:[\"gate5\"]",
+      "erc.floating_gate:[\"gate6\"]",
+      "erc.floating_gate:[\"gate7\"]",
+      "erc.missing_tie:[\"nwell_pos_tap\"]",
+      "erc.missing_tie:[\"substrate_neg_tap\"]",
+      "erc.net_connectivity:[\"VDD\"]",
+      "erc.net_connectivity:[\"VSS\"]",
+      "erc.net_connectivity:[\"VSS_NOT_IN_LAYOUT\"]",
+      "erc.supply_short",
+      "erc.supply_short.substrate"
+    ],
+    "skipped": [],
+    "inapplicable": [],
+    "unknown": [],
+    "nothing_checked": false,
+    "nothing_checked_reasons": [],
+    "missing_tie_checked": true,
+    "checked_by_assertion": [],
+    "checked_by_well_assertion": [
+      "erc.missing_tie:[\"substrate_neg_tap\"]"
+    ],
+    "layers_in_stream_without_declaration": [],
+    "well_assertion_coverage": [
+      {
+        "id": "erc.missing_tie:[\"substrate_neg_tap\"]",
+        "tap_layer": "22/0",
+        "drawn_tap_area_um2": 1333.4624,
+        "uncovered_tap_area_um2": 970.4848,
+        "uncovered_tap_fraction": 0.727793,
+        "extent_uncovered_fraction": 0.994809
+      }
+    ]
+  },
+  "ties_disclosure": null,
+  "provenance": {
+    "klt_version": "0.9.2",
+    "klt_git_commit": "046ba74652fc096bd97071fc3237f7159dd40183",
+    "klt_reinstall_spec": "klayout-tools==0.9.2",
+    "klayout_version": "0.30.12",
+    "pdk": null,
+    "deck": {
+      "name": "gf180mcu",
+      "content_hash": "sha256:c3f2cce49000857a3a71cb65203aabf0eb27cd0ee6b1c60e29792355c455c4b1",
+      "released": true
+    },
+    "input": {
+      "content_hash": "sha256:77dbedb0312c1461e8c5d33af2f08f7f7e591a4e34b2c3f89e3b32ffcf9f201d",
+      "role": "layout"
+    },
+    "spec": {
+      "content_hash": "sha256:b892225d614b0a122d470feba19d84cfb4d99f6ff67f55d094b3e71c120c877d"
+    },
+    "devices": [
+      {
+        "name": "ppolyf_u",
+        "body_layer": "30/0",
+        "on": "poly2",
+        "body_area_um2": 24.0,
+        "source": "deck",
+        "superseded_by": null
+      },
+      {
+        "name": "rm1",
+        "body_layer": "34/0",
+        "on": "Metal1",
+        "body_area_um2": 3200.0,
+        "source": "deck",
+        "superseded_by": null
+      }
+    ],
+    "net_exclusions": [],
+    "label_layers": [
+      {
+        "name": "Metal1",
+        "label_layer": "34/10",
+        "label_text_count": 7
+      }
+    ],
+    "substrate_bodies": [
+      {
+        "kind": "substrate",
+        "id": "vsubs",
+        "ties": []
+      },
+      {
+        "kind": "well",
+        "id": "185560,20,193000,15740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "197000,20,204440,23740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "208440,20,215880,23740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "219880,20,227320,39740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "231320,20,238760,39740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "242780,20,250220,167740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "254260,20,261700,167740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "265740,20,273180,167740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "277220,20,284660,167740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "288680,20,296120,23740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "300120,20,307560,23740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "311560,20,319000,39740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "323000,20,330440,39740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "334460,20,341900,167740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "345940,20,353380,167740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "357420,20,364860,167740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      },
+      {
+        "kind": "well",
+        "id": "368900,20,376340,167740",
+        "ties": [
+          "nwell_pos_tap"
+        ]
+      }
+    ]
+  }
+}

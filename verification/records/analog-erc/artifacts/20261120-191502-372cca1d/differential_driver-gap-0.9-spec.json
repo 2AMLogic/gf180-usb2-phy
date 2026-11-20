@@ -1,0 +1,414 @@
+{
+  "_comment": [
+    "klt erc supply spec for layout/analog/differential_driver.gds -- the T1 item",
+    "11.analog (power delivery, structural) artifact for this stream",
+    "(issue #248). One spec per stream, because both the supply names",
+    "and the substrate assertion are per-stream. Regenerate and re-run:",
+    "",
+    "    PDK=gf180mcuD python3 scripts/analog_erc.py",
+    "",
+    "which re-derives well_boxes from the GDS and fails on drift.",
+    "Field-by-field rationale, the rejected alternatives and the",
+    "measured limits of this evidence:",
+    "layout/analog/erc-supply-spec.notes.md.",
+    "",
+    "Supplies: VDD (positive), VSS (ground), read from this",
+    "block's body_tie_nets in layout/analog/provenance.json.",
+    "",
+    "substrate_neg_tap asserts 51 substrate region(s).",
+    "gf180mcu draws no pwell/tub layer for a native-substrate block, so",
+    "well_layer is null and the region is asserted (klayout-tools#2255)",
+    "and graded under erc_coverage.checked_by_well_assertion. The boxes",
+    "are derived, not hand-typed: Comp (22/0) minus Nwell (21/0),",
+    "grouped by a 0.9 um proximity closure, one bounding box per",
+    "group of diffusion -- the finest partition whose every polygon",
+    "still holds a body-tie pad wired to ground in metal."
+  ],
+  "stackup": [
+    {
+      "name": "poly2",
+      "layer": "30/0",
+      "role": "gate",
+      "active_layer": "22/0"
+    },
+    {
+      "name": "Metal1",
+      "layer": "34/0",
+      "label_layer": "34/10"
+    },
+    {
+      "name": "Metal2",
+      "layer": "36/0"
+    },
+    {
+      "name": "Metal3",
+      "layer": "42/0"
+    }
+  ],
+  "vias": [
+    {
+      "name": "Contact",
+      "layer": "33/0",
+      "between": [
+        "poly2",
+        "Metal1"
+      ]
+    },
+    {
+      "name": "Via1",
+      "layer": "35/0",
+      "between": [
+        "Metal1",
+        "Metal2"
+      ]
+    },
+    {
+      "name": "Via2",
+      "layer": "38/0",
+      "between": [
+        "Metal2",
+        "Metal3"
+      ]
+    }
+  ],
+  "nets": [
+    {
+      "name": "VDD",
+      "kind": "supply"
+    },
+    {
+      "name": "VSS",
+      "kind": "supply"
+    }
+  ],
+  "ties": [
+    {
+      "name": "nwell_pos_tap",
+      "well_layer": "21/0",
+      "tap_layer": "22/0",
+      "tap_requires": [
+        "32/0"
+      ],
+      "connect_to": "Metal1",
+      "net": "VDD"
+    },
+    {
+      "name": "substrate_neg_tap",
+      "well_layer": null,
+      "well_boxes": [
+        [
+          -0.86,
+          0.16,
+          2.14,
+          3.23
+        ],
+        [
+          -0.86,
+          5.3,
+          -0.44,
+          5.72
+        ],
+        [
+          1.72,
+          5.3,
+          2.14,
+          5.72
+        ],
+        [
+          4.46,
+          0.16,
+          7.46,
+          6.23
+        ],
+        [
+          4.46,
+          8.3,
+          4.88,
+          8.72
+        ],
+        [
+          7.04,
+          8.3,
+          7.46,
+          8.72
+        ],
+        [
+          9.78,
+          0.16,
+          12.78,
+          6.23
+        ],
+        [
+          9.78,
+          8.3,
+          10.2,
+          8.72
+        ],
+        [
+          12.36,
+          8.3,
+          12.78,
+          8.72
+        ],
+        [
+          15.1,
+          0.16,
+          18.1,
+          3.73
+        ],
+        [
+          15.1,
+          5.8,
+          15.52,
+          6.22
+        ],
+        [
+          17.68,
+          5.8,
+          18.1,
+          6.22
+        ],
+        [
+          20.42,
+          0.16,
+          23.42,
+          3.73
+        ],
+        [
+          20.42,
+          5.8,
+          20.84,
+          6.22
+        ],
+        [
+          23.0,
+          5.8,
+          23.42,
+          6.22
+        ],
+        [
+          25.74,
+          0.16,
+          29.16,
+          31.23
+        ],
+        [
+          25.95,
+          33.3,
+          26.37,
+          33.72
+        ],
+        [
+          28.53,
+          33.3,
+          28.95,
+          33.72
+        ],
+        [
+          31.48,
+          0.16,
+          34.9,
+          31.23
+        ],
+        [
+          31.69,
+          33.3,
+          32.11,
+          33.72
+        ],
+        [
+          34.27,
+          33.3,
+          34.69,
+          33.72
+        ],
+        [
+          37.22,
+          0.16,
+          40.64,
+          31.23
+        ],
+        [
+          37.43,
+          33.3,
+          37.85,
+          33.72
+        ],
+        [
+          40.01,
+          33.3,
+          40.43,
+          33.72
+        ],
+        [
+          42.96,
+          0.16,
+          46.38,
+          31.23
+        ],
+        [
+          43.17,
+          33.3,
+          43.59,
+          33.72
+        ],
+        [
+          45.75,
+          33.3,
+          46.17,
+          33.72
+        ],
+        [
+          48.7,
+          0.16,
+          51.7,
+          6.23
+        ],
+        [
+          48.7,
+          8.3,
+          49.12,
+          8.72
+        ],
+        [
+          51.28,
+          8.3,
+          51.7,
+          8.72
+        ],
+        [
+          54.02,
+          0.16,
+          57.02,
+          6.23
+        ],
+        [
+          54.02,
+          8.3,
+          54.44,
+          8.72
+        ],
+        [
+          56.6,
+          8.3,
+          57.02,
+          8.72
+        ],
+        [
+          59.34,
+          0.16,
+          62.34,
+          3.73
+        ],
+        [
+          59.34,
+          5.8,
+          59.76,
+          6.22
+        ],
+        [
+          61.92,
+          5.8,
+          62.34,
+          6.22
+        ],
+        [
+          64.66,
+          0.16,
+          67.66,
+          3.73
+        ],
+        [
+          64.66,
+          5.8,
+          65.08,
+          6.22
+        ],
+        [
+          67.24,
+          5.8,
+          67.66,
+          6.22
+        ],
+        [
+          69.98,
+          0.16,
+          73.4,
+          31.23
+        ],
+        [
+          70.19,
+          33.3,
+          70.61,
+          33.72
+        ],
+        [
+          72.77,
+          33.3,
+          73.19,
+          33.72
+        ],
+        [
+          75.72,
+          0.16,
+          79.14,
+          31.23
+        ],
+        [
+          75.93,
+          33.3,
+          76.35,
+          33.72
+        ],
+        [
+          78.51,
+          33.3,
+          78.93,
+          33.72
+        ],
+        [
+          81.46,
+          0.16,
+          84.88,
+          31.23
+        ],
+        [
+          81.67,
+          33.3,
+          82.09,
+          33.72
+        ],
+        [
+          84.25,
+          33.3,
+          84.67,
+          33.72
+        ],
+        [
+          87.2,
+          0.16,
+          90.62,
+          31.23
+        ],
+        [
+          87.41,
+          33.3,
+          87.83,
+          33.72
+        ],
+        [
+          89.99,
+          33.3,
+          90.41,
+          33.72
+        ]
+      ],
+      "tap_layer": "22/0",
+      "tap_requires": [
+        "31/0"
+      ],
+      "connect_to": "Metal1",
+      "net": "VSS"
+    }
+  ]
+}

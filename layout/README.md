@@ -230,9 +230,12 @@ other five still do not). This is the multi-net layer/track-assignment gap
 recorded as `2AMLogic/klayout-tools#1962` (open). The pin has moved twice since
 that run: to klt 0.8.0 on 2026-10-27 (`f10baec`), under which all four GDS were
 recorded as reproducing (`fdff78c`), and to klt 0.9.0 on 2026-11-06 (issue #263,
-`102faa6`), which regenerated all four streams under new hashes — so the streams
-committed today are the 0.9.0 ones, and `layout/analog/provenance.json` records
-the klt each was written by. The remaining nets are
+`102faa6`), which regenerated all four streams under new hashes — and to klt
+0.9.2 on 2026-11-20 (issue #483), which again moved every stream's bytes with
+the engine held at 0.30.12 (same class of klt-version byte-instability as the
+0.9.0 move; DRC/LVS/ERC/resistor-dims re-measured green on the new bytes) — so
+the streams committed today are the 0.9.2 ones, and `layout/analog/provenance.json`
+records the klt each was written by. The remaining nets are
 completed by scripted routes in `scripts/gen_analog_layout.py`:
 
 - every plan places one row of tall vertical devices, so gate pins (a metal-1 pad

@@ -31,7 +31,7 @@ from pathlib import Path
 SCRIPTS_DIR = Path(__file__).resolve().parent
 SETUP_ENV = SCRIPTS_DIR / "setup-env.sh"
 
-#: ``KLT_VERSION="0.9.0"`` in scripts/setup-env.sh -- the pin every harness
+#: ``KLT_VERSION="0.9.2"`` in scripts/setup-env.sh -- the pin every harness
 #: gates its reports against.
 _PIN_LINE = re.compile(r'^\s*KLT_VERSION="([^"]+)"', re.MULTILINE)
 
