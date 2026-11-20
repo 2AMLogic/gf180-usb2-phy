@@ -1,0 +1,24 @@
+* diff-receiver-sensitivity -- body for `klt pex` (issue #485): the committed bench fragment, with the harness preamble (nominal supply .param cards) inlined and a single DUT .include.
+* The PDK's design.ngspice globals are supplied by the request's models.param_file, not a second .include.
+.param vdd_nom=3.3
+.param vdd_val=3.3
+.param temp_c=27.0
+.include "../../../../../design/netlist/differential_receiver.spice"
+vsup VDD 0 dc {vdd_val}
+vsw  sw  0 dc 0
+bmid mid 0 v = 0.5*v(vdd)
+bn1  n1  0 v = v(rxd1)/v(vdd)
+bn2  n2  0 v = v(rxd2)/v(vdd)
+bn3  n3  0 v = v(rxd3)/v(vdd)
+vcm1 CM1 0 dc 0.8
+edp1 DP1 CM1 sw 0  0.5
+edm1 DM1 CM1 sw 0 -0.5
+Xrx1 VDD 0 DP1 DM1 RXD1 differential_receiver
+vcm2 CM2 0 dc 1.65
+edp2 DP2 CM2 sw 0  0.5
+edm2 DM2 CM2 sw 0 -0.5
+Xrx2 VDD 0 DP2 DM2 RXD2 differential_receiver
+vcm3 CM3 0 dc 2.5
+edp3 DP3 CM3 sw 0  0.5
+edm3 DM3 CM3 sw 0 -0.5
+Xrx3 VDD 0 DP3 DM3 RXD3 differential_receiver

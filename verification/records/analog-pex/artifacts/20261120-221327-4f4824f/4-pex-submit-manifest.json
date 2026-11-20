@@ -1,0 +1,70 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "extracted_netlist_sha256": "8ef13878ef90a9caea54f1a278faba82fa11f9c04bcc1afe664d38cce10bce25",
+  "testbenches": [
+    {
+      "label": "00-request-45corner",
+      "request_sha256": "sha256:fb32fe02e10957a407dc5b441aac182d0a0400653e6d6681e50d6d7c7bf93a18"
+    }
+  ],
+  "legs": [
+    {
+      "testbench": "00-request-45corner",
+      "side": "schematic",
+      "sharded": false,
+      "attach": "klt-sim-496d70f77be1",
+      "unit_count": 45
+    },
+    {
+      "testbench": "00-request-45corner",
+      "side": "extracted",
+      "sharded": false,
+      "attach": "klt-sim-e6196d776875",
+      "unit_count": 45
+    }
+  ],
+  "request": {
+    "tie_declared_pins": false,
+    "layout": "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-485/layout/analog/differential_receiver.gds",
+    "testbenches": [
+      "/home/ubuntu/GitHub/gf180-usb2-phy/.loom/worktrees/issue-485/verification/records/analog-pex/request/reordered/request-45corner.json"
+    ],
+    "measure_command": null,
+    "reference_netlist": null,
+    "measure_timeout_s": null,
+    "flatten_schematic": false,
+    "device_only_leg": false,
+    "extract_only": false,
+    "deck": "gf180mcu",
+    "output": "/tmp/pex485/g4/extracted.spice",
+    "top": null,
+    "pdk": "gf180mcuD",
+    "pdk_root": "/home/ubuntu/.volare",
+    "outdir": "/tmp/pex485/g4",
+    "backend": "batch",
+    "max_units_per_job": null,
+    "max_concurrent_jobs": null,
+    "hosts": null,
+    "resume": null,
+    "deck_options": null,
+    "pins": "VDD,VSS,DP,DM,RXD",
+    "rename_declared_pins": false,
+    "label_layers": null,
+    "tie_nets": null,
+    "device_models": null,
+    "critical_nets": null,
+    "critical_net_patterns": null,
+    "critical_net_all": false,
+    "critical_net_excludes": null,
+    "distributed_rc": false,
+    "resistance_graph": false,
+    "resistance_graph_r_cut": null,
+    "parasitic_variants": null,
+    "substrate_tie_ohms": null,
+    "mom_rlc_net": null,
+    "mom_rlc_resistance_ohm": null,
+    "mom_rlc_capacitance_ff": null,
+    "mom_rlc_inductance_nh": null
+  }
+}
