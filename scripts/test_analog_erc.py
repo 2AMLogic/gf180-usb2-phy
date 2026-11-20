@@ -39,6 +39,7 @@ import json
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -323,6 +324,12 @@ class TestLvsPairing(unittest.TestCase):
             result = aerc.grade_lvs_pairing(str(ROOT), block, positive, ground)
             self.assertTrue(result["passed"], f"{block}: {result['gates']}")
             self.assertEqual(result["lvs_status"], "match")
+
+    def test_matched_supplies_from_a_different_stream_fail(self):
+        with patch.object(aerc, "sha256", return_value="0" * 64):
+            result = aerc.grade_lvs_pairing(str(ROOT), "differential_driver", "VDD", "VSS")
+        self.assertFalse(result["passed"])
+        self.assertFalse(result["gates"]["layout_hash_matches"])
 
     def test_an_unpaired_supply_is_refused(self):
         with self.assertRaises(aerc.HarnessError):

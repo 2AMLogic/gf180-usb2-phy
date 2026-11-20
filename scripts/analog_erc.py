@@ -662,20 +662,12 @@ def grade_control(report: dict, absent_net: str, asserted_polygons: int) -> dict
 
 
 def grade_lvs_pairing(root: str, block: str, positive: str, ground: str) -> dict:
-    """Item 11's other half: both declared supplies paired in item 4's own LVS.
-
-    Reads the newest committed `analog-lvs` artifacts directory, so the
-    compound citation is *verified* here rather than asserted in prose. The
-    pairing is a participation test, not a second opinion (the item's own
-    text says so) -- hence `status == "match"` is gated too.
-    """
-    candidates = sorted(glob.glob(os.path.join(root, LVS_ARTIFACTS, "*")))
-    if not candidates:
-        raise HarnessError(f"{LVS_ARTIFACTS}: no committed analog-lvs artifacts")
-    newest = candidates[-1]
-    path = os.path.join(newest, f"{block}-lvs-report.json")
-    if not os.path.exists(path):
-        raise HarnessError(f"{path}: no committed LVS report for block {block!r}")
+    """Pair both supplies using the latest LVS report for this block's GDS."""
+    pattern = os.path.join(root, LVS_ARTIFACTS, "*", f"{glob.escape(block)}-lvs-report.json")
+    reports = sorted(glob.glob(pattern))
+    if not reports:
+        raise HarnessError(f"{LVS_ARTIFACTS}: no committed LVS report for block {block!r}")
+    path = reports[-1]
     with open(path) as fh:
         report = json.load(fh)
     paired = {
@@ -683,7 +675,10 @@ def grade_lvs_pairing(root: str, block: str, positive: str, ground: str) -> dict
         for entry in report.get("net_correspondence") or []
         if entry.get("layout") == entry.get("reference")
     }
+    measured_hash = (report.get("environment") or {}).get("layout_sha256")
+    current_hash = sha256(os.path.join(root, GDS_DIR, f"{block}.gds"))
     gates = {
+        "layout_hash_matches": measured_hash == current_hash,
         "lvs_status_match": report.get("status") == "match",
         "positive_supply_paired": positive in paired,
         "ground_supply_paired": ground in paired,
