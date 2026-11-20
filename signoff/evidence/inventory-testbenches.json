@@ -483,7 +483,7 @@
     },
     {
       "path": "sim/spec-coverage.md",
-      "sha256": "sha256:0aa56cec947997f7c36e0a6bc8eb398b472d4564484a78182f1cf2405ccd0146"
+      "sha256": "sha256:d852bf041792e067bedb209d75306314fc3f94909da0d85ccc8e665bad919334"
     },
     {
       "path": "sim/tests/test_evidence_lint.py",
