@@ -1,7 +1,7 @@
 # Work plan
 
 <!-- guide:plan-body:start -->
-_Generated: 2026-11-20T19:08:29Z (snapshot; compare against live labels)_
+_Generated: 2026-11-20T22:09:44Z (snapshot; compare against live labels)_
 ## Operator Attention: Merge-Risk-Hold Pileup
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
@@ -12,7 +12,7 @@ _None._
 
 `loom:very-important` (one counts per workspace); every stage takes these first.
 
-_None._
+- **#484**: differential_driver fails spec section 6 timing post-layout: cut the output-path Metal1 series resistance in the committed routing *(held)*
 
 ## Important
 
@@ -27,7 +27,7 @@ _None._
 
 Human-approved issues (`loom:issue`) ready for implementation — excluding held (`loom:blocked`/`loom:operator`/`loom:frozen`), `loom:building`, and issues closed by an open `loom:pr` PR (listed under Approved).
 
-- **#485**: T1 item 7.analog: probe klt pex on differential_receiver and record whether it yields a citable report
+_None._
 
 ## In Progress
 
@@ -35,6 +35,7 @@ Issues currently being built (`loom:building`).
 
 - **#339**: Merge se_receiver_dp and se_receiver_dm into one se_receiver cell: same circuit, byte-identical layout, identical PVT results
 - **#483**: Move the klayout-tools pin 0.9.0 -> 0.9.2 and re-render the signoff report (pin precondition of #246, T1 item 3.analog)
+- **#485**: T1 item 7.analog: probe klt pex on differential_receiver and record whether it yields a citable report
 
 ## PRs Awaiting Review
 
@@ -57,7 +58,7 @@ Issues carrying `loom:curated`.
 - **#126**: Resolve DR-0003: transition-resynchronized RX oversampling for independent host clocks *(curated)* *(held)*
 - **#339**: Merge se_receiver_dp and se_receiver_dm into one se_receiver cell: same circuit, byte-identical layout, identical PVT results *(curated)*
 - **#483**: Move the klayout-tools pin 0.9.0 -> 0.9.2 and re-render the signoff report (pin precondition of #246, T1 item 3.analog) *(curated)*
-- **#484**: differential_driver fails spec section 6 timing post-layout: cut the output-path Metal1 series resistance in the committed routing *(curated)*
+- **#484**: differential_driver fails spec section 6 timing post-layout: cut the output-path Metal1 series resistance in the committed routing *(curated)* *(held)*
 - **#485**: T1 item 7.analog: probe klt pex on differential_receiver and record whether it yields a citable report *(curated)*
 
 ## Proposed (Architect / Hermit)
@@ -66,7 +67,8 @@ Issues carrying `loom:curated`.
 - **#320**: Fold flow/request-usb-utmi-phy-par-sdf.json into request-usb-utmi-phy-par.json: 71-line unguarded duplicate *(hermit)* *(held)*
 - **#339**: Merge se_receiver_dp and se_receiver_dm into one se_receiver cell: same circuit, byte-identical layout, identical PVT results *(hermit)*
 - **#350**: Fold verification/test_usb_utmi_txoe.py into test_usb_utmi_phy.py: its stated reason (routed netlist has no txoe port) ended at #131 *(hermit)* *(held)*
-- **#486**: Remove the executable fallback when the repository klt version pin is missing *(hermit)*
+- **#486**: Remove the executable fallback when the repository klt version pin is missing *(hermit)* *(held)*
+- **#488**: Keep routing-method counts for single-method analog layouts *(hermit)*
 
 ## Epics
 
@@ -77,13 +79,13 @@ Issues carrying `loom:curated`.
 | Bucket | Count |
 |------|-------|
 | Operator merge-risk holds | 0 |
-| Very important | 0 |
+| Very important | 1 |
 | Important | 4 |
-| Ready (`loom:issue`, net of holds/building/merge-pending) | 1 |
-| In Progress (`loom:building`) | 2 |
+| Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
+| In Progress (`loom:building`) | 3 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
 | Curated | 7 |
-| Architect / Hermit proposals | 5 |
+| Architect / Hermit proposals | 6 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
