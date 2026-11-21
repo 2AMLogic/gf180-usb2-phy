@@ -1,0 +1,117 @@
+{
+  "netlist": "body.spice",
+  "engine": "ngspice",
+  "models": {
+    "pdk": "gf180mcuD",
+    "lib": "libs.tech/ngspice/sm141064.ngspice",
+    "param_file": "libs.tech/ngspice/design.ngspice"
+  },
+  "corners": {
+    "process": [
+      {
+        "name": "tt",
+        "sections": [
+          "typical",
+          "res_typical",
+          "bjt_typical",
+          "diode_typical",
+          "moscap_typical",
+          "mimcap_typical"
+        ]
+      }
+    ],
+    "supply_v": {
+      "vsup": [
+        3.3
+      ]
+    },
+    "temperature_c": [
+      27
+    ]
+  },
+  "analysis": {
+    "kind": "dc",
+    "args": "vsw -0.5 0.5 0.001"
+  },
+  "measurements": [
+    {
+      "name": "vth_cm080_mv",
+      "spice": ".meas dc vth_cm080_mv WHEN v(rxd1)=v(mid) CROSS=1",
+      "limits": {
+        "min": -0.2,
+        "max": 0.2
+      }
+    },
+    {
+      "name": "vth_cm165_mv",
+      "spice": ".meas dc vth_cm165_mv WHEN v(rxd2)=v(mid) CROSS=1",
+      "limits": {
+        "min": -0.2,
+        "max": 0.2
+      }
+    },
+    {
+      "name": "vth_cm250_mv",
+      "spice": ".meas dc vth_cm250_mv WHEN v(rxd3)=v(mid) CROSS=1",
+      "limits": {
+        "min": -0.2,
+        "max": 0.2
+      }
+    },
+    {
+      "name": "hi_cm080",
+      "spice": ".meas dc hi_cm080 FIND v(n1) AT=0.2",
+      "limits": {
+        "min": 0.9,
+        "max": 1.05
+      }
+    },
+    {
+      "name": "lo_cm080",
+      "spice": ".meas dc lo_cm080 FIND v(n1) AT=-0.2",
+      "limits": {
+        "min": -0.05,
+        "max": 0.1
+      }
+    },
+    {
+      "name": "hi_cm165",
+      "spice": ".meas dc hi_cm165 FIND v(n2) AT=0.2",
+      "limits": {
+        "min": 0.9,
+        "max": 1.05
+      }
+    },
+    {
+      "name": "lo_cm165",
+      "spice": ".meas dc lo_cm165 FIND v(n2) AT=-0.2",
+      "limits": {
+        "min": -0.05,
+        "max": 0.1
+      }
+    },
+    {
+      "name": "hi_cm250",
+      "spice": ".meas dc hi_cm250 FIND v(n3) AT=0.2",
+      "limits": {
+        "min": 0.9,
+        "max": 1.05
+      }
+    },
+    {
+      "name": "lo_cm250",
+      "spice": ".meas dc lo_cm250 FIND v(n3) AT=-0.2",
+      "limits": {
+        "min": -0.05,
+        "max": 0.1
+      }
+    }
+  ],
+  "options": {
+    "timeout_s": 300,
+    "keep_artifacts": true
+  },
+  "batch": {
+    "capacity_wait_s": 600
+  }
+}

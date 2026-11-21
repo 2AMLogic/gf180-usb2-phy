@@ -1,0 +1,5789 @@
+{
+  "schema_version": 2,
+  "status": "pass",
+  "layout": {
+    "path": "layout/analog/differential_receiver.gds",
+    "scope": "repo"
+  },
+  "netlist": {
+    "path": null,
+    "scope": "external"
+  },
+  "reference_netlist": {
+    "path": "verification/records/analog-pex/request/reordered/differential_receiver_pex_order.spice",
+    "scope": "repo"
+  },
+  "reference_netlist_sha256": "sha256:b687a3e583cec26c8ea9ed7b02ad9ac26aabf89448a8d1db7e1496dc5cf92e76",
+  "extraction": {
+    "deck": "gf180mcu",
+    "device_count": 11,
+    "net_count": 10,
+    "netlist_sha256": "8ef13878ef90a9caea54f1a278faba82fa11f9c04bcc1afe664d38cce10bce25",
+    "model": {
+      "capacitance": "net-to-ground for every net's own (non-coupled) area/perimeter, plus net-to-net for the vertical-overlap coupling `coupling` describes below -- a coupled net pair gets a direct capacitor between their two hub nodes, not just capacitors to the deck's ground/substrate net",
+      "coupling": "vertical overlap (crossover) unconditionally -- where one net's conductor on an adjacent metal level sits directly over another *distinct* net's conductor, that overlap area is charged between the two nets instead of to ground (issue #760) -- plus lateral (same-layer, sidewall) coupling, but only for a net pair naming one of the caller's declared `--critical-net` nets (issue #976): facing-edge length within that layer's own minimum-spacing lookback is charged between the two nets, *additively* (not deducted from either net's substrate fringe term, unlike the vertical case -- a known simplification). Any same-layer pair with neither side named `--critical-net`, and fringe shielding in general, are still not modelled",
+      "resistance": "single lumped series resistance per net, distributed as a star across that net's device terminals (issue #592) -- not a per-segment, distributed RC ladder, *unless* `--distributed-rc` names this net via `--critical-net` (issue #977, Epic #709 Phase 2b): then the net's terminals are ordered along their approximate physical spread and its total R/C is broken into a chain of per-segment resistors (segment length proportional to inter-terminal distance) with a ground capacitor at each terminal node (proportional to its adjacent segment length/2), instead of one star hub -- still an approximation (terminal position is a device-placement proxy, not true per-segment routing geometry), but a strictly finer-grained one than the single-hub star",
+      "frequency": "quasi-static -- one frequency-independent R and C per net; no skin effect, no distributed transmission-line behavior"
+    },
+    "critical_nets": [],
+    "distributed_rc": false,
+    "mom_rlc_override": null,
+    "label_layers": null,
+    "device_models": null,
+    "rename_declared_pins": false,
+    "tie_declared_pins": false,
+    "pdk": {
+      "variant": "gf180mcuD",
+      "root": {
+        "path": null,
+        "scope": "external"
+      },
+      "version": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b"
+    },
+    "parasitic_integrity": {
+      "short_threshold_ohm": 1.0,
+      "cap_tolerance": {
+        "absolute_ff": 1e-06,
+        "relative": 1e-09
+      },
+      "max_detail_items": 20,
+      "nets_checked": 10,
+      "nets_with_findings": 0,
+      "open_nets": 0,
+      "island_components": 0,
+      "orphan_nodes": 0,
+      "suspicious_resistors": 0,
+      "short_candidates": 0,
+      "capacitance_mismatches": 0,
+      "nets": [
+        {
+          "net": "\\$4",
+          "net_id": 4,
+          "rc_model": "lumped",
+          "integrity": {
+            "open": {
+              "status": "not_applicable",
+              "reason": "lumped model: terminal legs attach to the hub by construction; no distributed segments to check connectivity over",
+              "disconnected_count": 0,
+              "disconnected_terminals": [],
+              "details_truncated": false
+            },
+            "islands": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "orphan_nodes": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "suspicious_resistors": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "short_candidates": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "capacitance": {
+              "status": "pass",
+              "declared_ff": 8.452655,
+              "computed_ff": 8.452655,
+              "delta_ff": 0.0,
+              "reason": null,
+              "tolerance": {
+                "absolute_ff": 1e-06,
+                "relative": 1e-09
+              }
+            }
+          }
+        },
+        {
+          "net": "\\$5",
+          "net_id": 5,
+          "rc_model": "lumped",
+          "integrity": {
+            "open": {
+              "status": "not_applicable",
+              "reason": "lumped model: terminal legs attach to the hub by construction; no distributed segments to check connectivity over",
+              "disconnected_count": 0,
+              "disconnected_terminals": [],
+              "details_truncated": false
+            },
+            "islands": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "orphan_nodes": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "suspicious_resistors": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "short_candidates": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "capacitance": {
+              "status": "pass",
+              "declared_ff": 51.326912,
+              "computed_ff": 51.326912,
+              "delta_ff": 0.0,
+              "reason": null,
+              "tolerance": {
+                "absolute_ff": 1e-06,
+                "relative": 1e-09
+              }
+            }
+          }
+        },
+        {
+          "net": "\\$6",
+          "net_id": 6,
+          "rc_model": "lumped",
+          "integrity": {
+            "open": {
+              "status": "not_applicable",
+              "reason": "lumped model: terminal legs attach to the hub by construction; no distributed segments to check connectivity over",
+              "disconnected_count": 0,
+              "disconnected_terminals": [],
+              "details_truncated": false
+            },
+            "islands": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "orphan_nodes": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "suspicious_resistors": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "short_candidates": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "capacitance": {
+              "status": "pass",
+              "declared_ff": 15.845351,
+              "computed_ff": 15.845351,
+              "delta_ff": 0.0,
+              "reason": null,
+              "tolerance": {
+                "absolute_ff": 1e-06,
+                "relative": 1e-09
+              }
+            }
+          }
+        },
+        {
+          "net": "\\$7",
+          "net_id": 7,
+          "rc_model": "lumped",
+          "integrity": {
+            "open": {
+              "status": "not_applicable",
+              "reason": "lumped model: terminal legs attach to the hub by construction; no distributed segments to check connectivity over",
+              "disconnected_count": 0,
+              "disconnected_terminals": [],
+              "details_truncated": false
+            },
+            "islands": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "orphan_nodes": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "suspicious_resistors": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "short_candidates": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "capacitance": {
+              "status": "pass",
+              "declared_ff": 14.027622,
+              "computed_ff": 14.027622,
+              "delta_ff": 0.0,
+              "reason": null,
+              "tolerance": {
+                "absolute_ff": 1e-06,
+                "relative": 1e-09
+              }
+            }
+          }
+        },
+        {
+          "net": "\\$9",
+          "net_id": 9,
+          "rc_model": "lumped",
+          "integrity": {
+            "open": {
+              "status": "not_applicable",
+              "reason": "lumped model: terminal legs attach to the hub by construction; no distributed segments to check connectivity over",
+              "disconnected_count": 0,
+              "disconnected_terminals": [],
+              "details_truncated": false
+            },
+            "islands": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "orphan_nodes": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "suspicious_resistors": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "short_candidates": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "capacitance": {
+              "status": "pass",
+              "declared_ff": 22.166291,
+              "computed_ff": 22.166291,
+              "delta_ff": 0.0,
+              "reason": null,
+              "tolerance": {
+                "absolute_ff": 1e-06,
+                "relative": 1e-09
+              }
+            }
+          }
+        },
+        {
+          "net": "DM",
+          "net_id": 8,
+          "rc_model": "lumped",
+          "integrity": {
+            "open": {
+              "status": "not_applicable",
+              "reason": "lumped model: terminal legs attach to the hub by construction; no distributed segments to check connectivity over",
+              "disconnected_count": 0,
+              "disconnected_terminals": [],
+              "details_truncated": false
+            },
+            "islands": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "orphan_nodes": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "suspicious_resistors": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "short_candidates": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "capacitance": {
+              "status": "pass",
+              "declared_ff": 0.340243,
+              "computed_ff": 0.340243,
+              "delta_ff": 0.0,
+              "reason": null,
+              "tolerance": {
+                "absolute_ff": 1e-06,
+                "relative": 1e-09
+              }
+            }
+          }
+        },
+        {
+          "net": "DP",
+          "net_id": 10,
+          "rc_model": "lumped",
+          "integrity": {
+            "open": {
+              "status": "not_applicable",
+              "reason": "lumped model: terminal legs attach to the hub by construction; no distributed segments to check connectivity over",
+              "disconnected_count": 0,
+              "disconnected_terminals": [],
+              "details_truncated": false
+            },
+            "islands": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "orphan_nodes": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "suspicious_resistors": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "short_candidates": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "capacitance": {
+              "status": "pass",
+              "declared_ff": 0.340243,
+              "computed_ff": 0.340243,
+              "delta_ff": 0.0,
+              "reason": null,
+              "tolerance": {
+                "absolute_ff": 1e-06,
+                "relative": 1e-09
+              }
+            }
+          }
+        },
+        {
+          "net": "RXD",
+          "net_id": 3,
+          "rc_model": "lumped",
+          "integrity": {
+            "open": {
+              "status": "not_applicable",
+              "reason": "lumped model: terminal legs attach to the hub by construction; no distributed segments to check connectivity over",
+              "disconnected_count": 0,
+              "disconnected_terminals": [],
+              "details_truncated": false
+            },
+            "islands": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "orphan_nodes": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "suspicious_resistors": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "short_candidates": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "capacitance": {
+              "status": "pass",
+              "declared_ff": 4.765324,
+              "computed_ff": 4.765324,
+              "delta_ff": 0.0,
+              "reason": null,
+              "tolerance": {
+                "absolute_ff": 1e-06,
+                "relative": 1e-09
+              }
+            }
+          }
+        },
+        {
+          "net": "VDD",
+          "net_id": 2,
+          "rc_model": "lumped",
+          "integrity": {
+            "open": {
+              "status": "not_applicable",
+              "reason": "lumped model: terminal legs attach to the hub by construction; no distributed segments to check connectivity over",
+              "disconnected_count": 0,
+              "disconnected_terminals": [],
+              "details_truncated": false
+            },
+            "islands": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "orphan_nodes": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "suspicious_resistors": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "short_candidates": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "capacitance": {
+              "status": "pass",
+              "declared_ff": 61.840359,
+              "computed_ff": 61.840359,
+              "delta_ff": 0.0,
+              "reason": null,
+              "tolerance": {
+                "absolute_ff": 1e-06,
+                "relative": 1e-09
+              }
+            }
+          }
+        },
+        {
+          "net": "VSS",
+          "net_id": 11,
+          "rc_model": "lumped",
+          "integrity": {
+            "open": {
+              "status": "not_applicable",
+              "reason": "lumped model: terminal legs attach to the hub by construction; no distributed segments to check connectivity over",
+              "disconnected_count": 0,
+              "disconnected_terminals": [],
+              "details_truncated": false
+            },
+            "islands": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "orphan_nodes": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "suspicious_resistors": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "short_candidates": {
+              "count": 0,
+              "details": [],
+              "details_truncated": false,
+              "reason": null
+            },
+            "capacitance": {
+              "status": "pass",
+              "declared_ff": 29.294651,
+              "computed_ff": 29.294651,
+              "delta_ff": 0.0,
+              "reason": null,
+              "tolerance": {
+                "absolute_ff": 1e-06,
+                "relative": 1e-09
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "body_bias": {
+    "status": "biased",
+    "unbiased_device_count": 0,
+    "unbiased_nets": [],
+    "unbiased_pmos_body_nets": []
+  },
+  "measurement": {
+    "mode": "testbench",
+    "command": null,
+    "timeout_s": null,
+    "sides": null
+  },
+  "testbenches": [
+    {
+      "request": {
+        "path": "verification/records/analog-pex/request/reordered/request-45corner.json",
+        "scope": "repo"
+      },
+      "request_sha256": "sha256:fb32fe02e10957a407dc5b441aac182d0a0400653e6d6681e50d6d7c7bf93a18",
+      "netlist": {
+        "path": "verification/records/analog-pex/request/reordered/body.spice",
+        "scope": "repo"
+      },
+      "netlist_sha256": "sha256:198bf195baeef107f90c82948702987029a63657ae2c1dbaf9c113384a92808d",
+      "schematic_netlist": {
+        "path": "verification/records/analog-pex/request/reordered/differential_receiver_pex_order.spice",
+        "scope": "repo"
+      },
+      "schematic_netlist_sha256": "sha256:b687a3e583cec26c8ea9ed7b02ad9ac26aabf89448a8d1db7e1496dc5cf92e76",
+      "corner_count": 45,
+      "measurement_names": [
+        "vth_cm080_mv",
+        "vth_cm165_mv",
+        "vth_cm250_mv",
+        "hi_cm080",
+        "lo_cm080",
+        "hi_cm165",
+        "lo_cm165",
+        "hi_cm250",
+        "lo_cm250"
+      ],
+      "sides": {
+        "schematic": {
+          "environment": {
+            "engine": "ngspice",
+            "engine_version": "47",
+            "ngspice_binary": "/usr/local/bin/ngspice",
+            "engine_host": "worker",
+            "client_ngspice_binary": "/home/ubuntu/.local/bin/ngspice",
+            "remote": {
+              "provider": "aws-batch-fleet",
+              "job_id": "klt-sim-496d70f77be1",
+              "region": "us-east-1",
+              "instance_id": "i-03c9b24ffe679a456",
+              "instance_type": "c7i.8xlarge",
+              "availability_zone": "us-east-1d",
+              "ami_id": "ami-09c14f55df4958cbd",
+              "lifecycle": "spot",
+              "spot": true,
+              "state": "done",
+              "exit_code": "0",
+              "concurrency": "2",
+              "physical_cores": "16",
+              "elapsed_seconds": 9,
+              "client_submitted_at": null,
+              "client_launched_at": null,
+              "client_status_terminal_at": "2026-11-20T22:14:37.340650Z",
+              "client_collected_at": "2026-11-20T22:14:38.570511Z",
+              "runner_klt_version": "0.9.0",
+              "client_klt_version": "0.9.0",
+              "runner_compatibility": "match",
+              "worker_environment": {
+                "capture": "ok",
+                "simulator": {
+                  "requested_binary": "ngspice",
+                  "binary_source": "PATH",
+                  "selected_path": "/usr/local/bin/ngspice",
+                  "version_banner": "******\n** ngspice-47 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2026, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Fri Nov 13 23:19:32 UTC 2026\n******\n",
+                  "version_probe": "ok"
+                },
+                "pdk": {
+                  "variant": "gf180mcuD",
+                  "root": "/opt/pdk",
+                  "stamp_scheme": "sources-sha256",
+                  "stamp_sha256": "4ca10280ae9f293aa1ff69f0060a52e0026929111bda881503717469b429ce67",
+                  "stamp_text": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
+                  "models_staged": false,
+                  "stamp_scope": "executed"
+                },
+                "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+                "omp_num_threads": null,
+                "image_manifest": null,
+                "model_inputs": null,
+                "diagnostics": [],
+                "pdk_stamp_comparison": {
+                  "status": "mismatch",
+                  "warning": "the worker's PDK revision stamp for gf180mcuD differs from the one the submitter resolved locally; results may differ from a local run (a matching stamp would not prove identical models)"
+                },
+                "engine_build_comparison": {
+                  "status": "match"
+                }
+              },
+              "runner_model_inputs": null
+            }
+          },
+          "corners": [
+            {
+              "corner_id": "tt/2.970V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/2.970V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/2.970V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/3.300V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/3.300V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/3.300V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/3.630V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/3.630V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/3.630V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/2.970V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/2.970V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/2.970V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/3.300V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/3.300V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/3.300V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/3.630V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/3.630V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/3.630V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/2.970V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/2.970V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/2.970V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/3.300V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/3.300V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/3.300V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/3.630V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/3.630V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/3.630V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/2.970V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/2.970V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/2.970V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/3.300V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/3.300V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/3.300V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/3.630V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/3.630V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/3.630V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/2.970V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/2.970V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/2.970V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/3.300V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/3.300V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/3.300V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/3.630V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/3.630V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/3.630V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            }
+          ]
+        },
+        "extracted": {
+          "environment": {
+            "engine": "ngspice",
+            "engine_version": "47",
+            "ngspice_binary": "/usr/local/bin/ngspice",
+            "engine_host": "worker",
+            "client_ngspice_binary": "/home/ubuntu/.local/bin/ngspice",
+            "remote": {
+              "provider": "aws-batch-fleet",
+              "job_id": "klt-sim-e6196d776875",
+              "region": "us-east-1",
+              "instance_id": "i-020aa67f27a9e2d91",
+              "instance_type": "c7i.8xlarge",
+              "availability_zone": "us-east-1d",
+              "ami_id": "ami-09c14f55df4958cbd",
+              "lifecycle": "spot",
+              "spot": true,
+              "state": "done",
+              "exit_code": "0",
+              "concurrency": "2",
+              "physical_cores": "16",
+              "elapsed_seconds": 10,
+              "client_submitted_at": null,
+              "client_launched_at": null,
+              "client_status_terminal_at": "2026-11-20T22:15:10.964670Z",
+              "client_collected_at": "2026-11-20T22:15:12.293140Z",
+              "runner_klt_version": "0.9.0",
+              "client_klt_version": "0.9.0",
+              "runner_compatibility": "match",
+              "worker_environment": {
+                "capture": "ok",
+                "simulator": {
+                  "requested_binary": "ngspice",
+                  "binary_source": "PATH",
+                  "selected_path": "/usr/local/bin/ngspice",
+                  "version_banner": "******\n** ngspice-47 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2026, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Fri Nov 13 23:19:32 UTC 2026\n******\n",
+                  "version_probe": "ok"
+                },
+                "pdk": {
+                  "variant": "gf180mcuD",
+                  "root": "/opt/pdk",
+                  "stamp_scheme": "sources-sha256",
+                  "stamp_sha256": "4ca10280ae9f293aa1ff69f0060a52e0026929111bda881503717469b429ce67",
+                  "stamp_text": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
+                  "models_staged": false,
+                  "stamp_scope": "executed"
+                },
+                "cpu_model": "Intel(R) Xeon(R) Platinum 8488C",
+                "omp_num_threads": null,
+                "image_manifest": null,
+                "model_inputs": null,
+                "diagnostics": [],
+                "pdk_stamp_comparison": {
+                  "status": "mismatch",
+                  "warning": "the worker's PDK revision stamp for gf180mcuD differs from the one the submitter resolved locally; results may differ from a local run (a matching stamp would not prove identical models)"
+                },
+                "engine_build_comparison": {
+                  "status": "match"
+                }
+              },
+              "runner_model_inputs": null
+            }
+          },
+          "corners": [
+            {
+              "corner_id": "tt/2.970V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/2.970V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/2.970V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/3.300V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/3.300V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/3.300V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/3.630V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/3.630V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "tt/3.630V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/2.970V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/2.970V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/2.970V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/3.300V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/3.300V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/3.300V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/3.630V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/3.630V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ff/3.630V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/2.970V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/2.970V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/2.970V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/3.300V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/3.300V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/3.300V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/3.630V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/3.630V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "ss/3.630V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/2.970V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/2.970V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/2.970V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/3.300V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/3.300V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/3.300V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/3.630V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/3.630V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "fs/3.630V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/2.970V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/2.970V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/2.970V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/3.300V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/3.300V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/3.300V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/3.630V/-40C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/3.630V/27C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            },
+            {
+              "corner_id": "sf/3.630V/125C",
+              "status": "pass",
+              "diagnostics": [],
+              "produced_value": true
+            }
+          ]
+        }
+      },
+      "nothing_simulated_corners": []
+    }
+  ],
+  "corner_count": 45,
+  "delta": [
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "tt/2.970V/-40C",
+      "schematic_value": -0.0174464,
+      "extracted_value": -0.0174587,
+      "delta_pct": -0.071,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "tt/2.970V/-40C",
+      "schematic_value": -0.0195131,
+      "extracted_value": -0.0195268,
+      "delta_pct": -0.07,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "tt/2.970V/-40C",
+      "schematic_value": -0.0225841,
+      "extracted_value": -0.0229362,
+      "delta_pct": -1.559,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "tt/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "tt/2.970V/-40C",
+      "schematic_value": 1.81652e-10,
+      "extracted_value": 1.94262e-10,
+      "delta_pct": 6.942,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "tt/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "tt/2.970V/-40C",
+      "schematic_value": 1.81507e-10,
+      "extracted_value": 1.94064e-10,
+      "delta_pct": 6.918,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "tt/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "tt/2.970V/-40C",
+      "schematic_value": 1.79234e-10,
+      "extracted_value": 1.91331e-10,
+      "delta_pct": 6.749,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "tt/2.970V/27C",
+      "schematic_value": -0.0194565,
+      "extracted_value": -0.0194649,
+      "delta_pct": -0.043,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "tt/2.970V/27C",
+      "schematic_value": -0.0215278,
+      "extracted_value": -0.0215426,
+      "delta_pct": -0.069,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "tt/2.970V/27C",
+      "schematic_value": -0.0254832,
+      "extracted_value": -0.025504,
+      "delta_pct": -0.082,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "tt/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "tt/2.970V/27C",
+      "schematic_value": 2.30056e-10,
+      "extracted_value": 2.43055e-10,
+      "delta_pct": 5.65,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "tt/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "tt/2.970V/27C",
+      "schematic_value": 2.31601e-10,
+      "extracted_value": 2.45028e-10,
+      "delta_pct": 5.797,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "tt/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "tt/2.970V/27C",
+      "schematic_value": 3.93566e-10,
+      "extracted_value": 4.827e-10,
+      "delta_pct": 22.648,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "tt/2.970V/125C",
+      "schematic_value": -0.0224798,
+      "extracted_value": -0.0224854,
+      "delta_pct": -0.025,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "tt/2.970V/125C",
+      "schematic_value": -0.0247479,
+      "extracted_value": -0.0249149,
+      "delta_pct": -0.675,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "tt/2.970V/125C",
+      "schematic_value": -0.0295337,
+      "extracted_value": -0.0295847,
+      "delta_pct": -0.173,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "tt/2.970V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "tt/2.970V/125C",
+      "schematic_value": 1.01758e-08,
+      "extracted_value": 1.06463e-08,
+      "delta_pct": 4.624,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "tt/2.970V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "tt/2.970V/125C",
+      "schematic_value": 1.51269e-08,
+      "extracted_value": 1.67596e-08,
+      "delta_pct": 10.793,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "tt/2.970V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "tt/2.970V/125C",
+      "schematic_value": 2.26505e-07,
+      "extracted_value": 2.98668e-07,
+      "delta_pct": 31.859,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "tt/3.300V/-40C",
+      "schematic_value": -0.0195101,
+      "extracted_value": -0.0195298,
+      "delta_pct": -0.101,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "tt/3.300V/-40C",
+      "schematic_value": -0.0224555,
+      "extracted_value": -0.0224768,
+      "delta_pct": -0.095,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "tt/3.300V/-40C",
+      "schematic_value": -0.0254267,
+      "extracted_value": -0.0254596,
+      "delta_pct": -0.129,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "tt/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "tt/3.300V/-40C",
+      "schematic_value": 2.08369e-10,
+      "extracted_value": 2.23401e-10,
+      "delta_pct": 7.214,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "tt/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "tt/3.300V/-40C",
+      "schematic_value": 2.07735e-10,
+      "extracted_value": 2.22538e-10,
+      "delta_pct": 7.126,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "tt/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "tt/3.300V/-40C",
+      "schematic_value": 1.99325e-10,
+      "extracted_value": 2.12192e-10,
+      "delta_pct": 6.455,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "tt/3.300V/27C",
+      "schematic_value": -0.0215534,
+      "extracted_value": -0.0215984,
+      "delta_pct": -0.209,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "tt/3.300V/27C",
+      "schematic_value": -0.0244707,
+      "extracted_value": -0.0244883,
+      "delta_pct": -0.072,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "tt/3.300V/27C",
+      "schematic_value": -0.0274931,
+      "extracted_value": -0.027519,
+      "delta_pct": -0.094,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "tt/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "tt/3.300V/27C",
+      "schematic_value": 2.60805e-10,
+      "extracted_value": 2.76247e-10,
+      "delta_pct": 5.921,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "tt/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "tt/3.300V/27C",
+      "schematic_value": 2.61032e-10,
+      "extracted_value": 2.76594e-10,
+      "delta_pct": 5.962,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "tt/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "tt/3.300V/27C",
+      "schematic_value": 3.05934e-10,
+      "extracted_value": 3.47616e-10,
+      "delta_pct": 13.625,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "tt/3.300V/125C",
+      "schematic_value": -0.0249705,
+      "extracted_value": -0.0251904,
+      "delta_pct": -0.881,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "tt/3.300V/125C",
+      "schematic_value": -0.0275106,
+      "extracted_value": -0.0275282,
+      "delta_pct": -0.064,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "tt/3.300V/125C",
+      "schematic_value": -0.0312153,
+      "extracted_value": -0.0313442,
+      "delta_pct": -0.413,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "tt/3.300V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "tt/3.300V/125C",
+      "schematic_value": 9.67909e-09,
+      "extracted_value": 1.01489e-08,
+      "delta_pct": 4.854,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "tt/3.300V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "tt/3.300V/125C",
+      "schematic_value": 1.40104e-08,
+      "extracted_value": 1.56296e-08,
+      "delta_pct": 11.557,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "tt/3.300V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "tt/3.300V/125C",
+      "schematic_value": 8.2997e-08,
+      "extracted_value": 1.09623e-07,
+      "delta_pct": 32.081,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "tt/3.630V/-40C",
+      "schematic_value": -0.021662,
+      "extracted_value": -0.0222579,
+      "delta_pct": -2.751,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "tt/3.630V/-40C",
+      "schematic_value": -0.0245701,
+      "extracted_value": -0.0250744,
+      "delta_pct": -2.052,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "tt/3.630V/-40C",
+      "schematic_value": -0.0276855,
+      "extracted_value": -0.0283146,
+      "delta_pct": -2.272,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "tt/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "tt/3.630V/-40C",
+      "schematic_value": 2.81988e-10,
+      "extracted_value": 3.02902e-10,
+      "delta_pct": 7.417,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "tt/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "tt/3.630V/-40C",
+      "schematic_value": 2.80287e-10,
+      "extracted_value": 3.00548e-10,
+      "delta_pct": 7.229,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "tt/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "tt/3.630V/-40C",
+      "schematic_value": 2.62942e-10,
+      "extracted_value": 2.78479e-10,
+      "delta_pct": 5.909,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "tt/3.630V/27C",
+      "schematic_value": -0.0243978,
+      "extracted_value": -0.024431,
+      "delta_pct": -0.136,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "tt/3.630V/27C",
+      "schematic_value": -0.0271165,
+      "extracted_value": -0.0273562,
+      "delta_pct": -0.884,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "tt/3.630V/27C",
+      "schematic_value": -0.0303993,
+      "extracted_value": -0.0304439,
+      "delta_pct": -0.147,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "tt/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "tt/3.630V/27C",
+      "schematic_value": 3.48239e-10,
+      "extracted_value": 3.69595e-10,
+      "delta_pct": 6.133,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "tt/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "tt/3.630V/27C",
+      "schematic_value": 3.46116e-10,
+      "extracted_value": 3.66891e-10,
+      "delta_pct": 6.002,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "tt/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "tt/3.630V/27C",
+      "schematic_value": 3.58598e-10,
+      "extracted_value": 3.94032e-10,
+      "delta_pct": 9.881,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "tt/3.630V/125C",
+      "schematic_value": -0.0274748,
+      "extracted_value": -0.0274923,
+      "delta_pct": -0.064,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "tt/3.630V/125C",
+      "schematic_value": -0.0303871,
+      "extracted_value": -0.0304192,
+      "delta_pct": -0.106,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "tt/3.630V/125C",
+      "schematic_value": -0.0335044,
+      "extracted_value": -0.0335413,
+      "delta_pct": -0.11,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "tt/3.630V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "tt/3.630V/125C",
+      "schematic_value": 9.52817e-09,
+      "extracted_value": 1.0009e-08,
+      "delta_pct": 5.046,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "tt/3.630V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "tt/3.630V/125C",
+      "schematic_value": 1.36469e-08,
+      "extracted_value": 1.53358e-08,
+      "delta_pct": 12.376,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "tt/3.630V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "tt/3.630V/125C",
+      "schematic_value": 5.45954e-08,
+      "extracted_value": 7.26491e-08,
+      "delta_pct": 33.068,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ff/2.970V/-40C",
+      "schematic_value": -0.0204936,
+      "extracted_value": -0.020513,
+      "delta_pct": -0.095,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ff/2.970V/-40C",
+      "schematic_value": -0.0234939,
+      "extracted_value": -0.0235202,
+      "delta_pct": -0.112,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ff/2.970V/-40C",
+      "schematic_value": -0.0274607,
+      "extracted_value": -0.0274999,
+      "delta_pct": -0.143,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ff/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ff/2.970V/-40C",
+      "schematic_value": 1.80513e-10,
+      "extracted_value": 1.93975e-10,
+      "delta_pct": 7.458,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ff/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ff/2.970V/-40C",
+      "schematic_value": 1.79425e-10,
+      "extracted_value": 1.92502e-10,
+      "delta_pct": 7.288,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ff/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ff/2.970V/-40C",
+      "schematic_value": 1.79626e-10,
+      "extracted_value": 1.98267e-10,
+      "delta_pct": 10.378,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ff/2.970V/27C",
+      "schematic_value": -0.0226111,
+      "extracted_value": -0.0227941,
+      "delta_pct": -0.809,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ff/2.970V/27C",
+      "schematic_value": -0.0256218,
+      "extracted_value": -0.0258754,
+      "delta_pct": -0.99,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ff/2.970V/27C",
+      "schematic_value": -0.030458,
+      "extracted_value": -0.0305016,
+      "delta_pct": -0.143,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ff/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ff/2.970V/27C",
+      "schematic_value": 3.61571e-10,
+      "extracted_value": 3.83755e-10,
+      "delta_pct": 6.135,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ff/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ff/2.970V/27C",
+      "schematic_value": 4.80315e-10,
+      "extracted_value": 5.46843e-10,
+      "delta_pct": 13.851,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ff/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ff/2.970V/27C",
+      "schematic_value": 1.05979e-08,
+      "extracted_value": 1.77123e-08,
+      "delta_pct": 67.13,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ff/2.970V/125C",
+      "schematic_value": -0.026426,
+      "extracted_value": -0.0264384,
+      "delta_pct": -0.047,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ff/2.970V/125C",
+      "schematic_value": -0.0294405,
+      "extracted_value": -0.0294576,
+      "delta_pct": -0.058,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ff/2.970V/125C",
+      "schematic_value": -0.0352351,
+      "extracted_value": -0.0353866,
+      "delta_pct": -0.43,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ff/2.970V/125C",
+      "schematic_value": 0.999998,
+      "extracted_value": 0.999998,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ff/2.970V/125C",
+      "schematic_value": 1.07711e-07,
+      "extracted_value": 1.13104e-07,
+      "delta_pct": 5.007,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ff/2.970V/125C",
+      "schematic_value": 0.999998,
+      "extracted_value": 0.999998,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ff/2.970V/125C",
+      "schematic_value": 2.17127e-07,
+      "extracted_value": 2.55458e-07,
+      "delta_pct": 17.654,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ff/2.970V/125C",
+      "schematic_value": 0.999998,
+      "extracted_value": 0.999998,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ff/2.970V/125C",
+      "schematic_value": 5.09094e-06,
+      "extracted_value": 7.34795e-06,
+      "delta_pct": 44.334,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ff/3.300V/-40C",
+      "schematic_value": -0.0231099,
+      "extracted_value": -0.0233684,
+      "delta_pct": -1.119,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ff/3.300V/-40C",
+      "schematic_value": -0.0264376,
+      "extracted_value": -0.0264762,
+      "delta_pct": -0.146,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ff/3.300V/-40C",
+      "schematic_value": -0.0295436,
+      "extracted_value": -0.0299703,
+      "delta_pct": -1.444,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ff/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ff/3.300V/-40C",
+      "schematic_value": 2.29109e-10,
+      "extracted_value": 2.4674e-10,
+      "delta_pct": 7.695,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ff/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ff/3.300V/-40C",
+      "schematic_value": 2.25722e-10,
+      "extracted_value": 2.42062e-10,
+      "delta_pct": 7.239,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ff/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ff/3.300V/-40C",
+      "schematic_value": 2.11451e-10,
+      "extracted_value": 2.2609e-10,
+      "delta_pct": 6.923,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ff/3.300V/27C",
+      "schematic_value": -0.025455,
+      "extracted_value": -0.0254805,
+      "delta_pct": -0.1,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ff/3.300V/27C",
+      "schematic_value": -0.0285277,
+      "extracted_value": -0.0286088,
+      "delta_pct": -0.284,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ff/3.300V/27C",
+      "schematic_value": -0.0324469,
+      "extracted_value": -0.0324903,
+      "delta_pct": -0.134,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ff/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ff/3.300V/27C",
+      "schematic_value": 4.19179e-10,
+      "extracted_value": 4.45936e-10,
+      "delta_pct": 6.383,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ff/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ff/3.300V/27C",
+      "schematic_value": 5.27902e-10,
+      "extracted_value": 6.00567e-10,
+      "delta_pct": 13.765,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ff/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ff/3.300V/27C",
+      "schematic_value": 3.2209e-09,
+      "extracted_value": 5.2742e-09,
+      "delta_pct": 63.749,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ff/3.300V/125C",
+      "schematic_value": -0.0288684,
+      "extracted_value": -0.0291287,
+      "delta_pct": -0.902,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ff/3.300V/125C",
+      "schematic_value": -0.0323732,
+      "extracted_value": -0.0324105,
+      "delta_pct": -0.115,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ff/3.300V/125C",
+      "schematic_value": -0.0363916,
+      "extracted_value": -0.0364367,
+      "delta_pct": -0.124,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ff/3.300V/125C",
+      "schematic_value": 0.999998,
+      "extracted_value": 0.999998,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ff/3.300V/125C",
+      "schematic_value": 1.0399e-07,
+      "extracted_value": 1.09554e-07,
+      "delta_pct": 5.351,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ff/3.300V/125C",
+      "schematic_value": 0.999998,
+      "extracted_value": 0.999998,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ff/3.300V/125C",
+      "schematic_value": 1.98924e-07,
+      "extracted_value": 2.36389e-07,
+      "delta_pct": 18.834,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ff/3.300V/125C",
+      "schematic_value": 0.999998,
+      "extracted_value": 0.999998,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ff/3.300V/125C",
+      "schematic_value": 1.55579e-06,
+      "extracted_value": 2.25692e-06,
+      "delta_pct": 45.066,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ff/3.630V/-40C",
+      "schematic_value": -0.0254417,
+      "extracted_value": -0.0254826,
+      "delta_pct": -0.161,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ff/3.630V/-40C",
+      "schematic_value": -0.0287401,
+      "extracted_value": -0.0293316,
+      "delta_pct": -2.058,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ff/3.630V/-40C",
+      "schematic_value": -0.0324646,
+      "extracted_value": -0.0325455,
+      "delta_pct": -0.249,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ff/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ff/3.630V/-40C",
+      "schematic_value": 3.4656e-10,
+      "extracted_value": 3.73826e-10,
+      "delta_pct": 7.868,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ff/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ff/3.630V/-40C",
+      "schematic_value": 3.38711e-10,
+      "extracted_value": 3.6276e-10,
+      "delta_pct": 7.1,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ff/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ff/3.630V/-40C",
+      "schematic_value": 3.09677e-10,
+      "extracted_value": 3.2673e-10,
+      "delta_pct": 5.507,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ff/3.630V/27C",
+      "schematic_value": -0.0278348,
+      "extracted_value": -0.0282714,
+      "delta_pct": -1.569,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ff/3.630V/27C",
+      "schematic_value": -0.0314368,
+      "extracted_value": -0.0314822,
+      "delta_pct": -0.144,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ff/3.630V/27C",
+      "schematic_value": -0.0353409,
+      "extracted_value": -0.0354325,
+      "delta_pct": -0.259,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ff/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ff/3.630V/27C",
+      "schematic_value": 5.62584e-10,
+      "extracted_value": 5.99572e-10,
+      "delta_pct": 6.575,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ff/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ff/3.630V/27C",
+      "schematic_value": 6.68427e-10,
+      "extracted_value": 7.55486e-10,
+      "delta_pct": 13.024,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ff/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ff/3.630V/27C",
+      "schematic_value": 2.2076e-09,
+      "extracted_value": 3.53592e-09,
+      "delta_pct": 60.17,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ff/3.630V/125C",
+      "schematic_value": -0.0315104,
+      "extracted_value": -0.0315503,
+      "delta_pct": -0.127,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ff/3.630V/125C",
+      "schematic_value": -0.0349395,
+      "extracted_value": -0.0352377,
+      "delta_pct": -0.853,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ff/3.630V/125C",
+      "schematic_value": -0.0389779,
+      "extracted_value": -0.039278,
+      "delta_pct": -0.77,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ff/3.630V/125C",
+      "schematic_value": 0.999998,
+      "extracted_value": 0.999998,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ff/3.630V/125C",
+      "schematic_value": 1.03525e-07,
+      "extracted_value": 1.09451e-07,
+      "delta_pct": 5.724,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ff/3.630V/125C",
+      "schematic_value": 0.999998,
+      "extracted_value": 0.999998,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ff/3.630V/125C",
+      "schematic_value": 1.93341e-07,
+      "extracted_value": 2.32387e-07,
+      "delta_pct": 20.195,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ff/3.630V/125C",
+      "schematic_value": 0.999998,
+      "extracted_value": 0.999998,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ff/3.630V/125C",
+      "schematic_value": 9.54438e-07,
+      "extracted_value": 1.39954e-06,
+      "delta_pct": 46.635,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ss/2.970V/-40C",
+      "schematic_value": -0.014488,
+      "extracted_value": -0.0144924,
+      "delta_pct": -0.03,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ss/2.970V/-40C",
+      "schematic_value": -0.0160671,
+      "extracted_value": -0.0162925,
+      "delta_pct": -1.403,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ss/2.970V/-40C",
+      "schematic_value": -0.0185047,
+      "extracted_value": -0.0185122,
+      "delta_pct": -0.041,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ss/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ss/2.970V/-40C",
+      "schematic_value": 1.88908e-10,
+      "extracted_value": 2.01072e-10,
+      "delta_pct": 6.439,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ss/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ss/2.970V/-40C",
+      "schematic_value": 1.88907e-10,
+      "extracted_value": 2.0107e-10,
+      "delta_pct": 6.439,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ss/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ss/2.970V/-40C",
+      "schematic_value": 1.8889e-10,
+      "extracted_value": 2.0094e-10,
+      "delta_pct": 6.379,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ss/2.970V/27C",
+      "schematic_value": -0.0164391,
+      "extracted_value": -0.0164446,
+      "delta_pct": -0.033,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ss/2.970V/27C",
+      "schematic_value": -0.0175738,
+      "extracted_value": -0.0175948,
+      "delta_pct": -0.119,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ss/2.970V/27C",
+      "schematic_value": -0.0206686,
+      "extracted_value": -0.0209222,
+      "delta_pct": -1.227,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ss/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ss/2.970V/27C",
+      "schematic_value": 2.35712e-10,
+      "extracted_value": 2.47931e-10,
+      "delta_pct": 5.184,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ss/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ss/2.970V/27C",
+      "schematic_value": 2.35728e-10,
+      "extracted_value": 2.47946e-10,
+      "delta_pct": 5.183,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ss/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ss/2.970V/27C",
+      "schematic_value": 2.39399e-10,
+      "extracted_value": 2.52465e-10,
+      "delta_pct": 5.458,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ss/2.970V/125C",
+      "schematic_value": -0.0191742,
+      "extracted_value": -0.0192312,
+      "delta_pct": -0.297,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ss/2.970V/125C",
+      "schematic_value": -0.0205786,
+      "extracted_value": -0.0205884,
+      "delta_pct": -0.048,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ss/2.970V/125C",
+      "schematic_value": -0.024533,
+      "extracted_value": -0.024549,
+      "delta_pct": -0.065,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ss/2.970V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ss/2.970V/125C",
+      "schematic_value": 1.41675e-09,
+      "extracted_value": 1.5035e-09,
+      "delta_pct": 6.123,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ss/2.970V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ss/2.970V/125C",
+      "schematic_value": 1.60515e-09,
+      "extracted_value": 1.72765e-09,
+      "delta_pct": 7.632,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ss/2.970V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ss/2.970V/125C",
+      "schematic_value": 1.08478e-08,
+      "extracted_value": 1.31271e-08,
+      "delta_pct": 21.012,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ss/3.300V/-40C",
+      "schematic_value": -0.0165271,
+      "extracted_value": -0.0165423,
+      "delta_pct": -0.092,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ss/3.300V/-40C",
+      "schematic_value": -0.0185104,
+      "extracted_value": -0.0185212,
+      "delta_pct": -0.058,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ss/3.300V/-40C",
+      "schematic_value": -0.0212191,
+      "extracted_value": -0.0213896,
+      "delta_pct": -0.804,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ss/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ss/3.300V/-40C",
+      "schematic_value": 2.0135e-10,
+      "extracted_value": 2.14927e-10,
+      "delta_pct": 6.743,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ss/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ss/3.300V/-40C",
+      "schematic_value": 2.01329e-10,
+      "extracted_value": 2.14899e-10,
+      "delta_pct": 6.74,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ss/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ss/3.300V/-40C",
+      "schematic_value": 1.97803e-10,
+      "extracted_value": 2.10549e-10,
+      "delta_pct": 6.444,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ss/3.300V/27C",
+      "schematic_value": -0.0185009,
+      "extracted_value": -0.0185085,
+      "delta_pct": -0.041,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ss/3.300V/27C",
+      "schematic_value": -0.0204906,
+      "extracted_value": -0.0204987,
+      "delta_pct": -0.04,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ss/3.300V/27C",
+      "schematic_value": -0.0233383,
+      "extracted_value": -0.0233962,
+      "delta_pct": -0.248,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ss/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ss/3.300V/27C",
+      "schematic_value": 2.49146e-10,
+      "extracted_value": 2.6279e-10,
+      "delta_pct": 5.476,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ss/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ss/3.300V/27C",
+      "schematic_value": 2.48965e-10,
+      "extracted_value": 2.62557e-10,
+      "delta_pct": 5.459,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ss/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ss/3.300V/27C",
+      "schematic_value": 2.454e-10,
+      "extracted_value": 2.58534e-10,
+      "delta_pct": 5.352,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ss/3.300V/125C",
+      "schematic_value": -0.0214643,
+      "extracted_value": -0.0214695,
+      "delta_pct": -0.024,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ss/3.300V/125C",
+      "schematic_value": -0.0234672,
+      "extracted_value": -0.0234735,
+      "delta_pct": -0.027,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ss/3.300V/125C",
+      "schematic_value": -0.0264231,
+      "extracted_value": -0.026437,
+      "delta_pct": -0.053,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ss/3.300V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ss/3.300V/125C",
+      "schematic_value": 1.34617e-09,
+      "extracted_value": 1.42894e-09,
+      "delta_pct": 6.149,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ss/3.300V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ss/3.300V/125C",
+      "schematic_value": 1.51289e-09,
+      "extracted_value": 1.63185e-09,
+      "delta_pct": 7.863,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ss/3.300V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ss/3.300V/125C",
+      "schematic_value": 5.1468e-09,
+      "extracted_value": 6.22309e-09,
+      "delta_pct": 20.912,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ss/3.630V/-40C",
+      "schematic_value": -0.0186156,
+      "extracted_value": -0.0192069,
+      "delta_pct": -3.176,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ss/3.630V/-40C",
+      "schematic_value": -0.0212523,
+      "extracted_value": -0.0213968,
+      "delta_pct": -0.68,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ss/3.630V/-40C",
+      "schematic_value": -0.0234988,
+      "extracted_value": -0.0235209,
+      "delta_pct": -0.094,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ss/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ss/3.630V/-40C",
+      "schematic_value": 2.46261e-10,
+      "extracted_value": 2.63437e-10,
+      "delta_pct": 6.975,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ss/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ss/3.630V/-40C",
+      "schematic_value": 2.46182e-10,
+      "extracted_value": 2.63329e-10,
+      "delta_pct": 6.965,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ss/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ss/3.630V/-40C",
+      "schematic_value": 2.37721e-10,
+      "extracted_value": 2.52629e-10,
+      "delta_pct": 6.271,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ss/3.630V/27C",
+      "schematic_value": -0.0205688,
+      "extracted_value": -0.0206761,
+      "delta_pct": -0.522,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ss/3.630V/27C",
+      "schematic_value": -0.022793,
+      "extracted_value": -0.0232228,
+      "delta_pct": -1.886,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ss/3.630V/27C",
+      "schematic_value": -0.0255042,
+      "extracted_value": -0.0255249,
+      "delta_pct": -0.081,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ss/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ss/3.630V/27C",
+      "schematic_value": 3.02295e-10,
+      "extracted_value": 3.19552e-10,
+      "delta_pct": 5.709,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ss/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ss/3.630V/27C",
+      "schematic_value": 3.01681e-10,
+      "extracted_value": 3.18759e-10,
+      "delta_pct": 5.661,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ss/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ss/3.630V/27C",
+      "schematic_value": 2.90609e-10,
+      "extracted_value": 3.05524e-10,
+      "delta_pct": 5.132,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "ss/3.630V/125C",
+      "schematic_value": -0.0235401,
+      "extracted_value": -0.0235567,
+      "delta_pct": -0.071,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "ss/3.630V/125C",
+      "schematic_value": -0.0255768,
+      "extracted_value": -0.0256307,
+      "delta_pct": -0.211,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "ss/3.630V/125C",
+      "schematic_value": -0.0285162,
+      "extracted_value": -0.0285355,
+      "delta_pct": -0.068,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "ss/3.630V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "ss/3.630V/125C",
+      "schematic_value": 1.3597e-09,
+      "extracted_value": 1.44258e-09,
+      "delta_pct": 6.095,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "ss/3.630V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "ss/3.630V/125C",
+      "schematic_value": 1.51895e-09,
+      "extracted_value": 1.64034e-09,
+      "delta_pct": 7.992,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "ss/3.630V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "ss/3.630V/125C",
+      "schematic_value": 3.81524e-09,
+      "extracted_value": 4.61867e-09,
+      "delta_pct": 21.058,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "fs/2.970V/-40C",
+      "schematic_value": -0.0185323,
+      "extracted_value": -0.0185494,
+      "delta_pct": -0.092,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "fs/2.970V/-40C",
+      "schematic_value": -0.0215085,
+      "extracted_value": -0.0215232,
+      "delta_pct": -0.068,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "fs/2.970V/-40C",
+      "schematic_value": -0.0357193,
+      "extracted_value": -0.0370375,
+      "delta_pct": -3.69,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "fs/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "fs/2.970V/-40C",
+      "schematic_value": 1.69217e-10,
+      "extracted_value": 1.81566e-10,
+      "delta_pct": 7.298,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "fs/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "fs/2.970V/-40C",
+      "schematic_value": 1.68922e-10,
+      "extracted_value": 1.81169e-10,
+      "delta_pct": 7.25,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "fs/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "fs/2.970V/-40C",
+      "schematic_value": 1.6793e-10,
+      "extracted_value": 1.80055e-10,
+      "delta_pct": 7.22,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "fs/2.970V/27C",
+      "schematic_value": -0.0210403,
+      "extracted_value": -0.021245,
+      "delta_pct": -0.973,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "fs/2.970V/27C",
+      "schematic_value": -0.0236094,
+      "extracted_value": -0.0237664,
+      "delta_pct": -0.665,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "fs/2.970V/27C",
+      "schematic_value": -0.0536668,
+      "extracted_value": -0.0559844,
+      "delta_pct": -4.318,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "fs/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "fs/2.970V/27C",
+      "schematic_value": 2.07566e-10,
+      "extracted_value": 2.19985e-10,
+      "delta_pct": 5.983,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "fs/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "fs/2.970V/27C",
+      "schematic_value": 2.07583e-10,
+      "extracted_value": 2.2e-10,
+      "delta_pct": 5.982,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "fs/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "fs/2.970V/27C",
+      "schematic_value": 1.21942e-09,
+      "extracted_value": 1.99053e-09,
+      "delta_pct": 63.236,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "fs/2.970V/125C",
+      "schematic_value": -0.0244327,
+      "extracted_value": -0.0244384,
+      "delta_pct": -0.023,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "fs/2.970V/125C",
+      "schematic_value": -0.027431,
+      "extracted_value": -0.0274406,
+      "delta_pct": -0.035,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "fs/2.970V/125C",
+      "schematic_value": -0.0810045,
+      "extracted_value": -0.0839652,
+      "delta_pct": -3.655,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "fs/2.970V/125C",
+      "schematic_value": 0.999999,
+      "extracted_value": 0.999999,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "fs/2.970V/125C",
+      "schematic_value": 1.84484e-09,
+      "extracted_value": 1.95792e-09,
+      "delta_pct": 6.13,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "fs/2.970V/125C",
+      "schematic_value": 0.999999,
+      "extracted_value": 0.999999,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "fs/2.970V/125C",
+      "schematic_value": 3.55704e-09,
+      "extracted_value": 4.08272e-09,
+      "delta_pct": 14.779,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "fs/2.970V/125C",
+      "schematic_value": 0.999999,
+      "extracted_value": 0.999999,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "fs/2.970V/125C",
+      "schematic_value": 2.60493e-06,
+      "extracted_value": 4.17677e-06,
+      "delta_pct": 60.341,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "fs/3.300V/-40C",
+      "schematic_value": -0.0214695,
+      "extracted_value": -0.0214866,
+      "delta_pct": -0.08,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "fs/3.300V/-40C",
+      "schematic_value": -0.0245183,
+      "extracted_value": -0.0245617,
+      "delta_pct": -0.177,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "fs/3.300V/-40C",
+      "schematic_value": -0.0284543,
+      "extracted_value": -0.0284861,
+      "delta_pct": -0.112,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "fs/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "fs/3.300V/-40C",
+      "schematic_value": 1.88052e-10,
+      "extracted_value": 2.0225e-10,
+      "delta_pct": 7.55,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "fs/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "fs/3.300V/-40C",
+      "schematic_value": 1.86678e-10,
+      "extracted_value": 2.00427e-10,
+      "delta_pct": 7.365,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "fs/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "fs/3.300V/-40C",
+      "schematic_value": 1.77911e-10,
+      "extracted_value": 1.901e-10,
+      "delta_pct": 6.851,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "fs/3.300V/27C",
+      "schematic_value": -0.0235316,
+      "extracted_value": -0.0235618,
+      "delta_pct": -0.128,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "fs/3.300V/27C",
+      "schematic_value": -0.0269805,
+      "extracted_value": -0.0272897,
+      "delta_pct": -1.146,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "fs/3.300V/27C",
+      "schematic_value": -0.0312857,
+      "extracted_value": -0.0313944,
+      "delta_pct": -0.347,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "fs/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "fs/3.300V/27C",
+      "schematic_value": 2.28796e-10,
+      "extracted_value": 2.43075e-10,
+      "delta_pct": 6.241,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "fs/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "fs/3.300V/27C",
+      "schematic_value": 2.26699e-10,
+      "extracted_value": 2.40452e-10,
+      "delta_pct": 6.067,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "fs/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "fs/3.300V/27C",
+      "schematic_value": 2.41567e-10,
+      "extracted_value": 2.69837e-10,
+      "delta_pct": 11.703,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "fs/3.300V/125C",
+      "schematic_value": -0.0273132,
+      "extracted_value": -0.0273532,
+      "delta_pct": -0.146,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "fs/3.300V/125C",
+      "schematic_value": -0.0304358,
+      "extracted_value": -0.0304522,
+      "delta_pct": -0.054,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "fs/3.300V/125C",
+      "schematic_value": -0.0352744,
+      "extracted_value": -0.0353687,
+      "delta_pct": -0.267,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "fs/3.300V/125C",
+      "schematic_value": 0.999999,
+      "extracted_value": 0.999999,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "fs/3.300V/125C",
+      "schematic_value": 1.77636e-09,
+      "extracted_value": 1.88737e-09,
+      "delta_pct": 6.249,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "fs/3.300V/125C",
+      "schematic_value": 0.999999,
+      "extracted_value": 0.999999,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "fs/3.300V/125C",
+      "schematic_value": 3.16433e-09,
+      "extracted_value": 3.65481e-09,
+      "delta_pct": 15.5,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "fs/3.300V/125C",
+      "schematic_value": 0.999999,
+      "extracted_value": 0.999999,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "fs/3.300V/125C",
+      "schematic_value": 5.23145e-08,
+      "extracted_value": 7.3975e-08,
+      "delta_pct": 41.404,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "fs/3.630V/-40C",
+      "schematic_value": -0.0237417,
+      "extracted_value": -0.0242947,
+      "delta_pct": -2.329,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "fs/3.630V/-40C",
+      "schematic_value": -0.0274767,
+      "extracted_value": -0.0275118,
+      "delta_pct": -0.128,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "fs/3.630V/-40C",
+      "schematic_value": -0.031385,
+      "extracted_value": -0.0314471,
+      "delta_pct": -0.198,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "fs/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "fs/3.630V/-40C",
+      "schematic_value": 2.43008e-10,
+      "extracted_value": 2.61805e-10,
+      "delta_pct": 7.735,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "fs/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "fs/3.630V/-40C",
+      "schematic_value": 2.39482e-10,
+      "extracted_value": 2.57045e-10,
+      "delta_pct": 7.334,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "fs/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "fs/3.630V/-40C",
+      "schematic_value": 2.21511e-10,
+      "extracted_value": 2.35093e-10,
+      "delta_pct": 6.132,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "fs/3.630V/27C",
+      "schematic_value": -0.0264422,
+      "extracted_value": -0.0264658,
+      "delta_pct": -0.089,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "fs/3.630V/27C",
+      "schematic_value": -0.0296673,
+      "extracted_value": -0.0301405,
+      "delta_pct": -1.595,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "fs/3.630V/27C",
+      "schematic_value": -0.0335519,
+      "extracted_value": -0.033862,
+      "delta_pct": -0.924,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "fs/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "fs/3.630V/27C",
+      "schematic_value": 2.93357e-10,
+      "extracted_value": 3.12249e-10,
+      "delta_pct": 6.44,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "fs/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "fs/3.630V/27C",
+      "schematic_value": 2.87437e-10,
+      "extracted_value": 3.04683e-10,
+      "delta_pct": 6.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "fs/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "fs/3.630V/27C",
+      "schematic_value": 2.73986e-10,
+      "extracted_value": 2.93689e-10,
+      "delta_pct": 7.191,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "fs/3.630V/125C",
+      "schematic_value": -0.0295991,
+      "extracted_value": -0.0297383,
+      "delta_pct": -0.47,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "fs/3.630V/125C",
+      "schematic_value": -0.0334072,
+      "extracted_value": -0.0334346,
+      "delta_pct": -0.082,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "fs/3.630V/125C",
+      "schematic_value": -0.0374569,
+      "extracted_value": -0.0374918,
+      "delta_pct": -0.093,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "fs/3.630V/125C",
+      "schematic_value": 0.999999,
+      "extracted_value": 0.999999,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "fs/3.630V/125C",
+      "schematic_value": 1.80574e-09,
+      "extracted_value": 1.9199e-09,
+      "delta_pct": 6.322,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "fs/3.630V/125C",
+      "schematic_value": 0.999999,
+      "extracted_value": 0.999999,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "fs/3.630V/125C",
+      "schematic_value": 3.04937e-09,
+      "extracted_value": 3.54143e-09,
+      "delta_pct": 16.136,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "fs/3.630V/125C",
+      "schematic_value": 0.999999,
+      "extracted_value": 0.999999,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "fs/3.630V/125C",
+      "schematic_value": 2.10405e-08,
+      "extracted_value": 2.97688e-08,
+      "delta_pct": 41.483,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "sf/2.970V/-40C",
+      "schematic_value": -0.0163962,
+      "extracted_value": -0.0164259,
+      "delta_pct": -0.181,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "sf/2.970V/-40C",
+      "schematic_value": -0.0177855,
+      "extracted_value": -0.0182303,
+      "delta_pct": -2.501,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "sf/2.970V/-40C",
+      "schematic_value": -0.0204449,
+      "extracted_value": -0.0204626,
+      "delta_pct": -0.087,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "sf/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "sf/2.970V/-40C",
+      "schematic_value": 1.9678e-10,
+      "extracted_value": 2.09751e-10,
+      "delta_pct": 6.592,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "sf/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "sf/2.970V/-40C",
+      "schematic_value": 1.96752e-10,
+      "extracted_value": 2.09712e-10,
+      "delta_pct": 6.587,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "sf/2.970V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "sf/2.970V/-40C",
+      "schematic_value": 1.94477e-10,
+      "extracted_value": 2.06909e-10,
+      "delta_pct": 6.393,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "sf/2.970V/27C",
+      "schematic_value": -0.0182144,
+      "extracted_value": -0.0183471,
+      "delta_pct": -0.729,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "sf/2.970V/27C",
+      "schematic_value": -0.0196088,
+      "extracted_value": -0.0197397,
+      "delta_pct": -0.668,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "sf/2.970V/27C",
+      "schematic_value": -0.0224742,
+      "extracted_value": -0.0224873,
+      "delta_pct": -0.058,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "sf/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "sf/2.970V/27C",
+      "schematic_value": 3.19152e-10,
+      "extracted_value": 3.36145e-10,
+      "delta_pct": 5.324,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "sf/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "sf/2.970V/27C",
+      "schematic_value": 3.25234e-10,
+      "extracted_value": 3.43982e-10,
+      "delta_pct": 5.764,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "sf/2.970V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "sf/2.970V/27C",
+      "schematic_value": 6.99322e-10,
+      "extracted_value": 8.61123e-10,
+      "delta_pct": 23.137,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "sf/2.970V/125C",
+      "schematic_value": -0.0212029,
+      "extracted_value": -0.0212942,
+      "delta_pct": -0.431,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "sf/2.970V/125C",
+      "schematic_value": -0.0228158,
+      "extracted_value": -0.0230225,
+      "delta_pct": -0.906,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "sf/2.970V/125C",
+      "schematic_value": -0.025597,
+      "extracted_value": -0.025663,
+      "delta_pct": -0.258,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "sf/2.970V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "sf/2.970V/125C",
+      "schematic_value": 6.80903e-08,
+      "extracted_value": 7.08888e-08,
+      "delta_pct": 4.11,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "sf/2.970V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "sf/2.970V/125C",
+      "schematic_value": 8.22745e-08,
+      "extracted_value": 8.84493e-08,
+      "delta_pct": 7.505,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "sf/2.970V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "sf/2.970V/125C",
+      "schematic_value": 3.86803e-07,
+      "extracted_value": 4.795e-07,
+      "delta_pct": 23.965,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "sf/3.300V/-40C",
+      "schematic_value": -0.0184414,
+      "extracted_value": -0.0184625,
+      "delta_pct": -0.114,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "sf/3.300V/-40C",
+      "schematic_value": -0.0204577,
+      "extracted_value": -0.0204769,
+      "delta_pct": -0.094,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "sf/3.300V/-40C",
+      "schematic_value": -0.0225291,
+      "extracted_value": -0.0225785,
+      "delta_pct": -0.219,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "sf/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "sf/3.300V/-40C",
+      "schematic_value": 2.34589e-10,
+      "extracted_value": 2.50736e-10,
+      "delta_pct": 6.883,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "sf/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "sf/3.300V/-40C",
+      "schematic_value": 2.34459e-10,
+      "extracted_value": 2.50554e-10,
+      "delta_pct": 6.865,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "sf/3.300V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "sf/3.300V/-40C",
+      "schematic_value": 2.26914e-10,
+      "extracted_value": 2.40924e-10,
+      "delta_pct": 6.174,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "sf/3.300V/27C",
+      "schematic_value": -0.0204331,
+      "extracted_value": -0.020451,
+      "delta_pct": -0.088,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "sf/3.300V/27C",
+      "schematic_value": -0.0224437,
+      "extracted_value": -0.0224616,
+      "delta_pct": -0.08,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "sf/3.300V/27C",
+      "schematic_value": -0.0245714,
+      "extracted_value": -0.0247206,
+      "delta_pct": -0.607,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "sf/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "sf/3.300V/27C",
+      "schematic_value": 3.62871e-10,
+      "extracted_value": 3.83219e-10,
+      "delta_pct": 5.608,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "sf/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "sf/3.300V/27C",
+      "schematic_value": 3.68813e-10,
+      "extracted_value": 3.91088e-10,
+      "delta_pct": 6.04,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "sf/3.300V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "sf/3.300V/27C",
+      "schematic_value": 5.87143e-10,
+      "extracted_value": 7.06113e-10,
+      "delta_pct": 20.263,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "sf/3.300V/125C",
+      "schematic_value": -0.0234363,
+      "extracted_value": -0.0234487,
+      "delta_pct": -0.053,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "sf/3.300V/125C",
+      "schematic_value": -0.0254447,
+      "extracted_value": -0.0254588,
+      "delta_pct": -0.055,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "sf/3.300V/125C",
+      "schematic_value": -0.0281989,
+      "extracted_value": -0.0283386,
+      "delta_pct": -0.495,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "sf/3.300V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "sf/3.300V/125C",
+      "schematic_value": 6.46308e-08,
+      "extracted_value": 6.74533e-08,
+      "delta_pct": 4.367,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "sf/3.300V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "sf/3.300V/125C",
+      "schematic_value": 7.77858e-08,
+      "extracted_value": 8.41195e-08,
+      "delta_pct": 8.142,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "sf/3.300V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "sf/3.300V/125C",
+      "schematic_value": 2.50422e-07,
+      "extracted_value": 3.12582e-07,
+      "delta_pct": 24.822,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "sf/3.630V/-40C",
+      "schematic_value": -0.0204544,
+      "extracted_value": -0.0204806,
+      "delta_pct": -0.128,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "sf/3.630V/-40C",
+      "schematic_value": -0.0224903,
+      "extracted_value": -0.0225196,
+      "delta_pct": -0.13,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "sf/3.630V/-40C",
+      "schematic_value": -0.0253536,
+      "extracted_value": -0.0254322,
+      "delta_pct": -0.31,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "sf/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "sf/3.630V/-40C",
+      "schematic_value": 3.3331e-10,
+      "extracted_value": 3.56983e-10,
+      "delta_pct": 7.102,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "sf/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "sf/3.630V/-40C",
+      "schematic_value": 3.3291e-10,
+      "extracted_value": 3.56416e-10,
+      "delta_pct": 7.061,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "sf/3.630V/-40C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "sf/3.630V/-40C",
+      "schematic_value": 3.17129e-10,
+      "extracted_value": 3.35603e-10,
+      "delta_pct": 5.825,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "sf/3.630V/27C",
+      "schematic_value": -0.0224797,
+      "extracted_value": -0.0225011,
+      "delta_pct": -0.095,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "sf/3.630V/27C",
+      "schematic_value": -0.0244965,
+      "extracted_value": -0.0245226,
+      "delta_pct": -0.107,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "sf/3.630V/27C",
+      "schematic_value": -0.0274133,
+      "extracted_value": -0.0274511,
+      "delta_pct": -0.138,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "sf/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "sf/3.630V/27C",
+      "schematic_value": 4.82501e-10,
+      "extracted_value": 5.10638e-10,
+      "delta_pct": 5.831,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "sf/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "sf/3.630V/27C",
+      "schematic_value": 4.88254e-10,
+      "extracted_value": 5.1845e-10,
+      "delta_pct": 6.184,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "sf/3.630V/27C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "sf/3.630V/27C",
+      "schematic_value": 6.47538e-10,
+      "extracted_value": 7.59626e-10,
+      "delta_pct": 17.31,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm080_mv",
+      "corner_id": "sf/3.630V/125C",
+      "schematic_value": -0.0255246,
+      "extracted_value": -0.0255471,
+      "delta_pct": -0.088,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm165_mv",
+      "corner_id": "sf/3.630V/125C",
+      "schematic_value": -0.0275135,
+      "extracted_value": -0.0275373,
+      "delta_pct": -0.087,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "vth_cm250_mv",
+      "corner_id": "sf/3.630V/125C",
+      "schematic_value": -0.0304581,
+      "extracted_value": -0.0304833,
+      "delta_pct": -0.083,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm080",
+      "corner_id": "sf/3.630V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm080",
+      "corner_id": "sf/3.630V/125C",
+      "schematic_value": 6.32344e-08,
+      "extracted_value": 6.61337e-08,
+      "delta_pct": 4.585,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm165",
+      "corner_id": "sf/3.630V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm165",
+      "corner_id": "sf/3.630V/125C",
+      "schematic_value": 7.63926e-08,
+      "extracted_value": 8.31455e-08,
+      "delta_pct": 8.84,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "hi_cm250",
+      "corner_id": "sf/3.630V/125C",
+      "schematic_value": 1.0,
+      "extracted_value": 1.0,
+      "delta_pct": 0.0,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    },
+    {
+      "spec_row": "lo_cm250",
+      "corner_id": "sf/3.630V/125C",
+      "schematic_value": 2.03204e-07,
+      "extracted_value": 2.55786e-07,
+      "delta_pct": 25.876,
+      "status": "pass",
+      "schematic_status": "pass",
+      "extracted_status": "pass"
+    }
+  ],
+  "coverage": {
+    "testbenches": 1,
+    "delta_rows": 405,
+    "corners_compared": 45,
+    "schema_version": 1,
+    "known": true,
+    "checked": [
+      "comparison:[0,\"tt/2.970V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[1,\"tt/2.970V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[10,\"tt/2.970V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[100,\"ff/2.970V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[101,\"ff/2.970V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[102,\"ff/2.970V/125C\",\"hi_cm080\"]",
+      "comparison:[103,\"ff/2.970V/125C\",\"lo_cm080\"]",
+      "comparison:[104,\"ff/2.970V/125C\",\"hi_cm165\"]",
+      "comparison:[105,\"ff/2.970V/125C\",\"lo_cm165\"]",
+      "comparison:[106,\"ff/2.970V/125C\",\"hi_cm250\"]",
+      "comparison:[107,\"ff/2.970V/125C\",\"lo_cm250\"]",
+      "comparison:[108,\"ff/3.300V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[109,\"ff/3.300V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[11,\"tt/2.970V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[110,\"ff/3.300V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[111,\"ff/3.300V/-40C\",\"hi_cm080\"]",
+      "comparison:[112,\"ff/3.300V/-40C\",\"lo_cm080\"]",
+      "comparison:[113,\"ff/3.300V/-40C\",\"hi_cm165\"]",
+      "comparison:[114,\"ff/3.300V/-40C\",\"lo_cm165\"]",
+      "comparison:[115,\"ff/3.300V/-40C\",\"hi_cm250\"]",
+      "comparison:[116,\"ff/3.300V/-40C\",\"lo_cm250\"]",
+      "comparison:[117,\"ff/3.300V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[118,\"ff/3.300V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[119,\"ff/3.300V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[12,\"tt/2.970V/27C\",\"hi_cm080\"]",
+      "comparison:[120,\"ff/3.300V/27C\",\"hi_cm080\"]",
+      "comparison:[121,\"ff/3.300V/27C\",\"lo_cm080\"]",
+      "comparison:[122,\"ff/3.300V/27C\",\"hi_cm165\"]",
+      "comparison:[123,\"ff/3.300V/27C\",\"lo_cm165\"]",
+      "comparison:[124,\"ff/3.300V/27C\",\"hi_cm250\"]",
+      "comparison:[125,\"ff/3.300V/27C\",\"lo_cm250\"]",
+      "comparison:[126,\"ff/3.300V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[127,\"ff/3.300V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[128,\"ff/3.300V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[129,\"ff/3.300V/125C\",\"hi_cm080\"]",
+      "comparison:[13,\"tt/2.970V/27C\",\"lo_cm080\"]",
+      "comparison:[130,\"ff/3.300V/125C\",\"lo_cm080\"]",
+      "comparison:[131,\"ff/3.300V/125C\",\"hi_cm165\"]",
+      "comparison:[132,\"ff/3.300V/125C\",\"lo_cm165\"]",
+      "comparison:[133,\"ff/3.300V/125C\",\"hi_cm250\"]",
+      "comparison:[134,\"ff/3.300V/125C\",\"lo_cm250\"]",
+      "comparison:[135,\"ff/3.630V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[136,\"ff/3.630V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[137,\"ff/3.630V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[138,\"ff/3.630V/-40C\",\"hi_cm080\"]",
+      "comparison:[139,\"ff/3.630V/-40C\",\"lo_cm080\"]",
+      "comparison:[14,\"tt/2.970V/27C\",\"hi_cm165\"]",
+      "comparison:[140,\"ff/3.630V/-40C\",\"hi_cm165\"]",
+      "comparison:[141,\"ff/3.630V/-40C\",\"lo_cm165\"]",
+      "comparison:[142,\"ff/3.630V/-40C\",\"hi_cm250\"]",
+      "comparison:[143,\"ff/3.630V/-40C\",\"lo_cm250\"]",
+      "comparison:[144,\"ff/3.630V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[145,\"ff/3.630V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[146,\"ff/3.630V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[147,\"ff/3.630V/27C\",\"hi_cm080\"]",
+      "comparison:[148,\"ff/3.630V/27C\",\"lo_cm080\"]",
+      "comparison:[149,\"ff/3.630V/27C\",\"hi_cm165\"]",
+      "comparison:[15,\"tt/2.970V/27C\",\"lo_cm165\"]",
+      "comparison:[150,\"ff/3.630V/27C\",\"lo_cm165\"]",
+      "comparison:[151,\"ff/3.630V/27C\",\"hi_cm250\"]",
+      "comparison:[152,\"ff/3.630V/27C\",\"lo_cm250\"]",
+      "comparison:[153,\"ff/3.630V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[154,\"ff/3.630V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[155,\"ff/3.630V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[156,\"ff/3.630V/125C\",\"hi_cm080\"]",
+      "comparison:[157,\"ff/3.630V/125C\",\"lo_cm080\"]",
+      "comparison:[158,\"ff/3.630V/125C\",\"hi_cm165\"]",
+      "comparison:[159,\"ff/3.630V/125C\",\"lo_cm165\"]",
+      "comparison:[16,\"tt/2.970V/27C\",\"hi_cm250\"]",
+      "comparison:[160,\"ff/3.630V/125C\",\"hi_cm250\"]",
+      "comparison:[161,\"ff/3.630V/125C\",\"lo_cm250\"]",
+      "comparison:[162,\"ss/2.970V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[163,\"ss/2.970V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[164,\"ss/2.970V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[165,\"ss/2.970V/-40C\",\"hi_cm080\"]",
+      "comparison:[166,\"ss/2.970V/-40C\",\"lo_cm080\"]",
+      "comparison:[167,\"ss/2.970V/-40C\",\"hi_cm165\"]",
+      "comparison:[168,\"ss/2.970V/-40C\",\"lo_cm165\"]",
+      "comparison:[169,\"ss/2.970V/-40C\",\"hi_cm250\"]",
+      "comparison:[17,\"tt/2.970V/27C\",\"lo_cm250\"]",
+      "comparison:[170,\"ss/2.970V/-40C\",\"lo_cm250\"]",
+      "comparison:[171,\"ss/2.970V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[172,\"ss/2.970V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[173,\"ss/2.970V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[174,\"ss/2.970V/27C\",\"hi_cm080\"]",
+      "comparison:[175,\"ss/2.970V/27C\",\"lo_cm080\"]",
+      "comparison:[176,\"ss/2.970V/27C\",\"hi_cm165\"]",
+      "comparison:[177,\"ss/2.970V/27C\",\"lo_cm165\"]",
+      "comparison:[178,\"ss/2.970V/27C\",\"hi_cm250\"]",
+      "comparison:[179,\"ss/2.970V/27C\",\"lo_cm250\"]",
+      "comparison:[18,\"tt/2.970V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[180,\"ss/2.970V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[181,\"ss/2.970V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[182,\"ss/2.970V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[183,\"ss/2.970V/125C\",\"hi_cm080\"]",
+      "comparison:[184,\"ss/2.970V/125C\",\"lo_cm080\"]",
+      "comparison:[185,\"ss/2.970V/125C\",\"hi_cm165\"]",
+      "comparison:[186,\"ss/2.970V/125C\",\"lo_cm165\"]",
+      "comparison:[187,\"ss/2.970V/125C\",\"hi_cm250\"]",
+      "comparison:[188,\"ss/2.970V/125C\",\"lo_cm250\"]",
+      "comparison:[189,\"ss/3.300V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[19,\"tt/2.970V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[190,\"ss/3.300V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[191,\"ss/3.300V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[192,\"ss/3.300V/-40C\",\"hi_cm080\"]",
+      "comparison:[193,\"ss/3.300V/-40C\",\"lo_cm080\"]",
+      "comparison:[194,\"ss/3.300V/-40C\",\"hi_cm165\"]",
+      "comparison:[195,\"ss/3.300V/-40C\",\"lo_cm165\"]",
+      "comparison:[196,\"ss/3.300V/-40C\",\"hi_cm250\"]",
+      "comparison:[197,\"ss/3.300V/-40C\",\"lo_cm250\"]",
+      "comparison:[198,\"ss/3.300V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[199,\"ss/3.300V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[2,\"tt/2.970V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[20,\"tt/2.970V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[200,\"ss/3.300V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[201,\"ss/3.300V/27C\",\"hi_cm080\"]",
+      "comparison:[202,\"ss/3.300V/27C\",\"lo_cm080\"]",
+      "comparison:[203,\"ss/3.300V/27C\",\"hi_cm165\"]",
+      "comparison:[204,\"ss/3.300V/27C\",\"lo_cm165\"]",
+      "comparison:[205,\"ss/3.300V/27C\",\"hi_cm250\"]",
+      "comparison:[206,\"ss/3.300V/27C\",\"lo_cm250\"]",
+      "comparison:[207,\"ss/3.300V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[208,\"ss/3.300V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[209,\"ss/3.300V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[21,\"tt/2.970V/125C\",\"hi_cm080\"]",
+      "comparison:[210,\"ss/3.300V/125C\",\"hi_cm080\"]",
+      "comparison:[211,\"ss/3.300V/125C\",\"lo_cm080\"]",
+      "comparison:[212,\"ss/3.300V/125C\",\"hi_cm165\"]",
+      "comparison:[213,\"ss/3.300V/125C\",\"lo_cm165\"]",
+      "comparison:[214,\"ss/3.300V/125C\",\"hi_cm250\"]",
+      "comparison:[215,\"ss/3.300V/125C\",\"lo_cm250\"]",
+      "comparison:[216,\"ss/3.630V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[217,\"ss/3.630V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[218,\"ss/3.630V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[219,\"ss/3.630V/-40C\",\"hi_cm080\"]",
+      "comparison:[22,\"tt/2.970V/125C\",\"lo_cm080\"]",
+      "comparison:[220,\"ss/3.630V/-40C\",\"lo_cm080\"]",
+      "comparison:[221,\"ss/3.630V/-40C\",\"hi_cm165\"]",
+      "comparison:[222,\"ss/3.630V/-40C\",\"lo_cm165\"]",
+      "comparison:[223,\"ss/3.630V/-40C\",\"hi_cm250\"]",
+      "comparison:[224,\"ss/3.630V/-40C\",\"lo_cm250\"]",
+      "comparison:[225,\"ss/3.630V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[226,\"ss/3.630V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[227,\"ss/3.630V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[228,\"ss/3.630V/27C\",\"hi_cm080\"]",
+      "comparison:[229,\"ss/3.630V/27C\",\"lo_cm080\"]",
+      "comparison:[23,\"tt/2.970V/125C\",\"hi_cm165\"]",
+      "comparison:[230,\"ss/3.630V/27C\",\"hi_cm165\"]",
+      "comparison:[231,\"ss/3.630V/27C\",\"lo_cm165\"]",
+      "comparison:[232,\"ss/3.630V/27C\",\"hi_cm250\"]",
+      "comparison:[233,\"ss/3.630V/27C\",\"lo_cm250\"]",
+      "comparison:[234,\"ss/3.630V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[235,\"ss/3.630V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[236,\"ss/3.630V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[237,\"ss/3.630V/125C\",\"hi_cm080\"]",
+      "comparison:[238,\"ss/3.630V/125C\",\"lo_cm080\"]",
+      "comparison:[239,\"ss/3.630V/125C\",\"hi_cm165\"]",
+      "comparison:[24,\"tt/2.970V/125C\",\"lo_cm165\"]",
+      "comparison:[240,\"ss/3.630V/125C\",\"lo_cm165\"]",
+      "comparison:[241,\"ss/3.630V/125C\",\"hi_cm250\"]",
+      "comparison:[242,\"ss/3.630V/125C\",\"lo_cm250\"]",
+      "comparison:[243,\"fs/2.970V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[244,\"fs/2.970V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[245,\"fs/2.970V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[246,\"fs/2.970V/-40C\",\"hi_cm080\"]",
+      "comparison:[247,\"fs/2.970V/-40C\",\"lo_cm080\"]",
+      "comparison:[248,\"fs/2.970V/-40C\",\"hi_cm165\"]",
+      "comparison:[249,\"fs/2.970V/-40C\",\"lo_cm165\"]",
+      "comparison:[25,\"tt/2.970V/125C\",\"hi_cm250\"]",
+      "comparison:[250,\"fs/2.970V/-40C\",\"hi_cm250\"]",
+      "comparison:[251,\"fs/2.970V/-40C\",\"lo_cm250\"]",
+      "comparison:[252,\"fs/2.970V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[253,\"fs/2.970V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[254,\"fs/2.970V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[255,\"fs/2.970V/27C\",\"hi_cm080\"]",
+      "comparison:[256,\"fs/2.970V/27C\",\"lo_cm080\"]",
+      "comparison:[257,\"fs/2.970V/27C\",\"hi_cm165\"]",
+      "comparison:[258,\"fs/2.970V/27C\",\"lo_cm165\"]",
+      "comparison:[259,\"fs/2.970V/27C\",\"hi_cm250\"]",
+      "comparison:[26,\"tt/2.970V/125C\",\"lo_cm250\"]",
+      "comparison:[260,\"fs/2.970V/27C\",\"lo_cm250\"]",
+      "comparison:[261,\"fs/2.970V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[262,\"fs/2.970V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[263,\"fs/2.970V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[264,\"fs/2.970V/125C\",\"hi_cm080\"]",
+      "comparison:[265,\"fs/2.970V/125C\",\"lo_cm080\"]",
+      "comparison:[266,\"fs/2.970V/125C\",\"hi_cm165\"]",
+      "comparison:[267,\"fs/2.970V/125C\",\"lo_cm165\"]",
+      "comparison:[268,\"fs/2.970V/125C\",\"hi_cm250\"]",
+      "comparison:[269,\"fs/2.970V/125C\",\"lo_cm250\"]",
+      "comparison:[27,\"tt/3.300V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[270,\"fs/3.300V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[271,\"fs/3.300V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[272,\"fs/3.300V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[273,\"fs/3.300V/-40C\",\"hi_cm080\"]",
+      "comparison:[274,\"fs/3.300V/-40C\",\"lo_cm080\"]",
+      "comparison:[275,\"fs/3.300V/-40C\",\"hi_cm165\"]",
+      "comparison:[276,\"fs/3.300V/-40C\",\"lo_cm165\"]",
+      "comparison:[277,\"fs/3.300V/-40C\",\"hi_cm250\"]",
+      "comparison:[278,\"fs/3.300V/-40C\",\"lo_cm250\"]",
+      "comparison:[279,\"fs/3.300V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[28,\"tt/3.300V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[280,\"fs/3.300V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[281,\"fs/3.300V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[282,\"fs/3.300V/27C\",\"hi_cm080\"]",
+      "comparison:[283,\"fs/3.300V/27C\",\"lo_cm080\"]",
+      "comparison:[284,\"fs/3.300V/27C\",\"hi_cm165\"]",
+      "comparison:[285,\"fs/3.300V/27C\",\"lo_cm165\"]",
+      "comparison:[286,\"fs/3.300V/27C\",\"hi_cm250\"]",
+      "comparison:[287,\"fs/3.300V/27C\",\"lo_cm250\"]",
+      "comparison:[288,\"fs/3.300V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[289,\"fs/3.300V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[29,\"tt/3.300V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[290,\"fs/3.300V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[291,\"fs/3.300V/125C\",\"hi_cm080\"]",
+      "comparison:[292,\"fs/3.300V/125C\",\"lo_cm080\"]",
+      "comparison:[293,\"fs/3.300V/125C\",\"hi_cm165\"]",
+      "comparison:[294,\"fs/3.300V/125C\",\"lo_cm165\"]",
+      "comparison:[295,\"fs/3.300V/125C\",\"hi_cm250\"]",
+      "comparison:[296,\"fs/3.300V/125C\",\"lo_cm250\"]",
+      "comparison:[297,\"fs/3.630V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[298,\"fs/3.630V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[299,\"fs/3.630V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[3,\"tt/2.970V/-40C\",\"hi_cm080\"]",
+      "comparison:[30,\"tt/3.300V/-40C\",\"hi_cm080\"]",
+      "comparison:[300,\"fs/3.630V/-40C\",\"hi_cm080\"]",
+      "comparison:[301,\"fs/3.630V/-40C\",\"lo_cm080\"]",
+      "comparison:[302,\"fs/3.630V/-40C\",\"hi_cm165\"]",
+      "comparison:[303,\"fs/3.630V/-40C\",\"lo_cm165\"]",
+      "comparison:[304,\"fs/3.630V/-40C\",\"hi_cm250\"]",
+      "comparison:[305,\"fs/3.630V/-40C\",\"lo_cm250\"]",
+      "comparison:[306,\"fs/3.630V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[307,\"fs/3.630V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[308,\"fs/3.630V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[309,\"fs/3.630V/27C\",\"hi_cm080\"]",
+      "comparison:[31,\"tt/3.300V/-40C\",\"lo_cm080\"]",
+      "comparison:[310,\"fs/3.630V/27C\",\"lo_cm080\"]",
+      "comparison:[311,\"fs/3.630V/27C\",\"hi_cm165\"]",
+      "comparison:[312,\"fs/3.630V/27C\",\"lo_cm165\"]",
+      "comparison:[313,\"fs/3.630V/27C\",\"hi_cm250\"]",
+      "comparison:[314,\"fs/3.630V/27C\",\"lo_cm250\"]",
+      "comparison:[315,\"fs/3.630V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[316,\"fs/3.630V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[317,\"fs/3.630V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[318,\"fs/3.630V/125C\",\"hi_cm080\"]",
+      "comparison:[319,\"fs/3.630V/125C\",\"lo_cm080\"]",
+      "comparison:[32,\"tt/3.300V/-40C\",\"hi_cm165\"]",
+      "comparison:[320,\"fs/3.630V/125C\",\"hi_cm165\"]",
+      "comparison:[321,\"fs/3.630V/125C\",\"lo_cm165\"]",
+      "comparison:[322,\"fs/3.630V/125C\",\"hi_cm250\"]",
+      "comparison:[323,\"fs/3.630V/125C\",\"lo_cm250\"]",
+      "comparison:[324,\"sf/2.970V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[325,\"sf/2.970V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[326,\"sf/2.970V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[327,\"sf/2.970V/-40C\",\"hi_cm080\"]",
+      "comparison:[328,\"sf/2.970V/-40C\",\"lo_cm080\"]",
+      "comparison:[329,\"sf/2.970V/-40C\",\"hi_cm165\"]",
+      "comparison:[33,\"tt/3.300V/-40C\",\"lo_cm165\"]",
+      "comparison:[330,\"sf/2.970V/-40C\",\"lo_cm165\"]",
+      "comparison:[331,\"sf/2.970V/-40C\",\"hi_cm250\"]",
+      "comparison:[332,\"sf/2.970V/-40C\",\"lo_cm250\"]",
+      "comparison:[333,\"sf/2.970V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[334,\"sf/2.970V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[335,\"sf/2.970V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[336,\"sf/2.970V/27C\",\"hi_cm080\"]",
+      "comparison:[337,\"sf/2.970V/27C\",\"lo_cm080\"]",
+      "comparison:[338,\"sf/2.970V/27C\",\"hi_cm165\"]",
+      "comparison:[339,\"sf/2.970V/27C\",\"lo_cm165\"]",
+      "comparison:[34,\"tt/3.300V/-40C\",\"hi_cm250\"]",
+      "comparison:[340,\"sf/2.970V/27C\",\"hi_cm250\"]",
+      "comparison:[341,\"sf/2.970V/27C\",\"lo_cm250\"]",
+      "comparison:[342,\"sf/2.970V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[343,\"sf/2.970V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[344,\"sf/2.970V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[345,\"sf/2.970V/125C\",\"hi_cm080\"]",
+      "comparison:[346,\"sf/2.970V/125C\",\"lo_cm080\"]",
+      "comparison:[347,\"sf/2.970V/125C\",\"hi_cm165\"]",
+      "comparison:[348,\"sf/2.970V/125C\",\"lo_cm165\"]",
+      "comparison:[349,\"sf/2.970V/125C\",\"hi_cm250\"]",
+      "comparison:[35,\"tt/3.300V/-40C\",\"lo_cm250\"]",
+      "comparison:[350,\"sf/2.970V/125C\",\"lo_cm250\"]",
+      "comparison:[351,\"sf/3.300V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[352,\"sf/3.300V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[353,\"sf/3.300V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[354,\"sf/3.300V/-40C\",\"hi_cm080\"]",
+      "comparison:[355,\"sf/3.300V/-40C\",\"lo_cm080\"]",
+      "comparison:[356,\"sf/3.300V/-40C\",\"hi_cm165\"]",
+      "comparison:[357,\"sf/3.300V/-40C\",\"lo_cm165\"]",
+      "comparison:[358,\"sf/3.300V/-40C\",\"hi_cm250\"]",
+      "comparison:[359,\"sf/3.300V/-40C\",\"lo_cm250\"]",
+      "comparison:[36,\"tt/3.300V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[360,\"sf/3.300V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[361,\"sf/3.300V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[362,\"sf/3.300V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[363,\"sf/3.300V/27C\",\"hi_cm080\"]",
+      "comparison:[364,\"sf/3.300V/27C\",\"lo_cm080\"]",
+      "comparison:[365,\"sf/3.300V/27C\",\"hi_cm165\"]",
+      "comparison:[366,\"sf/3.300V/27C\",\"lo_cm165\"]",
+      "comparison:[367,\"sf/3.300V/27C\",\"hi_cm250\"]",
+      "comparison:[368,\"sf/3.300V/27C\",\"lo_cm250\"]",
+      "comparison:[369,\"sf/3.300V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[37,\"tt/3.300V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[370,\"sf/3.300V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[371,\"sf/3.300V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[372,\"sf/3.300V/125C\",\"hi_cm080\"]",
+      "comparison:[373,\"sf/3.300V/125C\",\"lo_cm080\"]",
+      "comparison:[374,\"sf/3.300V/125C\",\"hi_cm165\"]",
+      "comparison:[375,\"sf/3.300V/125C\",\"lo_cm165\"]",
+      "comparison:[376,\"sf/3.300V/125C\",\"hi_cm250\"]",
+      "comparison:[377,\"sf/3.300V/125C\",\"lo_cm250\"]",
+      "comparison:[378,\"sf/3.630V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[379,\"sf/3.630V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[38,\"tt/3.300V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[380,\"sf/3.630V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[381,\"sf/3.630V/-40C\",\"hi_cm080\"]",
+      "comparison:[382,\"sf/3.630V/-40C\",\"lo_cm080\"]",
+      "comparison:[383,\"sf/3.630V/-40C\",\"hi_cm165\"]",
+      "comparison:[384,\"sf/3.630V/-40C\",\"lo_cm165\"]",
+      "comparison:[385,\"sf/3.630V/-40C\",\"hi_cm250\"]",
+      "comparison:[386,\"sf/3.630V/-40C\",\"lo_cm250\"]",
+      "comparison:[387,\"sf/3.630V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[388,\"sf/3.630V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[389,\"sf/3.630V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[39,\"tt/3.300V/27C\",\"hi_cm080\"]",
+      "comparison:[390,\"sf/3.630V/27C\",\"hi_cm080\"]",
+      "comparison:[391,\"sf/3.630V/27C\",\"lo_cm080\"]",
+      "comparison:[392,\"sf/3.630V/27C\",\"hi_cm165\"]",
+      "comparison:[393,\"sf/3.630V/27C\",\"lo_cm165\"]",
+      "comparison:[394,\"sf/3.630V/27C\",\"hi_cm250\"]",
+      "comparison:[395,\"sf/3.630V/27C\",\"lo_cm250\"]",
+      "comparison:[396,\"sf/3.630V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[397,\"sf/3.630V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[398,\"sf/3.630V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[399,\"sf/3.630V/125C\",\"hi_cm080\"]",
+      "comparison:[4,\"tt/2.970V/-40C\",\"lo_cm080\"]",
+      "comparison:[40,\"tt/3.300V/27C\",\"lo_cm080\"]",
+      "comparison:[400,\"sf/3.630V/125C\",\"lo_cm080\"]",
+      "comparison:[401,\"sf/3.630V/125C\",\"hi_cm165\"]",
+      "comparison:[402,\"sf/3.630V/125C\",\"lo_cm165\"]",
+      "comparison:[403,\"sf/3.630V/125C\",\"hi_cm250\"]",
+      "comparison:[404,\"sf/3.630V/125C\",\"lo_cm250\"]",
+      "comparison:[41,\"tt/3.300V/27C\",\"hi_cm165\"]",
+      "comparison:[42,\"tt/3.300V/27C\",\"lo_cm165\"]",
+      "comparison:[43,\"tt/3.300V/27C\",\"hi_cm250\"]",
+      "comparison:[44,\"tt/3.300V/27C\",\"lo_cm250\"]",
+      "comparison:[45,\"tt/3.300V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[46,\"tt/3.300V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[47,\"tt/3.300V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[48,\"tt/3.300V/125C\",\"hi_cm080\"]",
+      "comparison:[49,\"tt/3.300V/125C\",\"lo_cm080\"]",
+      "comparison:[5,\"tt/2.970V/-40C\",\"hi_cm165\"]",
+      "comparison:[50,\"tt/3.300V/125C\",\"hi_cm165\"]",
+      "comparison:[51,\"tt/3.300V/125C\",\"lo_cm165\"]",
+      "comparison:[52,\"tt/3.300V/125C\",\"hi_cm250\"]",
+      "comparison:[53,\"tt/3.300V/125C\",\"lo_cm250\"]",
+      "comparison:[54,\"tt/3.630V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[55,\"tt/3.630V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[56,\"tt/3.630V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[57,\"tt/3.630V/-40C\",\"hi_cm080\"]",
+      "comparison:[58,\"tt/3.630V/-40C\",\"lo_cm080\"]",
+      "comparison:[59,\"tt/3.630V/-40C\",\"hi_cm165\"]",
+      "comparison:[6,\"tt/2.970V/-40C\",\"lo_cm165\"]",
+      "comparison:[60,\"tt/3.630V/-40C\",\"lo_cm165\"]",
+      "comparison:[61,\"tt/3.630V/-40C\",\"hi_cm250\"]",
+      "comparison:[62,\"tt/3.630V/-40C\",\"lo_cm250\"]",
+      "comparison:[63,\"tt/3.630V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[64,\"tt/3.630V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[65,\"tt/3.630V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[66,\"tt/3.630V/27C\",\"hi_cm080\"]",
+      "comparison:[67,\"tt/3.630V/27C\",\"lo_cm080\"]",
+      "comparison:[68,\"tt/3.630V/27C\",\"hi_cm165\"]",
+      "comparison:[69,\"tt/3.630V/27C\",\"lo_cm165\"]",
+      "comparison:[7,\"tt/2.970V/-40C\",\"hi_cm250\"]",
+      "comparison:[70,\"tt/3.630V/27C\",\"hi_cm250\"]",
+      "comparison:[71,\"tt/3.630V/27C\",\"lo_cm250\"]",
+      "comparison:[72,\"tt/3.630V/125C\",\"vth_cm080_mv\"]",
+      "comparison:[73,\"tt/3.630V/125C\",\"vth_cm165_mv\"]",
+      "comparison:[74,\"tt/3.630V/125C\",\"vth_cm250_mv\"]",
+      "comparison:[75,\"tt/3.630V/125C\",\"hi_cm080\"]",
+      "comparison:[76,\"tt/3.630V/125C\",\"lo_cm080\"]",
+      "comparison:[77,\"tt/3.630V/125C\",\"hi_cm165\"]",
+      "comparison:[78,\"tt/3.630V/125C\",\"lo_cm165\"]",
+      "comparison:[79,\"tt/3.630V/125C\",\"hi_cm250\"]",
+      "comparison:[8,\"tt/2.970V/-40C\",\"lo_cm250\"]",
+      "comparison:[80,\"tt/3.630V/125C\",\"lo_cm250\"]",
+      "comparison:[81,\"ff/2.970V/-40C\",\"vth_cm080_mv\"]",
+      "comparison:[82,\"ff/2.970V/-40C\",\"vth_cm165_mv\"]",
+      "comparison:[83,\"ff/2.970V/-40C\",\"vth_cm250_mv\"]",
+      "comparison:[84,\"ff/2.970V/-40C\",\"hi_cm080\"]",
+      "comparison:[85,\"ff/2.970V/-40C\",\"lo_cm080\"]",
+      "comparison:[86,\"ff/2.970V/-40C\",\"hi_cm165\"]",
+      "comparison:[87,\"ff/2.970V/-40C\",\"lo_cm165\"]",
+      "comparison:[88,\"ff/2.970V/-40C\",\"hi_cm250\"]",
+      "comparison:[89,\"ff/2.970V/-40C\",\"lo_cm250\"]",
+      "comparison:[9,\"tt/2.970V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[90,\"ff/2.970V/27C\",\"vth_cm080_mv\"]",
+      "comparison:[91,\"ff/2.970V/27C\",\"vth_cm165_mv\"]",
+      "comparison:[92,\"ff/2.970V/27C\",\"vth_cm250_mv\"]",
+      "comparison:[93,\"ff/2.970V/27C\",\"hi_cm080\"]",
+      "comparison:[94,\"ff/2.970V/27C\",\"lo_cm080\"]",
+      "comparison:[95,\"ff/2.970V/27C\",\"hi_cm165\"]",
+      "comparison:[96,\"ff/2.970V/27C\",\"lo_cm165\"]",
+      "comparison:[97,\"ff/2.970V/27C\",\"hi_cm250\"]",
+      "comparison:[98,\"ff/2.970V/27C\",\"lo_cm250\"]",
+      "comparison:[99,\"ff/2.970V/125C\",\"vth_cm080_mv\"]"
+    ],
+    "skipped": [],
+    "inapplicable": [],
+    "unknown": [],
+    "nothing_checked": false,
+    "nothing_checked_reasons": []
+  },
+  "passed": 405,
+  "failed": 0,
+  "errored": 0,
+  "schematic_failed": 0,
+  "pin_count_mismatch": null,
+  "backend_failure": null,
+  "flat_dut_mismatch": null,
+  "pin_order_mismatch": null,
+  "model_mismatch": null,
+  "flatten_schematic": false,
+  "schematic_flatten": null,
+  "provenance": {
+    "klt_version": "0.9.0",
+    "klt_git_commit": "5dbbad05ff42265c92a6f3d2f20d1bbcd2957d49",
+    "klt_reinstall_spec": "klayout-tools==0.9.0",
+    "klayout_version": "0.30.13",
+    "pdk": {
+      "name": "gf180mcuD",
+      "source": "--pdk-root flag",
+      "version": "open_pdks c6d73a35f524070e85faff4a6a9eef49553ebc2b",
+      "compatibility": {
+        "status": "mismatch",
+        "package": "open_pdks-gf180mcu",
+        "expected": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+      }
+    },
+    "deck": {
+      "name": "gf180mcu",
+      "content_hash": "sha256:cf44de63f0a5b01c1d09c4d58e0535e990aa4b070bcaae17fd3a94a67a1d97e1",
+      "released": true,
+      "options": {
+        "metal_top": "9K",
+        "mim_cap": "cap_mim_2f0_m4m5_noshield",
+        "poly_res": "1k"
+      },
+      "options_explicit": {
+        "metal_top": false,
+        "mim_cap": false,
+        "poly_res": false
+      },
+      "options_hash": "sha256:6a7dc7660a470994263c5ca8ace6d8ac8c605d77e6876a9c5490949de6e7cb05"
+    },
+    "input": {
+      "content_hash": "sha256:b7bb3c859b3fc9655e7320d990bd484c133908099cff2a0b41e70e0902c46eba",
+      "role": "layout"
+    }
+  }
+}
