@@ -160,15 +160,16 @@ reused.
 
 | Component | Pinned to | Resolved via |
 |---|---|---|
-| `klayout-tools` (`klt`) | release [`0.9.0`](https://pypi.org/project/klayout-tools/0.9.0/) (reports as `klt 0.9.0`) | `pip install "klayout-tools==0.9.0"` (what `scripts/setup-env.sh` runs) |
-| `klayout` (the engine wheel `klt` drives) | [`0.30.12`](https://pypi.org/project/klayout/0.30.12/) — the version klt 0.9.0 reports as `klayout_version_expected` | `pip install "klayout==0.30.12"` alongside `klt` (explicit pin in `scripts/setup-env.sh` and CI; see below) |
+| `klayout-tools` (`klt`) | release [`0.9.2`](https://pypi.org/project/klayout-tools/0.9.2/) (reports as `klt 0.9.2`) | `pip install "klayout-tools==0.9.2"` (what `scripts/setup-env.sh` runs) |
+| `klayout` (the engine wheel `klt` drives) | [`0.30.12`](https://pypi.org/project/klayout/0.30.12/) — the version klt 0.9.2 reports as `klayout_version_expected` | `pip install "klayout==0.30.12"` alongside `klt` (explicit pin in `scripts/setup-env.sh` and CI; see below) |
 | `gf180mcu` PDK | `open_pdks` commit `c6d73a35f524070e85faff4a6a9eef49553ebc2b` (variants `gf180mcuA`/`B`/`C`/`D`; the digital harness uses `gf180mcuD`, whose standard-cell libraries are `gf180mcu_fd_sc_mcu7t5v0` / `gf180mcu_fd_sc_mcu9t5v0`) | `volare enable --pdk-root ~/.volare --pdk gf180mcu c6d73a35f524070e85faff4a6a9eef49553ebc2b` |
 | `cocotb` | 2.0.1 (pulled in as a `klayout-tools` dependency) | installed alongside `klt` by `scripts/setup-env.sh` |
 | Python | <= 3.13 (cocotb 2.0.1 refuses to build on 3.14+) | `scripts/setup-env.sh` auto-selects `python3.13` > `3.12` > `3.11` > `3.10` > `python3`, whichever is the newest compatible interpreter found on `$PATH` |
 
-As of 2026-11-06 (issue #263) `klt` is pinned by PyPI release,
-`klayout-tools==0.9.0`, everywhere — CI, the signoff grader and the
-`scripts/setup-env.sh` venv. A git build reports a dev version and does not
+As of 2026-11-06 (issue #263) `klt` is pinned by PyPI release
+everywhere — CI, the signoff grader and the `scripts/setup-env.sh`
+venv; the pin currently reads `klayout-tools==0.9.2` (moved from 0.9.0
+by issue #483, 2026-11-20). A git build reports a dev version and does not
 satisfy a release pin (klayout-tools#2823), so **do not go back to a
 `git+...@<sha>` install**.
 

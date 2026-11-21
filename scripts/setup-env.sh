@@ -44,12 +44,12 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${REPO_ROOT}" || exit 1
 
 # --- pinned versions -- keep in sync with docs/environment-setup.md -------
-KLT_VERSION="0.9.0"
+KLT_VERSION="0.9.2"
 # The klayout ENGINE (the C++ binary the `klayout` wheel ships) is pinned
 # separately: `klayout-tools` only requires `klayout>=0.30`, so leaving it
 # unpinned floats with PyPI. GDS bytes are engine-sensitive (the analog
 # `--check` gate compares sha256 over whole streams -- issue #472), and klt
-# 0.9.0 itself reports `klayout_version_expected: 0.30.12`, so the venv holds
+# 0.9.2 itself reports `klayout_version_expected: 0.30.12`, so the venv holds
 # exactly that build and fresh envelopes carry `klayout_version_mismatch:
 # false`. Bump together with KLT_VERSION (a klt release declares the engine
 # it was tested against) and keep in sync with .github/workflows/ci.yml.
