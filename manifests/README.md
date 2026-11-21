@@ -571,6 +571,14 @@ repo's rule that an envelope must actually support the item to be cited:
 
 ## Regeneration and freshness
 
+Render the frozen report in a checkout with `layout/analog/lvs/` absent, as in
+CI. The five analog LVS envelopes point to GDS copies in that ignored scratch
+directory. If the copies are present, the grader can verify their hashes and
+records `input_verified: true` for the LVS citations in 4.analog and 11.analog.
+In a fresh checkout those fields read `null`. When replaying LVS before a
+render, pass an external scratch directory to `scripts/analog_lvs.py` with
+`--out-dir`.
+
 ```bash
 # the grader pin is the klayout-tools release in .github/workflows/ci.yml
 # (`scripts/setup-env.sh` uses the same one, see docs/environment-setup.md), e.g.:

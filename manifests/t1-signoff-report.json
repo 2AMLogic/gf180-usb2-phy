@@ -227,7 +227,7 @@
         "kind": "lvs",
         "check_status": "match",
         "content_hash": "sha256:77dbedb0312c1461e8c5d33af2f08f7f7e591a4e34b2c3f89e3b32ffcf9f201d",
-        "input_verified": true,
+        "input_verified": null,
         "exit_status": 0
       },
       "citations_graded": [
@@ -264,7 +264,7 @@
           "kind": "lvs",
           "check_status": "match",
           "content_hash": "sha256:77dbedb0312c1461e8c5d33af2f08f7f7e591a4e34b2c3f89e3b32ffcf9f201d",
-          "input_verified": true,
+          "input_verified": null,
           "exit_status": 0
         },
         {
@@ -273,7 +273,7 @@
           "kind": "lvs",
           "check_status": "match",
           "content_hash": "sha256:d577baf5c33b3d01ff8b128f525e16544fbd6d1f098b24f2e2a538529dcbc6be",
-          "input_verified": true,
+          "input_verified": null,
           "exit_status": 0
         },
         {
@@ -282,7 +282,7 @@
           "kind": "lvs",
           "check_status": "match",
           "content_hash": "sha256:8187245c7e102cef1d3fac283622d358b53690259bf0ca41d110929cf2713f1c",
-          "input_verified": true,
+          "input_verified": null,
           "exit_status": 0
         },
         {
@@ -291,7 +291,7 @@
           "kind": "lvs",
           "check_status": "match",
           "content_hash": "sha256:282b2c7a8cd13a3742cc9d3e1a42c6865b89158499b8835e0505c527c163e6bc",
-          "input_verified": true,
+          "input_verified": null,
           "exit_status": 0
         },
         {
@@ -300,7 +300,7 @@
           "kind": "lvs",
           "check_status": "match",
           "content_hash": "sha256:132abde2a47925659f64895fbdf1e81f7770e248653d2b62c2b9bc09212cfa15",
-          "input_verified": true,
+          "input_verified": null,
           "exit_status": 0
         }
       ],
@@ -1114,7 +1114,7 @@
             "kind": "lvs",
             "check_status": "match",
             "content_hash": "sha256:77dbedb0312c1461e8c5d33af2f08f7f7e591a4e34b2c3f89e3b32ffcf9f201d",
-            "input_verified": true,
+            "input_verified": null,
             "exit_status": 0
           }
         ],
