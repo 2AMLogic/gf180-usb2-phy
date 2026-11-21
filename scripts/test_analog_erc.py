@@ -97,7 +97,7 @@ class TestDiscovery(unittest.TestCase):
 
     def test_supply_names_are_read_from_the_provenance_sidecar(self):
         self.assertEqual(aerc.supply_nets(str(ROOT), "dplus_pullup"), ("VPU_REG", "VSS"))
-        self.assertEqual(aerc.supply_nets(str(ROOT), "se_receiver_dp"), ("VDD", "VSS"))
+        self.assertEqual(aerc.supply_nets(str(ROOT), "se_receiver"), ("VDD", "VSS"))
 
     def test_unknown_block_is_a_loud_error(self):
         with self.assertRaises(aerc.HarnessError):

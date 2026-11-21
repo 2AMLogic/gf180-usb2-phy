@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check the digital<->analog pin contract of DR-0004 against the sources.
+"""Check the digital<->analog pin contract of DR-0011 (which carries DR-0004's table, re-keyed) against the sources.
 
 The pin table in ``spec/decisions/0004-digital-analog-pin-contract.md``
 (between the ``pin-contract`` markers) is compared with
@@ -32,7 +32,7 @@ import re
 import sys
 from pathlib import Path
 
-RECORD = "spec/decisions/0004-digital-analog-pin-contract.md"
+RECORD = "spec/decisions/0011-single-se-receiver-cell.md"
 RTL = "rtl/usb_utmi_phy.v"
 NETLIST_GLOB = "design/netlist/*.spice"
 MODULE = "usb_utmi_phy"

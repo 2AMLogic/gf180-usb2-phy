@@ -1,6 +1,6 @@
 {
   "_comment": [
-    "klt erc supply spec for layout/analog/se_receiver_dm.gds -- the T1 item",
+    "klt erc supply spec for layout/analog/se_receiver.gds -- the T1 item",
     "11.analog (power delivery, structural) artifact for this stream",
     "(issue #248). One spec per stream, because both the supply names",
     "and the substrate assertion are per-stream. Regenerate and re-run:",

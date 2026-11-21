@@ -4,20 +4,20 @@ K {}
 V {}
 S {}
 E {}
-T {se_receiver_dm -- USB 2.0 FS single-ended receiver on DM (spec Sec.4)
+T {se_receiver -- USB 2.0 FS single-ended receiver on its input line (spec Sec.4)
 Comparator-style single-ended receiver: a resistor divider (R1/R2 off
 VDD) sets VREF at the midpoint of the VIH/VIL band, (VIH+VIL)/2 =
 (2.0+0.8)/2 = 1.4V, so a zero-offset comparator has 0.6V of margin on
 each side to satisfy both thresholds. A self-biased 5T OTA (NMOS input
 pair MN_INA/MN_INB, tail current MTAIL, diode+mirror PMOS load
-MP_LOADA/MP_LOADB) compares DM against VREF, followed by a 2-stage
+MP_LOADA/MP_LOADB) compares IN against VREF, followed by a 2-stage
 inverter buffer that squares the small analog swing at AMPOUT into a
-rail-to-rail digital RXDM output: RXDM=1 when DM > ~VREF.
+rail-to-rail digital OUT output: OUT=1 when IN > ~VREF.
 Downstream SE0/idle/reset line-state decode (combining RXDP+RXDM) is
 out-of-scope digital RTL (tracked separately) -- this cell stops at the
 per-line recovered raw bit.
 Design-intent target (NOT yet PVT-simulated -- see #26):
-  VIH > 2.0V, VIL < 0.8V on DM (spec Sec.4).} -1900 -1000 0 0 0.32 0.32 {}
+  VIH > 2.0V, VIL < 0.8V on its input line (spec Sec.4).} -1900 -1000 0 0 0.32 0.32 {}
 T {Sizing rationale (first-order, hand calc -- to be confirmed by #26 PVT
 sim). R1/R2 (ppolyf_u_1k, rsh=1000+/-200 per
 libs.tech/ngspice/sm141064.ngspice): R1=1900ohm (W=2u,L=3.8u),
@@ -44,7 +44,7 @@ C {devices/iopin.sym} -2000 -400 0 0 {name=p_vdd lab=VDD}
 N -2000 -340 -1960 -340 {}
 C {devices/iopin.sym} -2000 -340 0 0 {name=p_vss lab=VSS}
 N -2000 -280 -1960 -280 {}
-C {devices/ipin.sym} -2000 -280 0 1 {name=p_in lab=DM}
+C {devices/ipin.sym} -2000 -280 0 1 {name=p_in lab=IN}
 N -1800 -30 -1800 -70 {}
 C {devices/lab_pin.sym} -1800 -70 0 0 {name=l1 lab=VDD}
 N -1800 30 -1800 70 {}
@@ -119,7 +119,7 @@ spiceprefix=X
 N -580 -30 -580 -70 {}
 C {devices/lab_pin.sym} -580 -70 0 0 {name=l18 lab=LOADDIODE}
 N -620 0 -680 0 {}
-C {devices/lab_pin.sym} -680 0 0 0 {name=l19 lab=DM}
+C {devices/lab_pin.sym} -680 0 0 0 {name=l19 lab=IN}
 N -580 30 -580 70 {}
 C {devices/lab_pin.sym} -580 70 0 0 {name=l20 lab=TAIL}
 N -580 0 -520 0 {}
@@ -217,7 +217,7 @@ C {devices/lab_pin.sym} 860 -70 0 0 {name=l42 lab=VDD}
 N 820 0 760 0 {}
 C {devices/lab_pin.sym} 760 0 0 0 {name=l43 lab=BUF1}
 N 860 30 860 70 {}
-C {devices/lab_pin.sym} 860 70 0 0 {name=l44 lab=RXDM}
+C {devices/lab_pin.sym} 860 70 0 0 {name=l44 lab=OUT}
 N 860 0 920 0 {}
 C {devices/lab_pin.sym} 920 0 0 0 {name=l45 lab=VDD}
 C {symbols/pfet_03v3.sym} 840 0 0 0 {name=MP_B2
@@ -229,7 +229,7 @@ model=pfet_03v3
 spiceprefix=X
 }
 N 1100 -30 1100 -70 {}
-C {devices/lab_pin.sym} 1100 -70 0 0 {name=l46 lab=RXDM}
+C {devices/lab_pin.sym} 1100 -70 0 0 {name=l46 lab=OUT}
 N 1060 0 1000 0 {}
 C {devices/lab_pin.sym} 1000 0 0 0 {name=l47 lab=BUF1}
 N 1100 30 1100 70 {}
@@ -245,4 +245,4 @@ model=nfet_03v3
 spiceprefix=X
 }
 N 1360 -220 1400 -220 {}
-C {devices/iopin.sym} 1400 -220 0 0 {name=p_out lab=RXDM}
+C {devices/iopin.sym} 1400 -220 0 0 {name=p_out lab=OUT}

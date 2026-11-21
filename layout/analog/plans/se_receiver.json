@@ -1,8 +1,8 @@
 {
   "schema": "klt.layout_plan.request/1",
   "netlist": {
-    "path": "../../../design/netlist/se_receiver_dp.spice",
-    "top": "se_receiver_dp",
+    "path": "../../../design/netlist/se_receiver.spice",
+    "top": "se_receiver",
     "form": "subckt-call",
     "deck": "gf180mcu"
   },
@@ -252,7 +252,7 @@
     "width_um": 0.23
   },
   "options": {
-    "cell_name": "se_receiver_dp",
-    "output": "se_receiver_dp.gds"
+    "cell_name": "se_receiver",
+    "output": "se_receiver.gds"
   }
 }

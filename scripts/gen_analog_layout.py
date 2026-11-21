@@ -121,8 +121,7 @@ DELIVERABLE_BLOCKS = (
     "differential_driver",
     "differential_receiver",
     "dplus_pullup",
-    "se_receiver_dm",
-    "se_receiver_dp",
+    "se_receiver",
 )
 
 # gf180mcu's label purposes (datatype 10 on each metal). A kdb.Text on one of
