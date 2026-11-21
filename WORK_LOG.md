@@ -6,6 +6,11 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 - [2026-09](work_log/WORK_LOG_2026-09.md)
 
+### 2026-11-21
+
+- **PR #491**: Record the differential_receiver pin-order refusal and 45-corner run with reordered pins at klt 0.9.0
+- **Issue #485** (closed): T1 item 7.analog: probe klt pex on differential_receiver and record whether it yields a citable report
+
 ### 2026-11-19
 
 - **PR #479**: signoff: sync-check the klayout engine pin across setup-env, CI and docs
@@ -372,15 +377,4 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 - **PR #88**: feat: vendor shared USB protocol RTL and adapt the UTMI wrapper
 - **Issue #87** (closed): Re-run usb_utmi_phy place-and-route and post-layout PVT against the vendored rtl/common sources (post-#84)
 - **Issue #84** (closed): 2am: reuse rule 9 — reconcile the shared USB protocol RTL with sky130-usb2-phy — vendor the master's modules under rtl/common with reuse.lock.json
-
-### 2026-09-21
-
-- **PR #85**: feat(erc): declare well/substrate ties, re-grade item 11.digital
-- **PR #82**: feat: check power/ground connectivity in the digital LVS harness
-- **PR #81**: feat(signoff): machine-grade the block's T1 state via a klt block manifest
-- **PR #80**: feat: add klt erc supply spec and evidence record for T1 item 11
-- **Issue #83** (closed): T1 item 11 (digital): declare well/substrate ties[] in layout/digital/erc-supply-spec.json and re-run klt erc — upstream klayout-tools#2169 fix is already in the pinned klt
-- **Issue #79** (closed): T1 item 11 digital leg: committed LVS report predates power_connectivity - re-run digital LVS on a klt that computes it
-- **Issue #78** (closed): Commit a klt signoff block manifest so this block's T1 state is graded, not hand-read
-- **Issue #77** (closed): T1 item 11 (power delivery, structural): no klt erc supply spec or report in this repo
 
