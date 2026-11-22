@@ -514,7 +514,7 @@ repo's rule that an envelope must actually support the item to be cited:
   pair while the rendered report still showed only two `parts`, i.e. the
   drop would be invisible to a reader of `t1-signoff-report.json`. So this
   row cites one visible pair, and `differential_driver` is the one: the
-  largest analog stream (17 n-wells, 84 drawn body-tie pads, 17 asserted
+  largest analog stream (17 n-wells, 84 drawn body-tie pads, 51 asserted
   substrate polygons) and the block that drives the bus. **The tool gap is
   filed upstream as
   [klayout-tools#5597](https://github.com/2AMLogic/klayout-tools/issues/5597)**;
@@ -558,16 +558,19 @@ repo's rule that an envelope must actually support the item to be cited:
   `0.0` on all five — so a high `uncovered_tap_fraction` here measures how
   much of a stream's bare `Comp` sits in n-well, not assertion-missed
   substrate pads. Reporting only: `klt signoff` does not grade these fields
-  and the harness does not gate the equality;
-  `power_delivery.supply_unlabelled_islands` is `{}`, klt's
-  honest "not measured", because no role is owned by a supply in these
-  streams and `nets[].roles` is deliberately not declared; and
-  `erc.supply_short` is `inapplicable` /`substrate_continuity_not_modelled`
-  on every analog run, so the no-short claim rests on the LVS compare
-  pairing the two supplies as distinct nets. The record's "What is NOT
-  established" section carries these in full, including the measured fact
-  that only 17 of `differential_driver`'s 84 drawn body-tie pads reach
-  ground through metal.
+  and the harness does not gate the equality.
+  `power_delivery.supply_unlabelled_islands` is `{}` because these supplies
+  share metal layers with signal nets and the specs omit `nets[].roles`.
+
+  At klt 0.9.2 all five supply reports list `erc.supply_short` and
+  `erc.supply_short.substrate` in `erc_coverage.checked`, with an empty
+  `inapplicable` list and zero findings. The cited driver's
+  `power_delivery.substrate_continuity` records `checked: true` and
+  `by_assertion: false`. The well-box assertion above applies to the
+  missing-tie check. LVS independently pairs the supplies as distinct nets.
+  The wiring census finds that all 84 drawn driver substrate tap pads reach
+  ground through metal. At the same 0.7 µm gap, each of the other four
+  streams has 18 asserted polygons.
 
 ## Regeneration and freshness
 

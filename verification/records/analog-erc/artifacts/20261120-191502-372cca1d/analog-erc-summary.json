@@ -138,7 +138,7 @@
           "ground_supply_paired": true
         },
         "passed": true,
-        "report": "verification/records/analog-lvs/artifacts/20261118-043539-90c3a57/differential_driver-lvs-report.json",
+        "report": "verification/records/analog-lvs/artifacts/20261120-191501-372cca1d/differential_driver-lvs-report.json",
         "lvs_status": "match",
         "power_connectivity_status": "unchecked"
       },
@@ -261,7 +261,7 @@
           "ground_supply_paired": true
         },
         "passed": true,
-        "report": "verification/records/analog-lvs/artifacts/20261118-043539-90c3a57/differential_receiver-lvs-report.json",
+        "report": "verification/records/analog-lvs/artifacts/20261120-191501-372cca1d/differential_receiver-lvs-report.json",
         "lvs_status": "match",
         "power_connectivity_status": "unchecked"
       },
@@ -384,7 +384,7 @@
           "ground_supply_paired": true
         },
         "passed": true,
-        "report": "verification/records/analog-lvs/artifacts/20261118-043539-90c3a57/dplus_pullup-lvs-report.json",
+        "report": "verification/records/analog-lvs/artifacts/20261120-191501-372cca1d/dplus_pullup-lvs-report.json",
         "lvs_status": "match",
         "power_connectivity_status": "unchecked"
       },
@@ -507,7 +507,7 @@
           "ground_supply_paired": true
         },
         "passed": true,
-        "report": "verification/records/analog-lvs/artifacts/20261118-043539-90c3a57/se_receiver_dm-lvs-report.json",
+        "report": "verification/records/analog-lvs/artifacts/20261120-191501-372cca1d/se_receiver_dm-lvs-report.json",
         "lvs_status": "match",
         "power_connectivity_status": "unchecked"
       },
@@ -630,7 +630,7 @@
           "ground_supply_paired": true
         },
         "passed": true,
-        "report": "verification/records/analog-lvs/artifacts/20261118-043539-90c3a57/se_receiver_dp-lvs-report.json",
+        "report": "verification/records/analog-lvs/artifacts/20261120-191501-372cca1d/se_receiver_dp-lvs-report.json",
         "lvs_status": "match",
         "power_connectivity_status": "unchecked"
       },

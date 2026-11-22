@@ -203,10 +203,7 @@ number.
 Stated here, and quoted in the evidence record, because the clean verdict is
 narrower than it looks.
 
-- **Metal reach is verified; impedance is not.** `klt erc` joins
-  conductors only through the declared `stackup`/`vias`; it has no device
-  recognition and does not model substrate conduction, so the clean verdict
-  is about what the metal model can see. Since issue #361 the harness's
+- **Metal reach.** Since issue #361 the harness's
   census answers the question it used to leave open: of the drawn substrate
   tap pads — 84 / 28 / 24 / 28 / 28 — **all** are contacted **and all**
   reach `VSS` through `Contact`/`Metal1`/`Via*`/`Metal2-3` (the generator's
@@ -217,15 +214,12 @@ narrower than it looks.
   group wired to the rail, the rest tied through the substrate alone -- was
   filed and closed as
   [#361](https://github.com/2AMLogic/gf180-usb2-phy/issues/361).
-- **`erc.supply_short` is not computed.** Every one of these runs records it
-  in `erc_coverage.inapplicable` with reason
-  `substrate_continuity_not_modelled` (klayout-tools#4384): with two or more
-  `kind: "supply"` nets declared, klt discloses that rails which are one
-  conductor through a shared substrate read as separate clean islands. Zero
-  `erc.supply_short` findings here is therefore "the declared stack shows no
-  short", not "no short exists". The independent check is item 4's own LVS,
-  which pairs the two supplies as distinct nets and reports `status: "match"`
-  on all five streams — the cross-check klt's own disclosure asks for.
+- **Supply shorts.** At klt 0.9.2 all five supply reports include
+  `erc.supply_short` and `erc.supply_short.substrate` in
+  `erc_coverage.checked`, with zero findings and no inapplicable checks.
+  The cited driver's substrate continuity check has `by_assertion: false`.
+  The `well_boxes` assertion applies to the separate missing-tie check.
+  LVS independently pairs the two supplies as distinct nets on every stream.
 - **The severed-rail half is not measured**, for the `nets[].roles` reason
   above.
 - **No antenna verdict.** `--pdk` is deliberately not passed, so the antenna
@@ -258,14 +252,11 @@ narrower than it looks.
   is expressible and a disclosure would be a weaker claim than the truth
   supports (klt renders it `supply_spec_disclosed_unexpressible`, still
   unmet).
-- **One asserted box per drawn tap pad** — the natural "finest possible"
-  choice, and it reports 34 / 12 / 12 / 12 / 12 `erc.missing_tie` findings,
-  for the metal-wiring reason in "What this evidence does not establish". It
-  is the 0.6–1.03 µm row of the gap table above; it is not a cleaner spec, it
-  is a claim this layout's metal does not support. If
-  [#361](https://github.com/2AMLogic/gf180-usb2-phy/issues/361) wires every
-  drawn pad, this becomes the right granularity and the gap drops to ≤ 1.03 µm
-  in the same change.
+- **One asserted box per drawn tap pad.** The 0.7 µm grouping keeps
+  neighbouring diffusion together. Before #361, the fine partition produced
+  34 / 12 / 12 / 12 / 12 `erc.missing_tie` findings. The current census
+  finds at least one metal-wired tap in each of the 51 / 18 / 18 / 18 / 18
+  asserted polygons.
 - **`tap_is_dedicated: true`** — would clear the degeneracy test without
   `tap_requires`, and would be false: `Comp` `22/0` is every device's
   source/drain layer here, not a tap-only layer.

@@ -279,10 +279,12 @@ future bump appends the next move here and changes the table there.
    `3.analog` renders that item `met` at 0.9.2 (5/5 members covered, report
    19/22), while the committed manifest renders all 22 rows with **zero
    verdict or reason changes** (18 `met` + 1 `not_applicable` + 3 `unmet`
-   before and after; only the `build` block, `source_doc_content_hash`, the
-   new `members_covered`/`members_total` fields on list items, and
-   0.9.2-carried checklist text moved — the item-6 yield-extra note and the
-   item-11 substrate-short note from klayout-tools#5346). The engine pin
+   before and after). The report updates the build and checklist hashes,
+   citation paths and hashes, item 4.analog's member counts (5/5), and
+   checklist text for items 6 and 11. In 11.analog the cited driver's
+   `power_delivery.substrate_continuity` now records `checked: true` and
+   `by_assertion: false`. All five analog ERC runs checked for supply
+   shorts through both metal and substrate. The engine pin
    held: 0.9.2 reports `klayout_version_expected: 0.30.12`, so
    `KLAYOUT_VERSION` is unchanged.
 

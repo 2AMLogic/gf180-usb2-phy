@@ -59,11 +59,11 @@ def _clean_report(positive: str = "VDD", ground: str = "VSS") -> dict:
             "checked": [
                 aerc.work_id("erc.missing_tie", aerc.NWELL_TIE),
                 aerc.work_id("erc.missing_tie", aerc.SUBSTRATE_TIE),
+                "erc.supply_short",
+                "erc.supply_short.substrate",
             ],
             "skipped": [],
-            "inapplicable": [
-                {"id": "erc.supply_short", "reason": "substrate_continuity_not_modelled"}
-            ],
+            "inapplicable": [],
             "checked_by_well_assertion": [
                 aerc.work_id("erc.missing_tie", aerc.SUBSTRATE_TIE)
             ],
@@ -262,12 +262,14 @@ class TestRunVerdict(unittest.TestCase):
         self.assertFalse(verdict["gates"]["no_undeclared_drawn_layers"])
 
     def test_the_supply_short_disclosure_is_carried_into_the_verdict(self):
-        """It is inapplicable on every run, so it must be visible, not dropped."""
-        verdict = self.grade()
-        self.assertEqual(
-            [entry["reason"] for entry in verdict["inapplicable"]],
-            ["substrate_continuity_not_modelled"],
-        )
+        """Preserve the disclosure from a report produced at the older pin."""
+        report = _clean_report()
+        coverage = report["erc_coverage"]
+        coverage["checked"].remove("erc.supply_short.substrate")
+        coverage["checked"].remove("erc.supply_short")
+        disclosure = {"id": "erc.supply_short", "reason": "substrate_continuity_not_modelled"}
+        coverage["inapplicable"] = [disclosure]
+        self.assertEqual(self.grade(report)["inapplicable"], [disclosure])
 
 
 class TestControlVerdict(unittest.TestCase):
