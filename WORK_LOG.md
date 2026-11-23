@@ -6,6 +6,15 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 - [2026-09](work_log/WORK_LOG_2026-09.md)
 
+### 2026-11-23
+
+- **PR #496**: fix: mint analog_lvs.py's default scratch dir per run
+- **PR #494**: fix: move analog_lvs.py scratch default out of the repo, re-mint LVS envelopes
+- **PR #490**: chore: pin klayout-tools 0.9.2 and re-measure analog evidence at the new pin
+- **Issue #495** (closed): analog_lvs.py: the new out-of-repo scratch default is a fixed shared path, so concurrent runs on one host share a work dir
+- **Issue #493** (closed): analog_lvs.py's default --out-dir inside the repo makes the signoff render environment-dependent
+- **Issue #483** (closed): Move the klayout-tools pin 0.9.0 -> 0.9.2 and re-render the signoff report (pin precondition of #246, T1 item 3.analog)
+
 ### 2026-11-21
 
 - **PR #491**: Record the differential_receiver pin-order refusal and 45-corner run with reordered pins at klt 0.9.0
