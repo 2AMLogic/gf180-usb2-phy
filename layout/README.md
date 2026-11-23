@@ -482,8 +482,9 @@ PDK=gf180mcuD python3 scripts/analog_erc.py --gap-scan 1.0,1.1,1.2   # granulari
 a hard-coded list), compares each against `design/netlist/<block>.spice` with
 `klt lvs` (inline extraction, `form: "subckt-call"`, `keep_extracted` so the
 compare's own layout-side netlist is written out), and writes its artifacts to
-`layout/analog/lvs/` (gitignored scratch). It **exits 0 only when every block
-reads `status: "match"`**; a block whose reference netlist is missing fails
+a scratch directory outside the repository (`<tempdir>/gf180-usb2-phy/analog-lvs/`
+by default, `--out-dir` to move it — issue #493). It **exits 0 only when every
+block reads `status: "match"`**; a block whose reference netlist is missing fails
 loudly rather than being skipped. Frozen evidence lives under
 `verification/records/analog-lvs/`. `scripts/test_analog_lvs.py` is its
 self-test and needs neither klt nor the PDK.
