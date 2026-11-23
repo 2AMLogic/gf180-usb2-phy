@@ -131,14 +131,22 @@ partitions:
   analog evidence rather than restored by un-keying.
 - **Item 4.analog, LVS clean — cited, `met` since #247** — cites a list of
   five `klt lvs` envelopes, one per committed analog block, from record
-  `verification/records/analog-lvs/artifacts/20261123-022949-eaa62070/`
-  (`<block>-lvs-report.json`; issue #493's re-mint after moving the
-  harness's scratch default outside the repository — dated history: the
+  `verification/records/analog-lvs/artifacts/20261123-033612-661ffac1/`
+  (`<block>-lvs-report.json`; issue #495's re-mint after making the
+  harness's scratch directory unique per run — dated history: the
   first clean record `20261113-163000-35e9b6e5ab87` measured the pre-#361
   streams, `20261115-175000-5279711` the #361-regenerated streams at klt
   0.9.0, `20261120-191501-372cca1d` the 0.9.2 re-mint of #483 whose
-  envelopes still cited the in-repo scratch copies, and all are superseded
-  with the same request shape and nothing relaxed). All five read
+  envelopes still cited the in-repo scratch copies,
+  `20261123-022949-eaa62070` issue #493's re-mint after the scratch
+  default moved outside the repository, superseded only because its
+  `analog_lvs.py` provenance hash went stale — its envelopes differ from
+  this record's in nothing but the embedded scratch-path string, per
+  #497 — and all earlier records are superseded
+  with the same request shape and nothing relaxed). These frozen pins
+  move with the chain head: when a new analog-LVS record supersedes it,
+  the manifest citations and the frozen report are re-pointed in the
+  same change (#497). All five read
   `status: "match"` with
   `error_count: 0`, against the schematic netlist
   (`design/netlist/<block>.spice`, `reference.form: "subckt-call"`,
