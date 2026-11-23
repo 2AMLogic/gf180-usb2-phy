@@ -8,9 +8,11 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 ### 2026-11-23
 
+- **PR #499**: re-point 4/11.analog citations at the analog-LVS chain head 20261123-033612-661ffac1
 - **PR #496**: fix: mint analog_lvs.py's default scratch dir per run
 - **PR #494**: fix: move analog_lvs.py scratch default out of the repo, re-mint LVS envelopes
 - **PR #490**: chore: pin klayout-tools 0.9.2 and re-measure analog evidence at the new pin
+- **Issue #497** (closed): docs: manifests still cite 20261123-022949-eaa62070 as the live analog-LVS record after #496 supersedes it
 - **Issue #495** (closed): analog_lvs.py: the new out-of-repo scratch default is a fixed shared path, so concurrent runs on one host share a work dir
 - **Issue #493** (closed): analog_lvs.py's default --out-dir inside the repo makes the signoff render environment-dependent
 - **Issue #483** (closed): Move the klayout-tools pin 0.9.0 -> 0.9.2 and re-render the signoff report (pin precondition of #246, T1 item 3.analog)
@@ -379,11 +381,4 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 - **Issue #92** (closed): T1 item 5 (digital): mint one multi-corner klt sta envelope on the routed layout and cite it
 - **PR #102**: Analog: differential_receiver resolves 200 mV over 0.8-2.5 V common mode (spec §4)
 - **Issue #97** (closed): Analog: re-size differential_receiver to meet spec §4 sensitivity across full common-mode range
-
-### 2026-09-22
-
-- **PR #89**: feat: re-run usb_utmi_phy P&R and post-layout PVT against vendored sources
-- **PR #88**: feat: vendor shared USB protocol RTL and adapt the UTMI wrapper
-- **Issue #87** (closed): Re-run usb_utmi_phy place-and-route and post-layout PVT against the vendored rtl/common sources (post-#84)
-- **Issue #84** (closed): 2am: reuse rule 9 — reconcile the shared USB protocol RTL with sky130-usb2-phy — vendor the master's modules under rtl/common with reuse.lock.json
 
