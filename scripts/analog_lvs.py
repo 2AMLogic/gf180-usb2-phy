@@ -61,8 +61,14 @@ Usage
 
 Discovers every `layout/analog/*.gds` (rather than hard-coding block names),
 requires a matching `design/netlist/<block>.spice` for each, and writes its
-artifacts to `layout/analog/lvs/` (gitignored scratch -- the frozen copies
-live under `verification/records/analog-lvs/`).
+artifacts to a scratch directory **outside the repository**
+(`<tempdir>/gf180-usb2-phy/analog-lvs/` by default; the frozen copies live
+under `verification/records/analog-lvs/`). The default must stay out of the
+repo: `klt lvs` cites the run's layout copy in the envelope's `layout`
+field, and a copy inside a git checkout is cited `scope: "repo"` with its
+repo-relative path, which `klt signoff` re-hashes when replaying -- so an
+in-repo scratch tree made the frozen report's `input_verified` depend on
+whether the gitignored directory happened to exist (issue #493).
 
 **Not standalone**: `sh()`, `sha256()`, `discover_blocks()` and the
 `REPO_ROOT`/`DECK` constants live in `scripts/analog_common.py` (issue
@@ -82,6 +88,7 @@ import os
 import re
 import shutil
 import sys
+import tempfile
 
 from analog_common import DECK, REPO_ROOT, discover_blocks, sh, sha256
 from klt_resolve import (
@@ -95,6 +102,15 @@ from klt_resolve import (
 #: writer escapes as `\$<n>`. Such a net exists in the geometry but has no
 #: name of its own, so it can never correspond to a reference net by name.
 ANON_NET_RE = re.compile(r"^\\?\$\d+$")
+
+#: Default scratch out-dir, deliberately **outside the repository**: the
+#: envelope's `layout` field cites the run's layout copy, and a copy inside
+#: a git checkout is cited `scope: "repo"` -- re-hashable by `klt signoff`
+#: only while the gitignored tree happens to exist, which made the signoff
+#: render environment-dependent (issue #493). Outside any checkout it is
+#: cited `scope: "external"` and no path is committed at all.
+DEFAULT_OUT_DIR = os.path.join(
+    tempfile.gettempdir(), "gf180-usb2-phy", "analog-lvs")
 
 
 def _is_number(token: str) -> bool:
@@ -433,9 +449,9 @@ def main() -> int:
     ap.add_argument("--netlist-dir",
                     default=os.path.join(REPO_ROOT, "design", "netlist"),
                     help="directory of schematic netlists (default: design/netlist)")
-    ap.add_argument("--out-dir",
-                    default=os.path.join(REPO_ROOT, "layout", "analog", "lvs"),
-                    help="scratch out-dir (gitignored; default: layout/analog/lvs)")
+    ap.add_argument("--out-dir", default=DEFAULT_OUT_DIR,
+                    help=f"scratch out-dir, outside the repository "
+                         f"(default: {DEFAULT_OUT_DIR})")
     ap.add_argument("--blocks", nargs="*", default=None,
                     help="limit to these blocks (default: every committed stream)")
     ap.add_argument("--no-analyze", dest="analyze", action="store_false",

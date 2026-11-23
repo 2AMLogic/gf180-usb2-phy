@@ -131,13 +131,14 @@ partitions:
   analog evidence rather than restored by un-keying.
 - **Item 4.analog, LVS clean — cited, `met` since #247** — cites a list of
   five `klt lvs` envelopes, one per committed analog block, from record
-  `verification/records/analog-lvs/artifacts/20261120-191501-372cca1d/`
-  (`<block>-lvs-report.json`; issue #483's 0.9.2 re-mint on the
-  pin-move-regenerated streams — dated history: the first clean record
-  `20261113-163000-35e9b6e5ab87` measured the pre-#361 streams,
-  `20261115-175000-5279711` the #361-regenerated streams at klt 0.9.0, and
-  both are superseded with the same request shape and nothing relaxed).
-  All five read
+  `verification/records/analog-lvs/artifacts/20261123-022949-eaa62070/`
+  (`<block>-lvs-report.json`; issue #493's re-mint after moving the
+  harness's scratch default outside the repository — dated history: the
+  first clean record `20261113-163000-35e9b6e5ab87` measured the pre-#361
+  streams, `20261115-175000-5279711` the #361-regenerated streams at klt
+  0.9.0, `20261120-191501-372cca1d` the 0.9.2 re-mint of #483 whose
+  envelopes still cited the in-repo scratch copies, and all are superseded
+  with the same request shape and nothing relaxed). All five read
   `status: "match"` with
   `error_count: 0`, against the schematic netlist
   (`design/netlist/<block>.spice`, `reference.form: "subckt-call"`,
@@ -183,12 +184,18 @@ partitions:
     bodies are a checked part of this match rather than a disclosure.
   - **`input_verified` reads `null`, not `true`, for all five citations**
     — unlike 4.digital. The grader cannot re-hash the input itself because
-    each envelope's `layout.path` names the harness's scratch copy
-    (`layout/analog/lvs/<block>/<block>.gds`, gitignored), not
-    `layout/analog/<block>.gds`. The pins above are still the GDS hashes:
-    each `content_hash` was confirmed by hand to equal the sha256 of the
-    committed `layout/analog/<block>.gds` at the commit that added this
-    citation. Note the consequence for the freshness contract below: a
+    each envelope's `layout` field cites the run's scratch copy
+    `scope: "external"` with no path at all: the harness's default
+    `--out-dir` sits outside any git checkout (issue #493), so `klt lvs`
+    commits no path a later render could resolve. (The superseded
+    `20261120` record's envelopes cited the gitignored in-repo copies
+    `layout/analog/lvs/<block>/<block>.gds` `scope: "repo"`, which made
+    `input_verified` flip `true`/`null` with the ignored tree's existence —
+    the environment dependence PR #490's first CI run caught.) The pins
+    above are still the GDS hashes: each `content_hash` was confirmed by
+    hand to equal the sha256 of the committed
+    `layout/analog/<block>.gds` at the commit that added this citation.
+    Note the consequence for the freshness contract below: a
     re-run GDS does **not** automatically flip 4.analog to
     `unmet`/`stale_evidence` the way it would for 4.digital; what catches
     it instead is `signoff/check.py`, which refuses when a committed GDS
@@ -574,13 +581,16 @@ repo's rule that an envelope must actually support the item to be cited:
 
 ## Regeneration and freshness
 
-Render the frozen report in a checkout with `layout/analog/lvs/` absent, as in
-CI. The five analog LVS envelopes point to GDS copies in that ignored scratch
-directory. If the copies are present, the grader can verify their hashes and
-records `input_verified: true` for the LVS citations in 4.analog and 11.analog.
-In a fresh checkout those fields read `null`. When replaying LVS before a
-render, pass an external scratch directory to `scripts/analog_lvs.py` with
-`--out-dir`.
+Render the frozen report wherever you like: the five analog LVS envelopes
+cite their layout input `scope: "external"` with no path (the harness's
+scratch default has lived outside any git checkout since issue #493), so
+`input_verified` for the LVS citations in 4.analog and 11.analog reads
+`null` whether or not an old `layout/analog/lvs/` scratch tree happens to
+sit in the checkout — measured: renders with and without that tree are
+byte-identical. (`.gitignore` still covers the directory for checkouts
+that carry a pre-#493 scratch tree.) `scripts/analog_lvs.py` needs no
+`--out-dir` to keep it that way; pass one only to relocate the scratch
+tree, and keep it outside the repository.
 
 ```bash
 # the grader pin is the klayout-tools release in .github/workflows/ci.yml
