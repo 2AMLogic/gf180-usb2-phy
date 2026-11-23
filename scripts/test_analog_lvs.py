@@ -9,6 +9,9 @@ running klt or the PDK, so they run in CI:
     characterised once, in ``scripts/test_analog_common.py``;
   * **a missing reference netlist fails loudly** before any tool runs,
     rather than silently skipping the block;
+  * **the default ``--out-dir`` sits outside the repository** (issue #493):
+    an in-repo scratch default made the signoff render's ``input_verified``
+    depend on whether the gitignored tree happened to exist;
   * **the request shape** is the one the 2026-10-09 analog record
     established -- inline layout extraction with the ``gf180mcu`` deck
     against a ``subckt-call`` reference -- with bare relative filenames, and
@@ -99,6 +102,23 @@ class MissingReferenceFailsLoudly(unittest.TestCase):
             self.assertIn("missing reference netlist", msg)
             # Nothing was skipped silently: no artifacts were produced.
             self.assertEqual(list(out_dir.iterdir()), [])
+
+
+class DefaultOutDir(unittest.TestCase):
+    def test_default_scratch_dir_is_outside_the_repository(self):
+        """The scratch default must not sit inside the repo (issue #493).
+
+        `klt lvs` cites the run's layout copy in the envelope's `layout`
+        field; a copy inside a git checkout is cited `scope: "repo"` and
+        re-hashed by `klt signoff` at render time, so an in-repo default
+        made `input_verified` flip with the ignored tree's existence.
+        """
+        default = Path(alvs.DEFAULT_OUT_DIR).resolve()
+        self.assertTrue(default.is_absolute(), str(default))
+        self.assertEqual(default,
+                         Path(tempfile.gettempdir()).resolve()
+                         / "gf180-usb2-phy" / "analog-lvs")
+        self.assertFalse(default.is_relative_to(ROOT.resolve()), str(default))
 
 
 class RequestShape(unittest.TestCase):
