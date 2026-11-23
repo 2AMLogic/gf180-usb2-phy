@@ -2,6 +2,13 @@
 
 Sections moved byte-for-byte from [WORK_LOG.md](../WORK_LOG.md) by `loom-daemon work-docs archive`.
 
+### 2026-09-22
+
+- **PR #89**: feat: re-run usb_utmi_phy P&R and post-layout PVT against vendored sources
+- **PR #88**: feat: vendor shared USB protocol RTL and adapt the UTMI wrapper
+- **Issue #87** (closed): Re-run usb_utmi_phy place-and-route and post-layout PVT against the vendored rtl/common sources (post-#84)
+- **Issue #84** (closed): 2am: reuse rule 9 — reconcile the shared USB protocol RTL with sky130-usb2-phy — vendor the master's modules under rtl/common with reuse.lock.json
+
 ### 2026-09-21
 
 - **PR #85**: feat(erc): declare well/substrate ties, re-grade item 11.digital
