@@ -727,7 +727,7 @@ def _netlist_pin_map(response: dict, compose_request, digest: dict) -> dict:
     """
     from klayout_tools.layout_plan_execute import (
         _TERMINAL_SUFFIXES,
-        _device_owned_port_names,
+        device_owned_port_names,
     )
 
     reports = {
@@ -750,7 +750,7 @@ def _netlist_pin_map(response: dict, compose_request, digest: dict) -> dict:
         ports = reports.get(group["id"], {}).get("ports") or []
         suffixes = _TERMINAL_SUFFIXES.get(group["generator"], {})
         candidates = {
-            suffix: _device_owned_port_names(ports, suffix)
+            suffix: device_owned_port_names(ports, suffix)
             for suffix in set(suffixes.values())
         }
         bodies: set[str] = set()

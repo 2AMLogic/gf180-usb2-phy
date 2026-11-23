@@ -270,4 +270,53 @@ future bump appends the next move here and changes the table there.
    pins) and documented in `docs/environment-setup.md`. Bump
    `KLAYOUT_VERSION` together with `KLT_VERSION` at the next pin move.
 
+11. Release `0.9.0` → release `0.9.2` by issue #483, once 0.9.2 (on PyPI
+   since 2026-11-14) carried klayout-tools#5031: item 3 (DRC), item 4 (LVS)
+   and the post-layout item accept a **per-member citation list**, which is
+   the citation shape #246 (T1 item 3.analog) was parked waiting for — 0.9.1
+   skipped, 0.9.2 is the first release after the fix. The move was gated
+   before any edit: a scratch manifest with a five-entry list under
+   `3.analog` renders that item `met` at 0.9.2 (5/5 members covered, report
+   19/22), while the committed manifest renders all 22 rows with **zero
+   verdict or reason changes** (18 `met` + 1 `not_applicable` + 3 `unmet`
+   before and after). The report updates the build and checklist hashes,
+   citation paths and hashes, item 4.analog's member counts (5/5), and
+   checklist text for items 6 and 11. In 11.analog the cited driver's
+   `power_delivery.substrate_continuity` now records `checked: true` and
+   `by_assertion: false`. All five analog ERC runs checked for supply
+   shorts through both metal and substrate. The engine pin
+   held: 0.9.2 reports `klayout_version_expected: 0.30.12`, so
+   `KLAYOUT_VERSION` is unchanged.
+
+   What the move did to the committed analog streams: **every one of the
+   five `gds_sha256` moved again** (engine identical at 0.30.12, plans and
+   netlists identical — the same klt-version byte-instability class as the
+   0.8.0 → 0.9.0 move above, tracked upstream as
+   [klayout-tools#6943](https://github.com/2AMLogic/klayout-tools/issues/6943)),
+   so `--deliver` re-delivered all five and
+   `provenance.json` records `klt_version: "0.9.2"` per block
+   (record `20261120-191504-372cca1d`). Everything that cited the old bytes
+   was re-measured, not edited: `klt drc` 5× clean
+   (`20261120-191500-372cca1d`), analog LVS **5/5 `match`** — the explicit
+   re-check against klayout-tools#5311's shared-diffusion extract/LVS
+   difference; no such regression shows on these five streams
+   (`20261120-191501-372cca1d`) — analog ERC all-pass with controls firing
+   and the 0.4–1.2 um gap plateau still clean
+   (`20261120-191502-372cca1d`), resistor-dims 19/19 with 0 findings
+   (`20261120-191503-372cca1d`), and `scripts/digital_lvs.py` run by hand
+   (it is not wired into CI — the gap entry 10 records): **full gate-level
+   pass**, signal compare `match` and `power_connectivity: match`. The
+   parasitic-extraction probe records are superseded without a re-run
+   (7.analog stays `unmet`/`no_evidence`; a fresh probe on the 0.9.2 bytes
+   mints its own record).
+
+   One source adaptation: `layout_plan_execute._device_owned_port_names`
+   became public `device_owned_port_names` in 0.9.2 (same signature and
+   semantics) and the private alias is gone, so
+   `scripts/gen_analog_layout.py` imports the public name — the repo had
+   been reaching for the private helper. `signoff/evidence/` was
+   regenerated (`signoff/check.py --regen`) and
+   `manifests/t1-signoff-report.json` re-rendered at 0.9.2 with the
+   manifest's 4.analog/11.analog citations re-pointed at the fresh records.
+
 `npm run check:ci` was re-run against each new pin before it was committed.

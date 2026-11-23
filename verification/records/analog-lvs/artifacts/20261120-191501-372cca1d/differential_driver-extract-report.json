@@ -1,0 +1,1460 @@
+{
+  "schema_version": 4,
+  "file": {
+    "path": "layout/analog/lvs/differential_driver/differential_driver.gds",
+    "scope": "repo"
+  },
+  "deck": "gf180mcu",
+  "top": "differential_driver",
+  "dbu_um": 0.0005,
+  "netlist_path": "differential_driver_extract.spice",
+  "netlist_sha256": "7239c81bc7c03571fcec1d6b06b8e980ac3204d0063432101fbc73947809b91d",
+  "netlist_normalized_sha256": "e3df9dbc8663f79abc82a0416c65d3394178544ae92f4b3599772909b34d42b9",
+  "status": "extracted",
+  "device_count": 40,
+  "net_count": 22,
+  "pin_count": 7,
+  "device_counts": {
+    "nfet": 17,
+    "pfet": 17,
+    "ppolyf_u": 4,
+    "rm1": 2
+  },
+  "dummy_devices_dropped": 0,
+  "ignored_layers": [],
+  "device_recognition_only_layers": [
+    {
+      "layer": 49,
+      "datatype": 0,
+      "shapes": 4
+    },
+    {
+      "layer": 110,
+      "datatype": 5,
+      "shapes": 4
+    },
+    {
+      "layer": 110,
+      "datatype": 11,
+      "shapes": 2
+    }
+  ],
+  "device_classes": [
+    "nfet",
+    "pfet",
+    "bjt",
+    "cap_mim_2f0_m4m5_noshield",
+    "cap_nmos_03v3",
+    "cap_nmos_03v3_dn",
+    "cap_pmos_03v3",
+    "cap_pmos_03v3_dn",
+    "cap_nmos_06v0",
+    "cap_nmos_06v0_dn",
+    "cap_pmos_06v0",
+    "cap_pmos_06v0_dn",
+    "cap_nmos_03v3_b",
+    "cap_pmos_03v3_b",
+    "cap_nmos_06v0_b",
+    "cap_pmos_06v0_b",
+    "resistor",
+    "diode_nd2ps_06v0",
+    "diode_pd2nw_06v0"
+  ],
+  "devices": [
+    {
+      "name": "$1",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "TXOE",
+        "d": "\\$16",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.0,
+        "as_um2": 1.0,
+        "ad_um2": 1.0,
+        "ps_um": 5.0,
+        "pd_um": 5.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_oeb__mn_oeb_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_oeb_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$10",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$19",
+        "d": "\\$6",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 30.0,
+        "as_um2": 15.0,
+        "ad_um2": 15.0,
+        "ps_um": 61.0,
+        "pd_um": 61.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_2dp_1__mn_2dp_1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_2dp_1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$11",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$19",
+        "d": "\\$6",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 30.0,
+        "as_um2": 15.0,
+        "ad_um2": 15.0,
+        "ps_um": 61.0,
+        "pd_um": 61.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_2dp_2__mn_2dp_2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_2dp_2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$12",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$19",
+        "d": "\\$6",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 30.0,
+        "as_um2": 15.0,
+        "ad_um2": 15.0,
+        "ps_um": 61.0,
+        "pd_um": 61.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_2dp_3__mn_2dp_3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_2dp_3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$13",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$19",
+        "d": "\\$6",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 30.0,
+        "as_um2": 15.0,
+        "ad_um2": 15.0,
+        "ps_um": 61.0,
+        "pd_um": 61.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_2dp_4__mn_2dp_4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_2dp_4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$14",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$20",
+        "d": "\\$10",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 30.0,
+        "as_um2": 15.0,
+        "ad_um2": 15.0,
+        "ps_um": 61.0,
+        "pd_um": 61.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_2dm_1__mn_2dm_1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_2dm_1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$15",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$20",
+        "d": "\\$10",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 30.0,
+        "as_um2": 15.0,
+        "ad_um2": 15.0,
+        "ps_um": 61.0,
+        "pd_um": 61.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_2dm_2__mn_2dm_2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_2dm_2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$16",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$20",
+        "d": "\\$10",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 30.0,
+        "as_um2": 15.0,
+        "ad_um2": 15.0,
+        "ps_um": 61.0,
+        "pd_um": 61.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_2dm_3__mn_2dm_3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_2dm_3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$17",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$20",
+        "d": "\\$10",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 30.0,
+        "as_um2": 15.0,
+        "ad_um2": 15.0,
+        "ps_um": 61.0,
+        "pd_um": 61.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_2dm_4__mn_2dm_4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_2dm_4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$18",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "TXOE",
+        "d": "\\$16",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 4.0,
+        "as_um2": 2.0,
+        "ad_um2": 2.0,
+        "ps_um": 9.0,
+        "pd_um": 9.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_oeb__mp_oeb_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_oeb_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$19",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "TXDP",
+        "d": "\\$2",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 8.0,
+        "as_um2": 4.0,
+        "ad_um2": 4.0,
+        "ps_um": 17.0,
+        "pd_um": 17.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_1adp__mp_1adp_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_1adp_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$2",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "TXDP",
+        "d": "\\$3",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.5,
+        "as_um2": 1.25,
+        "ad_um2": 1.25,
+        "ps_um": 6.0,
+        "pd_um": 6.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_3adp__mn_3adp_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_3adp_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$20",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "TXOE",
+        "d": "\\$2",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 8.0,
+        "as_um2": 4.0,
+        "ad_um2": 4.0,
+        "ps_um": 17.0,
+        "pd_um": 17.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_1bdp__mp_1bdp_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_1bdp_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$21",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "TXDM",
+        "d": "\\$8",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 8.0,
+        "as_um2": 4.0,
+        "ad_um2": 4.0,
+        "ps_um": 17.0,
+        "pd_um": 17.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_1adm__mp_1adm_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_1adm_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$22",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "TXOE",
+        "d": "\\$8",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 8.0,
+        "as_um2": 4.0,
+        "ad_um2": 4.0,
+        "ps_um": 17.0,
+        "pd_um": 17.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_1bdm__mp_1bdm_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_1bdm_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$23",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "TXDP",
+        "d": "\\$17",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 16.0,
+        "as_um2": 8.0,
+        "ad_um2": 8.0,
+        "ps_um": 33.0,
+        "pd_um": 33.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_3adp__mp_3adp_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_3adp_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$24",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$17",
+        "g": "\\$16",
+        "d": "\\$3",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 16.0,
+        "as_um2": 8.0,
+        "ad_um2": 8.0,
+        "ps_um": 33.0,
+        "pd_um": 33.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_3bdp__mp_3bdp_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_3bdp_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$25",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "TXDM",
+        "d": "\\$18",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 16.0,
+        "as_um2": 8.0,
+        "ad_um2": 8.0,
+        "ps_um": 33.0,
+        "pd_um": 33.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_3adm__mp_3adm_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_3adm_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$26",
+      "class": "pfet",
+      "nets": {
+        "s": "\\$18",
+        "g": "\\$16",
+        "d": "\\$9",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 16.0,
+        "as_um2": 8.0,
+        "ad_um2": 8.0,
+        "ps_um": 33.0,
+        "pd_um": 33.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_3bdm__mp_3bdm_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_3bdm_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$27",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "\\$21",
+        "d": "\\$6",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 80.0,
+        "as_um2": 40.0,
+        "ad_um2": 40.0,
+        "ps_um": 161.0,
+        "pd_um": 161.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_2dp_1__mp_2dp_1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_2dp_1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$28",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "\\$21",
+        "d": "\\$6",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 80.0,
+        "as_um2": 40.0,
+        "ad_um2": 40.0,
+        "ps_um": 161.0,
+        "pd_um": 161.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_2dp_2__mp_2dp_2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_2dp_2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$29",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "\\$21",
+        "d": "\\$6",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 80.0,
+        "as_um2": 40.0,
+        "ad_um2": 40.0,
+        "ps_um": 161.0,
+        "pd_um": 161.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_2dp_3__mp_2dp_3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_2dp_3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$3",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$16",
+        "d": "\\$3",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.5,
+        "as_um2": 1.25,
+        "ad_um2": 1.25,
+        "ps_um": 6.0,
+        "pd_um": 6.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_3bdp__mn_3bdp_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_3bdp_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$30",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "\\$21",
+        "d": "\\$6",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 80.0,
+        "as_um2": 40.0,
+        "ad_um2": 40.0,
+        "ps_um": 161.0,
+        "pd_um": 161.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_2dp_4__mp_2dp_4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_2dp_4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$31",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "\\$22",
+        "d": "\\$10",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 80.0,
+        "as_um2": 40.0,
+        "ad_um2": 40.0,
+        "ps_um": 161.0,
+        "pd_um": 161.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_2dm_1__mp_2dm_1_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_2dm_1_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$32",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "\\$22",
+        "d": "\\$10",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 80.0,
+        "as_um2": 40.0,
+        "ad_um2": 40.0,
+        "ps_um": 161.0,
+        "pd_um": 161.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_2dm_2__mp_2dm_2_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_2dm_2_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$33",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "\\$22",
+        "d": "\\$10",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 80.0,
+        "as_um2": 40.0,
+        "ad_um2": 40.0,
+        "ps_um": 161.0,
+        "pd_um": 161.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_2dm_3__mp_2dm_3_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_2dm_3_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$34",
+      "class": "pfet",
+      "nets": {
+        "s": "VDD",
+        "g": "\\$22",
+        "d": "\\$10",
+        "b": "VDD"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 80.0,
+        "as_um2": 40.0,
+        "ad_um2": 40.0,
+        "ps_um": 161.0,
+        "pd_um": 161.0
+      },
+      "instance_path": [
+        {
+          "cell": "mp_2dm_4__mp_2dm_4_0",
+          "array_index": null
+        },
+        {
+          "cell": "mp_2dm_4_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$35",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "\\$21",
+        "b": "\\$2",
+        "w": "VSS"
+      },
+      "params": {
+        "r_ohm": 700.0,
+        "l_um": 2.0,
+        "w_um": 1.0,
+        "area_um2": 2.0,
+        "perimeter_um": 6.0
+      },
+      "instance_path": [
+        {
+          "cell": "r_slewpdp__r_slewpdp_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_slewpdp_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$36",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "\\$19",
+        "b": "\\$3",
+        "w": "VSS"
+      },
+      "params": {
+        "r_ohm": 3500.0,
+        "l_um": 10.0,
+        "w_um": 1.0,
+        "area_um2": 10.0,
+        "perimeter_um": 22.0
+      },
+      "instance_path": [
+        {
+          "cell": "r_slewndp__r_slewndp_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_slewndp_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$37",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "\\$22",
+        "b": "\\$8",
+        "w": "VSS"
+      },
+      "params": {
+        "r_ohm": 700.0,
+        "l_um": 2.0,
+        "w_um": 1.0,
+        "area_um2": 2.0,
+        "perimeter_um": 6.0
+      },
+      "instance_path": [
+        {
+          "cell": "r_slewpdm__r_slewpdm_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_slewpdm_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$38",
+      "class": "ppolyf_u",
+      "nets": {
+        "a": "\\$20",
+        "b": "\\$9",
+        "w": "VSS"
+      },
+      "params": {
+        "r_ohm": 3500.0,
+        "l_um": 10.0,
+        "w_um": 1.0,
+        "area_um2": 10.0,
+        "perimeter_um": 22.0
+      },
+      "instance_path": [
+        {
+          "cell": "r_slewndm__r_slewndm_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_slewndm_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$39",
+      "class": "rm1",
+      "nets": {
+        "a": "DP",
+        "b": "\\$6"
+      },
+      "params": {
+        "r_ohm": 36.0,
+        "l_um": 800.0,
+        "w_um": 2.0,
+        "area_um2": 1600.0,
+        "perimeter_um": 1604.0
+      },
+      "instance_path": [
+        {
+          "cell": "r_serdp__r_serdp_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_serdp_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$4",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "TXDM",
+        "d": "\\$9",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.5,
+        "as_um2": 1.25,
+        "ad_um2": 1.25,
+        "ps_um": 6.0,
+        "pd_um": 6.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_3adm__mn_3adm_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_3adm_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$40",
+      "class": "rm1",
+      "nets": {
+        "a": "DM",
+        "b": "\\$10"
+      },
+      "params": {
+        "r_ohm": 36.0,
+        "l_um": 800.0,
+        "w_um": 2.0,
+        "area_um2": 1600.0,
+        "perimeter_um": 1604.0
+      },
+      "instance_path": [
+        {
+          "cell": "r_serdm__r_serdm_0",
+          "array_index": null
+        },
+        {
+          "cell": "r_serdm_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$5",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "\\$16",
+        "d": "\\$9",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 2.5,
+        "as_um2": 1.25,
+        "ad_um2": 1.25,
+        "ps_um": 6.0,
+        "pd_um": 6.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_3bdm__mn_3bdm_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_3bdm_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$6",
+      "class": "nfet",
+      "nets": {
+        "s": "\\$5",
+        "g": "TXDP",
+        "d": "\\$2",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 5.0,
+        "as_um2": 2.5,
+        "ad_um2": 2.5,
+        "ps_um": 11.0,
+        "pd_um": 11.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_1adp__mn_1adp_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_1adp_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$7",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "TXOE",
+        "d": "\\$5",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 5.0,
+        "as_um2": 2.5,
+        "ad_um2": 2.5,
+        "ps_um": 11.0,
+        "pd_um": 11.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_1bdp__mn_1bdp_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_1bdp_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$8",
+      "class": "nfet",
+      "nets": {
+        "s": "\\$7",
+        "g": "TXDM",
+        "d": "\\$8",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 5.0,
+        "as_um2": 2.5,
+        "ad_um2": 2.5,
+        "ps_um": 11.0,
+        "pd_um": 11.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_1adm__mn_1adm_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_1adm_0__core",
+          "array_index": null
+        }
+      ]
+    },
+    {
+      "name": "$9",
+      "class": "nfet",
+      "nets": {
+        "s": "VSS",
+        "g": "TXOE",
+        "d": "\\$7",
+        "b": "VSS"
+      },
+      "params": {
+        "l_um": 0.28,
+        "w_um": 5.0,
+        "as_um2": 2.5,
+        "ad_um2": 2.5,
+        "ps_um": 11.0,
+        "pd_um": 11.0
+      },
+      "instance_path": [
+        {
+          "cell": "mn_1bdm__mn_1bdm_0",
+          "array_index": null
+        },
+        {
+          "cell": "mn_1bdm_0__core",
+          "array_index": null
+        }
+      ]
+    }
+  ],
+  "nets": [
+    {
+      "name": "DM",
+      "pin": true,
+      "device_count": 1,
+      "net_id": 13,
+      "pin_index": 0,
+      "label_positions_um": [
+        {
+          "text": "DM",
+          "x_um": 1029.49,
+          "y_um": 1.0
+        }
+      ]
+    },
+    {
+      "name": "DP",
+      "pin": true,
+      "device_count": 1,
+      "net_id": 12,
+      "pin_index": 1,
+      "label_positions_um": [
+        {
+          "text": "DP",
+          "x_um": 208.49,
+          "y_um": 1.0
+        }
+      ]
+    },
+    {
+      "name": "TXDM",
+      "pin": true,
+      "device_count": 4,
+      "net_id": 11,
+      "pin_index": 2,
+      "label_positions_um": [
+        {
+          "text": "TXDM",
+          "x_um": 50.2,
+          "y_um": 7.19
+        }
+      ]
+    },
+    {
+      "name": "TXDP",
+      "pin": true,
+      "device_count": 4,
+      "net_id": 15,
+      "pin_index": 3,
+      "label_positions_um": [
+        {
+          "text": "TXDP",
+          "x_um": 5.96,
+          "y_um": 7.19
+        }
+      ]
+    },
+    {
+      "name": "TXOE",
+      "pin": true,
+      "device_count": 6,
+      "net_id": 14,
+      "pin_index": 4,
+      "label_positions_um": [
+        {
+          "text": "TXOE",
+          "x_um": 0.64,
+          "y_um": 4.19
+        }
+      ]
+    },
+    {
+      "name": "VDD",
+      "pin": true,
+      "device_count": 32,
+      "net_id": 4,
+      "pin_index": 5,
+      "label_positions_um": [
+        {
+          "text": "VDD",
+          "x_um": 94.21,
+          "y_um": 3.23
+        }
+      ]
+    },
+    {
+      "name": "VSS",
+      "pin": true,
+      "device_count": 36,
+      "net_id": 23,
+      "pin_index": 6,
+      "label_positions_um": [
+        {
+          "text": "VSS",
+          "x_um": 0.21,
+          "y_um": 2.23
+        }
+      ]
+    },
+    {
+      "name": "\\$10",
+      "pin": false,
+      "device_count": 9,
+      "net_id": 10,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$16",
+      "pin": false,
+      "device_count": 6,
+      "net_id": 16,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$17",
+      "pin": false,
+      "device_count": 2,
+      "net_id": 17,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$18",
+      "pin": false,
+      "device_count": 2,
+      "net_id": 18,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$19",
+      "pin": false,
+      "device_count": 5,
+      "net_id": 19,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$2",
+      "pin": false,
+      "device_count": 4,
+      "net_id": 2,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$20",
+      "pin": false,
+      "device_count": 5,
+      "net_id": 20,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$21",
+      "pin": false,
+      "device_count": 5,
+      "net_id": 21,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$22",
+      "pin": false,
+      "device_count": 5,
+      "net_id": 22,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$3",
+      "pin": false,
+      "device_count": 4,
+      "net_id": 3,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$5",
+      "pin": false,
+      "device_count": 2,
+      "net_id": 5,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$6",
+      "pin": false,
+      "device_count": 9,
+      "net_id": 6,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$7",
+      "pin": false,
+      "device_count": 2,
+      "net_id": 7,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$8",
+      "pin": false,
+      "device_count": 4,
+      "net_id": 8,
+      "pin_index": null,
+      "label_positions_um": []
+    },
+    {
+      "name": "\\$9",
+      "pin": false,
+      "device_count": 4,
+      "net_id": 9,
+      "pin_index": null,
+      "label_positions_um": []
+    }
+  ],
+  "warnings": [],
+  "black_box_regions": [],
+  "abstracted_cells": [],
+  "unmodelled_poly": [],
+  "merged_net_labels": [],
+  "split_net_labels": [],
+  "voltage_domain_warnings": [],
+  "missing_flavour_markers": [],
+  "unsupported_devices": [],
+  "unbiased_pmos_body_nets": [],
+  "single_terminal_nets": [],
+  "dead_metal": [],
+  "matched_device_groups": [],
+  "def_pin_promotion": null,
+  "pin_renames": null,
+  "rename_declared_pins": false,
+  "declared_pins": null,
+  "def_pins": null,
+  "label_layers": null,
+  "device_models": null,
+  "probes": [],
+  "pdk": null,
+  "provenance": {
+    "klt_version": "0.9.2",
+    "klt_git_commit": "046ba74652fc096bd97071fc3237f7159dd40183",
+    "klt_reinstall_spec": "klayout-tools==0.9.2",
+    "klayout_version": "0.30.12",
+    "pdk": null,
+    "deck": {
+      "name": "gf180mcu",
+      "content_hash": "sha256:c3f2cce49000857a3a71cb65203aabf0eb27cd0ee6b1c60e29792355c455c4b1",
+      "released": true,
+      "options": {
+        "metal_top": "9K",
+        "mim_cap": "cap_mim_2f0_m4m5_noshield",
+        "poly_res": "1k"
+      },
+      "options_explicit": {
+        "metal_top": false,
+        "mim_cap": false,
+        "poly_res": false
+      },
+      "options_hash": "sha256:6a7dc7660a470994263c5ca8ace6d8ac8c605d77e6876a9c5490949de6e7cb05"
+    },
+    "input": {
+      "content_hash": "sha256:77dbedb0312c1461e8c5d33af2f08f7f7e591a4e34b2c3f89e3b32ffcf9f201d",
+      "role": "layout"
+    }
+  },
+  "parasitics": null,
+  "spef_path": null,
+  "subcircuit": null,
+  "metrics": {
+    "extract__device__count": 40,
+    "extract__net__count": 22,
+    "extract__pin__count": 7
+  },
+  "timing": {
+    "stages": {
+      "read_layout": 0.001,
+      "device_extraction": 0.083,
+      "diagnostics": 0.0,
+      "netlist_write": 0.001,
+      "netlist_hash": 0.0,
+      "netlist_normalized_hash": 0.001
+    },
+    "total_seconds": 0.21,
+    "unattributed_seconds": 0.124
+  }
+}

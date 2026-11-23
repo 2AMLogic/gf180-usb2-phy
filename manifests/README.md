@@ -131,11 +131,13 @@ partitions:
   analog evidence rather than restored by un-keying.
 - **Item 4.analog, LVS clean — cited, `met` since #247** — cites a list of
   five `klt lvs` envelopes, one per committed analog block, from record
-  `verification/records/analog-lvs/artifacts/20261115-175000-5279711/`
-  (`<block>-lvs-report.json`). It supersedes the first clean record
-  `20261113-163000-35e9b6e5ab87` — dated history: that one measured the
-  pre-#361 streams, this one the regenerated streams of issue #361, with
-  the same request shape and nothing relaxed. All five read
+  `verification/records/analog-lvs/artifacts/20261120-191501-372cca1d/`
+  (`<block>-lvs-report.json`; issue #483's 0.9.2 re-mint on the
+  pin-move-regenerated streams — dated history: the first clean record
+  `20261113-163000-35e9b6e5ab87` measured the pre-#361 streams,
+  `20261115-175000-5279711` the #361-regenerated streams at klt 0.9.0, and
+  both are superseded with the same request shape and nothing relaxed).
+  All five read
   `status: "match"` with
   `error_count: 0`, against the schematic netlist
   (`design/netlist/<block>.spice`, `reference.form: "subckt-call"`,
@@ -143,16 +145,16 @@ partitions:
   a byte copy of the committed netlist, not a hand-edited one. Each
   citation is pinned to the GDS revision its envelope was minted against
   (`provenance.input`, `role: "layout"`). Minted at the repo pin
-  (`klt 0.9.0`, KLayout `0.30.13`, deck `gf180mcu`
-  `sha256:cf44de63…`, `released: true`).
+  (`klt 0.9.2`, KLayout `0.30.12`, deck `gf180mcu`
+  `sha256:c3f2cce4…`).
 
   | block | GDS (`content_hash`) | reference netlist | devices | nets | pins | `device.geometry_not_compared` | `device.placeholder_value` | `topology` |
   |---|---|---|---|---|---|---|---|---|
-  | `differential_driver` | `8db96dcd…` | `b5dda530…` | 40 | 22 | 7 | 2 | 2 | 1 |
-  | `differential_receiver` | `b7bb3c85…` | `76a1e6f9…` | 11 | 10 | 5 | 1 | 1 | 1 |
-  | `dplus_pullup` | `69a6310d…` | `9c645ecf…` | 78 | 21 | 9 | 1 | 1 | 1 |
-  | `se_receiver_dm` | `653fd721…` | `ebfc91ac…` | 13 | 10 | 4 | 1 | 1 | 1 |
-  | `se_receiver_dp` | `4ef69477…` | `1f854210…` | 13 | 10 | 4 | 1 | 1 | 1 |
+  | `differential_driver` | `77dbedb0…` | `b5dda530…` | 40 | 22 | 7 | 2 | 2 | 1 |
+  | `differential_receiver` | `d577baf5…` | `76a1e6f9…` | 11 | 10 | 5 | 1 | 1 | 1 |
+  | `dplus_pullup` | `8187245c…` | `9c645ecf…` | 78 | 21 | 9 | 1 | 1 | 1 |
+  | `se_receiver_dm` | `282b2c7a…` | `ebfc91ac…` | 13 | 10 | 4 | 1 | 1 | 1 |
+  | `se_receiver_dp` | `132abde2…` | `1f854210…` | 13 | 10 | 4 | 1 | 1 | 1 |
 
   Device, net and pin columns are *matched* counts, and layout equals
   reference equals matched on every block. **What this claim does not
@@ -487,15 +489,17 @@ repo's rule that an envelope must actually support the item to be cited:
   because no analog layout existed when the row was first frozen). Its
   manifest entry is a **two-part list**, the shape item 11 requires: the
   `differential_driver` `klt erc` supply report
-  (`verification/records/analog-erc/artifacts/20261115-174000-5279711/differential_driver-erc-supply-report.json`,
-  pinned to that stream's GDS hash `sha256:8db96dcd…`), **plus** that same
+  (`verification/records/analog-erc/artifacts/20261120-191502-372cca1d/differential_driver-erc-supply-report.json`,
+  pinned to that stream's GDS hash `sha256:77dbedb0…`), **plus** that same
   block's `analog-lvs` envelope — the identical artifact item 4.analog cites,
-  at the identical pin. The ERC artifact's record, `20261115-174000-5279711`,
-  re-ran the same gates on the #361-regenerated streams at a finer asserted
-  partition; it supersedes `20261114-003000-db05b5e` — dated history: that
-  one measured the pre-#361 streams — and has since been superseded by
-  `20261116-000746-8dff986`, the #406 re-run on byte-identical re-delivered
-  streams with the verdict unchanged. No `klt
+  at the identical pin. The ERC artifact's record,
+  `20261120-191502-372cca1d`, re-ran the same gates (plus the twelve-gap
+  sensitivity sweep) on the pin-move-regenerated streams at klt 0.9.2 —
+  dated history: `20261115-174000-5279711` measured the #361-regenerated
+  streams at a finer asserted partition (superseding
+  `20261114-003000-db05b5e`, which measured the pre-#361 streams) and was
+  superseded by `20261116-000746-8dff986`, the #406 re-run on
+  byte-identical re-delivered streams with the verdict unchanged. No `klt
   place-and-route` part: that is the Digital
   column's PDN branch, and these are full-custom streams with no P&R
   response to cite.
@@ -510,7 +514,7 @@ repo's rule that an envelope must actually support the item to be cited:
   pair while the rendered report still showed only two `parts`, i.e. the
   drop would be invisible to a reader of `t1-signoff-report.json`. So this
   row cites one visible pair, and `differential_driver` is the one: the
-  largest analog stream (17 n-wells, 84 drawn body-tie pads, 17 asserted
+  largest analog stream (17 n-wells, 84 drawn body-tie pads, 51 asserted
   substrate polygons) and the block that drives the bus. **The tool gap is
   filed upstream as
   [klayout-tools#5597](https://github.com/2AMLogic/klayout-tools/issues/5597)**;
@@ -519,7 +523,7 @@ repo's rule that an envelope must actually support the item to be cited:
 
   The other four streams are *not* unevidenced. Their identical `klt erc`
   runs are frozen in the same record
-  (`verification/records/analog-erc/records/20261115-174000-5279711.md`),
+  (`verification/records/analog-erc/records/20261120-191502-372cca1d.md`),
   every stream and every spec is pinned by hash in that record's
   `provenance.inputs[]` — so `verification/check_records.py` fails CI if any
   of them moves without a fresh record — and `scripts/analog_erc.py` re-runs
@@ -554,23 +558,34 @@ repo's rule that an envelope must actually support the item to be cited:
   `0.0` on all five — so a high `uncovered_tap_fraction` here measures how
   much of a stream's bare `Comp` sits in n-well, not assertion-missed
   substrate pads. Reporting only: `klt signoff` does not grade these fields
-  and the harness does not gate the equality;
-  `power_delivery.supply_unlabelled_islands` is `{}`, klt's
-  honest "not measured", because no role is owned by a supply in these
-  streams and `nets[].roles` is deliberately not declared; and
-  `erc.supply_short` is `inapplicable` /`substrate_continuity_not_modelled`
-  on every analog run, so the no-short claim rests on the LVS compare
-  pairing the two supplies as distinct nets. The record's "What is NOT
-  established" section carries these in full, including the measured fact
-  that only 17 of `differential_driver`'s 84 drawn body-tie pads reach
-  ground through metal.
+  and the harness does not gate the equality.
+  `power_delivery.supply_unlabelled_islands` is `{}` because these supplies
+  share metal layers with signal nets and the specs omit `nets[].roles`.
+
+  At klt 0.9.2 all five supply reports list `erc.supply_short` and
+  `erc.supply_short.substrate` in `erc_coverage.checked`, with an empty
+  `inapplicable` list and zero findings. The cited driver's
+  `power_delivery.substrate_continuity` records `checked: true` and
+  `by_assertion: false`. The well-box assertion above applies to the
+  missing-tie check. LVS independently pairs the supplies as distinct nets.
+  The wiring census finds that all 84 drawn driver substrate tap pads reach
+  ground through metal. At the same 0.7 µm gap, each of the other four
+  streams has 18 asserted polygons.
 
 ## Regeneration and freshness
+
+Render the frozen report in a checkout with `layout/analog/lvs/` absent, as in
+CI. The five analog LVS envelopes point to GDS copies in that ignored scratch
+directory. If the copies are present, the grader can verify their hashes and
+records `input_verified: true` for the LVS citations in 4.analog and 11.analog.
+In a fresh checkout those fields read `null`. When replaying LVS before a
+render, pass an external scratch directory to `scripts/analog_lvs.py` with
+`--out-dir`.
 
 ```bash
 # the grader pin is the klayout-tools release in .github/workflows/ci.yml
 # (`scripts/setup-env.sh` uses the same one, see docs/environment-setup.md), e.g.:
-python3 -m venv /tmp/klt-pin && /tmp/klt-pin/bin/pip install "klayout-tools==0.9.0" cocotb==2.0.1
+python3 -m venv /tmp/klt-pin && /tmp/klt-pin/bin/pip install "klayout-tools==0.9.2" cocotb==2.0.1
 export PATH=/tmp/klt-pin/bin:$PATH
 python3 signoff/check.py --regen   # only if an inventoried file changed on purpose
 klt signoff --manifest manifests/gf180-usb2-phy.json --format json > /tmp/fresh.json

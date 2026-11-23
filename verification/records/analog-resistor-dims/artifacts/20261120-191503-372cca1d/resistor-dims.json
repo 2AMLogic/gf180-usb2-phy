@@ -1,0 +1,357 @@
+{
+  "claim": "drawn resistor L/W vs netlist r_length/r_width, whole nanometres",
+  "blocks": [
+    {
+      "block": "differential_driver",
+      "gds": "layout/analog/differential_driver.gds",
+      "gds_sha256": "77dbedb0312c1461e8c5d33af2f08f7f7e591a4e34b2c3f89e3b32ffcf9f201d"
+    },
+    {
+      "block": "differential_receiver",
+      "gds": "layout/analog/differential_receiver.gds",
+      "gds_sha256": "d577baf5c33b3d01ff8b128f525e16544fbd6d1f098b24f2e2a538529dcbc6be"
+    },
+    {
+      "block": "dplus_pullup",
+      "gds": "layout/analog/dplus_pullup.gds",
+      "gds_sha256": "8187245c7e102cef1d3fac283622d358b53690259bf0ca41d110929cf2713f1c"
+    },
+    {
+      "block": "se_receiver_dm",
+      "gds": "layout/analog/se_receiver_dm.gds",
+      "gds_sha256": "282b2c7a8cd13a3742cc9d3e1a42c6865b89158499b8835e0505c527c163e6bc"
+    },
+    {
+      "block": "se_receiver_dp",
+      "gds": "layout/analog/se_receiver_dp.gds",
+      "gds_sha256": "132abde2a47925659f64895fbdf1e81f7770e248653d2b62c2b9bc09212cfa15"
+    }
+  ],
+  "rows": [
+    {
+      "block": "differential_driver",
+      "instance": "XRSERDM",
+      "model": "rm1",
+      "netlist_l_nm": 800000,
+      "netlist_w_nm": 2000,
+      "drawn_l_nm": 800000,
+      "drawn_w_nm": 2000,
+      "netlist_l_um": 800.0,
+      "netlist_w_um": 2.0,
+      "drawn_l_um": 800.0,
+      "drawn_w_um": 2.0,
+      "verdict": "match",
+      "note": ""
+    },
+    {
+      "block": "differential_driver",
+      "instance": "XRSERDP",
+      "model": "rm1",
+      "netlist_l_nm": 800000,
+      "netlist_w_nm": 2000,
+      "drawn_l_nm": 800000,
+      "drawn_w_nm": 2000,
+      "netlist_l_um": 800.0,
+      "netlist_w_um": 2.0,
+      "drawn_l_um": 800.0,
+      "drawn_w_um": 2.0,
+      "verdict": "match",
+      "note": ""
+    },
+    {
+      "block": "differential_driver",
+      "instance": "XRSLEWNDM",
+      "model": "ppolyf_u",
+      "netlist_l_nm": 10000,
+      "netlist_w_nm": 1000,
+      "drawn_l_nm": 10000,
+      "drawn_w_nm": 1000,
+      "netlist_l_um": 10.0,
+      "netlist_w_um": 1.0,
+      "drawn_l_um": 10.0,
+      "drawn_w_um": 1.0,
+      "verdict": "match",
+      "note": ""
+    },
+    {
+      "block": "differential_driver",
+      "instance": "XRSLEWNDP",
+      "model": "ppolyf_u",
+      "netlist_l_nm": 10000,
+      "netlist_w_nm": 1000,
+      "drawn_l_nm": 10000,
+      "drawn_w_nm": 1000,
+      "netlist_l_um": 10.0,
+      "netlist_w_um": 1.0,
+      "drawn_l_um": 10.0,
+      "drawn_w_um": 1.0,
+      "verdict": "match",
+      "note": ""
+    },
+    {
+      "block": "differential_driver",
+      "instance": "XRSLEWPDM",
+      "model": "ppolyf_u",
+      "netlist_l_nm": 2000,
+      "netlist_w_nm": 1000,
+      "drawn_l_nm": 2000,
+      "drawn_w_nm": 1000,
+      "netlist_l_um": 2.0,
+      "netlist_w_um": 1.0,
+      "drawn_l_um": 2.0,
+      "drawn_w_um": 1.0,
+      "verdict": "match",
+      "note": ""
+    },
+    {
+      "block": "differential_driver",
+      "instance": "XRSLEWPDP",
+      "model": "ppolyf_u",
+      "netlist_l_nm": 2000,
+      "netlist_w_nm": 1000,
+      "drawn_l_nm": 2000,
+      "drawn_w_nm": 1000,
+      "netlist_l_um": 2.0,
+      "netlist_w_um": 1.0,
+      "drawn_l_um": 2.0,
+      "drawn_w_um": 1.0,
+      "verdict": "match",
+      "note": ""
+    },
+    {
+      "block": "differential_receiver",
+      "instance": "XRBIAS",
+      "model": "ppolyf_u_1k",
+      "netlist_l_nm": 400000,
+      "netlist_w_nm": 2000,
+      "drawn_l_nm": 400000,
+      "drawn_w_nm": 2000,
+      "netlist_l_um": 400.0,
+      "netlist_w_um": 2.0,
+      "drawn_l_um": 400.0,
+      "drawn_w_um": 2.0,
+      "verdict": "match",
+      "note": ""
+    },
+    {
+      "block": "dplus_pullup",
+      "instance": "XR0",
+      "model": "ppolyf_u",
+      "netlist_l_nm": 343,
+      "netlist_w_nm": 4000,
+      "drawn_l_nm": 420,
+      "drawn_w_nm": 4000,
+      "netlist_l_um": 0.343,
+      "netlist_w_um": 4.0,
+      "drawn_l_um": 0.42,
+      "drawn_w_um": 4.0,
+      "verdict": "allow_listed",
+      "note": "spec/decisions/0010-dplus-pullup-trim-resistor-grid-snap.md"
+    },
+    {
+      "block": "dplus_pullup",
+      "instance": "XR1",
+      "model": "ppolyf_u",
+      "netlist_l_nm": 686,
+      "netlist_w_nm": 4000,
+      "drawn_l_nm": 685,
+      "drawn_w_nm": 4000,
+      "netlist_l_um": 0.686,
+      "netlist_w_um": 4.0,
+      "drawn_l_um": 0.685,
+      "drawn_w_um": 4.0,
+      "verdict": "allow_listed",
+      "note": "spec/decisions/0010-dplus-pullup-trim-resistor-grid-snap.md"
+    },
+    {
+      "block": "dplus_pullup",
+      "instance": "XR2",
+      "model": "ppolyf_u",
+      "netlist_l_nm": 1371,
+      "netlist_w_nm": 4000,
+      "drawn_l_nm": 1370,
+      "drawn_w_nm": 4000,
+      "netlist_l_um": 1.371,
+      "netlist_w_um": 4.0,
+      "drawn_l_um": 1.37,
+      "drawn_w_um": 4.0,
+      "verdict": "allow_listed",
+      "note": "spec/decisions/0010-dplus-pullup-trim-resistor-grid-snap.md"
+    },
+    {
+      "block": "dplus_pullup",
+      "instance": "XR3",
+      "model": "ppolyf_u",
+      "netlist_l_nm": 2743,
+      "netlist_w_nm": 4000,
+      "drawn_l_nm": 2745,
+      "drawn_w_nm": 4000,
+      "netlist_l_um": 2.743,
+      "netlist_w_um": 4.0,
+      "drawn_l_um": 2.745,
+      "drawn_w_um": 4.0,
+      "verdict": "allow_listed",
+      "note": "spec/decisions/0010-dplus-pullup-trim-resistor-grid-snap.md"
+    },
+    {
+      "block": "dplus_pullup",
+      "instance": "XR4",
+      "model": "ppolyf_u",
+      "netlist_l_nm": 5486,
+      "netlist_w_nm": 4000,
+      "drawn_l_nm": 5485,
+      "drawn_w_nm": 4000,
+      "netlist_l_um": 5.486,
+      "netlist_w_um": 4.0,
+      "drawn_l_um": 5.485,
+      "drawn_w_um": 4.0,
+      "verdict": "allow_listed",
+      "note": "spec/decisions/0010-dplus-pullup-trim-resistor-grid-snap.md"
+    },
+    {
+      "block": "dplus_pullup",
+      "instance": "XRBASE",
+      "model": "ppolyf_u",
+      "netlist_l_nm": 11430,
+      "netlist_w_nm": 4000,
+      "drawn_l_nm": 11430,
+      "drawn_w_nm": 4000,
+      "netlist_l_um": 11.43,
+      "netlist_w_um": 4.0,
+      "drawn_l_um": 11.43,
+      "drawn_w_um": 4.0,
+      "verdict": "match",
+      "note": ""
+    },
+    {
+      "block": "se_receiver_dm",
+      "instance": "XR1",
+      "model": "ppolyf_u_1k",
+      "netlist_l_nm": 3800,
+      "netlist_w_nm": 2000,
+      "drawn_l_nm": 3800,
+      "drawn_w_nm": 2000,
+      "netlist_l_um": 3.8,
+      "netlist_w_um": 2.0,
+      "drawn_l_um": 3.8,
+      "drawn_w_um": 2.0,
+      "verdict": "match",
+      "note": ""
+    },
+    {
+      "block": "se_receiver_dm",
+      "instance": "XR2",
+      "model": "ppolyf_u_1k",
+      "netlist_l_nm": 2800,
+      "netlist_w_nm": 2000,
+      "drawn_l_nm": 2800,
+      "drawn_w_nm": 2000,
+      "netlist_l_um": 2.8,
+      "netlist_w_um": 2.0,
+      "drawn_l_um": 2.8,
+      "drawn_w_um": 2.0,
+      "verdict": "match",
+      "note": ""
+    },
+    {
+      "block": "se_receiver_dm",
+      "instance": "XRBIAS",
+      "model": "ppolyf_u_1k",
+      "netlist_l_nm": 400000,
+      "netlist_w_nm": 2000,
+      "drawn_l_nm": 400000,
+      "drawn_w_nm": 2000,
+      "netlist_l_um": 400.0,
+      "netlist_w_um": 2.0,
+      "drawn_l_um": 400.0,
+      "drawn_w_um": 2.0,
+      "verdict": "match",
+      "note": ""
+    },
+    {
+      "block": "se_receiver_dp",
+      "instance": "XR1",
+      "model": "ppolyf_u_1k",
+      "netlist_l_nm": 3800,
+      "netlist_w_nm": 2000,
+      "drawn_l_nm": 3800,
+      "drawn_w_nm": 2000,
+      "netlist_l_um": 3.8,
+      "netlist_w_um": 2.0,
+      "drawn_l_um": 3.8,
+      "drawn_w_um": 2.0,
+      "verdict": "match",
+      "note": ""
+    },
+    {
+      "block": "se_receiver_dp",
+      "instance": "XR2",
+      "model": "ppolyf_u_1k",
+      "netlist_l_nm": 2800,
+      "netlist_w_nm": 2000,
+      "drawn_l_nm": 2800,
+      "drawn_w_nm": 2000,
+      "netlist_l_um": 2.8,
+      "netlist_w_um": 2.0,
+      "drawn_l_um": 2.8,
+      "drawn_w_um": 2.0,
+      "verdict": "match",
+      "note": ""
+    },
+    {
+      "block": "se_receiver_dp",
+      "instance": "XRBIAS",
+      "model": "ppolyf_u_1k",
+      "netlist_l_nm": 400000,
+      "netlist_w_nm": 2000,
+      "drawn_l_nm": 400000,
+      "drawn_w_nm": 2000,
+      "netlist_l_um": 400.0,
+      "netlist_w_um": 2.0,
+      "drawn_l_um": 400.0,
+      "drawn_w_um": 2.0,
+      "verdict": "match",
+      "note": ""
+    }
+  ],
+  "allow_list": {
+    "dplus_pullup.XR0": {
+      "l_nm": 420,
+      "w_nm": 4000,
+      "decision": "spec/decisions/0010-dplus-pullup-trim-resistor-grid-snap.md"
+    },
+    "dplus_pullup.XR1": {
+      "l_nm": 685,
+      "w_nm": 4000,
+      "decision": "spec/decisions/0010-dplus-pullup-trim-resistor-grid-snap.md"
+    },
+    "dplus_pullup.XR2": {
+      "l_nm": 1370,
+      "w_nm": 4000,
+      "decision": "spec/decisions/0010-dplus-pullup-trim-resistor-grid-snap.md"
+    },
+    "dplus_pullup.XR3": {
+      "l_nm": 2745,
+      "w_nm": 4000,
+      "decision": "spec/decisions/0010-dplus-pullup-trim-resistor-grid-snap.md"
+    },
+    "dplus_pullup.XR4": {
+      "l_nm": 5485,
+      "w_nm": 4000,
+      "decision": "spec/decisions/0010-dplus-pullup-trim-resistor-grid-snap.md"
+    }
+  },
+  "summary": {
+    "total": 19,
+    "match": 14,
+    "allow_listed": 5,
+    "findings": 0,
+    "by_block": {
+      "differential_driver": 6,
+      "differential_receiver": 1,
+      "dplus_pullup": 6,
+      "se_receiver_dm": 3,
+      "se_receiver_dp": 3
+    }
+  }
+}

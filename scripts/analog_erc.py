@@ -90,15 +90,13 @@ the same harness and the same stream.
 
 The tap-wiring census
 ---------------------
-`klt erc` joins conductors only through the declared `stackup`/`vias`; it has
-no device recognition and does not model substrate conduction (its own
-`erc_coverage.inapplicable` says so). So "the substrate is tied" from this
-run means *each asserted patch holds a tap wired up to the ground rail in
-metal*, not *every drawn tap pad is wired up*. Those differ in this layout,
-measurably, so the census counts it rather than leaving it to prose: per
-block, how many drawn substrate tap pads are contacted, and how many of
-those reach the ground rail through `Contact`/`Metal1`/`Via*`/`Metal2-3`.
-The record quotes those numbers as the stated limit of this evidence.
+At klt 0.9.2 all five supply reports list `erc.supply_short` and
+`erc.supply_short.substrate` in `erc_coverage.checked`, with no inapplicable
+checks. Item 11.analog records substrate continuity as checked without an
+assertion. The separate missing-tie check uses the asserted `well_boxes`.
+The census counts the drawn substrate tap pads contacted and wired to the
+ground rail through `Contact`/`Metal1`/`Via*`/`Metal2-3`, both per block
+and per asserted polygon.
 
 Usage
 -----
@@ -354,9 +352,8 @@ def tap_wiring_census(kdb, layout, top, ground: str, boxes: list[list[float]]) -
     Two things come out of that, and both matter to the verdict:
 
     * the **census**: how many drawn pads are contacted and how many of those
-      reach the rail in metal. `klt erc`'s clean verdict does not state this
-      (it has no device recognition and does not model substrate conduction),
-      so the record states it instead;
+      reach the rail in metal. This counts each pad individually, including
+      pads that share an asserted polygon;
     * the **per-asserted-polygon distribution**: how many metal-wired pads
       sit in each asserted substrate polygon. This is what makes the chosen
       granularity checkable rather than tuned -- a partition finer than the

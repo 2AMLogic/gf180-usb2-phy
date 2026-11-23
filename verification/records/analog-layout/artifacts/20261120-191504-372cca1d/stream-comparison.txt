@@ -1,0 +1,12 @@
+# old (klt 0.9.0, delivered 20261119) vs new (klt 0.9.2, delivered 20261120) gds_sha256
+# regeneration command: PDK_ROOT=$HOME/.volare .venv/bin/python scripts/gen_analog_layout.py --deliver
+# engine klayout 0.30.12 on both sides; plans/netlists unchanged
+block                  old(0.9.0)                                 new(0.9.2)                                 bytes
+differential_driver    8db96dcd4eef2d388293298b948f25f765b48d80d3340892d06ca1051a76d010  77dbedb0312c1461e8c5d33af2f08f7f7e591a4e34b2c3f89e3b32ffcf9f201d  moved
+differential_receiver  b7bb3c859b3fc9655e7320d990bd484c133908099cff2a0b41e70e0902c46eba  d577baf5c33b3d01ff8b128f525e16544fbd6d1f098b24f2e2a538529dcbc6be  moved
+dplus_pullup           69a6310d5fbf2b29ba39e3ec4c581b29860f6df2ba8794afc46973b5d42d5ed9  8187245c7e102cef1d3fac283622d358b53690259bf0ca41d110929cf2713f1c  moved
+se_receiver_dm         653fd721daf443512c589ce4fa7bb1b5f606b7b4c5d2aa37e196f15924ea2784  282b2c7a8cd13a3742cc9d3e1a42c6865b89158499b8835e0505c527c163e6bc  moved
+se_receiver_dp         4ef694777f5ce99b485c2f3024137918c0d82730e023129485afcbb25317cd2e  132abde2a47925659f64895fbdf1e81f7770e248653d2b62c2b9bc09212cfa15  moved
+# post-delivery replay gate: gen_analog_layout.py --check exits 0 (all five pins reproduce)
+# post-delivery measurements at 0.9.2 on the new bytes: klt drc 5x clean,
+# scripts/analog_lvs.py 5/5 match, scripts/analog_erc.py all pass, negative controls fire
