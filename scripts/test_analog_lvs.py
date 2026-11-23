@@ -9,9 +9,11 @@ running klt or the PDK, so they run in CI:
     characterised once, in ``scripts/test_analog_common.py``;
   * **a missing reference netlist fails loudly** before any tool runs,
     rather than silently skipping the block;
-  * **the default ``--out-dir`` sits outside the repository** (issue #493):
-    an in-repo scratch default made the signoff render's ``input_verified``
-    depend on whether the gitignored tree happened to exist;
+  * **the default ``--out-dir`` is a fresh dir outside the repository, one
+    per run** (issues #493 and #495): in-repo scratch made the signoff
+    render's ``input_verified`` depend on whether the gitignored tree
+    happened to exist (#493), and a fixed external default let two
+    concurrent runs on one host resolve to the same work dir (#495);
   * **the request shape** is the one the 2026-10-09 analog record
     established -- inline layout extraction with the ``gf180mcu`` deck
     against a ``subckt-call`` reference -- with bare relative filenames, and
@@ -35,10 +37,12 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -106,19 +110,66 @@ class MissingReferenceFailsLoudly(unittest.TestCase):
 
 class DefaultOutDir(unittest.TestCase):
     def test_default_scratch_dir_is_outside_the_repository(self):
-        """The scratch default must not sit inside the repo (issue #493).
+        """The per-run scratch default must not sit inside the repo (#493).
 
         `klt lvs` cites the run's layout copy in the envelope's `layout`
         field; a copy inside a git checkout is cited `scope: "repo"` and
         re-hashed by `klt signoff` at render time, so an in-repo default
         made `input_verified` flip with the ignored tree's existence.
         """
-        default = Path(alvs.DEFAULT_OUT_DIR).resolve()
-        self.assertTrue(default.is_absolute(), str(default))
-        self.assertEqual(default,
+        resolved = Path(alvs.default_out_dir()).resolve()
+        self.addCleanup(shutil.rmtree, resolved, ignore_errors=True)
+        self.assertTrue(resolved.is_absolute(), str(resolved))
+        self.assertEqual(resolved.parent,
                          Path(tempfile.gettempdir()).resolve()
-                         / "gf180-usb2-phy" / "analog-lvs")
-        self.assertFalse(default.is_relative_to(ROOT.resolve()), str(default))
+                         / "gf180-usb2-phy")
+        self.assertFalse(resolved.is_relative_to(ROOT.resolve()), str(resolved))
+
+    def test_two_default_runs_resolve_to_distinct_dirs(self):
+        """Concurrent replays on one host must not share a work dir (#495).
+
+        `run_block()` byte-copies its inputs into `<out-dir>/<block>`
+        without clearing or locking it, so a fixed default let overlapping
+        runs from different trees copy over each other's inputs mid-run --
+        an envelope could then cite a verdict foreign to its own tree.
+        """
+        dirs = []
+        for _ in range(2):
+            d = Path(alvs.default_out_dir())
+            self.addCleanup(shutil.rmtree, d, ignore_errors=True)
+            dirs.append(d)
+        self.assertNotEqual(dirs[0], dirs[1])
+        for d in dirs:
+            self.assertTrue(d.is_dir(), str(d))
+
+    def test_explicit_out_dir_mints_no_per_run_default(self):
+        """An explicit `--out-dir` keeps its pre-#495 behaviour.
+
+        The run must resolve to the dir given, not relocate to (or litter)
+        a per-run `analog-lvs-*` leaf behind an explicit dir's back. The
+        parent is pointed at a private sandbox, so any default minted by
+        the explicit run would materialize there and fail the assert; the
+        loud missing-netlist failure runs the same early path as any run.
+        """
+        with tempfile.TemporaryDirectory() as sandbox:
+            parent = Path(sandbox, "gf180-usb2-phy")
+            gds_dir, net_dir, out_dir = (Path(sandbox, x)
+                                         for x in ("g", "n", "o"))
+            for p in (gds_dir, net_dir, out_dir):
+                p.mkdir()
+            Path(gds_dir, "lonely.gds").write_bytes(b"")
+            argv = ["analog_lvs.py", "--gds-dir", str(gds_dir),
+                    "--netlist-dir", str(net_dir), "--out-dir", str(out_dir)]
+            old = sys.argv
+            sys.argv = argv
+            try:
+                with mock.patch.object(alvs, "DEFAULT_OUT_PARENT", str(parent)):
+                    with self.assertRaises(SystemExit):
+                        alvs.main()  # missing reference netlist: loud failure
+            finally:
+                sys.argv = old
+            self.assertFalse(parent.exists(), str(parent))
+            self.assertEqual(list(out_dir.iterdir()), [])
 
 
 class RequestShape(unittest.TestCase):

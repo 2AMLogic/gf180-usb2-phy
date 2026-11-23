@@ -103,14 +103,27 @@ from klt_resolve import (
 #: name of its own, so it can never correspond to a reference net by name.
 ANON_NET_RE = re.compile(r"^\\?\$\d+$")
 
-#: Default scratch out-dir, deliberately **outside the repository**: the
+#: Default scratch parent, deliberately **outside the repository**: the
 #: envelope's `layout` field cites the run's layout copy, and a copy inside
 #: a git checkout is cited `scope: "repo"` -- re-hashable by `klt signoff`
 #: only while the gitignored tree happens to exist, which made the signoff
 #: render environment-dependent (issue #493). Outside any checkout it is
 #: cited `scope: "external"` and no path is committed at all.
-DEFAULT_OUT_DIR = os.path.join(
-    tempfile.gettempdir(), "gf180-usb2-phy", "analog-lvs")
+DEFAULT_OUT_PARENT = os.path.join(tempfile.gettempdir(), "gf180-usb2-phy")
+
+
+def default_out_dir() -> str:
+    """A fresh scratch dir under `DEFAULT_OUT_PARENT`, one per run.
+
+    The leaf is `mkdtemp`-unique (issue #495): a fixed default made two
+    concurrent replays on one host resolve to the same ``<out-dir>/<block>``
+    work dir, and `run_block()` neither clears nor locks that dir, so
+    overlapping runs byte-copied over each other's inputs. A unique leaf
+    makes the sharing unreachable; the cost is that scratch is not reused
+    between runs, which is fine for cheap byte copies.
+    """
+    os.makedirs(DEFAULT_OUT_PARENT, exist_ok=True)
+    return tempfile.mkdtemp(prefix="analog-lvs-", dir=DEFAULT_OUT_PARENT)
 
 
 def _is_number(token: str) -> bool:
@@ -449,9 +462,10 @@ def main() -> int:
     ap.add_argument("--netlist-dir",
                     default=os.path.join(REPO_ROOT, "design", "netlist"),
                     help="directory of schematic netlists (default: design/netlist)")
-    ap.add_argument("--out-dir", default=DEFAULT_OUT_DIR,
-                    help=f"scratch out-dir, outside the repository "
-                         f"(default: {DEFAULT_OUT_DIR})")
+    ap.add_argument("--out-dir", default=None,
+                    help="scratch out-dir, outside the repository "
+                         "(default: a fresh analog-lvs-* dir per run under "
+                         f"{DEFAULT_OUT_PARENT})")
     ap.add_argument("--blocks", nargs="*", default=None,
                     help="limit to these blocks (default: every committed stream)")
     ap.add_argument("--no-analyze", dest="analyze", action="store_false",
@@ -484,6 +498,10 @@ def main() -> int:
             + ", ".join(f"{b} ({args.netlist_dir}/{b}.spice)" for b in missing)
         )
 
+    if args.out_dir is None:
+        # Per-run unique scratch (issue #495): resolved here, after the
+        # missing-netlist check, so a failing run does not litter a dir.
+        args.out_dir = default_out_dir()
     os.makedirs(args.out_dir, exist_ok=True)
     pinned = pinned_klt_version()
     summaries = []
