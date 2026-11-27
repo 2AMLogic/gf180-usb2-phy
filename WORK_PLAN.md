@@ -1,7 +1,7 @@
 # Work plan
 
 <!-- guide:plan-body:start -->
-_Generated: 2026-11-25T03:58:00Z (snapshot; compare against live labels)_
+_Generated: 2026-11-26T23:52:10Z (snapshot; compare against live labels)_
 ## Operator Attention: Merge-Risk-Hold Pileup
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
@@ -22,12 +22,13 @@ _None._
 - **#246**: T1 item 3 (DRC clean, analog partition): klt drc on the committed analog GDS with coverage disclosed *(held)*
 - **#249**: T1 item 5 (Full corner verification): propose a spec 8.2 driver-jitter decision record so 5.analog's declared gap can close *(held)*
 - **#339**: Merge se_receiver_dp and se_receiver_dm into one se_receiver cell: same circuit, byte-identical layout, identical PVT results *(held)*
+- **#462**: Finish se_receiver merge: fleet PVT/MC records, superseding LVS/ERC evidence, re-keying (part 2 of #339) *(held)*
 
 ## Ready
 
 Human-approved issues (`loom:issue`) ready for implementation — excluding held (`loom:blocked`/`loom:operator`/`loom:frozen`), `loom:building`, and issues closed by an open `loom:pr` PR (listed under Approved).
 
-- **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief
+_None._
 
 ## In Progress
 
@@ -51,7 +52,7 @@ _None._
 
 Issues carrying `loom:curated`.
 
-- **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief *(curated)*
+- **#51**: [Epic #542] 3A — gf180-usb2-phy maturation + Challenge #5 brief *(curated)* *(held)*
 - **#53**: Post-layout (extracted-parasitic) re-verification: digital STA now, analog PVT after #52 *(curated)* *(held)*
 - **#126**: Resolve DR-0003: transition-resynchronized RX oversampling for independent host clocks *(curated)* *(held)*
 - **#339**: Merge se_receiver_dp and se_receiver_dm into one se_receiver cell: same circuit, byte-identical layout, identical PVT results *(curated)* *(held)*
@@ -76,8 +77,8 @@ Issues carrying `loom:curated`.
 |------|-------|
 | Operator merge-risk holds | 0 |
 | Very important | 1 |
-| Important | 4 |
-| Ready (`loom:issue`, net of holds/building/merge-pending) | 1 |
+| Important | 5 |
+| Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
