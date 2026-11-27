@@ -1,7 +1,7 @@
 # Work plan
 
 <!-- guide:plan-body:start -->
-_Generated: 2026-11-26T23:52:10Z (snapshot; compare against live labels)_
+_Generated: 2026-11-27T12:31:53Z (snapshot; compare against live labels)_
 ## Operator Attention: Merge-Risk-Hold Pileup
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
@@ -66,6 +66,7 @@ Issues carrying `loom:curated`.
 - **#350**: Fold verification/test_usb_utmi_txoe.py into test_usb_utmi_phy.py: its stated reason (routed netlist has no txoe port) ended at #131 *(hermit)* *(held)*
 - **#486**: Remove the executable fallback when the repository klt version pin is missing *(hermit)* *(held)*
 - **#488**: Keep routing-method counts for single-method analog layouts *(hermit)* *(held)*
+- **#504**: Remove obsolete DELIVERABLE_BLOCKS allow-list and non-scripted path from gen_analog_layout.py *(hermit)* *(held)*
 
 ## Epics
 
@@ -83,6 +84,6 @@ Issues carrying `loom:curated`.
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
 | Curated | 5 |
-| Architect / Hermit proposals | 6 |
+| Architect / Hermit proposals | 7 |
 | Active epics | 1 |
 <!-- guide:plan-body:end -->
