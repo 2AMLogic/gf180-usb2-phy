@@ -6,6 +6,11 @@ Merged PRs and closed issues from the Guide’s 30-day maintenance window.
 
 - [2026-09](work_log/WORK_LOG_2026-09.md)
 
+### 2026-11-28
+
+- **PR #509**: chore: drop dead worktree:return script and duplicate lint step
+- **Issue #508** (closed): Remove dead worktree:return script and duplicate test_check_signoff_report.py lint step from package.json
+
 ### 2026-11-23
 
 - **PR #499**: re-point 4/11.analog citations at the analog-LVS chain head 20261123-033612-661ffac1
