@@ -440,8 +440,10 @@ class LogCountVsPredecessorTests(unittest.TestCase):
 class AppendOnlyTests(unittest.TestCase):
     """Git-shaped, unlike the rest of this file -- needs a real repo."""
 
-    def _base_repo(self, root: Path) -> None:
-        full_fixture(root, "demo", "20260101-000000-abc1234")
+    def _base_repo(
+        self, root: Path, slug: str = "demo", record_id: str = "20260101-000000-abc1234"
+    ) -> None:
+        full_fixture(root, slug, record_id)
         _git(root, "init", "--quiet")
         _git(root, "add", "-A")
         _git(root, "commit", "--quiet", "-m", "fixture: initial record")
@@ -466,6 +468,21 @@ class AppendOnlyTests(unittest.TestCase):
             self.assertIsNone(skip_reason)
             self.assertTrue(any("deleted" in str(p) for p in problems), problems)
 
+    def test_manifest_does_not_authorize_deleting_a_committed_corner_log(self):
+        rid = "20260817-203915-5a963e7"
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._base_repo(root, "driver-jitter", rid)
+            prefix = f"sim/driver-jitter/{lint.CORNERS_DIR}/{rid}/"
+            decision = root / "spec/decisions/0008-stored-evidence-manifest-forward.md"
+            decision.parent.mkdir(parents=True)
+            decision.write_text(f"Amendment: {rid}\n", encoding="utf-8")
+            write_manifest(root, "driver-jitter", rid, [prefix + "tt_27c_3.30v.log"])
+            (root / prefix / "tt_27c_3.30v.log").unlink()
+            problems, skip_reason = lint.check_append_only(root, "refs/heads/fixture-base")
+            self.assertIsNone(skip_reason)
+            self.assertEqual([prefix + "tt_27c_3.30v.log"], [p.path for p in problems])
+
     def test_editing_a_committed_manifest_fails(self):
         rid = "20261023-120000-abc1234"
         with tempfile.TemporaryDirectory() as tmp:
@@ -479,60 +496,6 @@ class AppendOnlyTests(unittest.TestCase):
             problems, skip_reason = lint.check_append_only(root, "refs/heads/fixture-base")
             self.assertIsNone(skip_reason)
             self.assertTrue(any("modified" in str(p) and "manifest" in str(p) for p in problems), problems)
-
-    def _carve_out_repo(self, root: Path, rid: str, logs: list) -> None:
-        full_fixture(root, "demo", rid, n_logs=1)
-        base = root / "sim" / "demo" / lint.CORNERS_DIR / rid
-        for name in logs:
-            (base / f"{name}.log").write_text("x\n", encoding="utf-8")
-        _git(root, "init", "--quiet")
-        _git(root, "add", "-A")
-        _git(root, "commit", "--quiet", "-m", "fixture: base")
-        _git(root, "update-ref", "refs/heads/fixture-base", "HEAD")
-
-    def test_one_time_carve_out_allows_only_manifested_log_deletion(self):
-        rid = "20260101-000000-abc1234"
-        decision = "spec/decisions/0008-x.md"
-        saved = dict(lint.ONE_TIME_CARVE_OUTS)
-        lint.ONE_TIME_CARVE_OUTS[("demo", rid)] = decision
-        try:
-            with tempfile.TemporaryDirectory() as tmp:
-                root = Path(tmp)
-                self._carve_out_repo(root, rid, ["tt_27c_3.30v", "ss_27c_3.30v"])
-                base = root / "sim" / "demo" / lint.CORNERS_DIR / rid
-                (root / decision).parent.mkdir(parents=True)
-                (root / decision).write_text(f"Amendment: {rid}\n", encoding="utf-8")
-                prefix = f"sim/demo/{lint.CORNERS_DIR}/{rid}/"
-                write_manifest(root, "demo", rid, [prefix + "tt_27c_3.30v.log"])
-                (base / "tt_27c_3.30v.log").unlink()
-                problems, skip = lint.check_append_only(root, "refs/heads/fixture-base")
-                self.assertIsNone(skip)
-                self.assertEqual([], problems)
-                # A log the manifest does not name still fails.
-                (base / "ss_27c_3.30v.log").unlink()
-                problems, _ = lint.check_append_only(root, "refs/heads/fixture-base")
-                self.assertEqual(
-                    [prefix + "ss_27c_3.30v.log"], [p.path for p in problems]
-                )
-        finally:
-            lint.ONE_TIME_CARVE_OUTS.clear()
-            lint.ONE_TIME_CARVE_OUTS.update(saved)
-
-    def test_carve_out_does_not_cover_unnamed_runs(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            rid = "20260101-000000-abc1234"
-            self._carve_out_repo(root, rid, ["tt_27c_3.30v"])
-            prefix = f"sim/demo/{lint.CORNERS_DIR}/{rid}/"
-            write_manifest(root, "demo", rid, [prefix + "tt_27c_3.30v.log"])
-            (root / prefix / "tt_27c_3.30v.log").unlink()
-            problems, _ = lint.check_append_only(root, "refs/heads/fixture-base")
-            self.assertTrue(any("deleted" in str(p) for p in problems), problems)
-
-    def test_real_carve_out_names_exactly_one_run(self):
-        self.assertEqual(
-            [("driver-jitter", "20260817-203915-5a963e7")], list(lint.ONE_TIME_CARVE_OUTS)
-        )
 
     def test_adding_a_new_record_is_not_a_violation(self):
         with tempfile.TemporaryDirectory() as tmp:
