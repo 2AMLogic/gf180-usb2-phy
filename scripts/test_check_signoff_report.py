@@ -21,10 +21,11 @@ by its own name.
 
 Zero dependencies beyond the Python 3 standard library.
 
-Runs both ways: directly (`python3 scripts/test_check_signoff_report.py`,
-an explicit `npm run lint` step) and under the scripts/ directory sweep
+Runs both ways: under the scripts/ directory sweep
 (`python3 -m unittest discover -s scripts -t scripts -p 'test_*.py'`,
-which collects these tests with everything else).
+the `npm run lint` step, which collects these tests with everything
+else) and directly (`python3 scripts/test_check_signoff_report.py`,
+via `unittest.main()`).
 Exit codes: 0 all tests pass, non-zero at least one did not.
 """
 
