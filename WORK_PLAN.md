@@ -1,12 +1,12 @@
 # Work plan
 
 <!-- guide:plan-body:start -->
-_Generated: 2026-11-27T12:31:53Z (snapshot; compare against live labels)_
+_Generated: 2026-11-28T07:35:00Z (snapshot; compare against live labels)_
 ## Operator Attention: Merge-Risk-Hold Pileup
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
 
-_None._
+- **#506**: chore: resync installed Loom surfaces *(held: champion merge-risk hold)*
 
 ## Very Important
 
@@ -46,7 +46,7 @@ _None._
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-_None._
+- **#506**: chore: resync installed Loom surfaces *(held: champion merge-risk hold)*
 
 ## Proposed
 
@@ -76,13 +76,13 @@ Issues carrying `loom:curated`.
 
 | Bucket | Count |
 |------|-------|
-| Operator merge-risk holds | 0 |
+| Operator merge-risk holds | 1 |
 | Very important | 1 |
 | Important | 5 |
 | Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
-| Approved PRs awaiting merge | 0 |
+| Approved PRs awaiting merge | 1 |
 | Curated | 5 |
 | Architect / Hermit proposals | 7 |
 | Active epics | 1 |
